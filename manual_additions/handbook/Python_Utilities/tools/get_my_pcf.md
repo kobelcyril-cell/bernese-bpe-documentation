@@ -1,0 +1,1 @@
+This tool allows to copy a PCF from a specific GPSUSER to another GPSUSER (also across different accounts). Before copying everything (PCF, SCRIPT, OPT) a security check is performed, in order to not overwrite anything.

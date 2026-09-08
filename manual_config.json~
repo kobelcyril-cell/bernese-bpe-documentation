@@ -1,0 +1,10 @@
+{
+  "default_user": "",
+  "default_action": "a",
+  "output_dir": "site",
+  "source_list_file": "manual_sources.txt",
+  "default_comment_title": "Additional note",
+  "handbook_import_dir": "manual_additions/import",
+  "handbook_full_top_levels": [],
+  "handbook_group_descriptions": {}
+}
