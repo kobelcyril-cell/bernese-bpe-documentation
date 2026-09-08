@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bernese GNSS Software BPE Documentation</title>
+  <style>
+    :root {
+      --bg: #f4f7fb;
+      --panel: #ffffff;
+      --text: #152033;
+      --muted: #5b6b82;
+      --border: #d7e0ea;
+      --accent: #1f5fbf;
+      --accent-soft: #e8f0fe;
+      --shadow: 0 10px 30px rgba(16, 32, 64, 0.08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Segoe UI, Arial, sans-serif; background: linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%); color: var(--text); }
+    .wrap { max-width: 1400px; margin: 0 auto; padding: 28px 24px 48px; }
+    .hero { background: linear-gradient(135deg, #10223d 0%, #1f5fbf 100%); color: #fff; border-radius: 20px; padding: 24px 28px; box-shadow: var(--shadow); margin-bottom: 20px; }
+    .hero h1 { margin: 0 0 8px; font-size: 34px; }
+    .hero p { margin: 6px 0; color: rgba(255,255,255,0.88); line-height: 1.5; }
+    .nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
+    .nav a { color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.28); padding: 8px 12px; border-radius: 999px; }
+    .nav a.active { background: #fff; color: #10223d; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; margin: 14px 0 18px; }
+    .stat, .card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }
+    .stat { padding: 10px 11px; }
+    .stat .label { color: var(--muted); font-size: 10px; text-transform: uppercase; letter-spacing: .06em; }
+    .stat .value { font-size: 20px; font-weight: 700; margin-top: 2px; }
+    .toolbar { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 14px; box-shadow: var(--shadow); display: grid; gap: 10px; grid-template-columns: 1.6fr .8fr .8fr; margin-bottom: 18px; position: sticky; top: 12px; z-index: 10; }
+    .toolbar input, .toolbar select { width: 100%; border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; font-size: 14px; color: var(--text); background: #fff; }
+    .section { margin-top: 18px; display: grid; gap: 18px; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .overview-heading { padding: 4px 2px 0; }
+    .overview-heading span { color: var(--accent); font-size: 11px; letter-spacing: .14em; font-weight: 800; }
+    .overview-heading h2 { margin: 5px 0 4px; color: #10223d; font-size: 25px; }
+    .overview-heading p { margin: 0; color: var(--muted); line-height: 1.5; }
+    .overview-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
+    .overview-card { min-height: 190px; padding: 18px; border: 1px solid var(--border); border-radius: 16px; background: var(--panel); box-shadow: var(--shadow); display: flex; flex-direction: column; }
+    .overview-card:hover { transform: translateY(-2px); border-color: #a9c5e8; transition: transform .15s ease, border-color .15s ease; }
+    .overview-card-number { color: var(--accent); font-size: 12px; font-weight: 800; letter-spacing: .1em; }
+    .overview-card h3 { margin: 22px 0 8px; color: #10223d; font-size: 19px; }
+    .overview-card p { margin: 0; color: var(--muted); line-height: 1.5; font-size: 14px; }
+    .overview-card-link { margin-top: auto; padding-top: 18px; color: var(--accent); text-decoration: none; font-weight: 700; }
+    .overview-card-link span { margin-left: 4px; }
+    .card { padding: 18px 18px 8px; scroll-margin-top: 92px; }
+    .card:target { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(31, 95, 191, 0.16), var(--shadow); }
+    .card-head { display: flex; justify-content: space-between; align-items: baseline; gap: 18px; }
+    .card-head h3 { margin: 0; font-size: 20px; color: #10223d; }
+    .lead { margin: 0 0 12px; padding: 12px 14px; background: #f7faff; border-left: 4px solid var(--accent); border-radius: 10px; color: var(--text); line-height: 1.5; }
+    .source-link { color: var(--accent); text-decoration: none; font-size: 13px; white-space: nowrap; }
+    .ref-link { color: var(--accent); text-decoration: none; font-weight: 600; }
+    .ref-link:hover, .source-link:hover { text-decoration: underline; }
+    .summary { color: var(--muted); line-height: 1.55; margin: 12px 0 14px 18px; }
+    .summary li { margin: 2px 0; }
+    .handbook-toc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+    .handbook-group { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); margin-bottom: 14px; overflow: hidden; }
+    .handbook-group summary { list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 6px; grid-template-columns: 1fr auto; align-items: center; background: linear-gradient(180deg, #fbfdff 0%, #f4f8fd 100%); }
+    .handbook-group summary::-webkit-details-marker { display: none; }
+    .handbook-group summary span { min-width: 0; }
+    .handbook-count { color: var(--accent); font-weight: 700; }
+    .handbook-note { grid-column: 1 / -1; color: var(--muted); font-size: 13px; line-height: 1.45; }
+    .handbook-group-body { padding: 14px 14px 4px; }
+    .handbook-doclist { margin: 0 0 12px 18px; color: var(--muted); }
+    .handbook-doclist li { margin: 5px 0; line-height: 1.4; }
+    .handbook-source { color: var(--muted); font-size: 12px; }
+    .handbook-text { margin-top: 8px; }
+    .handbook-text > summary { cursor: pointer; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
+    .handbook-text > summary::-webkit-details-marker { display: none; }
+    .pcf-details > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; font-size: 18px; font-weight: 700; color: #10223d; }
+    .pcf-details > summary::-webkit-details-marker { display: none; }
+    .pcf-details > summary::before { content: '▸'; color: var(--accent); font-size: 20px; transition: transform .15s ease; }
+    .pcf-details[open] > summary::before { transform: rotate(90deg); }
+    .pcf-toggle-title { flex: 1; }
+    .pcf-toggle-hint { color: var(--muted); font-size: 12px; font-weight: 600; }
+    .script-detail-section { margin: 16px 0; padding: 14px 16px 4px; border: 1px solid var(--border); border-radius: 12px; background: #fbfdff; }
+    .script-detail-section h4 { margin: 0 0 10px; color: #173b68; }
+    .wait-map { display: grid; gap: 6px; margin: 0 0 16px; padding: 12px; background: #f7faff; border: 1px solid var(--border); border-radius: 12px; }
+    .wait-row { display: grid; grid-template-columns: 52px minmax(130px, 1fr) 26px minmax(160px, 2fr); gap: 8px; align-items: center; font-size: 13px; }
+    .wait-pid { color: var(--muted); font-variant-numeric: tabular-nums; }
+    .wait-arrow { color: var(--accent); font-size: 16px; text-align: center; }
+    .context-note { color: var(--muted); font-size: 12px; }
+    .inp-group > summary { list-style: none; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #10223d; }
+    .inp-group > summary::-webkit-details-marker { display: none; }
+    .inp-group > summary::before { content: '▸'; color: var(--accent); font-size: 20px; transition: transform .15s ease; }
+    .inp-group[open] > summary::before { transform: rotate(90deg); }
+    .inp-version-list { margin: 12px 0 4px 28px; padding: 0; color: var(--muted); }
+    .inp-version-list li { margin: 6px 0; }
+    .story-phase { margin: 18px 0 22px; padding: 14px 16px 8px; border: 1px solid var(--border); border-left: 4px solid var(--accent); border-radius: 14px; background: #fbfdff; }
+    .story-phase h4 { margin-top: 0; font-size: 17px; }
+    .story-step { display: grid; grid-template-columns: 76px 1fr; gap: 12px; margin: 12px 0; padding: 12px 0; border-top: 1px solid #e5ebf4; line-height: 1.6; }
+    .story-step:first-of-type { border-top: 0; }
+    .story-number { color: var(--accent); font-weight: 700; white-space: nowrap; }
+    .story-step p { margin: 0; }
+    .story-program-title { display: block; margin-top: 4px; color: var(--muted); font-style: italic; font-size: 13px; }
+    .table { width: 100%; border-collapse: collapse; margin: 0 0 16px; overflow: hidden; }
+    .table th, .table td { border: 1px solid var(--border); padding: 8px 10px; text-align: left; vertical-align: top; font-size: 13px; }
+    .table th { background: var(--accent-soft); color: #173d7a; }
+    .body h4 { margin: 8px 0 10px; color: #173d7a; font-size: 15px; }
+    .trace { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 12px 14px; margin: 4px 0 14px; background: #f7faff; border: 1px solid var(--border); border-radius: 14px; }
+    .trace-label { font-weight: 700; color: #173d7a; }
+    .trace-arrow { color: var(--muted); font-size: 16px; line-height: 1; }
+    .chip-list { display: inline-flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+    .chip { display: inline-flex; align-items: center; border: 1px solid #bfd0ea; background: #eff5ff; color: #17407d; border-radius: 999px; padding: 3px 10px; font-size: 12px; line-height: 1.4; white-space: nowrap; }
+    .chip-link { text-decoration: none; }
+    .chip-empty { background: #f5f7fa; color: var(--muted); border-color: var(--border); }
+    .chip-more { background: #fff6e6; border-color: #f0d39e; color: #8b5b00; }
+    .hidden { display: none !important; }
+    .footer { margin-top: 22px; color: var(--muted); font-size: 12px; }
+    .history-footer { margin-top: 5px; font-size: 11px; }
+    .history-footer a { color: var(--accent); text-decoration: none; }
+    .history-footer a:hover { text-decoration: underline; }
+    @media (max-width: 1100px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 900px) { .toolbar { grid-template-columns: 1fr; } .card-head { flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 560px) { .overview-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>Bernese GNSS Software BPE Documentation</h1>
+      <p>Generated from: /storage/homefs/ck18y530/GPSUSER</p>
+      <p>Updated: 2026-09-08 17:41:21</p>
+      <nav class='nav'><a class='active' href='bernese_bpe_manual.html'>Overview</a><a class='' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
+    </div>
+    
+    <div class="stats">
+      <div class="stat"><div class="label">PCF files</div><div class="value">63</div></div>
+      <div class="stat"><div class="label">PCF rows</div><div class="value">1523</div></div>
+      <div class="stat"><div class="label">Script files</div><div class="value">907</div></div>
+      <div class="stat"><div class="label">Program refs</div><div class="value">589</div></div>
+      <div class="stat"><div class="label">INP files</div><div class="value">1799</div></div>
+      <div class="stat"><div class="label">OPT DIRS</div><div class="value">204</div></div>
+      <div class="stat"><div class="label">INP fields</div><div class="value">487666</div></div>
+      <div class="stat"><div class="label">Handbook pages</div><div class="value">41</div></div>
+      <div class="stat"><div class="label">History entries</div><div class="value">7</div></div>
+    </div>
+    
+    
+    
+    <div class="section">
+      <div class="grid-2">
+        <article class="card"><h3>How to use the manual</h3><p class="lead">Start with the PCF page to follow the chain from PID to script, then jump to scripts, files, or INP-files from any link.</p></article>
+        <article class="card"><h3>Navigation</h3><p class="lead">Every script, PCF, file, and INP-file is linked so you can jump between the related locations directly.</p></article>
+      </div>
+    </div>
+    <div class='section'><div class='overview-heading'><span>DOCUMENTATION MAP</span><h2>Choose where to begin</h2><p>The links below lead from the process chain to the scripts and configuration files behind it.</p></div><div class='overview-grid'><article class='overview-card'><div class='overview-card-number'>01</div><h3>PCF pages</h3><p>Go to the PCF process chains</p><a class='overview-card-link' href='bernese_bpe_pcf.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>02</div><h3>Process explanations</h3><p>Read an automatically generated explanation of each PCF</p><a class='overview-card-link' href='bernese_bpe_stories.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>03</div><h3>Scripts</h3><p>Inspect scripts used in the BPE&#x27;s</p><a class='overview-card-link' href='bernese_bpe_scripts.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>04</div><h3>INP-files</h3><p>Inspect OPT_DIRs</p><a class='overview-card-link' href='bernese_bpe_inp.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>05</div><h3>Handbook</h3><p>Open the additional documentation</p><a class='overview-card-link' href='bernese_bpe_handbook.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>06</div><h3>Change History</h3><p>Review who updated the handbook and when</p><a class='overview-card-link' href='bernese_bpe_history.html'>Open page <span>-></span></a></article></div></div>
+    <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
+    <div class="history-footer">Last change: 2026-09-08T17:39:47+02:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
+  </div>
+  <script>
+    const q = document.getElementById('q');
+    const kind = document.getElementById('kind');
+    const sort = document.getElementById('sort');
+    const cards = Array.from(document.querySelectorAll('.card'));
+    const handbookGroups = Array.from(document.querySelectorAll('.handbook-group'));
+    function normalize(s) { return (s || '').toLowerCase(); }
+    function refresh() {
+      if (!q || !kind || !sort) return;
+      const query = normalize(q.value);
+      const filterKind = kind.value;
+      const byKind = { pcf: 0, story: 1, script: 2, file: 3, inp: 4, handbook: 5, history: 6 };
+      cards.forEach(card => {
+        const cardKind = card.dataset.kind;
+        const text = normalize(card.innerText);
+        const okKind = filterKind === 'all' || filterKind === cardKind;
+        const okQuery = !query || text.includes(query);
+        card.classList.toggle('hidden', !(okKind && okQuery));
+      });
+      if (handbookGroups.length) {
+        handbookGroups.forEach(group => {
+          const visibleCards = Array.from(group.querySelectorAll('.card')).some(card => !card.classList.contains('hidden'));
+          const defaultOpen = group.dataset.defaultOpen === '1';
+          group.open = query || filterKind !== 'all' ? visibleCards : defaultOpen;
+        });
+      }
+      const visible = cards.filter(card => !card.classList.contains('hidden'));
+      visible.sort((a, b) => {
+        if (sort.value === 'kind') {
+            const titleA = a.querySelector('h3')?.innerText || a.querySelector('.pcf-toggle-title')?.innerText || '';
+            const titleB = b.querySelector('h3')?.innerText || b.querySelector('.pcf-toggle-title')?.innerText || '';
+            return (byKind[a.dataset.kind] ?? 99) - (byKind[b.dataset.kind] ?? 99) || titleA.localeCompare(titleB);
+        }
+        const titleA = a.querySelector('h3')?.innerText || a.querySelector('.pcf-toggle-title')?.innerText || '';
+        const titleB = b.querySelector('h3')?.innerText || b.querySelector('.pcf-toggle-title')?.innerText || '';
+        return titleA.localeCompare(titleB);
+      });
+      visible.forEach(card => card.parentElement.appendChild(card));
+    }
+    function focusTargetFromHash() {
+      const id = decodeURIComponent((window.location.hash || '').replace('#', ''));
+      if (!id) return;
+      const target = document.getElementById(id);
+      if (target) {
+        target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      }
+    }
+    if (q && kind && sort) {
+      q.addEventListener('input', refresh);
+      kind.addEventListener('change', refresh);
+      sort.addEventListener('change', refresh);
+    }
+    window.addEventListener('hashchange', focusTargetFromHash);
+    window.addEventListener('load', focusTargetFromHash);
+  </script>
+</body>
+</html>

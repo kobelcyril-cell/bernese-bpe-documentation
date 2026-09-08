@@ -246,7 +246,8 @@ def read_text(path: Path) -> str:
 
 def write_text(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(text, encoding="utf-8", newline="\n")
+    with path.open("w", encoding="utf-8", newline="\n") as handle:
+        handle.write(text)
 
 
 def comment_file(kind: str, target: str) -> Path:
@@ -936,6 +937,14 @@ def scan_inp(path: Path, source_label: str = "") -> INPDocument:
     return doc
 
 
+def is_metadata_path(path: Path, base: Path) -> bool:
+    try:
+        relative_parts = path.relative_to(base).parts
+    except ValueError:
+        return False
+    return any(part in {".git", ".hg", ".svn"} or part.startswith(".") for part in relative_parts[:-1])
+
+
 def gather_files(base: Path, suffix: str) -> List[Path]:
     if not base.exists():
         return []
@@ -943,7 +952,9 @@ def gather_files(base: Path, suffix: str) -> List[Path]:
         [
             path
             for path in base.rglob("*")
-            if path.is_file() and path.suffix.lower() == suffix.lower()
+            if path.is_file()
+            and not is_metadata_path(path, base)
+            and path.suffix.lower() == suffix.lower()
         ]
     )
 
@@ -955,6 +966,7 @@ def gather_scripts(base: Path) -> List[Path]:
         path
         for path in base.rglob("*")
         if path.is_file()
+        and not is_metadata_path(path, base)
         and path.suffix.lower() not in {".md", ".markdown", ".txt", ".rst"}
         and path.name.lower() not in {"thumbs.db", ".ds_store"}
     ]
@@ -977,7 +989,9 @@ def gather_scripts(base: Path) -> List[Path]:
 def gather_inp_files(base: Path) -> List[Path]:
     if not base.exists():
         return []
-    return sorted([path for path in base.rglob("*.INP") if path.is_file()])
+    return sorted(
+        [path for path in base.rglob("*.INP") if path.is_file() and not is_metadata_path(path, base)]
+    )
 
 
 def build_script_index(script_docs: List[ScriptDocument]) -> ScriptIndex:
@@ -1210,7 +1224,12 @@ def handbook_is_selected(path: Path) -> bool:
             rel = path.relative_to(HANDBOOK_IMPORT_DIR).as_posix()
         except ValueError:
             return False
-    if path.is_relative_to(HANDBOOK_DIR):
+    try:
+        path.relative_to(HANDBOOK_DIR)
+        is_handbook_file = True
+    except ValueError:
+        is_handbook_file = False
+    if is_handbook_file:
         return True
     top_level = rel.split("/", 1)[0]
     if top_level in HANDBOOK_FULL_TOP_LEVELS:
