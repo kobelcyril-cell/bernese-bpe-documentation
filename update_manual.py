@@ -942,7 +942,12 @@ def is_metadata_path(path: Path, base: Path) -> bool:
         relative_parts = path.relative_to(base).parts
     except ValueError:
         return False
-    return any(part in {".git", ".hg", ".svn"} or part.startswith(".") for part in relative_parts[:-1])
+    return any(
+        part.upper() == "GRAVEYARD"
+        or part in {".git", ".hg", ".svn"}
+        or part.startswith(".")
+        for part in relative_parts[:-1]
+    )
 
 
 def gather_files(base: Path, suffix: str) -> List[Path]:
