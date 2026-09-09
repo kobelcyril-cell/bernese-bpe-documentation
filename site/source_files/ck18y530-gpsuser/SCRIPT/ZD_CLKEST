@@ -1,0 +1,24 @@
+package CLKEST;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CLKEST
+#
+# Purpose :  Run CLKEST
+#
+# Author  :  
+# Created :  07-July-2003
+#
+# Changes :  15-Jun-2026: ck: Revised and reformatted
+#===========================================================
+
+use strict;
+use warnings;
+
+sub run
+{
+  my $bpe = shift;
+# ---------- Run program ------------
+  my $PGMNAM = "CLKEST";
+  $bpe->RUN_PGMS($PGMNAM);
+}

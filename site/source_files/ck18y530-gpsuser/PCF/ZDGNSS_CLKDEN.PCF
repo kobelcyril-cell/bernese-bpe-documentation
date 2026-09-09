@@ -1,0 +1,91 @@
+# ============================================================================
+# ZDGNSS_CLKDEN.PCF
+# ============================================================================
+#
+# Description:  Clock densification for zero-difference solution
+#
+# Comments   :  PCF mainly based on legacy FCLKGNSS
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  C. Kobel
+# Created    :  06-Jul-2026
+#
+# Changes    :
+#
+# ============================================================================
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+# Wait for status flag
+# --------------------
+001  ZD_STATUS         NO_OPT      CPU=ANY; PARAM1=3D_F; PARAM2=CHECK
+#
+# Copy data
+# ---------
+100  ZD_COPY_FIL_CLKD  NO_OPT      CPU=LOCAL; WAIT=001; SKIP
+#
+# Receiver clocks and troposphere
+# -------------------------------
+200  ZD_GPSEST_P       NO_OPT      CPU=LOCAL; WAIT=001 100
+201  ZD_GPSEST_E       ZD_1DR      CPU=SHORT; WAIT=200; PARALLEL=200
+#
+# Merge Troposphere files
+# -----------------------
+300  ZD_TRPMERGE       NO_OPT      CPU=LOCAL; WAIT=201
+#
+# Merge Clock RNX
+# ---------------
+301  ZD_CCRNXC         ZD_1DR      CPU=LOCAL; WAIT=201
+#
+# Combine satellite and receiver clocks
+# -------------------------------------
+302  ZD_CCRNXC         ZD_1DX      CPU=SHORT; WAIT=301
+#
+# Update clock file (new reference)
+# ---------------------------------
+303  ZD_CCRNXC         ZD_1DF      CPU=SHORT; WAIT=302
+#
+# High-rate clocks
+# ----------------
+400  ZD_CLKEST         ZD_1H0      CPU=HUGE; WAIT=303
+#
+# Update clock file (new reference)
+# ---------------------------------
+401  ZD_CCRNXC         ZD_1H0      CPU=LOCAL; WAIT=400
+#
+# Only satellite clocks
+# ---------------------
+402  ZD_CCRNXC         ZD_1HN      CPU=LOCAL; WAIT=401
+#
+# Clean campaign
+# --------------
+500  ZD_DEL_RES_CLKD   NO_OPT      CPU=LOCAL; WAIT=402
+#
+# Create status flag
+# ------------------
+999  ZD_STATUS         NO_OPT      CPU=ANY; WAIT=500; PARAM1=CLKDEN; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_FIN    = *;             DESCRIPTION=Global solution (a priori)
+V_FINCLK = *;             DESCRIPTION=Final high-rate clocks
+V_BLQINF = FES20*;        DESCRIPTION=BLQ file name, CMC corrections
+V_PCV    = I??;           DESCRIPTION=GNSS PCV model (absolute)
+V_PCVINF = *;             DESCRIPTION=PCV information
+V_OBSSEL = *;             DESCRIPTION=Observation selection file
+V_SATINF = *;             DESCRIPTION=Satellite information
+V_SATCRX = *;             DESCRIPTION=Satellite problem file for data import
+V_SUBMOD = *;             DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;             DESCRIPTION=Nutation model
+V_POTCOE = COSTG_FSM_????;DESCRIPTION=Gravity field model
+V_SAMPL  = *;             DESCRIPTION=Sampling rate of the GPSEST solution
+V_PSDINF = IG?20;         DESCRIPTION=PSD corrections for ITRF2014
+V_CRDINF = IG?20;         DESCRIPTION=CRD/VEL/FIX master file name
+V_STAINF = *;             DESCRIPTION=Station information
+V_SAVE   = *;             DESCRIPTION=Save results; CARDS=YES NO
+V_DEL    = ?;             DESCRIPTION=Delete intermediate products; CARDS=Y N
+# Configuration
+V_PCFCONFIG = MODEL SETUP_ZDGNSS CLKDEN;    DESCRIPTION=Configuration files
+

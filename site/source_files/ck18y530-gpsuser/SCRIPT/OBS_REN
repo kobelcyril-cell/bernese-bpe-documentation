@@ -1,0 +1,55 @@
+package OBS_REN;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  OBS_REN
+#
+# Purpose :  Rename zero difference Bernese observation files from
+#            $(LEO)ssss.??? to $(LEO)ssss_$(F).???.
+#            Only if V_OBSREN is set to 'Y'.
+#
+# Author  :  D. Arnold
+#
+# Created :  09-May-2018
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+use lib "$ENV{BPE}";
+use bpe_util qw(prtMess);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ssss, $V_OBSREN, $V_LEO, $V_F, $dirObs) =
+      $bpe->getKeys('$S+0','V_OBSREN', 'V_LEO','V_F','DIR_PZH');
+
+  my %obsFil = ();
+  $obsFil{"${dirObs}${V_LEO}${ssss}.CZH"} = "${dirObs}${V_LEO}${ssss}_${V_F}.CZH";
+  $obsFil{"${dirObs}${V_LEO}${ssss}.CZO"} = "${dirObs}${V_LEO}${ssss}_${V_F}.CZO";
+  $obsFil{"${dirObs}${V_LEO}${ssss}.PZH"} = "${dirObs}${V_LEO}${ssss}_${V_F}.PZH";
+  $obsFil{"${dirObs}${V_LEO}${ssss}.PZO"} = "${dirObs}${V_LEO}${ssss}_${V_F}.PZO";
+
+  if ($V_OBSREN eq 'Y') {
+      print "Rename observation files\n";
+      foreach my $f (keys %obsFil) {
+          if (-e $f) {
+              print "$f ";
+              system("mv $f $obsFil{$f}");
+              if (-e $obsFil{$f}) {
+                  print "--> $obsFil{$f}\n";
+              } else {
+                  print " ### Renaming failed!\n";
+              }
+          } else {
+              print " ### $f not found\n";
+          }
+      }
+  } else {
+      print "No renaming of observation files\n";
+  }
+}

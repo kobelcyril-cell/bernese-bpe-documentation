@@ -1,0 +1,91 @@
+package OBSXTR_EXTRACT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  OBSXTR_EXTRACT
+#
+# Purpose :  Extract "files do contain" statistics from OBSXTRF1I.OUT.
+#            Write them to PROCESSING_yyddd in table format.
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  # ---------------------- Parameter -----------------------------------------
+  my ($dirOut, $yyddd, $ssss, $yyyy, $yyssss, $V_Z) =
+    $bpe->getKeys('DIR_OUT', '$YD+0', '$S+0', '$Y+0', '$YSS+0', 'V_Z');
+
+  # Define and create day-specific MSC directory
+  # --------------------------------------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    die "Cannot create directory $mscDir: $!";
+  }
+
+  my $outfile = "$mscDir/PROCESSING_$yyddd";
+
+  # Input file
+  my $infile = "${dirOut}/OBSXTR${V_Z}${yyssss}.OUT";
+  die "Cannot find input file $infile\n" unless -f $infile;
+
+  print "Extract from: $infile\n";
+  print "Write into:   $outfile\n";
+
+  # ---------------------- Read OBSXTRF1I.OUT -------------------------------
+  open(my $fh_in, "<", $infile) or die "Cannot open $infile: $!";
+
+  my @wanted = ();
+  while (my $line = <$fh_in>) {
+    if ($line =~ /files do contain/) {
+      push @wanted, $line;
+    }
+  }
+  close($fh_in);
+
+  # ---------------------- Write result --------------------------------------
+  open(my $fh, ">>", $outfile) or die "Cannot write $outfile: $!";
+
+  print $fh "==== OBSXTR STATISTICS ====\n";
+
+  if (@wanted) {
+
+    # ------- write header line before data -------
+    print $fh sprintf("%-5s %-4s %12s %12s %10s\n",
+                      "Sys", "sat", "total", "usable", "bad");
+
+    print $fh "-----------------------------------------------\n";
+
+    # ------- write table entries --------
+    foreach my $l (@wanted) {
+
+      # Example line:
+      # 5   files do contain   GLO   20    94339   89995   4.6%
+
+      my ($sys, $sat, $total, $usable, $bad);
+
+      if ($l =~ /contain\s+(\w+)\s+(\d+)\s+(\d+)\s+(\d+)\s+([\d\.]+%)/) {
+        ($sys, $sat, $total, $usable, $bad) = ($1, $2, $3, $4, $5);
+      }
+
+      print $fh sprintf("%-5s %-4d %12d %12d %10s\n",
+                        $sys, $sat, $total, $usable, $bad);
+    }
+
+  } else {
+    print $fh "No lines with 'files do contain' found!\n";
+  }
+
+  print $fh "==============================================\n";
+  close($fh);
+
+  print "OBSXTR_EXTRACT done!\n";
+}
+
+1;

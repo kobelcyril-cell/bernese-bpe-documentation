@@ -1,0 +1,127 @@
+package CHECK_GRD_FILES;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CHECK_GRD_FILES
+#
+# Purpose :  Check GRD files for existence and NaN values
+#
+#           Checks:
+#             NTAL_$YD+0.GRD
+#             NTOL_$YD+0.GRD
+#             HYDL_$YD+0.GRD
+#
+#           If a file is missing or contains "nan", a
+#           corresponding "no_*" file is created in MSC_yyddd.
+#
+# Author  :  C. Kobel
+# Created :  18-Aug-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use warnings;
+use lib "$ENV{AUTO}";
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+
+  my (
+      $dirOut,
+      $dirGrd,
+      $extGrd,
+      $yyddd
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      'DIR_GRD',
+      'EXT_GRD',
+      '$YD+0'
+  );
+
+# ---------- Define MSC directory ------------
+
+  my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+
+  mkdir $mscDir unless (-d $mscDir);
+
+# ---------- Define PROCESSING file ------------
+  my $processingFile = "${mscDir}/PROCESSING_${yyddd}";
+  open(my $LOG, '>>', $processingFile)
+  	  or die "Cannot open $processingFile: $!";
+	  
+# ---------- Define GRD files ------------
+
+  my %grdFiles = (
+      NTAL => "NTAL_${yyddd}.${extGrd}",
+      NTOL => "NTOL_${yyddd}.${extGrd}",
+      HYDL => "HYDL_${yyddd}.${extGrd}"
+  );
+
+# ---------- Check GRD files ------------
+
+  foreach my $type (qw(NTAL NTOL HYDL)) {
+
+    my $file = $grdFiles{$type};
+    my $fullPath = "${dirGrd}${file}";
+    my $statusFile = "${mscDir}/no_${type}";
+
+    # Remove old status file first.
+    # It will be recreated below if a problem is found.
+    unlink $statusFile if (-e $statusFile);
+
+    # ---------- Check existence ------------
+
+    unless (-e $fullPath) {
+
+      my $message = "$file not found, file not used in processing";
+      # Write to PROCESSING_yyddd
+      print $LOG "$message\n";
+
+      open(my $NF, '>', $statusFile)
+        or die "Cannot create $statusFile: $!";
+
+      print $NF "GRD file not found: $file, file not used in processing\n";
+
+      close($NF);
+
+      next;
+    }
+
+    # ---------- Check for NaN ------------
+
+    open(my $GF, '<', $fullPath)
+      or die "Cannot open $fullPath: $!";
+
+    my $nanFound = 0;
+
+    while (my $line = <$GF>) {
+
+      if ($line =~ /nan/i) {
+        $nanFound = 1;
+        last;
+      }
+    }
+
+    close($GF);
+
+    # ---------- NaN found ------------
+
+    if ($nanFound) {
+
+      my $message = "NaN found in $file, file not used in processing";
+      # Write to PROCESSING_yyddd
+      print $LOG "$message\n";
+
+      open(my $NF, '>', $statusFile)
+        or die "Cannot create $statusFile: $!";
+
+      print $NF "NaN found in $file, file not used in processing\n";
+
+      close($NF);
+    }
+  }
+  close($LOG);
+}

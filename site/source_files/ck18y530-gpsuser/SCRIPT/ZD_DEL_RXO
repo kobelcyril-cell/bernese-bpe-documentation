@@ -1,0 +1,301 @@
+package DEL_RXO;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  DEL_RXO
+#
+# Purpose :  Delete RXO files if corresponding PZH file exists
+#            or restore files depending on PARAM1 (START/END)
+#
+# Author  :  C. Kobel
+# Created :  15-Jun-2026
+# ============================================================================
+
+use strict;
+use warnings;
+use File::Basename;
+use File::Path qw(make_path);
+use File::Copy qw(move copy);
+use File::Compare qw(compare);
+
+sub run {
+
+    my $bpe = shift;
+
+
+    # ------------------------------------------------------
+    # Get campaign directory + mode
+    # ------------------------------------------------------
+    my (
+        $camp_pth,
+        $campaign,
+        $ssss,
+        $yyddd,
+        $yy,
+        $mode
+        )
+        = $bpe->getKeys(
+        'CAMP_PTH',
+        'CAMPAIGN',
+        '$S+0',
+        '$YD+0',
+        '$Y',
+        'PARAM1'
+        );
+
+
+    # ------------------------------------------------------
+    # Directories
+    # ------------------------------------------------------
+    my $pzh_dir = "$camp_pth$campaign/OBS";
+    my $raw_dir = "$camp_pth$campaign/RAW";
+
+    my $msc_dir  = "$camp_pth$campaign/MSC/MSC_${yyddd}";
+    my $log_file = "$msc_dir/PPP_DELRXO_${mode}.log";
+
+
+    open(my $LOG, '>', $log_file)
+        or die "Cannot create $log_file: $!\n";
+
+
+    print $LOG "PPP_DELRXO report for ${ssss}\n";
+    print $LOG "MODE: $mode\n";
+    print $LOG "=============================\n\n";
+
+
+    print "\nPPP_DELRXO MODE = $mode\n";
+
+
+    # ======================================================
+    # MODE START
+    # ======================================================
+    if (defined $mode && $mode eq "START") {
+
+
+        print "\nSTART mode active\n";
+
+
+        my $obs_archive_dir = "$pzh_dir/OBS_$ssss";
+        my $archive_exists = (-d $obs_archive_dir);
+
+
+        # --------------------------------------------------
+        # Check existing OBS_$ssss archive
+        # --------------------------------------------------
+        if ($archive_exists) {
+
+
+            print "\nOBS_$ssss already exists - checking consistency\n";
+
+
+            my @obs_files = grep {
+                -f $_
+            } glob("$pzh_dir/????${ssss}.???");
+
+
+            if (@obs_files) {
+
+
+                print "Files found in OBS root. Comparing with OBS_$ssss\n";
+
+
+                foreach my $obs_file (@obs_files) {
+
+
+                    my $base = basename($obs_file);
+                    my $archive_file = "$obs_archive_dir/$base";
+
+
+                    unless (-e $archive_file) {
+
+                        die "ERROR: $base exists in OBS but not in OBS_$ssss\n";
+                    }
+
+
+                    if (compare($obs_file,$archive_file) != 0) {
+
+                        die "ERROR: Difference detected for $base between OBS and OBS_$ssss\n";
+                    }
+
+
+                    print "OK     $base identical\n";
+                    print $LOG sprintf(
+                        "%-40s IDENTICAL\n",
+                        $base
+                    );
+                }
+            }
+            else {
+
+                print "No OBS files for $ssss found. Archive already exists.\n";
+		$pzh_dir = "$pzh_dir/OBS_$ssss";
+            }
+        }
+
+
+
+        # --------------------------------------------------
+        # Read available PZH stations
+        # --------------------------------------------------
+        my %pzh_station;
+
+
+        foreach my $pzh (glob("$pzh_dir/????${ssss}.PZH")) {
+
+
+            my $base = basename($pzh);
+            my $station = uc(substr($base,0,4));
+
+
+            $pzh_station{$station}=1;
+        }
+
+
+
+        # --------------------------------------------------
+        # Delete RXO files from RAW
+        # --------------------------------------------------
+        foreach my $rxo (glob("$raw_dir/????${ssss}.${yy}O")) {
+
+
+            my $base = basename($rxo);
+            my $station = uc(substr($base,0,4));
+
+
+            if (exists $pzh_station{$station}) {
+
+
+                print "DELETE $base (PZH found for $station)\n";
+                print $LOG sprintf(
+                    "%-4s DELETE\n",
+                    $station
+                );
+
+
+                unlink($rxo)
+                    or warn "WARNING: Cannot delete $rxo: $!\n";
+            }
+            else {
+
+
+                print "KEEP   $base\n";
+                print $LOG sprintf(
+                    "%-4s KEEP\n",
+                    $station
+                );
+            }
+        }
+
+
+
+        # --------------------------------------------------
+        # Move OBS files into OBS_$ssss
+        # Move if archive does not exist OR is empty
+        # --------------------------------------------------
+
+        my @archive_files = grep {
+            -f $_
+        } glob("$obs_archive_dir/????${ssss}.???");
+
+
+        if (!$archive_exists || !@archive_files) {
+
+
+            unless (-d $obs_archive_dir) {
+
+                make_path($obs_archive_dir)
+                    or die "Cannot create directory $obs_archive_dir\n";
+            }
+
+
+            print "\nMoving OBS files containing $ssss to OBS_$ssss\n";
+
+
+            foreach my $obs_file (glob("$pzh_dir/????${ssss}.???")) {
+
+
+                next if -d $obs_file;
+
+
+                my $base = basename($obs_file);
+
+
+                next if $base eq "OBS_$ssss";
+
+
+                my $target = "$obs_archive_dir/$base";
+
+
+                print "MOVE   $base -> OBS_$ssss/\n";
+
+                print $LOG sprintf(
+                    "%-40s MOVE_TO_OBS_%s\n",
+                    $base,
+                    $ssss
+                );
+
+
+                move($obs_file,$target)
+                    or warn "WARNING: Cannot move $obs_file to $target: $!\n";
+            }
+
+        }
+        else {
+
+            print "\nOBS_$ssss already contains files. No move performed.\n";
+        }
+    }
+
+
+
+    # ======================================================
+    # MODE END
+    # ======================================================
+    elsif (defined $mode && $mode eq "END") {
+
+
+        print "\nEND mode active: copying files back to $pzh_dir\n";
+
+
+        foreach my $file (glob("$pzh_dir/OBS_${ssss}/????${ssss}.???")) {
+
+
+            next if -d $file;
+
+
+            my $base = basename($file);
+            my $target = "$pzh_dir/$base";
+
+
+            next if $file eq $target;
+
+
+            print "COPY $base -> $pzh_dir/\n";
+
+            print $LOG sprintf(
+                "%-40s COPY_BACK\n",
+                $base
+            );
+
+
+            copy($file,$target)
+                or warn "WARNING: Cannot copy $file to $target: $!\n";
+        }
+    }
+
+
+    else {
+
+        die "PARAM1 must be START or END\n";
+    }
+
+
+    close($LOG);
+
+
+    print "\nReport written to $log_file\n";
+    print "\nPPP_DELRXO successfully finished\n";
+}
+
+
+1;

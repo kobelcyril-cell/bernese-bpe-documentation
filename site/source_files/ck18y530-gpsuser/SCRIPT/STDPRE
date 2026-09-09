@@ -1,0 +1,34 @@
+package DTDPRE;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  STDPRE
+#
+# Purpose :  convert standard orbit to precise orbit file format
+#
+# Programs:  STDPRE
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  08-May-2019 AV: Use v_gnss if available
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  my ($gnss) = $bpe->getKeys('V_GNSS');
+
+  if($gnss){
+    &setGNSS($bpe,"$ENV{U}/PAN/STDPRE.INP","USE_",$gnss);
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "STDPRE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

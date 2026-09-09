@@ -1,0 +1,139 @@
+package CMP_ERPDIFF;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CMP_ERPDIFF
+#
+# Purpose :  Compare two ERP files and write difference statistics.
+#
+# PARAMs  :  FILE_ERP1, FILE_ERP2, FILE_OUT
+#
+# Author  :  C. Kobel
+# Created :  17-Oct-2025
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  my ($yyddd, $yyssss, $Erpname, $V_SOL, $dirErp, $extErp) =
+    $bpe->getKeys('$YD+0','$YSS+0','V_ERP', 'V_SOL', 'DIR_ERP', 'EXT_ERP');
+
+  my $file1 = "$dirErp/${Erpname}${yyssss}.${extErp}";
+  my $file2 = "$dirErp/F${V_SOL}_${yyddd}.${extErp}";
+  my $outfile = "$dirErp../MSC/ERPDIFF_${Erpname}_${V_SOL}_${yyddd}";
+
+  print "Comparing ERP files:\n  $file1\n  $file2\nOutput: $outfile\n";
+
+  # ---------------------------------------------------------
+  # Read ERP files and extract epochs + parameters
+  # ---------------------------------------------------------
+
+  my %erp1 = read_erp_file($file1);
+  my %erp2 = read_erp_file($file2);
+
+  # gemeinsame Epochen bestimmen
+  my @epochs = sort grep { exists $erp2{$_} } keys %erp1;
+
+  if (@epochs < 2) {
+    die "Not enough common epochs found to compute rates.\n";
+  }
+
+  # ---------------------------------------------------------
+  # Compute rates for both files
+  # ---------------------------------------------------------
+  my %rate1 = compute_rates(\%erp1, \@epochs);
+  my %rate2 = compute_rates(\%erp2, \@epochs);
+
+  # Differenzen der Raten
+  my %ratediff = (
+    xp  => $rate1{xp}  - $rate2{xp},
+    yp  => $rate1{yp}  - $rate2{yp},
+    ut1 => $rate1{ut1} - $rate2{ut1},
+  );
+
+  # ---------------------------------------------------------
+  # Write output
+  # ---------------------------------------------------------
+  open(my $OUT, ">", $outfile) or die "Cannot open $outfile: $!";
+
+  print $OUT "ERP DIFF REPORT\n";
+  print $OUT "================\n\n";
+  print $OUT "Common epochs:\n";
+
+  foreach my $e (@epochs) {
+      printf $OUT "%s  XP1=%12.8f  YP1=%12.8f  UT1_1=%14.10f\n",
+          $e, @{$erp1{$e}}{qw(xp yp ut1)};
+      printf $OUT "%s  XP2=%12.8f  YP2=%12.8f  UT1_2=%14.10f\n\n",
+          $e, @{$erp2{$e}}{qw(xp yp ut1)};
+  }
+
+  print $OUT "-----------------------------------------\n";
+  print $OUT "RATES (Value2 - Value1)\n";
+  print $OUT "-----------------------------------------\n";
+  printf $OUT "File1: XP=%12.8f  YP=%12.8f  UT1=%14.10f\n",
+      @rate1{qw(xp yp ut1)};
+  printf $OUT "File2: XP=%12.8f  YP=%12.8f  UT1=%14.10f\n",
+      @rate2{qw(xp yp ut1)};
+
+  print $OUT "\n-----------------------------------------\n";
+  print $OUT "Rate differences (Rate1 - Rate2)\n";
+  print $OUT "-----------------------------------------\n";
+  printf $OUT "DIFF: XP=%12.8f  YP=%12.8f  UT1=%14.10f\n",
+      @ratediff{qw(xp yp ut1)};
+
+  close $OUT;
+
+  print "Finished writing ERP comparison to: $outfile\n";
+}
+
+# =====================================================================
+# Subroutine: read ERP file
+# =====================================================================
+sub read_erp_file {
+    my ($file) = @_;
+    my %data;
+
+    open(my $F, "<", $file) or die "Cannot open $file: $!";
+
+    while (<$F>) {
+        next unless /^\s*202/;     # Zeilen mit Daten beginnen mit "2025 ..."
+        my @f = split;
+
+        my $epoch = sprintf("%04d-%02d-%02d %02d:%02d:%02d",
+                            @f[0..5]);
+
+        $data{$epoch} = {
+            xp  => $f[6],
+            yp  => $f[7],
+            ut1 => $f[8],
+        };
+    }
+    close $F;
+    return %data;
+}
+
+# =====================================================================
+# Subroutine: compute rates for two epochs
+# =====================================================================
+sub compute_rates {
+    my ($href, $epochs_ref) = @_;
+
+    my @e = @$epochs_ref;
+
+    my $e1 = $href->{$e[0]};
+    my $e2 = $href->{$e[1]};
+
+    return (
+        xp  => $e2->{xp}  - $e1->{xp},
+        yp  => $e2->{yp}  - $e1->{yp},
+        ut1 => $e2->{ut1} - $e1->{ut1},
+    );
+}
+

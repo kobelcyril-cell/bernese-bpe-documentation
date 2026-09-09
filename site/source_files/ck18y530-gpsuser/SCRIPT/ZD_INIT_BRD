@@ -1,0 +1,142 @@
+package INIT_BRD;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  INIT_BRD
+#
+# Purpose :  Initialize broadcast PRE and CLK files
+#
+# Author  :  C. Kobel
+# Created :  21-Apr-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use File::Copy;
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $yyddd,
+      $ddd,
+      $ssss,
+      $yyyy,
+      $yyssss,
+      $brd,
+      $dirPre,
+      $dirClk,
+      $dirRxn,
+      $extPre,
+      $extClk,
+      $extRxn
+  ) = $bpe->getKeys(
+      '$YD+0',
+      '$+0',
+      '$S+0',
+      '$Y+0',
+      '$YSS+0',
+      'V_BRD',
+      'DIR_PRE',
+      'DIR_CLK',
+      'DIR_RXN',
+      'EXT_PRE',
+      'EXT_CLK',
+      'EXT_RXN'
+  );
+
+  my $yy = substr($yyyy, 2, 2);
+
+# ---------- Define target files ------------
+  my $targetPre = "${dirPre}${brd}_${yyssss}.${extPre}";
+  my $targetClk = "${dirClk}${brd}_${yyssss}.${extClk}";
+  my $targetNav = "${dirRxn}CODE${ssss}.${extRxn}";
+
+# ---------- Define source files ------------
+  my $brdPreSav = "$PATH_SAV/$CAMP_SAVRAP/ORB/BRD_${yyddd}.PRE";
+  my $brdClkSav = "$PATH_SAV/$CAMP_SAVRAP/ORB/BRD_${yyddd}.CLK";
+
+  my $brdNavRnx2 = "${CDIR_ORX}/RINEX2/${yyyy}/${ddd}/CODE${ssss}.${yy}N";
+  my @brdNavRnx3 = glob "${CDIR_ORX}/RINEX3/${yyyy}/${ddd}/CODE00MRG_3_${yyyy}${ddd}0000_01D_???_MN.RNX*";
+  my $brdNavRnx3 = $brdNavRnx3[0];
+
+# ---------- Try PRE/CLK from savedisk ------------
+  my $copPre = putFile($brdPreSav, $targetPre);
+  my $copClk = putFile($brdClkSav, $targetClk);
+
+  my $copNav = 0;
+
+# ---------- If PRE/CLK not available, fallback to navigation ------------
+  if ($copPre && $copClk) {
+
+    print "Broadcast PRE/CLK copied from savedisk\n";
+
+  } else {
+
+    # ---------- Try RINEX3 ------------
+    if ($brdNavRnx3) {
+      $copNav = putFile($brdNavRnx3, $targetNav);
+      print "Using RINEX3 navigation\n" if $copNav;
+    }
+
+    # ---------- Fallback to RINEX2 ------------
+    if (!$copNav) {
+      $copNav = putFile($brdNavRnx2, $targetNav);
+      print "Using RINEX2 navigation\n" if $copNav;
+    }
+
+    die "No navigation file found\n" unless $copNav;
+  }
+
+# ---------- Convert navigation to PRE and CLK ------------
+  if ($copNav) {
+
+    print "Converting BRD to PRE and CLK\n";
+
+   my $PGMNAM = "RXN2PRE";
+    $bpe->RUN_PGMS($PGMNAM);
+    $PGMNAM = "SATCLK2";
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+}
+
+# ---------- Subroutine: putFile ------------
+# ---------- Purpose : Copy file (supports .gz and .Z) ------------
+sub putFile {
+
+  my ($file, $loc) = @_;
+
+  $file =~ s/\.(gz|Z)$//;
+  $loc  =~ s/\.(gz|Z)$//;
+
+  print "FROM: $file TO: $loc\n";
+
+  if (-e $file) {
+
+    copyfile($file, $loc);
+    return 1;
+
+  } elsif (-e "${file}.gz") {
+
+    copyfile("${file}.gz", "${loc}.gz");
+    system("gzip -df ${loc}.gz");
+    return 1;
+
+  } elsif (-e "${file}.Z") {
+
+    copyfile("${file}.Z", "${loc}.Z");
+    system("gzip -df ${loc}.Z");
+    return 1;
+  }
+
+  return 0;
+}

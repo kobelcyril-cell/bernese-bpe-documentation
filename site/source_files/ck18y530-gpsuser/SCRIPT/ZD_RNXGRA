@@ -1,0 +1,102 @@
+package RNXGRA;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  RNXGRA
+#
+# Purpose :  Execute RNXGRA
+#
+# Remark  :  delete incomplete RINEX observation files
+#            if the correspsonding option in RNXGRA is enabled
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+#            14-Jun-2013 RD: Call for "deleteFiles" corrected
+#            20-Dec-2013 RD/SS: Improve deletion features
+# ============================================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtGoto prtMess appFile deleteFiles setGNSS);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $ssss,
+      $param1,
+      $param2, 
+      $satsys,
+      $dirRxo, 
+      $extRxo
+    ) = $bpe->getKeys(
+      '$S+0',
+      'PARAM1',
+      'PARAM2',
+      'V_SATSYS',
+      'DIR_RXO',
+      'EXT_RXO'
+    );
+
+# Set the GNSS to be used
+# -----------------------
+  setGNSS($bpe,"$ENV{U}/PAN/RNXGRA.INP","USE_",$satsys);
+
+# Run program
+# -----------
+  my $PGMNAM = "RNXGRA";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Delete incomplete RINEX observation files
+# -----------------------------------------
+  if ( $bpe->getKey("$ENV{U}/INP/RNXGRA.INP","GETLST") eq "1" ) {
+    my $sumFil = $bpe->getKey("$ENV{U}/INP/RNXGRA.INP","SUMMARY");
+    my $delFil = $bpe->getKey("$ENV{U}/INP/RNXGRA.INP","DELFILE");
+    appFile ("Files excluded from processing:",0,
+             "$delFil","$sumFil",1) if (-e $delFil);
+    deleteFiles($bpe,$delFil,1);
+  }
+
+# If no files available, jump to the end
+# --------------------------------------
+if ( $param1 eq "NEXTJOB" ) {
+
+    my $pattern = "${dirRxo}*${ssss}.${extRxo}";
+    my @list = glob($pattern);
+
+    unless (@list) {
+
+        print "\n========== RNXGRA DEBUG ==========\n";
+        print "Search pattern : $pattern\n";
+        print "DIR_RBO        : '$dirRxo'\n";
+        print "Station (ssss) : '$ssss'\n";
+        print "EXT_RBO        : '$extRxo'\n";
+        print "Directory exists: " . (-d $dirRxo ? "YES" : "NO") . "\n";
+
+        if (-d $dirRxo) {
+            print "Directory content:\n";
+            my @files = glob("${dirRxo}*");
+            if (@files) {
+                print "  $_\n" for @files;
+            } else {
+                print "  <directory is empty>\n";
+            }
+        }
+
+        print "=================================\n\n";
+
+        print "No RINEX files left\n";
+        prtMess($bpe,"No RINEX files left");
+        $bpe->prtGoto($param2);
+    }
+}
+
+
+}

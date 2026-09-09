@@ -1,0 +1,1063 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Information for the title
+! -------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! -------------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Geodetic Datum
+! --------------
+DATUM 1  "DATUM"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "$(SATINF)_$(PCV)"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "$(SATCRX)"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! ERP File
+! ---------
+POLE 1  "$B$YSS+0"
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! Subdaily Pole Model
+! -------------------
+SUBMOD 1  "$(SUBMOD)"
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Nutation Model
+! -------------------
+NUTMOD 1  "$(NUTMOD)"
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+
+DESCR_NUTMOD 1  "Nutation model"
+
+! Phase Center Eccentricities
+! ---------------------------
+PHASECC 1  "$(PCVINF)_$(PCV)"
+  ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
+
+DESCR_PHASECC 1  "Phase center eccentricities"
+
+USE_ANTAZI 1  "1"
+  ## widget = checkbox
+
+MSG_USE_ANTAZI 1  "Consider antenna azimuth rotations"
+
+! Zero-Difference Header File(s)
+! --------------------------------
+RADIO_Z 1  "1"
+  ## widget = radiobutton; group = OBSFILES; radiokeys = PZFILES
+
+MSG_RADIO_Z 1  "Zero-difference observation files"
+
+PZFILES 1  "$(LEO)$S+0"
+  ## widget = selwin; path = DIR_PZH; ext = EXT_PZH; maxfiles = 999
+  ## emptyallowed = true
+
+PZFILES_TXT_COL_1 1  "Zero-difference header file"
+
+MSG_PZFILES 1  "Zero-difference observation files"
+
+! Extensions of the Zero-Difference Obs. Files
+! ----------------------------------------------
+PZFILES_PTH_COL_2 0
+  ## widget = initmenu; pointer = DIR_PZO
+
+PZFILES_EXT_COL_2 0
+  ## widget = initmenu; pointer = EXT_PZO
+
+PZFILES_TXT_COL_2 1  "Zero-difference obs file"
+
+! Single-Difference Header File(s)
+! --------------------------------
+RADIO_S 1  "0"
+  ## widget = radiobutton; group = OBSFILES; radiokeys = OBSFIL
+
+MSG_RADIO_S 1  "Single-difference observation files"
+
+OBSFIL 1  "????$S+0"
+  ## widget = selwin; path = DIR_PSH; ext = EXT_PSH; maxfiles = 999
+  ## emptyallowed = true
+
+OBSFIL_TXT_COL_1 1  "Single-difference header file"
+
+MSG_OBSFIL 1  "Single-difference observation files"
+
+! Extensions of the Single-Difference Obs. Files
+! ----------------------------------------------
+OBSFIL_PTH_COL_2 0
+  ## widget = initmenu; pointer = DIR_PSO
+
+OBSFIL_EXT_COL_2 0
+  ## widget = initmenu; pointer = EXT_PSO
+
+OBSFIL_TXT_COL_2 1  "Single-difference obs file"
+
+! A Priori Coordinates
+! --------------------
+COORD 1  "$(CRDINF)"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+
+DESCR_COORD 1  "A priori coordinates"
+
+! GNSS Standard Orbits
+! --------------------
+STDORB 1  "$B$YSS+0"
+  ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
+
+DESCR_STDORB 1  "GNSS standard orbits"
+
+! Atmosphere: Meteo File
+! ----------------------
+METFIL 1  ""
+  ## widget = selwin; path = DIR_MET; ext = EXT_MET; maxfiles = 999
+  ## emptyallowed = true
+
+MSG_METFIL 1  "Meteo data files"
+
+! VMF grid file
+! -------------
+VMF_FILES 1  ""
+  ## widget = selwin; path = DIR_GRD; ext = EXT_GRD; emptyallowed = true
+
+MSG_VMF_FILES 1  "VMF grid file"
+
+! Atmosphere: Tropospheric Model
+! ------------------------------
+TROPOS 1  "NONE"
+  ## widget = combobox; editable = false; activeif = TROPEST = _
+  ## cards = NONE VMF3 VMF1 GPT1 NIELL SAASTAMOINEN HOPFIELD ESSEN-FROOME GPT3 VMF GMF
+
+MSG_TROPOS 1  "Troposphere"
+
+! Atmosphere: Estimated troposphere
+! ---------------------------------
+TROPEST 1  ""
+  ## widget = selwin; path = DIR_TRP; ext = EXT_TRP; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_TROPEST 1  "Estimated troposphere"
+
+! Ionosperic Model
+! ----------------
+IONOS 1  ""
+  ## widget = selwin; path = DIR_ION; ext = EXT_ION; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_IONOS 1  "Ionosphere models"
+
+! Eccentricities
+! --------------
+ECCENT 1  ""
+  ## widget = selwin; path = DIR_ECC; ext = EXT_ECC; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_ECCENT 1  "Site eccentricities"
+
+! Kinematic positions, input
+! --------------------------
+KININP 1  ""
+  ## widget = selwin; path = DIR_KIN; ext = EXT_KIN; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_KININP 1  "Input kinematic coordinates"
+
+! Satellite Clocks
+! ----------------
+SATCLK 1  "$(CLK)$YSS+0"
+  ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
+  ## activeif = RADIO_Z = 1; emptyallowed = true
+
+DESCR_SATCLK 1  "Satellite clocks"
+
+! Satellite phase biases
+! ----------------------
+DCBINP 1  "$(OSB)"
+  ## widget = selwin; path = DIR_OSB; ext = EXT_OSB; maxfiles = 1
+  ## activeif = RADIO_Z = 1; emptyallowed = true
+
+DESCR_DCBINP 1  "Satellite phase biases"
+
+! LEO Kinematic positions
+! -----------------------
+LEOPROC 1  "1"
+  ## widget = checkbox
+
+MSG_LEOPROC 1  "Process LEOs"
+
+! LEO Standard Orbits
+! -------------------
+LEOSTD 1  "$A$YSS+0"
+  ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_LEOSTD 1  "LEO standard orbit"
+
+! LEO Kinematic velocities
+! ------------------------
+KINVEL 1  ""
+  ## widget = selwin; path = DIR_KVL; ext = EXT_KVL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_KINVEL 1  "Input kinematic velocities"
+
+! LEO attitude
+! ------------
+ATTIT 1  "$(ATT)"
+  ## widget = selwin; path = DIR_ATT; ext = EXT_ATT; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_ATTIT 1  "LEO attitude"
+
+! GPS-UTC file
+! -------------
+GPSUTC 1  "GPSUTC"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! STAINFO file
+! ------------
+STAINFO 1  "$(STAINF)"
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_STAINFO 1  "Station information"
+
+! Receiver information
+! --------------------
+OBSSEL 1  "$(OBSSEL)"
+  ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_OBSSEL 1  "Receiver information"
+
+! Resulting Coordinates
+! ---------------------
+COORDRS 1  ""
+  ## widget = lineedit; path = DIR_CRD; ext = EXT_CRD
+
+DESCR_COORDRS 1  "Coordinate results"
+
+! Residuals
+! ---------
+RESIDRS 1  ""
+  ## widget = lineedit; path = DIR_RES; ext = EXT_RES
+
+DESCR_RESIDRS 1  "Residual file"
+
+! Scratch Files
+! -------------
+AUXFIL 1  "MAUPRP$J"
+  ## widget = lineedit; path = PTH_SCR; ext = EXT_SCR; emptyallowed = false
+
+DESCR_AUXFIL 1  "Scratch file"
+
+OBCOPY 1  "MAUPRP$J"
+  ## widget = lineedit; path = PTH_SCR; ext = EXT_SC1; emptyallowed = false
+
+DESCR_OBCOPY 1  "Scratch file"
+
+DELETE_FILES 2
+  "AUXFIL"
+  "OBCOPY"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "SCRIPT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Program title
+! -------------
+TITLE 1  "LEOPOD_$YSS+0_$(LEO): Iterative phase data screening"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Processing IAUTO
+! ---------------
+! IAUTO 1  "AUTOMATIC"
+!   ## widget = combobox; editable = false; cards = AUTOMATIC MANUAL
+IAUTO 1  "AUTOMATIC"
+  ## widget = combobox; editable = false; cards = AUTOMATIC
+
+MSG_IAUTO 1  "Run in the automatic mode"
+
+! Adjust Frequencies/Wave-length Factors
+! --------------------------------------
+ISETOP 1  "1"
+  ## widget = checkbox
+
+MSG_ISETOP 1  "Adjust freq./wlfac."
+
+! Frequencies
+! -----------
+NFRCHK 1  "COMBINED"
+  ## widget = combobox; editable = false; cards = AUTO COMBINED BOTH L1 L2
+
+MSG_NFRCHK 1  "Screening mode, frequency to check"
+
+! Frequencies
+! -----------
+MINLEN 1  "20"
+  ## widget = lineedit; activeif = NFRCHK = AUTO; check_type = real
+  ## check_min = 0
+
+MSG_MINLEN 1  "Max. baseline length for BOTH (else COMBINED)"
+
+! Interpolation of clocks
+! -----------------------
+SECIPL 1  "$(MXCINT)"
+  ## widget = lineedit; activeif = RADIO_Z = 1
+
+MSG_SECIPL 1  "Interpolation of clocks"
+
+! Save Screened Files
+! -------------------
+ISAVE 1  "1"
+  ## widget = checkbox
+
+MSG_ISAVE 1  "Save screened observation files"
+
+! Use marking flags
+! -----------------
+IUSFLG 1  "0"
+  ## widget = checkbox
+
+MSG_IUSFLG 1  "Mark if marking flags in observation file"
+
+! Mark Unpaired Observations
+! --------------------------
+MRK1O2 1  "1"
+  ## widget = checkbox
+
+MSG_MRK1O2 1  "Mark unpaired dual frequency observations"
+
+! Minimal Elevation
+! -----------------
+MINEL 1  "5"
+  ## widget = spinbox; range = -90 90 1
+
+MSG_MINEL 1  "Mark observations below an elevation (stations)"
+
+! Minimal Elevation for LEO
+! -------------------------
+MINELEO 1  "$(MINELEO)"
+  ## widget = spinbox; range = -45 90 1; activeif = LEOPROC = 1
+
+MSG_MINELEO 1  "Mark observations below an elevation (LEOs)"
+
+! Minimal Time for Contineous Obs.
+! --------------------------------
+MNCONT 1  "151"
+  ## widget = lineedit
+
+MSG_MNCONT 1  "Minimum time interval accepted for cont. observ."
+
+! Maximal Gap in Observartions
+! ----------------------------
+MXHOLE 1  "61"
+  ## widget = lineedit
+
+MSG_MXHOLE 1  "Maximum gap accepted within cont. observations"
+
+! Printing flag
+! -------------
+IPRNT1 1  "SUMMARY"
+  ## widget = combobox; editable = false; cards = SUMMARY DETAILS NONE
+
+MSG_IPRNT1 1  "Extent of program output"
+
+! Single-Difference Screening
+! ---------------------------
+IPPROC1 1  "0"
+  ## widget = checkbox
+
+MSG_IPPROC1 1  "Original observations from file"
+
+! Double-Difference Screening
+! ---------------------------
+IPPROC2 1  "1"
+  ## widget = checkbox
+
+MSG_IPPROC2 1  "Differences between satellites"
+
+! Maximal Interval of Fit
+! -----------------------
+MXINTR 1  "2"
+  ## widget = lineedit
+
+MSG_MXINTR 1  "Maximum time interval for polynomial fit"
+
+! Frequency used for Triple-Dif. Solution
+! ---------------------------------------
+LTRIP 1  "L3"
+  ## widget = combobox; editable = false; cards = L3 L1 L2 L5
+
+MSG_LTRIP 1  "Frequency for the solution"
+
+! Kinematic or Static Coordinate Estimation
+! ------------------------------------------
+KINSTA 1  "1"
+  ## widget = checkbox
+
+MSG_KINSTA 1  "Kinematic coordinate estimation"
+
+! A Priori Weights
+! ----------------
+APRCWGT 1  "1"
+  ## widget = checkbox
+
+MSG_APRCWGT 1  "A priori coordinate/baseline vector sigmas"
+
+! Maximum Observed-Computed Value
+! -------------------------------
+OMCMAX 1  "5.0"
+  ## widget = lineedit
+
+MSG_OMCMAX 1  "Maximum observed-computed value"
+
+! RMS limit for epoch diff. solution
+! ----------------------------------
+RMSDMAX 1  "1.0"
+  ## widget = lineedit; check_type = real; check_min = 0.0
+
+MSG_RMSDMAX 1  "RMS limit for epoch diff. solution"
+
+! RMS limit for epoch solution
+! ----------------------------
+RMSMAX 1  "1.0"
+  ## widget = lineedit; activeif = KINSTA = 1 OR RADIO_Z = 1
+  ## check_type = real; check_min = 0.0
+
+MSG_RMSMAX 1  "RMS limit for epoch solution"
+
+! Polynomial Degree (Single-Dif.)
+! -------------------------------
+QQ1 1  "1"
+  ## widget = spinbox; range = 1 4 1; activeif = IPPROC1 = 1
+
+MSG_QQ1 1  "Polynomial degree"
+
+! Discontinuity Level (Single-Dif.)
+! ---------------------------------
+DISCLV1 1  "0.4"
+  ## widget = lineedit; activeif = IPPROC1 = 1; check_type = real
+  ## check_min = 0.0
+
+MSG_DISCLV1 1  "Discontinuity level"
+
+! Polynomial Degree (Double-Dif.)
+! -------------------------------
+QQ2 1  "1"
+  ## widget = spinbox; range = 1 4 1; activeif = IPPROC2 = 1
+
+MSG_QQ2 1  "Polynomial degree"
+
+! Discontinuity Level (Double-Dif.)
+! ---------------------------------
+DISCLV2 1  "0.1"
+  ## widget = lineedit; activeif = IPPROC2 = 1; check_type = real
+  ## check_min = 0.0
+
+MSG_DISCLV2 1  "Discontinuity level"
+
+! Apriori Weight (X-Coordinate)
+! -----------------------------
+SIGWGS1 1  "0.008"
+  ## widget = lineedit; activeif = APRCWGT = 1; check_type = real
+  ## check_min = 0.0
+
+MSG_SIGWGS1 1  "X-coordinate"
+
+! Apriori Weight (Y-Coordinate)
+! -----------------------------
+SIGWGS2 1  "0.008"
+  ## widget = lineedit; activeif = APRCWGT = 1; check_type = real
+  ## check_min = 0.0
+
+MSG_SIGWGS2 1  "Y-coordinate"
+
+! Apriori Weight (Z-Coordinate)
+! -----------------------------
+SIGWGS3 1  "0.008"
+  ## widget = lineedit; activeif = APRCWGT = 1; check_type = real
+  ## check_min = 0.0
+
+MSG_SIGWGS3 1  "Z-coordinate"
+
+! Minimum size if a clock event
+! -----------------------------
+CLKOPT2 1  "10000"
+  ## widget = lineedit; check_type = integer; check_min = 1
+
+MSG_CLKOPT2 1  "Minimum size of a clock event"
+
+! Tolerance for MS jump detection
+! -------------------------------
+TOLJMP 1  "0.001"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_TOLJMP 1  "Tolerance for ms-jump detection"
+
+! Deletion flag for file with ms-jumps
+! ------------------------------------
+CLKOPT5 1  "0"
+  ## widget = checkbox
+
+MSG_CLKOPT5 1  "Flag the observation file for deletion"
+
+! Repair the ms-jumps
+! -------------------
+CLKOPT1 1  "1"
+  ## widget = checkbox; activeif = CLKOPT5 = 0
+
+MSG_CLKOPT1 1  "Repair the ms-jumps as cycle slips"
+
+! Deletion flag for file with clock events
+! ----------------------------------------
+CLKOPT6 1  "0"
+  ## widget = checkbox
+
+MSG_CLKOPT6 1  "Flag the observation file for deletion"
+
+! Mark observations up to a time interval
+! ---------------------------------------
+CLKOPT3 1  "300"
+  ## widget = lineedit; emptyallowed = true; activeif = CLKOPT6 = 0
+  ## check_type = integer; check_min = 1
+
+MSG_CLKOPT3 1  "Mark observations up to a time interval"
+
+! Ambiguities for all satellites
+! ------------------------------
+CLKOPT4 1  "1"
+  ## widget = checkbox; activeif = CLKOPT6 = 0
+
+MSG_CLKOPT4 1  "Set ambiguities for all satellites"
+
+! Fixed Station
+! -------------
+STAFIX 1  ""
+  ## widget = selwin; maxfiles = 1; pointer = STALST
+  ## activeif = RADIO_S = 1 AND COORDRS / _
+
+MSG_STAFIX 1  "Define the fixed station"
+
+STALST 0
+  ## widget = selwin; menuaux = MENUAUX; action = OBS
+  ## menuauxkeys = CONST OBSFIL
+
+! Print Cycle-Slip Detection Flag
+! -------------------------------
+IPRNT2 1  "SUMMARY"
+  ## widget = combobox; editable = false; cards = SUMMARY DETAILS NONE
+
+MSG_IPRNT2 1  "Extent of program output"
+
+! Sigma of L1 Observation
+! -----------------------
+SIGL12_1 1  "0.0010"
+  ## widget = lineedit; activeif = NFRCHK == COMBINED OR NFRCHK == AUTO
+
+MSG_SIGL12_1 1  "Sigma for L1 observations"
+
+! Sigma of L2 Observation
+! -----------------------
+SIGL12_2 1  "0.0010"
+  ## widget = lineedit; activeif = NFRCHK == COMBINED OR NFRCHK == AUTO
+
+MSG_SIGL12_2 1  "Sigma for L2 observations"
+
+! Full or Half Cycles L1
+! ----------------------
+IWLSCR1 1  "FULL"
+  ## widget = combobox; editable = false; cards = FULL HALF
+  ## activeif = ISETOP == 0
+
+MSG_IWLSCR1 1  "Search L1 for"
+
+! Full or Half Cycles L2
+! ----------------------
+IWLSCR2 1  "FULL"
+  ## widget = combobox; editable = false; cards = FULL HALF
+  ## activeif = ISETOP == 0
+
+MSG_IWLSCR2 1  "Search L2 for"
+
+! Test only Flagged Observations
+! ------------------------------
+NTONLY 1  "0"
+  ## widget = checkbox
+
+MSG_NTONLY 1  "Test only observations with cycle slip flag"
+
+! L5 is Clean
+! -----------
+L5CLEA 1  "0"
+  ## widget = checkbox
+
+MSG_L5CLEA 1  "L5 is clean except for observations with flags"
+
+! Search Width L1
+! ---------------
+SWIDTH1 1  "5"
+  ## widget = spinbox; range = 3 6 1
+  ## activeif = NFRCHK = COMBINED OR NFRCHK == AUTO
+
+MSG_SWIDTH1 1  "Search width to find L1 cycle slip correction"
+
+! Search Width L5
+! ---------------
+SWIDTH2 1  "2"
+  ## widget = spinbox; range = 1 3 1
+  ## activeif = NFRCHK = COMBINED OR NFRCHK == AUTO
+
+MSG_SWIDTH2 1  "Search width to find L5 cycle slip correction"
+
+! Enable Solution of Cycle Slips
+! ------------------------------
+CYCDET 1  "1"
+  ## widget = checkbox
+
+MSG_CYCDET 1  "Do not accept cycle slip corrections"
+
+! Minimal Size of Cycle-Slip
+! --------------------------
+MINCYC 1  "10"
+  ## widget = lineedit; check_type = integer; check_min = 0
+  ## activeif = CYCDET = 0
+
+MSG_MINCYC 1  "Minimum size of accepted cycle slip correction"
+
+! Outlier Rejection
+! -----------------
+IRJECT 1  "1"
+  ## widget = checkbox
+
+MSG_IRJECT 1  "Enable outlier rejection"
+
+! Maximal Observation Gap
+! -----------------------
+MXOGAP 1  "91"
+  ## widget = lineedit
+
+MSG_MXOGAP 1  "Mark consecutive outliers up to a time interval"
+
+! Maximal Ionosphere Difference (BOTH)
+! ----------------------------------------
+MXIOND_B 1  "50"
+  ## widget = lineedit
+  ## activeif = MXIOND_L / _ OR MXIOND_L > 0 OR NFRCHK / COMBINED AND RADIO_S = 1
+
+MSG_MXIOND_B 1  "Maximum ionospheric change from epoch to epoch"
+
+! Maximal Ionosphere Difference (COMBINED)
+! ----------------------------------------
+MXIOND_C 1  "1500"
+  ## widget = lineedit; activeif = NFRCHK == COMBINED OR NFRCHK == AUTO
+
+MSG_MXIOND_C 1  "Maximum ionospheric change from epoch to epoch"
+
+! Maximal Ionosphere Difference (MIXED)
+! ----------------------------------------
+MXIOND_L 1  "2000"
+  ## widget = lineedit
+  ## activeif = NFRCHK == COMBINED OR NFRCHK == AUTO AND RADIO_S = 1
+
+MSG_MXIOND_L 1  "Maximum ionospheric change from epoch to epoch"
+
+! Set a New Ambiguity Flags
+! -------------------------
+IAMNEW1 1  "0"
+  ## widget = checkbox
+
+MSG_IAMNEW1 1  "If a cycle slip flag in observation file"
+
+IAMNEW2 1  "1"
+  ## widget = checkbox
+
+MSG_IAMNEW2 1  "If no cycle slip correction was possible"
+
+IAMNEW3 1  "91"
+  ## widget = lineedit
+
+MSG_IAMNEW3 1  "After an observation gap larger than"
+
+IAMNEW4 1  "0"
+  ## widget = checkbox
+
+MSG_IAMNEW4 1  "Preserve ambiguities from observation file"
+
+IAMNEW5 1  "151"
+  ## widget = lineedit
+
+MSG_IAMNEW5 1  "Minimum observed time interval per ambiguity"
+
+! ======================================================================
+! HIDDEN PANELS AND OPTIONS
+! ======================================================================
+! Define array dimensions
+! -----------------------
+SHOWMAX 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWMAX 1  "Define array dimensions"
+
+! MAXFIL: Maximum number of files to be processed
+! -----------------------------------------------
+MAXFIL 1  ""
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_MAXFIL 1  "MAXFIL: Files to be processed"
+
+! MAXDEL: Maximum number of mark requests per file
+! ------------------------------------------------
+MAXDEL 1  ""
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_MAXDEL 1  "MAXDEL: Marking requests"
+
+! MAXSLP: Maximum number of cycle slip requests per file
+! ------------------------------------------------------
+MAXSLP 1  ""
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_MAXSLP 1  "MAXSLP: Cycle slip requests"
+
+! MAXCLK: Maximum number of clock events
+! --------------------------------------
+MAXCLK 1  ""
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_MAXCLK 1  "MAXCLK: Clock events"
+
+! MAXMXI: Maximum number of registrated "MAX. INTERVAL EXCEEDED"
+! --------------------------------------------------------------
+MAXMXI 1  ""
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_MAXMXI 1  "MAXMXI: registrated MAX. INTERVAL EXCEEDED"
+
+! Maximum number of ambiguities
+! -----------------------------
+MXAMBS 1  ""
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_MXAMBS 1  "MXAMBS: Maximal allowed ambiguities"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PHASE PREPROCESSING - MAUPRP 1: Input Files                                  #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files                    > % <                            # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+# > % <Zero-difference observation files      > %%%%%%%%%%%% <                 # RADIO_Z PZFILES
+# > % <Single-difference observation files    > %%%%%%%%%%%% <                 # RADIO_S OBSFIL
+#   A priori coordinates                      > %%%%%%%%%%%% <                 # COORD
+#   Site eccentricities                       > %%%%%%%%%%%% <                 # ECCENT
+#   Kinematic coordinates                     > %%%%%%%%%%%% <                 # KININP
+#   GNSS standard orbits                      > %%%%%%%%%%%% <                 # STDORB
+#   Earth rotation parameters                 > %%%%%%%%%%%% <                 # POLE
+#   Satellite clocks                          > %%%%%%%%%%%% <                 # SATCLK
+#   Estimated troposphere                     > %%%%%%%%%%%% <                 # TROPEST
+#   Meteo data files                          > %%%%%%%%%%%% <                 # METFIL
+#   VMF grid file                             > %%%%%%%%%%%% <                 # VMF_FILES
+#   Ionosphere models                         > %%%%%%%%%%%% <                 # IONOS
+#   Process LEOs                              > % <                            # LEOPROC
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# MAUPRP 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants           > %%%%%%%%%%%% <                               # CONST
+#   Geodetic datum              > %%%%%%%%%%%% <                               # DATUM
+#   Subdaily ERP model          > %%%%%%%%%%%% <                               # SUBMOD
+#   Nutation model              > %%%%%%%%%%%% <                               # NUTMOD
+#   Satellite information       > %%%%%%%%%%%% <                               # SATELL
+#   Satellite problems          > %%%%%%%%%%%% <                               # SATCRUX
+#   Station information         > %%%%%%%%%%%% <                               # STAINFO
+#   Phase center eccentricities > %%%%%%%%%%%% <  > % < Apply antenna azimuth  # PHASECC USE_ANTAZI
+#   Receiver information        > %%%%%%%%%%%% <                               # OBSSEL
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# CAMPAIGN
+#   Selected session              year> %%%% <  session> %%%% <                # YR4_INFO SES_INFO
+#   Session table               > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# SESSION_TABLE
+#                                                                              #
+# TEMPORARY FILES                                                              #
+#   Scratch files               > %%%%%%%%%%%% <          > %%%%%%%%%%%% <     # AUXFIL OBCOPY
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL LEOPROC = 1 ######################################################
+# MAUPRP 1.2: LEO Processing                                                   #
+#                                                                              #
+# INPUT FILES FOR LEO PROCESSING                                               #
+#   LEO standard orbit     > %%%%%%%%%%%% <                                    # LEOSTD
+#   LEO attitude           > %%%%%%%%%%%% <                                    # ATTIT
+#   GPS-UTC time difference> %%%%%%%%%%%% <     (only with JASON attitude file)# GPSUTC
+#                                                                              #
+#   Kinematic velocities   > %%%%%%%%%%%% <                                    # KINVEL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWMAX = 1 ######################################################
+# MAUPRP 1.3: Array Dimension Specification                                    #
+#                                                                              #
+# MAXIMUM ARRAY DIMENSIONS (GENERAL)                                           #
+#   MAXFIL: Files to be processed                    > %%%%%% <                # MAXFIL
+#                                                                              #
+# MAXIMUM ARRAY DIMENSIONS (SCREENING)                                         #
+#   MAXDEL: Marking                                  > %%%%%% <                # MAXDEL
+#   MAXSLP: Cycle slips                              > %%%%%% <                # MAXSLP
+#   MAXCLK: Clock events                             > %%%%%% <                # MAXCLK
+#   MAXMXI: Registrated "MAX. INTERVAL EXCEEDED"     > %%%%%% <                # MAXMXI
+#   MXAMBS: Ambiguities                              > %%%%%% <                # MXAMBS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MAUPRP 2: Output Files                                                       #
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Coordinate results      > %%%%%%%%%%%% <                                   # COORDRS
+#   Residual file           > %%%%%%%%%%%% <                                   # RESIDRS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output      > % < use MAUPRP.Lnn            or    > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages      > % < merged to program output  or    > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MAUPRP 3: General Options                                                    #
+#                                                                              #
+# TITLE  > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # TITLE
+#                                                                              #
+# GENERAL SETTINGS                                                             #
+#   Screening mode, frequency to check          > %%%%%%%%% <                  # NFRCHK
+#   Max. baseline length to use BOTH mode       > %%%% <km                     # MINLEN
+#   Interpolation of clocks allowed over        > %%%% <seconds (0:no interp)  # SECIPL
+#   Save screened observation files             > % <                          # ISAVE
+#                                                                              #
+# ATMOSPHERE MODELS                                                            #
+#   Troposphere                                 > %%%%%%%%%%%%%%%% <           # TROPOS
+#                                                                              #
+# SAVING COORDINATES                                                           #
+#   Define the fixed station                    > %%%%%%%%%%%%%%%% <           # STAFIX
+#                                                 (blank: automatic selection) #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MAUPRP 4: Marking of Observations                                            #
+#                                                                              #
+# MARKING OF OBSERVATIONS BEFORE CYCLE SLIP DETECTION                          #
+#   Mark if marking flags in observation file                  > % <           # IUSFLG
+#   Mark observations below an elevation of > %%% < degrees for stations       # MINEL
+#                                           > %%% < degrees for LEOs           # MINELEO
+#   Minimum time interval accepted for continuous observations > %%%% < seconds# MNCONT
+#   Maximum gap accepted within continuous observations        > %%%% < seconds# MXHOLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MAUPRP 5: Non-Parametric Screening                                           #
+#                                                                              #
+# GENERAL OPTIONS                                                              #
+#   Extent of program output                      > %%%%%%%% <                 # IPRNT1
+#   Maximum time interval for polynomial fit      > %% < minutes               # MXINTR
+#                                                                              #
+# SCREENING ON DIFFERENT DIFFERENCE LEVELS                                     #
+#   > % < Original observations from file       for ZD-files: zero@@ diff.     # IPPROC1
+#            Polynomial degree    > % <         @@@ SD-files: single diff.     # QQ1
+#            Discontinuity level  > %%%%% < meters                             # DISCLV1
+#                                                                              #
+#   > % < Differences between satellites        for ZD-files: single diff.     # IPPROC2
+#            Polynomial degree    > % <         @@@ SD-files: double diff.     # QQ2
+#            Discontinuity level  > %%%%% < meters                             # DISCLV2
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MAUPRP 6: Epoch-Difference Solution                                          #
+#                                                                              #
+# EPOCH-DIFFERENCE SOLUTION                     for ZD-files: double diff.     #
+#   Frequency for the solution       > %%% <        SD-files: triple diff.     # LTRIP
+#   Kinematic coordinate estimation  > % <                                     # KINSTA
+#   Maximum observed-computed value  > %%%%% < meters (0.0: no check)          # OMCMAX
+#   RMS limit for epoch diff.solution> %%%%% < meters (0.0: no check)          # RMSDMAX
+#   RMS limit for epoch solution     > %%%%% < meters (0.0: no check)          # RMSMAX
+#                                                                              #
+#  > % < A priori coordinate/baseline vector sigmas                            # APRCWGT
+#        X-coordinate                > %%%%%% < meters                         # SIGWGS1
+#        Y-coordinate                > %%%%%% < meters                         # SIGWGS2
+#        Z-coordinate                > %%%%%% < meters                         # SIGWGS3
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_Z = 1 ######################################################
+# MAUPRP 7: Clock Events                                                       #
+#                                                                              #
+# DETECTION OF CLOCK EVENTS                                                    #
+#   Minimum size of a clock event          > %%%%%% < nanoseconds              # CLKOPT2
+#   Tolerance for ms-jump detection        > %%%%%% < milliseconds             # TOLJMP
+#                                                                              #
+# MS-JUMP HANDLING                                                             #
+#   Flag the observation file for deletion > % <                               # CLKOPT5
+#   Repair the ms-jumps as 'cycle slips'   > % <                               # CLKOPT1
+#                                                                              #
+# HANDLING OF OTHER CLOCK EVENTS                                               #
+#   Flag the observation file for deletion > % <                               # CLKOPT6
+#   Mark observations up to a time interval> %%%%%% < seconds (blank: no mark) # CLKOPT3
+#   Set ambiguities for all satellites     > % <                               # CLKOPT4
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MAUPRP 8: Cycle Slip Detection/Correction                                    #
+#                                                                              #
+# CYCLE SLIP DETECTION                                                         #
+#   Extent of program output                         > %%%%%%%% <              # IPRNT2
+#   Do not accept cycle slip corrections             > % <                     # CYCDET
+#   Minimum size of accepted cycle slip correction   > %%%%%%%% < cycles       # MINCYC
+#   Test only observations with cycle slip flag      > % <                     # NTONLY
+#   L5 is clean except for observations with flags   > % <                     # L5CLEA
+#                                                                              #
+# NO CYCLE SLIP HYPOTHESIS                                                     #
+#   Sigma for L1 observations                        > %%%%%% < meters         # SIGL12_1
+#   Sigma for L2 observations                        > %%%%%% < meters         # SIGL12_2
+#   Maximum ionospheric change from epoch to epoch                             #
+#     for single frequency mode (or short bsl.)      > %%%%%% < % of L1 cycles # MXIOND_B
+#     for combined mode@@@@@@@@ (or long@ bsl.)      > %%%%%% < % of L1 cycles # MXIOND_C
+#     use the combined mode value for bsl longer than> %%%%%% < km             # MXIOND_L
+#                                                                              #
+# CYCLE SLIP CORRECTIONS                                                       #
+#   Search width to find L1 cycle slip correction    > % <  integers           # SWIDTH1
+#   Search width to find L5 cycle slip correction    > % <  integers           # SWIDTH2
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MAUPRP 9: Outlier Rejection / Ambiguity Setting                              #
+#                                                                              #
+# OUTLIER REJECTION                                                            #
+#   Enable outlier rejection                            > % <                  # IRJECT
+#   Mark consecutive outliers up to a time interval     > %%%% <  seconds      # MXOGAP
+#                                                                              #
+# SET UP MULTIPLE AMBIGUITIES                                                  #
+#   Preserve ambiguities from observation file          > % <                  # IAMNEW4
+#   If a cycle slip flag in observation file            > % <                  # IAMNEW1
+#   If no cycle slip correction was possible            > % <                  # IAMNEW2
+#   After an observation gap larger than                > %%%% <  seconds      # IAMNEW3
+#                                                                              #
+# MARKING OF OBSERVATIONS AFTER CYCLE SLIP CORRECTIONS                         #
+#   Minimum observed time interval per ambiguity        > %%%% <  seconds      # IAMNEW5
+#                                                                              #
+# END_PANEL ####################################################################

@@ -1,0 +1,84 @@
+package MAUPRPAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MAUPRPAP
+#
+# Purpose :  Prepare parallel MAUPRP run
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 19-May-2009
+#
+# Changes :  26-Jan-2006 mm: New initPar call (w/o tmpFil)
+#            10-Feb-2005 mm: Old date variables removed
+#            19-May-2009 rd: Session dependent parallelization filenames
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ssss    , $yyssss  , $ddd     , $param2,  $numFil,  $numClu, $pcf,
+      $dirPsh  , $dirPzh  , $dirOut  ,  $dirBpe,
+      $extPsh  , $extPzh  , $extOut              ) =
+  $bpe->getKeys
+     ('$S+0'   , '$YSS+0' , '$+0'    , 'PARAM2', 'V_CLU', 'V_NCLU', 'PCFFIL',
+      'DIR_PSH', 'DIR_PZH', 'DIR_OUT', 'DIR_BPEPRT',
+      'EXT_PSH', 'EXT_PZH', 'EXT_OUT'            );
+
+# Initialize parallel run
+# -----------------------
+  $numClu = 14 unless $numClu;
+  $numFil = 0 unless $numFil;
+  my $minClu = 0;
+
+# Delete old files (OUT)
+# ---------------------------
+  my $mpr = $param2 || "MP";
+  $mpr = "MPR" if ($pcf =~/FCLKGNSS/ || $pcf =~/FZDMGNSS/ );
+  if (($numFil ne "" && $numFil != 0) ||
+      ($numClu ne "" && $numClu != 0)) {
+    unlink glob("${dirOut}${mpr}${yyssss}??.${extOut}") }
+  else {
+    unlink glob("${dirOut}${mpr}${ddd}????.${extOut}") }
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}MPR${ssss}";
+  unlink(glob("${bpeFil}???.BPE"));
+
+# Get the list of observation files
+# ---------------------------------
+  my @obsFil = ();
+  if ( ! -s "$ENV{U}/PAN/MAUPRP.INP" ||
+       $bpe->getKey("$ENV{U}/PAN/MAUPRP.INP","RADIO_S") ) {
+    @obsFil = glob("${dirPsh}????${ssss}.${extPsh}");
+  } else {
+    @obsFil = glob("${dirPzh}????${ssss}.${extPzh}");
+  }
+
+  if ($numFil ne "" && $numFil != 0) {
+    initPar_Cl($bpe,$bpeFil,@obsFil,0,$numFil,0) }
+  elsif ($numClu ne "" && $numClu != 0) {
+    initPar_Cl($bpe,$bpeFil,@obsFil,$numClu,0,0) }
+  else {
+    @obsFil = map { substr(basename($_),0,4) } @obsFil;
+    initPar_Bl($bpe,@obsFil) }
+
+# Stop if no PSH files found
+# --------------------------
+  if (@obsFil == 0) {
+    prtErr($bpe,"No PSH/PZH files found") and
+      die "No PSH/PZH files found for session ${ssss}" }
+
+}
+

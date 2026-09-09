@@ -1,0 +1,65 @@
+# ============================================================================
+# ZDMFIN3D.PCF
+# ============================================================================
+#
+# Description:  Final-like (3-day arcs) GNSS solution in
+# Zero-Difference-Mode (ZDM)
+#
+# Comments   :  PCF mainly based on legacy long-arc processing PCFs
+# (e.g., IGSFIN3D)
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  E. Calero
+# Created    :  10-May-2021
+#
+# Changes    :
+#
+# ============================================================================
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+555  STATUS     NO_OPT    CPU=LOCAL; PARAM1=ZDGNSS; PARAM2=CHECK; PARAM3=1
+#
+# Copy data and prepair input files
+# ---------------------------------
+001  ZD3D_COP   NO_OPT    CPU=LOCAL; WAIT=555; PARAM1=V_K; PARAM2=V_Z
+002  COOVEL     ZD3D_GEN_o  CPU=LOCAL; WAIT=001
+003  POLUPD     ZD3D_GEN_o  CPU=LOCAL; WAIT=002
+#
+# Create main long-arc solution
+# -----------------------------
+010  SOLLONAP   NO_OPT    CPU=LOCAL; WAIT=003; PARAM2=V_Z
+011  SOLLON_P   ZD3D_3DS_o  CPU=HUGE; WAIT=010; PARALLEL=010
+012  ORBGEN     ZD3D_3DS_o  CPU=SHORT; WAIT=011
+013  CCRNXCZD   ZD3D_3DS_o  CPU=SHORT; WAIT=011; PARAM1=V_T
+014  STDPRE     ZD3D_3DS_o  CPU=LOCAL; WAIT=012 013
+#
+# Save results
+# ------------
+020  SAVERES3D  NO_OPT    CPU=LOCAL; WAIT=014; PARAM1=V_T
+030  DEL_ZD3D   NO_OPT    CPU=LOCAL; WAIT=020
+#
+999  STATUS     NO_OPT    CPU=LOCAL; WAIT=030; PARAM1=ZD3D; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_K      = T1;               DESCRIPTION=A priori inf. for final computation
+V_Z      = F1I;              DESCRIPTION=IA Final results, 1d
+V_T      = F3I;              DESCRIPTION=IA Final results, 3d
+V_PSDINF = IGC20;            DESCRIPTION=PSD corrections for ITRF2014
+V_CRDINF = IGC20;            DESCRIPTION=CRD/VEL/FIX master file name
+V_SUBMOD = DESAI2016;        DESCRIPTION=Subdaily pole model
+V_NUTMOD = IAU2000R06;       DESCRIPTION=Nutation model
+V_PCVINF = ANT_COD;          DESCRIPTION=PCV information
+V_PCV    = I20;              DESCRIPTION=GNSS PCV model (absolute)
+V_OBSSEL = OBSERV_COD;       DESCRIPTION=Observation selection file
+V_SATCRX = ZD_SAT_$Y+0;         DESCRIPTION=Satellite problem file for data import
+V_SATINF = SATELLIT;         DESCRIPTION=Satellite information
+V_DTSTC  = 05 59 00;         DESCRIPTION=Min. interval between pulse and maneuver
+V_BLQINF = FES2014b;         DESCRIPTION=BLQ file name, CMC corrections
+V_SAVE   = NO;               DESCRIPTION=Save results
+V_MEANPL = IERS2010_v1.2.0;  DESCRIPTION=Mean pole model
+V_DEL    = Y;                DESCRIPTION=Delete specific files from campaign
+

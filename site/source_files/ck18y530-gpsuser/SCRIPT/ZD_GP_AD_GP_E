@@ -1,0 +1,87 @@
+package GP_AD_GP_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GP_AD_GP_E
+#
+# Purpose :  Parallel run of GPSEST using code data
+#
+# Author  :  A. Villiger
+# Created :  24-apr-2016
+#
+# Changes :  23-Apr-2026 ck: Reformatted, clarified processing logic
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $param1,
+      $subPid,
+      $usehoi,
+      $trpModel,
+
+      $V_CSCR
+  ) = $bpe->getKeys(
+      'PARAM1',
+      'SUB_PID',
+      'V_TRPMOD',
+      'V_USEHOI',
+      'V_CSCR'
+  );
+
+  # ---------- Initialize user variable (cluster identifier) ------------
+  setUserVar($bpe, "CCC", $subPid);
+
+  # ---------- Configure station selection ------------
+  replaceSel($bpe, "GPSEST", "CZFILES", $param1);
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "PZFILES", "");
+
+  # ---------- Handle HOI switch ------------
+  if ($usehoi eq "NO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS","");
+    prtMess($bpe,"HOI SETUP: DISABLED by V_USEHOI=NO");
+  }
+
+  # ---------- Configure troposphere model (optional switch) ------------
+  if ($trpModel eq "GMF") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "VMF_FILES", ' ');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "TROPOS",    "DRY_GMF");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "MAPPNG",    "WET_GMF");
+    prtMess($bpe, "Troposphere model SETUP: $trpModel");
+  }
+
+  # ---------- Log station list content ------------
+  open (BPE, $param1);
+  print "\n\n", "-" x 75, "\n";
+  print "Contents of BPE file $param1\n";
+  print "-" x 75, "\n";
+  print <BPE>;
+  print "-" x 75, "\n";
+  close BPE;
+
+  # ---------- Run GPSEST ------------
+  my $PGMNAM = "GPSEST";
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "SYSOUT", "${V_CSCR}\$S+0\$(CCC)__");
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Run ADDNEQ2 (normal equation inversion) ------------
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Run GPSEST ------------
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","NEQUARS","");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RESIDRS","${V_CSCR}\$S+0\$(CCC)");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP", "${V_CSCR}\$S+0\$(CCC)");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST", "0");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OBS2NEQ","0");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT", "${V_CSCR}\$S+0\$(CCC)");
+  
+  $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+}

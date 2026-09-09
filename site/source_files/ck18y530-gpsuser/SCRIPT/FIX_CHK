@@ -1,0 +1,250 @@
+package FIX_CHK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FIX_CHK
+#
+# Purpose :  Execute HELMR1
+#
+# Remark  :  This script permits automatic verification of a given set of
+#            fiducial stations. In case of discrepancies, a modified FIX
+#            file can be output by HELMR1 and thus used to directly repeat
+#            the last ADDNEQ2 run, finally considering a reduced set of
+#            fiducial stations accepted for consistent datum definition.
+#
+# PARAMs  :  PARAM2 - goto PID for new datum definition (optionally)
+#            PARAM3 - STOP option for CRD (cross-)checking (optionally)
+#
+# Author  :  M. Meindl, S. Schaer
+#
+# Created :  19-Oct-2003
+#
+# Changes :  07-Feb-2006/ss: Check whether PARAM2 defined
+#            02-Sep-2010/ss/mm: Deactivated outlier rejection for second
+#                            HELMR1 run
+#            26-Sep-2012/ss: Further developed
+#            27-Sep-2012/ss: STOP option implemented (activated with PARAM3)
+#            28-Sep-2012/ss: Print LST filename in case of a stop
+#            17-Apr-2013/hb: Exception for doy 13102 F1-F1C added
+#            18-Apr-2013/cb: Exception for doy 13103 F3-F3C added
+#            29-May-2013/cb: Exceptions for doy 13144 F3S and 13145 F1S added
+#            30-May-2013/cb: Exceptions for doy 13146 F1S and 13145 F3S added
+#            31-May-2013/cb: Exceptions for doy 13147 F1S and 13146 F3S added
+#            01-Jun-2013/cb: Exceptions for doy 13148 F1S and 13147 F3S added
+#            02-Jun-2013/cb: Exceptions for doy 13149 F1S and 13148 F3S added
+#            03-Jun-2013/hb: Exceptions for doy 13150 F1S and 13149 F3S added
+#            03-Jun-2013/ss: Most recent exceptions removed
+#            04-Jun-2014/ss: Considered ULTyyddd.FLG
+#            10-Sep-2014/ss: Increased tolerances in case of RAP
+#            16-Dec-2014/ss/av: Updated for new HELMR1 (with ADDSTA/MAXREJ)
+#            16-SEP-2015/rd: Relax HELMR1 check if singular elements are detected
+#            18-May-2021/ec: Adapt script to FZDMGNSS (add $sol variable)
+#
+# ============================================================================
+
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+
+use lib "$ENV{U}/SCRIPT";
+use JumpLogger qw(logJump);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,
+    $param2,$param3,$sol,
+    $pcfFil,$startcount,
+    $camp_pth, $campaign,
+    $dirOut,$extOut,$dirFix,$extFix,
+  ) =
+  $bpe->getKeys(
+    '$YD+0',
+    'PARAM2','PARAM3',"$$bpe{PARAM4}",
+    'PCFFIL','STARTCOUNT',
+    'CAMP_PTH','CAMPAIGN',
+    'DIR_OUT','EXT_OUT','DIR_FIX','EXT_FIX',
+  );
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+# Initialize $SOL variable
+# ------------------------
+  setUserVar($bpe,"SOL",$sol);
+
+# Check whether this is an ULTRA
+# ------------------------------
+  my $ultFil = "$dirOut/../MSC/ULT$yyddd.FLG";
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+  $h_end = 24 unless -e $ultFil;
+
+# Set ULTRA limits
+# ----------------
+  if ($pcfFil eq "IGSRAPID") {
+    if (-e $ultFil) {
+      my $maxrej = 10;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","MAXREJ","$maxrej");
+      my $nlimit = 10*24/$h_end;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","$nlimit");
+      my $elimit = 10*24/$h_end;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","$elimit");
+      my $ulimit = 30*24/$h_end;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","$ulimit");
+    } else {
+      my $maxrej = 5;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","MAXREJ","$maxrej");
+      my $nlimit = 10;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","$nlimit");
+      my $elimit = 10;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","$elimit");
+      my $ulimit = 30;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","$ulimit");
+    }
+  }
+
+# Delete BAD FIX file in first run
+# --------------------------------
+  my $fixFil = "${dirFix}BAD${yyddd}.${extFix}";
+  unlink($fixFil) if $param2 ne "";
+  unlink($fixFil) if $param3 ne "";
+
+# Cope with ADDNEQ2 anomalies to be corrected
+# -------------------------------------------
+# Exception if a parameter was singular in the solution
+  open(OUT,"${dirOut}".substr(${param3},4,3)."${yyddd}.${extOut}");
+  while(<OUT>){
+    if ( / singular / ) {
+      prtMess($bpe,"Singularity in ${dirOut}${sol}${yyddd}.${extOut} detected:");
+      prtMess($bpe,"$_");
+      prtMess($bpe,"HELMR1 limits increased to 0.5, 0.5, 1.0 mm");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.50");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.50");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","1.00");
+      last;
+    }
+  }
+  close OUT;
+
+if ( 1 == 1 ) {
+  if (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG") {
+    if ( $param3 ne "" ) {
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.025");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.025");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.025");
+    }
+  }
+
+  if($yyddd eq "12271" && $param3 eq "F3C-F3_") {
+##    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.03");
+##    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.03");
+##    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.10");
+  }
+  if($yyddd eq "13103" && (($param3 eq "F3C-F3_") or ($param3 eq "F3S-F3_"))) {
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.015");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.015");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.015");
+  }
+  if($yyddd eq "13102" && (($param3 eq "F1C-F1_") or ($param3 eq "F1S-F1_"))) {
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.05");
+  }
+  if($yyddd eq "12336" && (($param3 eq "F3C-F3_") or ($param3 eq "F1C-F1_"))) {
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.015");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.015");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.015");
+  }
+  if(($yyddd eq "14009" && $param3 eq "F1C-F1_") ||  # X0 for G19 singular
+     ($yyddd eq "14008" && $param3 eq "F3C-F3_")) {
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.025");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.025");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.025");
+  }
+  if(($yyddd eq "14064" && $param3 eq "F1C-F1_") ||  # 11-Mar-2014 SL
+     ($yyddd eq "14064" && $param3 eq "F1S-F1_") ||
+     ($yyddd eq "14066" && $param3 eq "F1C-F1_") ||
+     ($yyddd eq "14065" && $param3 eq "F3C-F3_")) {
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.025");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.025");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.060");
+  }
+  if(($yyddd eq "14093" && $param3 eq "F1C-F1_") ||  # 08-Apr-2014 SS
+     ($yyddd eq "14093" && $param3 eq "F1S-F1_") ||
+     ($yyddd eq "14092" && $param3 eq "F3C-F3_") ||
+     ($yyddd eq "14092" && $param3 eq "F3S-F3_")) {
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.015");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.015");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.075");
+  }
+  if(($yyddd eq "15037" && $param3 eq "F1C-F1_") ||
+     ($yyddd eq "15037" && $param3 eq "F1S-F1_"))   { # 10-Feb-2015 AS
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+  if(($yyddd eq "15038" && $param3 eq "F3C-F3_") ||
+     ($yyddd eq "15038" && $param3 eq "F3S-F3_"))   { # 12-Feb-2015 AS
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+  if(($yyddd eq "15121" && $param3 eq "F1C-F1_") ||
+     ($yyddd eq "15121" && $param3 eq "F1S-F1_"))   { # 07-May-2015 AV
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+  if(($yyddd eq "15122" && $param3 eq "F3C-F3_") ||
+     ($yyddd eq "15122" && $param3 eq "F3S-F3_"))   { # 12-Feb-2015 AV
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+  if(($yyddd eq "15125" && $param3 eq "F3C-F3_") ||
+     ($yyddd eq "15125" && $param3 eq "F3S-F3_"))   { # 10-May-2015 DA
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+  if(($yyddd eq "17056" && $param3 eq "F3C-F3_") ||
+     ($yyddd eq "17056" && $param3 eq "F3S-F3_"))   { # 02-Mar-2017 AV
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+
+}
+
+# Run program
+# -----------
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","LISTFIL",'BAD$YD+0') if $param2 ne "";
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","LISTFIL",'BAD$YD+0') if $param3 ne "";
+  $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_OUT","LST");
+
+  my $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Check whether datum definition accepted or not
+# ----------------------------------------------
+  my $outFil = $bpe->getKey("$ENV{U}/INP/HELMR1.INP","SYSOUT");
+  if (-s $fixFil && $param2 ne "") {
+##
+##    copy($outFil,"${outFil}_${startcount}");
+##
+    prtMess($bpe,"Inconsistent fiducial station(s) detected");
+    logJump($bpe, $param2);
+    prtGoto($bpe,$param2);
+  }
+  if (-s $fixFil && $param3 ne "") {
+##  if (-s $fixFil && $param3 ne "" && $param3 ne "APRIORI") {
+    prtMess($bpe,"STOPPED DUE PROBLEM WITH: $param3. SEE: $outFil");
+##    die          "STOPPED DUE PROBLEM WITH: $param3. SEE: $outFil\n";
+    die          "STOPPED DUE PROBLEM WITH: $param3. SEE: $outFil\n" if $param3 ne "APRIORI"; 
+  }
+
+}

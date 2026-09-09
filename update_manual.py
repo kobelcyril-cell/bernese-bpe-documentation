@@ -87,6 +87,7 @@ COMMENTS_DIR = ROOT / "manual_additions" / "comments"
 SOURCE_LIST_FILE = configured_path("source_list_file", "manual_sources.txt")
 ACTIVE_SOURCE_LABEL = ""
 ACTIVE_USER_NAME = ""
+PUBLISHED_SOURCE_FILES: Dict[str, Path] = {}
 MANUAL_INDEX_FILE = "bernese_bpe_manual.html"
 OVERVIEW_PAGE_FILE = "index.html"
 PCF_PAGE_FILE = "bernese_bpe_pcf.html"
@@ -236,7 +237,12 @@ class HandbookHistoryRecord:
     path: str = ""
 
 
-def rel_link(target: Path, base: Path = OUTPUT_DIR) -> str:
+def rel_link(target: Path, base: Optional[Path] = None) -> str:
+    published_target = PUBLISHED_SOURCE_FILES.get(str(target.resolve()))
+    if published_target is not None:
+        target = published_target
+    if base is None:
+        base = OUTPUT_DIR
     return Path(os.path.relpath(target, base)).as_posix()
 
 
@@ -2839,6 +2845,26 @@ def source_display_label(path: Path) -> str:
     return f"{path.parent.name}/{path.name}"
 
 
+def publish_source_files(sources: List[Path], output_dir: Path) -> None:
+    """Copy source files into the generated site so Pages can serve the links."""
+    global PUBLISHED_SOURCE_FILES
+    PUBLISHED_SOURCE_FILES = {}
+    source_root = output_dir / "source_files"
+    for source in sources:
+        for folder_name in ("PCF", "SCRIPT", "OPT"):
+            folder = source / folder_name
+            if not folder.is_dir():
+                continue
+            for path in folder.rglob("*"):
+                if not path.is_file() or is_metadata_path(path, folder):
+                    continue
+                relative = path.relative_to(source)
+                target = source_root / source_slug(source) / relative
+                target.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(path, target)
+                PUBLISHED_SOURCE_FILES[str(path.resolve())] = target
+
+
 def source_branch_dir(output_dir: Path, source: Path) -> Path:
     return output_dir / "sources" / source_slug(source)
 
@@ -2908,7 +2934,7 @@ def compare_source_files(sources: List[Path]) -> List[tuple[str, str, str]]:
             if not folder.exists():
                 continue
             for path in folder.rglob("*"):
-                if path.is_file():
+                if path.is_file() and not is_metadata_path(path, folder):
                     key = path.relative_to(source).as_posix().lower()
                     grouped[key].append((source, path.read_bytes()))
     identical: List[tuple[str, str, str]] = []
@@ -3427,6 +3453,7 @@ def main() -> int:
     OUTPUT_DIR = output_dir
 
     ACTIVE_SOURCE_LABEL = ", ".join(str(path) for path in sources)
+    publish_source_files(sources, output_dir)
     pcf_docs, script_docs, inp_docs, handbook_docs, refs, file_registry = collect_data(sources)
     history_records = load_handbook_history()
     if not args.no_prompts and (args.add_comment or args.delete_comment):

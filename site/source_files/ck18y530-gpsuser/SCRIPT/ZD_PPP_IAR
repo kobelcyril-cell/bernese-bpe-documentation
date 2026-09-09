@@ -1,0 +1,47 @@
+package PPP_IAR;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  PPP_IAR
+#
+# Purpose :  Initialize or skip ambiguitiy resolution step for PPP
+#
+# PARAMs  :  PARAM2 - goto PID if V_GNSS undefined
+#
+# Author  :  R. Dach
+# Created :  11-Sep-2011
+#
+# Changes :
+# ============================================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtGoto);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $param2, 
+      $obstyp, 
+      $gnssar
+    ) = $bpe->getKeys(
+      'PARAM2', 
+      'V_OBSTYP', 
+      'V_GNSSAR'
+    );
+
+# Check whether V_GNSSAR is defined
+# ---------------------------------
+  unless (defined ($$bpe{V_GNSSAR})) {
+    die "Ambiguitiy resolution selection V_GNSSAR is expected as PCF variable\n";
+  }
+
+# Skip ambiguity resolution if V_GNSSAR is empty
+# ----------------------------------------------
+  prtGoto($bpe,$param2) if "$gnssar" eq "" || uc($obstyp) eq "CODE";
+
+}

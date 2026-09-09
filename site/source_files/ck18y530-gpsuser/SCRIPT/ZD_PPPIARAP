@@ -1,0 +1,62 @@
+package PPPIARAP;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  PPPIARAP
+#
+# Purpose :  Station-wise zero-difference ambiguity resolution
+#
+# Programs:
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#            PARAM2..PARAM5 - CODE PHASE BOTH
+#                     to select the observation files type for screening
+#
+# Author  :  R. Dach
+# Created :  11-Jan-2005               Last modified: 31-Jan-2005
+#
+# Changes :  31-Jan-2005 mm: New initPar call (w/o tmpFil)
+# ============================================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(initPar_Bl cleanFiles);
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my (
+      $yyyyssss, 
+      $ssss, 
+      $dirBpe,
+      $dirCzh, 
+      $extCzh 
+    ) = $bpe->getKeys(
+      '$YYYSS+0',
+      '$S+0',
+      'DIR_BPEPRT',
+      'DIR_CZH', 
+      'EXT_CZH'
+    );
+
+
+# Delete old output files
+# -----------------------
+  cleanFiles($bpe,"WLI",["OUT"], "");
+  cleanFiles($bpe,"NLI",["OUT","CRD"], "");
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}IAR_${yyyyssss}_";
+  my @pzhFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+  @pzhFil = map { substr(basename($_),0,4) } @pzhFil;
+  initPar_Bl($bpe,@pzhFil);
+
+}

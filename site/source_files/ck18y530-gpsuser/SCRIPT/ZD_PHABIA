@@ -1,0 +1,128 @@
+package PHABIA;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  PHABIA
+#
+# Purpose :  Execute PHABIA, special case for ZD-processing WL
+#
+# Author  :  S. Schaer
+# Created :  
+#
+# Changes :  29-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $yyddd,
+      $ssss,
+      $inposbh,
+      $outosb,
+      $v_apr,
+      $extOsb,
+      $dirOsb,
+      $dirOut,
+      $extBia,
+      $extClk,
+      $extCrd,
+      $dirCrd,
+      $extPre,
+      $dirPre
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      '$YD+0',
+      '$S+0',
+      'V_CBIA',
+      'PARAM2',
+      'V_APR',
+      'EXT_OSB',
+      'DIR_OSB',
+      'DIR_OUT',
+      'EXT_BIA',
+      'EXT_CLK',
+      'EXT_CRD',
+      'DIR_CRD',
+      'EXT_PRE',
+      'DIR_PRE'
+  );
+
+  my $inposb = "${inposbh}S";
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+
+  # ---------- Run program ------------
+  my $PGMNAM = "PHABIA";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Create combined OSB file ------------
+  if ($inposb ne '') {
+
+    my $iOsbFil = "${dirOsb}/${inposb}${yyssss}.${extOsb}";
+    my $oOsbFil = "${dirOsb}/WLB${yyssss}.${extOsb}";
+
+    my $estOsb  = "";
+    $estOsb = "${dirOsb}/WL_${yyssss}.${extOsb}";
+
+    my %osb;
+
+    $osb{G}{L1X}{L1W} = 1;
+    $osb{G}{L1X}{L1C} = 1;
+    $osb{G}{L2X}{L2W} = 1;
+    $osb{G}{L2X}{L2C} = 1;
+    $osb{G}{L2X}{L2X} = 1;
+
+    $osb{R}{L1X}{L1P} = 1;
+    $osb{R}{L1X}{L1C} = 1;
+    $osb{R}{L2X}{L2P} = 1;
+    $osb{R}{L2X}{L2C} = 1;
+
+    $osb{E}{L1X}{L1C} = 1;
+    $osb{E}{L1X}{L1X} = 1;
+    $osb{E}{L5X}{L5Q} = 1;
+    $osb{E}{L5X}{L5X} = 1;
+
+    $osb{C}{L2X}{L2I} = 1;
+    $osb{C}{L2X}{L2X} = 1;
+    $osb{C}{L7X}{L7I} = 1;
+    $osb{C}{L7X}{L7X} = 1;
+
+    $osb{J}{L1X}{L1C} = 1;
+    $osb{J}{L1X}{L1X} = 1;
+    $osb{J}{L2X}{L2L} = 1;
+    $osb{J}{L2X}{L2S} = 1;
+    $osb{J}{L2X}{L2X} = 1;
+
+    open my $OUT, ">", $oOsbFil;
+    open my $INP, "<", $iOsbFil;
+
+    print $OUT $_ for (<$INP>);
+    close $INP;
+
+    open $INP, "<", $estOsb;
+
+    while (<$INP>) {
+      if (/OSB  (\w)\d\d\d .* (L\d\w) /) {
+        my $otyp = $2;
+        chomp;
+
+        foreach my $obstyp (sort keys %{$osb{$1}{$otyp}}) {
+          my $line = $_;
+          $line =~ s/$otyp/$obstyp/;
+          print $OUT "$line\n";
+        }
+      }
+    }
+
+    while (<$INP>) {
+      print $OUT $_ if / L\d\w /;
+    }
+
+    close $INP;
+    close $OUT;
+  }
+}

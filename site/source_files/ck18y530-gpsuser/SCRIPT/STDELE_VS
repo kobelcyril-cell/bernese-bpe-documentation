@@ -1,0 +1,60 @@
+package STDELE_VS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  STDELE_VS
+#
+# Purpose :  Execute STDELE
+#
+# PARAMs  :
+#
+# Author  :  C. Kobel
+# Created :  16-Mar-2026
+#
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yydddm1, $yyssss, $yyssssm1, $STD) = $bpe->getKeys('$YD+0','$YD-1','$YSS+0','$YSS-1','V_STD');
+
+
+    # Determine which date format to use
+    # ----------------------------------
+    my $suffix_len = 5;
+    my $suffix = substr($STD, -$suffix_len);
+    my ($d0,$d1);
+
+    if ($suffix eq $yyddd) {
+        ($d0,$d1) = ($yyddd,$yydddm1);
+    } else {
+        ($d0,$d1) = ($yyssss,$yyssssm1);
+	$suffix_len = 6;
+    }
+
+    # Remove existing date part
+    my $std_base = substr($STD, 0, length($STD)-$suffix_len);
+    # Set precise orbit files
+    # -----------------------
+    my $tmpFil = "$ENV{U}/WORK/STDELE.lst";
+
+    open my $OUT, '>', $tmpFil or die "Cannot open $tmpFil: $!";
+    print $OUT "$std_base$d0\n";
+    print $OUT "$std_base$d1\n";
+    print "$std_base$d0\n";
+    print "$std_base$d1\n";
+    close $OUT;
+
+    $bpe->putKey("$ENV{U}/PAN/STDELE.INP","STDFIL","SELECTED","REPLACE",$tmpFil);
+
+    system("rm $ENV{U}/WORK/STDELE.lst");
+
+    # Run program
+    # -----------
+    my $PGMNAM = "STDELE";
+    $bpe->RUN_PGMS($PGMNAM);
+}

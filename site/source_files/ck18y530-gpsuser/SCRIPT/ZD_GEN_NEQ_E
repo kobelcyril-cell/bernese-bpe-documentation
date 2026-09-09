@@ -1,0 +1,103 @@
+package GEN_NEQ_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GEN_NEQ_E
+#
+# Purpose :  Parallel run of GPSEST subsequent ADDNEQ2
+#
+# Author  :  E. Calero
+# Created :  
+#
+# Changes :  28-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $param1,
+      $iar,
+      $pul,
+      $usehoi,
+      $trpModel,
+      $dirOut,
+      $yyddd
+  ) = $bpe->getKeys(
+      'PARAM1',
+      'V_IAR',
+      'V_PUL',
+      'V_USEHOI',
+      'V_TRPMOD',
+      'DIR_OUT',
+      '$YD+0'
+  );
+
+  # ---------- Initialize $D4 and $CCC variable with subpid ------------
+  setUserVar($bpe, "D4", $param1);
+
+  # ---------- Explicit HOI switch via V_USEHOI ------------
+  if ($usehoi eq "NO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "IONOS", "");
+    prtMess($bpe, "HOI SETUP: DISABLED by V_USEHOI=NO");
+  }
+
+  # ---------- Explicit TRPMOD switch via V_TRPMOD ------------
+  if ($trpModel eq "GMF") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "VMF_FILES", ' ');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "TROPOS", "DRY_GMF");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "MAPPNG", "WET_GMF");
+    prtMess($bpe, "Troposphere model SETUP: $trpModel");
+  }
+
+  # ---------- Check GRD status files ------------
+  my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+  # NTAL
+  my $noNtal = "${mscDir}/no_NTAL";
+  if (-e $noNtal) {
+     $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "ALOAD_FILES", ' ' );
+     prtMess( $bpe, "NTAL disabled: no_NTAL exists" ); }
+  # NTOL
+  my $noNtol = "${mscDir}/no_NTOL";
+  if (-e $noNtol) {
+     $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "ONTLD_FILES", ' ' );
+     prtMess( $bpe, "NTOL disabled: no_NTOL exists" ); }
+   # HYDL
+   my $noHydl = "${mscDir}/no_HYDL";
+   if (-e $noHydl) {
+     $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "HLOAD_FILES", ' ' );
+     prtMess( $bpe, "HYDL disabled: no_HYDL exists" ); }
+
+
+  # ---------- Introduce fixed ambiguities if indicated ----------
+  if ($iar eq "YES") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "DIFLVL", "ZERO_AR");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "DCBINP", 'PHA$YSS+0');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "APRL1L2", "1");
+    prtMess($bpe, "ZERO_AR ENABLED");
+  } else {
+    prtMess($bpe, "ZERO_AR DISABLED");
+  }
+
+  # ---------- Enable orbit midnight pulses if indicated ------------
+  if ($pul eq "YES") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "STCEST", "1");
+    prtMess($bpe, "ORBIT MIDNIGHT PULSES ENABLED");
+  } else {
+    prtMess($bpe, "PULSES DISABLED");
+  }
+
+  # ---------- Run GPSEST ------------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+ # ---------- Run ADDNEQ2 ------------
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+}

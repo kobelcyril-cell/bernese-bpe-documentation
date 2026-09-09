@@ -1,0 +1,249 @@
+# ============================================================================
+# FZDMGNSS.PCF
+# ============================================================================
+#
+# Description:  Final-like (1-day arcs) GNSS solution in
+# Zero-Difference-Mode (ZDM)
+#
+# Comments   :  PCF mainly based on legacy clock processing PCFs
+# (e.g., FCLKGNSS)
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  E. Calero
+# Created    :  20-Apr-2021
+#
+# Changes    :
+#
+# ============================================================================
+#
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Copy observations and a priori information
+# ------------------------------------------
+001  JUMP_CP1            NO_OPT    CPU=LOCAL; NEXTJOB=006
+002  REP_COP             FZDM_0    CPU=LOCAL; WAIT=001; PARAM1=V_K; PARAM2=V_Z; PARAM3=V_I
+003  INIT_HOI            NO_OPT    CPU=LOCAL; WAIT=002
+004  INIT_VMF            NO_OPT    CPU=LOCAL; WAIT=003
+005  JUMP_CP2            NO_OPT    CPU=LOCAL; WAIT=004; NEXTJOB=110
+006  FZDM_RNX            NO_OPT    CPU=SHORT; WAIT=005
+007  FZDM_COP            FZDM_0    CPU=LOCAL; WAIT=005
+997  CHECK_GRD_FILES	    NO_OPT    CPU=LOCAL; WAIT=007
+906  STATION_SELECTION   NO_OPT    CPU=HUGE; WAIT=006 007
+998  NUM_OBSFIL          NO_OPT    CPU=LOCAL; WAIT=906
+992  CHECK_OBSENTRIES    NO_OPT    CPU=LOCAL; WAIT=998
+999  INIT_BRD            FZDM_NAV  CPU=SHORT; WAIT=005
+008  COOVEL              FZDM_0    CPU=SHORT; WAIT=006 007 999 992
+009  ORBGEN              FZDM_0    CPU=SHORT; WAIT=006 007 999 992 997
+#
+# Preparing the RINEX files
+# -------------------------
+010  RNXSMTAP            FZDM_RNX  CPU=SHORT; WAIT=008 009
+011  RNXSMT_P            FZDM_RNX  CPU=SHORT; WAIT=010; PARALLEL=010
+012  RXOBV3GP            FZDM_RNX  CPU=SHORT; WAIT=011
+013  RXOBV3_P            FZDM_RNX  CPU=SHORT; WAIT=012; PARALLEL=012
+913  CHECK_SAT_GAPS      FZDM_RNX  CPU=SHORT; WAIT=013
+914  CHECK_SAT_RMS       FZDM_RNX  CPU=SHORT; WAIT=913
+014  SATMRK              FZDM_RNX  CPU=SHORT; WAIT=914
+015  MANMRK              FZDM_RNX  CPU=SHORT; WAIT=014
+016  MKCLUS              FZDM_RNX  CPU=SHORT; WAIT=015
+017  CHECK_VAPL_ENTRIES  NO_OPT    CPU=SHORT; WAIT=016
+#
+# Start preprocessing
+# -------------------
+020  INIT_HOI            NO_OPT    CPU=LOCAL; WAIT=016
+021  INIT_VMF            NO_OPT    CPU=LOCAL; WAIT=020
+022  CODSPPAP            FZDM_GEN  CPU=SHORT; WAIT=021
+023  CODSPP_P            FZDM_GEN  CPU=SHORT; WAIT=022; PARALLEL=022
+024  CODXTR              FZDM_GEN  CPU=SHORT; WAIT=023; NEXTJOB=022
+996  DEL_LOBS            NO_OPT    CPU=SHORT; WAIT=024
+025  CCRNXC              FZDM_GEN  CPU=SHORT; WAIT=996
+#
+# Compute weights for the code
+# ----------------------------
+030  TIMESTAP            FZDM_WGT  CPU=SHORT; WAIT=025; PARAM2=V_I
+031  TIMEST_C            FZDM_WGT  CPU=BIG; WAIT=030; PARALLEL=030
+032  GPSXTR              FZDM_WGT  CPU=SHORT; WAIT=031
+033  FZDM_CH1            FZDM_WGT  CPU=SHORT; WAIT=032; NEXTJOB=040 030
+#
+# Special code preprocessing (check satclk station-wise)
+# ------------------------------------------------------
+040  FILESTAP            FZDM_MON  CPU=SHORT; WAIT=033
+041  FILEST_P            FZDM_MON  CPU=SHORT; WAIT=040; PARALLEL=040
+042  SATMONAP            FZDM_MON  CPU=MEGA; WAIT=041; PARAM3=RCLK; PARAM4=30
+043  SATMON_P            FZDM_MON  CPU=SHORT; WAIT=042; PARALLEL=042
+#
+# Generate orbits based on code observations
+# ------------------------------------------
+050  TIMESTAP            FZDM_ORC  CPU=SHORT; WAIT=043; PARAM2=V_B
+051  TIMEST_O            FZDM_ORC  CPU=BIG; WAIT=050; PARALLEL=050
+052  ADDNEQOR            FZDM_ORC  CPU=SHORT; WAIT=051
+053  ORBGENZD            FZDM_1DS  CPU=SHORT; WAIT=052; PARAM1=V_B
+#
+# Clean code residuals
+# --------------------
+060  TIMESTAP            FZDM_COD  CPU=SHORT; WAIT=053; PARAM2=V_B
+061  TIMEST_A            FZDM_COD  CPU=BIG; WAIT=060; PARALLEL=060
+062  GPSXTR              FZDM_COD  CPU=SHORT; WAIT=061
+063  FZDM_CH1            FZDM_COD  CPU=SHORT; WAIT=062; NEXTJOB=064 050
+064  RESRMS              FZDM_COD  CPU=SHORT; WAIT=063
+065  MRKOB_AP            FZDM_COD  CPU=SHORT; WAIT=064
+066  MRKOB__P            FZDM_COD  CPU=SHORT; WAIT=065; PARALLEL=065
+#
+# OSB-Extraction
+# --------------
+070  TIMESTAP            FZDM_SB1  CPU=SHORT; WAIT=066; PARAM2=V_C
+071  TIMEST_B            FZDM_SB1  CPU=BIG; WAIT=070; PARALLEL=070
+072  ADDNEQ2             FZDM_SB2  CPU=BIG; WAIT=071
+073  TIMNEQAP            FZDM_SB3  CPU=SHORT; WAIT=072; PARAM2=V_C
+074  TIMNEQ              FZDM_SB3  CPU=BIG; WAIT=073; PARALLEL=073
+075  OSBMERGE            NO_OPT    CPU=SHORT; WAIT=074
+# Compute code-only clocks
+# ------------------------
+180  TIMESTAP            FCLK_COD  CPU=SHORT; WAIT=075; PARAM2=V_B
+181  TIMCLK              FCLK_COD  CPU=BIG; WAIT=180; PARALLEL=180
+182  CCRNXC              FCLK_COD  CPU=SHORT; WAIT=181
+#
+# Preprocessing: phase + geometry improvement
+# -------------------------------------------
+080  MKCLUS              FZDM_GEN  CPU=SHORT; WAIT=182
+081  CLKESTCB            FZDM_GEN  CPU=BIG; WAIT=080; PARAM1=V_E
+082  MAUPRPAP            FZDM_GEN  CPU=SHORT; WAIT=081
+083  MAUPRP_P            FZDM_GEN  CPU=SHORT; WAIT=082; PARALLEL=082
+084  MPRXTR              FZDM_GEN  CPU=SHORT; WAIT=083
+085  TIMORBAP            FZDM_ORP  CPU=SHORT; WAIT=084; PARAM2=V_H
+086  TIMORB_P            FZDM_ORP  CPU=SHORT; WAIT=085; PARALLEL=085
+087  ADDNEQOR            FZDM_ORP  CPU=SHORT; WAIT=086
+088  ORBGENZD            FZDM_1DS  CPU=SHORT; WAIT=087; PARAM1=V_H
+#
+# Preprocessing: residual check
+# -----------------------------
+090  TIMESTAP            FZDM_EDT  CPU=SHORT; WAIT=088; PARAM2=V_H
+091  TIMEST_P            FZDM_EDT  CPU=SHORT; WAIT=090; PARALLEL=090
+092  GPSXTR              FZDM_EDT  CPU=SHORT; WAIT=091
+093  FZDM_CH2            FZDM_EDT  CPU=SHORT; WAIT=092; NEXTJOB=094 085
+094  RESRMSZD            FZDM_EDT  CPU=SHORT; WAIT=093
+095  MRKOBSAP            FZDM_EDT  CPU=SHORT; WAIT=094; PARAM2=BOTH; PARAM3=SYNCHRO
+096  MRKOBS_P            FZDM_EDT  CPU=SHORT; WAIT=095; PARALLEL=095
+097  ITEPHASE            NO_OPT    CPU=SHORT; WAIT=096; NEXTJOB=097 085 093
+098  SOSUPDAT            FZDM_GEN  CPU=SHORT; WAIT=097
+099  CCRNXC              FZDM_EDT  CPU=SHORT; WAIT=098
+100  FZDM_UPD            NO_OPT    CPU=LOCAL; WAIT=099; PARAM1=V_H
+#
+# Generate best FA solution
+# -------------------------
+110  TIMZDMAP            FZDM_1DP  CPU=LOCAL; WAIT=100; PARAM2=V_U
+111  TIMZDM_P            FZDM_1DP  CPU=MEGA; WAIT=110; PARALLEL=110
+112  ADDNEQZD            FZDM_1DU  CPU=MEGA; WAIT=111; PARAM1=V_U
+113  PRECLKAP            NO_OPT    CPU=LOCAL; WAIT=112; PARAM2=V_U
+995  WAIT_ZD             NO_OPT    CPU=SHORT; WAIT=113
+114  PRECLK_P            FZDM_1DS  CPU=HUGE; WAIT=995; PARALLEL=113
+115  ITEPRECL            NO_OPT    CPU=LOCAL; WAIT=114; NEXTJOB=116 113
+116  SOLCLKAP            NO_OPT    CPU=LOCAL; WAIT=115; PARAM2=V_U
+117  SOLCLK_P            FZDM_1DS  CPU=HUGE; WAIT=116; PARALLEL=116
+119  CCRNXCZD            FZDM_1DS  CPU=SHORT; WAIT=117; PARAM1=V_U
+120  ORBGENZD            FZDM_1DS  CPU=SHORT; WAIT=119; PARAM1=V_U
+121  FZDM_UPD            NO_OPT    CPU=LOCAL; WAIT=120; PARAM1=V_U; PARAM2=V_Z
+#
+# Ambiguity fixing (based on WL and L1 ambiguities)
+# -------------------------------------------------
+130  SATMRK              IAR_AMB   CPU=LOCAL; WAIT=121
+131  FILESTAP            IAR_WLB   CPU=LOCAL; WAIT=130
+132  FILEST_P            IAR_WLB   CPU=SHORT; WAIT=131; PARALLEL=131
+133  PHABIA              IAR_WLB   CPU=LOCAL; WAIT=132; PARAM1=CBS; PARAM2=WLB
+134  FILESTAP            IAR_WLI   CPU=LOCAL; WAIT=133
+135  FILEST_P            IAR_WLI   CPU=SHORT; WAIT=134; PARALLEL=134
+136  FILESTAP            IAR_NLB   CPU=LOCAL; WAIT=135
+137  FILEST_P            IAR_NLB   CPU=SHORT; WAIT=136; PARALLEL=136
+138  STDPRE              IAR_NLB   CPU=LOCAL; WAIT=137
+139  PHABIA              IAR_NLB   CPU=MEGA; WAIT=138; PARAM1=CBS; PARAM2=NLB
+639  CHECK_AR_SAT        IAR_NLB   CPU=SHORT; WAIT=139; NEXTJOB=022
+140  ORBGEN              IAR_NLB   CPU=LOCAL; WAIT=639
+141  PHACMB              NO_OPT    CPU=LOCAL; WAIT=140; PARAM1=CBS; PARAM2=WL_; PARAM3=NL_; PARAM4=IAR
+142  FILESTAP            IAR_NLI   CPU=LOCAL; WAIT=141
+143  FILEST_P            IAR_NLI   CPU=SHORT; WAIT=142; PARALLEL=142
+144  OBSXTR              IAR_NLI   CPU=LOCAL; WAIT=143
+145  IAR_STA             IAR_CHK   CPU=LOCAL; WAIT=144
+146  FZDM_UPD            NO_OPT    CPU=LOCAL; WAIT=145; PARAM1=V_U; PARAM2=V_Z
+#
+# Generate best IA solution
+# -------------------------
+150  TIMZDMAP            FZDM_1DP  CPU=LOCAL; WAIT=146; PARAM2=V_Z; PARAM3=IAR; PARAM4=PUL
+151  TIMZDM_P            FZDM_1DP  CPU=MEGA; WAIT=150; PARALLEL=150
+152  ADDNEQZD            FZDM_1DU  CPU=MEGA; WAIT=151; PARAM1=V_Z
+153  PRECLKAP            NO_OPT    CPU=LOCAL; WAIT=152; PARAM2=V_Z
+993  WAIT_ZD             NO_OPT    CPU=SHORT; WAIT=153
+154  PRECLK_P            FZDM_1DS  CPU=HUGE; WAIT=993; PARALLEL=153
+155  ITEPRECL            NO_OPT    CPU=LOCAL; WAIT=154; NEXTJOB=156 153
+156  PRECLK              FZDM_1DS  CPU=HUGE; WAIT=155; PARAM1=V_Z
+157  ADDNEQ2C            FZDM_1DC  CPU=LOCAL; WAIT=156; PARAM1=V_Z
+158  FIX_CHK             FZDM_1DC  CPU=LOCAL; WAIT=157; NEXTJOB=157; PARAM4=V_Z
+991  ADDNEQZM            FZDM_FIN  CPU=HUGE; WAIT=158; PARAM1=V_Z
+989  GPSXTR              FZDM_FIN  CPU=SHORT; WAIT=991
+994  WAIT                NO_OPT    CPU=SHORT; WAIT=158
+159  SOLCLKAP            NO_OPT    CPU=LOCAL; WAIT=994; PARAM2=V_Z
+160  SOLCLK_P            FZDM_1DS  CPU=HUGE; WAIT=159; PARALLEL=159
+161  CCRNXCZD            FZDM_1DS  CPU=SHORT; WAIT=160; PARAM1=V_Z
+162  ORBGENZD_FIN        FZDM_FIN  CPU=SHORT; WAIT=161 991; PARAM1=V_Z
+163  ITER_AR             NO_OPT    CPU=LOCAL; WAIT=162; NEXTJOB=121
+164  STDPRE              FZDM_1DS  CPU=LOCAL; WAIT=163
+200  STDDIF              FZDM_FIN  CPU=SHORT; WAIT=163
+201  COMPAR2_ZD          FZDM_FIN  CPU=SHORT; WAIT=163
+210  CMP_LAPACK          NO_OPT    CPU=SHORT; WAIT=200 201
+990  ATTXTR              FZDM_FIN  CPU=SHORT; WAIT=163
+#
+# Summary of processing
+# ---------------------
+165  OBSXTR              FZDM_SUM  CPU=SHORT; WAIT=164 200 201 990
+166  OBSXTR_EXTRACT      NO_OPT    CPU=SHORT; WAIT=165
+167  AMB_EXTRACT         NO_OPT    CPU=SHORT; WAIT=166
+168  GPSXTR_EXTRACT      NO_OPT    CPU=SHORT; WAIT=989
+268  CHECK_SAT_CLOCKS    NO_OPT    CPU=SHORT; WAIT=163
+# Save results
+# ------------
+170  SAVERES             NO_OPT    CPU=LOCAL; WAIT=167; PARAM1=V_K; PARAM2=V_Z; PARAM3=V_I; PARAM4=V_U
+171  CLEAN_FILES         NO_OPT    CPU=LOCAL; WAIT=170 989
+550  STATUS              NO_OPT    CPU=LOCAL; WAIT=171; PARAM1=ZDGNSS; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_A      = BRD;           DESCRIPTION=A priori information (brd, and bull. A)
+V_W      = C0;            DESCRIPTION=CODSPP apriori solution
+V_I      = CW;            DESCRIPTION=Weights for the code observations
+V_B      = CR;            DESCRIPTION=Code screening
+V_C      = CB;            DESCRIPTION=Unify inter-system/frequency biases
+V_E      = CC;            DESCRIPTION=CLKEST for starting the MAUPRP
+V_H      = T0;            DESCRIPTION=Code+phase screening in reg. clusters
+V_K      = T1;            DESCRIPTION=A priori inf. for final computation
+V_U      = F1F;           DESCRIPTION=FA Final results, 1d
+V_Z      = F1I;           DESCRIPTION=IA Final results, 1d
+V_L      = LARGE;         DESCRIPTION=IA Final results, full solution (one ADDNEQ2)
+V_PSDINF = IGC20;         DESCRIPTION=PSD corrections
+V_CRDINF = IGC20;         DESCRIPTION=CRD/VEL/FIX master file name
+V_BLQINF = FES2014b;      DESCRIPTION=BLQ file name, CMC corrections
+V_SATCRX = ZD_SAT_$Y+0;   DESCRIPTION=Satellite problem file for data import
+V_SATINF = SATELLIT;      DESCRIPTION=Satellite information
+V_PCV    = I20;           DESCRIPTION=GNSS PCV model (absolute)
+V_SUBMOD = DESAI2016;     DESCRIPTION=Subdaily pole model
+V_NUTMOD = IAU2000R06;    DESCRIPTION=Nutation model
+V_POTCOE = COSTG_FSM_2509;DESCRIPTION=Gravity field model
+V_NCLU   = 14;            DESCRIPTION=Number of clusters to be used
+V_OBSSEL = OBSERV_COD;    DESCRIPTION=Observation selection file
+V_STAINF = CODE;          DESCRIPTION=Station information
+V_PCVINF = ANT_COD;       DESCRIPTION=PCV information
+V_SAMPL  = 300;           DESCRIPTION=Sampling rate of the GPSEST solution
+V_BIAINF = SINEX_BIA_COD;  DESCRIPTION=Bias-SINEX information file
+V_NITEAR = 0;             DESCRIPTION=Number of iterations for AR
+V_SAVE   = YES;           DESCRIPTION=Save results
+V_REPINI = NO;            DESCRIPTION=Initialize (screened observations) from REPRO
+V_MGEINI = NO;            DESCRIPTION=Initialize orbit/clock information with MGEX
+V_MEANPL = IERS2010_v1.2.0;  DESCRIPTION=Mean pole model
+V_CLEAN  = YES;           DESCRIPTION=Delete specific files from campaign
+V_MODE   = FINAL;         DESCRIPTION=Define whether FINAL, RAPID or ULTRA
+V_USEHOI = YES;           DESCRIPTION=Use HOI-file
+V_TRPMOD = VMF;           DESCRIPTION=Troposphere model
+V_NSTA   = FINAL;         DESCRIPTION=Number of stations used in the processing
+

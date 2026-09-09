@@ -1,0 +1,118 @@
+# ============================================================================
+# ZDGNSS_SOL.PCF
+# ============================================================================
+#
+# Description:  Compute ZD-solution
+#
+# Comments   :
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  C. Kobel
+# Created    :  18-Jun-2026
+#
+# Changes    :
+#
+# ============================================================================
+#
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Wait for status flag
+# --------------------
+001  ZD_STATUS             NO_OPT      CPU=ANY; PARAM1=PPP; PARAM2=CHECK
+#
+# Prepare a priori orbit
+# ----------------------
+099  ZD_ORBGEN             ZD_1DP      CPU=ANY; WAIT=001
+#
+# Set up NEQs
+# -----------
+100  ZD_GEN_NEQ_P          ZD_1DP      CPU=LOCAL; WAIT=099
+101  ZD_GEN_NEQ_E          ZD_1DP      CPU=MEGA; WAIT=100; PARALLEL=100
+#
+# Combine NEQs
+# ------------
+110  ZD_ADDNEQ2_DELNEQ     ZD_1DU      CPU=MEGA; WAIT=101
+#
+# Pre-eliminate clocks
+# --------------------
+120  ZD_PRE_ELIM_CLK_P     NO_OPT      CPU=LOCAL; WAIT=110; PARAM2=V_FIN
+121  ZD_WAIT               NO_OPT      CPU=SHORT; WAIT=120
+122  ZD_PRE_ELIM_CLK_E     ZD_1DS      CPU=HUGE; WAIT=121; PARALLEL=120
+123  ZD_ITE_PRE_CLK        NO_OPT      CPU=LOCAL; WAIT=122; NEXTJOB=130 120
+#
+# Pre-eliminate last clocks
+# -------------------------
+130  ZD_PRE_ELIM_CLK       ZD_1DS      CPU=HUGE; WAIT=123
+#
+# Verification of datum definition
+# --------------------------------
+140  ZD_ADDNEQ2_DATFIL     ZD_1DC      CPU=LOCAL; WAIT=130
+141  ZD_FIX_CHK            ZD_1DC      CPU=LOCAL; WAIT=140; NEXTJOB=140
+#
+# Compute large solution (including all satellite clocks)
+# -------------------------------------------------------
+150  ZD_ADDNEQ2            ZD_FIN      CPU=HUGE; WAIT=141
+#
+# Extract statistics
+# ------------------
+160  ZD_GPSXTR             ZD_FIN      CPU=SHORT; WAIT=150
+#
+# Compute solution with pre-eliminated clocks
+# -------------------------------------------
+170  ZD_ADDNEQ2_CLK_P      NO_OPT      CPU=LOCAL; WAIT=141
+171  ZD_ADDNEQ2_CLK_E      ZD_1DS      CPU=HUGE; WAIT=170; PARALLEL=170
+#
+# Combine clocks
+# --------------
+180  ZD_CCRNXC             ZD_1DS      CPU=SHORT; WAIT=171
+#
+# Compute final orbits
+# --------------------
+190  ZD_ORBGENF            ZD_FIN      CPU=SHORT; WAIT=150 180
+#
+# Checks (nothing yet)
+# --------------------
+#
+# Create status flag
+# ------------------
+999  ZD_STATUS             NO_OPT      CPU=ANY; WAIT=190; PARAM1=IA_F; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_BRD    = *;             DESCRIPTION=A priori information (brd, and bull. A)
+V_CWGT   = *;             DESCRIPTION=Weights for the code observations
+V_CBIA   = *;             DESCRIPTION=Unify inter-system/frequency biases
+V_APR    = *;             DESCRIPTION=A priori information
+V_FIN    = *;             DESCRIPTION=Final results
+V_LARGE  = *;             DESCRIPTION=Final results, full solution (one ADDNEQ2)
+V_CRDINF = IG?20;         DESCRIPTION=CRD/VEL/FIX master file name
+V_BLQINF = FES20*;        DESCRIPTION=BLQ file name, CMC corrections
+V_SATCRX = *;             DESCRIPTION=Satellite problem file for data import
+V_SATINF = *;             DESCRIPTION=Satellite information
+V_MAC    = *;             DESCRIPTION=Satellite Macromodel
+V_PCV    = I??;           DESCRIPTION=GNSS PCV model (absolute)
+V_SUBMOD = *;             DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;             DESCRIPTION=Nutation model
+V_SETID  = *;             DESCRIPTION=Solid Earth Tides
+V_OTID   = *;             DESCRIPTION=Ocean Tides
+V_PEPH   = *;             DESCRIPTION=Planetary ephemeris
+V_AREF   = *;             DESCRIPTION=Albedo reflectivity
+V_AEMI   = *;             DESCRIPTION=Albedo emissivity
+V_FLUX   = *;             DESCRIPTION=Flux index
+V_POTCOE = *;             DESCRIPTION=Gravity field model
+V_OBSSEL = *;             DESCRIPTION=Observation selection file
+V_STAINF = *;             DESCRIPTION=Station information
+V_PCVINF = *;             DESCRIPTION=PCV information
+V_SAMPL  = *;             DESCRIPTION=Sampling rate of the GPSEST solution;             CHECK_TYPE=integer
+V_USEHOI = *;             DESCRIPTION=Use HOI-file;                                     CARDS=YES NO
+V_TRPMOD = VMF;           DESCRIPTION=Troposphere model
+V_IAR    = *;             DESCRIPTION=Introduce fixed ambiguities;                      CARDS=YES NO
+V_PUL    = *;             DESCRIPTION=Enable orbit midnight pulses;                     CARDS=YES NO
+V_VDAT   = *;             DESCRIPTION=Verification of datum definition;                 CARDS=YES NO
+# Configuration
+V_PCFCONFIG = MODEL SETUP_ZDGNSS FINAL;    DESCRIPTION=Configuration files
+

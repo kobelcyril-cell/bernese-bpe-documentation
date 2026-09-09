@@ -1,0 +1,37 @@
+package AMBINI;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  AMBINI
+#
+# Purpose :  Execute SATMRK ti initialize already resolved ambiguities
+#            (if V_AMBINI = 'Y')
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+# Created :  20-Mar-2019
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+sub run {
+    my $bpe = shift;
+
+    # Get variables
+    # -------------
+    my ($AMBINI) = $bpe->getKeys('V_AMBINI');
+
+    if ($AMBINI eq 'Y') {
+        print "Run SATMRK to initialize already resolved ambiguities\n";
+
+        # Run program
+        # -----------
+        my $PGMNAM = "SATMRK";
+        $bpe->RUN_PGMS($PGMNAM);
+    } else {
+        print "Skip initialization of already resolved ambiguities\n";
+    }
+}

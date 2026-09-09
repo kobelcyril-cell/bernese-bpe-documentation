@@ -1,0 +1,91 @@
+package INIT_HOI;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  INIT_HOI
+#
+# Purpose :  Initialize HOI ionosphere file
+#
+# Author  :  C. Kobel
+# Created :  21-Apr-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+use File::Copy;
+
+
+sub run {
+
+    my $bpe = shift;
+
+    # ---------- Get variables ------------
+    my (
+        $yyddd,
+        $yyyy,
+        $dirIon,
+        $extIon,
+        $usehoi
+    ) = $bpe->getKeys(
+        '$YD+0',
+        '$Y+0',
+        'DIR_ION',
+        'EXT_ION',
+        'V_USEHOI'
+    );
+
+    # ---------- Skip if V_USEHOI = NO ------------
+    if ( $usehoi eq "NO" ) {
+
+        prtMess($bpe, "skipping HOI copy");
+        return;
+    }
+
+    # ---------- Select input ionosphere file ------------
+    my $inpion = "";
+
+    my @inpion0 = (
+
+        "$PATH_SAV/$CAMP_SAVIGS/$yyyy/ATM/Z3_${yyddd}.${extIon}",
+        "$CDIR_GIM/ATM/Z3_${yyddd}.${extIon}",
+
+        "$PATH_SAV/$CAMP_SAVIGS/$yyyy/ATM/Z1_${yyddd}.${extIon}",
+        "$CDIR_GIM/ATM/Z1_${yyddd}.${extIon}",
+
+        "$PATH_SAV/$CAMP_SAVRAP/ATM/RM_${yyddd}.${extIon}",
+        "$CDIR_RAP/ATM/RM_${yyddd}.${extIon}",
+
+        "$PATH_SAV/$CAMP_SAVRAP/ATM/RA_${yyddd}.${extIon}",
+        "$CDIR_RAP/ATM/RA_${yyddd}.${extIon}",
+
+        "$PATH_SAV/$CAMP_SAVRAP/ATM/RZ_${yyddd}.${extIon}",
+        "$CDIR_RAP/ATM/RZ_${yyddd}.${extIon}",
+    );
+
+    map {
+        if ( -e $_ ) {
+            $inpion = $_;
+        }
+    } reverse @inpion0;
+
+    # ---------- Copy selected ionosphere file ------------
+    my $oution = "${dirIon}HOI${yyddd}.${extIon}";
+
+    copy($inpion, $oution)
+        or die "Cannot copy $inpion to $oution\n";
+
+    prtMess(
+        $bpe,
+        "HOI initialization: $inpion copied to $oution"
+    );
+}
+

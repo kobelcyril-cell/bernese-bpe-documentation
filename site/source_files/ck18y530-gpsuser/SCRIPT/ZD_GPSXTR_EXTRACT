@@ -1,0 +1,93 @@
+package GPSXTR_EXTRACT;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GPSXTR_EXTRACT
+#
+# Purpose :  Extract RMS, number of files, observations, and parameters
+#
+# Author  :  C. Kobel
+# Created :  12-Dec-2025
+#
+# Changes :  30-Apr-2026 CK: Reformatted, improved readability,
+#===========================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Parameters ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyyy,
+      $yyssss,
+      $V_fin,
+      $V_large
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$Y+0',
+      '$YSS+0',
+      'V_FIN',
+      'V_LARGE'
+  );
+
+  # ---------- MSC directory ------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    die "Cannot access MSC directory $mscDir: $!";
+  }
+
+  my $outfile = "$mscDir/PROCESSING_$yyddd";
+
+  # ---------- Input file ------------
+  my $infile = "${dirOut}/${V_fin}${V_large}XTR${yyssss}.SUM";
+  die "Cannot find input file $infile" unless -f $infile;
+
+  print "Extract from: $infile\n";
+  print "Write into:   $outfile\n";
+
+  # ---------- Parse file ------------
+  open(my $fh_in, "<", $infile) or die "Cannot open $infile: $!";
+
+  my ($rms, $fil, $obs, $par);
+
+  while (my $line = <$fh_in>) {
+    if ($line =~ /Rms:\s*([\d.]+)\s*,\s*#\s*fil\.:\s*(\d+)\s*,\s*#\s*obs\.:\s*(\d+)\s*,\s*#\s*par\.:\s*(\d+)/) {
+      ($rms, $fil, $obs, $par) = ($1, $2, $3, $4);
+      last;
+    }
+  }
+  close($fh_in);
+
+  # ---------- Write output ------------
+  open(my $fh, ">>", $outfile) or die "Cannot write $outfile: $!";
+
+  print $fh "==== GPSXTR STATISTICS ====\n";
+
+  if (defined $rms) {
+
+    print $fh sprintf("%10s %10s %12s %12s\n",
+                      "RMS", "#FIL", "#OBS", "#PAR");
+
+    print $fh "------------------------------------------------------\n";
+
+    print $fh sprintf("%10.3f %10d %12d %12d\n",
+                      $rms, $fil, $obs, $par);
+
+  } else {
+    print $fh "No valid RMS / FIL / OBS / PAR line found!\n";
+  }
+
+  print $fh "==============================================\n";
+  close($fh);
+
+  print "GPSXTR_EXTRACT done!\n";
+}

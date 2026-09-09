@@ -1,0 +1,43 @@
+package ORBCMPL;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ORBCMPL
+#
+# Purpose :  Execute ORBCMP for ORBCMP.PCF
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+# Created :  03-Sep-2014
+#
+# Changes :  C.Kobel: Compare to CODE routine product
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyssss, $PRE, $SOL) = $bpe->getKeys('$YD+0','$YSS+0','V_PRE', 'V_SOL');
+
+# Set precise orbit files
+# -----------------------
+  my $tmpFil = "$ENV{U}/WORK/ORBCMP.lst";
+
+  open OUT, '>', $tmpFil;
+  print OUT "$PRE${yyssss}\n";
+  print OUT "F${SOL}_${yyddd}\n";
+  close OUT;
+  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","PREINP","SELECTED","REPLACE",$tmpFil);
+
+  system("rm $ENV{U}/WORK/ORBCMP.lst");
+  
+# Run program
+# -----------
+  my $PGMNAM = "ORBCMP";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

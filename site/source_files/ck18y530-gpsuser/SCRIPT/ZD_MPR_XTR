@@ -1,0 +1,128 @@
+package MPR_XTR;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  MPR_XTR
+#
+# Purpose :  Generate summary of parallel MAUPRP runs.
+#
+# Author  :  H. Bock
+# Created :  06-Dec-2007
+#
+# Changes :  23-Jul-2008 rd: prepare for reprocessing
+#===========================================================
+
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $yy,
+      $ssss,
+      $param1,
+      $param2,
+      $param3,
+      $dirOut,
+      $dirDel,
+      $extDel,
+      $dirPzh,
+      $extPzh,
+      $dirPsh,
+      $extPsh
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      '$Y',
+      '$S+0',
+      'PARAM1',
+      'PARAM2',
+      'PARAM3',
+      'DIR_OUT',
+      'DIR_DEL',
+      'EXT_DEL',
+      'DIR_PZH',
+      'EXT_PZH',
+      'DIR_PSH',
+      'EXT_PSH'
+  );
+
+  # ---------- Prepare DEL file ------------
+  my $delFil = "${dirDel}MPR${yyssss}.${extDel}";
+  unlink($delFil);
+
+  $bpe->putKey("$ENV{U}/PAN/MPRXTR.INP", "DELFIL", $delFil);
+
+  # ---------- Run program ------------
+  my $PGMNAM = "MPRXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Summary output ------------
+  my $sumFil = $bpe->getKey("$ENV{U}/INP/MPRXTR.INP", "SUMMARY");
+  my $xtrSum = "$dirOut/MPRXTR.${yy}_${ssss}";
+
+  appFile("MAUPRP: " . timstr(localtime(time)), 0, $sumFil, $xtrSum, 1);
+
+  # ---------- Process deletion list ------------
+  my @dellst;
+
+  if (-e $delFil) {
+
+    appFile("Files excluded from processing:", 0, $delFil, $xtrSum, 0);
+
+    open(my $FIL, "<", $delFil);
+
+    while (<$FIL>) {
+      chomp;
+
+      s/^ +//;   # remove leading blanks
+      s/ +$//;   # remove trailing blanks
+
+      if (-e $_) {
+        prtMess($bpe, "File to be deleted: $_");
+        push @dellst, $_;
+        unlink($_);
+      }
+
+      # ---------- also remove corresponding CZ file ------------
+      (my $czfile = $_) =~ s/\.PZ/.CZ/;
+
+      if (-e $czfile) {
+        prtMess($bpe, "File to be deleted: $czfile");
+        unlink($czfile);
+      }
+    }
+
+    close($FIL);
+  }
+
+  # ---------- Flow control ------------
+  if ($param1 eq "NEXTJOB") {
+
+    open(my $XTR, "<", $xtrSum);
+
+    my @list =
+      (grep { /${ssss}.${extPsh}/ } <$XTR>)
+      ? glob("${dirPsh}????${ssss}.${extPsh}")
+      : glob("${dirPzh}????${ssss}.${extPzh}");
+
+    close($XTR);
+
+    # ---------- Jump if no files left ------------
+    if (scalar(@list) == 0 && $param3 ne "") {
+      $bpe->prtGoto($param3);
+      return;
+    }
+
+    # ---------- Re-run if files were deleted ------------
+    if (scalar(@dellst) > 0 && $param2 ne "") {
+      $bpe->prtGoto($param2);
+    }
+  }
+}

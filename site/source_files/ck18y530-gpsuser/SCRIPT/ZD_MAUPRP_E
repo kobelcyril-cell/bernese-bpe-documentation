@@ -1,0 +1,80 @@
+package MAUPRP_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  MAUPRP_E
+#
+# Purpose :  Parallel run of MAUPRP
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 19-May-2009
+#
+# Changes :  19-May-2009 rd: Session dependent parallelization filenames
+#            02-Jul-2026 ck: Revised and cleaned up
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $ssss,
+      $ddd,
+      $param1,
+      $subPid,
+      $numClu
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      '$S+0',
+      '$+0',
+      'PARAM1',
+      'SUB_PID',
+      'V_NCLU'
+  );
+
+  # ---------- Define cluster and filenames ------------
+  my $cluster =
+    ($numClu eq "")
+    ? "$ddd$param1"
+    : "$yyssss" . substr($subPid, 1);
+
+  my $ffff =
+    ($numClu eq "")
+    ? $param1
+    : "____";
+
+  setUserVar($bpe, "CLUSTER", $cluster, "FFFF", $ffff, "CCC", $subPid);
+
+  # ---------- Define input files ------------
+  if ($numClu eq "") {
+
+    $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP", "PZFILES", "$param1$ssss");
+    $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP", "OBSFIL",  "$param1$ssss");
+
+  } else {
+
+    replaceSel($bpe, "MAUPRP", "PZFILES", $param1);
+    replaceSel($bpe, "MAUPRP", "OBSFIL",  $param1);
+  }
+
+  # ---------- Run program ------------
+  my $PGMNAM = "MAUPRP";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Log and cleanup ------------
+  open(my $BPE, "<", $param1);
+  print "\n\n", "-" x 75, "\n";
+  print "Contents of BPE file $param1\n";
+  print "-" x 75, "\n";
+  print <$BPE>;
+  print "-" x 75, "\n";
+  close($BPE);
+
+  unlink($param1);
+}

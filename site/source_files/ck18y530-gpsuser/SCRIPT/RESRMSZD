@@ -1,0 +1,51 @@
+package RESRMSZD;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  RESRMSZD
+#
+# Purpose :  check the residuals for outliers and remove them according to 
+#            the dictate of the flag
+#
+# Programs:  RESRMS
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx               Last modified: __-___-____
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$v_h,$u,$dirOut) =
+      $bpe->getKeys(
+      '$YD+0','V_H','U','DIR_OUT');
+
+# Configure maximum residual for observations
+  my @resFil = glob("${dirOut}../MSC/${v_h}${yyddd}_????.FLG");
+  my $resFlg = $resFil[0];
+  my $maxRES = '';
+  if (-e $resFlg) {
+    ($resFlg  = basename($resFlg)) =~ s/\.[^.]+$//;
+    $maxRES   = substr($resFlg, -4);
+    $maxRES   = sprintf("%d","$maxRES");
+    $maxRES   = $maxRES/1000;
+  } else {
+    $maxRES = '1.0';
+  }
+  $bpe->putKey("$u/PAN/RESRMS.INP","BIGRES","$maxRES");
+  $bpe->putKey("$u/PAN/RESRMS.INP","BIGRES2","$maxRES");
+  print "ejcr $maxRES \n";
+# Run program
+# -----------
+  my $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

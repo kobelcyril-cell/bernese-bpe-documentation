@@ -1,0 +1,85 @@
+package REP_COP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  REP_COP
+#
+# Purpose :  Copy files requiered by FZDMGNSS.PCF from ZDM repro folder
+#
+# PARAMs  :  PARAM1 - A priori (FA) solution
+#            PARAM2 - Final (IA) 1-day-arc solution
+#            PARAM3 - Weights for code observations
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx
+#
+# Changes :  
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $yyddd, $ssss,
+      $apr,         $fin,         $wei,
+      $psdInf,   $crdInf, $biainf,
+      $dirRxc,  $dirCrd,  $dirStd,  $dirClk,  $dirErp,  $dirRpr,
+      $dirSos,  $dirOsb,  $dirPzh,  $dirFix,  $dirSkl,
+      $extRxc,  $extCrd,  $extStd,  $extClk,  $extErp,  $extRpr,
+      $extSos,  $extOsb,  $extFix,  $extSkl
+      ) =
+    $bpe->getKeys(
+      '$YSS+0','$YD+0','$S+0',
+      $$bpe{PARAM1},$$bpe{PARAM2},$$bpe{PARAM3},
+      'V_PSDINF','V_CRDINF','V_BIAINF',
+      'DIR_RXC','DIR_CRD','DIR_STD','DIR_CLK','DIR_ERP','DIR_RPR',
+      'DIR_SOS','DIR_OSB','DIR_PZH','DIR_FIX','PTH_SINEXIN',
+      'EXT_RXC','EXT_CRD','EXT_STD','EXT_CLK','EXT_ERP','EXT_RPR',
+      'EXT_SOS','EXT_OSB','EXT_FIX','EXT_SINEXIN'
+      );
+
+# Prepare reference files
+# -----------------------
+  my $psdFil = "${psdInf}.PSD";
+  system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil");
+
+# Copy reference REFCLK.FIX into campaign for reference satellite clocks
+# ----------------------------------------------------------------------
+  copyfile("$ENV{REF}/REFCLK.FIX", "${dirFix}REFCLK.${extFix}");
+
+# Copy SINEX skeleton
+# -------------------
+  copyfile("$ENV{AIUB}/SKL/${biainf}.${extSkl}","${dirSkl}${biainf}.${extSkl}");
+
+# Copy a priori information
+# -------------------------
+  my $resFol = "$ENV{K}/CK_ZDGNSS_ARCHIVE/${yyddd}/";
+  my $resOrb = "$resFol/ORB/";
+  my $resSta = "$resFol/STA/";
+  my $resOut = "$resFol/OUT/";
+  my $resObs = "$resFol/OBS/";
+  system("cd $ENV{K}/CK_ZDGNSS_ARCHIVE/; tar xvfz ${yyddd}.tgz");
+  copyfile("${resObs}????${ssss}.???", "${dirPzh}");
+  copyfile("${resSta}${wei}_$yyssss.${extSos}","${dirSos}");
+  copyfile("${resOrb}CBS$yyssss.${extOsb}","${dirOsb}");
+  copyfile("${resSta}${fin}_$yyssss.${extCrd}","${dirCrd}${apr}_$yyssss.${extCrd}");
+  copyfile("${resOrb}${fin}_$yyssss.${extErp}","${dirErp}${apr}_$yyssss.${extErp}");
+  copyfile("${resOrb}${apr}_$yyssss.${extStd}","${dirStd}${apr}_$yyssss.${extStd}");
+  copyfile("${resOrb}${apr}_$yyssss.${extRpr}","${dirRpr}${apr}_$yyssss.${extRpr}");
+  copyfile("${resOrb}${fin}S$yyssss.${extClk}","${dirClk}${apr}_$yyssss.${extClk}");
+  copyfile("${resOut}${fin}S$yyssss.${extRxc}","${dirRxc}${apr}_$yyssss.${extRxc}");
+  system("rm -r ${resFol};");
+
+# Propagate coordinates
+# ---------------------
+  my $PGMNAM = "COOVEL";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

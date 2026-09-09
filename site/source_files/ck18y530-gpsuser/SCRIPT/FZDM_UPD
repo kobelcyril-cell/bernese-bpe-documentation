@@ -1,0 +1,65 @@
+package FZDM_UPD;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FZDM_UPD
+#
+# Purpose :  Update files after first FA run of FZDMGNSS.PCF
+#
+# PARAMs  :  
+#
+# Author  :  E. Calero
+#
+# Changes :  
+#
+# ============================================================================
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+ my   ($yyssss,$yyddd,
+       $sol1,       ,$sol2,       $v_k,
+       $dirRxc,  $dirCrd,  $dirStd,  $dirClk,  $dirErp,  $dirRpr,
+       $extRxc,  $extCrd,  $extStd,  $extClk,  $extErp,  $extRpr) =
+    $bpe->getKeys(
+      '$YSS+0','$YD+0',
+      $$bpe{PARAM1},$$bpe{PARAM2},'V_K',
+      'DIR_RXC','DIR_CRD', 'DIR_STD','DIR_CLK','DIR_ERP','DIR_RPR',
+      'EXT_RXC','EXT_CRD', 'EXT_STD','EXT_CLK','EXT_ERP','EXT_RPR');
+
+# Update inputs
+# -------------
+   my $mscDir = "${dirRxc}/../MSC/MSC_${yyddd}";
+   my $itefile = "${mscDir}/ITE_AR";
+   my $sol     = "";
+   if (-e $itefile and ${sol2} ne "") {
+     $sol = $sol2;
+   }else{
+     $sol = $sol1;
+   }
+   
+   copyfile("${dirCrd}${sol}_$yyssss.${extCrd}","${dirCrd}${v_k}_$yyssss.${extCrd}");
+   copyfile("${dirStd}${sol}_$yyssss.${extStd}","${dirStd}${v_k}_$yyssss.${extStd}");
+   copyfile("${dirErp}${sol}_$yyssss.${extErp}","${dirErp}${v_k}_$yyssss.${extErp}");
+   copyfile("${dirRpr}${sol}_$yyssss.${extRpr}","${dirRpr}${v_k}_$yyssss.${extRpr}");
+   my $clkFile = "${dirClk}${sol}_$yyssss.${extClk}";
+   if ( -s $clkFile ) {
+     copyfile("${dirClk}${sol}_$yyssss.${extClk}","${dirClk}${v_k}_$yyssss.${extClk}");
+     copyfile("${dirRxc}${sol}_$yyssss.${extRxc}","${dirRxc}${v_k}_$yyssss.${extRxc}");
+   } else {
+     copyfile("${dirClk}${sol}S$yyssss.${extClk}","${dirClk}${v_k}_$yyssss.${extClk}");
+     copyfile("${dirRxc}${sol}S$yyssss.${extRxc}","${dirRxc}${v_k}_$yyssss.${extRxc}");
+   }
+
+
+}
+
+

@@ -1,0 +1,51 @@
+package PPP_KIN;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  PPP_KIN
+#
+# Purpose :  Initialize or skip pseudo-kinematic solution
+#
+# PARAMs  :  PARAM2 - goto PID if V_I undefined
+#
+# Author  :  R. Dach
+# Created :  11-Sep-2011
+#
+# Changes :
+# ============================================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtGoto cleanFiles);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $kin, 
+      $param2
+    ) = $bpe->getKeys(
+      'V_KIN', 
+      'PARAM2'
+    );
+
+# Check whether V_KIN is defined
+# ----------------------------
+  unless (defined ($$bpe{V_KIN})) {
+    die "KIN-solution identifier V_KIN is expected as PCF variable\n";
+  }
+
+# Delete old files (OUT, KIN, SUM)
+# --------------------------------
+  if ("$kin" ne "") {
+    cleanFiles($bpe, $kin,  ["OUT","KIN","SUM"], "");
+  }
+
+# Skip pseudo-kinematic solution if V_KIN undefined
+# -------------------------------------------------
+  prtGoto($bpe,$param2) if "$kin" eq "";
+
+}

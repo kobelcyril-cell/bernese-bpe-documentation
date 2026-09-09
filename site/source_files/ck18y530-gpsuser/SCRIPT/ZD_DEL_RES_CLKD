@@ -1,0 +1,152 @@
+package DEL_RES_CLKD;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  DEL_RES_CLKD
+#
+# Purpose :  Delete result files, only if V_DEL=Y.
+#
+# Author  :  C. Kobel
+# Created :  06-Jan-2026
+#
+# Changes :  
+#===========================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+use File::Basename;
+use POSIX qw(strftime);
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Parameter ------------
+  my (
+      $dirOut,
+      $ssss,
+      $yyssss,
+      $yyddd,
+      $CLEAN,
+      $V_FIN,
+      $V_FINCLK
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$S+0',
+      '$YSS+0',
+      '$YD+0',
+      'V_DEL',
+      'V_FIN',
+      'V_FINCLK'
+  );
+
+  unless (defined $CLEAN && $CLEAN eq 'Y') {
+    print "CLEAN variable not set to 'Y'. Nothing will be deleted.\n";
+    return;
+  }
+
+  # ---------- Directories ------------
+  my $dirAtm = "${dirOut}../ATM";
+  my $dirGrd = "${dirOut}../GRD";
+  my $dirObs = "${dirOut}../OBS";
+  my $dirOrb = "${dirOut}../ORB";
+  
+  my $day    = $yyssss;
+
+  print "------------------------------------------------------------\n";
+  print "DEL_RES_CLKD started for $day\n";
+  print "------------------------------------------------------------\n";
+
+  # ---------- Define files to delete ------------
+
+  my @out_patterns = (
+     "CCRNXC.L??",
+# ---------- "${V_FINCLK}_${yyssss}.CLK", ------------
+     "${V_FINCLK}_${yyssss}.OUT",
+     "${V_FINCLK}A${yyssss}.CLK",
+     "${V_FINCLK}S${yyssss}.CLK",
+     "${V_FINCLK}S${yyssss}.OUT",
+     "${V_FINCLK}C${yyssss}.PRC",
+     "test.IFO",
+     "CLKDIFF.???",
+     "${V_FIN}_${yyssss}.CLK",
+     "${V_FIN}_${yyssss}.OUT",
+     "${V_FIN}X${yyssss}.CLK",
+     "${V_FIN}X${yyssss}.OUT",
+     "${V_FIN}R${yyssss}.CLK",
+     "${V_FIN}R${yyssss}.OUT",
+     "????${ssss}_REC.CLK",
+     "????${ssss}_REC.OUT",
+  );
+
+  my @atm_patterns = (
+    "????${ssss}_REC.TRP",
+    "NTAL_${yyddd}.GRD",
+    "NTOL_${yyddd}.GRD",
+    "HYDL_${yyddd}.GRD",
+    "VMF${yyddd}.GRD",
+  );
+
+  my @obs_patterns = (
+    "????${ssss}.???",
+  );
+
+  my @orb_patterns = (
+    "????${ssss}_REC.CLK",
+    "${V_FINCLK}T${yyssss}.CLK",
+  );
+
+
+  # ---------- Delete Files ------------
+  my $deleted = 0;
+
+  foreach my $pattern (@out_patterns) {
+    foreach my $file (glob("${dirOut}${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@atm_patterns) {
+    foreach my $file (glob("${dirAtm}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@obs_patterns) {
+    foreach my $file (glob("${dirObs}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@orb_patterns) {
+    foreach my $file (glob("${dirOrb}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  # ---------- Delete Files in BPE directory ------------
+  my $dirBpe = "${dirOut}../BPE";
+  my $bpe_pattern = "*CLKDEN*${day}*";
+
+  foreach my $file (glob("${dirBpe}/${bpe_pattern}")) {
+    # ---------- Skip deletion of LOG/PRT file ------------
+    next if ($file =~ /CLKDEN${day}_500_000\.LOG$/);
+    next if ($file =~ /CLKDEN${day}_500_000\.PRT$/);
+
+    if (-e $file) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  # ---------- Summary ------------
+  if ($deleted == 0) {
+    print "No files found for $day.\n";
+  } else {
+    print "------------------------------------------------------------\n";
+    print "Deleted $deleted files for $day.\n";
+    print "------------------------------------------------------------\n";
+  }
+
+  return;
+}

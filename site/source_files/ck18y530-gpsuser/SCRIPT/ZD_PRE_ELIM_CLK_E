@@ -1,0 +1,166 @@
+package PRE_ELIM_CLK_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  PRE_ELIM_CLK_E
+#
+# Purpose :  Parallel run of ADDNEQ2
+#
+# Author  :  E. Calero
+# Created :  25-Apr-2021
+#
+# Changes :  26-May-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+
+  my (
+      $param1,
+      $param2,
+      $param3,
+      $param4,
+      $subPid,
+      $dirOut,
+      $yyssss,
+      $yyddd
+  ) = $bpe->getKeys(
+      'PARAM1',
+      'PARAM2',
+      'PARAM3',
+      'PARAM4',
+      'SUB_PID',
+      'DIR_OUT',
+      '$YSS+0',
+      '$YD+0'
+  );
+
+# ---------- Convert SUBPID (e.g. "001") to integer ------------
+
+  my $pid_num = int($subPid);
+
+# ---------- Delay start to avoid simultaneous NEQ access ------------
+
+  my $delay = ($pid_num - 1) * 10 + 10;
+
+# ---------- 10s offset + slight jitter ------------
+
+  prtMess(
+    $bpe,
+    sprintf(
+      "Delaying start by %.1f seconds for SUBPID=%s",
+      $delay,
+      $subPid
+    )
+  );
+
+  sleep($delay);
+
+# ---------- Use day-specific MSC directory ------------
+
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+
+  my $overFile = "${mscDir}/TIMOVER";
+
+  if ( -e $overFile ) {
+
+    prtMess($bpe, "LAST ITERATION");
+
+  } else {
+
+# ---------- Initialize $D4 and $CCC variable with subpid ------------
+
+    setUserVar(
+      $bpe,
+      "D4",
+      $subPid,
+      "SOL",
+      $param2,
+      "HRS",
+      $param3,
+      "HRE",
+      $param4
+    );
+
+# ---------- Run program ------------
+
+    $bpe->putKey(
+      "$ENV{U}/PAN/ADDNEQ2.INP",
+      "INPFILE",
+      $param1
+    );
+
+    $bpe->putKey(
+      "$ENV{U}/PAN/ADDNEQ2.INP",
+      "NEQOUT",
+      '$(SOL)$YSS+0$(D4)'
+    );
+
+    $bpe->putKey(
+      "$ENV{U}/PAN/ADDNEQ2.INP",
+      "NOINV",
+      "1"
+    );
+
+# ---------- Wait until expected NEQ input file is available ------------
+
+    my $neqfile = sprintf(
+      "%s%s%s.%s",
+      $dirOut,
+      "../SOL/",
+      $param1,
+      "NQ0"
+    );
+
+    my $max_wait = 60;
+    my $waited   = 0;
+
+    while ( ! -e $neqfile && $waited < $max_wait ) {
+
+      prtMess(
+        $bpe,
+        sprintf(
+          "Waiting for NEQ file to appear: %s (waited %ds)",
+          $neqfile,
+          $waited
+        )
+      );
+
+      sleep(5);
+
+      $waited += 5;
+    }
+
+    if ( ! -e $neqfile ) {
+
+      prtErr(
+        $bpe,
+        sprintf(
+          "NEQ file still missing after %ds: %s – aborting.",
+          $max_wait,
+          $neqfile
+        )
+      );
+
+      die "Missing NEQ file $neqfile";
+
+    } else {
+
+      prtMess(
+        $bpe,
+        "Confirmed NEQ file available: $neqfile"
+      );
+    }
+
+    my $PGMNAM = "ADDNEQ2";
+
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+}

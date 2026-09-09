@@ -1,0 +1,311 @@
+package PPP_SUM;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  PPP_SUM
+#
+# Purpose :  Create PPP BPE processing summary file
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  07-Mar-2004
+#
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+#            22-Mar-2022 LP: Updated for version 5.4 (KIN summary)
+#            10-May-2022 LP: Perform multiplier check only, when GPS is selected
+# ============================================================================
+
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(timprt appFile reportBPEvariables);
+use lib "$ENV{EXE}";
+use Gps_Date qw(gps_date);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyyyssss, $ssss, $yyyy,
+      $apr, $ppp, $fin, $ref, $red, $gcc, $kin, $trp, $pthPcf, $pcfNam,
+      $crdInf, $blqInf, $atlInf, 
+      $hrclk,  $obstyp, $gnssar, $upd,    $satSys,
+      $dirOut, $dirSmc, $dirSum, $dirLst, $dirSnx, $dirIon, $dirDcb,
+      $extOut, $extSmc, $extSum, $extLst, $extSnx, $extIon, $extDcb,
+      $dirCrd, $dirVel, $dirSta,          $dirBlq, $dirAtl, $dirGcc,
+      $extCrd, $extVel, $extSta, $extCrx, $extBlq, $extAtl, $extGcc) =
+    $bpe->getKeys(
+      '$YYYSS+0', '$S+0', '$Y+0',
+      'V_APR', 'V_PPP', 'V_FIN', 'V_REF', 'V_RED', 'V_GCC', 'V_KIN', 'V_TRP', 'PTH_PCF', 'PCFFIL',
+      'V_CRDINF', 'V_BLQINF', 'V_ATLINF',
+      'V_HRCLK',  'V_OBSTYP', 'V_GNSSAR', 'V_UPD', 'V_SATSYS',
+      'DIR_OUT','DIR_SMC','DIR_SUM','DIR_LST','DIR_SNX','DIR_ION','DIR_DCB',
+      'EXT_OUT','EXT_SMC','EXT_SUM','EXT_LST','EXT_SNX','EXT_ION','EXT_DCB',
+      'DIR_CRD','DIR_VEL','DIR_STA',          'DIR_BLQ','DIR_ATL','DIR_GCC',
+      'EXT_CRD','EXT_VEL','EXT_STA','EXT_CRX','EXT_BLQ','EXT_ATL','EXT_GCC');
+
+
+# Initialize processing summary file
+# ----------------------------------
+  my $prcFil = "${dirOut}PPP_${yyyyssss}.PRC";
+  unlink $prcFil;
+  appFile("PPP BPE PROCESSING SUMMARY FOR YEAR-SESSION $yyyy-$ssss",
+    0,"",$prcFil,0);
+
+# Report the BPE settings
+# -----------------------
+  open(PRC,">> $prcFil");
+  print PRC "Summary file generated at ",timprt()," by PPP_SUM\n\n";
+
+  $pthPcf =~ s/$$bpe{U}/$$bpe{U_OLD}/;
+  print PRC reportBPEvariables($bpe,"${pthPcf}/${pcfNam}");
+  print PRC "\n\n";
+
+  close PRC;
+
+# Append protocol files
+# ---------------------
+# - Init the time counter
+  my $filTim = gps_date("-ymd 2000 01 01","-o %U");
+
+# - Error/warning messages concerning RINEX inconsistencies
+  my $sumFil = "${dirOut}RNX_${yyyyssss}.ERR";
+  appFile("PART 0: RINEX INCONSISTENCIES AND ${crdInf}.ABB FILE UPDATE",
+    2,$sumFil,$prcFil,1) if -s $sumFil;
+
+# - Missing entries in BLQ file
+  unless ($blqInf eq "") {
+    $sumFil = "${dirSum}TMP_${yyyyssss}.${extSum}";
+    open (OUT,">$sumFil");
+    foreach ( glob("${dirSum}WRN_${yyyyssss}_????.${extSum}") ) {
+      open (INP,$_);
+      while (<INP>) {
+        if (/### SR GTOCNL/) {
+          print OUT $_;
+          $_ = <INP>; print OUT $_;
+          $_ = <INP>; print OUT $_;
+          $_ = <INP>; print OUT $_;
+          $_ = <INP>; print OUT $_
+        }
+      }
+      close (INP);
+    }
+    close (OUT);
+
+    appFile("PART 0: MISSING ENTRIES IN ${blqInf}.BLQ FILE",
+      2,$sumFil,$prcFil,1) if -s $sumFil;
+    appFile("PART 0: ${blqInf}.BLQ FILE CONTAINS RECORDS FOR ALL STATIONS",
+      2,"",$prcFil,0) unless -s $sumFil;
+    unlink $sumFil;
+  } else {
+    appFile("PART 0: NO BLQ FILE USED",2,"",$prcFil,0);
+  }
+
+# - Missing entries in ATL file
+  unless ($atlInf eq "") {
+    $sumFil = "${dirSum}TMP_${yyyyssss}.${extSum}";
+    open (OUT,">$sumFil");
+    foreach ( glob("${dirSum}WRN_${yyyyssss}_????.${extSum}") ) {
+      open (INP,$_);
+      while (<INP>) {
+        if (/### SR GTATML/) {
+          print OUT $_;
+          $_ = <INP>; print OUT $_;
+          $_ = <INP>; print OUT $_;
+          $_ = <INP>; print OUT $_;
+          $_ = <INP>; print OUT $_;
+        }
+      }
+      close (INP);
+    }
+    close (OUT);
+    appFile("PART 0: MISSING ENTRIES IN ${atlInf}.ATL FILE",
+      2,$sumFil,$prcFil,1) if -s $sumFil;
+    appFile("PART 0: ${atlInf}.ATL FILE CONTAINS RECORDS FOR ALL STATIONS",
+      2,"",$prcFil,0) unless -s $sumFil;
+    unlink $sumFil;
+  } else {
+    appFile("PART 0: NO ATL FILE USED",2,"",$prcFil,0);
+  }
+
+# - RINEX pseudo-graphics
+  $sumFil = "${dirSmc}GRA_${yyyyssss}.${extSmc}";
+  $filTim = appFile("PART 1: RINEX PSEUDO-GRAPHICS",
+            2,$sumFil,$prcFil,$filTim);
+
+
+# - Single-point-positioning summary
+  $sumFil = "${dirOut}SPP_${yyyyssss}.${extOut}";
+  $filTim = appFile("PART 2: SINGLE-POINT-POSITIONING SUMMARY",
+            2,$sumFil,$prcFil,$filTim);
+
+# - Data screening summary (with MAUPRP)
+  if ( $hrclk ne "" && (uc substr($hrclk,0,1) eq "Y" || uc $hrclk eq "MAUPRP" )) {
+    $sumFil = "${dirSum}MPR_${yyyyssss}.${extSum}";
+    $filTim = appFile("PART 3: DATA SCREENING SUMMARY (phase data screening with MAUPRP)",
+              1,$sumFil,$prcFil,$filTim);
+    $sumFil = "${dirOut}RES_${yyyyssss}.PRC";
+    appFile("",2,$sumFil,$prcFil,$filTim);
+
+# - Data screening summary (with RNXSMT)
+  } else {
+    $sumFil = "${dirOut}RES_${yyyyssss}.PRC";
+    appFile("PART 3: DATA SCREENING SUMMARY (phase data screening with RNXSMT)",
+            2,$sumFil,$prcFil,$filTim);
+  }
+
+# - PPP analysis results
+  appFile("PART 4: PPP SOLUTIONS STATISTICS (float)",
+    0,"",$prcFil,0);
+
+  $sumFil = "${dirSum}${ppp}_${yyyyssss}_OUT.${extSum}";
+  appFile("",2,$sumFil,$prcFil,$filTim);
+  $sumFil = "${dirSum}${ppp}_${yyyyssss}_CRD.${extSum}";
+  appFile("",2,$sumFil,$prcFil,$filTim);
+
+# - Verification of receiver tracking technology
+  if ( (uc($obstyp) ne "PHASE") && ($satSys =~ /G/) ) {
+    $sumFil = "${dirSum}TMP_${yyyyssss}.${extSum}";
+    open (OUT,">$sumFil");
+    my @outFil = glob("${dirOut}EDL_${yyyyssss}_????.${extOut}");
+    my $write = 0;
+    foreach (@outFil) {
+      open (INP,$_);
+      while (<INP>) { 
+        if (/ OSB Multiplier Summary:/) {
+          $write = $write == 0 ? 1 : 11;
+        }
+        $write = -1 if (/^[ ]*$/ && $write > 16 ); 
+        if ( $write > 0 ) {
+          $write += 10 if $write == 6;
+          print OUT $_ if $write < 10 || $write >= 16;
+          $write++;
+        }
+      }
+      close (INP);
+    }
+    close OUT;
+    appFile("PART 5: VERIFICATION OF RECEIVER TRACKING TECHNOLOGY",
+      2,$sumFil,$prcFil,1);
+    unlink $sumFil;
+  } else {
+    appFile("PART 5: NO VERIFICATION OF RECEIVER TRACKING TECHNOLOGY".
+            " (PHASE-ONLY SOLUTION)",2,"",$prcFil,0);
+  }
+
+# - Extraction of station information from SINEX result file
+#  $sumFil = "${dirSum}TMP_${yyyyssss}.${extSum}";
+#  open (OUT,">$sumFil");
+#  my $prt = 0;
+#  open (INP,"${dirSnx}${red}_${yyyyssss}.${extSnx}");
+#  while (<INP>) {
+#    if (/^\+/) { if (/^\+SITE\//) { $prt = 1 } else { last if $prt } }
+#    print OUT $_ if $prt }
+#  close (INP);
+#  close OUT;
+#  appFile("PART 6: COMPILATION OF STATION INFORMATION",
+#    2,$sumFil,$prcFil,1);
+#  unlink $sumFil;
+
+# - Ambiguity resolution statistics
+  if ( "$gnssar" eq "" || uc($obstyp) eq "CODE" ) {
+    appFile("PART 7: AMBIGUITY RESOLUTION: N/A",0,"",$prcFil,0);
+  } else {
+    $sumFil = "${dirSum}BIA_${yyyyssss}.${extSum}";
+    appFile("PART 7.1: OVERVIEW ON AVAILABLE BIASES",1,$sumFil,$prcFil);
+    $sumFil = "${dirSum}AMB_${yyyyssss}.${extSum}";
+    $filTim = appFile("PART 7.2: AMBIGUITY RESOLUTION",
+              1,$sumFil,$prcFil,$filTim);
+  }
+
+# - PPP analysis results
+  appFile("PART 8: PPP SOLUTIONS STATISTICS (final)",
+    0,"",$prcFil,0);
+
+  $sumFil = "${dirSum}${fin}_${yyyyssss}_OUT.${extSum}";
+  appFile("",2,$sumFil,$prcFil,$filTim);
+  $sumFil = "${dirSum}${fin}_${yyyyssss}_CRD.${extSum}";
+  appFile("",2,$sumFil,$prcFil,$filTim);
+
+
+  # - Station coordinate results
+  $sumFil = "${dirCrd}${fin}_${yyyyssss}.${extCrd}";
+  $filTim = appFile("PART 9: STATION COORDINATE RESULTS",
+            1,$sumFil,$prcFil,$filTim);
+
+  $sumFil = "${dirOut}HLM_${yyyyssss}.${extOut}";
+  appFile("",2,$sumFil,$prcFil,$filTim) if -s $sumFil;
+
+  if (uc $upd eq "Y") {
+    $sumFil = "${dirCrd}${ref}_${yyyyssss}.${extCrd}";
+    appFile("",1,$sumFil,$prcFil,$filTim);
+    $sumFil = "${dirVel}${apr}_${yyyyssss}.${extVel}";
+    appFile("",1,$sumFil,$prcFil,$filTim) }
+
+  appFile("",1,"",$prcFil,0);
+
+# - Station clock estimation
+  #$sumFil = "${dirOut}CLK_${yyyyssss}.${extOut}";
+ #appFile("PART 10: STATION CLOCK ESTIMATION",2,$sumFil,$prcFil,$filTim);
+
+# - Geocenter estimation
+  if ( defined $$bpe{V_GCC} ) {  # only defined in PPP_DEMO.PCF
+    if ("$gcc" ne "") {
+      $sumFil = "${dirSum}${gcc}_${yyyyssss}.${extSum}";
+      appFile("PART 11: GEOCENTER COORDINATES",1,$sumFil,$prcFil,$filTim);
+      $sumFil = "${dirGcc}${gcc}_${yyyyssss}.${extGcc}";
+      appFile("",2,$sumFil,$prcFil,$filTim);
+    } else {
+      appFile("PART 11: GEOCENTER COORDINATES -- not estimated",2,"",$prcFil,0);
+    }
+  }
+
+# - Pseudokinematic solution
+  if ( defined $$bpe{V_KIN} ) {  # only defined in PPP_DEMO.PCF
+    if ("$kin" ne "") {
+      appFile("PART 12: PSEUDO-KINEMATIC SOLUTION",1,"",$prcFil,0);
+      open(PRC,">> $prcFil");
+      my $line = "";
+      $sumFil = "${dirSum}${kin}_${yyyyssss}.${extSum}";
+      open(SUM,"$sumFil");
+      while (<SUM>) {
+        print PRC $_;
+        my @rec = split();
+
+        if ( $#rec > 0 && "$rec[1]" eq "Rms:" ) {
+          my $kinFil = ${dirSum} .
+                       substr($rec[0],0,index($rec[0],".")) . "." . $extSum;
+          open (KIN,"$kinFil");
+          while(<KIN>) {
+            $line  = " " . basename($kinFil) . ": $_" if ( /^\*AVG / );
+            $line .= "                        $_"     if ( /^\*SIG / );
+            $line .= "                        $_"     if ( /^\*RMS / );
+          }
+          close KIN;
+        } elsif ( $#rec > 0 && ($rec[0] =~ /DOY/) ) {
+          print PRC $line;
+        }
+      }
+      close SUM;
+      close PRC;
+    } else {
+      appFile("PART 12: PSEUDO-KINEMATIC SOLUTION -- not estimated",2,"",$prcFil,0);
+    }
+  }
+
+# - High-rate troposphere
+  if ( defined $$bpe{V_TRP} ) {  # only defined in PPP_DEMO.PCF
+    if ("$trp" ne "") {
+      $sumFil = "${dirSum}${trp}_${yyyyssss}_OUT.${extSum}";
+      appFile("PART 13: HIGH-RATE TROPOSPHERE",1,$sumFil,$prcFil,0);
+    } else {
+      appFile("PART 13: HIGH-RATE TROPOSPHERE -- not estimated",2,"",$prcFil,0);
+    }
+  }
+
+
+}

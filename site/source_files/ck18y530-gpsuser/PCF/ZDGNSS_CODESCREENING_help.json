@@ -1,0 +1,97 @@
+{
+    "130": {
+        "notes": "",
+        "input": "\"V_B\"",
+        "output": "\"V_B\"$S+0.CLB"
+    },
+    "101": {
+        "notes": "Controls a parallelized GPSEST execution using a predefined station list and cluster identifier.\nConditionally configures ionosphere (HOI) and troposphere (GMF) modeling based on input availability and flags.\nLogs processing input for traceability.\nGenerates normal equations via GPSEST and performs stacking with ADDNEQ2.\nMatrix inversion is explicitly disabled",
+        "input": "????$S+0.CZH\n\"V_A\"$YSS+0.CRD/STD/RPR/ERP/CLK\n\"V_I\"0$YSS+0.SOS\n\"V_CRDINF\".FIX\n",
+        "output": "\"V_B\"$S+0????.NQ0"
+    },
+    "102": {
+        "notes": "Combine station NEQs and compute code-only solution",
+        "input": "\"V_B\"$S+0????.NQ0\n\"V_A\"_$YSS+0.CRD\n\"V_A\"_$YSS+0.ERP",
+        "output": "\"V_B\"_$YSS+0.CRD/ELE/ERP"
+    },
+    "103": {
+        "notes": "",
+        "input": "\"V_B\"_$YSS+0.ELE\n\"V_B\"_$YSS+0.ERP",
+        "output": "\"V_B\"_$YSS+0.STD/RPR"
+    },
+    "111": {
+        "notes": "",
+        "input": "\"V_B\"_$YSS+0.CRD/STD/ERP/CLK\n\"V_I\"0$YSS+0.SOS\n????$S+0.CZH",
+        "output": "\"V_B\"_$YSS+0.NQ0\n\"V_B\"_$YSS+0.OSB\n\"V_B\"$S+0$???.OUT\n\"V_B\"$S+0$???.RES"
+    },
+    "112": {
+        "notes": "",
+        "input": "\"V_B\"$S+0???.OUT",
+        "output": "\"V_B\"G$YSS+0.SUM"
+    },
+    "113": {
+        "notes": "RESRMS creates EDT file based on residuals files\nRESCHK marks observations based on \"V_B\"_$YSS+0.EDT\n\nAttentation: Modifies SATCRX-file if bad satellite found\n\nIterative procedure until either 50 iterations are reached or no more bad station is detected.",
+        "input": "\"V_B\"$S+0$???.RES\n\nCODXTR.$Y_$S+0",
+        "output": "\"V_B\"_$YSS+0.SUM\n\"V_B\"_$YSS+0.LST\n\"V_B\"_$YSS+0.EDT\n\"V_B\"R$YSS+0.OUT\n\nDEL$YD+0.DEL"
+    },
+    "114": {
+        "notes": "Create residual statistics from including last iteration of code screening",
+        "input": "",
+        "output": ""
+    },
+    "115": {
+        "notes": "Prepare parallel SATMRK runs for code observation screening",
+        "input": "",
+        "output": ""
+    },
+    "116": {
+        "notes": "",
+        "input": "\"V_B\"_$YSS+0.EDT",
+        "output": ""
+    },
+    "121": {
+        "notes": "",
+        "input": "\"V_B\"_$YSS+0.CRD/STD/ERP\n\n\"V_A\"_$YSS+0.CLK\n\"V_I\"0$YSS+0",
+        "output": "From GPSEST:\n\"V_C\"$S+0$???_.NQ0\n\nFrom ADDNEQ2:\n\"V_C\"$S+0$???.OUT\n\"V_C\"$S+0$???.NQ0\n"
+    },
+    "122": {
+        "notes": "",
+        "input": "\"V_C\"$S+0[0-9][0-9][0-9].NQ0\n\"V_B\"_$YSS+0.CRD\nREF$YSS+0.OSB\n\"V_B\"_$YSS+0.ERP",
+        "output": "\"V_C\"_$YSS+0.TRP\n\"V_C\"_$YSS+0.OUT\n\"V_C\"_$YSS+0.OSB\n\"V_C\"_$YSS+0.BIA\n\"V_C\"_$YSS+0.CLK (Clocks & RINEX)"
+    },
+    "123": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "124": {
+        "notes": "Get GLONASS OSBs",
+        "input": "\"V_C\"$S+0$???_.NQ0\n\"V_B\"_$YSS+0.CRD\n\"V_C\"_$YSS+0.TRP\n\"V_C\"_$YSS+0.OSB\n\"V_B\"_$YSS+0.ERP\n\"V_C\"_$YSS+0.CLK (RINEX)",
+        "output": "\"V_C\"_$YSS+0.NQ0\n\"V_C\"S$YSS+0???.OSB\n\"V_C\"S$YSS+0???.OUT"
+    },
+    "125": {
+        "notes": "Combine OSB files",
+        "input": "\"V_C\"S$YSS+0???.OSB\n\"V_C\"_$YSS+0.OSB",
+        "output": "\"V_C\"S$YSS+0.OSB"
+    },
+    "131": {
+        "notes": "",
+        "input": "????$S+0.CZH\n\"V_B\"_$YSS+0.CRD/STD/ERP\n\"V_A\"_$YSS+0.CLK\n\"V_C\"S$YSS+0.OSB\n\"V_I\"0$YSS+0.SOS",
+        "output": "\"V_B\"C$S+0$???.OUT\n\"V_B\"C$S+0$???.CLK (Clocks & RINEX)"
+    },
+    "132": {
+        "notes": "",
+        "input": "\"V_B\"C$S+0???.CLK\n\"V_B\"_$YSS+0.CRD",
+        "output": "\"V_B\"_$YSS+0.CLK (clocks & RINEX)"
+    },
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "050": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

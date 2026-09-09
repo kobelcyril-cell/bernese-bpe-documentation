@@ -1,0 +1,327 @@
+package SATMONAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SATMONAP
+#
+# Purpose :  Extract satellite clock estimates (as seen by each station)
+#            and eliminate observations using satmark
+#
+# Programs:
+#
+# Author  :  A. Villiger
+# Created :  19-Jul-2016
+#
+# Changes :  25-Jul-2016 AV: Parallelization
+#            16-Aug-2016 AV: Remove empty files
+#            29-Aug-2016 AV: Remove epochs with one observation
+#            13-Oct-2016 AV: Skip if obs file not available
+#            03-Nov-2016 LP: Some bugfixes and slight adaptations to MGEX (e.g., fix in @satSys)
+#            07-Nov-2016 LP: Flexible selection of sampling rate
+#            27-Jan-2021 RD: Four digit year in EDT file
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date qw(gps_date);
+
+use lib "$ENV{U}/SCRIPT";
+use JumpLogger qw(logJump);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$ddd,$ssss,$goto,$ppp,$param4,$v_samp,
+      $outDir,$clkDir,$edtDir,$czhDir,
+      $outExt,$clkExt,$edtExt,$czhExt) =
+    $bpe->getKeys('$YD+0','$+0','$S+0','PARAM2','PARAM3','PARAM4','V_SAMPL',
+                  "DIR_OUT","DIR_CLK",'DIR_EDT','DIR_CZH',
+                  "EXT_OUT","EXT_CLK",'EXT_EDT','EXT_CZH');
+
+  my $clksum     = "${outDir}CLK${yyddd}.SUM";
+  my $clksum_tmp = "${outDir}CLK${yyddd}_tmp.SUM";
+  my $oneSum     = "${outDir}SAT_MON.LST";
+  my $allSum     = "${outDir}SAT${yyddd}.OUT";
+  my $lstSum     = "${outDir}SAT${yyddd}.LST";
+  my @satSys     = split('','GRESCJ'); # ADD GNSS HERE
+
+  if($ppp =~ /PPP/){
+    copyfile($clksum,$clksum_tmp);
+    system("grep '^..[0-9] ' ${clkDir}FIL${ddd}????.CLK >> $clksum_tmp");
+    system("cat $clksum_tmp |  sort -n -k 4,4 > $clksum");
+    unlink($clksum_tmp);
+  }else{
+    system("grep '^..[0-9] ' ${clkDir}FIL${ddd}????.CLK | sort -n -k 4,4 > $clksum");
+  }
+
+  my $int = 300;
+  if  (($param4 ne "")&&($param4 =~ /\d+/)&&(!($param4 =~ /\D/))){$int = $param4;print"Sampling rate defined by PCF.\n";}
+  elsif ((defined $v_samp)&&($v_samp ne "")){$int = $v_samp;print"Sampling rate defined by BPE-variable.\n";}
+  $int = $int+0;
+  my $intStr = sprintf"%5d",$int;
+
+  my ($week,$start) = gps_date("-yd $yyddd -o %W %G");
+  print "WEEK: $week $start; Sampling: $intStr s\n";
+  my %hzer;
+  my %epochs;
+
+# Analyze clock summary
+# ---------------------
+  open INP, $clksum;
+  foreach (<INP>){
+    chomp;
+    $_ =~s/\+\+/\+/g;
+    if($_=~/(\w\w\w\w)\.CLK:([ \d][ \d]\d) $week  ([ \d][ \d][ \d][ \d][ \d]\d)\.  1/){
+      my $sta=$1;
+      my $sat=$2;
+      my $fepo=$3;
+      if( exists $epochs{$sta}){
+        $epochs{$sta} += 1;
+      }else{
+        $epochs{$sta} = 1;
+      }
+      $sta =~ s/e+/D/g;
+      $epo=($fepo-$start)/$int + 1;
+      my @split= split(/ /,$_);
+      my $val = $split[$#split];
+      $val =~ s/D/e/g;
+      $val = $val * 1;
+      $hash{$sat}{$epo}{$sta}=$val;
+      if(exists $hzer{$sta}){
+        $hzer{$sta} = $epo if $hzer{$sta} > $epo;
+      }else{
+        $hzer{$sta} = $epo;
+      }
+    }
+  }
+
+  my %hSum;
+  open OUT, "> $allSum";
+
+  my %del;
+  foreach my $sat (sort keys %hash){
+    $hsum{$sat}{epo} = 0;
+    $hsum{$sat}{del} = 0;
+    $hsum{$sat}{few} = 0;
+    $hsum{$sat}{edt} = 0;
+
+    my $isys = sprintf "%1i", int($sat/100);
+    my $ssat = sprintf "%1s%02i",$satSys[$isys],$sat-$isys*100;
+
+    foreach my $epo (sort {$a <=> $b} keys %{$hash{$sat}}){
+      my @val;
+      my %clut;
+      foreach my $sta (sort keys %{$hash{$sat}{$epo}}){
+        push @val, $hash{$sat}{$epo}{$sta} * 1;
+        $clut{$hash{$sat}{$epo}{$sta}}{$sta} = 1;
+      }
+      $hsum{$sat}{epo} += 1;
+      @val = sort {$a <=> $b} @val;
+
+      $range = $val[$#val] - $val[0];
+      # Minimum observations
+      my $deltaT =  0.000001;
+
+      # Check for minimal redundancy
+      # ----------------------------
+      my $minclu = $ppp =~ /(PPP)/ ? 3 : $ppp =~ /MGEX/ ? 2 : 5;
+      $minclu = 3 if $ppp =~ /RCLK/;
+      if(scalar(@val) < $minclu){
+        map { s/e+/D/g; $del{$_}{$sat}{$epo} = 1;} (sort keys %{$hash{$sat}{$epo}});
+        printf OUT "%3s %4i: DEL  Less than %1i sta.          :",$ssat, $epo,$minclu;
+        map { print OUT " $_"} (sort keys %{$hash{$sat}{$epo}});
+        print OUT "\n";
+        $hsum{$sat}{few} += 1;
+        next;
+      }
+
+      if($range > $deltaT){
+        #Create Cluster:
+        #----------------
+        my %cluster;
+        my $maxclu=0;
+        foreach my $val (sort {$a <=> $b}   keys %clut){
+          my $clu = 0;
+          my $value = $val * 1;
+          foreach (sort keys %cluster){
+            if($cluster{$_}{from} <= $value &&  $value <= $cluster{$_}{to}){
+              $clu = $_;
+              last;
+            }
+          }
+          if($clu == 0){
+            $maxclu++;
+            $clu = $maxclu;
+            $cluster{$clu}{from} = $value;
+            $cluster{$clu}{to}   = $value + $deltaT;
+            foreach my $sta (sort keys %{$clut{$val}}){ $cluster{$clu}{sta}{$sta} = 1};
+            $cluster{$clu}{"num"} = 1;
+          }else{
+            foreach my $sta (sort keys %{$clut{$val}}){ $cluster{$clu}{sta}{$sta} = 1};
+            $cluster{$clu}{"num"} += 1;
+          }
+        }
+
+        my $mx_clu = 0;
+        my $nm_max = 0;
+        my $sn_max = 0;
+        map {if($nm_max <  $cluster{$_}{num}) {$nm_max =  $cluster{$_}{num}; $mx_clu = $_} } (sort keys %cluster);
+        foreach my $clu (sort keys %cluster){
+          next if($clu == $mx_clu);
+          printf  OUT "%3s %4i: DEL  CLUSTER %2i/%2i % 11.8f :",$ssat,$epo,$clu, $maxclu, ($cluster{$clu}{from} + $cluster{$clu}{to})/2;
+          map { $del{$_}{$sat}{$epo} = 1; print OUT " $_";} (sort keys %{$cluster{$clu}{sta}});
+          print OUT "\n";
+          $sn_max = $cluster{$clu}{num} if($sn_max < $cluster{$clu}{num});
+        }
+        if($nm_max <= $minclu || $sn_max/$nm_max> 0.25){
+          $hsum{$sat}{del} += 1;
+          printf OUT "%3s %4i: DEL  CLUSTER %2i/%2i % 11.8f :",$ssat,$epo,$mx_clu, $maxclu, ($cluster{$mx_clu}{from} + $cluster{$mx_clu}{to})/2;
+          map { $del{$_}{$sat}{$epo} = 1; print OUT " $_";} (sort keys %{$cluster{$mx_clu}{sta}});
+          print OUT "\n";
+        }else{
+          $hsum{$sat}{edt} += 1;
+          printf OUT "%3s %4i: KEEP CLUSTER %2i/%2i % 11.8f :",$ssat,$epo,$mx_clu, $maxclu, ($cluster{$mx_clu}{from} + $cluster{$mx_clu}{to})/2;
+          map { print OUT " $_";} (sort keys %{$cluster{$mx_clu}{sta}});
+# $del{$_}{$sat}{$epo} = 1;
+          print OUT "\n";
+        }
+      }else{
+          printf OUT "%3s %4i: NONE %3i sta.      % 11.8f : % 11.8f\n",$ssat,$epo, scalar(@val), ($val[$#val] + $val[0])/2,($val[$#val] - $val[0]);
+      }
+    }
+  }
+  close OUT;
+  open LST, ">>  $oneSum";
+  foreach my $sat (sort keys %hsum){
+    my $isys = sprintf "%1i", int($sat/100);
+    my $ssat = sprintf "%1s%02i",$satSys[$isys],$sat-$isys*100;
+
+    if($hsum{$sat}{epo} > 0 && ( $hsum{$sat}{few} > 0 || $hsum{$sat}{del} > 0 || $hsum{$sat}{edt} > 0 ) ){
+      printf LST "%5i SAT: %3s EPO %4i FEW %4i EDT %4i DEL %4i\n", $yyddd, $ssat, $hsum{$sat}{epo},$hsum{$sat}{few},$hsum{$sat}{edt},$hsum{$sat}{del}
+    }
+  }
+  close LST;
+
+  open LST, "> $lstSum";
+  open OUT, "< $allSum";
+  foreach (<OUT>){
+    chomp;
+    print LST "$_\n" if $_ =~ /\: (DEL|KEEP)/;
+  }
+  close OUT;
+  close LST;
+
+
+  my @prcSta;
+
+  # Screen data files
+  # -----------------
+  foreach my $sta (sort keys %del){
+    my $delepo = 0;
+    my $edtfil="${edtDir}CLKSCREEN$sta${ssss}.${edtExt}";
+    my $staFil="${outDir}FIL${ddd}$sta.OUT";
+    my $filnamc = "";
+    my $filnamp = "";
+    open TMP, "< $staFil";
+    foreach (<TMP>){
+      chomp;
+      if( $_ =~ /    1  C  L3     ($sta..........)       -            (\d\d\d\d)  ([ \d]\d-\d\d-\d\d [ \d]\d\:\d\d\:\d\d) /){
+        $filnamc = "  1   $2  0    20$3$intStr   C   $1";
+        $filnamp = "  2   $2  0    20$3$intStr   P   $1";
+        $filnamc =~ s/20 /200/; $filnamc =~ s/209/199/; 
+        $filnamp =~ s/20 /200/; $filnamp =~ s/209/199/; 
+      }
+    }
+    close TMP;
+
+    open EDT, "> $edtfil";
+
+    print EDT "RESIDUAL CHECK CLUSTER 03320015                                  16-NOV-09 20:02\n".
+              "--------------------------------------------------------------------------------\n".
+              "\n";
+    print EDT "FILE INFORMATION:\n".
+              "----------------\n".
+              "\n".
+              "FILE  SESS SESF  REFERENCE EPOCH   DTOBS TYPE STATION1         STATION2\n".
+              "--------------------------------------------------------------------------------\n".
+              "\n".
+              "$filnamc\n".
+              "$filnamp\n".
+              "\n".
+              "--------------------------------------------------------------------------------\n".
+              "\n";
+
+    print EDT "EDITING INFORMATION:\n".
+              "--------------------\n".
+              "(EDITING TYPES: MARK=1, RESET=-1, ELIM.=2, SLIP=3, NEW AMB.=4, RESET AMB.=-4,\n".
+              "                SET CYC.SLIP FLAG=5, RESET CYC.SLIP FLAG=-5)\n".
+              "                     EPOCH NUMBERS\n".
+              "FILE  SAT  TYPE  FRQ  START  END    SLIP SIZE  REASON  #EPOCHS\n".
+
+              "--------------------------------------------------------------------------------\n\n";
+
+    foreach my $sat (sort keys %{$del{$sta}}){
+      my $start = 0;
+      my $end   = 0;
+      for (my $epo=1; $epo <= (60*60*24/$int); $epo++) {
+        $delepo++;
+        $start = $epo;
+        $end = $epo;
+        if(exists $del{$sta}{$sat}{$epo}){
+          while (exists $del{$sta}{$sat}{$epo}){
+            $end = $epo++;
+          }
+          $end   = $end    + 1 - $hzer{$sta};
+          $start = $start  + 1 - $hzer{$sta};
+          printf EDT "  1   %3i    1    3    %4i  %4i                  1      %3i\n", $sat,$start,$end,$end-$start+1;
+          printf EDT "  2   %3i    1    3    %4i  %4i                  1      %3i\n", $sat,$start,$end,$end-$start+1;
+        }
+        # Reset epochs
+        # ------------
+        $start = 0;
+        $end   = 0;
+      }
+    }
+    print EDT "\n".
+              "--------------------------------------------------------------------------------\n",
+              "\n";
+    close EDT;
+
+    if($epochs{$sta}-$delepo < 50){
+        unlink($edtfil);
+      unlink("${czhDir}$sta$ssss.???");
+      print "Delete station with few observations: ${czhDir}$sta$ssss.??? \n";
+    }else{
+      if( -s "${czhDir}$sta$ssss.${czhExt}"){
+        push @prcSta, $sta;
+        print "Edit observation files of station $sta. \n";
+      }else{
+        print "File not available: ${czhDir}$sta$ssss.${czhExt}\n";
+        unlink($edtfil);
+      }
+    }
+  }
+
+## unlink(glob("${outDir}CLKSCREEN????${ssss}.EDT"));
+ unlink(glob("${outDir}FIL${ddd}????.OUT"));
+ unlink(glob("${clkDir}FIL${ddd}????.CLK"));
+ unlink(glob("${outDir}FIL${ddd}????.CLK"));
+
+
+# Initialize parallel run
+# -----------------------
+  initPar_Bl($bpe,@prcSta);
+
+
+# Stop if no CZH files found
+# --------------------------
+  if (@prcSta == 0) {
+    logJump($bpe, $goto);
+    prtGoto($bpe,$goto);
+  }
+}

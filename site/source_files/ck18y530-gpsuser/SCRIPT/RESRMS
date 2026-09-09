@@ -1,0 +1,27 @@
+package RESRMS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  RESRMS
+#
+# Purpose :  Execute RESRMS
+#
+# PARAMs  :
+#
+# Author  :  H. Bock
+# Created :  27-Feb-2012
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

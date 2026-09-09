@@ -1,0 +1,77 @@
+# ============================================================================
+# ZDGNSS_3D.PCF
+# ============================================================================
+#
+# Description:  Final (3-day arcs) ZD GNSS solution
+#
+# Comments   :
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  C. Kobel
+# Created    :  26-May-2026
+#
+# Changes    :
+#
+# ============================================================================
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+# Wait for status flag
+# --------------------
+001  ZD_STATUS         NO_OPT      CPU=ANY; PARAM1=FINISH_R; PARAM2=CHECK; PARAM3=1
+#
+# Copy data and prepair input files
+# ---------------------------------
+100  ZD_COPY_FIL_3D    NO_OPT      CPU=SHORT; WAIT=001; SKIP
+200  ZD_COOVEL         ZD3D_GEN    CPU=SHORT; WAIT=001 100
+201  ZD_POLUPD         ZD3D_GEN    CPU=SHORT; WAIT=200
+#
+# Create main long-arc solution
+# -----------------------------
+300  ZD_ADDNEQ2_LA_P   NO_OPT      CPU=SHORT; WAIT=201
+301  ZD_ADDNEQ2_LA_E   ZD3D_3DS    CPU=HUGE; WAIT=300; PARALLEL=300
+400  ZD_ORBGEN         ZD3D_3DS    CPU=SHORT; WAIT=301
+401  ZD_CCRNXC         ZD3D_3DS    CPU=SHORT; WAIT=301
+500  ZD_STDPRE         ZD3D_3DS    CPU=SHORT; WAIT=400 401
+#
+# Save results
+# ------------
+600  ZD_SAVE_RES_3D    NO_OPT      CPU=SHORT; WAIT=500
+700  ZD_DEL_RES_3D     NO_OPT      CPU=SHORT; WAIT=600
+#
+# Create status flag
+# ------------------
+999  ZD_STATUS         NO_OPT      CPU=ANY; WAIT=700; PARAM1=3D_R; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_ORBAPR = *;                DESCRIPTION=A priori Orbit and RPR
+V_APR    = *;                DESCRIPTION=A priori information (1d-sol)
+V_FIN    = *;                DESCRIPTION=Final results
+V_PSDINF = IG?20;            DESCRIPTION=PSD corrections
+V_CRDINF = IG?20;            DESCRIPTION=CRD/VEL/FIX master file name
+V_SUBMOD = *;                DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;                DESCRIPTION=Nutation model
+V_SETID  = *;                DESCRIPTION=Solid Earth Tides
+V_OTID   = *;                DESCRIPTION=Ocean Tides
+V_PEPH   = *;                DESCRIPTION=Planetary ephemeris
+V_AREF   = *;                DESCRIPTION=Albedo reflectivity
+V_AEMI   = *;                DESCRIPTION=Albedo emissivity
+V_FLUX   = *;                DESCRIPTION=Flux index
+V_POTCOE = COSTG_FSM_????;   DESCRIPTION=Gravity field model
+V_PCVINF = *;                DESCRIPTION=PCV information
+V_PCV    = I??;              DESCRIPTION=GNSS PCV model (absolute)
+V_OBSSEL = *;                DESCRIPTION=Observation selection file
+V_SATCRX = *;                DESCRIPTION=Satellite problem file for data import
+V_SATINF = *;                DESCRIPTION=Satellite information
+V_MAC    = *;                DESCRIPTION=Satellite macromodel
+V_DTSTC  = *;                DESCRIPTION=Min. interval between pulse and maneuver
+V_BLQINF = FES20*;           DESCRIPTION=BLQ file name, CMC corrections
+V_SAVE   = *;                DESCRIPTION=Save results; CARDS=YES NO
+V_MEANPL = *;                DESCRIPTION=Mean pole model
+V_DEL    = ?;                DESCRIPTION=Delete specific files from campaign; CARDS=Y N
+# Configuration
+V_PCFCONFIG = MODEL SETUP_ZDGNSS 3D;    DESCRIPTION=Configuration files
+

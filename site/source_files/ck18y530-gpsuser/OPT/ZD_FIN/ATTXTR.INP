@@ -1,0 +1,371 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! ------------------------------------------------------------------
+! General Input Files
+! ------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Subdaily ERP Model
+! -------------------
+SUBMOD 1  "$(SUBMOD)"
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Nutation Model
+! -------------------
+NUTMOD 1  "$(NUTMOD)"
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+
+DESCR_NUTMOD 1  "Nutation model"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "$(SATINF)_$(PCV)"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "$(SATCRX)"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Correction GPS-UTC
+! ------------------
+GPSUTC 1  "GPSUTC"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  ## emptyallowed = false
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! ------------------------------------------------------------------
+! Orbit and Clock Input Files
+! ------------------------------------------------------------------
+! Standard Orbit File
+! -------------------
+STDORB 1  "$(FIN)_$YSS+0"
+  ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
+
+DESCR_STDORB 1  "Standard orbit"
+
+! ERP File
+! ---------
+POLE 1  "$(FIN)_$YSS+0"
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; emptyallowed = true
+  ## maxfiles = 1
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! ------------------------------------------------------------------
+! Output Files
+! ------------------------------------------------------------------
+! Quaternion file
+! ---------------
+OUTPUT 1  "$(FIN)_$YSS+0"
+  ## widget = lineedit; path = DIR_OBX; ext = EXT_OBX
+
+DESCR_OUTPUT 1  "Quaternion file"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "ATTXTR"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File (blank: merge with program output file)
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! ------------------------------------------------------------------
+! Options
+! ------------------------------------------------------------------
+! Title
+! -----
+TITLE 1  "Extract GNSS Orbit Attitude information: $YD+0"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Direction of transformation
+! ---------------------------
+DIRECTION 1  "ITRF-->SF"
+  ## widget = combobox; editable = false; cards = ITRF-->SF SF-->ITRF
+
+MSG_DIRECTION 1  "Direction of rotation"
+
+SATNUM 1  "ALL"
+  ## widget = combobox; cards = ALL GPS GLO GAL LIST; editable = false
+
+MSG_SATNUM 1  "Satellite number for comparison"
+
+SATLST 1  ""
+  ## widget = lineedit; activeif = SATNUM == LIST
+
+MSG_SATLST 1  "Satellite list"
+
+! Arc Number
+! ----------
+ARCNUMB 1  "ALL"
+  ## widget = combobox; cards = ALL
+
+MSG_ARCNUMB 1  "Arc number for comparison"
+
+! Table Step Size (min)
+! ---------------
+DELTAT 1  "0.5"
+  ## widget = lineedit; emptyallowed = false; check_type = real
+  ## check_min = 0
+
+MSG_DELTAT 1  "Sampling"
+
+! Header content
+! --------------
+DESCRIPT 1  "Attitude quaternions for ZD final product $YD+0"
+  ## widget = lineedit
+
+MSG_DESCRIPT 1  "Content of the ORBEX header: Description"
+
+AGENCY 1  "Experimental"
+  ## widget = lineedit
+
+MSG_AGENCY 1  "Content of the ORBEX header: Agency"
+
+INPDAT 1  "$(FIN)_$YSS+0"
+  ## widget = lineedit
+
+MSG_INPDAT 1  "Content of the ORBEX header: Input data"
+
+CONTACT 1  "cyril.kobel@unibe.ch"
+  ## widget = lineedit
+
+MSG_CONTACT 1  "Content of the ORBEX header: Contact"
+
+TIMSYS 1  "GPS"
+  ## widget = lineedit
+
+MSG_TIMSYS 1  "Content of the ORBEX header: Time system"
+
+COORDSYS 1  "$(CRDINF)"
+  ## widget = lineedit
+
+MSG_COORDSYS 1  "Content of the ORBEX header: Coord. syst."
+
+FRAMETYPE 1  "ECEF"
+  ## widget = lineedit
+
+MSG_FRAMETYPE 1  "Content of the ORBEX header: Frame type"
+
+! Use Time Window
+! ---------------
+WINDOW 1  "1"
+  ## widget = checkbox
+
+MSG_WINDOW 1  "Use time window for comparison"
+
+RADIO_1 1  "1"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Time window defined by year and session ID"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_2 1  "Time window defined by start and end times"
+
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_STRG 1  "Session defining the time window"
+
+! Start and End Epoch  (blank: use entire STD interval)
+! -------------------
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 59"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# EXTRACT GNSS ATTITUDE QUATERNIONS - ATTXTR 1: Filenames                      #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files     > % <                                           # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Standard orbit             > %%%%%%%% <                                    # STDORB
+#   Earth rotation parameters  > %%%%%%%% <                                    # POLE
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Quaternions (ORBEX)        > %%%%%%%% <                                    # OUTPUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output             > % < use ATTXTR.Lnn            or  > %%%%%%%% <# SYSODEF SYSOUT
+#   Error messages             > % < merged to program output  or  > %%%%%%%% <# ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# ATTXTR 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Satellite information   > %%%%%%%%%%%% <                                   # SATELL
+#   Satellite problems      > %%%%%%%%%%%% <                                   # SATCRUX
+#   Subdaily ERP model      > %%%%%%%%%%%% <                                   # SUBMOD
+#   Nutation model          > %%%%%%%%%%%% <                                   # NUTMOD
+#   GPS-UTC time difference > %%%%%%%%%%%% <                                   # GPSUTC
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ATTXTR 2: General Options                                                    #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# OUTPUT SELECTION                                                             #
+#   Direction of rotation                     > %%%%%%%%%%%% <                 # DIRECTION
+#                                                                              #
+# TIME SELECTION                                                               #
+#   Use time window                           > % <                            # WINDOW
+#   Sampling                                  > %%%%%%%% <   minutes           # DELTAT
+#                                                                              #
+# SATELLITE SELECTION                                                          #
+#   Arc number                                > %%%% <                         # ARCNUMB
+#   Satellite number                          > %%%% <                         # SATNUM
+#   Satellite list > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # SATLST
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ATTXTR 2.1: Options for header                                               #
+#                                                                              #
+# CONTENT OF THE HEADER IN THE RESULTING ORBEX FILE                            #
+#   Description  > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # DESCRIPT
+#   Agency       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # AGENCY
+#   Input data   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # INPDAT
+#   Contact      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # CONTACT
+#   Time system  > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # TIMSYS
+#   Coord. syst. > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # COORDSYS
+#   Frame type   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # FRAMETYPE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL WINDOW == 1 ######################################################
+# ATTXTR 2.2: Time Window                                                      #
+#                                                                              #
+# EXTRACTION TIME WINDOW                                                       #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <     Session > %%%% <                                  # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################

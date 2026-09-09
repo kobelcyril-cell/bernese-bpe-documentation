@@ -1,0 +1,64 @@
+package SOLCLK_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SOLCLK_P
+#
+# Purpose :  Parallel run of ADDNEQ2 to solve for the individual NEQs
+#
+# Programs:  ADDNEQ2
+#
+# Author  :  E. Calero
+# Created :  25-Apr-2021
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1, $param2, $subPid,
+      $yyssss,$yyddd,
+      $dirFix,$extFix) =
+    $bpe->getKeys(
+      'PARAM1','PARAM2','SUB_PID',
+      '$YSS+0','$YD+0',
+      'DIR_FIX','EXT_FIX');
+
+# Initialize variables
+# --------------------
+  setUserVar($bpe,"D4",$subPid,"SOL",$param2);
+
+# Run program
+# -----------
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","INPFILE",$param1);
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","CLKS_ELIM","NO");
+  if($subPid=~/001/){
+    my $ssol=substr($param2,0,3);
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","COORDRS","${ssol}_$yyssss");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","ELEFILE","${ssol}_$yyssss");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","POLERS","${ssol}_$yyssss");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TROPSAV","${ssol}_$yyssss");
+  }
+  my $sol = substr($param2,0,3);
+  my $fixFile = "${dirFix}${sol}_${yyddd}.${extFix}";
+  if ( -e $fixFile) {
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","FREESTA_F","${sol}_${yyddd}");
+    prtMess($bpe,"UPDATE FIX FILE");
+  }
+#  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NOSTC_G","1");
+#  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NOSTC_R","1");
+#  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NOSTC_E","1");
+
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

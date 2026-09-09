@@ -1,0 +1,109 @@
+# ============================================================================
+# ZDGNSS_AR.PCF
+# ============================================================================
+#
+# Description:  AR for ZD-processing
+#
+# Comments   :
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  C. Kobel
+# Created    :  31-Mar-2026
+#
+# Changes    :
+#
+# ============================================================================
+#
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Wait for status flag
+# --------------------
+001  ZD_STATUS        NO_OPT      CPU=ANY; PARAM1=FA; PARAM2=CHECK
+#
+# Copy a priori Information for later use
+# ---------------------------------------
+050  ZD_COPY_APR_AR   NO_OPT      CPU=ANY; WAIT=001; PARAM2=START
+#
+# Initialize ambiguities
+# ----------------------
+100  ZD_SATMRK        ZD_IAR_AMB  CPU=ANY; WAIT=050
+#
+# Estimate WL biases
+# ------------------
+110  ZD_GPSEST_P      ZD_IAR_WLB  CPU=ANY; WAIT=100
+111  ZD_GPSEST_E      ZD_IAR_WLB  CPU=ANY; WAIT=110; PARALLEL=110
+112  ZD_PHABIA        ZD_IAR_WLB  CPU=ANY; WAIT=111
+#
+# Estimate WL ambiguities (save in OBS files)
+# -------------------------------------------
+120  ZD_GPSEST_P      ZD_IAR_WLI  CPU=ANY; WAIT=112
+121  ZD_GPSEST_E      ZD_IAR_WLI  CPU=ANY; WAIT=120; PARALLEL=120
+#
+# Estimate NL biases
+# ------------------
+130  ZD_GPSEST_P      ZD_IAR_NLB  CPU=ANY; WAIT=121
+131  ZD_GPSEST_E      ZD_IAR_NLB  CPU=ANY; WAIT=130; PARALLEL=130
+132  ZD_STDPRE        ZD_IAR_NLB  CPU=ANY; WAIT=131
+133  ZD_PHACOR        ZD_IAR_NLB  CPU=MEGA; WAIT=132
+#
+# Check bias estimation
+# ---------------------
+134  ZD_CHECK_AR_SAT  ZD_IAR_NLB  CPU=ANY; WAIT=133; NEXTJOB=100
+#
+# Update orbit and generate combined bias file
+# --------------------------------------------
+140  ZD_ORBGEN        ZD_IAR_NLB  CPU=ANY; WAIT=134
+141  ZD_PHACMB        NO_OPT      CPU=ANY; WAIT=140; PARAM2=WL_; PARAM3=NL_; PARAM4=IAR
+#
+# Estimate NL ambiguities (save in OBS files)
+# -------------------------------------------
+150  ZD_GPSEST_P      ZD_IAR_NLI  CPU=ANY; WAIT=141
+151  ZD_GPSEST_E      ZD_IAR_NLI  CPU=ANY; WAIT=150; PARALLEL=150
+#
+# Generate statistics
+# -------------------
+161  ZD_IAR_STA       ZD_IAR_CHK  CPU=ANY; WAIT=151
+#
+# Retrieve original a priori information
+# --------------------------------------
+200  COPY_APR_AR_new     NO_OPT   CPU=ANY; WAIT=151; PARAM2=END
+#
+# Checks (nothing yet)
+# -------------------------------------
+#
+# Create status flag
+# ------------------
+999  ZD_STATUS        NO_OPT      CPU=ANY; WAIT=200; PARAM1=AR; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_CBIA   = *;               DESCRIPTION=Unify inter-system/frequency biases
+V_APR    = *;               DESCRIPTION=A priori information
+V_BLQINF = FES20*;          DESCRIPTION=BLQ file name, CMC corrections
+V_SATCRX = *;               DESCRIPTION=Satellite problem file for data import
+V_SATINF = *;               DESCRIPTION=Satellite information
+V_MAC    = *;               DESCRIPTION=Satellite Macromodel
+V_PCV    = I??;             DESCRIPTION=GNSS PCV model (absolute)
+V_SUBMOD = *;               DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;               DESCRIPTION=Nutation model
+V_POTCOE = *;               DESCRIPTION=Gravity field model
+V_SETID  = *;               DESCRIPTION=Solid Earth Tides
+V_OTID   = *;               DESCRIPTION=Ocean Tides
+V_PEPH   = *;               DESCRIPTION=Planetary ephemeris
+V_AREF   = *;               DESCRIPTION=Albedo reflectivity
+V_AEMI   = *;               DESCRIPTION=Albedo emissivity
+V_FLUX   = *;               DESCRIPTION=Flux index
+V_OBSSEL = *;               DESCRIPTION=Observation selection file
+V_STAINF = *;               DESCRIPTION=Station information
+V_PCVINF = *;               DESCRIPTION=PCV information
+V_SAMPL  = *;               DESCRIPTION=Sampling rate of the GPSEST solution;             CHECK_TYPE=integer
+V_BIAINF = *;               DESCRIPTION=Bias-SINEX information file
+V_USEHOI = *;               DESCRIPTION=Use HOI-file;                                     CARDS=YES NO
+V_TRPMOD = VMF;             DESCRIPTION=Troposphere model
+# Configuration
+V_PCFCONFIG = MODEL SETUP_ZDGNSS IA;    DESCRIPTION=Configuration files
+

@@ -1,0 +1,58 @@
+package ADDNEQ2_CLK_P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ADDNEQ2_CLK_P
+#
+# Purpose :  Prepare parallel ADDNEQ2 run
+#
+# Author  :  C. Kobel
+# Created :  02-Jul-2026
+#
+# Changes :
+#===========================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $sol,
+      $dirNeq,
+      $extNeq
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      'V_FIN',
+      'DIR_NEQ',
+      'EXT_NEQ'
+  );
+
+  # ---------- Get NEQ files ------------
+  my @NEQfl = glob("${dirNeq}${sol}??${yyssss}???.${extNeq}");
+
+  # ---------- Populate options for parallel run ------------
+  my @time;
+  my ($file, $ssol, $ite);
+
+  foreach (@NEQfl) {
+
+    my $NEQ = basename($_);
+
+    ($file = $NEQ) =~ s/\.[^.]+$//;
+
+    $ite  = substr($file, 3, 2);
+    $ssol = sprintf("%02i", $ite + 1);
+    $ssol = "${sol}${ssol}";
+
+    push @time, sprintf "%s %5s", $file, $ssol;
+  }
+
+  # ---------- Put the BPE cluster files into the list ------------
+  initPar_Fl($bpe, @time);
+}

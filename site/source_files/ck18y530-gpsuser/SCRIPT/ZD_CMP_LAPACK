@@ -1,0 +1,79 @@
+package CMP_LAPACK;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CMP_LAPACK
+#
+# Purpose :  Compare solutions computed using LAPACK-based processing.
+#
+# Author  :  C. Kobel
+# Created :  15-Dec-2025
+#
+# Changes :  30-Apr-2026 CK: Reformatted, improved readability,
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $yyddd,
+      $V_fin,
+      $V_large,
+      $extErp,
+      $dirErp,
+      $extClk,
+      $dirClk,
+      $dirOut
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      '$YD+0',
+      'V_FIN',
+      'V_LARGE',
+      'EXT_ERP',
+      'DIR_ERP',
+      'EXT_CLK',
+      'DIR_CLK',
+      'DIR_OUT'
+  );
+
+  # ---------- File definitions ------------
+  my $matlab_dir = "$ENV{HOME}/ZDGNSS_RUN/matlab";
+
+  my $stddif = "${dirOut}/STDDIF_${V_fin}${V_large}${yyssss}.PLT";
+  my $compar = "${dirOut}/COMPAR2_${V_fin}${V_large}${yyssss}.PLT";
+
+  my $erp1 = "${dirErp}/${V_fin}_${yyssss}.${extErp}";
+  my $erp2 = "${dirErp}/${V_fin}${V_large}${yyssss}.${extErp}";
+
+  my $clk1 = "${dirClk}/${V_fin}S${yyssss}.${extClk}";
+  my $clk2 = "${dirClk}/${V_fin}${V_large}${yyssss}.${extClk}";
+
+  my $outf = "${dirOut}/../MSC/MSC_${yyddd}/CMP_LAPACK_${yyddd}";
+  my $ml   = "${dirOut}/../MSC/CMP_LAPACK_TMP";
+
+  # ---------- Run MATLAB analysis ------------
+  system(qq{
+    matlab -nodesktop -nojvm -r "
+      cd $matlab_dir;
+      try
+        run_all_comparisons(
+          '$stddif',
+          '$compar',
+          '$erp1',
+          '$erp2',
+          '$clk1',
+          '$clk2',
+          '$outf'
+        );
+      catch
+      end;
+      quit;
+    " >> $ml
+  });
+}

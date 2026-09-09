@@ -1,0 +1,57 @@
+{
+    "100": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "200": {
+        "notes": "",
+        "input": "\"V_CRDINF\"\n\"V_PSDINF\"",
+        "output": "FIN$YD+0.CRD\nFIN$YD+0.VEL"
+    },
+    "201": {
+        "notes": "",
+        "input": "\"V_APR\"_$YSS+-.ERP",
+        "output": "FIN$YD+0.ERP"
+    },
+    "300": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "301": {
+        "notes": "",
+        "input": "\"V_APR\"99$YSS+-.NQ0\nFIN$YD+0.CRD\nFIN$YD+0.VEL\nFIN$YD+0.ERP\n\"V_APR\"S$YSS+0.CLK\n\"V_APR\"_$YD+0.FIX\n",
+        "output": "if NEQ=001:\n\"V_FIN\"_$YSS+0.CRD\n\"V_FIN??????.ELE\n\"V_FIN\"_$YSS+0.ERP\n\nelse:\n$(D4)??????.ELE\n\"V_FIN\"$S+0$(D4).CLK"
+    },
+    "400": {
+        "notes": "",
+        "input": "\"V_FIN\"_$YSS+0.ELE\n\"V_FIN\"_$YSS+0.ERP",
+        "output": "\"V_FIN\"_$YSS+0.STD"
+    },
+    "401": {
+        "notes": "",
+        "input": "\"V_FIN\"$S+00??.CLK",
+        "output": "\"V_FIN\"S$YSS+0.CLK"
+    },
+    "500": {
+        "notes": "",
+        "input": "\"V_FIN\"_$YSS+0.STD\n\"V_FIN\"S$YSS+0.CLK\n\"V_FIN\"_$YSS+0.ERP\n\"V_FIN\"_$YSS+0.CRD",
+        "output": "\"V_FIN\"_$YSS+0.PRE"
+    },
+    "600": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "700": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

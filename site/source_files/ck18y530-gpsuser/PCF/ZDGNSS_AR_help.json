@@ -1,0 +1,77 @@
+{
+    "099": {
+        "notes": "Copy a priori information to \"V_K\"",
+        "input": "\"V_U\"\n\"V_U\"_$YSS+0.CRD/STD/RPR/ERP/CLK\nif \"V_U\"_$YSS+0.CLK not available then \"V_U\"S$YSS+.0.CLK",
+        "output": "\"V_U\"_$YSS+0.CRD/STD/RPR/ERP/CLK"
+    },
+    "100": {
+        "notes": "Initialize ambiguities",
+        "input": "",
+        "output": ""
+    },
+    "150": {
+        "notes": "",
+        "input": "????$S+0.PZH\n????$S+0.CZH\n\"V_K\"_$YSS+0.CRD/STD/ERP/CLK\nNLB$YSS+0.OSB",
+        "output": "????$S+0_NLI.CRD/OUT"
+    },
+    "151": {
+        "notes": "",
+        "input": "PID 111:\n????$S+0.PZH\n????$S+0.CZH\n\"V_K\"_$YSS+0.CRD/STD/ERP\n\"V_C\"S$YSS+0.OSB\nPID 121:\n????$S+0.PZH\n????$S+0.CZH\n\"V_K\"_$YSS+0.CRD/STD/ERP\nWLB$YSS+0.OSB\nPID 131\n????$S+0.PZH\n????$S+0.CZH\n\"V_K\"_$YSS+0.CRD/STD/ERP\n\"V_C\"S$YSS+0.OSB\nPID 151:\n????$S+0.PZH\n????$S+0.CZH\n\"V_K\"_$YSS+0.CRD/STD/ERP/CLK\nNLB$YSS+0.OSB",
+        "output": "PID 111:\n????$S+0_WLB.OUT\nPID 121:\n????$S+0_WLI.OUT\nPID 131:\n????$S+0_NLB.OUT\nPID 151:\n????$S+0_NLI.CRD/OUT\n"
+    },
+    "133": {
+        "notes": "PID 112:\nEstimate WL biases\nPID 133:\nEstimate NL biases using MATLAB-Script. Writes summary to MSC/PHACOR_LOG_$YD+0\nMerges OSB-files",
+        "input": "\"V_C\"S$YSS+0.OSB\nPID 112:\n????$S+0_WLB.OUT\nPID 133:\n????$S+0_NLB.OUT\nWL_$YSS+0.OSB\nWL_$YSS+0.BIA\n\"V_K\"_$YSS+0.CRD/PRE/CLK",
+        "output": "WLB$YSS+0.OUT\nWL_$YSS+0.OSB\nWL_$YSS+0.BIA\nScript generates:\nWLB$YSS+0.OSB (contains WL bias estimates)\n\"V_K\"_$YSS+0.PRE/CLK (modified)\nNL_$YSS+0.OSB\nNL_$YSS+0.BIA\nNLB$YSS+0.OSB"
+    },
+    "132": {
+        "notes": "",
+        "input": "\"V_K\"_$YSS+0.STD/ERP/CRD",
+        "output": "\"V_K\"_$YSS+0.PRE"
+    },
+    "134": {
+        "notes": "",
+        "input": "\"V_K\"_$YSS+0.PRE/ERP",
+        "output": "\"V_K\"_$YSS+0.STD"
+    },
+    "135": {
+        "notes": "Combine bias estimates files",
+        "input": "\"V_C\"S$YSS+0.OSB\nWL_$YSS+0.OSB\nNL_$YSS+0.OSB",
+        "output": "IAR$YSS+0.OSB\nPHA$YSS+0.OSB"
+    },
+    "140": {
+        "notes": "Check whether AR was successfulls for all satellites\nExcludes satellite in such a case and delete NLB.OUT-files\nOptionally jump back in case of fail (not activated) to NL AR",
+        "input": "",
+        "output": ""
+    },
+    "160": {
+        "notes": "Exctract ambiguities statistics",
+        "input": "????$S+0.PZH",
+        "output": "OBSXTR.SUM"
+    },
+    "161": {
+        "notes": "Run several GPSXTR to create AR summary",
+        "input": "????$S+0_WLI.OUT\n????$S+0_NLI.OUT",
+        "output": "IAR$YSS+0.PRC"
+    },
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "050": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "200": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "141": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

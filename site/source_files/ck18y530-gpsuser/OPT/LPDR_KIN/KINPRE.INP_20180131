@@ -1,0 +1,440 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 13
+  "P" "/storage/research/aiub_code"
+  "Q" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "X" "/storage/research/aiub_data/BSWsoftware/BERN/GPS"
+  "U" "/storage/homefs/l_code/GPSUSER"
+  "S" "/storage/research/aiub_data/PRODUCTS"
+  "G" "/storage/research/aiub_u_camp"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "l_code"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 1  "${P}/EPNFINAL"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+SESSION_TABLE 1  "${P}/EPNFINAL/GEN/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2023"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "2520"
+  ## widget = comment
+  # $S+0
+
+! -------------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! Satellite Information File
+! --------------------------
+SATELL 1  "${CONFIG}/SAT_1452.SAT"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+  # $(SATINF)
+
+DESCR_SATELL 1  "Satellite information"
+
+! Check Kinematic Orbit
+! ---------------------
+ICHKKIN 1  "0"
+  ## widget = checkbox
+
+MSG_ICHKKIN 1  "Check kinematic positions"
+
+! Write Accuracy Info
+! -------------------
+IWRQXX 1  "0"
+  ## widget = checkbox
+
+MSG_IWRQXX 1  "Write accuracy info"
+
+! consider flags when writing coordinates
+! -------------------
+KCFLAGS 1  "K"
+  ## widget = lineedit
+
+MSG_KCFLAGS 1  "Consider flags when writing kin. coordinates"
+
+! Standard Orbit
+! --------------
+LEOSTD 0
+  ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
+  ## activeif = ICHKKIN = 1
+  # 
+
+DESCR_LEOSTD 1  "LEO standard orbits"
+
+! Edited KIN file
+! ---------------
+KINOUT 0
+  ## widget = lineedit; path = DIR_PRE; ext = EXT_KIN; emptyallowed = true
+  ## activeif = ICHKKIN = 1
+  # 
+
+DESCR_KINOUT 1  "Write edited KIN file"
+
+! General Constants
+! -----------------
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext =EXT_CONST; maxfiles = 1
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+! ERP File
+! ---------
+POLE 0
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
+  ## activeif = ICHKKIN = 1
+  # 
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! Max difference between kinematic and standard orbit
+! ---------------------------------------------------
+EDTKIN 1  "0.13"
+  ## widget = lineedit; check_type = real
+
+DESCR_EDTKIN 1  "Max. 3D difference"
+
+! Subdaily ERP Model
+! -------------------
+SUBMOD 0
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+  ## activeif = ICHKKIN = 1
+  # IERS2010XY
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Nutation Model
+! -------------------
+NUTMOD 0
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+  ## activeif = ICHKKIN = 1
+  # IAU2000R06
+
+DESCR_NUTMOD 1  "Nutation model"
+
+! Input Files
+! -----------
+KININP 1  "${P}/EPNFINAL/STA/KN$F232520.KIN"
+  ## widget = selwin; path = DIR_KIN; ext = EXT_KIN; maxfiles = 999
+  ## emptyallowed = false
+  # KN$F$YSS+0
+
+MSG_KININP 1  "Input kinematic coordinates"
+
+KININP_TXT_COL_1 1  "Kinematic files"
+
+! Extensions of the Output Files
+! ------------------------------
+KININP_EXT_COL_2 1  "PRE"
+  ## widget = initmenu; pointer = EXT_PRE
+
+KININP_PTH_COL_2 1  "${P}/EPNFINAL/ORB/"
+  ## widget = initmenu; pointer = DIR_PRE
+
+KININP_TXT_COL_2 1  "Precise orbit files"
+
+! List of Output Files
+! -------------------
+PREOUT 1  "${P}/EPNFINAL/ORB/KN$F232520.PRE"
+  ## widget = lineedit; path = DIR_PRE; ext = EXT_PRE; emptyallowed = true
+  # KN$F$YSS+0
+
+DESCR_PREOUT 1  "Output file precise orbits"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${P}/EPNFINAL/OUT/KP$F232520.OUT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # KP$F$YSS+0
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Satellite Clocks
+! ----------------
+RNXCLK 1  "${P}/EPNFINAL/OUT/KN$F232520.CLK"
+  ## widget = selwin; path = DIR_RXC; ext = EXT_RXC; maxfiles = 1
+  ## emptyallowed = true
+  # KN$F$YSS+0
+
+DESCR_RNXCLK 1  "Satellite clock corrections"
+
+! Title
+! -----
+TITLE 1  "LPD_232520_$(LEO): Conversion of kinematic orbit into precise orbit format"
+  ## widget = lineedit
+  # LPD_$YSS+0_$(LEO): Conversion of kinematic orbit into precise orbit format
+
+MSG_TITLE 1  "Title line"
+
+! Options
+! -------
+! Data description
+! ----------------
+DATADES 1  "PHASE"
+  ## widget = lineedit
+
+MSG_DATADES 1  "Data description"
+
+! Orbit Type
+! ----------
+ORBTYP 1  "KIN"
+  ## widget = lineedit
+
+MSG_ORBTYP 1  "Orbit type"
+
+! Agency Generating Orbit
+! -----------------------
+AGENCY 1  "AIUB"
+  ## widget = lineedit
+
+MSG_AGENCY 1  "Agency gen. orbit"
+
+! Specific Accuracy
+! -----------------
+ACCURA 1  "0"
+  ## widget = lineedit
+
+MSG_ACCURA 1  "LEO spec. accuracy"
+
+! Title Lines for Precise File
+! ----------------------------
+TITPRE 1  ""
+  ## widget = uniline; check_strlen.1 = 77; numlines = 6
+
+MSG_TITPRE 1  "Comment lines in precise orbit file"
+
+TIPRE1 0
+  ## widget = lineedit
+
+MSG_TIPRE1 1  "Title line 1"
+
+TIPRE2 0
+  ## widget = lineedit
+
+MSG_TIPRE2 1  "Title line 2"
+
+TIPRE3 0
+  ## widget = lineedit
+
+MSG_TIPRE3 1  "Title line 3"
+
+TIPRE4 0
+  ## widget = lineedit
+
+MSG_TIPRE4 1  "Title line 4"
+
+! Observation Window
+! ------------------
+RADIO_0 1  "1"
+  ## widget = radiobutton; group = OBSWIN
+
+MSG_RADIO_0 1  "Convert all KIN records, do not use obs. window"
+
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = OBSWIN
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by year and session identifier"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = OBSWIN
+
+MSG_RADIO_2 1  "Defined by start and end times"
+
+SESSION_YEAR 1  "2023"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  # $Y+0
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "2520"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  # $S+0
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+! Use Obs. Window
+! ---------------
+STADAT 1  "2023 09 09"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+  # $YMD_STR+0
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "2023 09 09"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+  # $YMD_STR+0
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 59"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONVERT KINEMATIC POSITIONS TO PRECISE ORBITS - KINPRE 1: Input/Output files #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files     > % <                                           # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Kinematic coordinates      > %%%%%%%%%%%% <                                # KININP
+#   Satellite clock corrections> %%%%%%%%%%%% <  (clock RINEX format)          # RNXCLK
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Output file precise orbits > %%%%%%%%%%%% <  (blank: same as input file(s))# PREOUT
+#   Check kinematic positions  > % <             (comparing to dynamic orbit)  # ICHKKIN
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output         > % < use KINPRE.Lnn            or > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages         > % < merged to program output  or > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# KINPRE 1.1: General files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   Satellite information     > %%%%%%%%%%%% <                                 # SATELL
+#   General constants         > %%%%%%%%%%%% <                                 # CONST
+#   Earth rotation parameters > %%%%%%%%%%%% <                                 # POLE
+#   Subdaily ERP model        > %%%%%%%%%%%% <                                 # SUBMOD
+#   Nutation model            > %%%%%%%%%%%% <                                 # NUTMOD
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL ICHKKIN = 1  #####################################################
+# KINPRE 1.2: Check kinematic positions with dynamic orbit                     #
+#                                                                              #
+#   Max. 3D difference      > %%%%% <         (w.r.t. standard orbit)          # EDTKIN
+#   LEO standard orbit      > %%%%%%%%%%%% <                                   # LEOSTD
+#                                                                              #
+#   Write edited KIN file   > %%%%%%%%%%%% <                                   # KINOUT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# KINPRE 2: Options                                                            #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <         # TITLE
+#                                                                              #
+# SPECIAL INFORMATION FOR PRECISE ORBIT FILE                                   #
+#   Data description    > %%%%% <                                              # DATADES
+#   Orbit type          > %%% <                                                # ORBTYP
+#   Agency gen. orbit   > %%%% <                                               # AGENCY
+#   LEO spec. accuracy  > %%%% <                                               # ACCURA
+#                                          (first title line from KIN file)    #
+# > Comment_lines_for_precise_orbit_file_______________________________   <    # TITPRE
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#   Title lines                    (first line from KIN file)                  #
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <              # TIPRE1
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <              # TIPRE2
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <              # TIPRE3
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <              # TIPRE4
+#                                                                              #
+#   Write accuracy info > % <                                                  # IWRQXX
+#                                                                              #
+#   Consider the following flags:> %%%%%%%%%% < #: all                         # KCFLAGS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+#  KINPRE 3: Observation window                                                #
+#                                                                              #
+#  USE OBSERVATION WINDOW:                                                     #
+#                                                                              #
+#  > % <  Take all kinematic positions                                         # RADIO_0
+#                                                                              #
+#  > % <  Defined by Year and Session identifier                               # RADIO_1
+#         Year> %%%% <       Session> %%%% <                                   # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#  > % <  Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################

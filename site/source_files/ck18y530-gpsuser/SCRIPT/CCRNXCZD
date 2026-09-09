@@ -1,0 +1,39 @@
+package CCRNXCZD;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      CCRNXCZD
+#
+# Purpose:   Concatinate and combine clock RINEX files according to the
+#            input arguments
+#
+# Programs:  CCRNXC
+#
+# Author  :  E. Calero
+# Created :  25-Feb-2020               Last modified: __-___-____
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run
+{
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($sol) = $bpe->getKeys("$$bpe{PARAM1}");
+
+# Initialize $SOL variable
+  setUserVar($bpe,"SOL",$sol);
+
+# Run program CCRNXC
+# --------------------
+  my $PGMNAM = "CCRNXC";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

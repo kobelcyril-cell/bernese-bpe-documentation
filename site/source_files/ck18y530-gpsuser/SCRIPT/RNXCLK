@@ -1,0 +1,27 @@
+package RNXCLK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  RNXCLK
+#
+# Purpose :  Execute RNXCLK
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  11-Aug-2011
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "RNXCLK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

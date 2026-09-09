@@ -1,0 +1,73 @@
+package TIMORBAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMESTAP
+#
+# Purpose :  Prepare parallel GPSEST run using MKCLUS for clustering
+#
+# Programs:  MKCLUS
+#
+# Author  :  E. Calero
+# Created :  09-Nov-2020 
+#
+# Changes :  
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yy,$ddd,$ssss,$yyssss,$yyddd,
+      $sol            ,$param2 ,$param3,$param4,
+      $dirNeq,  $dirOut,  $dirRes,  $dirClk,  $dirClb, $dirDel, $dirPzh,
+      $extNeq,  $extOut,  $extRes,  $extClk,  $extClb, $extDel, $extPzh ) =
+     $bpe->getKeys(
+      '$Y','$+0','$S+0','$YSS+0','$YD+0',
+      "$$bpe{PARAM2}",'PARAM2','PARAM3','PARAM4',
+      'DIR_NEQ','DIR_OUT','DIR_RES','DIR_RXC','DIR_CLB','DIR_DEL','DIR_PZH',
+      'EXT_NEQ','EXT_OUT','EXT_RES','EXT_RXC','EXT_CLB','EXT_DEL','EXT_PZH');
+
+  my $clbnam = "${yyssss}";
+
+# Remove old solution files
+# -------------------------
+  if ( $sol ne "" && $param2 =~ /^V_/ ) {
+    unlink glob("${dirNeq}${sol}${ssss}*.${extNeq}");
+    unlink glob("${dirOut}${sol}${ssss}*.${extOut}");
+    unlink glob("${dirRes}${sol}${ssss}*.${extRes}");
+    unlink glob("${dirClk}${sol}${ssss}*.${extClk}");
+
+    $clbnam = "${sol}${ssss}";
+  }
+
+
+# Use MKCLUS to built the clusters
+# --------------------------------
+  $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP","SELBSL","${clbnam}");
+
+  if ($param3 eq "DELETE") {
+    $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP","NOTUSE","DEL$yyssss");
+    unlink("${dirDel}DEL${yyssss}.{extDel}");
+  }
+
+  unlink glob("${dirClb}${clbnam}*.${extClb}");
+
+  my $PGMNAM = "MKCLUS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Put the BPE cluster files into the list
+# ---------------------------------------
+  initPar_Fl($bpe,glob("${dirClb}${clbnam}*.${extClb}"));
+
+}

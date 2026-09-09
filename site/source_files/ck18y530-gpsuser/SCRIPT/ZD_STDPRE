@@ -1,0 +1,29 @@
+package STDPRE;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  STDPRE
+#
+# Purpose :  Convert standard orbit to precise orbit file format
+#
+# Author  :  M. Meindl
+# Created :  
+#
+# Changes :  28-Apr-2026 CK: Revised and formatted
+# 	     14-Aug-2026 CK: Activated retry
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{HOME}/ZDGNSS_RUN/perl";
+use RetryHelper qw(run_with_retry);
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Run program ------------
+  my $PGMNAM = "STDPRE";
+  run_with_retry($bpe, $PGMNAM);
+}

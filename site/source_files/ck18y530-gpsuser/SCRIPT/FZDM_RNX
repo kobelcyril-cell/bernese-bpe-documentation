@@ -1,0 +1,61 @@
+package FZDM_RNX;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FZDM_RNX
+#
+# Purpose :  Copy observation files for FZDMGNSS.PCF
+#
+# PARAMs  :  
+#
+# Author  :  E. Calero
+# Created :  20-Apr-2021
+#
+# Changes : C. Kobel: 14-Jan-2026: Use put_igsdata.com directly
+# 	    C. Kobel: 14-Jan-2026: Change data to be copied: defined by V_MODE
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+ my   ($yy, $ssss,$ddd, $mode,
+       $dirRxo,$dirPzh,
+       $extPzh) =
+    $bpe->getKeys(
+       '$Y','$S+0','$+0','V_MODE',
+       'DIR_RXO','DIR_PZH',
+       'EXT_PZH');
+
+# Remove old RNX files
+unlink("$dirRxo/????${ssss}.*");
+
+# Decide which system call to use
+my $cmd;
+if (defined $mode && $mode eq "ULTRA") {
+    # ULTRA mode
+    $cmd = "$ENV{AUTO}/put_igsdata.com $yy $ddd -o $dirRxo RAP 120 -c=80 -r";
+    
+} else {
+    # FINAL mode (default/fallback)
+    $cmd = "$ENV{AUTO}/put_igsdata.com $yy $ddd -o $dirRxo \"-or %FIN\" -r";
+}
+
+# Execute
+system($cmd) == 0
+    or warn "System call failed for mode '$mode': $!\n";
+
+# General unlink
+unlink(glob("${dirRxo}/../*/AIRA???0.??O")); ##########################
+unlink(glob("${dirRxo}/../*/MAO0???0.??O")); # Apparently, one of these
+unlink(glob("${dirRxo}/../*/AMU2???0.??O")); # stations may degrade the
+unlink(glob("${dirRxo}/../*/CUT0???0.??O")); # reference frame.
+unlink(glob("${dirRxo}/../*/MAYG???0.??O")); # Then, they are removed
+unlink(glob("${dirRxo}/../*/NYA2???0.??O")); ##########################
+}

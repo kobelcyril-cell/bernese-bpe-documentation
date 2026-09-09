@@ -1,0 +1,22 @@
+
+! List of Campaigns
+! -----------------
+CAMPAIGN 7
+  "${P}/CAMP_MM"
+  "${P}/CCDORB"
+  "${P}/ONESEC"
+  "${P}/ORBTRAFO"
+  "${P}/SLRQL"
+  "${K}/TIMTEST"
+  "${K}/LEICAPPP"
+  ## widget = uniline; numlines = 30
+
+MSG_CAMPAIGN 1  "Campaign directory"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# EDIT LIST OF CAMPAIGNS - MENU_CMP                                            #
+#                                                                              #
+# > Campaign_directory       <                                                 # CAMPAIGN
+#                                                                              #
+# END_PANEL ####################################################################

@@ -1,0 +1,100 @@
+package GPSEST_DELOLD_P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GPSEST_DELOLD_P
+#
+# Purpose :  Prepare parallel GPSEST run using MKCLUS for clustering.
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005
+#
+# Changes :  19-May-2009 rd: Session dependent parallelization filenames
+#===========================================================
+
+use strict;
+use warnings;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $ssss,
+      $yyssss,
+      $yyddd,
+      $sol,
+      $param2,
+      $dirNeq,
+      $dirOut,
+      $dirRes,
+      $dirClk,
+      $dirClb,
+      $dirPzh,
+      $extNeq,
+      $extOut,
+      $extRes,
+      $extClk,
+      $extClb,
+      $extPzh
+  ) = $bpe->getKeys(
+      '$S+0',
+      '$YSS+0',
+      '$YD+0',
+      "$$bpe{PARAM2}",
+      'PARAM2',
+      'DIR_NEQ',
+      'DIR_OUT',
+      'DIR_RES',
+      'DIR_RXC',
+      'DIR_CLB',
+      'DIR_PZH',
+      'EXT_NEQ',
+      'EXT_OUT',
+      'EXT_RES',
+      'EXT_RXC',
+      'EXT_CLB',
+      'EXT_PZH'
+  );
+
+  my $clbnam = $yyssss;
+
+  # ---------- Remove old solution files ------------
+  if ($sol ne "" && $param2 =~ /^V_/) {
+    unlink glob("${dirNeq}${sol}${ssss}*.${extNeq}");
+    unlink glob("${dirOut}${sol}${ssss}*.${extOut}");
+    unlink glob("${dirRes}${sol}${ssss}*.${extRes}");
+    unlink glob("${dirClk}${sol}${ssss}*.${extClk}");
+
+    $clbnam = "${sol}${ssss}";
+  }
+
+  # ---------- Build clusters (MKCLUS) ------------
+  my $clbrnx = "${dirClb}${yyddd}RNX.${extClb}";
+
+  if (-e $clbrnx) {
+    my @obsFil;
+
+    open(my $CLB, "<", $clbrnx);
+    while (<$CLB>) {
+      my $pzhFil = $dirPzh . substr(basename($_), 0, 8) . ".$extPzh";
+      push @obsFil, $pzhFil if (-e $pzhFil);
+    }
+    close($CLB);
+
+    replaceSelLst($bpe, "MKCLUS", "PZHFILES", @obsFil);
+  }
+
+  $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP", "SELBSL", $clbnam);
+
+  unlink glob("${dirClb}${clbnam}*.${extClb}");
+
+  my $PGMNAM = "MKCLUS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Prepare parallel files ------------
+  initPar_Fl($bpe, glob("${dirClb}${clbnam}*.${extClb}"));
+}

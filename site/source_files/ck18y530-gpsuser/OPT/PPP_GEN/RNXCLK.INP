@@ -1,0 +1,135 @@
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 1  "./DUMMY"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${PAN}/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "1980"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "0060"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 1  "" "${}"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! Clock RINEX input file name
+! -----------------------------
+RCLKINP 1  "./DUMMY/OUT/$(ORB)_19800060.CLK"
+  ## widget = selwin; path = DIR_RXC; ext = EXT_RXC
+  # $(ORB)_$YYYSS+0
+
+RCLKINP_TXT_COL_1 1  "Clock rinex input files"
+
+MSG_RCLKINP 1  "Clock RINEX files"
+
+RCLKINP_TXT_COL_2 1  "Bernese satellite clock files"
+
+RCLKINP_PTH_COL_2 1  "./DUMMY/ORB/"
+  ## widget = initmenu; pointer = DIR_CLK
+
+RCLKINP_EXT_COL_2 1  "CLK"
+  ## widget = initmenu; pointer = EXT_CLK
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "./DUMMY/OUT/RNXCLK.L00"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # RNXCLK
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title line for satellite clock file
+! -----------------------------------
+TITLE 1  "PPP_19800060: Extract GNSS clock information"
+  ## widget = lineedit; check_strlen = 80
+  # PPP_$YYYSS+0: Extract GNSS clock information
+
+MSG_TITLE 1  "Title line"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# EXTRACT SATELLITE CLOCK FROM CLOCK RINEX FILES - RNXCLK 1: Filenames         #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files          > % <                                      # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Clock RINEX files               > %%%%%%%%%%%% <                           # RCLKINP
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output      > % <  use RNXCLK.Lnn            or  > %%%%%%%%%%%% <  # SYSODEF SYSOUT
+#   Error messages      > % <  merged to program output  or  > %%%%%%%%%%%% <  # ERRMRG SYSERR
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# RNXCLK 1.1: General Files                                                    #
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################

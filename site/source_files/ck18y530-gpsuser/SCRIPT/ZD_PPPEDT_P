@@ -1,0 +1,187 @@
+package PPPEDT_P;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  PPPEDT_P
+#
+# Purpose :  Precise-point-positioning (PPP) analysis (parallel mode):
+#            - Predefined screening levels are considered.
+#            - Generation of result and NEQ files for each station.
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#
+# Author  :  M. Meindl, U. Hugentobler, S. Schaer
+# Created :  23-Jul-2003
+#
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+# ============================================================================
+
+use strict;
+
+use File::Copy;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtMess getWarn replaceSel setClusterVar setUserVar prtBPEfile setGNSS);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $yyyyssss, 
+      $ssss,
+      $param1, 
+      $clu, 
+      $obstyp, 
+      $satsys,
+      $dirOut, 
+      $dirSum, 
+      $dirRes,
+      $extOut, 
+      $extSum, 
+      $extRes) =
+  $bpe->getKeys(
+      '$YYYSS+0', 
+      '$S+0',
+      'PARAM1', 
+      'PARAM2', 
+      'V_OBSTYP', 
+      'V_SATSYS',
+      'DIR_OUT', 
+      'DIR_SUM', 
+      'DIR_RES' ,
+      'EXT_OUT', 
+      'EXT_SUM', 
+      'EXT_RES');
+
+# Set cluster number and input files
+# ----------------------------------
+  my $mess = setClusterVar($bpe, $clu);
+  prtMess($bpe,"$mess");
+  my $cluster = $$bpe{"V_CLUSTER"};
+
+# Initialize flags
+# ----------------
+  my $fl  = 'F';
+  my $est = 1;
+
+  setUserVar($bpe,"FL",$fl);
+
+# Selected files
+# --------------
+  if ($clu eq "") {
+    prtMess($bpe,"PROCESSING FILE $param1$ssss");
+
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","$param1$ssss");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES","$param1$ssss");
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","PZHFIL","$param1$ssss")}
+  else {
+    replaceSel($bpe,"GPSEST","PZFILES",$param1);
+    replaceSel($bpe,"GPSEST","CZFILES",$param1);
+    replaceSel($bpe,"SATMRK","PZHFIL",$param1)}
+
+  replaceSel($bpe,"GPSEST","PZFILES","") if uc($obstyp) eq "CODE";
+
+# Set the GNSS to be used
+# -----------------------
+  setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$satsys);
+
+# Specify thresholds for screening loops
+# ---------------------------------------
+  my @phaRes = ( 600, 60, 6, 0.6, 0.06, 0.050 );
+  my @codRes = ( 600, 60, 6, 0.6, 0.06, 0.050 );
+
+  my $nEdt = @phaRes;
+
+# Data screening loop
+# -------------------
+  for (my $iEdt=1; $iEdt<=$nEdt; $iEdt++) {
+    prtMess($bpe,"SCREENING LOOP $iEdt");
+
+# Set current screening thresholds
+# --------------------------------
+    my $phaMax = shift @phaRes;
+    $bpe->putKey("$ENV{U}/PAN/RESRMS.INP","BIGRES", $phaMax);
+    my $codMax = shift @codRes;
+    $bpe->putKey("$ENV{U}/PAN/RESRMS.INP","BIGRES2",$codMax);
+    prtMess($bpe,"LEVEL: $phaMax $codMax");
+
+# Compute relevant parameters and save residuals
+# ----------------------------------------------
+    my $PGMNAM = "GPSEST";
+    eval {
+    $bpe->RUN_PGMS($PGMNAM) if $est;;
+      };
+      if ($@) {
+      prtMess($bpe, "WARNING: $PGMNAM (PPPEDT_P) failed: $@");
+      return;
+      }
+
+#    $bpe->RUN_PGMS($PGMNAM) if $est;
+
+    copy ("${dirOut}EDF_${cluster}.${extOut}",
+          "${dirOut}EDL_${cluster}.${extOut}") if $iEdt == 1;
+    copy ("${dirRes}EDF_${cluster}.${extRes}",
+          "${dirRes}EDL_${cluster}.${extRes}") if $iEdt == 1;
+
+# Screen residuals
+# ----------------
+    $PGMNAM = "RESRMS";
+    $bpe->RUN_PGMS($PGMNAM);
+
+# Check whether edit requests reported
+# ------------------------------------
+    $est = 1;
+    open (INP,"$$bpe{SYSOUT}");
+    while (<INP>) { $est = 0 if /NO EDIT REQUESTS/ }
+    close (INP);
+
+    $PGMNAM = "SATMRK";
+    $bpe->RUN_PGMS($PGMNAM) if $est;
+
+# Redefine loop variable
+# ----------------------
+    $fl = 'L';
+    setUserVar($bpe,"FL",$fl) if $iEdt == 1;
+  }
+
+# Observation type selection for computing the solution
+# -----------------------------------------------------
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES","") if uc($obstyp) eq "PHASE";
+
+# Do additional GPSEST run in case of open edit requests
+# ------------------------------------------------------
+  my $PGMNAM = "GPSEST";
+  eval {
+    $bpe->RUN_PGMS($PGMNAM);
+  };
+  if ($@) {
+    prtMess($bpe, "WARNING: $PGMNAM (PPPEDT_P) failed: $@");
+    return;
+  }
+
+#  $bpe->RUN_PGMS($PGMNAM);
+
+# Generate station-specific SINEX file
+# ------------------------------------
+  $PGMNAM = "ADDNEQ2";
+  eval {
+    $bpe->RUN_PGMS($PGMNAM);
+  };
+  if ($@) {
+    prtMess($bpe, "WARNING: $PGMNAM (PPPEDT_P) failed: $@");
+    return;
+  }
+#  $bpe->RUN_PGMS($PGMNAM);
+
+# Extract warning/error messages from protocol file
+# -------------------------------------------------
+  my $sumFil = "${dirSum}WRN_${cluster}.${extSum}";
+  getWarn($bpe,$sumFil);
+
+# Print processed stations BPE file
+# ---------------------------------
+  prtBPEfile($param1,0) if ($clu ne "");
+
+}

@@ -1,0 +1,176 @@
+package PHABIA;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  PHABIA
+#
+# Purpose :  Execute PHABIA
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  26-Jul-2017
+#
+# Changes :  19-Sep-2017 AV: Modified OSB generation(replace L.X)
+#            22-May-2018 SS: Translation of PARAMs
+#            20-Jun-2018 SS: Added ECJ
+#            24-Sep-2018 SS: Corrected WL_/WLB OSB in case of WLB
+#            23-Apr-2021 EC: Introduce changes to be consistent with FZDMGNSS
+#
+# ============================================================================
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my   ($yyssss,$yyddd,$ssss,
+        $inposb,$outosb,$camp,$v_k,
+        $extOsb,$dirOsb,$dirOut,$extCrd,$dirCrd,$extPre,$dirPre) =
+ $bpe->getKeys(
+      '$YSS+0','$YD+0','$S+0',
+      'PARAM1','PARAM2','CAMPAIGN','V_K',
+      'EXT_OSB','DIR_OSB','DIR_OUT','EXT_CRD','DIR_CRD','EXT_PRE','DIR_PRE'
+      );
+
+  $inposb = $$bpe{"V_$inposb"} if length($inposb) == 1;
+  $outosb = $$bpe{"V_$outosb"} if length($outosb) == 1;
+
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+
+# Change executable for FCLK_REP
+# ------------------------------
+  if($camp eq "FCLK_REP"){
+    $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/homefs/villiger/PHABIA_PRO/EXE_G95/");
+    print "Change executable path to /storage/homefs/villiger/PHABIA_PRO/EXE_G95/\n";
+  }
+# Run program
+# -----------
+  if ($outosb=~/NLB/) {
+    #my $phacor_dir = "/storage/homefs/ec20f882/PHACOR";
+    my $phacor_dir = "/storage/homefs/ck18y530/PHACOR";
+    my $logs_fl    = "${dirOut}/*${ssss}_NLB.OUT";
+    my $osbNL_fl   = "${dirOsb}/NL_${yyssss}.OSB";
+    my $biaNL_fl   = "${dirOsb}/NL_${yyssss}.BIA";
+    my $osbWL_fl   = "${dirOsb}/WL_${yyssss}.OSB";
+    my $biaWL_fl   = "${dirOsb}/WL_${yyssss}.BIA";
+    system("cp $osbWL_fl $osbNL_fl");
+    system("cp $biaWL_fl $biaNL_fl");
+    my $clk_fl     = "${dirOsb}/${v_k}_${yyssss}.CLK";
+    my $crd_fl     = "${dirCrd}/${v_k}_${yyssss}.CRD";
+    my $pre_fl     = "${dirPre}/${v_k}_${yyssss}.PRE";
+    my $ORBCoeff   = "10";
+    my $CLKCoeff   = "10";
+    my $chkJump    = "true";
+    my $PHAfile    = "${mscDir}/PHACOR_LOG_${yyddd}";
+    my $itefile    = "${mscDir}/ITE_AR";
+    if (-e $itefile) {
+      $ORBCoeff   = "0";
+      $CLKCoeff   = "1";
+      $chkJump    = "false";
+    }
+
+    my $run_matlab = sub {
+       my ($chkJump_val) = @_;
+       system(qq{matlab -nodesktop -nojvm -r "cd $phacor_dir;try PhaCorrPrototype('$logs_fl','$pre_fl','$crd_fl','$clk_fl','$osbNL_fl','$biaNL_fl','$mscDir',$ORBCoeff,$CLKCoeff,$chkJump);catch;end;quit;" >> $PHAfile });
+       };
+
+    my @mod_files = (
+       "${osbNL_fl}_mod",
+       "${biaNL_fl}_mod",
+       "${clk_fl}_mod",
+       "${pre_fl}_mod",
+       );
+
+    # First try
+    $run_matlab->($chkJump);
+
+    # Check for _mod files
+    my $all_exist = 1;
+    foreach my $f (@mod_files) {
+    	    if (! -e $f) {
+      	       $all_exist = 0;
+      	       last;
+    	    }
+    }
+
+    # If not: retry with chkJump = false
+    if (!$all_exist) {
+       warn "WARNING: missing _mod files -> rerun MATLAB with chkJump=false\n";
+       $chkJump = "false";
+       $run_matlab->($chkJump);
+       }
+
+  # Copy
+  system("cp ${osbNL_fl}_mod ${osbNL_fl}");
+  system("cp ${biaNL_fl}_mod ${biaNL_fl}");
+  system("cp ${clk_fl}_mod ${clk_fl}");
+  system("cp ${pre_fl}_mod ${pre_fl}");
+  
+  }else{
+    my $PGMNAM = "PHABIA";
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+
+# Create combined OSB file
+# ------------------------
+  print "inposb $inposb outosb $outosb\n";
+  if($inposb ne '' && $outosb ne ''){
+      my $iOsbFil = "${dirOsb}/${inposb}${yyssss}.${extOsb}";
+      my $oOsbFil = "${dirOsb}/${outosb}${yyssss}.${extOsb}";
+      my $estOsb  = "";
+      $estOsb  = "${dirOsb}/WL_${yyssss}.${extOsb}" if($outosb=~/WLB/);
+      $estOsb  = "${dirOsb}/NL_${yyssss}.${extOsb}" if($outosb=~/NLB/);
+
+##      if ($outosb=~/WLB/ && ($camp eq "FCLKGNSS" || $camp eq "EC_FZDMGNSS" || $camp eq "FCLK_REP" || $camp eq "EC_ZDMREP")) {
+##        system("perl $ENV{AUTO}/cor_phabia.com $estOsb $iOsbFil $estOsb");
+##        print "Executed $ENV{AUTO}/cor_phabia.com $estOsb $iOsbFil $estOsb\n";
+##      } else {
+##        print "Ignored $ENV{AUTO}/cor_phabia.com\n";
+##      }
+
+      my %osb;
+      $osb{G}{L1X}{L1W} = 1;
+      $osb{G}{L1X}{L1C} = 1;
+      $osb{G}{L2X}{L2W} = 1;
+      $osb{G}{L2X}{L2C} = 1;
+      $osb{G}{L2X}{L2X} = 1;
+      $osb{R}{L1X}{L1P} = 1;
+      $osb{R}{L1X}{L1C} = 1;
+      $osb{R}{L2X}{L2P} = 1;
+      $osb{R}{L2X}{L2C} = 1;
+      $osb{E}{L1X}{L1C} = 1;
+      $osb{E}{L1X}{L1X} = 1;
+      $osb{E}{L5X}{L5Q} = 1;
+      $osb{E}{L5X}{L5X} = 1;
+      $osb{C}{L2X}{L2I} = 1;
+      $osb{C}{L2X}{L2X} = 1;
+      $osb{C}{L7X}{L7I} = 1;
+      $osb{C}{L7X}{L7X} = 1;
+      $osb{J}{L1X}{L1C} = 1;
+      $osb{J}{L1X}{L1X} = 1;
+      $osb{J}{L2X}{L2L} = 1;
+      $osb{J}{L2X}{L2S} = 1;
+      $osb{J}{L2X}{L2X} = 1;
+
+      open OUT, "> $oOsbFil";
+      open INP, "< $iOsbFil";
+      map {print OUT $_} (<INP>);
+      close INP;
+      open INP, "< $estOsb";
+      foreach (<INP>){
+        if(/OSB  (\w)\d\d\d .* (L\d\w) /){
+          my $otyp = $2;
+          chomp;
+          foreach my $obstyp (sort keys %{$osb{$1}{$otyp}}){
+            my $line = $_;
+            $line =~ s/$otyp/$obstyp/;
+            print OUT "$line\n";
+          }
+        }
+      }
+      map {print OUT $_ if / L\d\w /} (<INP>);
+      close INP;
+      close OUT;
+  }
+}

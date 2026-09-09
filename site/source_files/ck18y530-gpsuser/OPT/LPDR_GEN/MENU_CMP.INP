@@ -1,0 +1,19 @@
+
+! List of Campaigns
+! -----------------
+CAMPAIGN 4
+  "${P}/EXAMPLE"
+  "${P}/PPP_205"
+  "${P}/SL_TEST"
+  "${P}/PW_TEST12"
+  ## widget = uniline; numlines = 30
+
+MSG_CAMPAIGN 1  "Campaign directory"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# EDIT LIST OF CAMPAIGNS - MENU_CMP                                            #
+#                                                                              #
+# > Campaign_directory       <                                                 # CAMPAIGN
+#                                                                              #
+# END_PANEL ####################################################################

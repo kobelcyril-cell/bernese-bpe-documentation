@@ -1,0 +1,1594 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Input Precise Files
+! -------------------
+RADIO_P 1  "1"
+  ## widget = radiobutton; group = GENUPD
+
+MSG_RADIO_P 1  "Start with precise orbits"
+
+PREFIL 1  "$K_$YSS+0"
+  ## widget = selwin; activeif = RADIO_P = 1; path = DIR_PRE; ext = EXT_PRE
+
+MSG_PREFIL 1  "Start with precise orbits"
+
+! Extension of the ERP Files
+! --------------------------
+PREFIL_EXT_COL_2 0
+  ## widget = initmenu; pointer = EXT_ERP
+
+! Extension of the ERP Files
+! --------------------------
+PREFIL_PTH_COL_2 0
+  ## widget = initmenu; pointer = DIR_ERP
+
+! Use general ERP file
+! ---------------------
+GENPOLE 1  "0"
+  ## widget = checkbox; activeif = RADIO_P = 1
+
+MSG_GENPOLE 1  "Use with general ERP file"
+
+! Update Modus
+! ------------
+NEWOLD 1  "NEW"
+  ## widget = combobox; editable = false; cards = NEW OLD
+
+MSG_NEWOLD 1  "SELECTION OF ORBITAL ELEMENTS"
+
+! -----------------------------------------
+!
+! PARAMETER TYPE: Satellite yaw attitude
+! ===============
+!
+! -----------------------------------------
+!
+! True yaw attitude modelling of satellites
+! -----------------------------------------
+TRUEATTI 1  "1"
+  ## widget = checkbox
+
+MSG_TRUEATTI 1  "True yaw attitude modelling of satellites"
+
+BETAOUT 1  "0"
+  ## widget = checkbox
+
+MSG_BETAOUT 1  "Print beta angle and attit. switch info to STDOUT"
+
+PRINTYAW 1  "0"
+  ## widget = checkbox
+
+MSG_PRINTYAW 1  "Print yaw angle"
+
+PRINTOSC 1  "0"
+  ## widget = checkbox
+
+MSG_PRINTOSC 1  "Print osculating elements"
+
+PRTFITRMS 1  "0"
+  ## widget = checkbox
+
+MSG_PRTFITRMS 1  "Print RMS after last iteration"
+
+! Estimated Parameters
+! --------------------
+PAR1 1  "1"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR1 1  "Parameter 1 of an empirical model for GNSS"
+
+PAR2 1  "1"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR2 1  "Parameter 2 of an empirical model for GNSS"
+
+PAR3 1  "0"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR3 1  "Parameter 3 of an empirical model for GNSS"
+
+PAR4 1  "0"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR4 1  "Parameter 4 of an empirical model for GNSS"
+
+PAR5 1  "0"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR5 1  "Parameter 5 of an empirical model for GNSS"
+
+PAR6 1  "0"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR6 1  "Parameter 6 of an empirical model for GNSS"
+
+PAR7 1  "0"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR7 1  "Parameter 7 of an empirical model for GNSS"
+
+PAR8 1  "0"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR8 1  "Parameter 8 of an empirical model for GNSS"
+
+PAR9 1  "0"
+  ## widget = checkbox; activeif = DEFPAR == 0
+
+MSG_PAR9 1  "Parameter 9 of an empirical model for GNSS"
+
+! Scaling factors for printing purposes
+! -------------------------------------
+SCL1 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR1 == 1 OR DEFPAR == 1
+
+MSG_SCL1 1  "Scaling factor of PAR_1 (for output)"
+
+SCL2 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR2 == 1 OR DEFPAR == 1
+
+MSG_SCL2 1  "Scaling factor of PAR_2 (for output)"
+
+SCL3 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR3 == 1 OR DEFPAR == 1
+
+MSG_SCL3 1  "Scaling factor of PAR_3 (for output)"
+
+SCL4 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR4 == 1 OR DEFPAR == 1
+
+MSG_SCL4 1  "Scaling factor of PAR_4 (for output)"
+
+SCL5 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR5 == 1 OR DEFPAR == 1
+
+MSG_SCL5 1  "Scaling factor of PAR_5 (for output)"
+
+SCL6 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR6 == 1 OR DEFPAR == 1
+
+MSG_SCL6 1  "Scaling factor of PAR_6 (for output)"
+
+SCL7 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR7 == 1 OR DEFPAR == 1
+
+MSG_SCL7 1  "Scaling factor of PAR_7 (for output)"
+
+SCL8 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR8 == 1 OR DEFPAR == 1
+
+MSG_SCL8 1  "Scaling factor of PAR_8 (for output)"
+
+SCL9 1  "1.0E+7"
+  ## widget = lineedit; check_type = real; check_min = 1.0
+  ## activeif = PAR9 == 1 OR DEFPAR == 1
+
+MSG_SCL9 1  "Scaling factor of PAR_9 (for output)"
+
+! Setup stochastic parameters
+! ---------------------------
+STOCH_NUMBER 1  "Spacing"
+  ## widget = combobox; editable = false
+  ## cards = No_setup Spacing SATCRUX ELE_file Orbit_midnight Manual
+  ## activeif = RPROUT = _
+
+MSG_STOCH_NUMBER 1  "Setup of stochastic pulses"
+
+STOCH_MANUAL 1  ""
+  ## widget = lineedit; activeif = STOCH_NUMBER = Manual AND RPROUT = _
+
+MSG_STOCH_MANUAL 1  "Satellite list for stochastic pulses"
+
+STOCH_INTER 1  "01 00 00"
+  ## widget = lineedit; check_type = time
+  ## activeif = STOCH_NUMBER / No_setup AND STOCH_NUMBER / SATCRUX AND STOCH_NUMBER / Orbit_midnight AND STOCH_NUMBER / ELE_file AND RPROUT = _
+
+MSG_STOCH_INTER 1  "Interval for stochastic pulses"
+
+STOCH_FILE 0
+  ## widget = selwin; activeif = STOCH_NUMBER = ELE_file; path = DIR_ELE
+  ## ext = EXT_ELE; maxfiles = 1; emptyallowed = true
+  # 
+
+DESCR_STOCH_FILE 1  "File w/ epochs of stoch. pulses"
+
+! Exclude satellites with maneuvers
+! ---------------------------------
+EXCLMAN 1  "0"
+  ## widget = checkbox; activeif = RADIO_P == 1
+
+MSG_EXCLMAN 1  "Exclude satellites with maneuvers"
+
+! Use accuracy codes
+! ------------------
+USEAC 1  "0"
+  ## widget = checkbox; activeif = RADIO_P == 1
+
+MSG_USEAC 1  "Use accuracy codes from SP3-file"
+
+! Exclude AC 0
+! ------------
+MINAC 1  "1"
+  ## widget = checkbox; activeif = USEAC == 1 AND RADIO_P == 1
+
+MSG_MINAC 1  "Exclude sat. with accuracy code 0"
+
+! Maximum accuracy code
+! ---------------------
+MAXAC 1  "99"
+  ## widget = spinbox; range = 0 99 1
+  ## activeif = USEAC == 1 AND RADIO_P == 1
+
+MSG_MAXAC 1  "Exclude sat. with acc. code exceeding"
+
+! Solar radiation pressure
+! ------------------------
+SRPMODFL 1  "SELECTED"
+  ## widget = combobox; cards = NONE ALL SELECTED; activeif = PLATDEF / _
+
+MSG_SRPMODFL 1  "Solar Radiation Pressure"
+
+SRP_G 1  "0"
+  ## widget = checkbox; activeif = SRPMODFL = SELECTED
+
+MSG_SRP_G 1  "Solar Radiation Pressure for GPS"
+
+SRP_R 1  "0"
+  ## widget = checkbox; activeif = SRPMODFL = SELECTED
+
+MSG_SRP_R 1  "Solar Radiation Pressure for GLONASS"
+
+SRP_E 1  "1"
+  ## widget = checkbox; activeif = SRPMODFL = SELECTED
+
+MSG_SRP_E 1  "Solar Radiation Pressure for Galileo"
+
+SRP_S 1  "0"
+  ## widget = checkbox; activeif = SRPMODFL = SELECTED
+
+MSG_SRP_S 1  "Solar Radiation Pressure for SBAS"
+
+SRP_C 1  "0"
+  ## widget = checkbox; activeif = SRPMODFL = SELECTED
+
+MSG_SRP_C 1  "Solar Radiation Pressure for BeiDou"
+
+SRP_J 1  "0"
+  ## widget = checkbox; activeif = SRPMODFL = SELECTED
+
+MSG_SRP_J 1  "Solar Radiation Pressure for QZSS"
+
+PARSHAD 1  "0"
+  ## widget = checkbox; activeif = PLATDEF / _
+
+MSG_PARSHAD 1  "Apply partial shadow model for LEOs"
+
+! Earth Radiation Pressure
+! ------------------------
+ERPMODFL 1  "Analytical"
+  ## widget = combobox; editable = false; cards = None Analytical Numerical
+  ## activeif = PLATDEF / _
+
+MSG_ERPMODFL 1  "Earth Radiation Pressure"
+
+! Earth Radiation Pressure
+! ------------------------
+ALBREFFL 1  "1"
+  ## widget = checkbox; activeif = ERPMODFL / None AND PLATDEF / _
+
+MSG_ALBREFFL 1  "Earth Radiation Pressure: reflected radiation"
+
+! Earth Radiation Pressure
+! ------------------------
+ALBEMIFL 1  "1"
+  ## widget = checkbox; activeif = ERPMODFL / None AND PLATDEF / _
+
+MSG_ALBEMIFL 1  "Earth Radiation Pressure: emitted radiation"
+
+! Earth Radiation Grid Interpolation
+! ------------------------
+ALBINTER 1  "0"
+  ## widget = checkbox; activeif = ERPMODFL == Numerical
+
+MSG_ALBINTER 1  "Earth Radiation Grid Interpolation"
+
+! Antenna Thrust
+! --------------
+ANTTHRFL 1  "1"
+  ## widget = checkbox
+
+MSG_ANTTHRFL 1  "Navigation Antenna Thrust"
+
+! Thermal Radiation
+! -----------------
+TRMRADFL 1  "1"
+  ## widget = checkbox; activeif = PLATDEF / _
+
+MSG_TRMRADFL 1  "Thermal Radiation"
+
+! Solar Panel Rotation File
+!-----------------------------
+SPROT 1  ""
+  ## widget = selwin; path = DIR_ATT; ext = EXT_ATT; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_SPROT 1  "LEO Solar Panel Rotation"
+
+! LEO: Airdrag
+! ------------
+AIRDRGFL 1  "0"
+  ## widget = checkbox
+
+MSG_AIRDRGFL 1  "LEO: Apply air drag"
+
+! Satellite-wise scales
+! ----------------------
+NCSMOD 1  "NONE"
+  ## widget = combobox; editable = false; cards = NONE SATELLITE PLATE-WISE
+  ## activeif = PLATDEF / _
+
+MSG_NCSMOD 1  "Scaling mode"
+
+! Radiation factor options
+! ------------------
+NCSTYP 1  "INDIVIDUAL"
+  ## widget = combobox; editable = false
+  ## cards = NONE COMBINED PRP_ONLY SRP/PRP INDIVIDUAL
+  ## activeif = NCSMOD / NONE
+
+MSG_NCSTYP 1  "Individual factors"
+
+! SRP scaling factor
+! ------------------
+SCLSRP 1  "1"
+  ## widget = checkbox; activeif = NCSTYP == INDIVIDUAL
+
+MSG_SCLSRP 1  "Scaling factor for solar radiation"
+
+! REF scaling factor
+! ------------------
+SCLREF 1  "0"
+  ## widget = checkbox; activeif = NCSTYP == INDIVIDUAL
+
+MSG_SCLREF 1  "Scaling factor for Earth reflected radiation"
+
+! EMI scaling factor
+! ------------------
+SCLEMI 1  "0"
+  ## widget = checkbox; activeif = NCSTYP == INDIVIDUAL
+
+MSG_SCLEMI 1  "Scaling factor for Earth emitted radiation"
+
+! Airdrag scaling factor
+! ------------------
+SCLAIR 1  "1"
+  ## widget = checkbox; activeif = AIRDRGFL == 1 AND NCSMOD / NONE
+
+MSG_SCLAIR 1  "Estimate scaling factor for Airdrag"
+
+! Initialize scaling with zero
+! ----------------------------
+SCLZER 1  "0"
+  ## widget = checkbox; activeif = NCSMOD / NONE
+
+MSG_SCLZER 1  "Initialize scaling factors to zero"
+
+! Constraints for macro-model scaling paramter
+! --------------------------------------------
+SIGSCL 0
+  ## widget = lineedit; check_min = 0.0; activeif = NCSMOD = SATELLITE
+
+DESCR_SIGSCL 1  "Constrain for macro-model sacling paramters"
+
+! Atmosphere model
+! ----------------
+AIRMODE 0
+  ## widget = combobox; editable = false
+  ## cards = MSIS-00 MSIS-00OXI JB2008 DTM2013; activeif = AIRDRGFL == 1
+
+MSG_AIRMODE 1  "Air Drag Model"
+
+! Horizontal wind model
+! ---------------------
+AIRWIND 1  "HWM14"
+  ## widget = combobox; editable = false; cards = NONE HWM14
+  ## activeif = AIRDRGFL == 1
+
+MSG_AIRWIND 1  "Horizontal wind model"
+
+! Accommodation coefficient
+! ----------------
+AIRFIXC 1  "Modelled"
+  ## widget = combobox; editable = false; cards = FixedCoeff Modelled
+  ## activeif = AIRDRGFL == 1
+
+MSG_AIRFIXC 1  "Accommodate airdrag coefficients"
+
+! Accommodation coefficient
+! ----------------
+AIRCOEF 1  "Goodman"
+  ## widget = combobox; editable = false; cards = Goodman Pilinski SESAM
+  ## activeif = AIRDRGFL == 1 AND AIRFIXC == Modelled
+
+MSG_AIRCOEF 1  "Handling mapping precision of accommodation coef."
+
+! Default setup of empirical parameters
+! ------------------------------------------------
+DEFPAR 1  "1"
+  ## widget = checkbox; activeif = RADIO_E == 0
+
+MSG_DEFPAR 1  "Choose default setup of empirical parameters"
+
+! Default model for empirical forces (if not specified in macromodel file)
+! ------------------------
+DEFMODEL 1  "ECOM2"
+  ## widget = combobox; editable = false; activeif = RADIO_E == 0
+  ## cards = ECOM ECOM2 ECOM2-D1 ECOM2-YD1 ECOM-TB ECOM-TBM RSW DRSW DRSW-SLR
+
+MSG_DEFMODEL 1  "Default model for empirical forces"
+
+! Show force modelling files
+! -------------------------
+SHOWFRC 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWFRC 1  "Show files for force modelling"
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! JB2008 solar indices
+! --------------------
+AIRSOLAR 0
+  ## widget = selwin; path = PTH_AIRSOLAR; ext = EXT_AIRSOLAR; maxfiles = 1
+  ## activeif = AIRMODE == JB2008; emptyallowed = true
+  # 
+
+DESCR_AIRSOLAR 1  "JB2008: Solar indices"
+
+! data for JB2008 model
+DTCVAL 0
+  ## widget = selwin; path = PTH_DTCVAL; ext = EXT_DTCVAL; maxfiles = 1
+  ## activeif = AIRMODE == JB2008
+  # DTCFILE
+
+DESCR_DTCVAL 1  "JB2008: Geomag. storm dTc values"
+
+! Solar F10.7 flux and geomagnetic index
+! --------------------------------------
+FLXAPFIL 1  "$(FLUX)"
+  ## widget = selwin; path = PTH_FLXAPFIL; ext = EXT_FLXAPFIL; maxfiles = 1
+  ## emptyallowed = true; activeif = FLXAPDEF == 0
+
+DESCR_FLXAPFIL 1  "Solar flux and geomagnetic index"
+
+FLXAPDEF 1  "0"
+  ## widget = checkbox
+
+MSG_FLXAPDEF 1  "Solar flux=120, AP(:)=15 for air drag"
+
+! Atmospheric models: paths to auxiliary files
+! --------------------------------------------------
+DTM_DAT 1  "dtm_2013_NF.dat"
+  ## widget = selwin; path = PTH_AIRMOD; maxfiles = 1
+
+DESCR_DTM_DAT 1  "Drag Temperature Model (dat)"
+
+! HWM -----------------------------------------------
+HWM14_DAT 1  "dwm07b104i.dat"
+  ## widget = selwin; path = PTH_AIRMOD; maxfiles = 1
+
+DESCR_HWM14_DAT 1  "DWM parameters for HWM (dat)"
+
+HWM14_BIN 1  "hwm123114.bin"
+  ## widget = selwin; path = PTH_AIRMOD; maxfiles = 1
+
+DESCR_HWM14_BIN 1  "Quiet-time HWM parameters (bin)"
+
+HWM_GD2QD 1  "gd2qd.dat"
+  ## widget = selwin; path = PTH_AIRMOD; maxfiles = 1
+
+DESCR_HWM_GD2QD 1  "QD coordinate conversion for HWM"
+
+! --------------------------------------------------
+! Satellite maneuver information
+! --------------------
+MANINFO 1  ""
+  ## widget = selwin; path = DIR_MAN; ext = EXT_MAN; emptyallowed = true
+
+DESCR_MANINFO 1  "Satellite maneuver information"
+
+! Attitude file
+! -------------
+ATTIT 1  ""
+  ## widget = selwin; path = DIR_ATT; ext = EXT_ATT; emptyallowed = true
+
+DESCR_ATTIT 1  "LEO attitude information"
+
+! ERP File
+! ---------
+POLE 1  "$K_$YSS+0"
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! Albedo reflectivity
+! -------------------
+ALBREFL 1  "REFLMO$M"
+  ## widget = selwin; path = PTH_ALBREFL; ext = EXT_ALBREFL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_ALBREFL 1  "Albedo reflectivity"
+
+! Albedo emissivity
+! -----------------
+ALBEMIS 1  "EMITMO$M"
+  ## widget = selwin; path = PTH_ALBEMIS; ext = EXT_ALBEMIS; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_ALBEMIS 1  "Albedo emissivity"
+
+! Ocean loading tables
+! --------------------
+OCNLOAD 1  "$(BLQINF)"
+  ## widget = selwin; path = DIR_BLQ; ext = EXT_BLQ; maxfiles = 1
+  ## emptyallowed = true; activeif = RADIO_P == 1
+
+DESCR_OCNLOAD 1  "Ocean tidal loading"
+
+! Atmospheric loading tables
+! --------------------------
+ATMLOAD 1  ""
+  ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
+  ## emptyallowed = true; activeif = RADIO_P == 1
+
+DESCR_ATMLOAD 1  "Atmospheric tidal loading"
+
+! Geocenter coordinates
+! ---------------------
+GCCINP 1  ""
+  ## widget = selwin; path = DIR_GCC; ext = EXT_GCC; maxfiles = 1
+  ## emptyallowed = true; activeif = RADIO_P == 1
+
+DESCR_GCCINP 1  "Geocenter coordinates"
+
+! Subdaily ERP Model
+! -------------------
+SUBMOD 1  "$(SUBMOD)"
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Nutation Model
+! -------------------
+NUTMOD 1  "$(NUTMOD)"
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+
+DESCR_NUTMOD 1  "Nutation model"
+
+! Earth Potential
+! ---------------
+POTCOE 1  "$(POTCOE)"
+  ## widget = selwin; path = PTH_POTCOE; ext = EXT_POTCOE; maxfiles = 1
+
+DESCR_POTCOE 1  "Coeff. of Earth potential"
+
+POTCOEL 1  "1"
+  ## widget = checkbox; activeif = POTCOE / _
+
+MSG_POTCOEL 1  "Apply time variable gravity field: linear trend"
+
+POTCOEP 1  "1"
+  ## widget = checkbox; activeif = POTCOE / _
+
+MSG_POTCOEP 1  "Apply time variable gravity field: periodic terms"
+
+CS2021 1  ""
+  ## widget = selwin; path = PTH_CS2021; ext = EXT_CS2021; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_CS2021 1  "Time-variable C20,C21,S21"
+
+! Earth Potential
+! ---------------
+ZONALS 1  ""
+  ## widget = selwin; path = PTH_ZONALS; ext = EXT_ZONALS; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_ZONALS 1  "Time-variable zonals"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "$(SATCRX)"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "$(SATINF)_$(PCV)"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Local Geodetic Datum
+! --------------------
+DATUM 1  "$(DATUM)"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+
+DESCR_DATUM 1  "Geodetic datum"
+
+SATFILERR 1  "0"
+  ## widget = checkbox; activeif = RADIO_E == 0
+
+MSG_SATFILERR 1  "Error if not in satellite information file"
+
+! Satellite macro model
+! ---------------------
+PLATDEF 1  "BOXWING_I20"
+  ## widget = selwin; path = PTH_PLATDEF; ext = EXT_PLATDEF; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_PLATDEF 1  "Satellite macro model"
+
+! Planetary Ephemeris
+! -------------------
+JPLEPH 1  "DE421"
+  ## widget = selwin; path = PTH_JPLEPH; ext = EXT_JPLEPH; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_JPLEPH 1  "Planetary ephemeris file"
+
+! Solid Earth Tides File
+! -----------------------
+SETIDES 1  "TIDE2000"
+  ## widget = selwin; path = PTH_TPO; ext = EXT_TPO; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_SETIDES 1  "Solid Earth tides file"
+
+! Ocean Tides File
+! ----------------
+OTIDES 1  "OT_$(BLQINF)"
+  ## widget = selwin; path = PTH_TID; ext = EXT_TID; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_OTIDES 1  "Ocean tides file"
+
+! Admittances File
+! ----------------
+OTIDAD 1  ""
+  ## widget = selwin; path = PTH_OTIDAD; ext = EXT_OTIDAD; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_OTIDAD 1  "Ocean admittances"
+
+! Atmosphere Tides Files
+! ----------------------
+ATIDES 1  ""
+  ## widget = selwin; path = PTH_ATIDES; ext = EXT_ATIDES; maxfiles = 12
+  ## emptyallowed = true
+
+DESCR_ATIDES 1  "Atmosphere tides files"
+
+ATIDTYP 1  "AOD"
+  ## widget = combobox; editable = false; cards = AOD
+
+MSG_ATIDTYP 1  "Atmosphere tides file type"
+
+! AODL1B File
+! -----------
+AODL1B 1  ""
+  ## widget = selwin; path = DIR_AOD; ext = EXT_AOD; maxfiles = 30
+  ## emptyallowed = true
+
+DESCR_AODL1B 1  "Atmosphere and Ocean Dealiasing file"
+
+! Selecting A and/or O
+! ---------------------
+AODSEL 1  "ATMO+OCEAN"
+  ## widget = combobox; activeif = AODL1B / _; editable = false
+  ## cards = ATMO_ONLY OCEAN_ONLY ATMO+OCEAN
+
+MSG_AODSEL 1  "Atmosphere and/or Ocean Dealiasing"
+
+! OCPLTD File
+! -----------
+OCPLTD 1  ""
+  ## widget = selwin; path = PTH_OCPLTD; ext = EXT_OCPLTD; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_OCPLTD 1  "Ocean Pole Tide file"
+
+! Love Number File
+! ----------------
+LOVNUM 1  ""
+  ## widget = selwin; path = PTH_LOVNUM; ext = EXT_LOVNUM; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_LOVNUM 1  "Love Number file"
+
+! Correction GPS-UTC
+! ------------------
+GPSUTC 1  "GPSUTC"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! First Orbit Elements File
+! -------------------------
+RADIO_E 1  "0"
+  ## widget = radiobutton; group = GENUPD
+
+MSG_RADIO_E 1  "Update standard orbits"
+
+IMPORB 0
+  ## widget = selwin; activeif = RADIO_E = 1; path = DIR_ELE; ext = EXT_ELE
+  ## maxfiles = 1; emptyallowed = true
+  # F3P20100001
+
+DESCR_IMPORB 1  "Orbital elements, file 1"
+
+! Standard Orbit File
+! -------------------
+STDOUT 1  "$K_$YSS+0"
+  ## widget = lineedit; path = DIR_STD; ext = EXT_STD
+
+DESCR_STDOUT 1  "Standard orbits"
+
+! Radiation Pressure File
+! -----------------------
+RPROUT 1  ""
+  ## widget = lineedit; path = DIR_RPR; ext = EXT_RPR
+
+DESCR_RPROUT 1  "Radiation pressure coeff."
+
+! File with Residuals
+! -------------------
+RESIDRS 1  ""
+  ## widget = lineedit; path = DIR_RES; ext = EXT_RES
+  ## activeif = RADIO_P == 1
+
+DESCR_RESIDRS 1  "Residual file"
+
+! Summary File
+! ------------
+SUMFIL 1  ""
+  ## widget = lineedit; path = DIR_LST; ext = EXT_LST
+  ## activeif = RADIO_P == 1
+
+DESCR_SUMFIL 1  "Summary file"
+
+SUMACC 1  ""
+  ## widget = lineedit; path = DIR_LST; ext = EXT_LST
+  ## activeif = RADIO_P == 1
+
+DESCR_SUMACC 1  "Summary file for IGS-ACC"
+
+! Plot file of residuals
+! ----------------------
+RESPLOT 1  ""
+  ## widget = lineedit; path = DIR_RES; ext = EXT_PLT
+  ## activeif = RADIO_P == 1
+
+DESCR_RESPLOT 1  "Residual plot file"
+
+! a priori gravity file
+! ---------------------
+GRVAPR 1  ""
+  ## widget = lineedit; path = DIR_GRV; ext = EXT_GRV
+
+DESCR_GRVAPR 1  "A priori gravity field"
+
+! Scratch Files
+! -------------
+AUXFIL 1  "ORBGEN$J"
+  ## widget = lineedit; path = PTH_SCR; ext = EXT_SCR; emptyallowed = false
+
+DESCR_AUXFIL 1  "Scratch file"
+
+TABAUX 1  "ORBGEN$J"
+  ## widget = lineedit; path = PTH_SCR; ext = EXT_SC2; emptyallowed = false
+
+DESCR_TABAUX 1  "Scratch file"
+
+DELETE_FILES 2
+  "AUXFIL"
+  "TABAUX"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "NLBORBGEN"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 1  ""
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 1  ""
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Print Residuals
+! ---------------
+PRTRESID 1  "NO"
+  ## widget = combobox; editable = true; cards = NO LAST ALL
+  ## activeif = RADIO_P == 1
+
+MSG_PRTRESID 1  "PRINT RESIDUALS"
+
+! Print Residuals in RSW Coordinates
+! ----------------------------------
+RESSYS 1  "1"
+  ## widget = checkbox; activeif = PRTRESID / NO
+
+MSG_RESSYS 1  "Print Presiduals in RSW Coordinates"
+
+! Number of Iterations
+! --------------------
+NUMITER 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = RADIO_P == 1
+
+MSG_NUMITER 1  "Number of iterations"
+
+! Automatic number of Iterations
+! ------------------------------
+AUTOITER 1  "0"
+  ## widget = checkbox; activeif = RADIO_P == 1
+
+MSG_AUTOITER 1  "Automatic number of iterations"
+
+! Maximum RMS improvement between iterations (in percent)
+! -------------------------------------------------------
+RMSIMPR 1  "0.5"
+  ## widget = lineedit; check_type = real; check_min = 0.1; check_max = 10
+  ## activeif = RADIO_P == 1 AND AUTOITER = 1
+
+MSG_RMSIMPR 1  "Maximum RMS improvement between iterations"
+
+! Polynomial Degree (max of range corresponds to MAXQ1 in ORBGEN.f)
+! -----------------
+POLDEGR 1  "10"
+  ## widget = spinbox; range = 1 20 1
+
+MSG_POLDEGR 1  "EQUATION OF MOTION: Polynomial degree"
+
+! Interval Length
+! ---------------
+LENINTER 1  "00 05 00"
+  ## widget = lineedit; emptyallowed = false; check_type = time
+
+MSG_LENINTER 1  "EQUATION OF MOTION: Length of interval"
+
+! Polynomial Degree (Variational Eq.)
+! (max of range corresponds to MAXQ1 in ORBGEN.f)
+! -----------------------------------
+VARPOLDG 1  "12"
+  ## widget = spinbox; range = 1 20 1
+
+MSG_VARPOLDG 1  "VARIATIONAL EQUATIONS: Polynomial degree"
+
+! Interval Length (Variational Eq.)
+! ---------------------------------
+VARLNINT 1  "01 00 00"
+  ## widget = lineedit; emptyallowed = false; check_type = time
+
+MSG_VARLNINT 1  "VARIATIONAL EQUATIONS: Length of interval"
+
+! Additional Variational Eq.
+! --------------------------
+ADDVAR 1  "0"
+  ## widget = spinbox; range = 0 1 1
+
+MSG_ADDVAR 1  "VARIATIONAL EQUATIONS: Additional sets"
+
+! Use extended RPR format
+! -----------------------
+RPRFRM 1  "0"
+  ## widget = checkbox
+
+MSG_RPRFRM 1  "Use extended RPR Format"
+
+! Degree of Earth Potential Model
+! -------------------------------
+MXPOTDEG 1  "12"
+  ## widget = spinbox; range = 2 150 1
+
+MSG_MXPOTDEG 1  "Earth potential degree"
+
+! Time Frame
+! ----------
+TIMFRAME 1  "GPS"
+  ## widget = combobox; editable = false; cards = GPS UTC
+
+MSG_TIMFRAME 1  "Time frame"
+
+! Apply CMC correction for OTL
+! ----------------------------
+CMCYN_O 1  "1"
+  ## widget = checkbox; activeif = RADIO_P == 1 AND OCNLOAD / _
+
+MSG_CMCYN_O 1  "Apply CMC correction for OTL"
+
+! Apply CMC correction for ATL
+! ----------------------------
+CMCYN_A 1  "1"
+  ## widget = checkbox; activeif = RADIO_P == 1 AND ATMLOAD / _
+
+MSG_CMCYN_A 1  "Apply CMC correction for ATL"
+
+! Apply CMC correction for GCC
+! ----------------------------
+GCCYN 1  "1"
+  ## widget = checkbox; activeif = RADIO_P == 1 AND GCCINP / _
+
+MSG_GCCYN 1  "Apply CMC correction for GCC"
+
+! General relativity
+! ----------------------------
+REL1 1  "1"
+  ## widget = checkbox
+
+MSG_REL1 1  "Apply Schwarzschild relativistic correction"
+
+REL2 1  "0"
+  ## widget = checkbox
+
+MSG_REL2 1  "Apply Lense-Thirring relativistic correction"
+
+REL3 1  "0"
+  ## widget = checkbox
+
+MSG_REL3 1  "Apply Geodetic precession (De Sitter effect)"
+
+REL4 1  "0"
+  ## widget = checkbox
+
+MSG_REL4 1  "Apply relativistc C20 correction"
+
+! Apply Antenna Offsets
+! ---------------------
+ANTOFF 1  "0"
+  ## widget = checkbox
+
+MSG_ANTOFF 1  "Apply antenna offset"
+
+! Do not apply Mean Pole model (C21, S21)
+! ---------------------------------------
+MEAPOL 1  "0"
+  ## widget = checkbox
+
+MSG_MEAPOL 1  "Do not apply mean pole model (C21, S21)"
+
+! Degree of Ocean Pole Tides
+! --------------------------
+MXOPLT 1  "0"
+  ## widget = spinbox; range = 0 100 1
+
+MSG_MXOPLT 1  "Ocean pole tides degree"
+
+! Degree of Ocean Tides Model
+! ---------------------------
+MXOCTI 1  "8"
+  ## widget = spinbox; range = 4 150 1
+
+MSG_MXOCTI 1  "Ocean tides degree"
+
+! Degree of Atmosphere Tides Model
+! --------------------------------
+MXATTI 1  "0"
+  ## widget = spinbox; range = 0 180 1
+
+MSG_MXATTI 1  "Atmosphere tides degree"
+
+! Degree of Ocean Pole Tides
+! --------------------------
+MXAOD 1  "0"
+  ## widget = spinbox; range = 0 100 1
+
+MSG_MXAOD 1  "AOD degree"
+
+! Satellite/GNSS Selection
+! ------------------------
+SATSELECT 1  "SATELLITE_LIST"
+  ## widget = combobox; editable = false; activeif = RADIO_E == 0
+  ## cards = ALL_SATELLITES SYSTEM_WISE SATELLITE_LIST
+
+MSG_SATSELECT 1  "Select satellites to be processed"
+
+USE_G 1  "1"
+  ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
+
+MSG_USE_G 1  "Consider satellites from GPS"
+
+USE_R 1  "1"
+  ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
+
+MSG_USE_R 1  "Consider satellites from GLONASS"
+
+USE_E 1  "1"
+  ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
+
+MSG_USE_E 1  "Consider satellites from GALILEO"
+
+USE_C 1  "1"
+  ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
+
+MSG_USE_C 1  "Consider satellites from BEIDOU"
+
+USE_J 1  "0"
+  ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
+
+MSG_USE_J 1  "Consider satellites from QZSS"
+
+USE_S 1  "1"
+  ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
+
+MSG_USE_S 1  "Consider satellites from SBAS"
+
+USESAT 1  "EXCLUDED"
+  ## widget = combobox; editable = false; cards = INCLUDED EXCLUDED
+  ## activeif = RADIO_E == 0 AND SATSELECT == SATELLITE_LIST
+
+MSG_USESAT 1  "The satellites in the following list will be"
+
+SATLST 1  "205"
+  ## widget = lineedit
+  ## activeif = RADIO_E == 0 AND SATSELECT == SATELLITE_LIST
+
+MSG_SATLST 1  "Satellite list"
+
+! Arc(s) Definition
+! -----------------
+NUMARCS 1  "1"
+  ## widget = lineedit; check_type = integer; check_min = 1
+
+MSG_NUMARCS 1  "Number of arcs within the time window"
+
+! Arc(s) Definition
+! -----------------
+ARCINT 1  "1"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_ARCINT 1  "LENGTH OF TIME INTERVAL"
+
+RADIO_1 1  "1"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Obs. window defined by year and session identifier"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_2 1  "Obs. window defined by start and end times"
+
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 59"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! Use a priori accelerations from maneuver file
+! ---------------------
+MACCAPR 1  "1"
+  ## widget = checkbox
+
+MSG_MACCAPR 1  "Use a priori accelerations from maneuver file"
+
+! Estimate maneuver accelerations
+! ---------------------
+MACCEST 1  "1"
+  ## widget = checkbox; activeif = RADIO_P = 1
+
+MSG_MACCEST 1  "Estimate maneuver accelerations"
+
+! Selecting frame for maneuver accelerations
+! ---------------------
+MACCFRM 1  "XYZ"
+  ## widget = combobox; activeif = MACCEST = 1; editable = false
+  ## cards = XYZ RSW
+
+MSG_MACCFRM 1  "Frame for maneuver accelerations"
+
+! Selecting polynomial degree to model maneuver accelerations
+! ---------------------
+MPOLDEG 1  "0"
+  ## widget = combobox; activeif = MACCEST = 1; editable = false
+  ## cards = 0 1 2
+
+MSG_MPOLDEG 1  "Polynomial degree to model maneuver accelerations"
+
+! Sigmas for explicit maneuver: A0: constant term
+! --------------------
+MACCSIG10 1  "1D-1"
+  ## widget = lineedit; activeif = MACCEST = 1
+
+MSG_MACCSIG10 1  "explicit maneuver: A0 sigma, R/X"
+
+MACCSIG20 1  "1D-1"
+  ## widget = lineedit; activeif = MACCEST = 1
+
+MSG_MACCSIG20 1  "explicit maneuver: A0 sigma, S/Y"
+
+MACCSIG30 1  "1D-1"
+  ## widget = lineedit; activeif = MACCEST = 1
+
+MSG_MACCSIG30 1  "explicit maneuver: A0 sigma, W/Z"
+
+! Sigmas for explicit maneuver: A1: change rate
+! --------------------
+MACCSIG11 1  "1D-6"
+  ## widget = lineedit; activeif = MPOLDEG > 0 AND MACCEST = 1
+
+MSG_MACCSIG11 1  "explicit maneuver: A1 sigma, R/X"
+
+MACCSIG21 1  "1D-6"
+  ## widget = lineedit; activeif = MPOLDEG > 0 AND MACCEST = 1
+
+MSG_MACCSIG21 1  "explicit maneuver: A1 sigma, S/Y"
+
+MACCSIG31 1  "1D-6"
+  ## widget = lineedit; activeif = MPOLDEG > 0 AND MACCEST = 1
+
+MSG_MACCSIG31 1  "explicit maneuver: A1 sigma, W/Z"
+
+! Sigmas for explicit maneuver: A2
+! --------------------
+MACCSIG12 1  "1D-10"
+  ## widget = lineedit; activeif = MPOLDEG = 2 AND MACCEST = 1
+
+MSG_MACCSIG12 1  "explicit maneuver: A2 sigma, R/X"
+
+MACCSIG22 1  "1D-10"
+  ## widget = lineedit; activeif = MPOLDEG = 2 AND MACCEST = 1
+
+MSG_MACCSIG22 1  "explicit maneuver: A2 sigma, S/Y"
+
+MACCSIG32 1  "1D-10"
+  ## widget = lineedit; activeif = MPOLDEG = 2 AND MACCEST = 1
+
+MSG_MACCSIG32 1  "explicit maneuver: A2 sigma, W/Z"
+
+! Do not estimate acceleration for short maneuvers
+! ---------------------
+MMINLEN 1  "0"
+  ## widget = lineedit
+
+MSG_MMINLEN 1  "Do not estimate acc. for short maneuvers"
+
+! Adjust integartion epochs according to maneuver start/end
+! ---------------------
+MADJINT 1  "0"
+  ## widget = checkbox; activeif = MACCAPR = 1 OR MACCEST = 1
+
+MSG_MADJINT 1  "Adjust integartion epochs to maneuver start/end"
+
+! Title
+! -----
+TITLE 1  "Convert from FINAL PRE to STD orbit and generate partials $YSS+0"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CREATE/UPDATE STANDARD ORBITS - ORBGEN 1: Input Files                        #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show files for force modelling     > % <                                   # SHOWFRC
+#   Show all general files             > % <                                   # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+# > % < Start with precise orbits      > %%%%%%%%%%%% <                        # RADIO_P PREFIL
+#       Use with general ERP file      > % <                                   # GENPOLE
+# > % < Update standard orbit                                                  # RADIO_E
+#            Orbital elements          > %%%%%%%%%%%% <                        # IMPORB
+#                                                                              #
+#   Earth rotation parameters          > %%%%%%%%%%%% <                        # POLE
+#   Ocean tidal loading                > %%%%%%%%%%%% <     (for CMC)          # OCNLOAD
+#   Atmospheric tidal loading          > %%%%%%%%%%%% <     (for CMC)          # ATMLOAD
+#   Geocenter coordinates              > %%%%%%%%%%%% <     (for CMC)          # GCCINP
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWFRC = 1 ######################################################
+# ORBGEN 1.1: Files for Force Modelling                                        #
+#                                                                              #
+# INPUT FILES FOR GRAVITATIONAL FORCE MODELLING                                #
+#   Earth potential coefficients > %%%%%%%%%%%% <                              # POTCOE
+#     apply linear trend         > % <                                         # POTCOEL
+#     apply periodic terms       > % <                                         # POTCOEP
+#   Time-variable C20,C21,S21    > %%%%%%%%%%%% <                              # CS2021
+#   Time-variable zonals         > %%%%%%%%%%%% <                              # ZONALS
+#   Solid Earth tides            > %%%%%%%%%%%% <                              # SETIDES
+#   Ocean tides file             > %%%%%%%%%%%% <                              # OTIDES
+#   Admittances file             > %%%%%%%%%%%% <                              # OTIDAD
+#   Atmosphere tides files       > %%%%%%%%%%%% <      File type     > %%% <   # ATIDES ATIDTYP
+#   A&O dealiasing               > %%%%%%%%%%%% <      apply > %%%%%%%%%%%% <  # AODL1B AODSEL
+#   Ocean pole tide              > %%%%%%%%%%%% <                              # OCPLTD
+#   Love numbers                 > %%%%%%%%%%%% <                              # LOVNUM
+#   Planetary ephemeris          > %%%%%%%%%%%% <                              # JPLEPH
+#                                                                              #
+# INPUT FILES FOR NON-GRAVITATIONAL FORCE MODELLING                            #
+#   Attitude for LEO satellites              > %%%%%%%%%%%% <                  # ATTIT
+#   Satellite macro model                    > %%%%%%%%%%%% <                  # PLATDEF
+#   Albedo reflectivity                      > %%%%%%%%%%%% <                  # ALBREFL
+#   Albedo emissivity                        > %%%%%%%%%%%% <                  # ALBEMIS
+#   F10.7 flux index and APP (MSIS, DTM2013) > %%%%%%%%%%%% <   defaults> % <  # FLXAPFIL FLXAPDEF
+#   Explicit satellite maneuvers             > %%%%%%%%%%%% <                  # MANINFO
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# ORBGEN 1.2: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants        > %%%%%%%%%%%% <                                  # CONST
+#   Satellite problems       > %%%%%%%%%%%% <                                  # SATCRUX
+#   Geodetic datum           > %%%%%%%%%%%% <                                  # DATUM
+#   Satellite information    > %%%%%%%%%%%% <                                  # SATELL
+#                            > % < Error if not in satellite information file  # SATFILERR
+#   Subdaily ERP model       > %%%%%%%%%%%% <                                  # SUBMOD
+#   Nutation model           > %%%%%%%%%%%% <                                  # NUTMOD
+#   GPS-UTC time difference  > %%%%%%%%%%%% <                                  # GPSUTC
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign        > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # CAMPAIGN
+#   Selected session           year> %%%% <  session> %%%% <                   # YR4_INFO SES_INFO
+#   Session table            > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # SESSION_TABLE
+#                                                                              #
+# TEMPORARY FILES                                                              #
+#   Scratch files            > %%%%%%%%%%%% <            > %%%%%%%%%%%% <      # AUXFIL  TABAUX
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ORBGEN 2: Result and Output Files                                            #
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Standard orbits          > %%%%%%%%%%%% <                                  # STDOUT
+#   Radiation pressure coeff.> %%%%%%%%%%%% <                                  # RPROUT
+#   Residual file            > %%%%%%%%%%%% <                                  # RESIDRS
+#                                                                              #
+# OUTPUT FILES                                                                 #
+#   Summary file             > %%%%%%%%%%%% <                                  # SUMFIL
+#   Summary file for IGS-ACC > %%%%%%%%%%%% <                                  # SUMACC
+#   Plot file of residuals   > %%%%%%%%%%%% <                                  # RESPLOT
+#   A priori gravity field   > %%%%%%%%%%%% <                                  # GRVAPR
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output         > % < use ORBGEN.Lnn            or > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages         > % < merged to program output  or > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ORBGEN 3.1: General Options                                                  #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# TIME FRAME, POTENTIAL AND TIDAL CORRECTIONS                                  #
+#   Time frame                   > %%%% <                                      # TIMFRAME
+#   Earth potential degree       > %%%% <                                      # MXPOTDEG
+#   Ocean pole tides max degree  > %%%% <                                      # MXOPLT
+#   Ocean tides max degree       > %%%% <                                      # MXOCTI
+#   Atmosphere tides max degree  > %%%% <                                      # MXATTI
+#   AO dealiasing max degree     > %%%% <                                      # MXAOD
+#   Apply CMC correction   OTL:  > % <         ATL: > % <         GCC: > % <   # CMCYN_O CMCYN_A GCCYN
+#   Apply antenna offset         > % <                                         # ANTOFF
+#   Do not apply mean pole model > % <  (to allow for exact resubstitution)    # MEAPOL
+#                                                                              #
+# GENERAL RELATIVISTIC CORRECTIONS                                             #
+#   Schwarzschild term           > % <                                         # REL1
+#   Lense-Thirring               > % <  (not IGS standard)                     # REL2
+#   De Sitter                    > % <  (not IGS standard)                     # REL3
+#   C20 effect                   > % <  (not IGS standard)                     # REL4
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ORBGEN 3.1.2: Options                                                        #
+#                                                                              #
+# SATELLITE SELECTION            >  %%%%%%%%%%%%%%%% <                         # SATSELECT
+#          > % < GPS             > % < GLONASS         > % < Galileo           # USE_G USE_R USE_E
+#          > % < SBAS            > % < BeiDou          > % < QZSS              # USE_S USE_C USE_J
+#                                                                              #
+#   The satellites in the following list will be     > %%%%%%%%%%%% <          # USESAT
+#   Satellite list > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # SATLST
+#                                                                              #
+# EXPERIMENTAL OPTIONS                                                         #
+#   True attitude modelling of satellites                > % <                 # TRUEATTI
+#   Print beta angle and attitude switch info to STDOUT  > % <                 # BETAOUT
+#   Print yaw angle to SYSOUT file                       > % <                 # PRINTYAW
+#   Print osculating elements to program output (OUT)    > % <                 # PRINTOSC
+#   Print RMS of the orbit fit (summary)                 > % <                 # PRTFITRMS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ORBGEN 3.2: A priori Radiation Pressure Model                                #
+#                                                                              #
+# NON-CONSERVATIVE FORCES                                                      #
+#   Solar radiation pressure       > %%%%%%%%%% <                              # SRPMODFL
+#                                  > % < GPS    > % < GLONASS   > % < Galileo  # SRP_G SRP_R SRP_E
+#                                  > % < SBAS   > % < BeiDou    > % < QZSS     # SRP_S SRP_C SRP_J
+#   Apply partial shadow for LEO   > % <                                       # PARSHAD
+#   Earth Radiation Pressure       > %%%%%%%%%% <                              # ERPMODFL
+#     Reflected radiation          > % <                                       # ALBREFFL
+#     Emitted@@ radiation          > % <                                       # ALBEMIFL
+#     Numerical interpolation      > % <                                       # ALBINTER
+#   Navigation Antenna Thrust      > % <                                       # ANTTHRFL
+#   Thermal radiation              > % <                                       # TRMRADFL
+#     (defined by macromodel)                                                  #
+#   Rotation of solar panel        > %%%%%%%%%%%% <          Only for Jason-2/3# SPROT
+#   Atmospheric force for LEO/SLR  > % <                                       # AIRDRGFL
+#                                                                              #
+# SCALING FACTORS FOR MACRO MODEL                                              #
+#  Scaling mode                    > %%%%%%%%%% <                              # NCSMOD
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL AIRDRGFL = 1 #####################################################
+# ORBGEN 3.2.1: Atmospheric Force Model                                        #
+#                                                                              #
+#  Air density model               > %%%%%%%%%% <                              # AIRMODE
+#  Horizontal wind model           > %%%%%%%%%% <                              # AIRWIND
+#  Drag coefficient                > %%%%%%%%%% <                              # AIRFIXC
+#  Accommodation coefficient       > %%%%%%%%%% <                              # AIRCOEF
+#                                                                              #
+#    JB2008: F10.7 flux index            > %%%%%%%%%%%% <                      # AIRSOLAR
+#    JB2008: Geomagnetic storm dTc values> %%%%%%%%%%%% <                      # DTCVAL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL MANINFO / _ ######################################################
+# ORBGEN 3.2.2: Explicit maneuvers                                             #
+#                                                                              #
+#   Use a priori accelerations > % <                                           # MACCAPR
+#                                                                              #
+#   Estimate accelerations     > % <                                           # MACCEST
+#     Frame                    > %%% <                                         # MACCFRM
+#     Polynomial degree        > %%% <                                         # MPOLDEG
+#                                                                              #
+#     a priori sigmas for:                                                     #
+#             A0 [m/s**2]    A1 [m/s**3]    A2 [m/s**4]                        #
+#       X/R > %%%%%%%%% <  > %%%%%%%%% <  > %%%%%%%%% <                        # MACCSIG10 MACCSIG11 MACCSIG12
+#       Y/S > %%%%%%%%% <  > %%%%%%%%% <  > %%%%%%%%% <                        # MACCSIG20 MACCSIG21 MACCSIG22 
+#       Z/W > %%%%%%%%% <  > %%%%%%%%% <  > %%%%%%%%% <                        # MACCSIG30 MACCSIG31 MACCSIG32
+#                                                                              #
+#   Do not estimate acceleration for maneuvers shorter than> %%%%% <sec.       # MMINLEN
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NCSMOD /= NONE AND PLATDEF /= _ ##################################
+# ORBGEN 3.2.3: Scaling Factors Activated                                      #
+#                                                                              #
+# RADIATION SCALING FACTOR ESTIMATION                                          #
+#   Scaling factor options                                > %%%%%%%%%% <       # NCSTYP
+#     Solar direct@@@ radiation pressure (SRP)            > % <                # SCLSRP
+#     Earth reflected radiation pressure (REF)            > % <                # SCLREF
+#     Earth emitted@@ radiation pressure (EMI)            > % <                # SCLEMI
+#                                                                              #
+# ATMOSPHERIC FORCE SCALING FACTOR ESTIMATION FOR LEO                          #
+#   Scaling factor options                                > % <                # SCLAIR
+#                                                                              #
+# SCALING FACTOR SETTINGS                                                      #
+#   Initialize scaling factors to zero                    > % <                # SCLZER
+#   Absolute sigma for satellite specific scaling factors > %%%%%%%%%% <       # SIGSCL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ORBGEN 3.3: Numerical Integration                                            #
+#                                                                              #
+# PRINT RESIDUALS                           > %%%%%% <                         # PRTRESID
+#   In RSW Coordinates                      > % <                              # RESSYS
+#                                                                              #
+# NUMERICAL INTEGRATION                                                        #
+#   Number of iterations                    > %%% <                            # NUMITER
+#   Stop after RMS improvement is lower than> % < > %%%% <[%]                  # AUTOITER RMSIMPR
+#                                                                              #
+# EQUATION OF MOTION                                                           #
+#   Polynomial degree                       > %%% <                            # POLDEGR
+#   Length of interval                      > %%%%%%%% <  (hh mm ss)           # LENINTER
+#                                                                              #
+# VARIATIONAL EQUATIONS                                                        #
+#   Polynomial degree                       > %%% <                            # VARPOLDG
+#   Length of interval                      > %%%%%%%% <  (hh mm ss)           # VARLNINT
+#   Additional sets                         > %%% < (only relevant for LEO)    # ADDVAR
+#   Use extended RPR Format                 > % <   (only intended for LEO)    # RPRFRM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_E = 0 ######################################################
+# ORBGEN 4: Parameter Selection                                                #
+#                                                                              #
+# DYNAMICAL ORBIT PARAMETERS                                                   #
+#   Apart from six osculating elements, estimate the following parameters:     #
+#                                                                              #
+#   Default model                                > %%%%%%%%%% <                # DEFMODEL
+#   Model-specific (default) setup of empirical parameters > % <               # DEFPAR
+#                                                                              #
+#   Manual selection of parameters and their scaling (for output only):        #
+#   PAR1 > % < > %%%%%% <    PAR4 > % < > %%%%%% <    PAR7 > % < > %%%%%% <    # PAR1 SCL1 PAR4 SCL4 PAR7 SCL7
+#   PAR2 > % < > %%%%%% <    PAR5 > % < > %%%%%% <    PAR8 > % < > %%%%%% <    # PAR2 SCL2 PAR5 SCL5 PAR8 SCL8
+#   PAR3 > % < > %%%%%% <    PAR6 > % < > %%%%%% <    PAR9 > % < > %%%%%% <    # PAR3 SCL3 PAR6 SCL6 PAR9 SCL9
+#                                                                              #
+#  MODEL  ECOM   ECOM2  ECOM2-D1  ECOM2-YD1  ECOM-TB   ECOM-TBM  RSW    DRSW   #
+#                                                                              #
+#  PAR1   E30    E30    E30       E30        T30C1b    T30C1b    L30    E30    #
+#  PAR2   E20    E20    E20       E20        T20S3b    T20S3b    L20    L20    #
+#  PAR3   E10    E10    E10       E10        T1S2uC1b  T1S2uC1b  L10    L10    #
+#  PAR4   E3C1u  E3C2u  E3C2u     E3C2u      T3C2uC1b  T3C2uC1b  L3C1u  L3C1u  #
+#  PAR5   E2C1u  E3C4u  E3C1u     E3C1u      T3C4uC1b  T3C4uC1b  L2C1u  L2C1u  #
+#  PAR6   E1C1u  E1C1u  E1C1u     E1C1u      T2C2uS2b  T2C2uS2b  L1C1u  L1C1u  #
+#  PAR7   E3S1u  E3S2u  E3S2u     E3S2u      T3S2uC1b  T3S2uC1b  L3S1u  L3S1u  #
+#  PAR8   E2S1u  E3S4u  E3S1u     E3S1u      T3S4uC1b  T3S4uC1b  L2S1u  L2S1u  #
+#  PAR9   E1S1u  E1S1u  E1S1u     E1S1u      T2S2uS2b  T2S2uS2b  L1S1u  L1S1u  #
+#                                                                              #
+#  E3, E2, E1 axes correspond to D, Y, B, respectively                         #
+#  L3, L2, L1 axes correspond to R, S, W, respectively                         #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_E = 0 ######################################################
+# ORBGEN 5: Stochastic Pulses and Satellite Accuracy Codes                     #
+#                                                                              #
+# STOCHASTIC PULSES IN (L3, L2, L1)-DIRECTIONS                                 #
+#   Set up based on                             > %%%%%%%%%%%%%%%% <           # STOCH_NUMBER
+#   List of satellites                          > %%%%%%%%%%%%%%%%%%% <        # STOCH_MANUAL
+#   Parameter spacing                           > %%%%%%%% <(hh mm ss)         # STOCH_INTER
+#                                                                              #
+#   Orbital elements file                       > %%%%%%%%%%%%%%% <            # STOCH_FILE
+#     (only used to provide epochs of stochastic pulses)                       #
+#                                                                              #
+# SATELLITE OPTIONS                                                            #
+#   Exclude satellites with maneuvers           > % <                          # EXCLMAN
+#   Use accuracy codes from SP3-file            > % <                          # USEAC
+#   Exclude sat. with accuracy code 0           > % <                          # MINAC
+#   Exclude sat. with acc. code exceeding       > %% <                         # MAXAC
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_E = 0 ######################################################
+# ORBGEN 6: Orbital Arc Definition                                             #
+#                                                                              #
+# ORBITAL ARC DEFINITION                                                       #
+#   Number of arcs within the time window         > %%% <                      # NUMARCS
+#                                                                              #
+#   Time window to be covered by the standard orbits                           #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year > %%%% <     Session > %%%% <                                   # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_E = 1 ######################################################
+# ORBGEN 7: Selection of Orbital Elements                                      #
+#                                                                              #
+# SELECTION OF ORBITAL ELEMENTS   > %%%% <                                     # NEWOLD
+#                                                                              #
+# LENGTH OF TIME INTERVAL         > %%%% < days                                # ARCINT
+#                                                                              #
+# END_PANEL ####################################################################

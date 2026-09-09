@@ -1,0 +1,160 @@
+package COPY_PPP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  COPY_PPP
+#
+# Purpose :  Copy required files for PPP.PCF
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  01-Aug-2020
+#
+# Changes :  08-Apr-2022 AV: Add skeleton files
+#            22-Apr-2022 LP: Abb file name must be compatible to staInf file name
+#	     18-Jun-2026 CK: Completely revised, unused stuff removed
+# ============================================================================
+use strict;
+
+use File::Copy qw(move);
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date qw(gps_date);
+
+use File::Copy qw(copy);
+
+sub dbg_log {
+  my ($msg) = @_;
+  print "[PPP_COP][DEBUG] $msg\n";
+}
+
+sub dbg_warn {
+  my ($msg) = @_;
+  print "[PPP_COP][WARN ] $msg\n";
+}
+
+sub dbg_copyfile {
+  my ($src,$dst) = @_;
+
+  dbg_log("Copy requested");
+  dbg_log("  SRC: $src");
+  dbg_log("  DST: $dst");
+
+  # Check source
+  if (!defined $src || $src eq "") {
+    dbg_warn("Source undefined or empty");
+    return 0;
+  }
+
+  if (!-e $src) {
+    dbg_warn("Source does not exist");
+    return 0;
+  }
+
+  # Extract target directory
+  my ($target_dir) = $dst =~ m|^(.*)/[^/]+$|;
+
+  if (defined $target_dir && !-d $target_dir) {
+    dbg_warn("Target directory does not exist: $target_dir");
+  }
+
+  # --- actual copy using BPE copyfile ---
+  my $ok;
+  eval {
+    $ok = copyfile($src,$dst);
+  };
+
+  if ($@) {
+    dbg_warn("copyfile died: $@");
+    return 0;
+  }
+
+  if (!$ok) {
+    dbg_warn("copyfile returned false -> trying File::Copy fallback");
+
+    my $ok2 = copy($src,$dst);
+    if (!$ok2) {
+      dbg_warn("Fallback copy failed: $!");
+      return 0;
+    } else {
+      dbg_log("Fallback copy succeeded");
+      return 1;
+    }
+  }
+
+  dbg_log("copyfile succeeded");
+  return 1;
+}
+
+sub run{
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyyyddd, $yyyyssss,    $yyssss,  $yyddd,
+      $camp_pth, $campaign,
+      $refInf,  $hoiFil,  $osbFil,
+      $snxInf,
+      $orb,
+      $dirCrd,  $dirVel,   
+      $extCrd,  $extVel,
+      $dirPre,  $dirErp, $dirClk,  $dirOsb,  $dirIon,
+      $extPre,  $extErp, $extClk,  $extOsb,  $extIon,
+      $dirStd,  $extStd)  =
+  $bpe->getKeys
+     ('$YYYD+0', '$YYYSS+0','$YSS+0','$YD+0',
+      'CAMP_PTH', 'CAMPAIGN',
+      'V_REFINF', 'V_HOIFIL','V_OSBFIL',
+      'V_SNXINF',
+      'V_ORB',
+      'DIR_CRD', 'DIR_VEL',
+      'EXT_CRD', 'EXT_VEL',
+      'DIR_PRE', 'DIR_ERP', 'DIR_RXC', 'DIR_OSB','DIR_ION',
+      'EXT_PRE', 'EXT_ERP', 'EXT_RXC', 'EXT_OSB','EXT_ION',
+      'DIR_STD', 'EXT_STD');
+
+  print "DEBUG MODE\n";
+#  my $debugdir = "/storage/research/aiub_u_camp/CK_ZDGNSS";
+#  my $bswDir = $debugdir;
+#  my $refDir = "$debugdir/STA";
+#  my $orbDir ="$debugdir/ORB";
+
+
+  my $bswDir = "$camp_pth$campaign";
+  my $refDir = "$camp_pth$campaign/STA";
+  my $orbDir = "$camp_pth$campaign/ORB";
+
+# Copy files
+# --------------
+  dbg_copyfile("$refDir/${refInf}.${extCrd}","${dirCrd}${refInf}_R.${extCrd}");
+  dbg_copyfile("$refDir/${refInf}.${extVel}","${dirVel}${refInf}_R.${extVel}");
+  dbg_copyfile("${orbDir}/${orb}_${yyssss}.${extPre}","${dirPre}${orb}_${yyyyddd}.${extPre}");
+  dbg_copyfile("${orbDir}/${orb}_${yyssss}.${extStd}","${dirStd}${orb}_${yyyyssss}.${extStd}");
+  dbg_copyfile("${orbDir}/${orb}_${yyssss}.${extErp}","${dirErp}${orb}_${yyyyssss}.${extErp}");
+  # Clock file
+  my $clkSrc = "${orbDir}/../OUT/${orb}_${yyssss}.${extClk}";
+
+  if (!-e $clkSrc) {
+    dbg_warn("Clock file not found: $clkSrc");
+    $clkSrc = "${orbDir}/../OUT/${orb}S${yyssss}.${extClk}";
+
+    if (-e $clkSrc) {
+      dbg_log("Using fallback clock file: $clkSrc");
+    } else {
+      dbg_warn("Fallback clock file also not found: $clkSrc");
+    }
+  } else {
+    dbg_log("Using standard clock file: $clkSrc");
+  }
+
+  dbg_copyfile($clkSrc,"${dirClk}${orb}_${yyyyddd}.${extClk}");
+
+  dbg_copyfile("${orbDir}/IAR${yyssss}.${extOsb}","${dirOsb}${osbFil}.${extOsb}");
+  dbg_copyfile("${orbDir}/../ATM/HOI${yyddd}.${extIon}","${dirIon}${hoiFil}.${extIon}");
+  dbg_copyfile("${orbDir}/../GEN/SINEX_BIA_COD.SKL","${dirIon}/../GEN/${snxInf}.SKL");
+}

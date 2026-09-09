@@ -1,0 +1,58 @@
+package MRKOBSAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MRKOBSAP
+#
+# Purpose :  Prepare parallel MRKOBS run
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 23-Jul-2008
+#
+# Changes :  26-Jan-2006 mm: New initPar call (w/o tmpFil)
+#            10-Feb-2005 mm: Old date variables removed
+#            10-Jul-2008 rd: temp files contain session
+#            23-Jul-2008 rd: prepare for reprocessing
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyssss,$ssss,$obsDir,$bpeDir,
+      $param2, $param3, $param4, $param5, $param6) =
+        $bpe->getKeys(
+      '$YSS+0','$S+0',"DIR_PSH","DIR_BPEPRT",
+      'PARAM2','PARAM3','PARAM4','PARAM5','PARAM6');
+
+
+# Define directories and file names
+# ---------------------------------
+  my $bpeFil = "${bpeDir}MRK${yyssss}";
+  my @obsFil = glob("${obsDir}????${ssss}.PZH");
+
+
+# Remove output files, BPE files
+# ------------------------------
+  unlink(glob("${bpeFil}???.BPE"));
+
+
+# Initialize parallel run
+# -----------------------
+  my $numClu = 14;
+  my $numFil = 0;
+  my $minClu = 0;
+  my @todo   = ($param2,$param3,$param4,$param5,$param6);
+  initPar_Cl($bpe,$bpeFil,@obsFil,$numClu,$numFil,$minClu,@todo);
+
+
+}

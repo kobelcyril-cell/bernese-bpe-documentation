@@ -1,0 +1,187 @@
+package CHECK_CAMP;
+@ISA = ("RUNBPE");
+
+#===========================================================
+#
+# Name    :  CHECK_CAMP
+#
+# Purpose : Check whether campaign is ready for processing
+#
+# Author  :  C. Kobel
+# Created : 10-Aug-2026
+#
+# Changes :
+#
+#===========================================================
+
+use strict;
+use warnings;
+
+
+sub run {
+    my $bpe = shift;
+
+    # ---------- Get variables ------------
+
+    my (
+        $dirAtm,
+        $dirBpe,
+        $dirGen,
+        $dirGrd,
+        $dirObs,
+        $dirOrb,
+        $dirOrx,
+        $dirOut,
+        $dirRaw,
+        $dirSol,
+        $dirSta,
+        $extSes
+    ) = $bpe->getKeys(
+        'DIR_TRP',
+        'DIR_BPEOUT',
+        'PTH_SINEXIN',
+        'DIR_GRD',
+        'DIR_CZH',
+        'DIR_ORB',
+        'DIR_ORX',
+        'DIR_OUT',
+        'DIR_RXO',
+        'DIR_NEQ',
+        'DIR_STA',
+        'EXT_SES'
+    );
+
+
+    # ---------- Check required directories ------------
+
+    my @required_dirs = (
+        ['ATM', $dirAtm],
+        ['BPE', $dirBpe],
+        ['GEN', $dirGen],
+        ['GRD', $dirGrd],
+        ['OBS', $dirObs],
+        ['ORB', $dirOrb],
+        ['ORX', $dirOrx],
+        ['OUT', $dirOut],
+        ['RAW', $dirRaw],
+        ['SOL', $dirSol],
+        ['STA', $dirSta]
+    );
+
+
+    my $errors = 0;
+
+
+    print "\n";
+    print "===========================================================\n";
+    print " Campaign readiness check\n";
+    print "===========================================================\n";
+
+
+    foreach my $entry (@required_dirs) {
+
+        my ($name, $path) = @$entry;
+
+        # Check that variable is defined
+        if (!defined $path || $path eq '') {
+
+            print "ERROR: DIR_$name is not defined\n";
+            $errors++;
+            next;
+        }
+
+        # Check that directory exists
+        if (!-e $path) {
+
+            print "ERROR: Directory does not exist: $path\n";
+            $errors++;
+            next;
+        }
+
+        # Check that path is actually a directory
+        if (!-d $path) {
+
+            print "ERROR: Path is not a directory: $path\n";
+            $errors++;
+            next;
+        }
+
+        # Check read permission
+        if (!-r $path) {
+
+            print "ERROR: Directory is not readable: $path\n";
+            $errors++;
+            next;
+        }
+
+        print "OK   : $name -> $path\n";
+    }
+
+
+    # ---------- Check SESSIONS file ------------
+
+    my $sessions = "${dirSta}SESSIONS.${extSes}";
+
+
+    if (!defined $dirSta || $dirSta eq '') {
+
+        print "ERROR: DIR_STA is not defined\n";
+        $errors++;
+
+    }
+    elsif (!defined $extSes || $extSes eq '') {
+
+        print "ERROR: EXT_SES is not defined\n";
+        $errors++;
+
+    }
+    elsif (!-e $sessions) {
+
+        print "ERROR: Required file does not exist: $sessions\n";
+        $errors++;
+
+    }
+    elsif (!-f $sessions) {
+
+        print "ERROR: SESSIONS path is not a regular file: $sessions\n";
+        $errors++;
+
+    }
+    elsif (!-r $sessions) {
+
+        print "ERROR: SESSIONS file is not readable: $sessions\n";
+        $errors++;
+
+    }
+    elsif (!-s $sessions) {
+
+        print "ERROR: SESSIONS file is empty: $sessions\n";
+        $errors++;
+
+    }
+    else {
+
+        print "OK   : SESSIONS -> $sessions\n";
+    }
+
+
+    # ---------- Final result ------------
+
+    print "-----------------------------------------------------------\n";
+
+
+    if ($errors > 0) {
+
+        print "Campaign readiness check FAILED.\n";
+        print "Errors: $errors\n";
+        print "===========================================================\n";
+        print "\n";
+
+        die "ERROR: Campaign is not ready for processing.\n";
+    }
+
+
+    print "Campaign readiness check PASSED.\n";
+    print "===========================================================\n";
+    print "\n";
+}

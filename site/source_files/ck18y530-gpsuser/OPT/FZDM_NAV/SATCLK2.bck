@@ -1,0 +1,272 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 7
+  "U" "/storage/homefs/ec20f882/GPSUSER_ZDM"
+  "T" "/scratch/local/ec20f882"
+  "X" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GPS"
+  "P" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "ec20f882"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some Keywords for Automatic Output
+! ----------------------------------
+CAMPAIGN 1  "${R}/EC_ZDMREP"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${R}/EC_ZDMREP/STA/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2020"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "0750"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants Input File
+! ----------------------------
+CONST 1  "${X}/GEN/CONST."
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  # CONST.
+
+DESCR_CONST 1  "General constants inp file"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "${X}/GEN/$(SATCRX).CRX"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+  ## emptyallowed = true
+  # $(SATCRX)
+
+DESCR_SATCRUX 1  "Satellite problems inp file"
+
+! Title
+! -----
+TITLE 1  "Satellite clocks from precise ephemeris file for Day 075, Year 2020"
+  ## widget = lineedit
+  # Satellite clocks from precise ephemeris file for Day $+0, Year $Y+0
+
+MSG_TITLE 1  "Title line"
+
+! Remove bad satellites
+! ---------------------
+RM_BAD 1  "1"
+  ## widget = checkbox
+
+MSG_RM_BAD 1  "Remove bad satellites"
+
+! Epoch Window
+! ------------
+RADIO_0 1  "0"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_0 1  "Take all clock records"
+
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by year and session identifier"
+
+RADIO_2 1  "1"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_2 1  "Defined by start and end times"
+
+SESSION_YEAR 1  "2020"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  # $Y+0
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "0750"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  # $S+0
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+STADAT 1  "2020 03 15"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+  # $YMD_STR+0
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "2020 03 17"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+  # $YMD_STR+2
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! Precise Ephemeris Input Files
+! -----------------------------
+PREINP 1  "${R}/EC_ZDMREP/ORB/$A_200750.PRE"
+  ## widget = selwin; path = DIR_PRE; ext = EXT_PRE; emptyallowed = false
+  # $A_$YSS+0
+
+MSG_PREINP 1  "Precise ephemeris inp file"
+
+! Satellite Clock Output File
+! ---------------------------
+SATCLRS 1  "${R}/EC_ZDMREP/ORB/$A_200750.CLK"
+  ## widget = lineedit; path = DIR_CLK; ext = EXT_CLK; emptyallowed = false
+  # $A_$YSS+0
+
+DESCR_SATCLRS 1  "Satellite clock out file"
+
+! Interval for Polynomials
+! ------------------------
+INTERVAL 1  "2"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_INTERVAL 1  "Interval for polynomials [h]"
+
+! Polynomial Degree
+! -----------------
+POLYDEGR 1  "1"
+  ## widget = spinbox; range = 0 4 1
+
+MSG_POLYDEGR 1  "Polynomial degree"
+
+! Program Output
+! --------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${R}/EC_ZDMREP/OUT/SATCLK2.L00"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # ${P}/IGSRAPID/OUT/SATCLK2
+
+DESCR_SYSOUT 1  "Program out file"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error messages"
+
+! Subroutine/Function Debug Output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path=PTH_DBG; ext=EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_STKLOG 1  "Subr/function debug stack log out file"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path=PTH_DBG; ext=EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_SUMMARY 1  "Subr/function debug summary out file"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for interm debug summary out file"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# EXTRACT SATELLITE CLOCKS - SATCLK2 1: Filenames                              #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# INPUT FILE                                                                   #
+#   Precise ephemeris file  > %%%%%%%%%%%% <                                   # PREINP
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Satellite clock file    > %%%%%%%%%%%% <                                   # SATCLRS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output        > % < use SATCLK2.Lnn           or  > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages        > % < merged to program output  or  > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# SATCLK2 1.1: General Files                                                   #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Satellite problems      > %%%%%%%%%%%% <                                   # SATCRUX
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# SATCLK2 2: General Options                                                   #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# SATELLITE OPTIONS                                                            #
+#   Remove bad satellites    > % <                                             # RM_BAD
+#                                                                              #
+# OPTIONS FOR CLOCKS                                                           #
+#   Interval for polynomials > %%%% <  hours                                   # INTERVAL
+#   Polynomial degree        > %% <                                            # POLYDEGR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# SATCLK2 3: Observation Window                                                #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Take all clock records                                               # RADIO_0
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year > %%%% <     Session > %%%% <                                   # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################

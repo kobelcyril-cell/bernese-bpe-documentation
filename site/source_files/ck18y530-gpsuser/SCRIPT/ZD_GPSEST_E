@@ -1,0 +1,82 @@
+package GPSEST_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GPSEST_E
+#
+# Purpose :  Execute parallel GPSEST
+#
+# Author  :  R. Dach
+# Created :  11-Jan-2005
+#
+# Changes :  15-Jun-2026: ck: Completely revised
+#===========================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $param1,
+      $subPid,
+      $uvar,
+      $ssss,
+      $trpModel,
+      $usehoi,
+      $dirOut,
+      $yyddd
+  ) = $bpe->getKeys(
+      'PARAM1',
+      'SUB_PID',
+      'U',
+      'SESSION',
+      'V_TRPMOD',
+      'V_USEHOI',
+      'DIR_OUT',
+      '$YD+0'
+  );
+
+# ---------- Set cluster number, input files, and loop variable ------------
+  setUserVar($bpe,"D4",$subPid,"CD4",$param1);
+
+# ---------- Explicit HOI switch via V_USEHOI ------------
+if ($usehoi eq "NO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS","");
+    prtMess($bpe,"HOI SETUP: DISABLED by V_USEHOI=NO");
+}
+
+#
+# ---------- Explicit TRPMOD switch via V_TRPMOD ------------
+if ($trpModel eq "GMF") {
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_GMF");
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_GMF");
+   prtMess($bpe,"Troposphere model SETUP: $trpModel");
+}
+
+# ---------- Check GRD status files ------------
+my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+# NTAL
+my $noNtal = "${mscDir}/no_NTAL";
+if (-e $noNtal) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "ALOAD_FILES", ' ' );
+   prtMess( $bpe, "NTAL disabled: no_NTAL exists" ); }
+# NTOL
+my $noNtol = "${mscDir}/no_NTOL";
+if (-e $noNtol) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "ONTLD_FILES", ' ' );
+   prtMess( $bpe, "NTOL disabled: no_NTOL exists" ); }
+# HYDL
+my $noHydl = "${mscDir}/no_HYDL";
+if (-e $noHydl) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "HLOAD_FILES", ' ' );
+   prtMess( $bpe, "HYDL disabled: no_HYDL exists" ); }
+
+# ---------- Run GPSEST ------------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

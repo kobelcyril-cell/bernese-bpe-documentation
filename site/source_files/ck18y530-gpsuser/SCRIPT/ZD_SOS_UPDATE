@@ -1,0 +1,91 @@
+package SOS_UPDATE;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  SOS_UPDATE
+#
+# Purpose :  Update station observation sigma file
+#
+# Author  :  R. Dach
+# Created :  30-Jul-2003
+#
+# Changes :  27-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+
+# ---------- Define variables ------------
+  my (
+      $V_apsp,
+      $V_cwgt,
+      $yyssss,
+      $dirSig,
+      $extSig,
+      $dirSos,
+      $extSos
+  ) = $bpe->getKeys(
+      'V_APSP',
+      'V_CWGT',
+      '$YSS+0',
+      'DIR_SIG',
+      'EXT_SIG',
+      'DIR_SOS',
+      'EXT_SOS'
+  );
+
+# ---------- Run program ------------
+  my $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $sosFil = "$dirSos/${V_cwgt}_${yyssss}.${extSos}";
+  my $sigFil = "$dirSig/${V_apsp}_${yyssss}.${extSig}";
+
+# ---------- Read the SIG-file ------------
+  my $ii = 0;
+  my %badClk = ();
+  open (SIG,"< $sigFil");
+  while(<SIG>) {
+
+    # ---------- Skip the header ------------
+    $ii++;
+    next if ($ii < 6);
+    next if ( /^[ ]*$/ );
+
+    # ---------- Skip satelite clocks ------------
+    next if ( /^[GR][0-9][0-9]     / );
+
+    # ---------- A good clock found: ------------
+    next if (substr($_,17)+0 < 100);
+
+    my $sta = substr($_,0,16);
+    $badClk{$sta} = "$sta      CODE      20.000\n";
+  }
+  close(SIG);
+
+# ---------- Read the SOS-file ------------
+  my @sos = ();
+  open (SOS,"< $sosFil");
+  while(<SOS>) {
+
+    my $sta = substr($_,0,16);
+
+    # ---------- Replace original weights for bad station ------------
+    if (defined $badClk{$sta} && $badClk{$sta} ne $_) {
+      push @sos, $badClk{$sta};
+      push @sos, substr($_,0,4) . "_" . substr($_,5);
+    } else {
+      push @sos, $_;
+    }
+  }
+  close(SOS);
+
+# ---------- Write the new SOS-file ------------
+  open (SOS,"> $sosFil");
+  print SOS @sos;
+  close(SOS);
+
+}

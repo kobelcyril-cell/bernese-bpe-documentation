@@ -1,0 +1,107 @@
+{
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "001": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "002": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "003": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "010": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "011": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "012": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "013": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "014": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "020": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "030": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "032": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "040": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "050": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "100": {
+        "notes": "",
+        "input": "",
+        "output": "OBS-files"
+    },
+    "200": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "201": {
+        "notes": "",
+        "input": "\"V_FIN\"_$YSS+0.CRD/STD/ERP\n\"V_FIN\"S$YSS+0.CLK\nIAR$YSS+0.OSB",
+        "output": "????$S+0_REC.OUT/TRP/CLK"
+    },
+    "300": {
+        "notes": "",
+        "input": "????$S+0_REC.TRP",
+        "output": "\"V_FIN\"_$YSS+0.TRP"
+    },
+    "402": {
+        "notes": "",
+        "input": "PID 301\n????$S+0_REC.CLK\nPID 302\n\"V_FIN\"[RS]$YSS+0\nPID 303\n\"V_FIN\"X$YSS+0.CLK\nPID 401\n\"V_FINCLK\"S$YSS+0.CLK\nPID 402\n\"V_FINCLK\"A$YSS+0.CLK\n\"F_FIN\"_$YSS+0.CRD",
+        "output": "PID 301\n\"V_FIN\"R$YSS+0.CLK\nPID 302\n\"V_FIN\"X$YSS+0.CLK\nPID 303\n\"V_FIN\"_$YSS+0.CLK\nPID 401\n\"V_FINCLK\"A$YSS+0.CLK (RINEX)\n\"V_FINCLK\"T$YSS+0.CLK\nPID 402\n\"V_FINCLK\"_$YSS+0.CLK\n"
+    },
+    "400": {
+        "notes": "",
+        "input": "????$S+0.CZH\n\"V_FIN\"_$YSS+0.CRD/STD/ERP/CLK/TRP",
+        "output": "\"V_FINCLK\"S$YSS+0.CLK\n\"V_FINCLK\"C$YSS+0.PRC (Missing clocks)"
+    },
+    "500": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

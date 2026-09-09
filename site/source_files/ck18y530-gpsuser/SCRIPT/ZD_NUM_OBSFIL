@@ -1,0 +1,85 @@
+package NUM_OBSFIL;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  NUM_OBSFIL
+#
+# Purpose :  Count observation files in RAW directory.
+#
+# Author  :  C. Kobel
+# Created :  18-Oct-2025
+#
+# Changes :  
+#===========================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Parameter ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyyy,
+      $V_MINCOUNT
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$Y+0',
+      'V_MINC'
+  );
+
+  # ---------- Define and create day-specific MSC directory ------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $dirRaw   = "$dirOut../RAW";
+  my $dirMsc   = "$mscDir";
+  my $outfile  = "$dirMsc/PROCESSING_$yyddd";
+  my $default  = 100;  # Fallback-Value
+  my $mincount = (defined $V_MINCOUNT && $V_MINCOUNT ne '') ? $V_MINCOUNT : $default;
+
+  my $yy = substr($yyyy, -2);
+
+  my $id_pattern = "....${ssss}.${yy}O";
+  print "Count files in $dirRaw with pattern: $id_pattern\n";
+  print "Minimally expected number: $mincount\n";
+
+  # ---------- Count files ------------
+  opendir(my $dh, $dirRaw) or die "Can not open folder: $dirRaw - $!";
+  my @files = grep { /$id_pattern/ && -f "$dirRaw/$_" } readdir($dh);
+  closedir($dh);
+
+  my $count = scalar(@files);
+
+  # ---------- Write result ------------
+  open(my $fh, '>>', $outfile) or die "Can not write $outfile: $!";
+  
+  print $fh "==== NUMBER OF STATIONS ====\n";
+  print $fh "Number of observation files: $count\n";
+
+  if ($count < $mincount) {
+    print $fh "WARNING: Number ($count) is smaller than expected ($mincount)!\n";
+  }
+
+  # ---------- Hard error if less than 10 ------------
+  if ($count < 10) {
+    print $fh "ERROR: Number of observation files ($count) is below critical limit (10)!\n";
+    close($fh);
+    die "ERROR: Only $count observation files found (< 10) — aborting!\n";
+  }
+
+  print $fh "=========================\n";
+  close($fh);
+
+  print "Result written to '$outfile'.\n";
+  print "NUM_OBSFIL done!\n";
+}

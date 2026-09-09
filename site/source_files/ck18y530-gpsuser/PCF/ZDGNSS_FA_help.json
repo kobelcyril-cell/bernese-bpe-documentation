@@ -1,0 +1,127 @@
+{
+    "100": {
+        "notes": "",
+        "input": "GPSEST:\n????$S+0.PZH\n????$S+0.CZH\n\"V_APR\"_$YSS+0.CRD/STD/RPR/CLK\n\"V_CWGT\"_$YSS+0.SOS",
+        "output": ""
+    },
+    "110": {
+        "notes": "Combine station NEQs\nRemove the station-NEQs afterwards",
+        "input": "\"V_FIN\"_$S+0????.NQ0\n\"V_APR\"_$YSS+0.CRD/ERP",
+        "output": "V_FIN\"_$YSS+0.NQ0"
+    },
+    "111": {
+        "notes": "Set up NEQs (GPSEST)\nManipulate NEQs & prepare for stacking (ADDNEQ2) for solution\n\nIn case of ambiguity float solution: Orbit midnight pulses disabled.",
+        "input": "GPSEST:\n????$S+0.PZH\n????$S+0.CZH\n\"V_K\"_$YSS+0.CRD/STD/RPR/CLK\n\"V_I\"_$YSS+0.SOS\nREFCLK.FIX\nADDNEQ2 1:\n\"V_U\"A$S+0????.NQ0\n",
+        "output": "GPSEST:\n\"V_U\"A$S+0????.NQ0\nADDNEQ2 1:\n\"V_U\"_$S+0????.NQ0\n"
+    },
+    "120": {
+        "notes": "Pre-eliminate the clocks iteratively.\nThe ? in the resulting NEQs indicate the iteration and batch-number Intermediate flag-files are created in the MSC directory, used for the iterative procedure .COV (coverage)-file existance shows wheter pre-elimination was successfull",
+        "input": "\"V_FIN\"_$YSS+0.NQ0",
+        "output": "\"V_FIN\"0?$YSS+00?.NQ0"
+    },
+    "130": {
+        "notes": "Create clock-free NEQ",
+        "input": "\"V_FIN\"07$YSS+0001.NQ0",
+        "output": "\"V_FIN\"99$YSS+0.NQ0"
+    },
+    "131": {
+        "notes": "Wait until preparation is finished (wait for availability and visibility of created help-files for parallel iterative pre-elimination of clocks",
+        "input": "",
+        "output": ""
+    },
+    "132": {
+        "notes": "See PID 130 (PRECLKAP)",
+        "input": "",
+        "output": ""
+    },
+    "133": {
+        "notes": "Controls iterative pre-elimination of clocks",
+        "input": "MSC/TIMINT_??",
+        "output": ""
+    },
+    "140": {
+        "notes": "Initially creates FIX files as a copy from \"V_CRDINF\".FIX to \"V_FIN\"_$YD+0.FIX",
+        "input": "\"V_CRDINF\"\n\"V_FIN\"99$YSS+0.NQ0\n\"V_APR\"_$YSS+0.CRD/ERP\n\"V_FIN\"_$YD+0.FIX",
+        "output": "\"V_FIN\"C$S+0.CRD/OUT\nDUMMY.ERP/IEP"
+    },
+    "150": {
+        "notes": "Compute solution including satellite clocks",
+        "input": "\"V_FIN\"_$YSS+0.NQ0\n\"V_APR\"_$YSS+0.CRD/ERP\n\"V_FIN\"_$YD+0.FIX",
+        "output": "\"V_FIN\"\"V_LARGE\"$YSS+0.CRD/ELE/ERP/OUT/OSB/CLK"
+    },
+    "151": {
+        "notes": "Evaluate datum definition and create updated FIX file",
+        "input": "\"V_A\"_$YSS+0.CRD\n\"V_U\"C$S+0.CRD\n\"V_U\"_$YD+0.FIX\n\"V_CRDINF\".FIX",
+        "output": "\"V_U\"_$YD+0.FIX\nBAD$YD+0.FIX"
+    },
+    "160": {
+        "notes": "Extract ADDNEQ2 output from solution including clocks",
+        "input": "\"V_FIN\"\"V_LARGE\"$YSS+0.OUT",
+        "output": "\"V_FIN\"\"V_LARGE\"XTR$YSS+0.SUM"
+    },
+    "170": {
+        "notes": "Solve the NEQs with batches of clocks",
+        "input": "",
+        "output": ""
+    },
+    "180": {
+        "notes": "Concatenate the clocks",
+        "input": "\"V_FIN\"08$YSS+000[1-8].CLK\"",
+        "output": "\"V_FIN\"_$YSS+0.CLK (Clocks & RINEX)\"\n\"V_FIN\"S$YSS+0.OUT"
+    },
+    "181": {
+        "notes": "For the NEQ with the clocks at the start of the day (???=001), also the geometric parameters are solved for. For all other NEQs, only the clocks are computed.",
+        "input": "\"V_U\"??$YSS+0????.NQ0",
+        "output": "\"V_U\"_$YSS+0.CRD/ELE/ERP\n\"V_U\"??$YSS+000??.CLK"
+    },
+    "182": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "190": {
+        "notes": "Generate STD orbit for final solution for both final solutions.",
+        "input": "\"V_FIN\"_$YSS+0.ELE/ERP\n\"V_FIN\"\"V_LARGE\"$YSS+0.ELE/ERP",
+        "output": "\"V_FIN\"_$YSS+0.STD/RPR\n\"V_FIN\"\"V_LARGE\"$YSS+0.STD/RPR"
+    },
+    "200": {
+        "notes": "Generate STD orbit for final solution for both final solutions",
+        "input": "\"V_U\"_$YSS+0.ELE/ERP\n\"V_U\"\"V_L\"$YSS+0.ELE/ERP",
+        "output": "\"V_U\"_$YSS+0.STD/RPR\n\"V_U\"\"V_L\"$YSS+0.STD/RPR"
+    },
+    "101": {
+        "notes": "Set up NEQs (GPSEST)\nManipulate NEQs & prepare for stacking (ADDNEQ2) for solution\n\nIn case of ambiguity float solution: Orbit midnight pulses disabled.",
+        "input": "GPSEST:\n????$S+0.PZH\n????$S+0.CZH\n\"V_APR\"_$YSS+0.CRD/STD/RPR/CLK\n\"V_CWGT\"_$YSS+0.SOS\nREFCLK.FIX\nADDNEQ2\n\"V_FIN\"A$S+0????.NQ0",
+        "output": "GPSEST:\n\"V_FIN\"A$S+0????.NQ0\nADDNEQ2:\n\"V_FIN\"_$S+0????.NQ0"
+    },
+    "121": {
+        "notes": "Wait until preparation is finished (wait for availability and visibility of created help-files for parallel iterative pre-elimination of clocks.",
+        "input": "",
+        "output": ""
+    },
+    "122": {
+        "notes": "See PID 120 (PRECLKAP)",
+        "input": "",
+        "output": ""
+    },
+    "123": {
+        "notes": "Controls iterative pre-elimination of clocks\"",
+        "input": "MSC/TIMINT_??",
+        "output": ""
+    },
+    "141": {
+        "notes": "Evaluate datum definition and create updated FIX file.",
+        "input": "\"V_BRD\"_$YSS+0.CRD\n\"V_FIN\"C$S+0.CRD\n\"V_FIN\"_$YD+0.FIX\n\"V_CRDINF\".FIX",
+        "output": "V_FIN\"_$YD+0.FIX\nBAD$YD+0.FIX"
+    },
+    "171": {
+        "notes": "For the NEQ with the clocks at the start of the day (???=001), also the geometric parameters are solved for. For all other NEQs, only the clocks are computed.",
+        "input": "\"V_FIN\"??$YSS+0????.NQ0\"",
+        "output": "\"V_FIN\"_$YSS+0.CRD/ELE/ERP\n\"V_FIN\"??$YSS+000??.CLK"
+    },
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

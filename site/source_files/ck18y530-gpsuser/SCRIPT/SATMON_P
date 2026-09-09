@@ -1,0 +1,45 @@
+package SATMON_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  SATMON_P
+#
+# Purpose :  Execute SATMARK
+#
+# PARAMs  :  PARAM1 - processing station
+#
+# Author  :  A. Villiger
+# Created :  25-Jul-2016
+#
+# Changes :
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1,$yyyy,$ssss,$dirOut) =
+    $bpe->getKeys('PARAM1','$Y+0','$S+0','DIR_OUT');
+
+  my $station = $param1;
+
+# Set variables
+# -------------
+  setUserVar($bpe,"FFFF","$station");
+
+  prtMess($bpe,"Station: $station");
+
+# Run programs
+# ------------
+  my $PGMNAM = "SATMRK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Clean up
+# --------
+  unlink(glob("${dirOut}CLKSCREEN$station${ssss}.EDT"));
+}
+

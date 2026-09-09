@@ -1,0 +1,80 @@
+package TIMEST_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMEST_P
+#
+# Purpose :  Parallel run of GPSEST using code and phase data
+#
+# Programs:  GPSEST
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005
+#
+# Changes :  __-___-____/__:
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($param1, $subPid, $yyddd, $usehoi, $trpModel, $dirIon, $extIon) =
+    $bpe->getKeys('PARAM1', 'SUB_PID', '$YD+0', 'V_USEHOI' , 'V_TRPMOD', 'DIR_ION', 'EXT_ION');
+
+
+# Initialize $D4 and $CCC variable with subpid
+# --------------------------------------------
+  setUserVar($bpe,"D4",$subPid,"CCC",$subPid);
+
+# ------------------------------------------------------------
+# Explicit HOI switch via V_USEHOI
+# ------------------------------------------------------------
+if ($usehoi eq "NO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS","");
+    prtMess($bpe,"HOI SETUP: DISABLED by V_USEHOI=NO");
+}
+
+# --------------------------------------------------
+# Explicit TRPMOD switch via V_TRPMOD
+# --------------------------------------------------
+if ($trpModel eq "GMF") {
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_GMF");
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_GMF");
+   prtMess($bpe,"Troposphere model SETUP: $trpModel");
+}
+
+
+# Replace selected with station list
+# ----------------------------------
+  replaceSel($bpe,"GPSEST","CZFILES",$param1);
+  replaceSel($bpe,"GPSEST","PZFILES",$param1);
+
+
+# Print the selected files to the log file
+# ----------------------------------------
+  open (BPE,$param1);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $param1\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}
+

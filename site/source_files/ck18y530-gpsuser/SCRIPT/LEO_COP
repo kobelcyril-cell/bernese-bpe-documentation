@@ -1,0 +1,211 @@
+package LEO_COP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_COP
+#
+# Purpose :  Copy files for LEOPOD2.PCF / LEOPODR.PCF
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+#
+# Created :  03-Jan-2023
+#
+# Changes :  18-Jan-2024 DA: Change of V_OSB format (contains now full name)
+#
+# ============================================================================
+use strict;
+
+use File::Copy;
+
+use lib $ENV{BPE};
+use bpe_util qw(copyFil);
+
+sub run{
+  my $bpe = shift;
+
+# OSB types to be renamed
+# -----------------------
+  #my @replOSB = ("C2C:C2L","L2X:L2L");
+  my @replOSB = ();
+
+# Get variables
+# -------------
+  my ($yyssss,$yy,$ddd,$yyddd,
+      $crdInf,$staInf,$extOsb,$dirOsb,
+      $v_b, $clk, $orbDir, $clkDir, $osb,
+      $refDir, $blqInf, $atlInf,
+      $dirCrd, $dirAbb, $dirSta, $dirBlq, $dirAtl,
+      $extCrd, $extAbb, $extSta, $extBlq, $extAtl,
+      $dirStd, $dirErp, $dirClk, $dirOut,
+      $extStd, $extErp, $extClk) =
+
+
+  $bpe->getKeys
+     ('$YSS+0','$Y','$+0','$YD+0',
+      'V_CRDINF','V_STAINF','EXT_OSB','DIR_OSB',
+      'V_B','V_CLK', 'V_ORBDIR', 'V_CLKDIR', 'V_OSB',
+      'V_REFDIR','V_BLQINF','V_ATLINF',
+      'DIR_CRD','DIR_ABB','DIR_STA','DIR_BLQ','DIR_ATL',
+      'EXT_CRD','EXT_ABB','EXT_STA','EXT_BLQ','EXT_ATL',
+      'DIR_STD','DIR_ERP','DIR_RXC','DIR_OUT',
+      'EXT_STD','EXT_ERP','EXT_RXC');
+
+# Construct list of reference files
+# ---------------------------------
+  my @filLst = ();
+
+  # Station related input files:
+  push @filLst,"${dirCrd}${crdInf}.${extCrd} 1";
+  push @filLst,"${dirAbb}${staInf}.${extAbb} 1";
+  push @filLst,"${dirSta}${staInf}.${extSta} 1";
+  push @filLst,"${dirBlq}${blqInf}.${extBlq} 1" if (${blqInf} ne "");
+  push @filLst,"${dirAtl}${atlInf}.${extAtl} 1" if (${atlInf} ne "");
+
+  $refDir = "$ENV{AIUB}/${refDir}";
+  copyFil($refDir,@filLst);
+
+# Copy GNSS STD orbits and ERPs
+# -----------------------------
+  @filLst = ();
+  my @stdFil = glob("${orbDir}/${v_b}${yy}${ddd}.${extStd}*");
+  my @stdFil0 = glob("${orbDir}/${v_b}${yy}${ddd}0.${extStd}*");
+  my @erpFil = glob("${orbDir}/${v_b}${yy}${ddd}.ERP*");
+  my @erpFil0 = glob("${orbDir}/${v_b}${yy}${ddd}0.ERP*");
+  if (@stdFil) {
+      push @filLst,"${dirStd}${v_b}${yy}${ddd}.${extStd} 1";
+  } else {
+      push @filLst,"${dirStd}${v_b}${yy}${ddd}0.${extStd} 1";
+  }
+  if (@erpFil) {
+      push @filLst,"${dirErp}${v_b}${yy}${ddd}.ERP 1";
+  } else {
+      push @filLst,"${dirErp}${v_b}${yy}${ddd}0.ERP 1";
+  }
+
+  copyFil($orbDir,@filLst);
+
+# Copy GNSS RINEX clock files
+# ---------------------------
+  # @filLst = ();
+  # my @clkFil = glob("${clkDir}/${clk}${yy}${ddd}.${extClk}*");
+  # my @clkFil0 = glob("${clkDir}/${clk}${yy}${ddd}0.${extClk}*");
+  # if (@clkFil) {
+  #     push @filLst,"${dirClk}${clk}${yy}${ddd}.${extClk} 1";
+  # } elsif (@clkFil0) {
+  #     push @filLst,"${dirClk}${clk}${yy}${ddd}0.${extClk} 1";
+  # } else {
+  #     die " *** No RINEX clock file\n".
+  #         "${clkDir}/${clk}${yy}${ddd}.${extClk}*\n".
+  #         "or\n".
+  #         "${clkDir}/${clk}${yy}${ddd}0.${extClk}*\n".
+  #         "found\n";
+  # }
+
+  # copyFil($clkDir,@filLst);
+
+# Copy GNSS Bernese clock file
+# ----------------------------
+  @filLst = ();
+  my @clkFil = glob("${clkDir}/${clk}${yy}${ddd}.${extClk}*");
+  my @clkFil0 = glob("${clkDir}/${clk}${yy}${ddd}0.${extClk}*");
+  if (@clkFil) {
+      push @filLst,"${dirStd}${clk}${yy}${ddd}.${extClk} 1";
+  } elsif (@clkFil0) {
+      push @filLst,"${dirStd}${clk}${yy}${ddd}0.${extClk} 1";
+  } else {
+      die " *** No Bernese clock file\n".
+          "${clkDir}/${clk}${yy}${ddd}.${extClk}*\n".
+          "or\n".
+          "${clkDir}/${clk}${yy}${ddd}0.${extClk}*\n".
+          "found\n";
+  }
+
+  copyFil($clkDir,@filLst);
+
+
+# Copy OSB files
+# --------------
+  @filLst = ();
+  my @osbFil = glob("${orbDir}/${osb}.${extOsb}");
+  if (@osbFil) {
+      push @filLst,"${dirStd}${osb}.${extOsb} 1";
+  } else {
+      die " *** No OSB file\n".
+          "${orbDir}/${osb}.${extOsb}\n".
+          "found\n";
+  }
+
+  copyFil($orbDir,@filLst);
+
+
+# # Copy OSB files
+# # --------------
+#   @filLst = ();
+#   my @osbFil = glob("${orbDir}/${osb}${yy}${ddd}.${extOsb}*");
+#   my @osbFil0 = glob("${orbDir}/${osb}${yy}${ddd}0.${extOsb}*");
+#   if (@osbFil) {
+#       push @filLst,"${dirStd}${osb}${yy}${ddd}.${extOsb} 1";
+#   } elsif (@osbFil0) {
+#       push @filLst,"${dirStd}${osb}${yy}${ddd}0.${extOsb} 1";
+#   } else {
+#       die " *** No OSB file\n".
+#           "${orbDir}/${osb}${yy}${ddd}.${extOsb}*\n".
+#           "or\n".
+#           "${orbDir}/${osb}${yy}${ddd}0.${extOsb}*\n".
+#           "found\n";
+#   }
+
+#   copyFil($orbDir,@filLst);
+
+  # Append 0 in file names (if necessary)
+  if (-e "${dirErp}${v_b}${yy}${ddd}.${extErp}") {
+      print "Found file ${dirErp}${v_b}${yy}${ddd}.${extErp}\n";
+      print "Rename it to ${dirErp}${v_b}${yyssss}.${extErp}\n";
+      move ("${dirErp}${v_b}${yy}${ddd}.${extErp}","${dirErp}${v_b}${yyssss}.${extErp}");}
+  if (-e "${dirStd}${v_b}${yy}${ddd}.${extStd}") {
+      print "Found file ${dirStd}${v_b}${yy}${ddd}.${extStd}\n";
+      print "Rename it to ${dirStd}${v_b}${yyssss}.${extStd}\n";
+      move ("${dirStd}${v_b}${yy}${ddd}.${extStd}","${dirStd}${v_b}${yyssss}.${extStd}");}
+  if (-e "${dirClk}${clk}${yy}${ddd}.${extClk}") {
+      print "Found file ${dirClk}${clk}${yy}${ddd}.${extClk}\n";
+      print "Rename it to ${dirClk}${clk}${yyssss}.${extClk}\n";
+      move ("${dirClk}${clk}${yy}${ddd}.${extClk}","${dirClk}${clk}${yyssss}.${extClk}");}
+  # if (-e "${dirOsb}${osb}${yy}${ddd}.${extOsb}") {
+  #     print "Found file ${dirOsb}${osb}${yy}${ddd}.${extOsb}\n";
+  #     print "Rename it to ${dirOsb}${osb}${yyssss}.${extOsb}\n";
+  #     move ("${dirOsb}${osb}${yy}${ddd}.${extOsb}","${dirOsb}${osb}${yyssss}.${extOsb}");}
+
+  # If necessary, replace OSB names
+  my $osbTgt = "${dirOsb}${osb}.${extOsb}";
+  die " *** $osbTgt not found\n" unless (-e $osbTgt);
+  if (@replOSB) {
+      foreach my $ro (@replOSB) {
+          my @p = split(':',$ro);
+          print "Replace $p[0] by $p[1] in $osbTgt\n";
+          my $tmpOSB = "$ENV{T}/tmpOSB_$$";
+          my $nRepl = 0;
+          open INP, '<', $osbTgt;
+          open OUT, '>', $tmpOSB;
+          while (my $line = <INP>) {
+              if ($line =~ /$p[1]/) {
+                  die " *** $osbTgt already contains $p[1]\n";
+              }
+              if ($line =~ /$p[0]/) {
+                  $line =~ s/$p[0]/$p[1]/;
+                  $nRepl++;
+              }
+              print OUT $line;
+          }
+          close INP;
+          close OUT;
+          if ($nRepl == 0) {
+              print " ### OSB $p[0] not found in $osbTgt\n";
+          } else {
+              print " --> $nRepl replacements\n";
+          }
+          system("cp $tmpOSB $osbTgt");
+      }
+  }
+}

@@ -1,0 +1,44 @@
+# ============================================================================
+# CMPSOL.PCF
+# ============================================================================
+# Purpose: Compare solution to routine products
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+555  STATUS       NO_OPT    CPU=LOCAL; PARAM1=ZDGNSS; PARAM2=CHECK
+001  CMP_COP      NO_OPT    CPU=SHORT; WAIT=555
+101  CMP_ERPDIFF  NO_OPT    CPU=SHORT; WAIT=001
+201  STDDIF       CMP_SOL   CPU=SHORT; WAIT=001; NEXTJOB=101
+301  CMP_CLKDIFF  NO_OPT    CPU=SHORT; WAIT=001; SKIP
+401  ORBCMPL      CMP_SOL   CPU=SHORT; WAIT=001
+402  plotSatnum   CMP_SOL   CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+501  COMPAR2      CMP_SOL   CPU=SHORT; WAIT=001
+502  plotStanum   CMP_SOL   CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+601  HELMR1       CMP_SOL   CPU=SHORT; WAIT=001
+602  plotHELMR1   CMP_SOL   CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=601
+701  STDELEL      CMP_SOL   CPU=SHORT; WAIT=001
+702  plotSTDELE   CMP_SOL   CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=701
+703  ORB_VER      CMP_SOL   CPU=SHORT; WAIT=702; SKIP
+899  CMP_SUM      NO_OPT    CPU=SHORT; WAIT=101 201 301 401 402 501 502 602 703
+901  DEL_CMP      NO_OPT    CPU=SHORT; WAIT=899
+999  STATUS       NO_OPT    CPU=LOCAL; WAIT=901; PARAM1=CMPSOL; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_SOL    = 1;             DESCRIPTION=1-Day or 3-Day products
+V_ERP    = F1I_;          DESCRIPTION=ERP file to be compared
+V_STD    = F1I_;          DESCRIPTION=STD file to be compared
+V_CLK    = F1IS;          DESCRIPTION=CLK file to be compared
+V_PRE    = F1I_;          DESCRIPTION=PRE file to be compared
+V_CRD    = F1I_;          DESCRIPTION=CRD file to be compared
+V_DEL    = Y;             DESCRIPTION=Delete files
+V_CRDINF = IGC20;         DESCRIPTION=Reference file
+V_STANUM = YES;           DESCRIPTION=Plot number of Stations
+V_SATNUM = YES;           DESCRIPTION=Plot number of Satellites
+V_HELMR1 = YES;           DESCRIPTION=Plot Helmert transformation parameters
+V_GPSXTR = YES;           DESCRIPTION=Plot GPSXTR output
+V_STDELE = YES;           DESCRIPTION=Plot STDELE results
+V_SATINF = SATELLIT;      DESCRIPTION=Satellite information
+V_PCV    = I20;           DESCRIPTION=GNSS PCV model
+V_SATCRX = ZD_SAT;        DESCRIPTION=Satellite problems
+V_NUTMOD = IAU2000R06;    DESCRIPTION=Nutation model
+V_SUBMOD = DESAI2016;     DESCRIPTION=Subdaily pole model
+

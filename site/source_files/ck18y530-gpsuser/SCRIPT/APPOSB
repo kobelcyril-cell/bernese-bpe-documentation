@@ -1,0 +1,77 @@
+package APPOSB;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  APPOSB
+#
+# Purpose :  Appends estimated OSB values from file V_ESTOSB to input OSB
+#            file V_OSB. Does nothing if V_ESTOSB empty.
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+#
+# Created :  07-Apr-2022
+#
+# Changes :  31-Jan-2023 DA: Appended yyssss to OSB names
+#            18-Jan-2024 DA: Removed yyssss from OSB names
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+  # Get variables
+  my ($yyssss,$ESTOSB,$OSB,$DIR_OSB) =
+      $bpe->getKeys('$YSS+0','V_ESTOSB','V_OSB','DIR_OSB');
+
+  # Do nothing if V_ESTOSB empty
+  return if (${ESTOSB} eq "");
+
+  # Input and output files
+  my $osbIn = "${DIR_OSB}/${OSB}.OSB";
+  my $osbOut = "${DIR_OSB}/${ESTOSB}${yyssss}.OSB";
+  die " *** $osbIn not found\n" unless (-e $osbIn);
+  die " *** $osbOut not found\n" unless (-e $osbOut);
+
+  # Read estimated OSBs into hash
+  my %estOsb = ();
+  open ESTOSB, '<', $osbOut;
+  while (my $line = <ESTOSB>) {
+      if ($line =~ /\AOSB /) {
+          my $key = substr($line,0,84);
+          $estOsb{$key} = $line;
+      }
+  }
+  close ESTOSB;
+
+  # Append OSBs to input OSB file
+  my $osbTmp = "${DIR_OSB}/${OSB}_TMP_$$.OSB";
+  open INPOSB, '<', $osbIn;
+  open TMPOSB, '>', $osbTmp;
+  while (my $line = <INPOSB>) {
+      if ($line =~ /\AOSB /) {
+          my $key = substr($line,0,84);
+          if (exists $estOsb{$key}) {
+              print " ### $osbIn already contains OSB for\n";
+              print "${key}:\n";
+              print $line;
+              print "Overwrite!\n\n";
+              print TMPOSB $estOsb{$key};
+              delete $estOsb{$key};
+          } else {
+              print TMPOSB $line;
+          }
+      } else {
+          print TMPOSB $line;
+      }
+  }
+  foreach my $eo (sort keys %estOsb) {
+      print TMPOSB $estOsb{$eo};
+  }
+  close INPOSB;
+  close TMPOSB;
+  system("mv $osbTmp $osbIn");
+  print "Appended OSB values in $osbOut to $osbIn\n";
+}

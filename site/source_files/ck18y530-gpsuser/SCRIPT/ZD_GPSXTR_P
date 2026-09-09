@@ -1,0 +1,64 @@
+package GPSXTR_P;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  GPSXTR_P
+#
+# Purpose :  Execute GPSXTR (parallel mode)
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#
+# Author  :  R. Dach
+# Created :  11-Aug-2011
+#
+# Changes :
+# ============================================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(setClusterVar prtMess prtBPEfile);
+use lib "$ENV{HOME}/ZDGNSS_RUN/perl";
+use RetryHelper qw(run_with_retry);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $yyyyssss, 
+      $ssss,
+      $param1, 
+      $clu) =
+  $bpe->getKeys(
+      '$YYYSS+0', 
+      '$S+0',
+      'PARAM1', 
+      'PARAM2'
+      );
+
+# Set cluster number and input files
+# ----------------------------------
+  my $mess = setClusterVar($bpe, $clu);
+  prtMess($bpe,"$mess");
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSXTR";
+  #run_with_retry($bpe, $PGMNAM, 5, 10);
+  #$bpe->RUN_PGMS($PGMNAM);
+  eval {
+    $bpe->RUN_PGMS($PGMNAM);
+  };
+  if ($@) {
+    prtMess($bpe, "WARNING: $PGMNAM (GPSXTR_P) failed: $@");
+    return;
+  }
+
+
+# Print processed stations BPE file
+# ---------------------------------
+  prtBPEfile($param1,0) if ($clu ne "");
+
+}

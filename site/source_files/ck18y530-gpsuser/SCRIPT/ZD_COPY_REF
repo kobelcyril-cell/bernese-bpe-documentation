@@ -1,0 +1,167 @@
+package COPY_REF;
+@ISA = ("RUNBPE");
+
+#===========================================================
+#
+# Name    : COPY_REF
+#
+# Purpose : Copy required files for processing
+#
+# Author  : C. Kobel
+# Created : 20-Apr-2026
+#
+# Changes : 10-Aug-2026 CK: Check whether source-files exist
+#===========================================================
+
+use strict;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+# ---------- Copy file and check result ------------
+
+sub copy_required {
+    my ($source, $target) = @_;
+
+    copyfile($source, $target);
+
+    die "ERROR: Required file could not be copied:\n"
+        . "       Source: $source\n"
+        . "       Target: $target\n"
+        unless -e $target;
+}
+
+
+sub run {
+    my $bpe = shift;
+
+    # ---------- Get variables ------------
+
+    my (
+        $yyssss,
+        $ddd,
+        $camp_pth,
+        $campaign,
+        $psdInf,
+        $crdInf,
+        $biainf,
+        $dirCrd,
+        $dirOsb,
+        $dirFix,
+        $dirErp,
+        $dirSkl,
+        $extOsb,
+        $extFix,
+        $extErp,
+        $extSkl,
+        $satcrx,
+        $extCrx,
+        $dirCrx
+    ) = $bpe->getKeys(
+        '$YSS+0',
+        '$+0',
+        'CAMP_PTH',
+        'CAMPAIGN',
+        'V_PSDINF',
+        'V_CRDINF',
+        'V_BIAINF',
+        'DIR_CRD',
+        'DIR_OSB',
+        'DIR_FIX',
+        'DIR_ERP',
+        'PTH_SINEXIN',
+        'EXT_OSB',
+        'EXT_FIX',
+        'EXT_ERP',
+        'EXT_SINEXIN',
+        'V_SATCRX',
+        'EXT_CRX',
+        'DIR_STA'
+    );
+
+
+    # ---------- Copy reference files ------------
+
+    my $ret = system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdInf.PSD");
+
+    die "ERROR: copyRef.pl failed (return code: $ret)\n"
+        if $ret != 0;
+
+
+    copy_required(
+        "${dirOsb}CODE.${extOsb}",
+        "${dirOsb}APR${yyssss}.${extOsb}"
+    );
+
+
+    # ---------- Create REF OSB (remove GLONASS) ------------
+
+    my $aprosb = "${dirOsb}APR${yyssss}.${extOsb}";
+    my $refosb = "${dirOsb}REF${yyssss}.${extOsb}";
+
+    open(my $IN, '<', $aprosb)
+        or die "ERROR: Cannot open $aprosb: $!";
+
+    open(my $OUT, '>', $refosb)
+        or die "ERROR: Cannot write $refosb: $!";
+
+    while (my $line = <$IN>) {
+        next if ($line =~ /^OSB  R...  R..    /);
+        print $OUT $line;
+    }
+
+    close($IN);
+    close($OUT);
+
+
+    # ---------- Local CRX file ------------------------------
+
+    my $localCrx = "${dirCrx}${satcrx}.${extCrx}";
+
+    copy_required(
+        "$ENV{CONFIG}/${satcrx}.${extCrx}",
+        $localCrx
+    );
+
+
+    # ---------- Copy reference clock file ------------
+
+    copy_required(
+        "$ENV{REF}/REFCLK.FIX",
+        "${dirFix}REFCLK.${extFix}"
+    );
+
+
+    # ---------- Copy SINEX skeleton ------------
+
+    copy_required(
+        "$ENV{AIUB}/SKL/${biainf}.${extSkl}",
+        "${dirSkl}${biainf}.${extSkl}"
+    );
+
+
+    # ---------- Prepare ERP file ------------
+
+    copy_required(
+        "${dirErp}BULLET_A.ERP",
+        "${dirErp}TMP_${yyssss}.${extErp}"
+    );
+
+
+    # ---------- Run POLUPD ------------
+
+    my $PGMNAM = "POLUPD";
+    $bpe->RUN_PGMS($PGMNAM);
+
+
+    # ---------- Copy GFZ loading models ------------
+
+    my $ret_gfz = system(
+        "python3 $ENV{AUTO}/copy_GFZloading.py "
+        . "-p $camp_pth$campaign $ddd "
+        . "-t {NTAL,NTOL,HYDL} -o"
+    );
+
+    die "ERROR: copy_GFZloading.py failed (return code: $ret_gfz)\n"
+        if $ret_gfz != 0;
+}

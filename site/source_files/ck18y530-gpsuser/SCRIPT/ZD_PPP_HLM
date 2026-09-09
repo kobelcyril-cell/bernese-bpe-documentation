@@ -1,0 +1,54 @@
+package PPP_HLM;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  PPP_HLM
+#
+# Purpose :  Execute HELMR1 if reference CRD/VEL files are available
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  11-Sep-2011
+#
+# Changes :
+# ============================================================================
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get veriables
+# -------------
+  my (
+      $yyyyssss,
+      $crdInf,
+      $dirCrd, 
+      $dirVel, 
+      $dirOut,
+      $extCrd, 
+      $extVel, 
+      $extOut
+    ) = $bpe->getKeys(
+      '$YYYSS+0',
+      'V_CRDINF',
+      'DIR_CRD',
+      'DIR_VEL',
+      'DIR_OUT',
+      'EXT_CRD',
+      'EXT_VEL',
+      'EXT_OUT'
+    );
+
+# Run program
+# -----------
+  if (-s "${dirCrd}${crdInf}.${extCrd}" &&
+      -s "${dirVel}${crdInf}.${extVel}" ) {
+    my $PGMNAM = "HELMR1";
+    $bpe->RUN_PGMS($PGMNAM);
+  } else {
+    unlink "${dirOut}HLM_${yyyyssss}.${extOut}";
+  }
+
+}

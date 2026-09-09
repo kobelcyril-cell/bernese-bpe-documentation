@@ -1,0 +1,118 @@
+package DEL_CDXT_OBS;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  DEL_CDXT_OBS
+#
+# Purpose :  Deletes observation files listed in CODXTR output.
+#
+# Author  :  C. Kobel
+# Created :  28-Oct-2025
+#
+# Changes :
+#===========================================================
+
+use strict;
+use warnings;
+use File::Basename;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Parameters ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyyy
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$Y+0'
+  );
+
+  my $mscDir  = "${dirOut}/../MSC/MSC_${yyddd}";
+  my $dirObs  = "${dirOut}../OBS";
+  my $outfile = "${mscDir}/PROCESSING_${yyddd}";
+
+  my $yy = substr($yyyy, -2);
+  my $codxtrFil = "${dirOut}CODXTR.${yy}_${ssss}";
+
+  prtMess($bpe, "DEL_CDXT_OBS started");
+  prtMess($bpe, "CODXTR file: $codxtrFil");
+  prtMess($bpe, "Output file: $outfile");
+
+  # ---------- Input checks ------------
+  unless (-e $codxtrFil) {
+    prtMess($bpe, "No CODXTR file found: $codxtrFil");
+    return;
+  }
+
+  open(my $IN,  "<", $codxtrFil) or do {
+    prtMess($bpe, "Cannot open $codxtrFil: $!");
+    return;
+  };
+
+  open(my $OUT, ">>", $outfile) or do {
+    prtMess($bpe, "Cannot write $outfile: $!");
+    close($IN);
+    return;
+  };
+
+  print $OUT "==== DELETE OUTLIER OBS FILES ====\n";
+  print $OUT "CODXTR file: $codxtrFil\n";
+  print $OUT "Timestamp  : " . scalar(localtime()) . "\n";
+
+  # ---------- Processing ------------
+  my $deleted_total = 0;
+  my @suffixes      = qw(.CZO .CZH .PZO .PZH);
+  my $found_any     = 0;
+  my %processed;
+
+  while (my $line = <$IN>) {
+
+    if ($line =~ /NUMBER OF BAD OBS LARGER THAN 50% FOR STATION:\s+(\w{4})\s+(\S+)/) {
+
+      my ($station, $domes) = ($1, $2);
+
+      next if exists $processed{$station};
+      $processed{$station} = 1;
+
+      $found_any = 1;
+
+      my $removed_count = 0;
+
+      foreach my $suffix (@suffixes) {
+        my $file = sprintf("%s/%s%s%s", $dirObs, $station, $ssss, $suffix);
+
+        if (-e $file && unlink($file)) {
+          $removed_count++;
+          $deleted_total++;
+        }
+      }
+
+      if ($removed_count > 0) {
+        print $OUT "Found station with >50% bad obs: $station $domes -> files removed ($removed_count)\n";
+      }
+      else {
+        print $OUT "Found station with >50% bad obs: $station $domes -> no files found\n";
+      }
+    }
+  }
+
+  # ---------- Summary ------------
+  unless ($found_any) {
+    print $OUT "No stations with >50% bad observations found.\n";
+  }
+
+  print $OUT "Total deleted files: $deleted_total\n";
+  print $OUT "=========================\n";
+
+  close($IN);
+  close($OUT);
+
+  prtMess($bpe, "DEL_CDXT_OBS finished ($deleted_total files deleted)");
+}

@@ -1,0 +1,50 @@
+package CHECK_SAT_CLOCKS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CHECK_SAT_CLOCKS
+#
+# Purpose :  Uses python-script to check completeness of satclk
+#
+# Author  :  C. Kobel
+# Created :  16-Feb-2026
+#
+# ============================================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+sub run {
+    my $bpe = shift;
+
+    # ---------------------- Parameter aus BPE ---------------------------------
+    my ($dirOut, $dirOrb, $extClk, $yyssss, $yyddd, $V_Z) =
+        $bpe->getKeys('DIR_OUT', 'DIR_ORB', 'EXT_CLK', '$YSS+0','$YD+0','V_Z');
+
+    # ---------------------- Input-Datei aus V_Z --------------------------------
+    my $input_file = "$dirOrb${V_Z}S$yyssss.$extClk";
+
+    die "Input file not found: $input_file\n" unless -e $input_file;
+
+    # ---------------------- MSC-Output ----------------------------------------
+    my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+    mkdir $mscDir unless -d $mscDir;
+
+    my $output_file = "$mscDir/sat_clock_completeness_${yyddd}.txt";
+
+    # ---------------------- Python aufrufen -----------------------------------
+    my $py_script = "$ENV{HOME}/python/check_clk_completeness.py";
+
+    my $cmd = "python3 $py_script $input_file $output_file";
+
+    system($cmd) == 0
+        or die "Python script failed: $!\n";
+
+    print "CHECK_SAT_CLOCKS done. Output written to $output_file\n";
+}
+
+1;

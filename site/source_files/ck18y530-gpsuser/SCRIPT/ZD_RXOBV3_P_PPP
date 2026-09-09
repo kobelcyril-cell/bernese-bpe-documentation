@@ -1,0 +1,71 @@
+package RXOBV3_P_PPP;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  RXOBV3_P_PPP
+#
+# Purpose :  Execute RXOBV3 (parallel mode)
+#
+# Remark  :  Consider range of sessions for hourly processing
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#
+# Author  :  R. Dach
+# Created :  01-Aug-2020
+#
+# Changes :  10-May-2022 LP: Include GPS in any case
+# ============================================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtMess getWarn setClusterVar replaceSel prtBPEfile setHourly setGNSS);
+
+sub run {
+  my $bpe = shift;
+
+# --------- Get variables ----------
+  my ($yyyyssss ,
+      $param1,
+      $clu,
+      $satsys,
+      $dirOut
+     ) =  $bpe->getKeys(
+      '$YYYSS+0',
+      'PARAM1',
+      'PARAM2',
+      'V_SATSYS',
+      'DIR_OUT'
+                       );
+
+# ----- Set cluster number and input files -----
+  my $mess = setClusterVar($bpe, $clu);
+  prtMess($bpe,"$mess");
+
+# ----- Selected files -----
+  if ($clu eq "" && !-e $param1) {
+    $bpe->putKey("$ENV{U}/PAN/RXOBV3.INP","RXOFILE_BSW","${param1}_$yyyyssss");
+    $bpe->putKey("$ENV{U}/PAN/RXOBV3.INP","SMTFILE","${param1}_$yyyyssss");
+  } else {
+    replaceSel($bpe,"RXOBV3","RXOFILE_BSW",$param1);
+    replaceSel($bpe,"RXOBV3","SMTFILE",$param1);
+  }
+
+# ----- Hourly processing -----
+  setHourly($bpe);
+
+# ----- Selection of GNSS ------
+  if (! ($satsys =~ /G/) ) { $satsys = 'G'.$satsys; }
+  setGNSS($bpe,"$ENV{U}/PAN/RXOBV3.INP","USE_",$satsys);
+
+# --------- Run program ----------
+  my $PGMNAM = "RXOBV3";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# ------ Extract warning/error messages from protocol file -----
+  getWarn($bpe,"${dirOut}RNX_${yyyyssss}.ERR");
+
+# ----- Print processed stations BPE file -----
+  prtBPEfile($param1,0) if ($clu ne "" || -e $param1);
+
+}

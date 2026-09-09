@@ -1,0 +1,37 @@
+package ORBGENZD;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ORBGENZD
+#
+# Purpose :  Execute ORBGEN according to the input argument
+#
+# PARAMs  :
+#
+# Author  :  E. Calero
+# Created :  20-Feb-2020
+#
+# Changes : 
+#
+# ============================================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($sol) = $bpe->getKeys("$$bpe{PARAM1}");
+
+# Initialize $SOL variable
+  setUserVar($bpe,"SOL",$sol);
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

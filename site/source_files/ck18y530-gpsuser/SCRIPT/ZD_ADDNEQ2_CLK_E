@@ -1,0 +1,69 @@
+package ADDNEQ2_CLK_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ADDNEQ2_CLK_E
+#
+# Purpose :  Parallel run of ADDNEQ2
+#
+# Author  :  C. Kobel
+# Created :  02-Jul-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $param1,
+      $param2,
+      $subPid,
+      $yyssss,
+      $yyddd,
+      $dirFix,
+      $extFix
+  ) = $bpe->getKeys(
+      'PARAM1',
+      'V_FIN',
+      'SUB_PID',
+      '$YSS+0',
+      '$YD+0',
+      'DIR_FIX',
+      'EXT_FIX'
+  );
+
+  # ---------- Initialize variables ------------
+  setUserVar($bpe, "D4", $subPid,"SOL",$param2);
+
+  # ---------- Run program ------------
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "INPFILE", $param1);
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "CLKS_ELIM", "NO");
+
+  if ($subPid =~ /001/) {
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "COORDRS", "${param2}_$yyssss");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "ELEFILE",  "${param2}_$yyssss");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "POLERS",   "${param2}_$yyssss");
+  }
+
+  # ---------- FIX file handling ------------
+  my $fixFile = "${dirFix}${param2}_${yyddd}.${extFix}";
+
+  if (-e $fixFile) {
+    $bpe->putKey(
+      "$ENV{U}/PAN/ADDNEQ2.INP",
+      "FREESTA_F",
+      "${param2}_${yyddd}"
+    );
+    prtMess($bpe, "UPDATE FIX FILE");
+  }
+
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+}

@@ -1,0 +1,95 @@
+package FZDM_COP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FZDM_COP
+#
+# Purpose :  Copy files requiered by FZDMGNSS.PCF
+#
+# PARAMs  :
+#
+# Author  :  E. Calero
+# Created :  20-Apr-2021
+#
+# Changes :  
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyyy, $yyssss, $yymm,  $yyddd, $ddd,
+      $V_A,$camp_pth, $campaign,
+      $psdInf,   $crdInf,     $useMGEX, $biainf,
+      $dirCrd,$dirSatcrx,     $dirOsb,  $dirFix,  $dirErp,  $dirPre,  $dirClk, $dirSkl,
+      $extSatcrx,   $extOsb,  $extFix,  $extErp,  $extPre,  $extClk,  $extSkl, $dirGrd, $extGrd
+      ) =
+    $bpe->getKeys(
+      '$Y+0','$YSS+0','$M+0','$YD+0', '$+0',
+      'V_A','CAMP_PTH','CAMPAIGN',
+      'V_PSDINF','V_CRDINF','V_MGEINI','V_BIAINF',
+      'DIR_CRD','PTH_SATCRUX','DIR_OSB','DIR_FIX','DIR_ERP','DIR_PRE','DIR_CLK','PTH_SINEXIN',
+      'EXT_SATCRUX','EXT_OSB','EXT_FIX','EXT_ERP','EXT_PRE','EXT_CLK','EXT_SINEXIN', 'DIR_GRD', 'EXT_GRD'
+      );
+
+# Prepare reference files
+# -----------------------
+  my $psdFil = "${psdInf}.PSD";
+  system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil");
+  #copyfile("${dirSatcrx}/SAT_${yyyy}.${extSatcrx}","${dirSatcrx}/CLK${yyssss}.${extSatcrx}");
+  copyfile("${dirOsb}CODE.${extOsb}","${dirOsb}APR${yyssss}.${extOsb}");
+
+# Copy the DCB file used for repro
+# --------------------------------
+#  my $dcb_arch = "$ENV{PATH_DCB}$ENV{CAMP_DCB}/ORB/A1R_$yymm.OSB";
+#  copyfile($dcb_arch,"${dirOsb}APR${yyssss}.${extOsb}") if (-e $dcb_arch);
+
+# Remove GLONASS satellite OSBs from APR OSBs
+# -------------------------------------------
+  my $refosb = "${dirOsb}REF${yyssss}.${extOsb}";
+  my $aprosb = "${dirOsb}APR${yyssss}.${extOsb}";
+  open INP, "< $aprosb";
+  open OUT, "> $refosb";
+  foreach (<INP>){
+    next if(/^OSB  R...  R..    /);
+    print OUT $_;
+  }
+  close INP;
+  close OUT;
+
+# Copy reference REFCLK.FIX into campaign for reference satellite clocks
+# ----------------------------------------------------------------------
+  copyfile("$ENV{REF}/REFCLK.FIX", "${dirFix}REFCLK.${extFix}");
+  
+# Copy SINEX skeleton
+# -------------------
+  copyfile("$ENV{AIUB}/SKL/${biainf}.${extSkl}","${dirSkl}${biainf}.${extSkl}");
+  
+# Copy a priori information
+# -------------------------
+  my $rapBrd = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/";
+  copyfile("${dirErp}BULLET_A.ERP","${dirErp}TMP_$yyssss.${extErp}");
+  my $PGMNAM = "POLUPD";
+  $bpe->RUN_PGMS($PGMNAM);
+  #copyfile("${rapBrd}${V_A}_${yyddd}.PRE","${dirPre}${V_A}_$yyssss.${extPre}");
+  #copyfile("${rapBrd}${V_A}_${yyddd}.CLK","${dirClk}${V_A}_${yyssss}.${extClk}");
+
+  my $mgexPath = "$ENV{PATH_SAV}$ENV{CAMP_SAVMGEX}/${yyyy}/ORB/";
+  if ( $useMGEX eq "YES" ) {
+    copyfile("${mgexPath}RM_${yyddd}.PRE.Z","${dirPre}${V_A}_$yyssss.${extPre}.Z");
+    copyfile("${mgexPath}T3_${yyddd}.CLK.Z","${dirClk}${V_A}_${yyssss}.${extClk}.Z");
+    system("gzip -df ${dirPre}${V_A}_$yyssss.${extPre}.Z");
+    system("gzip -df ${dirClk}${V_A}_${yyssss}.${extClk}.Z");
+  }
+
+# Copy GFZ loading models
+# -------------------------
+#   system("python3 $ENV{AUTO}/copy_GFZloading.py -p $camp_pth$campaign ${ddd} $yyyy -t {NTAL,NTOL,HYDL} -o");
+   system("python3 $ENV{AUTO}/copy_GFZloading.py -p $camp_pth$campaign ${ddd} -t {NTAL,NTOL,HYDL} -o");
+}

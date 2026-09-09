@@ -1,0 +1,46 @@
+package ITER_AR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ITER_AR
+#
+# Purpose :  Iterations for AR
+#
+# Programs:  
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx            
+#
+# Changes :  
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{U}/SCRIPT";
+use JumpLogger qw(logJump);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $iRun,       $nite,     $param2,
+      $dirOut) =
+      $bpe->getKeys(
+      '$YD+0','STARTCOUNT','V_NITEAR','PARAM2',
+      'DIR_OUT');
+
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+
+  prtMess($bpe,"ITERATION $iRun OUT OF $nite ");
+  if ( $iRun < $nite ) {
+    system("touch ${mscDir}/ITE_AR");
+    logJump($bpe, $param2);
+    prtGoto($bpe,$param2)
+  } else {
+    system("rm ${mscDir}/ITE_AR");
+  }
+
+}

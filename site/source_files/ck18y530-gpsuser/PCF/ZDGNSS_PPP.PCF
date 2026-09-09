@@ -1,0 +1,167 @@
+#
+# ============================================================================
+# ZDGNSS_PPP.PCF
+# ============================================================================
+#
+# Purpose:
+# PRECISE POINT POSITIONING (PPP)
+#
+#
+# Author:       R. Dach
+# Created:      01-Aug-2020
+#
+# Changes:      15-Jun-2026: CK: Revised
+#
+# ============================================================================
+#
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Wait for status flag
+# --------------------
+001  ZD_STATUS               NO_OPT    CPU=ANY; PARAM1=3D_R; PARAM2=CHECK
+#
+# Copy required files
+# -------------------
+002  ZD_COPY_PPP             PPP_GEN   CPU=ANY; WAIT=001
+003  ZD_COPY_OBS             PPP_GEN   CPU=ANY; WAIT=001
+#
+# Move already present observation files
+# --------------------------------------
+100  ZD_DEL_RXO              NO_OPT    CPU=ANY; WAIT=003; PARAM1=START
+#
+# Prepare the pole, orbit, and clock information
+# ----------------------------------------------
+111  ZD_ORBMRG               PPP_GEN   CPU=ANY; WAIT=002 100
+112  ZD_ORBGEN               PPP_GEN   CPU=ANY; WAIT=111; SKIP
+121  ZD_CCRNXC               PPP_GEN   CPU=ANY; WAIT=100
+122  ZD_RNXCLK               PPP_GEN   CPU=ANY; WAIT=121
+#
+# Preprocess, convert, and synchronize observation data
+# -----------------------------------------------------
+201  ZD_RNXGRA               PPP_GEN   CPU=ANY; WAIT=112 122;  NEXTJOB= 901
+#
+# Phase preprocessing with RNXSMT
+# --------------------------------
+221  ZD_RNXSMTAP             PPP_GEN   CPU=ANY; WAIT=201
+222  ZD_RNXSMT_P             PPP_GEN   CPU=ANY; WAIT=221;  PARALLEL=221
+231  ZD_RXOBV3AP_PPP         PPP_GEN   CPU=ANY; WAIT=222
+232  ZD_RXOBV3_P_PPP         PPP_GEN   CPU=ANY; WAIT=231;  PARALLEL=231
+233  ZD_CRDMRDAT             PPP_GEN   CPU=ANY; WAIT=232
+241  ZD_CODSPP_P             PPP_GEN   CPU=ANY; WAIT=233
+242  ZD_CODSPP_E             PPP_GEN   CPU=ANY; WAIT=241;  PARALLEL=241
+243  ZD_CODXTRP              PPP_GEN   CPU=ANY; WAIT=242;  NEXTJOB= 901
+244  ZD_CRDMERGE             PPP_GE2   CPU=ANY; WAIT=243
+#
+# Compute PPP solutions station by station (including data screening)
+# -------------------------------------------------------------------
+301  ZD_PPPEDTAP             PPP_GEN   CPU=ANY; WAIT=244
+302  ZD_PPPEDT_P             PPP_GEN   CPU=LONG; WAIT=301;  PARALLEL=301
+303  ZD_GPSXTRP              PPP_GEN   CPU=ANY; WAIT=302
+304  ZD_PPP_RES_SUM          PPP_AUX   CPU=ANY; WAIT=302
+311  ZD_PPP_IAR              PPP_IAR   CPU=ANY; WAIT=302;  NEXTJOB= 321
+312  ZD_PPPIARAP             PPP_IAR   CPU=ANY; WAIT=311
+313  ZD_PPPIAR_P             PPP_IAR   CPU=ANY; WAIT=312;  PARALLEL=312
+314  ZD_IARXTR               PPP_IAR   CPU=ANY; WAIT=313
+321  ZD_TIMESTAP             PPP_FIN   CPU=ANY; WAIT=313;  PARAM2=V_FIN
+322  ZD_TIMEST_P             PPP_FIN   CPU=ANY; WAIT=321;  PARALLEL=321
+323  ZD_GPSXTRP              PPP_FIN   CPU=ANY; WAIT=322
+324  ZD_RESRMS               PPP_FIN   CPU=ANY; WAIT=322
+331  ZD_CRDMERGE             PPP_AUX   CPU=ANY; WAIT=322
+332  ZD_ADDNEQ2              PPP_AUX   CPU=ANY; WAIT=331
+333  ZD_PPP_HLM              PPP_AUX   CPU=ANY; WAIT=331
+341  ZD_CCRNXC               PPP_AUX   CPU=ANY; WAIT=331; SKIP
+351  ZD_ADDNEQ2              PPP_SNX   CPU=ANY; WAIT=332; SKIP
+#
+# Pseudo-kinematic solution (V_KIN)
+# ---------------------------------
+521  ZD_PPP_KIN              PPP_KIN   CPU=ANY; WAIT=303 304 314 332 333 341 351;  NEXTJOB= 600
+522  ZD_TIMESTAP             PPP_KIN   CPU=ANY; WAIT=521;  PARAM2=V_KIN
+523  ZD_TIMEST_P             PPP_KIN   CPU=ANY; WAIT=522;  PARALLEL=522
+524  ZD_GPSXTRP              PPP_KIN   CPU=ANY; WAIT=523
+525  ZD_TIMESTAP             PPP_KIN   CPU=ANY; WAIT=523;  PARAM2=NO_DEL
+526  ZD_GPSXTR_P             PPP_KIM   CPU=ANY; WAIT=525;  PARALLEL=525
+#
+# Synchronize PHASE and CODE observations
+# ---------------------------------------
+550  ZD_SATMRK		 PPP_AUX    CPU=ANY; WAIT=526
+#
+# Create merged OSB file
+# ----------------------
+600  ZD_PHACMB_P             NO_OPT    CPU=ANY; WAIT=351 526
+#
+# Create merged CRD file
+# ----------------------
+601  ZD_MERGECRDP            NO_OPT    CPU=ANY; WAIT=331
+#
+# Get all observation files
+# -------------------------
+602  ZD_DEL_RXO              NO_OPT    CPU=ANY; WAIT=322; PARAM1=END
+#
+# Create summary file and delete files
+# ------------------------------------
+901  ZD_PPP_SUM              PPP_GEN   CPU=ANY; WAIT=600 601 602 323
+904  ZD_DEL_RES_PPP          PPP_GEN   CPU=ANY; WAIT=901;  PARAM1=TODAY
+#
+# Create finish marker
+# --------------------
+999  ZD_STATUS               NO_OPT    CPU=ANY; WAIT=904; PARAM1=PPP; PARAM2=CREATE
+#
+
+VARIABLE   DEFAULT        PARAMETERS
+# General and model files:
+# -----------------------
+V_MEANPL = *;                                           DESCRIPTION=Mean pole model
+V_SUBMOD = *;                                           DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;                                           DESCRIPTION=Nutation model
+V_PCV    = I??;                                         DESCRIPTION=Antenna phase center (PCV) model
+V_PCVINF = *;                                           DESCRIPTION=PCV information file
+V_SATINF = *;                                           DESCRIPTION=Satellite information file
+V_SATCRX = *;                                           DESCRIPTION=Satellite problem file
+V_ORB    = *;                                           DESCRIPTION=Orbit/ERP, CLK, bias information
+#
+# Reference frame and station related files:
+# -----------------------------------------
+V_REFINF = IG?20;                                       DESCRIPTION=Master/reference CRD/VEL filename
+V_REFPSD = IG?20;                                       DESCRIPTION=PSD corrections (ITRF2014 or higher)
+V_REFEPO = *;                                           DESCRIPTION=Epoch of coordinates in reference CRD
+V_CRDINF = IG?20;                                       DESCRIPTION=Merged CRD/VEL filename
+V_STAINF = *;                                           DESCRIPTION=Station information file
+V_BLQINF = FES20*;                                      DESCRIPTION=BLQ file name, CMC corrections
+V_ATLINF = *;                                           DESCRIPTION=ATL file name, CMC corrections
+V_HOIFIL = *;                                           DESCRIPTION=Ionosphere model for higher order iono
+V_OSBFIL = *;                                           DESCRIPTION=OSB-file with GNSS satellite biases
+#
+# Data selection:
+# --------------
+V_RNXDIR = ${D}/ORX/daily/RINEX3/$Y+0/$+0;              DESCRIPTION=Directory with the RINEX files
+V_OBSSEL = *;                                           DESCRIPTION=Observation selection file
+V_SAMPL  = *;                                           DESCRIPTION=Data sampling interval (in seconds)
+V_OBSTYP = *;                                           DESCRIPTION=Select kind of observations (CODE, PHASE, BOTH)
+V_SATSYS = *;                                           DESCRIPTION=Select the GNSS (max. supported: GRECJ)
+V_GNSSAR = *;                                           DESCRIPTION=Select the GNSS for amb. resolu. (GE)
+#
+# Processing flow related variables:
+# ---------------------------------
+V_PPP    = *;                                           DESCRIPTION=CRD/TRP/TRO/SNX and CLK amb.flt result
+V_FIN    = *;                                           DESCRIPTION=CRD/TRP/TRO/SNX and CLK amb.fix result
+V_RED    = *;                                           DESCRIPTION=Reduced size NEQs (only with CRD)
+V_KIN    = *;                                           DESCRIPTION=Pseudo-kinematic solution
+#
+# Other solution IDs used in the BPE:
+# ----------------------------------
+V_APR    = *;                                           DESCRIPTION=A priori information
+V_REF    = *;                                           DESCRIPTION=CRD results at reference epoch
+V_APRFP  = *;                                           DESCRIPTION=A priori for further processing
+V_APROSB = *;                                           DESCRIPTION=A priori OSB for further processing
+#
+# Other variables:
+# ---------------
+V_SNXINF = *;                                           DESCRIPTION=SINEX header file
+V_DEL    = ?;                                           DESCRIPTION=Delete results?;                                   CARDS=Y N
+V_RERUN  = 3;
+#
+# Configuration
+V_PCFCONFIG = MODEL PPP;                                DESCRIPTION=Configuration files
+

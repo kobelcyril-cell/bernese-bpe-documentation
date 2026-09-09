@@ -1,0 +1,253 @@
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! =========================================================================
+! LEOATT 1: Input Files
+! =========================================================================
+! Show all general files
+! ----------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "LA$A$YSS+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Title
+! -----
+TITLE 1  "Convert ATT information to BSW format"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! =========================================================================
+! LEOATT 1.1: General Files
+! =========================================================================
+! General constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! GPS-UTC file
+! -------------
+GPSUTC 1  "GPSUTC"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  ## emptyallowed = false
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "$(SATINF)_$(PCV)"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Attitude Meta Data
+! ---------------------
+ATTMETA 1  "ATT_META_DATA"
+  ## widget = selwin; path = PTH_ATTMETA; ext = EXT_ATTMETA; maxfiles = 1
+
+DESCR_ATTMETA 1  "Satellite Attitude Meta Data"
+
+! Special Informations for LEOs
+! ------------------------------------
+AUXFIL 1  "$(ATT).ATT"
+  ## widget = selwin; path = DIR_ATT
+
+DESCR_AUXFIL 1  "Attitude files to concatenate"
+
+LEONUM 1  "$(SVN)"
+  ## widget = lineedit; emptyallowed = false; check_type = integer
+  ## check_min = 900; check_max = 999
+
+MSG_LEONUM 1  "LEO satellite number"
+
+CHECK_LEONUM 1  "1"
+  ## widget = checkbox
+
+MSG_CHECK_LEONUM 1  "Check LEO number"
+
+OUTATT 1  "$(ATT)B"
+  ## widget = lineedit; path = DIR_ATT; ext = EXT_ATT; maxfiles = 1
+
+DESCR_OUTATT 1  "Output attitude (BSW format)"
+
+! Start and End Epoch
+! -------------------
+RADIO_0 1  "1"
+  ## widget = radiobutton; group = WINDOW
+
+MSG_RADIO_0 1  "Take all observations"
+
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = WINDOW
+  ## radiokeys = SESSION_TABLE SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by year and session identifier"
+
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = WINDOW
+
+MSG_RADIO_2 1  "Defined by start and end times"
+
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "12 59 59"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PREPARE LEO ATTITUDE INFORMATION - LEOATT 1: General options                 #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files > % <                                               # SHOWGEN
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output         > % < use LEOATT.Lnn            or > %%%%%%%% <     # SYSODEF SYSOUT
+#   Error messages         > % < merged to program output  or > %%%%%%%% <     # ERRMRG SYSERR
+#                                                                              #
+#   Title > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <             # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# LEOATT 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants         > %%%%%%%%%%%% <                                 # CONST
+#   GPS-UTC time difference   > %%%%%%%%%%%% <                                 # GPSUTC
+#   Satellite information     > %%%%%%%%%%%% <                                 # SATELL
+#   Attitude meta data        > %%%%%%%%%%%% <                                 # ATTMETA
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign         > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # CAMPAIGN
+#   Selected session            year> %%%% <  session> %%%% <                  # YR4_INFO SES_INFO
+#   Session table             > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION ########################################################
+# LEOATT 2: Input/Output attitude files                                           #
+#                                                                                 #
+# INPUT FILES                                                                     #
+#   Attitude files      > %%%%%%%%%%%%% <                                         # AUXFIL
+#   LEO number          > %%%% <                                                  # LEONUM
+#   Check LEO number    > % <  (if unset, above specified LEO number will be used)# CHECK_LEONUM
+#                                                                                 #
+# OUTPUT FILE (BERNESE format)                                                    #
+#   Attitude file       > %%%%%%%%%%%%% <                                         # OUTATT
+#                                                                                 #
+# END_PANEL #######################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# LEOATT 3: Observation Window                                                 #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Take all observations                                                # RADIO_0
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <   Session > %%%% <                                    # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################

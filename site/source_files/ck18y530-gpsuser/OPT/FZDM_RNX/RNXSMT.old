@@ -1,0 +1,1114 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 9
+  "U" "/storage/homefs/eb23z835/GPSUSER"
+  "T" "/scratch/local/eb23z835"
+  "X" "/storage/research/aiub_data/BSWsoftware/BERN/GPS"
+  "P" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "eb23z835"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 1  "${R}/EB_FZDMGNSS"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${R}/EB_FZDMGNSS/STA/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2022"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "2430"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! -------------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+  # $(SATINF)_$(PCV)
+
+DESCR_SATELL 1  "Satellite information"
+
+! Observation selection by new RECEIVER file
+! ------------------------------------------
+OBSSEL 1  "${CONFIG}/$(OBSSEL).SEL"
+  ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
+  ## emptyallowed = true
+  # $(OBSSEL)
+
+DESCR_OBSSEL 1  "Observation selection"
+
+! Print RINEX observation statistics and selection results
+! --------------------------------------------------------
+PRTOSTAT 1  "1"
+  ## widget = checkbox; activeif = OBSSEL / _
+
+MSG_PRTOSTAT 1  "Print observation statistics"
+
+! Print extended OBSSEL warnings (debugging)
+! ------------------------------------------
+EXTOUT 1  "0"
+  ## widget = checkbox; activeif = OBSSEL / _
+
+MSG_EXTOUT 1  "Print extended OBSSEL warnings"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "${CONFIG}/$(SATCRX).CRX"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+  ## emptyallowed = true
+  # $(SATCRX)
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Rinex input file
+! ----------------
+RNXFIL_BSW 0
+  ## widget = selwin; path = DIR_RBO; ext = EXT_RBO; emptyallowed = true
+  ## maxfiles = 999
+  # *_$YYYSS+0
+
+RNXFIL_BSW_TXT_COL_1 1  "RINEX input files"
+
+RNXFIL_BSW_PTH_COL_2 1  "${R}/EB_FZDMGNSS/RAW/"
+  ## widget = initmenu; pointer = DIR_SMT
+
+RNXFIL_BSW_EXT_COL_2 1  "SMT"
+  ## widget = initmenu; pointer = EXT_SMT
+
+MSG_RNXFIL_BSW 1  "RINEX files, Bernese internal naming"
+
+RNXFIL_SHORT 335
+  "${R}/EB_FZDMGNSS/RAW/ABMF2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ABPO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ADIS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/AIRA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ALBH2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ALGO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ALIC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/AMU22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ANMG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ANTC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/AREG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/AREQ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ASCG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/AUCK2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/AXPV2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/AZGB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BADG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BAKE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BAKO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BARH2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BBYS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BELE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BHR42430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BNDY2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BOAV2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BOGI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BOGO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BOGT2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BOR12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BRAZ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BREW2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BRST2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BRUX2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BSHM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/BUCU2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CAGS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CAS12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CCJ22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CHPG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CHPI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CHTI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CHUR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CKIS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CKSV2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CMUM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CNMR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/COCO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CORD2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CPVG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CPXF2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CRAR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CRO12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CUSV2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/CZTG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DAEJ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DARW2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DAV12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DGAR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DHLG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DJIG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DLF12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DOUR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DRAO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DUBO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/DYNG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/EBRE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/FAA12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/FAIR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/FALK2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/FLRS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/FRDN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/FTNA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/FUNC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GAMB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GANP2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GLPS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GLSV2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GODE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GODN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GODZ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GOL22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GOLD2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GOP62430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GOPE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GRAC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GRAS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GRAZ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GUAM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/GUUG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HAL12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HARB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HERS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HERT2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HKSL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HKWS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HLFX2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HNLC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HNUS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HOB22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HOFN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HOLB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HRAG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HRAO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/HYDE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/IENG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/IISC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/INEG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/INVK2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/IQAL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/IRKJ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ISBA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ISTA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/JCTW2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/JDPR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/JFNG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/JOG22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/JOZ22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/JOZE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/JPLM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KARR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KERG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KGNI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KIR02430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KIR82430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KIRI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KIRU2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KIT32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KITG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KLOP2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KMNM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KOKB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KOKV2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KOUC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KOUG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KOUR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/KRGG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LAMA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LAUT2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LCK32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LCK42430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LEIJ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LHAZ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LLAG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LMMF2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LPAL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/LPGS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/M0SE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAC12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAD22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MADR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAL22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MANA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAO02430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAR62430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAR72430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MARS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAS12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAT12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MATE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAW12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MAYG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MBAR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MCIL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MCM42430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MDO12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MDVJ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MEDI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MELI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MET32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/METS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MGUE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MIKL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MIZU2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MKEA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MOBS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MONP2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MORP2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MQZG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MRO12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MTKA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/MYVA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NANO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NICO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NIST2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NKLG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NLIB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NNOR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NOT12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NOVM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NRC12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NRMD2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NTUS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NYA12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NYA22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/NYAL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/OHI22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/OHI32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ONS12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ONSA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/OPMT2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ORID2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/OUS22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/OWMG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/P0512430.22O"
+  "${R}/EB_FZDMGNSS/RAW/P7792430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PADO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PALM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PARC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PDEL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PENC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PERT2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PIE12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/POHN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/POL22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/POLV2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/POTS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/POVE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PRDS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PTAG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/PTBB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/QAQ12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/QUIN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/RAEG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/RAMO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/RBAY2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/RDSD2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/REDU2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/REUN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/REYK2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/RGDG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/RIGA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/RIO22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/RIOP2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ROTH2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SALU2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SAMO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SANT2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SAVO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SBOK2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SCH22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SCOR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SCRZ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SCTB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SCUB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SEYG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SFER2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SGOC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SGPO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SMST2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SOD32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SOFI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SPT02430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SSIA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/STFU2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/STHL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/STJ32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/STJO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/STK22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/STR12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/STR22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SUTH2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SUTM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SUWN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SVTL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SYDN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/SYOG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TABL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TABV2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TASH2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/THTG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/THTI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/THU22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TID12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TIDB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TLSE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TNML2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TONG2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TOPL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TOW22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TRO12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TSEA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TSK22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TSKB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TUVA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/TWTF2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/UCAL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/UCLU2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/UFPR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ULAB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/UNB32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/UNBD2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/UNBJ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/UNSA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/URUM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/USN72430.22O"
+  "${R}/EB_FZDMGNSS/RAW/USUD2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/UTQI2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/VALD2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/VIL02430.22O"
+  "${R}/EB_FZDMGNSS/RAW/VILL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/VIS02430.22O"
+  "${R}/EB_FZDMGNSS/RAW/VNDP2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/VOIM2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WAB12430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WAB22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WARK2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WARN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WGTN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WHIT2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WILL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WIND2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WROC2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WSRT2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WTZ22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WTZA2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WTZL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WTZR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WTZS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WTZZ2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WUH22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/WUHN2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/XMIS2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/YAR22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/YAR32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/YARR2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/YEBE2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/YEL22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/YELL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/YIBL2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/YKRO2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ZAMB2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ZECK2430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ZIM22430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ZIM32430.22O"
+  "${R}/EB_FZDMGNSS/RAW/ZIMM2430.22O"
+  ## widget = selwin; path = DIR_RXO; ext = EXT_RXO; emptyallowed = true
+  ## maxfiles = 999
+  # ????$S+0
+
+RNXFIL_SHORT_TXT_COL_1 1  "RINEX input files"
+
+RNXFIL_SHORT_PTH_COL_2 1  "${R}/EB_FZDMGNSS/RAW/"
+  ## widget = initmenu; pointer = DIR_SMT
+
+RNXFIL_SHORT_EXT_COL_2 1  "SMT"
+  ## widget = initmenu; pointer = EXT_SMT
+
+MSG_RNXFIL_SHORT 1  "RINEX files, RINEX2-style naming"
+
+RNXFIL_LONG 0
+  ## widget = selwin; path = DIR_RXO; ext = EXT_RNX; emptyallowed = true
+  ## maxfiles = 999
+  # 
+
+RNXFIL_LONG_TXT_COL_1 1  "RINEX input files"
+
+RNXFIL_LONG_PTH_COL_2 1  "${R}/EB_FZDMGNSS/RAW/"
+  ## widget = initmenu; pointer = DIR_SMT
+
+RNXFIL_LONG_EXT_COL_2 1  "SMT"
+  ## widget = initmenu; pointer = EXT_SMT
+
+MSG_RNXFIL_LONG 1  "RINEX files, RINEX3-style naming"
+
+RNXFIL 0
+  ## widget = selwin; path = DIR_RXO; emptyallowed = true; maxfiles = 999
+  # SELECTED
+
+RNXFIL_TXT_COL_1 1  "RINEX input files"
+
+RNXFIL_PTH_COL_2 1  "${R}/EB_FZDMGNSS/RAW/"
+  ## widget = initmenu; pointer = DIR_SMT
+
+RNXFIL_EXT_COL_2 1  "SMT"
+  ## widget = initmenu; pointer = EXT_SMT
+
+MSG_RNXFIL 1  "Original RINEX observation files"
+
+! Plot File
+! ---------
+PLTFLG 1  "0"
+
+MSG_PLTFLG 1  "Enable plots"
+
+DEVICE 0
+
+MSG_DEVICE 1  "Plot into this file"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${R}/EB_FZDMGNSS/OUT/SMT$(CLUSTER).OUT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # SMT$(CLUSTER)
+
+DESCR_SYSOUT 1  "Program output"
+
+NOMSGDATE 0
+
+MSG_NOMSGDATE 1  "Suppress writing of message timestamp"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title
+! -----
+TITLE 1  "RNXSMT FOR ZDM ESTIMATION: 222430"
+  ## widget = lineedit
+  # RNXSMT FOR ZDM ESTIMATION: $YSS+0
+
+MSG_TITLE 1  "Title line"
+
+! Maximum number of records in a RINEX file
+! -----------------------------------------
+MAXREC 1  "6000"
+  ## widget = spinbox; range = 3000 120000 1000
+
+MSG_MAXREC 1  "Maximum number of records in a RINEX file"
+
+! Skip observations flagged with S1/S2=0.000
+! ------------------------------------------
+RMSTON 1  "1"
+  ## widget = checkbox
+
+MSG_RMSTON 1  "Skip observations flagged with S1/S2=0.000"
+
+! Use C2 if P2 unavailable
+! ------------------------
+USEC2 1  "0"
+  ## widget = checkbox
+
+MSG_USEC2 1  "Use C2 if P2 unavailable"
+
+! Use Obs. Window
+! ---------------
+USEWIN 1  "1"
+  ## widget = checkbox
+
+MSG_USEWIN 1  "Use observation window"
+
+! Observation Window
+! ------------------
+RADIO_1 1  "1"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by year and session identifier"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_2 1  "Defined by start and end times"
+
+SESSION_YEAR 1  "2022"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  ## activeif = RADIO_1 == 1
+  # $Y+0
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "2430"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  ## activeif = RADIO_1 == 1
+  # $S+0
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+STADAT 1  "2022 08 31"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+  # $YMD_STR+0
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "2022 08 31"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+  # $YMD_STR+0
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 59"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! Maximum Gap Before Starting a New Arc
+! -------------------------------------
+GAPARC 1  "180.0"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_GAPARC 1  "Maximum gap before starting a new arc"
+
+! Maximum Gap for Cycle Slip Correction
+! -------------------------------------
+GAPL4 1  "180.0"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_GAPL4 1  "Maximum gap for cycle slip correction"
+
+! RMS of Melbourne Wuebbena
+! -------------------------
+RMSL5 1  "0.60"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_RMSL5 1  "RMS of a clean arc for Melbourne-Wuebbena"
+
+! RMS of L4 for Fit and Cycle Slip Corr.
+! --------------------------------------
+RMSL4 1  "0.00"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_RMSL4 1  "RMS of L4 for fit and cycle slip correction"
+
+! RMS of L3-P3
+! ------------
+RMSL3 1  "1.80"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_RMSL3 1  "RMS of an arc in ionosphere-free LC (L3-P3)"
+
+! Size of Detectable Cycle Slips
+! ------------------------------
+SLPMIN 1  "1.0"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_SLPMIN 1  "Minimum size of detectable cycle slips"
+
+! Size of Detectable Outliers
+! ---------------------------
+SLPOUT 1  "5.0"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_SLPOUT 1  "Minimum size of detectable outliers"
+
+!
+! Define a clock event
+! --------------------------------
+CLKEVT 1  "50.0"
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_CLKEVT 1  "Minimum size of a clock event"
+
+! Tolerance for a ms-jump
+! --------------------------------
+CYCEVT 1  "0.001"
+  ## widget = lineedit; check_type = real; check_min = 0
+  ## activeif = CLKEVT / _
+
+MSG_CYCEVT 1  "Tolerance for the ms-jump detection"
+
+! Maximum number of clock events per file
+! ---------------------------------------
+MAXEVT 1  "50"
+  ## widget = spinbox; range = 1 10000 10; activeif = CLKEVT / _
+
+MSG_MAXEVT 1  "Maximum number of events with unknown size"
+
+! Minimum Number of Observations in an Arc
+! ----------------------------------------
+MINOBS 1  "10"
+  ## widget = spinbox; range = 1 99 1
+
+MSG_MINOBS 1  "Minimum number of observations per arc"
+
+! Number of L4 Observations for Fit
+! ---------------------------------
+MINL4 1  "10"
+  ## widget = spinbox; range = 1 99 1
+
+MSG_MINL4 1  "Number of L4 observations for fit"
+
+! Fixs Cycle Slips in Code Observations
+! -------------------------------------
+FIXSLP 1  "0"
+  ## widget = checkbox
+
+MSG_FIXSLP 1  "Fix cycle slips in code observations"
+
+! Use Smoothed Code (else use raw code)
+! -------------------------------------
+FLGCOD 1  "1"
+  ## widget = checkbox
+
+MSG_FLGCOD 1  "Use smoothed code instead of raw code"
+
+! Preprocess phase observations
+! -----------------------------
+FLGPHS 1  "0"
+  ## widget = checkbox
+
+MSG_FLGPHS 1  "Preprocess phase observations"
+
+! Print Option
+! ------------
+PRTFLG 1  "ALL"
+  ## widget = combobox; editable = false; cards = SUM ALL
+
+MSG_PRTFLG 1  "Output detail"
+
+! GLONASS frequency estimation
+! ----------------------------
+GLOFRQ 1  "0"
+  ## widget = checkbox; activeif = USE_R == 1
+
+MSG_GLOFRQ 1  "Verify GLONASS frequency number"
+
+! Satellite systems
+! -----------------
+USE_G 1  "1"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Use GPS observations"
+
+USE_R 1  "1"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Use GLONASS observations"
+
+USE_E 1  "1"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Use GALILEO observations"
+
+USE_S 1  "1"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Use SBAS observations"
+
+USE_C 1  "1"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Use BEIDOU observations"
+
+USE_J 1  "1"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Use QZSS observations"
+
+USE_I 1  "0"
+  ## widget = checkbox
+
+MSG_USE_I 1  "Use IRNSS observations"
+
+! Gather station names from
+! -------------------------
+STANAM 1  "FILE_NAME"
+  ## widget = combobox; editable = false
+  ## cards = MARKER_NAME MARKER_NUMBER MARKER_DOMES FILE_NAME
+
+MSG_STANAM 1  "Gather station names from"
+
+! STAINFO with information for the Bernese files
+! ----------------------------------------------
+STAINFO 0
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; emptyallowed = true
+
+DESCR_STAINFO 1  "Station information"
+
+! Sampling Interval (sec)    0: Take all observations
+! -----------------------
+SAMPL 1  "30.0"
+  ## widget = lineedit
+
+MSG_SAMPL 1  "Sampling interval (sec)"
+
+! Offset to full minute (sec)
+OFFSET 1  "0"
+  ## widget = lineedit
+
+MSG_OFFSET 1  "Offset to full minute (sec)"
+
+! Sampling tolerance (sec)
+SAMPLTOL 1  "0.5"
+  ## widget = lineedit
+
+MSG_SAMPLTOL 1  "Sampling tolerance (sec)"
+
+! RINEX options
+! -------------
+LIMRXWTVER 1  "2"
+  ## widget = lineedit
+
+MSG_LIMRXWTVER 1  "Limit RINEX version to write"
+
+RDRXHDUC 1  "1"
+  ## widget = checkbox
+
+MSG_RDRXHDUC 1  "Change header strings to upper case on read"
+
+RX2_RESTR 1  "0"
+  ## widget = checkbox
+
+MSG_RX2_RESTR 1  "Only GPS/GLO and freq. 1 or 2 for RINEX 2"
+
+REJFAKEOBSMAXFRQ 1  "2"
+  ## widget = spinbox; range = 0 9 1
+
+MSG_REJFAKEOBSMAXFRQ 1  "Maximal frequency for fake observation rejection"
+
+REJFAKEOBSTOL 1  "1d-4"
+  ## widget = lineedit
+
+MSG_REJFAKEOBSTOL 1  "Tolerance for fake observation rejection"
+
+ERRFROMRXHDR 1  "0"
+  ## widget = checkbox
+
+MSG_ERRFROMRXHDR 1  "Write errs/warns from input RNX hdr comments"
+
+USEHDRSTAT 1  "0"
+  ## widget = checkbox
+
+MSG_USEHDRSTAT 1  "Consider trusted statistics header comment line"
+
+WRTTRUSTSTAT 1  "1"
+  ## widget = checkbox
+
+MSG_WRTTRUSTSTAT 1  "Write trusted statistics header comment line"
+
+ERRTORXHDR 1  "0"
+  ## widget = checkbox
+
+MSG_ERRTORXHDR 1  "Write errs/warns into output RNX hdr comments"
+
+OLDCMTORD 1  "0"
+  ## widget = checkbox
+
+MSG_OLDCMTORD 1  "Wrt comments in hdr in old order"
+
+WRTRECLDZERO 1  "1"
+  ## widget = checkbox
+
+MSG_WRTRECLDZERO 1  "Write leading zeros to timestamp of RNX records"
+
+WRTRXRECALPH 1  "0"
+  ## widget = checkbox
+
+MSG_WRTRXRECALPH 1  "Write RNX records with GNSS char in alph. order"
+
+PHSCORRAPPL 1  "SUPPRESS"
+  ## widget = combobox; editable = false; cards = SUPPRESS AS_NEEDED FORCE
+
+MSG_PHSCORRAPPL 1  "Rule for applying phase shift corrections"
+
+! Actions in case of inconsistencies in RINEX headers
+! ---------------------------------------------------
+AOF_ANT_MRK_NAM 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOF_ANT_MRK_NAM 1  "Antenna marker name doesn't match file name"
+
+AOM_GLO_FRQ_NBR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GLO_FRQ_NBR 1  "Missing mand. record: GLONASS SLOT / FRQ #"
+
+AOM_GLO_PHS_BIS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GLO_PHS_BIS 1  "Missing mand. record: GLONASS COD/PHS/BIS"
+
+AOM_SYS_PHS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_SYS_PHS 1  "Missing mand. record: SYS / PHASE SHIFT"
+
+AOM_GENERAL 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GENERAL 1  "Other missing mandatory records"
+
+! Action in case of incons. hdr. modifications
+! --------------------------------------------
+AOI_HDRMOD 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_HDRMOD 1  "Action in case of incons. hdr. modifications"
+
+! What to do in case of event flag
+! --------------------------------
+EPOFLAG 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_EPOFLAG 1  "What to do in case of event flag"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CLEAN/SMOOTH OBSERVATION FILES - RNXSMT 1: Filenames                         #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files          > % <                                      # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   RINEX observation files                                                    #
+#     Bernese internal naming       > %%%%%%%%%%%%%%%%%% <                     # RNXFIL_BSW
+#     RINEX3-style naming           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # RNXFIL_LONG
+#     RINEX2-style naming           > %%%%%%%% <                               # RNXFIL_SHORT
+#     Any naming convention         > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # RNXFIL
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output          > % < use RNXSMT.Lnn           or > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages          > % < merged to program output or > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# RNXSMT 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants          > %%%%%%%%%%%% <                                # CONST
+#   Satellite information      > %%%%%%%%%%%% <                                # SATELL
+#   Satellite problems         > %%%%%%%%%%%% <                                # SATCRUX
+#                                                                              #
+# RECEIVER-SPECIFIC OBSERVATION TYPES PRIORITY                                 #
+#   Observation selection      > %%%%%%%%%%%% <                                # OBSSEL
+#   Print selection            > % <                                           # PRTOSTAT
+#   Print extended warnings    > % <                                           # EXTOUT
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXSMT 2: Options                                                            #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# OBSERVATION ARC DEFINITION                                                   #
+#   Maximum number of records in a RINEX file  > %%%%%% <                      # MAXREC
+#   Use observation window                     > % <                           # USEWIN
+#   Skip observations with S1 and S2=0.000     > % <                           # RMSTON
+#   Use C2 if P2 unavailable                   > % <                           # USEC2
+#   Maximum gap in data to start a new arc     > %%%%% <seconds                # GAPARC
+#   Minimum number of observations per arc     > %%% <                         # MINOBS
+#                                                                              #
+# DETECT CLOCK EVENTS                                                          #
+#   Minimum size of a clock event              > %%%%% <nanoseconds            # CLKEVT
+#   Tolerance for ms-jump detection            > %%%%% <milliseconds           # CYCEVT
+#   Maximum number of events with unknown size > %%%%% <                       # MAXEVT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXSMT 3: RINEX options part I                                               #
+#                                                                              #
+# SATELLITE SYSTEMS                                                            #
+#   GPS          > % <      GLONASS     > % <     Galileo      > % <           # USE_G USE_R USE_E
+#   SBAS         > % <      BeiDou      > % <     QZSS         > % <           # USE_S USE_C USE_J
+#                                                                              #
+# STATION NAME TRANSLATION                                                     #
+#   Gather station names from                  > %%%%%%%%%%%%% <               # STANAM
+#   Station information                        > %%%%%%%%%%%% <                # STAINFO
+#                                                                              #
+# GENERAL RINEX OPTIONS                                                        #
+#   Change hdr strings to upper case on read   > % <                           # RDRXHDUC
+#   Only GPS/GLO and freq. 1 or 2 for RINEX 2  > % <                           # RX2_RESTR
+#   Output errors from input headers           > % <                           # ERRFROMRXHDR
+#   Write errors into output header comments   > % <                           # ERRTORXHDR
+#   Write comments in header in old order      > % <                           # OLDCMTORD
+#   Write leading zeros to timestamp of recs   > % <                           # WRTRECLDZERO
+#   Write GNSS in obs. recs in alph. order     > % <                           # WRTRXRECALPH
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL USEWIN = 1 #######################################################
+# RNXSMT 3.1: Observation Window                                               #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <   Session > %%%% <                                    # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXSMT 4: RINEX options part II                                              #
+#                                                                              #
+# SAMPLING                                                                     #
+#   Sampling interval           > %%%%%% < seconds   (0: use all observations) # SAMPL
+#   Offset to full minute       > %%%%%% < seconds                             # OFFSET
+#   Sampling tolerance          > %%%%%% < seconds                             # SAMPLTOL
+#                                                                              #
+# RULE FOR APPLYING PHASE SHIFT CORRECTIONS FROM HDR ON READING OBS            #
+#   Phase shift corrections appeared with RINEX version 2.12                   #
+#   Rule                        > %%%%%%%%%%%% <                               # PHSCORRAPPL
+#                                                                              #
+# REJECTION OF FAKE OBSERVATIONS                                               #
+#   Maximal freq. considered    > %%%%%% <           (0: no rejection)         # REJFAKEOBSMAXFRQ
+#   Tolerance                   > %%%%%% <                                     # REJFAKEOBSTOL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXSMT 5: Screening Options                                                  #
+#                                                                              #
+# MELBOURNE-WUEBBENA LINEAR COMBINATION: SCREENING, CYCLE SLIP DETECTION       #
+#   RMS of a clean arc for Melbourne-Wuebbena  > %%%%% <L5 cycles              # RMSL5
+#   Minimum size of detectable cycle slips     > %%%%% <L5 cycles              # SLPMIN
+#   Minimum size of detectable outliers        > %%%%% <L5 cycles              # SLPOUT
+#                                                                              #
+# GEOMETRY-FREE LINEAR COMBINATION: CYCLE SLIP CORRECTION                      #
+#   Maximum gap for cycle slip correction      > %%%%% <seconds                # GAPL4
+#   Number of L4 observations for fit          > %%% <                         # MINL4
+#   RMS of L4 for fit and cycle slip correction> %%%%% <meters                 # RMSL4
+#   Fix cycle slips in code observations       > % <                           # FIXSLP
+#                                                                              #
+# IONOSPHERE-FREE LINEAR COMBINATION: OUTLIER DETECTION                        #
+#   RMS of an arc in ionosphere-free LC (L3-P3)> %%%%% <meters                 # RMSL3
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXSMT 6: Output Options                                                     #
+#                                                                              #
+# OUTPUT OPTIONS                                                               #
+#   Preprocess phase observations              > % <                           # FLGPHS
+#   Use smoothed instead of raw code           > % <                           # FLGCOD
+#   Output detail                              > %%%% <                        # PRTFLG
+#                                                                              #
+# SPECIAL OPTION                                                               #
+#   Verify GLONASS frequency number            > % <                           # GLOFRQ
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXSMT 7: Check Content of RINEX Header                                      #
+#                                                                              #
+# Action if marker name doesn't match file name  > %%%%%%%%% <                 # AOF_ANT_MRK_NAM
+#                                                                              #
+# ACTIONS IN CASE OF MISSING MANDATORY HEADER RECORDS                          #
+#   Missing record: GLONASS SLOT / FRQ # > %%%%%%%%% <  (RINEX vers ge 3.01)   # AOM_GLO_FRQ_NBR
+#   Missing record: GLONASS COD/PHS/BIS  > %%%%%%%%% <  (RINEX vers ge 3.02)   # AOM_GLO_PHS_BIS
+#   Missing record: SYS / PHASE SHIFT    > %%%%%%%%% <  (RINEX vers ge 2.12)   # AOM_SYS_PHS
+#   Other missing mandatory records      > %%%%%%%%% <                         # AOM_GENERAL
+#                                                                              #
+# ACTIONS IN SPECIAL SITUATIONS BETWEEN OBSERVATIONS                           #
+#   On epoch events                      > %%%%%%%%% <                         # EPOFLAG
+#   On inconsistent header modifications > %%%%%%%%% <                         # AOI_HDRMOD
+#                                                                              #
+#     NONE@@@@: Just continue                                                  #
+#     WARNING@: Write warning and continue                                     #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################

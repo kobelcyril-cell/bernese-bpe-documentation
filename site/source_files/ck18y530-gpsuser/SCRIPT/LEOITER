@@ -1,0 +1,140 @@
+package LEOITER;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEOITER
+#
+# Purpose :  Iterate the red.-dyn. POD if V_ITRD is set.
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+# Created :  14-Jun-2016
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($V_A, $V_F, $V_ITRD,
+      $dirOrb, $dirOut, $yyssss, $param2) =
+      $bpe->getKeys('V_A', 'V_F', 'V_ITRD',
+                    'DIR_STD', 'DIR_OUT', '$YSS+0', 'PARAM2');
+
+  my $del = 1; # Delete old copies in first call
+
+  my $iter = $$bpe{STARTCOUNT}; # Number of times this script was called
+  my $iterm1 = $iter-1;
+
+  print "V_ITRD: ${V_ITRD}\n";
+  print "Number of calls of this script: $iter\n";
+
+  if ($V_ITRD && $iter <= $V_ITRD) {
+
+      # Check if PID to jump to is specified
+      unless ($param2 && $param2 >= 0 && $param2 <= 999) {
+          die "*** Specify a valid PID to jump to in PARAM2\n";
+      }
+
+      # First call: Clean up potential old copies
+      if ($iter == 1 && $del) {
+          &delFil("${dirOrb}/${V_A}_${yyssss}_?.STD");
+          &delFil("${dirOrb}/${V_A}_${yyssss}_?.RPR");
+          &delFil("${dirOrb}/RD${V_F}${yyssss}_?.ELE");
+          &delFil("${dirOut}/RD${V_F}${yyssss}_?.OUT");
+          &delFil("${dirOut}/XT${V_F}${yyssss}_?.OUT");
+          &delFil("${dirOut}/RD${V_F}${yyssss}_?.SUM");
+          &delFil("${dirOrb}/RD${V_F}${yyssss}_?.STD");
+          &delFil("${dirOrb}/RD${V_F}${yyssss}_?.RPR");
+          &delFil("${dirOut}/U${V_F}${yyssss}_?.OUT");
+          &delFil("${dirOrb}/RD${V_F}${yyssss}_?.PRE");
+          &delFil("${dirOut}/SP${V_F}${yyssss}_?.OUT");
+      }
+
+      print "Prepare iteration $iter / $V_ITRD\n";
+
+      # Save files to be overwritten to new names
+      print "Save files of previous runs of GPSEST, GPSXTR, ORBGEN, and STDPRE:\n";
+
+      # GPSEST
+      &copFil("${dirOrb}/${V_A}_${yyssss}.STD",
+              "${dirOrb}/${V_A}_${yyssss}_${iterm1}.STD");
+      &copFil("${dirOrb}/${V_A}_${yyssss}.RPR",
+              "${dirOrb}/${V_A}_${yyssss}_${iterm1}.RPR");
+      &copFil("${dirOrb}/RD${V_F}${yyssss}.ELE",
+              "${dirOrb}/RD${V_F}${yyssss}_${iterm1}.ELE");
+      &copFil("${dirOut}/RD${V_F}${yyssss}.OUT",
+              "${dirOut}/RD${V_F}${yyssss}_${iterm1}.OUT");
+      # GPSXTR
+      &copFil("${dirOut}/XT${V_F}${yyssss}.OUT",
+              "${dirOut}/XT${V_F}${yyssss}_${iterm1}.OUT");
+      &copFil("${dirOut}/RD${V_F}${yyssss}.SUM",
+              "${dirOut}/RD${V_F}${yyssss}_${iterm1}.SUM");
+      # ORBGEN
+      &copFil("${dirOrb}/RD${V_F}${yyssss}.STD",
+              "${dirOrb}/RD${V_F}${yyssss}_${iterm1}.STD");
+      &copFil("${dirOrb}/RD${V_F}${yyssss}.RPR",
+              "${dirOrb}/RD${V_F}${yyssss}_${iterm1}.RPR");
+      &copFil("${dirOut}/U${V_F}${yyssss}.OUT",
+              "${dirOut}/U${V_F}${yyssss}_${iterm1}.OUT");
+      # STDPRE
+      &copFil("${dirOrb}/RD${V_F}${yyssss}.PRE",
+              "${dirOrb}/RD${V_F}${yyssss}_${iterm1}.PRE");
+      &copFil("${dirOut}/SP${V_F}${yyssss}.OUT",
+              "${dirOut}/SP${V_F}${yyssss}_${iterm1}.OUT");
+
+      # Copy RD(V_F)$YSS+0.{STD,RPR} into new a priori files
+      print "Copy new a priori files:\n";
+      &copFil("${dirOrb}/RD${V_F}${yyssss}.STD",
+              "${dirOrb}/${V_A}_${yyssss}.STD");
+      &copFil("${dirOrb}/RD${V_F}${yyssss}.RPR",
+              "${dirOrb}/${V_A}_${yyssss}.RPR");
+
+      # Jump back to GPSEST
+      print "Jump back to GPSEST (PID $param2)\n";
+      $bpe->PRT_GOTO($param2);
+
+  } else {
+      print "Nothing to do\n";
+  }
+}
+
+sub copFil {
+    my $src = $_[0];
+    my $tgt = $_[1];
+
+    print "$src --> $tgt: ";
+    if (copy($src, $tgt)) {
+        print "OK\n";
+    } else {
+        print "Failed\n";
+        die "*** Copying failed\n";
+    }
+    return;
+}
+
+sub delFil {
+    my $fil = $_[0];
+
+    print "Remove files $fil:\n";
+    my @fil = glob($fil);
+    if (@fil) {
+        foreach my $f (@fil) {
+            print "  $f: ";
+            if (unlink($f)) {
+                print "OK\n";
+            } else {
+                die "*** Deleting failed\n";
+            }
+        }
+    } else {
+        print "  Found none\n";
+    }
+}

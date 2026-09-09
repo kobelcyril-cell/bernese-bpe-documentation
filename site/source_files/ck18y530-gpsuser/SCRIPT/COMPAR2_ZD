@@ -1,0 +1,44 @@
+package COMPAR2_ZD;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      COMPAR2_ZD
+#
+# Purpose:   COMPAR2
+#
+# Programs:  COMPAR2
+#
+# Authors:   C. Kobel
+#
+# Created:   15-Dec-2025
+#
+# Changes:   
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $V_Z, $V_L) = $bpe->getKeys('$YSS+0','V_Z', 'V_L');
+
+# Set precise orbit files
+# -----------------------
+  my $tmpFil = "$ENV{U}/WORK/CRDCMP.lst";
+
+  open OUT, '>', $tmpFil;
+  print OUT "${V_Z}_${yyssss}\n";
+  print OUT "${V_Z}${V_L}${yyssss}\n";
+  close OUT;
+  $bpe->putKey("$ENV{U}/PAN/COMPAR2.INP","COOFIL","SELECTED","REPLACE",$tmpFil);
+
+  system("rm $ENV{U}/WORK/CRDCMP.lst");
+
+# Run program COMPAR2
+# --------------------
+  my $PGMNAM = "COMPAR2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

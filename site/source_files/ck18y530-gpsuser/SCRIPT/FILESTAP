@@ -1,0 +1,58 @@
+package FILESTAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  FILESTAP
+#
+# Purpose :  Station-wise zero-difference data screening
+#
+# Programs:
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#            PARAM2..PARAM5 - CODE PHASE BOTH
+#                     to select the observation files type for screening
+#
+# Author  :  R. Dach
+# Created :  11-Jan-2005               Last modified: 31-Jan-2005
+#
+# Changes :  31-Jan-2005 mm: New initPar call (w/o tmpFil)
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ssss    , $ddd     , $param2  , $param3  , $param4  , $param5  , $clu     ,
+      $dirRes  , $dirLst  , $dirSum  , $dirEdt  , $dirOut  , $dirPzh  , $dirCzh  , $dirBpe  ,
+      $extRes  , $extLst  , $extSum  , $extEdt  , $extOut  , $extPzh  , $extCzh              ) =
+  $bpe->getKeys
+     ('$S+0'   , '$+0'    , 'PARAM2' , 'PARAM3' , 'PARAM4' , 'PARAM5' , 'V_CLU'  ,
+      'DIR_RES', 'DIR_LST', 'DIR_SUM', 'DIR_EDT', 'DIR_OUT', 'DIR_PZH', 'DIR_CZH', 'DIR_BPEPRT',
+      'EXT_RES', 'EXT_LST', 'EXT_SUM', 'EXT_EDT', 'EXT_OUT', 'EXT_PZH', 'EXT_CZH'              );
+
+# Delete old files (OUT, RES, NEQ, EDT)
+# -------------------------------------
+##  unlink glob("${dirOut}????${ddd}"."[12345S].${extOut}");
+##  unlink glob("${dirRes}????${ddd}"."[12345].${extRes}");
+##  unlink glob("${dirEdt}????${ddd}"."[12345].${extEdt}");
+##  unlink glob("${dirLst}????${ddd}"."[12345].${extLst}");
+##  unlink glob("${dirSum}????${ddd}"."[12345].${extSum}");
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}EDT${ssss}";
+  my @pzhFil = glob("${dirPzh}????${ssss}.${extPzh}");
+  @pzhFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+  @pzhFil = map { substr(basename($_),0,4) } @pzhFil;
+  initPar_Bl($bpe,@pzhFil,split(" ","$param2 $param3 $param4 $param5"));
+
+}

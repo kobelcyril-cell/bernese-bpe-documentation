@@ -1,0 +1,83 @@
+package ORBMRG;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  ORBMRG
+#
+# Purpose :  Execute CCPREORB for daily or hourly processing
+#
+# Remark  :  Consider range of sessions for hourly processing
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  01-Aug-2020
+#
+# Changes :  11-May-2022 LP: Replace 'GLO' by 'R'
+# ============================================================================
+
+use strict;
+
+use File::Copy qw(move);
+
+use lib $ENV{BPE};
+use bpe_util qw(setHourly setUserVar);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $ssss,
+      $yyyyssss,
+      $orb,   
+      $gnss,
+      $dirPre,
+      $extPre
+    ) = $bpe->getKeys(
+      '$S+0',
+      '$YYYSS+0',
+      'V_ORB',
+      'V_SATSYS',
+      'DIR_PRE',
+      'EXT_PRE'
+    );
+
+# Hourly processing
+# -----------------
+  setHourly($bpe);
+
+# Run program
+# -----------
+  my $PGMNAM = "CCPREORB";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Copy results file to the standard name
+# --------------------------------------
+  my $temp = $bpe->getKey("$ENV{U}/INP/CCPREORB.INP","CHAR4");
+
+  move("${dirPre}${temp}${ssss}.${extPre}","${dirPre}${orb}_${yyyyssss}.${extPre}");
+
+# Add the IGL orbits if IGS and GNSS is selected
+# ----------------------------------------------
+  if ( $gnss =~ /R/ && $orb eq "IGS" ) {
+
+    # Concatenate also the IGL orbit files
+    $bpe->putKey("$ENV{U}/PAN/CCPREORB.INP","CONCAT",'IGL$WD+-');
+    $bpe->RUN_PGMS($PGMNAM);
+    move("${dirPre}${temp}${ssss}.${extPre}","${dirPre}IGL_${yyyyssss}.${extPre}");
+
+    # Merge the IGS and IGL files
+    setUserVar($bpe,"ORB","IGS");
+    $bpe->putKey("$ENV{U}/PAN/CCPREORB.INP","RADIO_C","0");
+    $bpe->putKey("$ENV{U}/PAN/CCPREORB.INP","RADIO_M","1");
+
+    $bpe->putKey("$ENV{U}/PAN/CCPREORB.INP","MERGE1","IGS_${yyyyssss}");
+    $bpe->putKey("$ENV{U}/PAN/CCPREORB.INP","MERGE2","IGL_${yyyyssss}");
+
+    $bpe->RUN_PGMS($PGMNAM);
+    move("${dirPre}${temp}${ssss}.${extPre}","${dirPre}IGS_${yyyyssss}.${extPre}");
+  }
+
+}

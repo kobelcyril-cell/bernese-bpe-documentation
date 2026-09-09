@@ -1,0 +1,70 @@
+package GPSESTCP_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GPSESTCP_E
+#
+# Purpose :  Parallel run of GPSEST using code and phase data
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005
+#
+# Changes :  27-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $param1,
+      $subPid,
+      $usehoi,
+      $trpModel
+  ) = $bpe->getKeys(
+      'PARAM1',
+      'SUB_PID',
+      'V_USEHOI',
+      'V_TRPMOD'
+  );
+
+  # ---------- Initialize variables ------------
+  setUserVar($bpe, "D4",  $subPid,
+                   "CCC", $subPid);
+
+  # ---------- HOI control ------------
+  if ($usehoi eq "NO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "IONOS", "");
+    prtMess($bpe, "HOI SETUP: DISABLED by V_USEHOI=NO");
+  }
+
+  # ---------- Troposphere model ------------
+  if ($trpModel eq "GMF") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "VMF_FILES", ' ');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "TROPOS",    "DRY_GMF");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "MAPPNG",    "WET_GMF");
+    prtMess($bpe, "Troposphere model SETUP: $trpModel");
+  }
+
+  # ---------- Set input files ------------
+  replaceSel($bpe, "GPSEST", "CZFILES", $param1);
+  replaceSel($bpe, "GPSEST", "PZFILES", $param1);
+
+  # ---------- Log selected files ------------
+  open (BPE, $param1);
+  print "\n\n", "-" x 75, "\n";
+  print "Contents of BPE file $param1\n";
+  print "-" x 75, "\n";
+  print <BPE>;
+  print "-" x 75, "\n";
+  close BPE;
+
+  # ---------- Run program ------------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+}

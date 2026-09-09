@@ -1,0 +1,54 @@
+package SOLLONAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SOLLONAP
+#
+# Purpose :  Prepare parallel ADDNEQ2 run using reduced NEQs
+#
+# Programs:
+#
+# Author  :  E. Calero
+# Created :  12-May-2021
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,
+      $sol,
+      $dirNeq,
+      $extNeq) =
+     $bpe->getKeys(
+      '$YSS+0',
+      "$$bpe{PARAM2}",
+      'DIR_NEQ',
+      'EXT_NEQ');
+
+# Get NEQ files
+# -------------
+  my @NEQfl = glob("${dirNeq}${sol}??${yyssss}???.${extNeq}");
+
+# Populate options for parallel run
+# ---------------------------------
+  my @time;
+  my $file = "";
+  foreach(@NEQfl) {
+    $file = $_;
+    push @time, sprintf "%s %3s",$file, $sol;
+  }
+
+# Put the BPE cluster files into the list
+# ---------------------------------------
+  initPar_Fl($bpe, @time);
+
+}

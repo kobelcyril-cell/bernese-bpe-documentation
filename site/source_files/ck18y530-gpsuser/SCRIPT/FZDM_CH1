@@ -1,0 +1,109 @@
+package RCLK_CHK;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  RCLK_CHK
+#
+# Purpose :  Checks residuals from rapid clock estimation for bad stations
+#
+# Programs:  RESCHK
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005               Last modified: 21-Jul-2010
+#
+# Changes :  26-May-2009 rd: RESCHK: YY_DDD -> YY_SSSS
+#            21-Jul-2010 rd: run a RESRMS without residual screening first
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{U}/SCRIPT";
+use JumpLogger qw(logJump);
+
+sub run {
+  my $bpe = shift;
+
+
+# Maximum number of iterations
+# ----------------------------
+  my $maxRun = 50;
+
+
+# Get variables
+# -------------
+  my ($yy, $ddd, $ssss, $yyddd, $iRun,       $param3, $u,
+      $dirDel,  $extDel,  $dirOut) =
+      $bpe->getKeys(
+      '$Y','$+0','$S+0','$YD+0','STARTCOUNT','PARAM3','U',
+      'DIR_DEL','EXT_DEL','DIR_OUT');
+
+
+  prtMess($bpe,"Iteration $iRun of $maxRun");
+
+
+# Generate the residual table
+# ---------------------------
+  $bpe->putKey("$u/PAN/RESRMS.INP","DOBIGRES", "0");
+  $bpe->putKey("$u/PAN/RESRMS.INP","DOBIGRES2","0");
+  $bpe->putKey("$u/PAN/RESRMS.INP","DOBIGRES3","0");
+
+  my $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+
+# Define a delFil for the result of the check
+# -------------------------------------------
+  my $delFil = "${dirDel}${yyddd}.${extDel}";
+  unlink ($delFil);
+
+  $bpe->putKey("$u/PAN/RESCHK.INP","DELSTA",$delFil);
+
+
+# Run program
+# -----------
+  $PGMNAM = "RESCHK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Add SYSOUT to the summary list
+# ------------------------------
+  my $xtrsum = "${dirOut}RESCHK.${yy}_${ssss}";
+  appFile("",0,$$bpe{SYSOUT},$xtrsum);
+
+
+# Delete bad stations
+# -------------------
+  my $iDel = 0;
+  if (-e $delFil) {
+    open (DEL,"< $delFil");
+    while (<DEL>) {
+      chomp;
+      while ( /^ / ) { s/^ // }  # Remove leading blanks
+      unlink ($_);
+      prtMess($bpe,"$_ deleted");
+
+      appFile("",0,$bpe->getKey("$u/INP/RESCHK.INP","RESRMS"),$xtrsum) unless $iDel;
+      $iDel++;
+    }
+    close(DEL);
+    unlink($delFil);
+  }
+
+
+# Check for BAD SATELLITE message in the program output
+# -----------------------------------------------------
+  open(OUT,"< $$bpe{SYSOUT}");
+  while(<OUT>){
+    $iDel++ if ( /^BAD SATELLITE/ );
+  }
+  close OUT;
+
+# Check where to go
+# -----------------
+  logJump($bpe, $param3) if ($iDel > 0 && $iRun <= $maxRun);
+  prtGoto($bpe,$param3) if ($iDel > 0 && $iRun <= $maxRun);
+}

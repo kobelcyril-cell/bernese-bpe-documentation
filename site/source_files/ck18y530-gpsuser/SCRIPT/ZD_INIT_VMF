@@ -1,0 +1,62 @@
+package INIT_VMF;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  INIT_VMF
+#
+# Purpose :  Initialize VMF grid files
+#
+# Author  :  C. Kobel
+# Created :  21-Apr-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use File::Copy;
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $yyddd,
+      $ddd,
+      $yyyy,
+      $dirOut,
+      $dirGrd,
+      $extGrd
+  ) = $bpe->getKeys(
+      '$YD+0',
+      '$+0',
+      '$Y+0',
+      'DIR_OUT',
+      'DIR_GRD',
+      'EXT_GRD'
+  );
+
+# ---------- Define file ------------
+  my $grdFil = "${dirGrd}VMF${yyddd}.${extGrd}";
+
+# ---------- Remove existing file ------------
+  unlink($grdFil);
+
+# ---------- Retrieve latest VMF data ------------
+  system("$ENV{AUTO}/get_vmf.com");
+
+# ---------- Copy VMF grid into campaign directory ------------
+  system("$ENV{AUTO}/copyGrid.pl $dirOut/../ $ddd $yyyy VMF -oneFile");
+
+# ---------- Verify result ------------
+  if (-s $grdFil) {
+    prtMess($bpe, "VMF initialization: $grdFil created");
+  } else {
+    prtMess($bpe, "VMF initialization: $grdFil not created");
+  }
+}

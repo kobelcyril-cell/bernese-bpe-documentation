@@ -1,0 +1,27 @@
+package ORBCMP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ORBCMP
+#
+# Purpose :  Execute ORBCMP
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  11-Aug-2011
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBCMP";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

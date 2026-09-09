@@ -1,0 +1,122 @@
+package CHECK_VAPL_ENTRIES;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CHECK_VAPL_ENTRIES
+#
+# Purpose :  Checks OBS files (????$ssss.*) against station entries
+#            in STA/VAPL.ATL. If a station is missing in VAPL.ATL,
+#            all corresponding OBS files are removed.
+#
+# Author  :  C. Kobel
+# ============================================================================
+use lib "$ENV{AUTO}";
+use strict;
+use warnings;
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  my ($dirOut, $yyddd, $ssss) =
+    $bpe->getKeys('DIR_OUT', '$YD+0', '$S+0');
+
+  my $dirObs   = "${dirOut}/../OBS";
+  my $dirSta   = "${dirOut}/../STA";
+  my $vaplFile = "${dirSta}/VAPL.ATL";
+
+  die "VAPL file not found: $vaplFile\n" unless -e $vaplFile;
+
+  # ---------------------- MSC / Logfile -------------------------------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  mkdir $mscDir unless -d $mscDir;
+
+  my $logfile = "${mscDir}/VAPL_entries";
+  open(my $LOG, '>>', $logfile) or die "Cannot open $logfile: $!";
+
+  print $LOG "\n=== CHECK_VAPL_ENTRIES started ===\n";
+
+  # ---------------------- Step 1: Read VAPL.ATL ------------------------------
+  open(my $VF, '<', $vaplFile) or die "Cannot open $vaplFile: $!";
+
+  my %vaplStations;
+  my $inHeader = 1;
+
+  while (my $line = <$VF>) {
+    chomp $line;
+
+    if ($inHeader) {
+      $inHeader = 0 if $line =~ /^\$\$\s*END HEADER/;
+      next;
+    }
+
+    if ($line =~ /^\$\$\s*station\s+([A-Z0-9]{4})\s*;/) {
+      $vaplStations{uc $1} = 1;
+    }
+  }
+  close($VF);
+
+  print $LOG "Found " . scalar(keys %vaplStations) . " stations in VAPL.ATL.\n";
+
+  # ---------------------- Step 2: Scan OBS (ALL extensions) ------------------
+  opendir(my $DH, $dirObs) or die "Cannot open $dirObs: $!";
+  my @obsFiles = grep {
+    /^.{4}\Q$ssss\E\./ && -f "$dirObs/$_"
+  } readdir($DH);
+  closedir($DH);
+
+  my %obsStations;
+  for my $file (@obsFiles) {
+    my ($sta) = $file =~ /^([A-Z0-9]{4})/;
+    $obsStations{uc $sta} = 1 if defined $sta;
+  }
+
+  # ---------------------- Step 3: Compare & delete ---------------------------
+  my $deleted_files     = 0;
+  my $affected_stations = 0;
+
+  for my $station (sort keys %obsStations) {
+
+    if ($vaplStations{$station}) {
+      print $LOG "Station $station present in VAPL.ATL – OK.\n";
+      next;
+    }
+
+    print $LOG "Station $station missing in VAPL.ATL – deleting OBS files:\n";
+    $affected_stations++;
+
+    # OBS-Verzeichnis erneut scannen: station$ssss.*
+    opendir(my $ODH, $dirObs) or die "Cannot open $dirObs: $!";
+    my @to_delete = grep {
+      /^\Q$station\E\Q$ssss\E\./ && -f "$dirObs/$_"
+    } readdir($ODH);
+    closedir($ODH);
+
+    if (!@to_delete) {
+      print $LOG "  (no files found to delete)\n";
+      next;
+    }
+
+    for my $file (sort @to_delete) {
+      my $fullpath = "$dirObs/$file";
+
+      if (unlink $fullpath) {
+        print $LOG "  deleted: $file\n";
+        $deleted_files++;
+      }
+      else {
+        print $LOG "  ERROR deleting $file: $!\n";
+      }
+    }
+  }
+
+  # ---------------------- Summary --------------------------------------------
+  print $LOG "Summary:\n";
+  print $LOG "  Stations without VAPL entry : $affected_stations\n";
+  print $LOG "  OBS files deleted           : $deleted_files\n";
+
+  print $LOG "=== CHECK_VAPL_ENTRIES finished ===\n";
+  close($LOG);
+}
+
+1;

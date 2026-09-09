@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-09-09 12:00:40
+Generated: 2026-09-09 12:44:05
 
 ## Overview
 
@@ -43,6 +43,8 @@ The following notes are imported from the configured handbook source and mirror 
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
+- 2026-09-09T12:39:52+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-09-09T12:39:51+02:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
 - 2026-09-09T11:59:36+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-09-09T11:59:33+02:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
 - 2026-09-08T17:54:58+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
@@ -571,7 +573,7 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 
 Compare solution to routine products
 
-- Source: [CMPSOL.PCF](../../GPSUSER/PCF/CMPSOL.PCF)
+- Source: [CMPSOL.PCF](source_files/ck18y530-gpsuser/PCF/CMPSOL.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -626,7 +628,7 @@ Final-like (1-day arcs) GNSS solution in
 
 - Author: E. Calero
 - Created: 20-Apr-2021
-- Source: [FZDMGNSS_ORIG_EC.PCF](../../GPSUSER/PCF/FZDMGNSS_ORIG_EC.PCF)
+- Source: [FZDMGNSS_ORIG_EC.PCF](source_files/ck18y530-gpsuser/PCF/FZDMGNSS_ORIG_EC.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -822,7 +824,7 @@ PRECISE ORBIT DETERMINATION FOR LOW EARTH ORBITER - reduced-dynamic and kinemati
 
 - Author: Heike Bock
 - Created: 09-Feb-2012                  Last modified:
-- Source: [LEOPODR.PCF](../../GPSUSER/PCF/LEOPODR.PCF)
+- Source: [LEOPODR.PCF](source_files/ck18y530-gpsuser/PCF/LEOPODR.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -924,7 +926,7 @@ _... 30 more variables omitted in this summary._
 
 ### VALIDATE_SOLUTION.PCF
 
-- Source: [VALIDATE_SOLUTION.PCF](../../GPSUSER/PCF/VALIDATE_SOLUTION.PCF)
+- Source: [VALIDATE_SOLUTION.PCF](source_files/ck18y530-gpsuser/PCF/VALIDATE_SOLUTION.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -961,7 +963,7 @@ Final (3-day arcs) ZD GNSS solution
 
 - Author: C. Kobel
 - Created: 26-May-2026
-- Source: [ZDGNSS_3D.PCF](../../GPSUSER/PCF/ZDGNSS_3D.PCF)
+- Source: [ZDGNSS_3D.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_3D.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1019,7 +1021,7 @@ Final (3-day arcs) ZD GNSS solution
 
 - Author: C. Kobel
 - Created: 26-May-2026
-- Source: [ZDGNSS_3D_FINAL.PCF](../../GPSUSER/PCF/ZDGNSS_3D_FINAL.PCF)
+- Source: [ZDGNSS_3D_FINAL.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_3D_FINAL.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1077,7 +1079,7 @@ AR for ZD-processing
 
 - Author: C. Kobel
 - Created: 31-Mar-2026
-- Source: [ZDGNSS_AR.PCF](../../GPSUSER/PCF/ZDGNSS_AR.PCF)
+- Source: [ZDGNSS_AR.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_AR.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1141,7 +1143,7 @@ Clock densification for zero-difference solution
 
 - Author: C. Kobel
 - Created: 06-Jul-2026
-- Source: [ZDGNSS_CLKDEN.PCF](../../GPSUSER/PCF/ZDGNSS_CLKDEN.PCF)
+- Source: [ZDGNSS_CLKDEN.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_CLKDEN.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1192,7 +1194,7 @@ Screening of code observations
 
 - Author: C. Kobel
 - Created: 31-Mar-2026
-- Source: [ZDGNSS_CODESCREENING.PCF](../../GPSUSER/PCF/ZDGNSS_CODESCREENING.PCF)
+- Source: [ZDGNSS_CODESCREENING.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_CODESCREENING.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1263,7 +1265,7 @@ Create final products and summaries of ZD processing
 
 - Author: C. Kobel
 - Created: 31-Mar-2026
-- Source: [ZDGNSS_FINISH.PCF](../../GPSUSER/PCF/ZDGNSS_FINISH.PCF)
+- Source: [ZDGNSS_FINISH.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_FINISH.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1317,7 +1319,7 @@ Create final products and summaries of ZD processing
 
 - Author: C. Kobel
 - Created: 31-Mar-2026
-- Source: [ZDGNSS_FINISH_FINAL.PCF](../../GPSUSER/PCF/ZDGNSS_FINISH_FINAL.PCF)
+- Source: [ZDGNSS_FINISH_FINAL.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_FINISH_FINAL.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1371,7 +1373,7 @@ Screening of phase observations
 
 - Author: C. Kobel
 - Created: 31-Mar-2026
-- Source: [ZDGNSS_PHASESCREENING.PCF](../../GPSUSER/PCF/ZDGNSS_PHASESCREENING.PCF)
+- Source: [ZDGNSS_PHASESCREENING.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_PHASESCREENING.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1441,7 +1443,7 @@ Variables:
 
 - Author: R. Dach
 - Created: 01-Aug-2020
-- Source: [ZDGNSS_PPP.PCF](../../GPSUSER/PCF/ZDGNSS_PPP.PCF)
+- Source: [ZDGNSS_PPP.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_PPP.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1544,7 +1546,7 @@ Perform inital step for ZD-processing
 
 - Author: C. Kobel
 - Created: 30-Mar-2026
-- Source: [ZDGNSS_PREPARATION.PCF](../../GPSUSER/PCF/ZDGNSS_PREPARATION.PCF)
+- Source: [ZDGNSS_PREPARATION.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_PREPARATION.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1613,7 +1615,7 @@ Preprocessing of ZD
 
 - Author: C. Kobel
 - Created: 31-Mar-2026
-- Source: [ZDGNSS_PREPROCESSING.PCF](../../GPSUSER/PCF/ZDGNSS_PREPROCESSING.PCF)
+- Source: [ZDGNSS_PREPROCESSING.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_PREPROCESSING.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1664,7 +1666,7 @@ Compute ZD-solution
 
 - Author: C. Kobel
 - Created: 18-Jun-2026
-- Source: [ZDGNSS_SOL_FA.PCF](../../GPSUSER/PCF/ZDGNSS_SOL_FA.PCF)
+- Source: [ZDGNSS_SOL_FA.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_SOL_FA.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1734,7 +1736,7 @@ Compute ZD-solution
 
 - Author: C. Kobel
 - Created: 18-Jun-2026
-- Source: [ZDGNSS_SOL_FINAL.PCF](../../GPSUSER/PCF/ZDGNSS_SOL_FINAL.PCF)
+- Source: [ZDGNSS_SOL_FINAL.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_SOL_FINAL.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1804,7 +1806,7 @@ Compute ZD-solution
 
 - Author: C. Kobel
 - Created: 18-Jun-2026
-- Source: [ZDGNSS_SOL_IA.PCF](../../GPSUSER/PCF/ZDGNSS_SOL_IA.PCF)
+- Source: [ZDGNSS_SOL_IA.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_SOL_IA.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1874,7 +1876,7 @@ Clock densification for zero-difference solution
 
 - Author: E. Calero
 - Created: 02-Jun-2022
-- Source: [ZDMCLKDEN.PCF](../../GPSUSER/PCF/ZDMCLKDEN.PCF)
+- Source: [ZDMCLKDEN.PCF](source_files/ck18y530-gpsuser/PCF/ZDMCLKDEN.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1926,7 +1928,7 @@ Final-like (3-day arcs) GNSS solution in
 
 - Author: E. Calero
 - Created: 10-May-2021
-- Source: [ZDMFIN3D.PCF](../../GPSUSER/PCF/ZDMFIN3D.PCF)
+- Source: [ZDMFIN3D.PCF](source_files/ck18y530-gpsuser/PCF/ZDMFIN3D.PCF)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1977,7 +1979,7 @@ Variables:
 - Bernese programs: `ADDNEQ2`, `GPSXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `GPSXTR.INP`
-- Source: [ADDNEQ2](../../GPSUSER/SCRIPT/ADDNEQ2)
+- Source: [ADDNEQ2](source_files/ck18y530-gpsuser/SCRIPT/ADDNEQ2)
 ### ADDNEQ2C
 
 - Purpose: Execute ADDNEQ2 according to the input argument and create datum file
@@ -1987,7 +1989,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRDINF`
   - Other keys: `$$bpe{PARAM1}`, `$YD+0`, `DIR_FIX`, `EXT_FIX`
-- Source: [ADDNEQ2C](../../GPSUSER/SCRIPT/ADDNEQ2C)
+- Source: [ADDNEQ2C](source_files/ck18y530-gpsuser/SCRIPT/ADDNEQ2C)
 ### ADDNEQOR
 
 - Package: `ADDNEQ2`
@@ -1995,7 +1997,7 @@ Variables:
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`
-- Source: [ADDNEQOR](../../GPSUSER/SCRIPT/ADDNEQOR)
+- Source: [ADDNEQOR](source_files/ck18y530-gpsuser/SCRIPT/ADDNEQOR)
 ### ADDNEQZD
 
 - Purpose: Execute ADDNEQ2 according to the input argument
@@ -2005,7 +2007,7 @@ Variables:
 - Read keys:
   - Other keys: `$$bpe{PARAM1}`, `$S+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `"DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ"`, `"DIR_NEQ$$bpe{PARAM1}_$S+0????.EXT_NEQ"`, `DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM1}_$S+0????.EXT_NEQ`
-- Source: [ADDNEQZD](../../GPSUSER/SCRIPT/ADDNEQZD)
+- Source: [ADDNEQZD](source_files/ck18y530-gpsuser/SCRIPT/ADDNEQZD)
 ### ADDNEQZM
 
 - Package: `ADDNEQZD`
@@ -2015,7 +2017,7 @@ Variables:
 - INP files: `ADDNEQ2.INP`
 - Read keys:
   - Other keys: `$$bpe{PARAM1}`, `$S+0`, `DIR_NEQ`, `EXT_NEQ`
-- Source: [ADDNEQZM](../../GPSUSER/SCRIPT/ADDNEQZM)
+- Source: [ADDNEQZM](source_files/ck18y530-gpsuser/SCRIPT/ADDNEQZM)
 ### AMB_EXTRACT
 
 - Purpose: Extract useful summary entries ("Tot:") from IARyyssss.PRC and write formatted table lines to PROCESSING_yyddd. ============================================================================
@@ -2025,7 +2027,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File reads: `DIR_OUT/IAR$YSS+0.PRC`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [AMB_EXTRACT](../../GPSUSER/SCRIPT/AMB_EXTRACT)
+- Source: [AMB_EXTRACT](source_files/ck18y530-gpsuser/SCRIPT/AMB_EXTRACT)
 ### AMBINI
 
 - Purpose: Execute SATMRK ti initialize already resolved ambiguities (if V_AMBINI = 'Y')
@@ -2034,7 +2036,7 @@ Variables:
 - INP files: `SATMRK.INP`
 - Read keys:
   - V_ variables: `V_AMBINI`
-- Source: [AMBINI](../../GPSUSER/SCRIPT/AMBINI)
+- Source: [AMBINI](source_files/ck18y530-gpsuser/SCRIPT/AMBINI)
 ### APPOSB
 
 - Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB empty.
@@ -2042,14 +2044,14 @@ Variables:
 - Read keys:
   - V_ variables: `V_ESTOSB`, `V_OSB`
   - Other keys: `$YSS+0`, `DIR_OSB`
-- Source: [APPOSB](../../GPSUSER/SCRIPT/APPOSB)
+- Source: [APPOSB](source_files/ck18y530-gpsuser/SCRIPT/APPOSB)
 ### ATTXTR
 
 - Purpose: Excecute ATTXTR Programs:  ATTXTR
 - Bernese programs: `ATTXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ATTXTR.INP`
-- Source: [ATTXTR](../../GPSUSER/SCRIPT/ATTXTR)
+- Source: [ATTXTR](source_files/ck18y530-gpsuser/SCRIPT/ATTXTR)
 ### BPE_CLN
 
 - Purpose: Clean BPE subdirectory
@@ -2057,14 +2059,14 @@ Variables:
 - Read keys:
   - Other keys: `$S-(30)`, `$YSS-(30)`, `DIR_BPELOG`, `DIR_BPEPRT`, `EXT_BPELOG`, `EXT_BPEPRT`, `TASKID`
 - File patterns: `$_)) } @delLst`, `$_`
-- Source: [BPE_CLN](../../GPSUSER/SCRIPT/BPE_CLN)
+- Source: [BPE_CLN](source_files/ck18y530-gpsuser/SCRIPT/BPE_CLN)
 ### CCRNXC
 
 - Purpose: Concatinate and combine clock RINEX files Programs:  CCRNXC
 - Bernese programs: `CCRNXC`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMCLKDEN.PCF
 - INP files: `CCRNXC.INP`
-- Source: [CCRNXC](../../GPSUSER/SCRIPT/CCRNXC)
+- Source: [CCRNXC](source_files/ck18y530-gpsuser/SCRIPT/CCRNXC)
 ### CCRNXCZD
 
 - Purpose: Concatinate and combine clock RINEX files according to the input arguments Programs:  CCRNXC
@@ -2073,7 +2075,7 @@ Variables:
 - INP files: `CCRNXC.INP`
 - Read keys:
   - Other keys: `$$bpe{PARAM1}`
-- Source: [CCRNXCZD](../../GPSUSER/SCRIPT/CCRNXCZD)
+- Source: [CCRNXCZD](source_files/ck18y530-gpsuser/SCRIPT/CCRNXCZD)
 ### CHECK_AR_SAT
 
 - Purpose: Check whether Ambiugity resolution failed for a satellite, deleting corresponding OUT-files and execute SATMRK. Can be tried in DRY-mode
@@ -2087,7 +2089,7 @@ Variables:
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `$f`, `DIR_OUT/../MSC/MSC_$YD+0/affected_satellite_AR`
 - File patterns: `DIR_OUT/*$S+0_NLB.OUT`
-- Source: [CHECK_AR_SAT](../../GPSUSER/SCRIPT/CHECK_AR_SAT)
+- Source: [CHECK_AR_SAT](source_files/ck18y530-gpsuser/SCRIPT/CHECK_AR_SAT)
 ### CHECK_GRD_FILES
 
 - Purpose: Check GRD files for existence and NaN values Checks: NTAL_$YD+0.GRD NTOL_$YD+0.GRD HYDL_$YD+0.GRD If a file is missing or contains "nan", a corresponding "no_*" file is created in MSC_yyddd.
@@ -2097,7 +2099,7 @@ Variables:
 - File reads: `DIR_GRD${file}`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`, `DIR_OUT../MSC/MSC_$YD+0/no_${type}`
 - File deletes: `DIR_OUT../MSC/MSC_$YD+0/no_${type} if (-e DIR_OUT../MSC/MSC_$YD+0/no_${type}`
-- Source: [CHECK_GRD_FILES](../../GPSUSER/SCRIPT/CHECK_GRD_FILES)
+- Source: [CHECK_GRD_FILES](source_files/ck18y530-gpsuser/SCRIPT/CHECK_GRD_FILES)
 ### CHECK_OBSENTRIES
 
 - Purpose: Prüft, ob zu allen Beobachtungsdateien im RAW-Verzeichnis (Muster: ????$ssss.$yyO) ein Eintrag im Stations-File existiert. Fehlt ein Eintrag, wird eine Meldung ins NUM_OBSFIL-Log geschrieben und die Datei gelöscht.
@@ -2108,7 +2110,7 @@ Variables:
 - File reads: `DIR_OUT../STA/V_CRDINF.EXT_CRD`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `DIR_OUT../RAW/$file")`
-- Source: [CHECK_OBSENTRIES](../../GPSUSER/SCRIPT/CHECK_OBSENTRIES)
+- Source: [CHECK_OBSENTRIES](source_files/ck18y530-gpsuser/SCRIPT/CHECK_OBSENTRIES)
 ### CHECK_SAT_CLOCKS
 
 - Purpose: Uses python-script to check completeness of satclk
@@ -2116,7 +2118,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_Z`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_ORB`, `DIR_OUT`, `EXT_CLK`
-- Source: [CHECK_SAT_CLOCKS](../../GPSUSER/SCRIPT/CHECK_SAT_CLOCKS)
+- Source: [CHECK_SAT_CLOCKS](source_files/ck18y530-gpsuser/SCRIPT/CHECK_SAT_CLOCKS)
 ### CHECK_SAT_GAPS
 
 - Purpose: Prüft im SMC-File (PHASE OBSERVATIONS), ob Satelliten Datenlücken aufweisen. Als Datenlücke gilt jedes Zeichen im Zeitstrahl, das nicht '*' ist. Für jeden Satelliten mit Datenlücke wird ein Eintrag ins Processing-Log geschrieben.
@@ -2127,7 +2129,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
 - File reads: `DIR_OUT/SMT${yy}$S+0.SMC`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [CHECK_SAT_GAPS](../../GPSUSER/SCRIPT/CHECK_SAT_GAPS)
+- Source: [CHECK_SAT_GAPS](source_files/ck18y530-gpsuser/SCRIPT/CHECK_SAT_GAPS)
 ### CHECK_SAT_RMS
 
 - Purpose: Prüft im ORBGEN_APR-File die RMS (M) jedes Satelliten. Wenn RMS > 5.0 m oder RMS ungültig (Sternchen / kaputte Zahl), wird SATMRK ausgeführt. Jeder betroffene Satellit wird ins Processing-Log geschrieben.
@@ -2138,7 +2140,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
 - File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [CHECK_SAT_RMS](../../GPSUSER/SCRIPT/CHECK_SAT_RMS)
+- Source: [CHECK_SAT_RMS](source_files/ck18y530-gpsuser/SCRIPT/CHECK_SAT_RMS)
 ### CHECK_VAPL_ENTRIES
 
 - Purpose: Checks OBS files (????$ssss.*) against station entries in STA/VAPL.ATL. If a station is missing in VAPL.ATL, all corresponding OBS files are removed.
@@ -2148,7 +2150,7 @@ Variables:
 - File reads: `DIR_OUT/../STA/VAPL.ATL`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/VAPL_entries`
 - File deletes: `DIR_OUT/../OBS/$file) { print $LOG " deleted: $file/n"`
-- Source: [CHECK_VAPL_ENTRIES](../../GPSUSER/SCRIPT/CHECK_VAPL_ENTRIES)
+- Source: [CHECK_VAPL_ENTRIES](source_files/ck18y530-gpsuser/SCRIPT/CHECK_VAPL_ENTRIES)
 ### CLEAN_FILES
 
 - Purpose: Delete specific files, only if V_CLEAN=Y.
@@ -2158,7 +2160,7 @@ Variables:
   - Other keys: `$D+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `$dir/$file`
-- Source: [CLEAN_FILES](../../GPSUSER/SCRIPT/CLEAN_FILES)
+- Source: [CLEAN_FILES](source_files/ck18y530-gpsuser/SCRIPT/CLEAN_FILES)
 ### CLEANUP
 
 - Purpose: Clean up campaign of LEOPOD processing: - Append first 100 lines of GNSS PRE file and clock RINEX file, as well as ERP file to PRC file - Delete GNSS clock RINEX file - Delete LEO RINEX file and smoothed LEO RINEX file - Delete LEO attitude file - Delete OUT/$A$YSS+0.CLK (CODSPP of PID 110) - Delete OUT/M$A?$YSS+0.RES (MAUPRP of PID 140) - Delete OUT/$A$YSS+0.RES (GPSEST of PID 150) - Compress OUT/KN$F$YSS+0.COV (GPSEST of PID 600) - Compress OUT/KN$F$YSS+0.CLK (GPSEST of PID 600) The Bernese clock file and the GNSS orbit and ERP files are not deleted since they might still be used if several LEOs are processed in parallel.
@@ -2169,7 +2171,7 @@ Variables:
   - Other keys: `$S+0`, `$W+0`, `$WD+0`, `$Y`, `$YSS+0`, `DIR_ATT`, `DIR_CLK`, `DIR_CZH`, `DIR_CZO`, `DIR_EDT`, `DIR_ELE`, `DIR_ERP`, `DIR_IEP`, `DIR_KIN`, `DIR_LST`, `DIR_OUT`, `DIR_PLT`, `DIR_PRE`, `DIR_PZH`, `DIR_PZO`
 - File deletes: `$f`
 - File patterns: `$_[0]`
-- Source: [CLEANUP](../../GPSUSER/SCRIPT/CLEANUP)
+- Source: [CLEANUP](source_files/ck18y530-gpsuser/SCRIPT/CLEANUP)
 ### CLKEST
 
 - Package: `HCLKEST`
@@ -2179,7 +2181,7 @@ Variables:
 - INP files: `CLKEST.INP`, `CLKEST.INP`, `CLKEST.INP`
 - Read keys:
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `PID`, `U`
-- Source: [CLKEST](../../GPSUSER/SCRIPT/CLKEST)
+- Source: [CLKEST](source_files/ck18y530-gpsuser/SCRIPT/CLKEST)
 ### CLKESTCB
 
 - Package: `CLKEST`
@@ -2190,7 +2192,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `DIR_CLB`, `EXT_CLB`, `U`
 - File patterns: `EXT_CLBUDIR_CLB??.${extClb}`
-- Source: [CLKESTCB](../../GPSUSER/SCRIPT/CLKESTCB)
+- Source: [CLKESTCB](source_files/ck18y530-gpsuser/SCRIPT/CLKESTCB)
 ### CMP_CLKDIFF
 
 - Purpose: Compare two CLK files and write difference statistics (incl. STD).
@@ -2198,7 +2200,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CLK`, `V_SOL`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_CLK`, `EXT_CLK`
-- Source: [CMP_CLKDIFF](../../GPSUSER/SCRIPT/CMP_CLKDIFF)
+- Source: [CMP_CLKDIFF](source_files/ck18y530-gpsuser/SCRIPT/CMP_CLKDIFF)
 ### CMP_COP
 
 - Purpose: Copy files required by CMPSOL.PCF
@@ -2206,7 +2208,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_SOL`
   - Other keys: `$Y+0`, `$YD+0`, `$YD-1`, `$YSS+0`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_PRE`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`, `EXT_PRE`, `EXT_STD`
-- Source: [CMP_COP](../../GPSUSER/SCRIPT/CMP_COP)
+- Source: [CMP_COP](source_files/ck18y530-gpsuser/SCRIPT/CMP_COP)
 ### CMP_ERPDIFF
 
 - Purpose: Compare two ERP files and write difference statistics.
@@ -2216,7 +2218,7 @@ Variables:
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_ERP`, `EXT_ERP`
 - File reads: `$file`
 - File writes: `DIR_ERP../MSC/ERPDIFF_V_ERP_V_SOL_$YD+0`
-- Source: [CMP_ERPDIFF](../../GPSUSER/SCRIPT/CMP_ERPDIFF)
+- Source: [CMP_ERPDIFF](source_files/ck18y530-gpsuser/SCRIPT/CMP_ERPDIFF)
 ### CMP_LAPACK
 
 - Purpose: Compare solution computed using LAPACK
@@ -2224,7 +2226,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_L`, `V_Z`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_CLK`, `DIR_ERP`, `DIR_OUT`, `EXT_CLK`, `EXT_ERP`
-- Source: [CMP_LAPACK](../../GPSUSER/SCRIPT/CMP_LAPACK)
+- Source: [CMP_LAPACK](source_files/ck18y530-gpsuser/SCRIPT/CMP_LAPACK)
 ### CMP_SUM
 
 - Purpose: Make summary of comparison
@@ -2232,7 +2234,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CLK`, `V_CRD`, `V_ERP`, `V_PRE`, `V_SOL`, `V_STD`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
-- Source: [CMP_SUM](../../GPSUSER/SCRIPT/CMP_SUM)
+- Source: [CMP_SUM](source_files/ck18y530-gpsuser/SCRIPT/CMP_SUM)
 ### CODSPP
 
 - Purpose: Execute CODSPP
@@ -2242,7 +2244,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `DIR_CZH`, `EXT_CZH`
 - File patterns: `DIR_CZH????$S+0.EXT_CZH`
-- Source: [CODSPP](../../GPSUSER/SCRIPT/CODSPP)
+- Source: [CODSPP](source_files/ck18y530-gpsuser/SCRIPT/CODSPP)
 ### CODSPP_P
 
 - Purpose: Parallel CODSPP run Programs:  CODSPP
@@ -2254,7 +2256,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y`, `DIR_OUT`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [CODSPP_P](../../GPSUSER/SCRIPT/CODSPP_P)
+- Source: [CODSPP_P](source_files/ck18y530-gpsuser/SCRIPT/CODSPP_P)
 ### CODSPPAP
 
 - Purpose: Prepare parallel CODSPP run Programs:
@@ -2265,7 +2267,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_OUT`, `DIR_RXC`, `DIR_SMC`, `DIR_SME`, `EXT_CZH`, `EXT_OUT`, `EXT_RXC`, `EXT_SMC`, `EXT_SME`
 - File deletes: `DIR_SMC${spp}$YSS+0.EXT_SMC`, `DIR_SME${spp}$YSS+0.EXT_SME`
 - File patterns: `"DIR_RXC${spp}$S+0???.EXT_RXC"`, `"DIR_OUT${spp}$S+0???.EXT_OUT") } else { unlink glob("DIR_RXC${spp}$+0????.EXT_RXC"`, `"DIR_OUT${spp}$+0????.EXT_OUT") }`, `"DIR_BPEPRTSPP$S+0???.BPE"`, `DIR_RXC${spp}$S+0???.EXT_RXC`, `DIR_OUT${spp}$S+0???.EXT_OUT`, `DIR_RXC${spp}$+0????.EXT_RXC`, `DIR_OUT${spp}$+0????.EXT_OUT`, `DIR_BPEPRTSPP$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`
-- Source: [CODSPPAP](../../GPSUSER/SCRIPT/CODSPPAP)
+- Source: [CODSPPAP](source_files/ck18y530-gpsuser/SCRIPT/CODSPPAP)
 ### CODSPPS
 
 - Purpose: Call CODSPP for LEO POD Programs:  CODSPP Authors:   D. Arnold
@@ -2275,7 +2277,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_A`, `V_SPEC`
   - Other keys: `$YSS+0`
-- Source: [CODSPPS](../../GPSUSER/SCRIPT/CODSPPS)
+- Source: [CODSPPS](source_files/ck18y530-gpsuser/SCRIPT/CODSPPS)
 ### CODXTR
 
 - Purpose: Execute CODXTR; delete, if wished, rejected binary observation files Programs:
@@ -2289,7 +2291,7 @@ Variables:
 - File reads: `$inpFil`
 - File writes: `DIR_DCB/OFF$Y$+0.EXT_DCB`
 - File deletes: `DIR_DELSPP$YSS+0.EXT_DEL`, `$_`, `DIR_DCB/OFF$Y$+0.EXT_DCB`
-- Source: [CODXTR](../../GPSUSER/SCRIPT/CODXTR)
+- Source: [CODXTR](source_files/ck18y530-gpsuser/SCRIPT/CODXTR)
 ### COMPAR2
 
 - Purpose: COMPAR2 Programs:  COMPAR2 Authors:   C. Kobel
@@ -2299,7 +2301,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRD`, `V_SOL`
   - Other keys: `$YD+0`, `$YSS+0`
-- Source: [COMPAR2](../../GPSUSER/SCRIPT/COMPAR2)
+- Source: [COMPAR2](source_files/ck18y530-gpsuser/SCRIPT/COMPAR2)
 ### COMPAR2_VS
 
 - Purpose: Execute COMPAR2 w/ input from -7,...,0 days
@@ -2309,7 +2311,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRD`
   - Other keys: `$YD+0`, `$YD-1`, `$YD-2`, `$YD-3`, `$YD-4`, `$YD-5`, `$YD-6`, `$YSS+0`, `$YSS-1`, `$YSS-2`, `$YSS-3`, `$YSS-4`, `$YSS-5`, `$YSS-6`
-- Source: [COMPAR2_VS](../../GPSUSER/SCRIPT/COMPAR2_VS)
+- Source: [COMPAR2_VS](source_files/ck18y530-gpsuser/SCRIPT/COMPAR2_VS)
 ### COMPAR2_ZD
 
 - Purpose: COMPAR2 Programs:  COMPAR2 Authors:   C. Kobel
@@ -2319,7 +2321,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_L`, `V_Z`
   - Other keys: `$YSS+0`
-- Source: [COMPAR2_ZD](../../GPSUSER/SCRIPT/COMPAR2_ZD)
+- Source: [COMPAR2_ZD](source_files/ck18y530-gpsuser/SCRIPT/COMPAR2_ZD)
 ### CONCATOUT_VS
 
 - Purpose: Concatenate VALIDATE_SOLUTION.PCF output files
@@ -2330,14 +2332,14 @@ Variables:
 - File reads: `$file`
 - File writes: `DIR_OUT/V_OUT$name`
 - File patterns: `DIR_OUT/V1_*.LST`, `DIR_OUT/V1_*.LIS`
-- Source: [CONCATOUT_VS](../../GPSUSER/SCRIPT/CONCATOUT_VS)
+- Source: [CONCATOUT_VS](source_files/ck18y530-gpsuser/SCRIPT/CONCATOUT_VS)
 ### COOVEL
 
 - Purpose: Programs:  COOVEL
 - Bernese programs: `COOVEL`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMFIN3D.PCF
 - INP files: `COOVEL.INP`
-- Source: [COOVEL](../../GPSUSER/SCRIPT/COOVEL)
+- Source: [COOVEL](source_files/ck18y530-gpsuser/SCRIPT/COOVEL)
 ### COPY_APR_AR_new
 
 - Package: `COPY_APR_AR`
@@ -2349,7 +2351,7 @@ Variables:
   - Other keys: `$YSS+0`, `DIR_STD`, `EXT_RPR`, `EXT_STD`
 - File reads: `DIR_STDV_APR_$YSS+0.EXT_STD`, `DIR_STDV_APR_$YSS+0.EXT_RPR`, `DIR_STDV_APR_APR_$YSS+0.EXT_STD`, `DIR_STDV_APR_APR_$YSS+0.EXT_RPR`
 - File writes: `DIR_STDV_APR_APR_$YSS+0.EXT_STD`, `DIR_STDV_APR_APR_$YSS+0.EXT_RPR`, `DIR_STDV_APR_$YSS+0.EXT_STD`, `DIR_STDV_APR_$YSS+0.EXT_RPR`
-- Source: [COPY_APR_AR_new](../../GPSUSER/SCRIPT/COPY_APR_AR_new)
+- Source: [COPY_APR_AR_new](source_files/ck18y530-gpsuser/SCRIPT/COPY_APR_AR_new)
 ### COPYSOL_VS
 
 - Purpose: Copy solution files from V_SOLDIR
@@ -2357,7 +2359,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRD`, `V_PRE`, `V_REFCRD`, `V_SATCRX`, `V_SOLDIR`, `V_STD`
   - Other keys: `$Y+0`, `$YD+0`, `$YD-1`, `$YD-2`, `$YSS+0`, `$YSS-1`, `$YSS-2`, `DIR_CRD`, `DIR_CRX`, `DIR_ORB`, `EXT_CRD`, `EXT_CRX`, `EXT_ERP`, `EXT_PRE`, `EXT_PSD`, `EXT_STD`
-- Source: [COPYSOL_VS](../../GPSUSER/SCRIPT/COPYSOL_VS)
+- Source: [COPYSOL_VS](source_files/ck18y530-gpsuser/SCRIPT/COPYSOL_VS)
 ### DEL_CLKD
 
 - Purpose: Delete ZD-related result files, only if V_DEL=Y.
@@ -2367,7 +2369,7 @@ Variables:
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File deletes: `$file`
 - File patterns: `DIR_OUT${pattern}`, `DIR_OUT../ATM/${pattern}`, `DIR_OUT../OBS/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../BPE/*CLKDEN*${tag}*`
-- Source: [DEL_CLKD](../../GPSUSER/SCRIPT/DEL_CLKD)
+- Source: [DEL_CLKD](source_files/ck18y530-gpsuser/SCRIPT/DEL_CLKD)
 ### DEL_CMP
 
 - Purpose: Delete CMP- and related result files, only if V_DEL=Y.
@@ -2377,7 +2379,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File deletes: `$file`
 - File patterns: `DIR_OUT${pattern}`, `DIR_OUT../MSC/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../BPE/*CMPSOL*${tag}*`
-- Source: [DEL_CMP](../../GPSUSER/SCRIPT/DEL_CMP)
+- Source: [DEL_CMP](source_files/ck18y530-gpsuser/SCRIPT/DEL_CMP)
 ### DEL_LOBS
 
 - Purpose: Delete observation files listed in CODXTR output
@@ -2387,7 +2389,7 @@ Variables:
 - File reads: `DIR_OUTCODXTR.${yy}_$S+0`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `$file)) { $removed_count++`
-- Source: [DEL_LOBS](../../GPSUSER/SCRIPT/DEL_LOBS)
+- Source: [DEL_LOBS](source_files/ck18y530-gpsuser/SCRIPT/DEL_LOBS)
 ### DEL_ZD3D
 
 - Purpose: Delete ZD-related result files, only if V_DEL=Y.
@@ -2397,12 +2399,12 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_OUT`
 - File deletes: `$file`
 - File patterns: `DIR_OUT${pattern}`, `DIR_OUT../STA/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../SOL/${pattern}`, `DIR_OUT../BPE/*ZD3D*${tag}*`
-- Source: [DEL_ZD3D](../../GPSUSER/SCRIPT/DEL_ZD3D)
+- Source: [DEL_ZD3D](source_files/ck18y530-gpsuser/SCRIPT/DEL_ZD3D)
 ### DUMMY
 
 - Purpose: Do nothing Programs:
 - Used in PCFs: LEOPODR.PCF
-- Source: [DUMMY](../../GPSUSER/SCRIPT/DUMMY)
+- Source: [DUMMY](source_files/ck18y530-gpsuser/SCRIPT/DUMMY)
 ### FILEST_P
 
 - Purpose: Station-wise zero-difference data screening: 1. GPSEST to create a residual files 2. RESRMS to screen residual files 3. RESCHK To detect bad stations 4. SATMRK to mark outliers
@@ -2415,7 +2417,7 @@ Variables:
   - Other keys: `$YD+0`, `DAYYEAR`, `DIR_CZH`, `DIR_CZO`, `DIR_DEL`, `DIR_ION`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_RES`, `EXT_CZH`, `EXT_CZO`, `EXT_DEL`, `EXT_ION`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_RES`, `PCFFIL`, `SESSION`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/GPSEST_ERROR.log`
 - File patterns: `"DIR_OUTPARAM1DAYYEAR?.*"`, `DIR_OUTPARAM1DAYYEAR?.*`
-- Source: [FILEST_P](../../GPSUSER/SCRIPT/FILEST_P)
+- Source: [FILEST_P](source_files/ck18y530-gpsuser/SCRIPT/FILEST_P)
 ### FILESTAP
 
 - Purpose: Station-wise zero-difference data screening Programs:
@@ -2425,7 +2427,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`
   - Other keys: `$+0`, `$S+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_EDT`, `DIR_LST`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `DIR_SUM`, `EXT_CZH`, `EXT_EDT`, `EXT_LST`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`, `EXT_SUM`
 - File patterns: `"DIR_OUT????$+0"."[12345S].EXT_OUT"`, `"DIR_RES????$+0"."[12345].EXT_RES"`, `"DIR_EDT????$+0"."[12345].EXT_EDT"`, `"DIR_LST????$+0"."[12345].EXT_LST"`, `"DIR_SUM????$+0"."[12345].EXT_SUM"`, `DIR_OUT????$+0"."[12345S].EXT_OUT`, `DIR_RES????$+0"."[12345].EXT_RES`, `DIR_EDT????$+0"."[12345].EXT_EDT`, `DIR_LST????$+0"."[12345].EXT_LST`, `DIR_SUM????$+0"."[12345].EXT_SUM`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZH????$S+0.EXT_CZH`
-- Source: [FILESTAP](../../GPSUSER/SCRIPT/FILESTAP)
+- Source: [FILESTAP](source_files/ck18y530-gpsuser/SCRIPT/FILESTAP)
 ### FIX_CHK
 
 - Purpose: Execute HELMR1 Remark  :  This script permits automatic verification of a given set of fiducial stations. In case of discrepancies, a modified FIX file can be output by HELMR1 and thus used to directly repeat the last ADDNEQ2 run, finally considering a reduced set of fiducial stations accepted for consistent datum definition.
@@ -2436,7 +2438,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`
   - Other keys: `$$bpe{PARAM4}`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_FIX`, `DIR_OUT`, `EXT_FIX`, `EXT_OUT`, `PCFFIL`, `STARTCOUNT`
 - File deletes: `DIR_FIXBAD$YD+0.EXT_FIX) if PARAM2 ne ""`, `DIR_FIXBAD$YD+0.EXT_FIX) if PARAM3 ne ""`
-- Source: [FIX_CHK](../../GPSUSER/SCRIPT/FIX_CHK)
+- Source: [FIX_CHK](source_files/ck18y530-gpsuser/SCRIPT/FIX_CHK)
 ### FZDM_CH1
 
 - Package: `RCLK_CHK`
@@ -2448,7 +2450,7 @@ Variables:
   - PARAM parameters: `PARAM3`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YD+0`, `DIR_DEL`, `DIR_OUT`, `EXT_DEL`, `STARTCOUNT`, `U`
 - File deletes: `DIR_DEL$YD+0.EXT_DEL`, `$_`
-- Source: [FZDM_CH1](../../GPSUSER/SCRIPT/FZDM_CH1)
+- Source: [FZDM_CH1](source_files/ck18y530-gpsuser/SCRIPT/FZDM_CH1)
 ### FZDM_CH2
 
 - Package: `FZDM_CHK`
@@ -2462,7 +2464,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YD+0`, `DIR_DEL`, `DIR_OUT`, `EXT_DEL`, `STARTCOUNT`, `U`
 - File deletes: `DIR_DEL$YD+0.EXT_DEL`, `$_`
 - File patterns: `DIR_OUT../MSC/V_H$YD+0_????.FLG`
-- Source: [FZDM_CH2](../../GPSUSER/SCRIPT/FZDM_CH2)
+- Source: [FZDM_CH2](source_files/ck18y530-gpsuser/SCRIPT/FZDM_CH2)
 ### FZDM_COP
 
 - Purpose: Copy files requiered by FZDMGNSS.PCF
@@ -2474,7 +2476,7 @@ Variables:
   - Other keys: `$+0`, `$M+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_GRD`, `DIR_OSB`, `DIR_PRE`, `EXT_CLK`, `EXT_ERP`, `EXT_FIX`, `EXT_GRD`, `EXT_OSB`, `EXT_PRE`
 - File reads: `PTH_SATCRUX/SAT_$Y+0.EXT_SATCRUX`, `DIR_OSBCODE.EXT_OSB`, `$ENV{PATH_DCB}$ENV{CAMP_DCB}/ORB/A1R_$M+0.OSB`, `$ENV{REF}/REFCLK.FIX`, `$ENV{AIUB}/SKL/V_BIAINF.EXT_SINEXIN`, `DIR_ERPBULLET_A.ERP`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/V_A_$YD+0.PRE`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/V_A_$YD+0.CLK`, `$ENV{PATH_SAV}$ENV{CAMP_SAVMGEX}/$Y+0/ORB/RM_$YD+0.PRE.Z`, `$ENV{PATH_SAV}$ENV{CAMP_SAVMGEX}/$Y+0/ORB/T3_$YD+0.CLK.Z`
 - File writes: `PTH_SATCRUX/CLK$YSS+0.EXT_SATCRUX`, `DIR_OSBAPR$YSS+0.EXT_OSB`, `DIR_FIXREFCLK.EXT_FIX`, `PTH_SINEXINV_BIAINF.EXT_SINEXIN`, `DIR_ERPTMP_$YSS+0.EXT_ERP`, `DIR_PREV_A_$YSS+0.EXT_PRE`, `DIR_CLKV_A_$YSS+0.EXT_CLK`, `DIR_PREV_A_$YSS+0.EXT_PRE.Z`, `DIR_CLKV_A_$YSS+0.EXT_CLK.Z`
-- Source: [FZDM_COP](../../GPSUSER/SCRIPT/FZDM_COP)
+- Source: [FZDM_COP](source_files/ck18y530-gpsuser/SCRIPT/FZDM_COP)
 ### FZDM_RNX
 
 - Purpose: Copy observation files for FZDMGNSS.PCF
@@ -2484,7 +2486,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$Y`, `DIR_PZH`, `DIR_RXO`, `EXT_PZH`
 - File deletes: `DIR_RXO/????$S+0.*`, `unlink(glob("DIR_RXO/../*/AIRA???0.??O"`
 - File patterns: `"DIR_RXO/../*/MAO0???0.??O"`, `"DIR_RXO/../*/AMU2???0.??O"`, `"DIR_RXO/../*/CUT0???0.??O"`, `"DIR_RXO/../*/MAYG???0.??O"`, `"DIR_RXO/../*/NYA2???0.??O"`, `DIR_RXO/../*/AIRA???0.??O`, `DIR_RXO/../*/MAO0???0.??O`, `DIR_RXO/../*/AMU2???0.??O`, `DIR_RXO/../*/CUT0???0.??O`, `DIR_RXO/../*/MAYG???0.??O`, `DIR_RXO/../*/NYA2???0.??O`
-- Source: [FZDM_RNX](../../GPSUSER/SCRIPT/FZDM_RNX)
+- Source: [FZDM_RNX](source_files/ck18y530-gpsuser/SCRIPT/FZDM_RNX)
 ### FZDM_UPD
 
 - Purpose: Update files after first FA run of FZDMGNSS.PCF
@@ -2494,7 +2496,7 @@ Variables:
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_RPR`, `DIR_RXC`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`, `EXT_RPR`, `EXT_RXC`, `EXT_STD`
 - File reads: `DIR_CLK_$YSS+0.EXT_CLK`, `DIR_ERP_$YSS+0.EXT_ERP`, `EXT_RXC_$YSS+0.${extErp}`, `EXT_CRD_$YSS+0.${extRpr}`, `DIR_RPR_$YSS+0.EXT_RPR`, `DIR_STD_$YSS+0.EXT_STD`, `DIR_RPRS$YSS+0.EXT_RPR`, `DIR_STDS$YSS+0.EXT_STD`
 - File writes: `DIR_CLKDIR_CRD_$YSS+0.EXT_CLK`, `DIR_ERPDIR_CRD_$YSS+0.EXT_ERP`, `EXT_RXCDIR_CRD_$YSS+0.${extErp}`, `EXT_CRDDIR_CRD_$YSS+0.${extRpr}`, `DIR_RPRDIR_CRD_$YSS+0.EXT_RPR`, `DIR_STDDIR_CRD_$YSS+0.EXT_STD`
-- Source: [FZDM_UPD](../../GPSUSER/SCRIPT/FZDM_UPD)
+- Source: [FZDM_UPD](source_files/ck18y530-gpsuser/SCRIPT/FZDM_UPD)
 ### GPSEST
 
 - Purpose: Execute GPSEST
@@ -2505,7 +2507,7 @@ Variables:
   - V_ variables: `V_COBS`, `V_IGNERR`, `V_OFFS`, `V_POBS`
   - Other keys: `DIR_CZH`, `DIR_PZH`, `EXT_CZH`, `EXT_PZH`
 - File patterns: `DIR_PZH/V_POBS.EXT_PZH`, `DIR_CZH/V_COBS.EXT_CZH`
-- Source: [GPSEST](../../GPSUSER/SCRIPT/GPSEST)
+- Source: [GPSEST](source_files/ck18y530-gpsuser/SCRIPT/GPSEST)
 ### GPSESTA
 
 - Purpose: Execute GPSEST, switch on NL AR if V_AR = 'Y'
@@ -2516,7 +2518,7 @@ Variables:
   - V_ variables: `V_AR`, `V_IGNERR`, `V_INL1L2`, `V_LEO`, `V_OFFS`, `V_POBS`
   - Other keys: `$S+0`, `DIR_PZH`, `EXT_PZH`
 - File patterns: `DIR_PZH/V_POBS.EXT_PZH`
-- Source: [GPSESTA](../../GPSUSER/SCRIPT/GPSESTA)
+- Source: [GPSESTA](source_files/ck18y530-gpsuser/SCRIPT/GPSESTA)
 ### GPSESTA2
 
 - Purpose: Execute GPSEST, introoducing L1 and L2 integers depending on V_AR and V_INL1L2.
@@ -2527,7 +2529,7 @@ Variables:
   - V_ variables: `V_AR`, `V_IGNERR`, `V_INL1L2`, `V_LEO`, `V_OFFS`, `V_POBS`
   - Other keys: `$S+0`, `DIR_PZH`, `EXT_PZH`
 - File patterns: `DIR_PZH/V_POBS.EXT_PZH`
-- Source: [GPSESTA2](../../GPSUSER/SCRIPT/GPSESTA2)
+- Source: [GPSESTA2](source_files/ck18y530-gpsuser/SCRIPT/GPSESTA2)
 ### GPSESTRB
 
 - Purpose: Execute GPSEST, estmate receiver code biases if V_ESTOSB non-empty.
@@ -2537,7 +2539,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_ESTOSB`, `V_IGNERR`, `V_OFFS`, `V_OSB`
   - Other keys: `DIR_OSB`
-- Source: [GPSESTRB](../../GPSUSER/SCRIPT/GPSESTRB)
+- Source: [GPSESTRB](source_files/ck18y530-gpsuser/SCRIPT/GPSESTRB)
 ### GPSXTR
 
 - Purpose: Generate summary of the paralel GPSEST runs Programs:  GPSXTR
@@ -2547,7 +2549,7 @@ Variables:
 - Read keys:
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `DIR_SUM`, `EXT_SUM`, `PID`
 - File deletes: `DIR_SUMESTX$YSS+0.EXT_SUM`, `DIR_SUMESTC$YSS+0.EXT_SUM`, `DIR_SUMESTW$YSS+0.EXT_SUM`
-- Source: [GPSXTR](../../GPSUSER/SCRIPT/GPSXTR)
+- Source: [GPSXTR](source_files/ck18y530-gpsuser/SCRIPT/GPSXTR)
 ### GPSXTR_EXTRACT
 
 - Purpose: Extract Rms, #fil, #obs, #par from LARGEXTRyyssss.SUM Write them to PROCESSING_yyddd in table format. ============================================================================
@@ -2557,7 +2559,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File reads: `DIR_OUT/V_ZV_LXTR$YSS+0.SUM`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [GPSXTR_EXTRACT](../../GPSUSER/SCRIPT/GPSXTR_EXTRACT)
+- Source: [GPSXTR_EXTRACT](source_files/ck18y530-gpsuser/SCRIPT/GPSXTR_EXTRACT)
 ### GPSXTRL
 
 - Package: `GPSXTR`
@@ -2565,7 +2567,7 @@ Variables:
 - Bernese programs: `GPSXTR`
 - Used in PCFs: LEOPODR.PCF
 - INP files: `GPSXTR.INP`
-- Source: [GPSXTRL](../../GPSUSER/SCRIPT/GPSXTRL)
+- Source: [GPSXTRL](source_files/ck18y530-gpsuser/SCRIPT/GPSXTRL)
 ### HELMR1
 
 - Purpose: HELMR1 Programs:  HELMR1 Authors:   C. Kobel
@@ -2575,7 +2577,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRD`, `V_SOL`
   - Other keys: `$YD+0`, `$YSS+0`
-- Source: [HELMR1](../../GPSUSER/SCRIPT/HELMR1)
+- Source: [HELMR1](source_files/ck18y530-gpsuser/SCRIPT/HELMR1)
 ### HELMR1_VS
 
 - Purpose: HELMR1 Programs:  HELMR1 Authors:   C. Kobel
@@ -2585,7 +2587,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRD`
   - Other keys: `DIR_CRD`, `EXT_CRD`
-- Source: [HELMR1_VS](../../GPSUSER/SCRIPT/HELMR1_VS)
+- Source: [HELMR1_VS](source_files/ck18y530-gpsuser/SCRIPT/HELMR1_VS)
 ### IAR_STA
 
 - Purpose: Generate statistics of AR based on IAR_PRC script Programs:  GPSXTR
@@ -2595,7 +2597,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_BIA`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PZH`, `DIR_SUM`, `EXT_BIA`, `EXT_CRD`, `EXT_OSB`, `EXT_OUT`, `EXT_PZH`, `EXT_SUM`, `STARTCOUNT`
 - File deletes: `DIR_SUMIAR$YSS+0.PRC) if $iarRun==0`, `DIR_SUMFIX$YSS+0.EXT_SUM`
-- Source: [IAR_STA](../../GPSUSER/SCRIPT/IAR_STA)
+- Source: [IAR_STA](source_files/ck18y530-gpsuser/SCRIPT/IAR_STA)
 ### INIT_BRD
 
 - Purpose: Initialization broadcast PRE and CLK files Programs:
@@ -2607,7 +2609,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_CLK`, `DIR_PRE`, `DIR_RXN`, `EXT_CLK`, `EXT_PRE`, `EXT_RXN`
 - File reads: `$file`, `${file}.gz`, `${file}.Z`
 - File writes: `$loc`, `${loc}.gz`, `${loc}.Z`
-- Source: [INIT_BRD](../../GPSUSER/SCRIPT/INIT_BRD)
+- Source: [INIT_BRD](source_files/ck18y530-gpsuser/SCRIPT/INIT_BRD)
 ### INIT_HOI
 
 - Purpose: Copy best ionosphere product for HOI correction ============================================================================
@@ -2615,7 +2617,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_USEHOI`
   - Other keys: `$Y+0`, `$YD+0`, `DIR_ION`, `EXT_ION`
-- Source: [INIT_HOI](../../GPSUSER/SCRIPT/INIT_HOI)
+- Source: [INIT_HOI](source_files/ck18y530-gpsuser/SCRIPT/INIT_HOI)
 ### INIT_VMF
 
 - Purpose: Initialization concerning VMF setup Programs:
@@ -2623,7 +2625,7 @@ Variables:
 - Read keys:
   - Other keys: `$+0`, `$Y+0`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`, `PCFFIL`, `TASKID`
 - File deletes: `DIR_GRDVMF$YD+0.EXT_GRD`, `DIR_OUT../MSC/TRP_$YD+0.FLG`, `DIR_OUT../MSC/TRP_$YD+0.FLG) } } if (PCFFIL eq "CLKFINAL") {  = "$CDIR_FIN/GRD/VMF$YD+0.EXT_GRD"`, `DIR_OUT../MSC/TRP_$YD+0.FLG) } } msg2key("BPE","INIT_VMF: PCFFIL TASKID$YD+00: Used VMF info different from latest VMF info.") if $numDif>0`
-- Source: [INIT_VMF](../../GPSUSER/SCRIPT/INIT_VMF)
+- Source: [INIT_VMF](source_files/ck18y530-gpsuser/SCRIPT/INIT_VMF)
 ### ITEPHASE
 
 - Purpose: Progressively modifies the residuals threshold for phase & code observations screening Programs:
@@ -2634,7 +2636,7 @@ Variables:
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_EDT`, `EXT_EDT`, `STARTCOUNT`, `U`
 - File deletes: `@resFil`
 - File patterns: `DIR_EDT../MSC/V_H$YD+0_????.FLG`
-- Source: [ITEPHASE](../../GPSUSER/SCRIPT/ITEPHASE)
+- Source: [ITEPHASE](source_files/ck18y530-gpsuser/SCRIPT/ITEPHASE)
 ### ITEPRECL
 
 - Purpose: This script manages the iterative process in charge of the pre-elimination of the clocks Programs:
@@ -2644,7 +2646,7 @@ Variables:
   - Other keys: `$YD+0`, `DIR_OUT`, `STARTCOUNT`
 - File deletes: `DIR_OUT/../MSC/MSC_$YD+0/TIMOVER`
 - File patterns: `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`
-- Source: [ITEPRECL](../../GPSUSER/SCRIPT/ITEPRECL)
+- Source: [ITEPRECL](source_files/ck18y530-gpsuser/SCRIPT/ITEPRECL)
 ### ITER_AR
 
 - Purpose: Iterations for AR Programs:
@@ -2653,7 +2655,7 @@ Variables:
   - V_ variables: `V_NITEAR`
   - PARAM parameters: `PARAM2`
   - Other keys: `$YD+0`, `DIR_OUT`, `STARTCOUNT`
-- Source: [ITER_AR](../../GPSUSER/SCRIPT/ITER_AR)
+- Source: [ITER_AR](source_files/ck18y530-gpsuser/SCRIPT/ITER_AR)
 ### JUMP_CP1
 
 - Purpose: Conduct logical flow through the PCF: screen or not observations Programs:
@@ -2662,7 +2664,7 @@ Variables:
   - V_ variables: `V_REPINI`
   - PARAM parameters: `PARAM2`
   - Other keys: `DIR_OUT`
-- Source: [JUMP_CP1](../../GPSUSER/SCRIPT/JUMP_CP1)
+- Source: [JUMP_CP1](source_files/ck18y530-gpsuser/SCRIPT/JUMP_CP1)
 ### JUMP_CP2
 
 - Purpose: Conduct logical flow through the PCF: screen or not observations Programs:
@@ -2671,19 +2673,19 @@ Variables:
   - V_ variables: `V_REPINI`
   - PARAM parameters: `PARAM2`
   - Other keys: `DIR_OUT`
-- Source: [JUMP_CP2](../../GPSUSER/SCRIPT/JUMP_CP2)
+- Source: [JUMP_CP2](source_files/ck18y530-gpsuser/SCRIPT/JUMP_CP2)
 ### JumpLogger.pm
 
 - Package: `JumpLogger`
 - File writes: `$ENV{HOME}/perl/JUMP.log`
-- Source: [JumpLogger.pm](../../GPSUSER/SCRIPT/JumpLogger.pm)
+- Source: [JumpLogger.pm](source_files/ck18y530-gpsuser/SCRIPT/JumpLogger.pm)
 ### KINPRE
 
 - Purpose: Execute KINPRE
 - Bernese programs: `KINPRE`
 - Used in PCFs: LEOPODR.PCF
 - INP files: `KINPRE.INP`
-- Source: [KINPRE](../../GPSUSER/SCRIPT/KINPRE)
+- Source: [KINPRE](source_files/ck18y530-gpsuser/SCRIPT/KINPRE)
 ### LEO_COP
 
 - Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF
@@ -2692,7 +2694,7 @@ Variables:
   - V_ variables: `V_ATLINF`, `V_B`, `V_BLQINF`, `V_CLK`, `V_CLKDIR`, `V_CRDINF`, `V_ORBDIR`, `V_OSB`, `V_REFDIR`, `V_STAINF`
   - Other keys: `$+0`, `$Y`, `$YD+0`, `$YSS+0`, `DIR_ABB`, `DIR_ATL`, `DIR_BLQ`, `DIR_CRD`, `DIR_ERP`, `DIR_OSB`, `DIR_OUT`, `DIR_RXC`, `DIR_STA`, `DIR_STD`, `EXT_ABB`, `EXT_ATL`, `EXT_BLQ`, `EXT_CRD`, `EXT_ERP`, `EXT_OSB`
 - File patterns: `V_ORBDIR/V_B$Y$+0.EXT_STD*`, `V_ORBDIR/V_B$Y$+00.EXT_STD*`, `V_ORBDIR/V_B$Y$+0.ERP*`, `V_ORBDIR/V_B$Y$+00.ERP*`, `V_CLKDIR/V_CLK$Y$+0.EXT_RXC*`, `V_CLKDIR/V_CLK$Y$+00.EXT_RXC*`, `V_ORBDIR/V_OSB.EXT_OSB`, `V_ORBDIR/V_OSB$Y$+0.EXT_OSB*`, `V_ORBDIR/V_OSB$Y$+00.EXT_OSB*`
-- Source: [LEO_COP](../../GPSUSER/SCRIPT/LEO_COP)
+- Source: [LEO_COP](source_files/ck18y530-gpsuser/SCRIPT/LEO_COP)
 ### LEO_DEL
 
 - Purpose: Clean up campaign of LEOPOD processing, default for -5 days
@@ -2712,7 +2714,7 @@ Variables:
     if ( ${del} ne `, `$S+0`, `$S-5`, `$W+0`, `$W-5`, `$WD+0`, `$WD-5`, `$YSS+0`, `$YSS-5`, `DIR_ATT`, `DIR_CLK`, `DIR_CZH`, `DIR_CZO`, `DIR_EDT`, `DIR_ELE`, `DIR_ERP`, `DIR_IEP`, `DIR_KIN`
 - File deletes: `glob "DIR_OUT*.J_lk"`
 - File patterns: `"DIR_RXOV_LEO$S-5.EXT_RXO"`, `"DIR_PZHV_LEO$S-5.EXT_PZH"`, `"DIR_PZOV_LEO$S-5.EXT_PZO"`, `"DIR_CZHV_LEO$S-5.EXT_CZH"`, `"DIR_CZOV_LEO$S-5.EXT_CZO"`, `"DIR_PZHV_LEO$S-5.EXT_PZH_V_F"`, `"DIR_PZOV_LEO$S-5.EXT_PZO_V_F"`, `"DIR_CZHV_LEO$S-5.EXT_CZH_V_F"`, `"DIR_CZOV_LEO$S-5.EXT_CZO_V_F"`, `"DIR_IEPV_B$W-57.EXT_IEP"`, `"DIR_ERPV_B$YSS-5.EXT_ERP"`, `"DIR_CLKV_B$YSS-5.EXT_CLK"` and 84 more
-- Source: [LEO_DEL](../../GPSUSER/SCRIPT/LEO_DEL)
+- Source: [LEO_DEL](source_files/ck18y530-gpsuser/SCRIPT/LEO_DEL)
 ### LEO_RNX
 
 - Purpose: Copy the observation files for LEOPOD.PCF
@@ -2720,7 +2722,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_A`, `V_ATLINF`, `V_ATT`, `V_ATTDIR`, `V_B`, `V_BLQINF`, `V_CLK`, `V_CRDINF`, `V_DEL`, `V_F`, `V_LEO`, `V_LEODIR`, `V_MINEL`, `V_OFFS`, `V_PCV`, `V_PCVINF`, `V_REFDIR`, `V_RESULT`, `V_RNX3`, `V_RNXDIR`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$Y+0`, `DIR_ATT`, `DIR_RXO`, `EXT_ATT`, `EXT_RXO`
-- Source: [LEO_RNX](../../GPSUSER/SCRIPT/LEO_RNX)
+- Source: [LEO_RNX](source_files/ck18y530-gpsuser/SCRIPT/LEO_RNX)
 ### LEO_SAV
 
 - Purpose: Store LEOPOD BPE processing result files in the archive
@@ -2728,7 +2730,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_A`, `V_F`, `V_LEO`, `V_RESULT`, `V_SAV`
   - Other keys: `$S+0`, `$Y+0`, `$YSS+0`, `DIR_ELE`, `DIR_KIN`, `DIR_OUT`, `DIR_PRE`, `DIR_RES`, `DIR_RPR`, `DIR_RXC`, `DIR_STD`, `EXT_ELE`, `EXT_KIN`, `EXT_OUT`, `EXT_PRE`, `EXT_RES`, `EXT_RPR`, `EXT_RXC`, `EXT_STD`
-- Source: [LEO_SAV](../../GPSUSER/SCRIPT/LEO_SAV)
+- Source: [LEO_SAV](source_files/ck18y530-gpsuser/SCRIPT/LEO_SAV)
 ### LEO_SUM
 
 - Purpose: Create LEOPOD BPE processing summary file
@@ -2738,7 +2740,7 @@ Variables:
   - Other keys: `$S+0`, `$Y`, `$Y+0`, `$YSS+0`, `DIR_ATL`, `DIR_ATT`, `DIR_BLQ`, `DIR_CRD`, `DIR_LST`, `DIR_OUT`, `DIR_PLT`, `DIR_RXO`, `DIR_STA`, `DIR_SUM`, `EXT_ATL`, `EXT_ATT`, `EXT_BLQ`, `EXT_CRD`, `EXT_CRX`, `EXT_LST`
 - File deletes: `DIR_OUTV_LEOV_F$YSS+0.PRC`, `${sumFil}`
 - File patterns: `DIR_SUMV_A[1-9]$YSS+0.EXT_SUM`
-- Source: [LEO_SUM](../../GPSUSER/SCRIPT/LEO_SUM)
+- Source: [LEO_SUM](source_files/ck18y530-gpsuser/SCRIPT/LEO_SUM)
 ### LEOATT
 
 - Purpose: Execute LEOATT
@@ -2748,7 +2750,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_ATT`
   - Other keys: `DIR_ATT`
-- Source: [LEOATT](../../GPSUSER/SCRIPT/LEOATT)
+- Source: [LEOATT](source_files/ck18y530-gpsuser/SCRIPT/LEOATT)
 ### LEOITER
 
 - Purpose: Iterate the red.-dyn. POD if V_ITRD is set.
@@ -2759,7 +2761,7 @@ Variables:
   - Other keys: `$YSS+0`, `DIR_OUT`, `DIR_STD`
 - File deletes: `$f)) { print "OK/n"`
 - File patterns: `$fil`
-- Source: [LEOITER](../../GPSUSER/SCRIPT/LEOITER)
+- Source: [LEOITER](source_files/ck18y530-gpsuser/SCRIPT/LEOITER)
 ### MANMRK
 
 - Purpose: Mark observations for satellites with manoeuvres
@@ -2771,7 +2773,7 @@ Variables:
   - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
 - File reads: `DIR_STAV_SATCRX.EXT_CRX`, `$ENV{CONFIG}/V_SATCRX.EXT_CRX`
 - File writes: `DIR_STAV_SATCRX.EXT_CRX`
-- Source: [MANMRK](../../GPSUSER/SCRIPT/MANMRK)
+- Source: [MANMRK](source_files/ck18y530-gpsuser/SCRIPT/MANMRK)
 ### MAUPRP_P
 
 - Purpose: Parallel run for automatic cleaning of double difference phase observations Programs:  MAUPRP
@@ -2783,7 +2785,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [MAUPRP_P](../../GPSUSER/SCRIPT/MAUPRP_P)
+- Source: [MAUPRP_P](source_files/ck18y530-gpsuser/SCRIPT/MAUPRP_P)
 ### MAUPRPAP
 
 - Purpose: Prepare parallel MAUPRP run Programs:
@@ -2793,7 +2795,7 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_OUT`, `DIR_PSH`, `DIR_PZH`, `EXT_OUT`, `EXT_PSH`, `EXT_PZH`, `PCFFIL`
 - File patterns: `"DIR_OUT${mpr}$YSS+0??.EXT_OUT") } else { unlink glob("DIR_OUT${mpr}$+0????.EXT_OUT") }`, `"DIR_BPEPRTMPR$S+0???.BPE"`, `DIR_OUT${mpr}$YSS+0??.EXT_OUT`, `DIR_OUT${mpr}$+0????.EXT_OUT`, `DIR_BPEPRTMPR$S+0???.BPE`, `DIR_PSH????$S+0.EXT_PSH`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [MAUPRPAP](../../GPSUSER/SCRIPT/MAUPRPAP)
+- Source: [MAUPRPAP](source_files/ck18y530-gpsuser/SCRIPT/MAUPRPAP)
 ### MKCLUS
 
 - Purpose: Run MKCLUS Programs:  MKCLUS Authors:   R. Dach
@@ -2804,7 +2806,7 @@ Variables:
   - Other keys: `$S+0`, `$YSS+0`, `DIR_CLB`, `DIR_FIX`, `DIR_OUT`, `DIR_SMC`, `EXT_CLB`, `EXT_FIX`, `EXT_OUT`, `EXT_SMC`, `U`
 - File deletes: `$_ } close (DEL`, `if ("" ne ""`
 - File patterns: `EXT_CLBU$YSS+0??.DIR_OUT`
-- Source: [MKCLUS](../../GPSUSER/SCRIPT/MKCLUS)
+- Source: [MKCLUS](source_files/ck18y530-gpsuser/SCRIPT/MKCLUS)
 ### MPGPUP
 
 - Purpose: Loop with MAUPRP,GPSEST and ORBGEN for LEO screening
@@ -2815,7 +2817,7 @@ Variables:
   - V_ variables: `V_A`, `V_IGNERR`, `V_MINEL`, `V_NSCR`, `V_OFFS`, `V_POBS`, `V_POTDEG`, `V_SPEC`
   - Other keys: `$YSS+0`, `DIR_PZH`, `DIR_STD`, `EXT_PZH`, `EXT_STD`
 - File patterns: `DIR_PZH/V_POBS.EXT_PZH`
-- Source: [MPGPUP](../../GPSUSER/SCRIPT/MPGPUP)
+- Source: [MPGPUP](source_files/ck18y530-gpsuser/SCRIPT/MPGPUP)
 ### MPRXTR
 
 - Purpose: GENERATE SUMMARY OF THE PARALEL MAUPRP RUNS IN CASE OF BAD FILES DELETE ZERO AND SINGLE FILES AND UPDATE TABLES Programs:
@@ -2827,7 +2829,7 @@ Variables:
   - Other keys: `$S+0`, `$Y`, `$YSS+0`, `DIR_DEL`, `DIR_OUT`, `DIR_PSH`, `DIR_PZH`, `EXT_DEL`, `EXT_PSH`, `EXT_PZH`
 - File deletes: `DIR_DELMPR$YSS+0.EXT_DEL`, `$_`
 - File patterns: `DIR_PSH????$S+0.EXT_PSH`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [MPRXTR](../../GPSUSER/SCRIPT/MPRXTR)
+- Source: [MPRXTR](source_files/ck18y530-gpsuser/SCRIPT/MPRXTR)
 ### MRKOB__P
 
 - Purpose: Mark observations corresponding to an edit file Programs:  SATMRK
@@ -2838,7 +2840,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [MRKOB__P](../../GPSUSER/SCRIPT/MRKOB__P)
+- Source: [MRKOB__P](source_files/ck18y530-gpsuser/SCRIPT/MRKOB__P)
 ### MRKOB_AP
 
 - Purpose: Prepare parallel SATMRK runs Programs:
@@ -2848,7 +2850,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `$+0`, `$-1`, `$-2`, `$S+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_OUT`, `DIR_PZH`, `EXT_CZH`, `EXT_OUT`, `EXT_PZH`
 - File patterns: `"DIR_BPEPRTMRK$S+0???.BPE"`, `DIR_BPEPRTMRK$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [MRKOB_AP](../../GPSUSER/SCRIPT/MRKOB_AP)
+- Source: [MRKOB_AP](source_files/ck18y530-gpsuser/SCRIPT/MRKOB_AP)
 ### MRKOBS_P
 
 - Purpose: Mark observations corresponding to an edit file Programs:  SATMRK
@@ -2858,7 +2860,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `SUB_PID`, `U`
-- Source: [MRKOBS_P](../../GPSUSER/SCRIPT/MRKOBS_P)
+- Source: [MRKOBS_P](source_files/ck18y530-gpsuser/SCRIPT/MRKOBS_P)
 ### MRKOBSAP
 
 - Purpose: Prepare parallel MRKOBS run Programs:
@@ -2867,7 +2869,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_PSH`
 - File patterns: `"DIR_BPEPRTMRK$YSS+0???.BPE"`, `DIR_PSH????$S+0.PZH`, `DIR_BPEPRTMRK$YSS+0???.BPE`
-- Source: [MRKOBSAP](../../GPSUSER/SCRIPT/MRKOBSAP)
+- Source: [MRKOBSAP](source_files/ck18y530-gpsuser/SCRIPT/MRKOBSAP)
 ### NUM_OBSFIL
 
 - Purpose: Count observation files in RAW directory. Write the count to output file and add a warning if below default.
@@ -2876,7 +2878,7 @@ Variables:
   - V_ variables: `V_MINCOUNT`
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [NUM_OBSFIL](../../GPSUSER/SCRIPT/NUM_OBSFIL)
+- Source: [NUM_OBSFIL](source_files/ck18y530-gpsuser/SCRIPT/NUM_OBSFIL)
 ### OBS_REN
 
 - Purpose: Rename zero difference Bernese observation files from $(LEO)ssss.??? to $(LEO)ssss_$(F).???. Only if V_OBSREN is set to 'Y'.
@@ -2884,14 +2886,14 @@ Variables:
 - Read keys:
   - V_ variables: `V_F`, `V_LEO`, `V_OBSREN`
   - Other keys: `$S+0`, `DIR_PZH`
-- Source: [OBS_REN](../../GPSUSER/SCRIPT/OBS_REN)
+- Source: [OBS_REN](source_files/ck18y530-gpsuser/SCRIPT/OBS_REN)
 ### OBSXTR
 
 - Purpose: Execute OBSXTR
 - Bernese programs: `OBSXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `OBSXTR.INP`
-- Source: [OBSXTR](../../GPSUSER/SCRIPT/OBSXTR)
+- Source: [OBSXTR](source_files/ck18y530-gpsuser/SCRIPT/OBSXTR)
 ### OBSXTR_EXTRACT
 
 - Purpose: Extract "files do contain" statistics from OBSXTRF1I.OUT. Write them to PROCESSING_yyddd in table format. ============================================================================
@@ -2901,7 +2903,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File reads: `DIR_OUT/OBSXTRV_Z$YSS+0.OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [OBSXTR_EXTRACT](../../GPSUSER/SCRIPT/OBSXTR_EXTRACT)
+- Source: [OBSXTR_EXTRACT](source_files/ck18y530-gpsuser/SCRIPT/OBSXTR_EXTRACT)
 ### ORB_VER
 
 - Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:  ORBGEN
@@ -2910,7 +2912,7 @@ Variables:
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
 - Read keys:
   - Other keys: `$+0`, `$W-1`, `$WD+0`, `$WD-1`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`
-- Source: [ORB_VER](../../GPSUSER/SCRIPT/ORB_VER)
+- Source: [ORB_VER](source_files/ck18y530-gpsuser/SCRIPT/ORB_VER)
 ### ORBAPF
 
 - Purpose: Execute ORBGEN with a special ERP file
@@ -2921,7 +2923,7 @@ Variables:
   - V_ variables: `V_A`, `V_B`, `V_POTDEG`
   - Other keys: `$YSS+0`, `DIR_ERP`, `EXT_ERP`
 - File deletes: `DIR_ERPV_ACOP$YSS+0.DIR_ERP`
-- Source: [ORBAPF](../../GPSUSER/SCRIPT/ORBAPF)
+- Source: [ORBAPF](source_files/ck18y530-gpsuser/SCRIPT/ORBAPF)
 ### ORBAPR
 
 - Purpose: Execute ORBGEN with a special ERP file Generate first a priori orbit for LEO from code-derived kinematic positions
@@ -2932,7 +2934,7 @@ Variables:
   - V_ variables: `V_A`, `V_B`, `V_POTDEG`
   - Other keys: `$YSS+0`, `DIR_ERP`, `EXT_ERP`
 - File deletes: `DIR_ERPV_A$YSS+0.DIR_ERP`
-- Source: [ORBAPR](../../GPSUSER/SCRIPT/ORBAPR)
+- Source: [ORBAPR](source_files/ck18y530-gpsuser/SCRIPT/ORBAPR)
 ### ORBAPRS
 
 - Purpose: Execute ORBGEN with short arcs (only if V_SPEC = 'Y')
@@ -2943,14 +2945,14 @@ Variables:
   - V_ variables: `V_A`, `V_B`, `V_POTDEG`, `V_SPEC`
   - Other keys: `$YSS+0`, `DIR_ERP`, `EXT_ERP`
 - File deletes: `DIR_ERPV_A$YSS+0.DIR_ERP`
-- Source: [ORBAPRS](../../GPSUSER/SCRIPT/ORBAPRS)
+- Source: [ORBAPRS](source_files/ck18y530-gpsuser/SCRIPT/ORBAPRS)
 ### ORBCMP
 
 - Purpose: Execute ORBCMP
 - Bernese programs: `ORBCMP`
 - Used in PCFs: LEOPODR.PCF
 - INP files: `ORBCMP.INP`
-- Source: [ORBCMP](../../GPSUSER/SCRIPT/ORBCMP)
+- Source: [ORBCMP](source_files/ck18y530-gpsuser/SCRIPT/ORBCMP)
 ### ORBCMPL
 
 - Purpose: Execute ORBCMP for ORBCMP.PCF
@@ -2960,14 +2962,14 @@ Variables:
 - Read keys:
   - V_ variables: `V_PRE`, `V_SOL`
   - Other keys: `$YD+0`, `$YSS+0`
-- Source: [ORBCMPL](../../GPSUSER/SCRIPT/ORBCMPL)
+- Source: [ORBCMPL](source_files/ck18y530-gpsuser/SCRIPT/ORBCMPL)
 ### ORBGEN
 
 - Purpose: Execute ORBGEN
 - Bernese programs: `ORBGEN`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMFIN3D.PCF
 - INP files: `ORBGEN.INP`
-- Source: [ORBGEN](../../GPSUSER/SCRIPT/ORBGEN)
+- Source: [ORBGEN](source_files/ck18y530-gpsuser/SCRIPT/ORBGEN)
 ### ORBGENL
 
 - Package: `ORBGEN`
@@ -2977,7 +2979,7 @@ Variables:
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
 - Read keys:
   - V_ variables: `V_POTDEG`
-- Source: [ORBGENL](../../GPSUSER/SCRIPT/ORBGENL)
+- Source: [ORBGENL](source_files/ck18y530-gpsuser/SCRIPT/ORBGENL)
 ### ORBGENZD
 
 - Purpose: Execute ORBGEN according to the input argument
@@ -2986,7 +2988,7 @@ Variables:
 - INP files: `ORBGEN.INP`
 - Read keys:
   - Other keys: `$$bpe{PARAM1}`
-- Source: [ORBGENZD](../../GPSUSER/SCRIPT/ORBGENZD)
+- Source: [ORBGENZD](source_files/ck18y530-gpsuser/SCRIPT/ORBGENZD)
 ### ORBGENZD_FIN
 
 - Purpose: Execute ORBGEN according to the input argument
@@ -2996,7 +2998,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_L`, `V_Z`
   - Other keys: `$$bpe{PARAM1}`, `$YSS+0`
-- Source: [ORBGENZD_FIN](../../GPSUSER/SCRIPT/ORBGENZD_FIN)
+- Source: [ORBGENZD_FIN](source_files/ck18y530-gpsuser/SCRIPT/ORBGENZD_FIN)
 ### OSBMERGE
 
 - Purpose: Merge OSB-files Programs:
@@ -3007,7 +3009,7 @@ Variables:
 - File reads: `$OSB_R_file`
 - File writes: `DIR_OSBV_CS$YSS+0.EXT_OSB`
 - File patterns: `DIR_OSBV_CS$YSS+0[0-9][0-9][0-9].EXT_OSB`
-- Source: [OSBMERGE](../../GPSUSER/SCRIPT/OSBMERGE)
+- Source: [OSBMERGE](source_files/ck18y530-gpsuser/SCRIPT/OSBMERGE)
 ### PHABIA
 
 - Purpose: Execute PHABIA
@@ -3018,7 +3020,7 @@ Variables:
   - V_ variables: `V_K`
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `CAMPAIGN`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
-- Source: [PHABIA](../../GPSUSER/SCRIPT/PHABIA)
+- Source: [PHABIA](source_files/ck18y530-gpsuser/SCRIPT/PHABIA)
 ### PHACMB
 
 - Purpose: Execute PHACMB
@@ -3027,14 +3029,14 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OSB`, `DIR_OUT`, `EXT_OSB`
 - File deletes: `DIR_OSB/".substr(PARAM4,0,2)."_$YSS+0.EXT_OSB`
-- Source: [PHACMB](../../GPSUSER/SCRIPT/PHACMB)
+- Source: [PHACMB](source_files/ck18y530-gpsuser/SCRIPT/PHACMB)
 ### POLUPD
 
 - Purpose: Execute POLUPD Programs:  POLUPD
 - Bernese programs: `POLUPD`
 - Used in PCFs: ZDMFIN3D.PCF
 - INP files: `POLUPD.INP`
-- Source: [POLUPD](../../GPSUSER/SCRIPT/POLUPD)
+- Source: [POLUPD](source_files/ck18y530-gpsuser/SCRIPT/POLUPD)
 ### PRECLK
 
 - Purpose: Pre-eliminate last set of clocks Programs:  ADDNEQ2
@@ -3044,7 +3046,7 @@ Variables:
 - Read keys:
   - Other keys: `$$bpe{PARAM1}`, `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `DIR_NEQ$$bpe{PARAM1}??$YSS+0???.EXT_NEQ`
-- Source: [PRECLK](../../GPSUSER/SCRIPT/PRECLK)
+- Source: [PRECLK](source_files/ck18y530-gpsuser/SCRIPT/PRECLK)
 ### PRECLK_P
 
 - Purpose: Parallel run of ADDNEQ2 using code and phase data to pre-eliminate clocks Programs:  GPSEST
@@ -3054,7 +3056,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
-- Source: [PRECLK_P](../../GPSUSER/SCRIPT/PRECLK_P)
+- Source: [PRECLK_P](source_files/ck18y530-gpsuser/SCRIPT/PRECLK_P)
 ### PRECLKAP
 
 - Purpose: Prepare parallel ADDNEQ2 run using time intervals Programs:
@@ -3062,7 +3064,7 @@ Variables:
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
 - File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, `"DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
-- Source: [PRECLKAP](../../GPSUSER/SCRIPT/PRECLKAP)
+- Source: [PRECLKAP](source_files/ck18y530-gpsuser/SCRIPT/PRECLKAP)
 ### REP_COP
 
 - Purpose: Copy files requiered by FZDMGNSS.PCF from ZDM repro folder
@@ -3074,21 +3076,21 @@ Variables:
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_OSB`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`, `EXT_FIX`, `EXT_OSB`, `EXT_RPR`, `EXT_RXC`
 - File reads: `$ENV{REF}/REFCLK.FIX`, `$ENV{AIUB}/SKL/DIR_STD.${extSkl}`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OBS/????$S+0.???`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//STA/V_BIAINF_$YSS+0.EXT_SINEXIN`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/CBS$YSS+0.${extOsb}`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//STA/V_CRDINF_$YSS+0.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/V_CRDINF_$YSS+0.EXT_OSB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/V_PSDINF_$YSS+0.EXT_RPR`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/V_PSDINF_$YSS+0.EXT_FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/V_CRDINFS$YSS+0.EXT_SOS`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OUT/V_CRDINFS$YSS+0.EXT_CLK`
 - File writes: `EXT_CRDREFCLK.${extFix}`, `EXT_STDDIR_STD.${extSkl}`, `EXT_RXC`, `DIR_FIX`, `PTH_SINEXIN`, `DIR_ERPV_PSDINF_$YSS+0.EXT_ERP`, `DIR_OSBV_PSDINF_$YSS+0.EXT_OSB`, `DIR_RPRV_PSDINF_$YSS+0.EXT_RPR`, `DIR_PZHV_PSDINF_$YSS+0.EXT_FIX`, `DIR_SOSV_PSDINF_$YSS+0.EXT_SOS`, `DIR_CLKV_PSDINF_$YSS+0.EXT_CLK`
-- Source: [REP_COP](../../GPSUSER/SCRIPT/REP_COP)
+- Source: [REP_COP](source_files/ck18y530-gpsuser/SCRIPT/REP_COP)
 ### RESRMS
 
 - Purpose: Execute RESRMS
 - Bernese programs: `RESRMS`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RESRMS.INP`
-- Source: [RESRMS](../../GPSUSER/SCRIPT/RESRMS)
+- Source: [RESRMS](source_files/ck18y530-gpsuser/SCRIPT/RESRMS)
 ### RESRMSL
 
 - Purpose: check the residuals for outliers and remove them Programs:  RESRMS
 - Bernese programs: `RESRMS`
 - Used in PCFs: LEOPODR.PCF
 - INP files: `RESRMS.INP`
-- Source: [RESRMSL](../../GPSUSER/SCRIPT/RESRMSL)
+- Source: [RESRMSL](source_files/ck18y530-gpsuser/SCRIPT/RESRMSL)
 ### RESRMSZD
 
 - Purpose: check the residuals for outliers and remove them according to the dictate of the flag Programs:  RESRMS
@@ -3099,10 +3101,10 @@ Variables:
   - V_ variables: `V_H`
   - Other keys: `$YD+0`, `DIR_OUT`, `U`
 - File patterns: `DIR_OUT../MSC/V_H$YD+0_????.FLG`
-- Source: [RESRMSZD](../../GPSUSER/SCRIPT/RESRMSZD)
+- Source: [RESRMSZD](source_files/ck18y530-gpsuser/SCRIPT/RESRMSZD)
 ### retry.log
 
-- Source: [retry.log](../../GPSUSER/SCRIPT/retry.log)
+- Source: [retry.log](source_files/ck18y530-gpsuser/SCRIPT/retry.log)
 ### RetryHelper.pm
 
 - Package: `RetryHelper`
@@ -3110,14 +3112,14 @@ Variables:
   - Other keys: `$YD+0`, `DIR_OUT`, `PCFFIL`, `PID`
 - File writes: `${outdir}../MSC/RETRY_GOTO_${day}_${pid}_${pcf}.FLG`
 - File deletes: `${outdir}../MSC/RETRY_GOTO_${day}_${pid}_${pcf}.FLG`
-- Source: [RetryHelper.pm](../../GPSUSER/SCRIPT/RetryHelper.pm)
+- Source: [RetryHelper.pm](source_files/ck18y530-gpsuser/SCRIPT/RetryHelper.pm)
 ### RNXCLK
 
 - Purpose: Execute RNXCLK
 - Bernese programs: `RNXCLK`
 - Used in PCFs: LEOPODR.PCF
 - INP files: `RNXCLK.INP`
-- Source: [RNXCLK](../../GPSUSER/SCRIPT/RNXCLK)
+- Source: [RNXCLK](source_files/ck18y530-gpsuser/SCRIPT/RNXCLK)
 ### RNXSMT_P
 
 - Purpose: Parallel RNXSMT run Programs:  RNXSMT
@@ -3129,7 +3131,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [RNXSMT_P](../../GPSUSER/SCRIPT/RNXSMT_P)
+- Source: [RNXSMT_P](source_files/ck18y530-gpsuser/SCRIPT/RNXSMT_P)
 ### RNXSMTAP
 
 - Purpose: Prepare parallel RNXSMT run Programs:
@@ -3138,7 +3140,7 @@ Variables:
   - V_ variables: `V_CLU`, `V_NCLU`
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_OUT`, `DIR_RXO`, `DIR_SMT`, `EXT_OUT`, `EXT_RXO`, `EXT_SMT`
 - File patterns: `"DIR_SMT????$S+0.EXT_SMT"`, `"DIR_OUTSMT$S+0???.EXT_OUT") } else { unlink glob("DIR_OUTSMT$+0????.EXT_OUT") }`, `DIR_SMT????$S+0.EXT_SMT`, `DIR_OUTSMT$S+0???.EXT_OUT`, `DIR_OUTSMT$+0????.EXT_OUT`, `DIR_RXO????$S+0.EXT_RXO`
-- Source: [RNXSMTAP](../../GPSUSER/SCRIPT/RNXSMTAP)
+- Source: [RNXSMTAP](source_files/ck18y530-gpsuser/SCRIPT/RNXSMTAP)
 ### RNXSMTL
 
 - Package: `RNXSMT`
@@ -3150,7 +3152,7 @@ Variables:
   - V_ variables: `V_LEO`, `V_RNX3`
   - Other keys: `$S+0`, `$Y`, `DIR_SMT`, `EXT_SMT`
 - File deletes: `DIR_SMTV_LEO$S+0.EXT_SMT`
-- Source: [RNXSMTL](../../GPSUSER/SCRIPT/RNXSMTL)
+- Source: [RNXSMTL](source_files/ck18y530-gpsuser/SCRIPT/RNXSMTL)
 ### RXOBV3_P
 
 - Purpose: Parallel RXOBV3 run Programs:  RXOBV3
@@ -3162,7 +3164,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [RXOBV3_P](../../GPSUSER/SCRIPT/RXOBV3_P)
+- Source: [RXOBV3_P](source_files/ck18y530-gpsuser/SCRIPT/RXOBV3_P)
 ### RXOBV3GP
 
 - Purpose: A priori script to prepare parallel running of RXOBV3 (use RNXGRA to find a list of the best stations) Programs:  RNXGRA
@@ -3175,7 +3177,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
 - File deletes: `$del`, `$lst`
 - File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT") } else { unlink glob("DIR_OUTOBS$+0????.EXT_OUT") }`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO`, `DIR_OUTOBS$S+0???.EXT_OUT` and 1 more
-- Source: [RXOBV3GP](../../GPSUSER/SCRIPT/RXOBV3GP)
+- Source: [RXOBV3GP](source_files/ck18y530-gpsuser/SCRIPT/RXOBV3GP)
 ### RXOBV3L
 
 - Package: `RXOBV3`
@@ -3188,7 +3190,7 @@ Variables:
   - Other keys: `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `DIR_RNX`
 - File deletes: `DIR_OUTRNXV_A$YSS+0.ERR`
 - File patterns: `DIR_RNX/V_POBS.$YO`
-- Source: [RXOBV3L](../../GPSUSER/SCRIPT/RXOBV3L)
+- Source: [RXOBV3L](source_files/ck18y530-gpsuser/SCRIPT/RXOBV3L)
 ### SATMON_P
 
 - Purpose: Execute SATMARK
@@ -3199,7 +3201,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `$Y+0`, `DIR_OUT`
 - File patterns: `"DIR_OUTCLKSCREEN$station$S+0.EDT"`, `DIR_OUTCLKSCREEN$station$S+0.EDT`
-- Source: [SATMON_P](../../GPSUSER/SCRIPT/SATMON_P)
+- Source: [SATMON_P](source_files/ck18y530-gpsuser/SCRIPT/SATMON_P)
 ### SATMONAP
 
 - Purpose: Extract satellite clock estimates (as seen by each station) and eliminate observations using satmark Programs:
@@ -3212,14 +3214,14 @@ Variables:
 - File writes: `DIR_OUTCLK$YD+0_tmp.SUM`
 - File deletes: `DIR_OUTCLK$YD+0_tmp.SUM`, `DIR_EDTCLKSCREEN$sta$S+0.EXT_EDT`, `DIR_CZH$sta$S+0.???`
 - File patterns: `"DIR_OUTCLKSCREEN????$S+0.EDT"`, `"DIR_OUTFIL$+0????.OUT"`, `"DIR_CLKFIL$+0????.CLK"`, `"DIR_OUTFIL$+0????.CLK"`, `DIR_OUTCLKSCREEN????$S+0.EDT`, `DIR_OUTFIL$+0????.OUT`, `DIR_CLKFIL$+0????.CLK`, `DIR_OUTFIL$+0????.CLK`
-- Source: [SATMONAP](../../GPSUSER/SCRIPT/SATMONAP)
+- Source: [SATMONAP](source_files/ck18y530-gpsuser/SCRIPT/SATMONAP)
 ### SATMRK
 
 - Purpose: Execute SATMRK
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, LEOPODR.PCF
 - INP files: `SATMRK.INP`
-- Source: [SATMRK](../../GPSUSER/SCRIPT/SATMRK)
+- Source: [SATMRK](source_files/ck18y530-gpsuser/SCRIPT/SATMRK)
 ### SAVECLKDE
 
 - Purpose: Save results from clock densification
@@ -3228,7 +3230,7 @@ Variables:
   - Other keys: `$(SAVE)`, `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `DIR_TRP`, `EXT_CLK`, `EXT_ERP`, `EXT_FIX`
 - File reads: `DIR_CLK$(SAVE)_$YSS+0.EXT_CLK`, `DIR_RPRDIR_RXC_$YSS+0.EXT_RPR`, `DIR_STDDIR_RXC_$YSS+0.EXT_STD`
 - File writes: `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//STA/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OUT/`
-- Source: [SAVECLKDE](../../GPSUSER/SCRIPT/SAVECLKDE)
+- Source: [SAVECLKDE](source_files/ck18y530-gpsuser/SCRIPT/SAVECLKDE)
 ### SAVERES
 
 - Purpose: Save results
@@ -3238,7 +3240,7 @@ Variables:
 - File reads: `DIR_RPRDIR_RXC_$YSS+0.EXT_RPR`, `DIR_OSBDIR_RXC_$YSS+0.${extPre}`, `DIR_PREDIR_RXC_$YSS+0.EXT_TRP`, `DIR_NEQDIR_RXC_$YSS+0.EXT_FIX`, `DIR_SOSDIR_RXC_$YSS+0.EXT_NEQ`, `DIR_FIXDIR_RXCS$YSS+0.EXT_OBX`, `DIR_ERPDIR_RXCS$YSS+0.EXT_ERP`, `EXT_STDDIR_RXC_$YSS+0.EXT_SOS`, `EXT_CLKDIR_RXC_$YSS+0.EXT_OSB`, `DIR_RPRDIR_CLK_$YSS+0.EXT_RPR`, `DIR_PREDIR_CLK_$YSS+0.EXT_TRP`, `DIR_NEQDIR_CLK_$YSS+0.EXT_FIX` and 19 more
 - File writes: `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//STA/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OUT/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ATM/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//SOL/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OBS/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//BPE/`
 - File patterns: `DIR_ERP/DIR_CLK??$S+0001.OUT`, `DIR_ERP/DIR_RXC??$S+0001.OUT`
-- Source: [SAVERES](../../GPSUSER/SCRIPT/SAVERES)
+- Source: [SAVERES](source_files/ck18y530-gpsuser/SCRIPT/SAVERES)
 ### SAVERES3D
 
 - Package: `SAVERES`
@@ -3248,7 +3250,7 @@ Variables:
   - Other keys: `$(SAVE)`, `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`
 - File reads: `DIR_STD$(SAVE)_$YSS+0.EXT_STD`, `DIR_FIX$(SAVE)_$YSS+0.${extPre}`, `DIR_CLK$(SAVE)_$YSS+0.EXT_CLK`, `DIR_RPR$(SAVE)_$YSS+0.EXT_RPR`, `DIR_ERP$(SAVE)S$YSS+0.EXT_ERP`, `DIR_CRD$(SAVE)S$YSS+0.EXT_CRD`, `DIR_CRD/$(SAVE)_$YSS+0001.OUT`
 - File writes: `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//STA/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OUT/`
-- Source: [SAVERES3D](../../GPSUSER/SCRIPT/SAVERES3D)
+- Source: [SAVERES3D](source_files/ck18y530-gpsuser/SCRIPT/SAVERES3D)
 ### SKIP_WL
 
 - Purpose: Skip WL ambiguity fixing part unless V_AR = 'Y' or if V_INL1L2 = 'Y'.
@@ -3256,7 +3258,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_AR`, `V_INL1L2`
   - PARAM parameters: `PARAM2`
-- Source: [SKIP_WL](../../GPSUSER/SCRIPT/SKIP_WL)
+- Source: [SKIP_WL](source_files/ck18y530-gpsuser/SCRIPT/SKIP_WL)
 ### SOLCLK_P
 
 - Purpose: Parallel run of ADDNEQ2 to solve for the individual NEQs Programs:  ADDNEQ2
@@ -3266,7 +3268,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_FIX`, `EXT_FIX`, `SUB_PID`
-- Source: [SOLCLK_P](../../GPSUSER/SCRIPT/SOLCLK_P)
+- Source: [SOLCLK_P](source_files/ck18y530-gpsuser/SCRIPT/SOLCLK_P)
 ### SOLCLKAP
 
 - Purpose: Prepare parallel ADDNEQ2 run using reduced NEQs Programs:
@@ -3274,7 +3276,7 @@ Variables:
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `DIR_NEQ$$bpe{PARAM2}??$YSS+0???.EXT_NEQ`
-- Source: [SOLCLKAP](../../GPSUSER/SCRIPT/SOLCLKAP)
+- Source: [SOLCLKAP](source_files/ck18y530-gpsuser/SCRIPT/SOLCLKAP)
 ### SOLLON_P
 
 - Purpose: Stack and solve 3-day NEQs to generate long-arc solution Programs:  ADDNEQ2
@@ -3284,7 +3286,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_NEQ`, `EXT_NEQ`, `SUB_PID`
-- Source: [SOLLON_P](../../GPSUSER/SCRIPT/SOLLON_P)
+- Source: [SOLLON_P](source_files/ck18y530-gpsuser/SCRIPT/SOLLON_P)
 ### SOLLONAP
 
 - Purpose: Prepare parallel ADDNEQ2 run using reduced NEQs Programs:
@@ -3292,7 +3294,7 @@ Variables:
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `DIR_NEQ$$bpe{PARAM2}??$YSS+0???.EXT_NEQ`
-- Source: [SOLLONAP](../../GPSUSER/SCRIPT/SOLLONAP)
+- Source: [SOLLONAP](source_files/ck18y530-gpsuser/SCRIPT/SOLLONAP)
 ### SOSUPDAT
 
 - Package: `SOSMERGE`
@@ -3303,7 +3305,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_I`, `V_W`
   - Other keys: `$YSS+0`, `DIR_SIG`, `DIR_SOS`, `EXT_SIG`, `EXT_SOS`
-- Source: [SOSUPDAT](../../GPSUSER/SCRIPT/SOSUPDAT)
+- Source: [SOSUPDAT](source_files/ck18y530-gpsuser/SCRIPT/SOSUPDAT)
 ### STATION_SELECTION
 
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
@@ -3313,7 +3315,7 @@ Variables:
 - File reads: `DIR_OUT../MSC/MSC_$YD+0/available_stations_$YD+0.txt`, `DIR_OUT../MSC/MSC_$YD+0/selected_stations_$YD+0.txt`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `DIR_OUT../RAW/$pattern)`
-- Source: [STATION_SELECTION](../../GPSUSER/SCRIPT/STATION_SELECTION)
+- Source: [STATION_SELECTION](source_files/ck18y530-gpsuser/SCRIPT/STATION_SELECTION)
 ### STATUS
 
 - Used in PCFs: CMPSOL.PCF, FZDMGNSS_ORIG_EC.PCF, ZDMCLKDEN.PCF, ZDMFIN3D.PCF
@@ -3321,14 +3323,14 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
   - Other keys: `DIR_OUT`
 - File writes: `$marker`
-- Source: [STATUS](../../GPSUSER/SCRIPT/STATUS)
+- Source: [STATUS](source_files/ck18y530-gpsuser/SCRIPT/STATUS)
 ### STDDIF
 
 - Purpose: STDDIF Programs:  STDDIF Authors:   U. Meyer
 - Bernese programs: `STDDIF`
 - Used in PCFs: CMPSOL.PCF, FZDMGNSS_ORIG_EC.PCF
 - INP files: `STDDIF.INP`
-- Source: [STDDIF](../../GPSUSER/SCRIPT/STDDIF)
+- Source: [STDDIF](source_files/ck18y530-gpsuser/SCRIPT/STDDIF)
 ### STDELE_VS
 
 - Purpose: Execute STDELE
@@ -3338,7 +3340,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_STD`
   - Other keys: `$YD+0`, `$YD-1`, `$YSS+0`, `$YSS-1`
-- Source: [STDELE_VS](../../GPSUSER/SCRIPT/STDELE_VS)
+- Source: [STDELE_VS](source_files/ck18y530-gpsuser/SCRIPT/STDELE_VS)
 ### STDELEL
 
 - Purpose: Compute Orbit misclosures for CMP_SOL.PCF
@@ -3348,7 +3350,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_ERP`, `V_SOL`, `V_STD`
   - Other keys: `$YD+0`, `$YD-1`, `$YSS+0`, `$YSS-1`
-- Source: [STDELEL](../../GPSUSER/SCRIPT/STDELEL)
+- Source: [STDELEL](source_files/ck18y530-gpsuser/SCRIPT/STDELEL)
 ### STDPRE
 
 - Package: `DTDPRE`
@@ -3358,7 +3360,7 @@ Variables:
 - INP files: `STDPRE.INP`
 - Read keys:
   - V_ variables: `V_GNSS`
-- Source: [STDPRE](../../GPSUSER/SCRIPT/STDPRE)
+- Source: [STDPRE](source_files/ck18y530-gpsuser/SCRIPT/STDPRE)
 ### STDPREL
 
 - Package: `STDPRE`
@@ -3366,7 +3368,7 @@ Variables:
 - Bernese programs: `STDPRE`
 - Used in PCFs: LEOPODR.PCF
 - INP files: `STDPRE.INP`
-- Source: [STDPREL](../../GPSUSER/SCRIPT/STDPREL)
+- Source: [STDPREL](source_files/ck18y530-gpsuser/SCRIPT/STDPREL)
 ### STDPREL2
 
 - Purpose: Execute STDPRE, set start of time window to first epoch in kinematic orbit
@@ -3376,7 +3378,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_F`, `V_FROM`
   - Other keys: `$YSS+0`, `DIR_PRE`
-- Source: [STDPREL2](../../GPSUSER/SCRIPT/STDPREL2)
+- Source: [STDPREL2](source_files/ck18y530-gpsuser/SCRIPT/STDPREL2)
 ### TIMCLK
 
 - Purpose: Parallel run of GPSEST to generate code-only clocks Programs:  GPSEST
@@ -3387,7 +3389,7 @@ Variables:
   - V_ variables: `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMCLK](../../GPSUSER/SCRIPT/TIMCLK)
+- Source: [TIMCLK](source_files/ck18y530-gpsuser/SCRIPT/TIMCLK)
 ### TIMEST_A
 
 - Package: `TIMEST_P`
@@ -3399,7 +3401,7 @@ Variables:
   - V_ variables: `V_B`, `V_I`, `V_TRPMOD`
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMEST_A](../../GPSUSER/SCRIPT/TIMEST_A)
+- Source: [TIMEST_A](source_files/ck18y530-gpsuser/SCRIPT/TIMEST_A)
 ### TIMEST_B
 
 - Purpose: Parallel run of GPSEST using code and phase data and generation of NEQ with different OSBs Programs:  GPSEST, ADDNEQ2
@@ -3410,7 +3412,7 @@ Variables:
   - V_ variables: `V_B`, `V_I`, `V_TRPMOD`
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMEST_B](../../GPSUSER/SCRIPT/TIMEST_B)
+- Source: [TIMEST_B](source_files/ck18y530-gpsuser/SCRIPT/TIMEST_B)
 ### TIMEST_C
 
 - Package: `TIMEST_P`
@@ -3422,7 +3424,7 @@ Variables:
   - V_ variables: `V_TRPMOD`
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMEST_C](../../GPSUSER/SCRIPT/TIMEST_C)
+- Source: [TIMEST_C](source_files/ck18y530-gpsuser/SCRIPT/TIMEST_C)
 ### TIMEST_O
 
 - Purpose: Parallel run of GPSEST using code and estimating orbit and ERP in subsequent ADDNEQ Programs:  GPSEST
@@ -3433,7 +3435,7 @@ Variables:
   - V_ variables: `V_B`, `V_I`, `V_TRPMOD`
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMEST_O](../../GPSUSER/SCRIPT/TIMEST_O)
+- Source: [TIMEST_O](source_files/ck18y530-gpsuser/SCRIPT/TIMEST_O)
 ### TIMEST_P
 
 - Purpose: Parallel run of GPSEST using code and phase data Programs:  GPSEST
@@ -3444,7 +3446,7 @@ Variables:
   - V_ variables: `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMEST_P](../../GPSUSER/SCRIPT/TIMEST_P)
+- Source: [TIMEST_P](source_files/ck18y530-gpsuser/SCRIPT/TIMEST_P)
 ### TIMESTAP
 
 - Purpose: Prepare parallel GPSEST run using MKCLUS for clustering Programs:  MKCLUS
@@ -3456,7 +3458,7 @@ Variables:
   - Other keys: `$$bpe{PARAM2}`, `$+0`, `$S+0`, `$Y`, `$YD+0`, `$YSS+0`, `DIR_CLB`, `DIR_DEL`, `DIR_NEQ`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `DIR_RXC`, `EXT_CLB`, `EXT_DEL`, `EXT_NEQ`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`, `EXT_RXC`
 - File deletes: `DIR_DELDEL$YSS+0.{extDel}`, `$_`, `$del`
 - File patterns: `"DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ"`, `"DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT"`, `"DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES"`, `"DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC"`, `"DIR_CLB$YSS+0*.EXT_CLB"`, `DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ`, `DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT`, `DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES`, `DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC`, `DIR_CLB$YSS+0*.EXT_CLB`
-- Source: [TIMESTAP](../../GPSUSER/SCRIPT/TIMESTAP)
+- Source: [TIMESTAP](source_files/ck18y530-gpsuser/SCRIPT/TIMESTAP)
 ### TIMNEQ
 
 - Purpose: Parallel run of ADDNEQ to solve for the GLONASS OSB Programs:  ADDNEQ2
@@ -3467,7 +3469,7 @@ Variables:
   - V_ variables: `V_B`, `V_I`
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMNEQ](../../GPSUSER/SCRIPT/TIMNEQ)
+- Source: [TIMNEQ](source_files/ck18y530-gpsuser/SCRIPT/TIMNEQ)
 ### TIMNEQAP
 
 - Purpose: Prepare parallel ADDNEQ2 Programs:  MKCLUS
@@ -3476,7 +3478,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$$bpe{PARAM2}`, `$+0`, `$S+0`, `$Y`, `$YD+0`, `$YSS+0`, `DIR_CLB`, `DIR_DEL`, `DIR_NEQ`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `DIR_RXC`, `EXT_CLB`, `EXT_DEL`, `EXT_NEQ`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`, `EXT_RXC`
 - File patterns: `DIR_NEQ$$bpe{PARAM2}$S+0[0-9][0-9][0-9]_.EXT_NEQ`
-- Source: [TIMNEQAP](../../GPSUSER/SCRIPT/TIMNEQAP)
+- Source: [TIMNEQAP](source_files/ck18y530-gpsuser/SCRIPT/TIMNEQAP)
 ### TIMORB_P
 
 - Package: `TIMEST_P`
@@ -3488,7 +3490,7 @@ Variables:
   - V_ variables: `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMORB_P](../../GPSUSER/SCRIPT/TIMORB_P)
+- Source: [TIMORB_P](source_files/ck18y530-gpsuser/SCRIPT/TIMORB_P)
 ### TIMORBAP
 
 - Purpose: Prepare parallel GPSEST run using MKCLUS for clustering Programs:  MKCLUS
@@ -3500,7 +3502,7 @@ Variables:
   - Other keys: `$$bpe{PARAM2}`, `$+0`, `$S+0`, `$Y`, `$YD+0`, `$YSS+0`, `DIR_CLB`, `DIR_DEL`, `DIR_NEQ`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `DIR_RXC`, `EXT_CLB`, `EXT_DEL`, `EXT_NEQ`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`, `EXT_RXC`
 - File deletes: `DIR_DELDEL$YSS+0.{extDel}`
 - File patterns: `"DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ"`, `"DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT"`, `"DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES"`, `"DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC"`, `"DIR_CLB$YSS+0*.EXT_CLB"`, `DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ`, `DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT`, `DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES`, `DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC`, `DIR_CLB$YSS+0*.EXT_CLB`
-- Source: [TIMORBAP](../../GPSUSER/SCRIPT/TIMORBAP)
+- Source: [TIMORBAP](source_files/ck18y530-gpsuser/SCRIPT/TIMORBAP)
 ### TIMZDM_P
 
 - Package: `TIMCLK_P`
@@ -3512,7 +3514,7 @@ Variables:
   - V_ variables: `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$YD+0`, `DIR_OUT`
-- Source: [TIMZDM_P](../../GPSUSER/SCRIPT/TIMZDM_P)
+- Source: [TIMZDM_P](source_files/ck18y530-gpsuser/SCRIPT/TIMZDM_P)
 ### TIMZDMAP
 
 - Package: `TIMCLKAP`
@@ -3522,7 +3524,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$$bpe{PARAM2}`, `$S+0`, `DIR_CLK`, `DIR_NEQ`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `EXT_CLK`, `EXT_NEQ`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`
 - File patterns: `"DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ"`, `"DIR_OUT$$bpe{PARAM2}?$S+0*.EXT_OUT"`, `"DIR_RES$$bpe{PARAM2}?$S+0*.EXT_RES"`, `"DIR_CLK$$bpe{PARAM2}?$S+0*.EXT_CLK"`, `DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ`, `DIR_OUT$$bpe{PARAM2}?$S+0*.EXT_OUT`, `DIR_RES$$bpe{PARAM2}?$S+0*.EXT_RES`, `DIR_CLK$$bpe{PARAM2}?$S+0*.EXT_CLK`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [TIMZDMAP](../../GPSUSER/SCRIPT/TIMZDMAP)
+- Source: [TIMZDMAP](source_files/ck18y530-gpsuser/SCRIPT/TIMZDMAP)
 ### TRPMERZD
 
 - Purpose: Merge TRP-files Programs:
@@ -3534,7 +3536,7 @@ Variables:
 - File writes: `$troOutFl`, `DIR_TRPV_K_$YSS+0.EXT_TRP_tmp`
 - File deletes: `DIR_TRPV_K_$YSS+0.EXT_TRP_tmp`
 - File patterns: `DIR_TRP????$S+0_REC.EXT_TRP`
-- Source: [TRPMERZD](../../GPSUSER/SCRIPT/TRPMERZD)
+- Source: [TRPMERZD](source_files/ck18y530-gpsuser/SCRIPT/TRPMERZD)
 ### WAIT
 
 - Purpose: Wait if WAIT.FLG found
@@ -3542,14 +3544,14 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `CAMPAIGN`, `CAMP_PTH`, `PCFFIL`, `PID`, `TASKID`
-- Source: [WAIT](../../GPSUSER/SCRIPT/WAIT)
+- Source: [WAIT](source_files/ck18y530-gpsuser/SCRIPT/WAIT)
 ### WAIT_ZD
 
 - Purpose: Simple waiting script (fixed 60 seconds)
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
-- Source: [WAIT_ZD](../../GPSUSER/SCRIPT/WAIT_ZD)
+- Source: [WAIT_ZD](source_files/ck18y530-gpsuser/SCRIPT/WAIT_ZD)
 ### ZD3D_COP
 
 - Purpose: Copy files reqiured by CLKDEN
@@ -3559,7 +3561,7 @@ Variables:
   - Other keys: `$YD+0`, `$YD+1`, `$YD-1`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`
 - File reads: `$ENV{REF}/REFCLK.FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_CRDINF??$YSS+0???.EXT_OSB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_CRDINF99$YSS-1.EXT_OSB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_CRDINF99$YSS+1.EXT_OSB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_CRDINF_$YSS+0.EXT_FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_CRDINF_$YSS-1.EXT_FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_CRDINF_$YSS+1.EXT_FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS+0.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS-1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS+1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS+0.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS-1.EXT_NEQ` and 3 more
 - File writes: `DIR_SOSREFCLK.EXT_SOS`, `DIR_OSB`, `DIR_FIX`, `DIR_ERP`, `DIR_NEQ`, `DIR_RPRFIN$YD+0.EXT_RPR`, `DIR_SOSFIN$YD+0.EXT_SOS`
-- Source: [ZD3D_COP](../../GPSUSER/SCRIPT/ZD3D_COP)
+- Source: [ZD3D_COP](source_files/ck18y530-gpsuser/SCRIPT/ZD3D_COP)
 ### ZD_ADDNEQ2
 
 - Package: `ADDNEQ2`
@@ -3567,7 +3569,7 @@ Variables:
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PPP.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ADDNEQ2.INP`
-- Source: [ZD_ADDNEQ2](../../GPSUSER/SCRIPT/ZD_ADDNEQ2)
+- Source: [ZD_ADDNEQ2](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2)
 ### ZD_ADDNEQ2_CLK_E
 
 - Package: `ADDNEQ2_CLK_E`
@@ -3579,7 +3581,7 @@ Variables:
   - V_ variables: `V_FIN`
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_FIX`, `EXT_FIX`, `SUB_PID`
-- Source: [ZD_ADDNEQ2_CLK_E](../../GPSUSER/SCRIPT/ZD_ADDNEQ2_CLK_E)
+- Source: [ZD_ADDNEQ2_CLK_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2_CLK_E)
 ### ZD_ADDNEQ2_CLK_P
 
 - Package: `ADDNEQ2_CLK_P`
@@ -3589,7 +3591,7 @@ Variables:
   - V_ variables: `V_FIN`
   - Other keys: `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `DIR_NEQV_FIN??$YSS+0???.EXT_NEQ`
-- Source: [ZD_ADDNEQ2_CLK_P](../../GPSUSER/SCRIPT/ZD_ADDNEQ2_CLK_P)
+- Source: [ZD_ADDNEQ2_CLK_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2_CLK_P)
 ### ZD_ADDNEQ2_DATFIL
 
 - Package: `ADDNEQ2_DATFIL`
@@ -3600,7 +3602,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRDINF`, `V_FIN`
   - Other keys: `$YD+0`, `DIR_FIX`, `EXT_FIX`
-- Source: [ZD_ADDNEQ2_DATFIL](../../GPSUSER/SCRIPT/ZD_ADDNEQ2_DATFIL)
+- Source: [ZD_ADDNEQ2_DATFIL](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2_DATFIL)
 ### ZD_ADDNEQ2_DELNEQ
 
 - Package: `ADDNEQ2_DELNEQ`
@@ -3612,7 +3614,7 @@ Variables:
   - V_ variables: `V_FIN`
   - Other keys: `$S+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `"DIR_NEQV_FINA$S+0????.EXT_NEQ"`, `"DIR_NEQV_FIN_$S+0????.EXT_NEQ"`, `DIR_NEQV_FINA$S+0????.EXT_NEQ`, `DIR_NEQV_FIN_$S+0????.EXT_NEQ`
-- Source: [ZD_ADDNEQ2_DELNEQ](../../GPSUSER/SCRIPT/ZD_ADDNEQ2_DELNEQ)
+- Source: [ZD_ADDNEQ2_DELNEQ](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2_DELNEQ)
 ### ZD_ADDNEQ2_E
 
 - Package: `ADDNEQ2_E`
@@ -3624,7 +3626,7 @@ Variables:
   - V_ variables: `V_CBIA`
   - PARAM parameters: `PARAM1`
   - Other keys: `SUB_PID`
-- Source: [ZD_ADDNEQ2_E](../../GPSUSER/SCRIPT/ZD_ADDNEQ2_E)
+- Source: [ZD_ADDNEQ2_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2_E)
 ### ZD_ADDNEQ2_LA_E
 
 - Package: `ADDNEQ2_LA_E`
@@ -3635,7 +3637,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_NEQ`, `EXT_NEQ`, `SUB_PID`
-- Source: [ZD_ADDNEQ2_LA_E](../../GPSUSER/SCRIPT/ZD_ADDNEQ2_LA_E)
+- Source: [ZD_ADDNEQ2_LA_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2_LA_E)
 ### ZD_ADDNEQ2_LA_P
 
 - Package: `ADDNEQ2_LA_P`
@@ -3645,7 +3647,7 @@ Variables:
   - V_ variables: `V_APR`
   - Other keys: `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `DIR_NEQV_APR??$YSS+0???.EXT_NEQ`
-- Source: [ZD_ADDNEQ2_LA_P](../../GPSUSER/SCRIPT/ZD_ADDNEQ2_LA_P)
+- Source: [ZD_ADDNEQ2_LA_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2_LA_P)
 ### ZD_ADDNEQ2_P
 
 - Package: `ADDNEQ2_P`
@@ -3654,7 +3656,7 @@ Variables:
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$S+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `DIR_NEQ$$bpe{PARAM2}$S+0[0-9][0-9][0-9]_.EXT_NEQ`
-- Source: [ZD_ADDNEQ2_P](../../GPSUSER/SCRIPT/ZD_ADDNEQ2_P)
+- Source: [ZD_ADDNEQ2_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADDNEQ2_P)
 ### ZD_AMB_EXTRACT
 
 - Package: `AMB_EXTRACT`
@@ -3664,7 +3666,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File reads: `${dirOut}/IAR$YSS+0.PRC`
 - File writes: `${dirOut}/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_AMB_EXTRACT](../../GPSUSER/SCRIPT/ZD_AMB_EXTRACT)
+- Source: [ZD_AMB_EXTRACT](source_files/ck18y530-gpsuser/SCRIPT/ZD_AMB_EXTRACT)
 ### ZD_ATTXTR
 
 - Package: `ATTXTR`
@@ -3672,7 +3674,7 @@ Variables:
 - Bernese programs: `ATTXTR`
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - INP files: `ATTXTR.INP`
-- Source: [ZD_ATTXTR](../../GPSUSER/SCRIPT/ZD_ATTXTR)
+- Source: [ZD_ATTXTR](source_files/ck18y530-gpsuser/SCRIPT/ZD_ATTXTR)
 ### ZD_CCRNXC
 
 - Package: `CCRNXC`
@@ -3680,7 +3682,7 @@ Variables:
 - Bernese programs: `CCRNXC`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_CLKDEN.PCF, ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PPP.PCF, ZDGNSS_PREPROCESSING.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `CCRNXC.INP`
-- Source: [ZD_CCRNXC](../../GPSUSER/SCRIPT/ZD_CCRNXC)
+- Source: [ZD_CCRNXC](source_files/ck18y530-gpsuser/SCRIPT/ZD_CCRNXC)
 ### ZD_CHECK_AR_SAT
 
 - Package: `CHECK_AR_SAT`
@@ -3695,7 +3697,7 @@ Variables:
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `$f`, `DIR_OUT/../MSC/MSC_$YD+0/affected_satellite_AR`
 - File patterns: `DIR_OUT/*$S+0_NLB.OUT`
-- Source: [ZD_CHECK_AR_SAT](../../GPSUSER/SCRIPT/ZD_CHECK_AR_SAT)
+- Source: [ZD_CHECK_AR_SAT](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_AR_SAT)
 ### ZD_CHECK_CAMP
 
 - Package: `CHECK_CAMP`
@@ -3703,7 +3705,7 @@ Variables:
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - Other keys: `DIR_BPEOUT`, `DIR_CZH`, `DIR_GRD`, `DIR_NEQ`, `DIR_ORB`, `DIR_ORX`, `DIR_OUT`, `DIR_RXO`, `DIR_STA`, `DIR_TRP`, `EXT_SES`, `PTH_SINEXIN`
-- Source: [ZD_CHECK_CAMP](../../GPSUSER/SCRIPT/ZD_CHECK_CAMP)
+- Source: [ZD_CHECK_CAMP](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_CAMP)
 ### ZD_CHECK_GRD_FILES
 
 - Package: `CHECK_GRD_FILES`
@@ -3714,7 +3716,7 @@ Variables:
 - File reads: `DIR_GRD${file}`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`, `DIR_OUT../MSC/MSC_$YD+0/no_${type}`
 - File deletes: `DIR_OUT../MSC/MSC_$YD+0/no_${type} if (-e DIR_OUT../MSC/MSC_$YD+0/no_${type}`
-- Source: [ZD_CHECK_GRD_FILES](../../GPSUSER/SCRIPT/ZD_CHECK_GRD_FILES)
+- Source: [ZD_CHECK_GRD_FILES](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_GRD_FILES)
 ### ZD_CHECK_OBSENTRIES
 
 - Package: `CHECK_OBSENTRIES`
@@ -3726,7 +3728,7 @@ Variables:
 - File reads: `DIR_CRD/V_CRDINF.EXT_CRD`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `DIR_RXO/$file")`
-- Source: [ZD_CHECK_OBSENTRIES](../../GPSUSER/SCRIPT/ZD_CHECK_OBSENTRIES)
+- Source: [ZD_CHECK_OBSENTRIES](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_OBSENTRIES)
 ### ZD_CHECK_SAT_CLOCKS
 
 - Package: `CHECK_SAT_CLOCKS`
@@ -3735,7 +3737,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_FIN`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_ORB`, `DIR_OUT`, `EXT_CLK`
-- Source: [ZD_CHECK_SAT_CLOCKS](../../GPSUSER/SCRIPT/ZD_CHECK_SAT_CLOCKS)
+- Source: [ZD_CHECK_SAT_CLOCKS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_CLOCKS)
 ### ZD_CHECK_SAT_GAPS
 
 - Package: `CHECK_SAT_GAPS`
@@ -3747,7 +3749,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
 - File reads: `DIR_OUT/SMT${yy}$S+0.SMC`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_CHECK_SAT_GAPS](../../GPSUSER/SCRIPT/ZD_CHECK_SAT_GAPS)
+- Source: [ZD_CHECK_SAT_GAPS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_GAPS)
 ### ZD_CHECK_SAT_RMS
 
 - Package: `CHECK_SAT_RMS`
@@ -3759,7 +3761,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
 - File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_CHECK_SAT_RMS](../../GPSUSER/SCRIPT/ZD_CHECK_SAT_RMS)
+- Source: [ZD_CHECK_SAT_RMS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_RMS)
 ### ZD_CHECK_VAPL_ENTRIES
 
 - Package: `CHECK_VAPL_ENTRIES`
@@ -3770,7 +3772,7 @@ Variables:
 - File reads: `DIR_ATL/VAPL.EXT_ATL`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/VAPL_entries`
 - File deletes: `DIR_PZH$file) { print $LOG " deleted: $file/n"`
-- Source: [ZD_CHECK_VAPL_ENTRIES](../../GPSUSER/SCRIPT/ZD_CHECK_VAPL_ENTRIES)
+- Source: [ZD_CHECK_VAPL_ENTRIES](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_VAPL_ENTRIES)
 ### ZD_CLKEST
 
 - Package: `CLKEST`
@@ -3778,7 +3780,7 @@ Variables:
 - Bernese programs: `CLKEST`
 - Used in PCFs: ZDGNSS_CLKDEN.PCF
 - INP files: `CLKEST.INP`
-- Source: [ZD_CLKEST](../../GPSUSER/SCRIPT/ZD_CLKEST)
+- Source: [ZD_CLKEST](source_files/ck18y530-gpsuser/SCRIPT/ZD_CLKEST)
 ### ZD_CLKEST_CLU
 
 - Package: `CLKEST_CLU`
@@ -3789,7 +3791,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `DIR_CLB`, `EXT_CLB`, `U`
 - File patterns: `EXT_CLBUDIR_CLB??.${extClb}`
-- Source: [ZD_CLKEST_CLU](../../GPSUSER/SCRIPT/ZD_CLKEST_CLU)
+- Source: [ZD_CLKEST_CLU](source_files/ck18y530-gpsuser/SCRIPT/ZD_CLKEST_CLU)
 ### ZD_CMP_LAPACK
 
 - Package: `CMP_LAPACK`
@@ -3798,7 +3800,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_FIN`, `V_LARGE`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_CLK`, `DIR_ERP`, `DIR_OUT`, `EXT_CLK`, `EXT_ERP`
-- Source: [ZD_CMP_LAPACK](../../GPSUSER/SCRIPT/ZD_CMP_LAPACK)
+- Source: [ZD_CMP_LAPACK](source_files/ck18y530-gpsuser/SCRIPT/ZD_CMP_LAPACK)
 ### ZD_CODSPP_E
 
 - Package: `CODSPP_E`
@@ -3812,7 +3814,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$Y`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `EXT_CZH`, `EXT_CZO`, `EXT_PZH`, `EXT_PZO`, `SUB_PID`
 - File writes: `DIR_OUT../MSC/MSC_$Y$+0/CODSPP_PPP.log`
 - File deletes: `$file) if -e $file`, `PARAM1`
-- Source: [ZD_CODSPP_E](../../GPSUSER/SCRIPT/ZD_CODSPP_E)
+- Source: [ZD_CODSPP_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_CODSPP_E)
 ### ZD_CODSPP_P
 
 - Package: `CODSPP_P`
@@ -3824,7 +3826,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_OUT`, `DIR_RXC`, `DIR_SMC`, `DIR_SME`, `EXT_CZH`, `EXT_OUT`, `EXT_RXC`, `EXT_SMC`, `EXT_SME`
 - File deletes: `DIR_SMC${spp}$YSS+0.EXT_SMC`, `DIR_SME${spp}$YSS+0.EXT_SME`
 - File patterns: `"DIR_RXC${spp}$S+0???.EXT_RXC"`, `"DIR_OUT${spp}$S+0???.EXT_OUT"`, `"DIR_RXC${spp}$+0????.EXT_RXC"`, `"DIR_OUT${spp}$+0????.EXT_OUT"`, `"DIR_BPEPRTSPP$S+0???.BPE"`, `DIR_RXC${spp}$S+0???.EXT_RXC`, `DIR_OUT${spp}$S+0???.EXT_OUT`, `DIR_RXC${spp}$+0????.EXT_RXC`, `DIR_OUT${spp}$+0????.EXT_OUT`, `DIR_BPEPRTSPP$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`
-- Source: [ZD_CODSPP_P](../../GPSUSER/SCRIPT/ZD_CODSPP_P)
+- Source: [ZD_CODSPP_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_CODSPP_P)
 ### ZD_CODXTR
 
 - Package: `CODXTR`
@@ -3838,7 +3840,7 @@ Variables:
 - File reads: `$$bpe{SYSOUT}`, `DIR_DELSPP$YSS+0.EXT_DEL`, `$inpFil`
 - File writes: `DIR_DCB/OFF$Y$+0.EXT_DCB`
 - File deletes: `DIR_DELSPP$YSS+0.EXT_DEL`, `$_`, `DIR_DCB/OFF$Y$+0.EXT_DCB`
-- Source: [ZD_CODXTR](../../GPSUSER/SCRIPT/ZD_CODXTR)
+- Source: [ZD_CODXTR](source_files/ck18y530-gpsuser/SCRIPT/ZD_CODXTR)
 ### ZD_CODXTRP
 
 - Package: `CODXTR`
@@ -3850,7 +3852,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$S+0`, `DIR_CZH`, `EXT_CZH`
 - File patterns: `DIR_CZH????$S+0.EXT_CZH`
-- Source: [ZD_CODXTRP](../../GPSUSER/SCRIPT/ZD_CODXTRP)
+- Source: [ZD_CODXTRP](source_files/ck18y530-gpsuser/SCRIPT/ZD_CODXTRP)
 ### ZD_COMPAR2_ZD
 
 - Package: `COMPAR2_ZD`
@@ -3863,7 +3865,7 @@ Variables:
   - Other keys: `$YSS+0`
 - File writes: `$ENV{U}/WORK/CRDCMP.lst`
 - File deletes: `$ENV{U}/WORK/CRDCMP.lst`
-- Source: [ZD_COMPAR2_ZD](../../GPSUSER/SCRIPT/ZD_COMPAR2_ZD)
+- Source: [ZD_COMPAR2_ZD](source_files/ck18y530-gpsuser/SCRIPT/ZD_COMPAR2_ZD)
 ### ZD_COOVEL
 
 - Package: `COOVEL`
@@ -3871,7 +3873,7 @@ Variables:
 - Bernese programs: `COOVEL`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_PREPARATION.PCF
 - INP files: `COOVEL.INP`
-- Source: [ZD_COOVEL](../../GPSUSER/SCRIPT/ZD_COOVEL)
+- Source: [ZD_COOVEL](source_files/ck18y530-gpsuser/SCRIPT/ZD_COOVEL)
 ### ZD_COPY_APR_AR
 
 - Package: `COPY_APR_AR`
@@ -3883,7 +3885,7 @@ Variables:
   - Other keys: `$YSS+0`, `DIR_STD`, `EXT_RPR`, `EXT_STD`
 - File reads: `DIR_STDV_APR_$YSS+0.EXT_STD`, `DIR_STDV_APR_$YSS+0.EXT_RPR`, `DIR_STDV_APR_APR_$YSS+0.EXT_STD`, `DIR_STDV_APR_APR_$YSS+0.EXT_RPR`
 - File writes: `DIR_STDV_APR_APR_$YSS+0.EXT_STD`, `DIR_STDV_APR_APR_$YSS+0.EXT_RPR`, `DIR_STDV_APR_$YSS+0.EXT_STD`, `DIR_STDV_APR_$YSS+0.EXT_RPR`
-- Source: [ZD_COPY_APR_AR](../../GPSUSER/SCRIPT/ZD_COPY_APR_AR)
+- Source: [ZD_COPY_APR_AR](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_APR_AR)
 ### ZD_COPY_FIL_3D
 
 - Package: `COPY_FIL_3D`
@@ -3894,7 +3896,7 @@ Variables:
   - Other keys: `$YD+0`, `$YD+1`, `$YD-1`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`
 - File reads: `$ENV{REF}/REFCLK.FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR??$YSS+0???.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR99$YSS-1.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR99$YSS+1.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS+0.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS-1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS+1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+0.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS-1.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+1.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+0.EXT_RPR`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS-1.EXT_RPR` and 3 more
 - File writes: `DIR_FIXREFCLK.EXT_FIX`, `DIR_NEQ`, `DIR_ERP`, `DIR_STD`, `DIR_RPR`, `DIR_CLK`, `DIR_FIX`
-- Source: [ZD_COPY_FIL_3D](../../GPSUSER/SCRIPT/ZD_COPY_FIL_3D)
+- Source: [ZD_COPY_FIL_3D](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_FIL_3D)
 ### ZD_COPY_FIL_CLKD
 
 - Package: `COPY_FIL_CLKD`
@@ -3904,7 +3906,7 @@ Variables:
   - Other keys: `$YD+0`, `DIR_PZH`
 - File reads: `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//OBS//*`
 - File writes: `DIR_PZH`
-- Source: [ZD_COPY_FIL_CLKD](../../GPSUSER/SCRIPT/ZD_COPY_FIL_CLKD)
+- Source: [ZD_COPY_FIL_CLKD](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_FIL_CLKD)
 ### ZD_COPY_OBS
 
 - Package: `COPY_OBS`
@@ -3914,7 +3916,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$Y`, `DIR_PZH`, `DIR_RXO`, `EXT_PZH`
 - File deletes: `DIR_RXO/????$S+0.*`, `unlink(glob("DIR_RXO/../*/AIRA???0.??O"`
 - File patterns: `"DIR_RXO/../*/MAO0???0.??O"`, `"DIR_RXO/../*/AMU2???0.??O"`, `"DIR_RXO/../*/CUT0???0.??O"`, `"DIR_RXO/../*/MAYG???0.??O"`, `"DIR_RXO/../*/NYA2???0.??O"`, `DIR_RXO/../*/AIRA???0.??O`, `DIR_RXO/../*/MAO0???0.??O`, `DIR_RXO/../*/AMU2???0.??O`, `DIR_RXO/../*/CUT0???0.??O`, `DIR_RXO/../*/MAYG???0.??O`, `DIR_RXO/../*/NYA2???0.??O`
-- Source: [ZD_COPY_OBS](../../GPSUSER/SCRIPT/ZD_COPY_OBS)
+- Source: [ZD_COPY_OBS](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_OBS)
 ### ZD_COPY_PPP
 
 - Package: `COPY_PPP`
@@ -3925,7 +3927,7 @@ Variables:
   - Other keys: `$YD+0`, `$YSS+0`, `$YYYD+0`, `$YYYSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CRD`, `DIR_ERP`, `DIR_ION`, `DIR_OSB`, `DIR_PRE`, `DIR_RXC`, `DIR_STD`, `DIR_VEL`, `EXT_CRD`, `EXT_ERP`, `EXT_ION`, `EXT_OSB`, `EXT_PRE`, `EXT_RXC`
 - File reads: `$src`
 - File writes: `$dst`
-- Source: [ZD_COPY_PPP](../../GPSUSER/SCRIPT/ZD_COPY_PPP)
+- Source: [ZD_COPY_PPP](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_PPP)
 ### ZD_COPY_REF
 
 - Package: `COPY_REF`
@@ -3938,7 +3940,7 @@ Variables:
   - Other keys: `$+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_OSB`, `DIR_STA`, `EXT_CRX`, `EXT_ERP`, `EXT_FIX`, `EXT_OSB`, `EXT_SINEXIN`, `PTH_SINEXIN`
 - File reads: `DIR_ERPAPR${yyssss}.EXT_ERP`, `$YSS+0`
 - File writes: `DIR_ERPREF${yyssss}.EXT_ERP`, `$target`
-- Source: [ZD_COPY_REF](../../GPSUSER/SCRIPT/ZD_COPY_REF)
+- Source: [ZD_COPY_REF](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_REF)
 ### ZD_CRDMERGE
 
 - Package: `CRDMERGE`
@@ -3946,7 +3948,7 @@ Variables:
 - Bernese programs: `CRDMERGE`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `CRDMERGE.INP`
-- Source: [ZD_CRDMERGE](../../GPSUSER/SCRIPT/ZD_CRDMERGE)
+- Source: [ZD_CRDMERGE](source_files/ck18y530-gpsuser/SCRIPT/ZD_CRDMERGE)
 ### ZD_CRDMRDAT
 
 - Package: `CRDMRDAT`
@@ -3957,7 +3959,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_REFINF`
   - Other keys: `EXT_DATUM`, `PTH_DATUM`
-- Source: [ZD_CRDMRDAT](../../GPSUSER/SCRIPT/ZD_CRDMRDAT)
+- Source: [ZD_CRDMRDAT](source_files/ck18y530-gpsuser/SCRIPT/ZD_CRDMRDAT)
 ### ZD_DEL_CDXT_OBS
 
 - Package: `DEL_CDXT_OBS`
@@ -3968,7 +3970,7 @@ Variables:
 - File reads: `DIR_OUTCODXTR.${yy}_$S+0`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `$file)) { $removed_count++`
-- Source: [ZD_DEL_CDXT_OBS](../../GPSUSER/SCRIPT/ZD_DEL_CDXT_OBS)
+- Source: [ZD_DEL_CDXT_OBS](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_CDXT_OBS)
 ### ZD_DEL_RES_1D
 
 - Package: `DEL_RES_1D`
@@ -3979,7 +3981,7 @@ Variables:
   - Other keys: `$D+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `$dir/$file`
-- Source: [ZD_DEL_RES_1D](../../GPSUSER/SCRIPT/ZD_DEL_RES_1D)
+- Source: [ZD_DEL_RES_1D](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_1D)
 ### ZD_DEL_RES_3D
 
 - Package: `DEL_RES_3D`
@@ -3990,7 +3992,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_OUT`
 - File deletes: `$file`
 - File patterns: `DIR_OUT${pattern}`, `DIR_OUT../STA/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../SOL/${pattern}`, `DIR_OUT../BPE/*ZD3D*${day}*`
-- Source: [ZD_DEL_RES_3D](../../GPSUSER/SCRIPT/ZD_DEL_RES_3D)
+- Source: [ZD_DEL_RES_3D](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_3D)
 ### ZD_DEL_RES_CLKD
 
 - Package: `DEL_RES_CLKD`
@@ -4001,7 +4003,7 @@ Variables:
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File deletes: `$file`
 - File patterns: `DIR_OUT${pattern}`, `DIR_OUT../ATM/${pattern}`, `DIR_OUT../OBS/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../BPE/*CLKDEN*${day}*`
-- Source: [ZD_DEL_RES_CLKD](../../GPSUSER/SCRIPT/ZD_DEL_RES_CLKD)
+- Source: [ZD_DEL_RES_CLKD](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_CLKD)
 ### ZD_DEL_RES_PPP
 
 - Package: `DEL_RES_PPP`
@@ -4030,7 +4032,7 @@ Variables:
     if ( ${del} ne `, `DIR_BIA`, `DIR_CLK`, `DIR_CRD`, `DIR_CZH`, `DIR_CZO`, `DIR_DCB`, `DIR_EDT`, `DIR_ERP`, `DIR_GCC`, `DIR_IEP`
 - File deletes: `glob "DIR_OUT*.J_lk"`
 - File patterns: `"DIR_OBO*$YYYSS-5.EXT_RBO"`, `"DIR_RBO*$YYYSS-5.EXT_RBO"`, `"DIR_SMT*$YYYSS-5.EXT_SMT"`, `"DIR_PZH????$S-5.EXT_PZH"`, `"DIR_PZO????$S-5.EXT_PZO"`, `"DIR_CZH????$S-5.EXT_CZH"`, `"DIR_CZO????$S-5.EXT_CZO"`, `"DIR_IONV_HOIFIL.EXT_ION"`, `"DIR_TRPV_PPP_$YYYSS-5.EXT_TRP"`, `"DIR_TROV_PPP_$YYYSS-5.EXT_TRO"`, `"DIR_TRPV_FIN_$YYYSS-5.EXT_TRP"`, `"DIR_TROV_FIN_$YYYSS-5.EXT_TRO"` and 202 more
-- Source: [ZD_DEL_RES_PPP](../../GPSUSER/SCRIPT/ZD_DEL_RES_PPP)
+- Source: [ZD_DEL_RES_PPP](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_PPP)
 ### ZD_DEL_RXO
 
 - Package: `DEL_RXO`
@@ -4042,7 +4044,7 @@ Variables:
 - File writes: `CAMP_PTHCAMPAIGN/MSC/MSC_$YD+0/PPP_DELRXO_PARAM1.log`
 - File deletes: `$rxo)`
 - File patterns: `CAMP_PTHCAMPAIGN/OBS/????$S+0.???`, `CAMP_PTHCAMPAIGN/OBS/????$S+0.PZH`, `CAMP_PTHCAMPAIGN/RAW/????$S+0.$YO`, `CAMP_PTHCAMPAIGN/OBS/OBS_$S+0/????$S+0.???`
-- Source: [ZD_DEL_RXO](../../GPSUSER/SCRIPT/ZD_DEL_RXO)
+- Source: [ZD_DEL_RXO](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RXO)
 ### ZD_FIX_CHK
 
 - Package: `FIX_CHK`
@@ -4055,7 +4057,7 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$YD+0`, `DIR_FIX`, `DIR_OUT`, `EXT_FIX`, `EXT_OUT`
 - File deletes: `DIR_FIXBAD$YD+0.EXT_FIX) if PARAM2 ne ""`
-- Source: [ZD_FIX_CHK](../../GPSUSER/SCRIPT/ZD_FIX_CHK)
+- Source: [ZD_FIX_CHK](source_files/ck18y530-gpsuser/SCRIPT/ZD_FIX_CHK)
 ### ZD_GEN_NEQ_E
 
 - Package: `GEN_NEQ_E`
@@ -4067,7 +4069,7 @@ Variables:
   - V_ variables: `V_IAR`, `V_PUL`, `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `DIR_OUT`
-- Source: [ZD_GEN_NEQ_E](../../GPSUSER/SCRIPT/ZD_GEN_NEQ_E)
+- Source: [ZD_GEN_NEQ_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_GEN_NEQ_E)
 ### ZD_GEN_NEQ_P
 
 - Package: `GEN_NEQ_P`
@@ -4078,7 +4080,7 @@ Variables:
   - PARAM parameters: `PARAM3`, `PARAM4`
   - Other keys: `$S+0`, `DIR_CLK`, `DIR_NEQ`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `EXT_CLK`, `EXT_NEQ`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`
 - File patterns: `"DIR_NEQV_FIN?$S+0*.EXT_NEQ"`, `"DIR_OUTV_FIN?$S+0*.EXT_OUT"`, `"DIR_RESV_FIN?$S+0*.EXT_RES"`, `"DIR_CLKV_FIN?$S+0*.EXT_CLK"`, `DIR_NEQV_FIN?$S+0*.EXT_NEQ`, `DIR_OUTV_FIN?$S+0*.EXT_OUT`, `DIR_RESV_FIN?$S+0*.EXT_RES`, `DIR_CLKV_FIN?$S+0*.EXT_CLK`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [ZD_GEN_NEQ_P](../../GPSUSER/SCRIPT/ZD_GEN_NEQ_P)
+- Source: [ZD_GEN_NEQ_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_GEN_NEQ_P)
 ### ZD_GP_AD_GP_E
 
 - Package: `GP_AD_GP_E`
@@ -4090,7 +4092,7 @@ Variables:
   - V_ variables: `V_CSCR`, `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `SUB_PID`
-- Source: [ZD_GP_AD_GP_E](../../GPSUSER/SCRIPT/ZD_GP_AD_GP_E)
+- Source: [ZD_GP_AD_GP_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_GP_AD_GP_E)
 ### ZD_GPSEST_ADDNEQ2_E
 
 - Package: `GPSEST_ADDNEQ2_E`
@@ -4102,7 +4104,7 @@ Variables:
   - V_ variables: `V_CSCR`, `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `SUB_PID`
-- Source: [ZD_GPSEST_ADDNEQ2_E](../../GPSUSER/SCRIPT/ZD_GPSEST_ADDNEQ2_E)
+- Source: [ZD_GPSEST_ADDNEQ2_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSEST_ADDNEQ2_E)
 ### ZD_GPSEST_ADDNEQ2_OSBR_E
 
 - Package: `GPSEST_ADDNEQ2_OSBR_E`
@@ -4114,7 +4116,7 @@ Variables:
   - V_ variables: `V_CBIA`, `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `SUB_PID`
-- Source: [ZD_GPSEST_ADDNEQ2_OSBR_E](../../GPSUSER/SCRIPT/ZD_GPSEST_ADDNEQ2_OSBR_E)
+- Source: [ZD_GPSEST_ADDNEQ2_OSBR_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSEST_ADDNEQ2_OSBR_E)
 ### ZD_GPSEST_DELOLD_P
 
 - Package: `GPSEST_DELOLD_P`
@@ -4127,7 +4129,7 @@ Variables:
   - Other keys: `$$bpe{PARAM2}`, `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CLB`, `DIR_NEQ`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `DIR_RXC`, `EXT_CLB`, `EXT_NEQ`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`, `EXT_RXC`
 - File reads: `DIR_CLB$YD+0RNX.EXT_CLB`
 - File patterns: `"DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ"`, `"DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT"`, `"DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES"`, `"DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC"`, `"DIR_CLB${clbnam}*.EXT_CLB"`, `DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ`, `DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT`, `DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES`, `DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC`, `DIR_CLB${clbnam}*.EXT_CLB`
-- Source: [ZD_GPSEST_DELOLD_P](../../GPSUSER/SCRIPT/ZD_GPSEST_DELOLD_P)
+- Source: [ZD_GPSEST_DELOLD_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSEST_DELOLD_P)
 ### ZD_GPSEST_E
 
 - Package: `GPSEST_E`
@@ -4139,7 +4141,7 @@ Variables:
   - V_ variables: `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `DIR_OUT`, `SESSION`, `SUB_PID`, `U`
-- Source: [ZD_GPSEST_E](../../GPSUSER/SCRIPT/ZD_GPSEST_E)
+- Source: [ZD_GPSEST_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSEST_E)
 ### ZD_GPSEST_P
 
 - Package: `GPSEST_P`
@@ -4148,7 +4150,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_PZH`, `EXT_CZH`, `EXT_PZH`
 - File patterns: `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZH????$S+0.EXT_CZH`
-- Source: [ZD_GPSEST_P](../../GPSUSER/SCRIPT/ZD_GPSEST_P)
+- Source: [ZD_GPSEST_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSEST_P)
 ### ZD_GPSESTC_E
 
 - Package: `GPSESTC_E`
@@ -4161,7 +4163,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `SUB_PID`
 - File reads: `PARAM1`
-- Source: [ZD_GPSESTC_E](../../GPSUSER/SCRIPT/ZD_GPSESTC_E)
+- Source: [ZD_GPSESTC_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSESTC_E)
 ### ZD_GPSESTCP_E
 
 - Package: `GPSESTCP_E`
@@ -4173,7 +4175,7 @@ Variables:
   - V_ variables: `V_TRPMOD`, `V_USEHOI`
   - PARAM parameters: `PARAM1`
   - Other keys: `SUB_PID`
-- Source: [ZD_GPSESTCP_E](../../GPSUSER/SCRIPT/ZD_GPSESTCP_E)
+- Source: [ZD_GPSESTCP_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSESTCP_E)
 ### ZD_GPSXTR
 
 - Package: `GPSXTR`
@@ -4184,7 +4186,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `DIR_SUM`, `EXT_SUM`, `PID`
 - File deletes: `DIR_SUMESTX$YSS+0.EXT_SUM`, `DIR_SUMESTC$YSS+0.EXT_SUM`, `DIR_SUMESTW$YSS+0.EXT_SUM`
-- Source: [ZD_GPSXTR](../../GPSUSER/SCRIPT/ZD_GPSXTR)
+- Source: [ZD_GPSXTR](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSXTR)
 ### ZD_GPSXTR_EXTRACT
 
 - Package: `GPSXTR_EXTRACT`
@@ -4195,7 +4197,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File reads: `DIR_OUT/V_FINV_LARGEXTR$YSS+0.SUM`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_GPSXTR_EXTRACT](../../GPSUSER/SCRIPT/ZD_GPSXTR_EXTRACT)
+- Source: [ZD_GPSXTR_EXTRACT](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSXTR_EXTRACT)
 ### ZD_GPSXTR_P
 
 - Package: `GPSXTR_P`
@@ -4206,7 +4208,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$S+0`, `$YYYSS+0`
-- Source: [ZD_GPSXTR_P](../../GPSUSER/SCRIPT/ZD_GPSXTR_P)
+- Source: [ZD_GPSXTR_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSXTR_P)
 ### ZD_GPSXTRP
 
 - Package: `GPSXTRP`
@@ -4214,7 +4216,7 @@ Variables:
 - Bernese programs: `GPSXTR`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `GPSXTR.INP`
-- Source: [ZD_GPSXTRP](../../GPSUSER/SCRIPT/ZD_GPSXTRP)
+- Source: [ZD_GPSXTRP](source_files/ck18y530-gpsuser/SCRIPT/ZD_GPSXTRP)
 ### ZD_IAR_STA
 
 - Package: `IAR_STA`
@@ -4225,7 +4227,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_BIA`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PZH`, `DIR_SUM`, `EXT_BIA`, `EXT_CRD`, `EXT_OSB`, `EXT_OUT`, `EXT_PZH`, `EXT_SUM`, `STARTCOUNT`
 - File deletes: `DIR_SUMIAR$YSS+0.PRC) if $iarRun==0`, `DIR_SUMFIX$YSS+0.EXT_SUM`
-- Source: [ZD_IAR_STA](../../GPSUSER/SCRIPT/ZD_IAR_STA)
+- Source: [ZD_IAR_STA](source_files/ck18y530-gpsuser/SCRIPT/ZD_IAR_STA)
 ### ZD_IARXTR
 
 - Package: `IARXTR`
@@ -4237,7 +4239,7 @@ Variables:
   - V_ variables: `V_GNSSAR`
   - Other keys: `$YYYSS+0`, `DIR_OUT`, `DIR_SUM`, `EXT_OUT`, `EXT_SUM`
 - File deletes: `DIR_SUMAMB_$YYYSS+0.EXT_SUM`, `DIR_SUMTMP_$YYYSS+0.EXT_SUM`, `DIR_OUTTMP_$YYYSS+0.EXT_OUT`, `DIR_SUMTMP_$YYYSS+0.EXT_SUM }`, `DIR_SUMTMP_$YYYSS+0.EXT_SUM } }`
-- Source: [ZD_IARXTR](../../GPSUSER/SCRIPT/ZD_IARXTR)
+- Source: [ZD_IARXTR](source_files/ck18y530-gpsuser/SCRIPT/ZD_IARXTR)
 ### ZD_INIT_BRD
 
 - Package: `INIT_BRD`
@@ -4250,7 +4252,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_CLK`, `DIR_PRE`, `DIR_RXN`, `EXT_CLK`, `EXT_PRE`, `EXT_RXN`
 - File reads: `$file`, `${file}.gz`, `${file}.Z`
 - File writes: `$loc`, `${loc}.gz`, `${loc}.Z`
-- Source: [ZD_INIT_BRD](../../GPSUSER/SCRIPT/ZD_INIT_BRD)
+- Source: [ZD_INIT_BRD](source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_BRD)
 ### ZD_INIT_HOI
 
 - Package: `INIT_HOI`
@@ -4259,7 +4261,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_USEHOI`
   - Other keys: `$Y+0`, `$YD+0`, `DIR_ION`, `EXT_ION`
-- Source: [ZD_INIT_HOI](../../GPSUSER/SCRIPT/ZD_INIT_HOI)
+- Source: [ZD_INIT_HOI](source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_HOI)
 ### ZD_INIT_VMF
 
 - Package: `INIT_VMF`
@@ -4268,7 +4270,7 @@ Variables:
 - Read keys:
   - Other keys: `$+0`, `$Y+0`, `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`
 - File deletes: `DIR_GRDVMF$YD+0.EXT_GRD`
-- Source: [ZD_INIT_VMF](../../GPSUSER/SCRIPT/ZD_INIT_VMF)
+- Source: [ZD_INIT_VMF](source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_VMF)
 ### ZD_ITE_PHASE_THR
 
 - Package: `ITE_PHASE_THR`
@@ -4280,7 +4282,7 @@ Variables:
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_EDT`, `EXT_EDT`, `STARTCOUNT`, `U`
 - File deletes: `@resFil`
 - File patterns: `DIR_EDT../MSC/V_CPSC$YD+0_????.FLG`
-- Source: [ZD_ITE_PHASE_THR](../../GPSUSER/SCRIPT/ZD_ITE_PHASE_THR)
+- Source: [ZD_ITE_PHASE_THR](source_files/ck18y530-gpsuser/SCRIPT/ZD_ITE_PHASE_THR)
 ### ZD_ITE_PRE_CLK
 
 - Package: `ITE_PRE_CLK`
@@ -4291,7 +4293,7 @@ Variables:
   - Other keys: `$YD+0`, `DIR_OUT`, `STARTCOUNT`
 - File deletes: `DIR_OUT/../MSC/MSC_$YD+0/TIMOVER`
 - File patterns: `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`
-- Source: [ZD_ITE_PRE_CLK](../../GPSUSER/SCRIPT/ZD_ITE_PRE_CLK)
+- Source: [ZD_ITE_PRE_CLK](source_files/ck18y530-gpsuser/SCRIPT/ZD_ITE_PRE_CLK)
 ### ZD_MANMRK
 
 - Package: `MANMRK`
@@ -4303,7 +4305,7 @@ Variables:
   - V_ variables: `V_SATCRX`
   - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
 - File reads: `DIR_STAV_SATCRX.EXT_CRX`
-- Source: [ZD_MANMRK](../../GPSUSER/SCRIPT/ZD_MANMRK)
+- Source: [ZD_MANMRK](source_files/ck18y530-gpsuser/SCRIPT/ZD_MANMRK)
 ### ZD_MAUPRP_E
 
 - Package: `MAUPRP_E`
@@ -4317,7 +4319,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `SUB_PID`
 - File reads: `PARAM1`
 - File deletes: `PARAM1`
-- Source: [ZD_MAUPRP_E](../../GPSUSER/SCRIPT/ZD_MAUPRP_E)
+- Source: [ZD_MAUPRP_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_MAUPRP_E)
 ### ZD_MAUPRP_P
 
 - Package: `MAUPRP_P`
@@ -4327,7 +4329,7 @@ Variables:
   - V_ variables: `V_NCLU`
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_OUT`, `DIR_PSH`, `DIR_PZH`, `EXT_OUT`, `EXT_PSH`, `EXT_PZH`
 - File patterns: `"DIR_OUTMP$YSS+0??.EXT_OUT"`, `"DIR_OUTMP$+0????.EXT_OUT"`, `"DIR_BPEPRTMPR$S+0???.BPE"`, `DIR_OUTMP$YSS+0??.EXT_OUT`, `DIR_OUTMP$+0????.EXT_OUT`, `DIR_BPEPRTMPR$S+0???.BPE`, `DIR_PSH????$S+0.EXT_PSH`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [ZD_MAUPRP_P](../../GPSUSER/SCRIPT/ZD_MAUPRP_P)
+- Source: [ZD_MAUPRP_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_MAUPRP_P)
 ### ZD_MERGECRDP
 
 - Package: `MERGECRDP`
@@ -4338,7 +4340,7 @@ Variables:
   - Other keys: `$YD+0`, `$YSS+0`, `$YYYSS+0`, `DIR_CRD`, `EXT_CRD`
 - File reads: `DIR_CRD/V_FIN_$YYYSS+0.EXT_CRD`, `DIR_CRD/V_APRFP_$YSS+0.EXT_CRD`
 - File writes: `DIR_CRD/../MSC/MSC_$YD+0/PPP_MERGECRD.log`, `DIR_CRD/V_APRFP_$YSS+0.EXT_CRD.tmp`
-- Source: [ZD_MERGECRDP](../../GPSUSER/SCRIPT/ZD_MERGECRDP)
+- Source: [ZD_MERGECRDP](source_files/ck18y530-gpsuser/SCRIPT/ZD_MERGECRDP)
 ### ZD_MKCLUS
 
 - Package: `MKCLUS`
@@ -4346,7 +4348,7 @@ Variables:
 - Bernese programs: `MKCLUS`
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PREPARATION.PCF
 - INP files: `MKCLUS.INP`
-- Source: [ZD_MKCLUS](../../GPSUSER/SCRIPT/ZD_MKCLUS)
+- Source: [ZD_MKCLUS](source_files/ck18y530-gpsuser/SCRIPT/ZD_MKCLUS)
 ### ZD_MOD_OSBFIL
 
 - Package: `MOD_OSBFIL`
@@ -4356,7 +4358,7 @@ Variables:
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OSB`, `EXT_OSB`
 - File reads: `DIR_OSB/REF$YSS+0.EXT_OSB`
 - File writes: `DIR_OSB../MSC/MSC_$YD+0/MOD_OSBFIL.log`, `DIR_OSB/REF$YSS+0.EXT_OSB.tmp`
-- Source: [ZD_MOD_OSBFIL](../../GPSUSER/SCRIPT/ZD_MOD_OSBFIL)
+- Source: [ZD_MOD_OSBFIL](source_files/ck18y530-gpsuser/SCRIPT/ZD_MOD_OSBFIL)
 ### ZD_MPR_XTR
 
 - Package: `MPR_XTR`
@@ -4370,7 +4372,7 @@ Variables:
 - File reads: `DIR_DELMPR$YSS+0.EXT_DEL`, `DIR_OUT/MPRXTR.$Y_$S+0`
 - File deletes: `DIR_DELMPR$YSS+0.EXT_DEL`, `$_`, `$czfile`
 - File patterns: `DIR_PSH????$S+0.EXT_PSH`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [ZD_MPR_XTR](../../GPSUSER/SCRIPT/ZD_MPR_XTR)
+- Source: [ZD_MPR_XTR](source_files/ck18y530-gpsuser/SCRIPT/ZD_MPR_XTR)
 ### ZD_MRKOB__E
 
 - Package: `MRKOB__E`
@@ -4382,7 +4384,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [ZD_MRKOB__E](../../GPSUSER/SCRIPT/ZD_MRKOB__E)
+- Source: [ZD_MRKOB__E](source_files/ck18y530-gpsuser/SCRIPT/ZD_MRKOB__E)
 ### ZD_MRKOB__P
 
 - Package: `MRKOB__P`
@@ -4393,7 +4395,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `$+0`, `$-1`, `$-2`, `$S+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_OUT`, `DIR_PZH`, `EXT_CZH`, `EXT_OUT`, `EXT_PZH`
 - File patterns: `"DIR_BPEPRTMRK$S+0???.BPE"`, `DIR_BPEPRTMRK$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [ZD_MRKOB__P](../../GPSUSER/SCRIPT/ZD_MRKOB__P)
+- Source: [ZD_MRKOB__P](source_files/ck18y530-gpsuser/SCRIPT/ZD_MRKOB__P)
 ### ZD_NUM_OBSFIL
 
 - Package: `NUM_OBSFIL`
@@ -4403,7 +4405,7 @@ Variables:
   - V_ variables: `V_MINC`
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_NUM_OBSFIL](../../GPSUSER/SCRIPT/ZD_NUM_OBSFIL)
+- Source: [ZD_NUM_OBSFIL](source_files/ck18y530-gpsuser/SCRIPT/ZD_NUM_OBSFIL)
 ### ZD_OBSXTR
 
 - Package: `OBSXTR`
@@ -4411,7 +4413,7 @@ Variables:
 - Bernese programs: `OBSXTR`
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - INP files: `OBSXTR.INP`
-- Source: [ZD_OBSXTR](../../GPSUSER/SCRIPT/ZD_OBSXTR)
+- Source: [ZD_OBSXTR](source_files/ck18y530-gpsuser/SCRIPT/ZD_OBSXTR)
 ### ZD_OBSXTR_EXTRACT
 
 - Package: `OBSXTR_EXTRACT`
@@ -4422,7 +4424,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File reads: `DIR_OUT/OBSXTRV_FIN$YSS+0.OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_OBSXTR_EXTRACT](../../GPSUSER/SCRIPT/ZD_OBSXTR_EXTRACT)
+- Source: [ZD_OBSXTR_EXTRACT](source_files/ck18y530-gpsuser/SCRIPT/ZD_OBSXTR_EXTRACT)
 ### ZD_ORBGEN
 
 - Package: `ORBGEN`
@@ -4430,7 +4432,7 @@ Variables:
 - Bernese programs: `ORBGEN`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_AR.PCF, ZDGNSS_PPP.PCF, ZDGNSS_PREPARATION.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ORBGEN.INP`
-- Source: [ZD_ORBGEN](../../GPSUSER/SCRIPT/ZD_ORBGEN)
+- Source: [ZD_ORBGEN](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN)
 ### ZD_ORBGENA
 
 - Package: `ORBGENA`
@@ -4440,7 +4442,7 @@ Variables:
 - INP files: `ORBGEN.INP`
 - Read keys:
   - Other keys: `$$bpe{PARAM1}`
-- Source: [ZD_ORBGENA](../../GPSUSER/SCRIPT/ZD_ORBGENA)
+- Source: [ZD_ORBGENA](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGENA)
 ### ZD_ORBGENF
 
 - Package: `ORBGENF`
@@ -4451,7 +4453,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_FIN`, `V_LARGE`, `V_PUL`
   - Other keys: `$YSS+0`
-- Source: [ZD_ORBGENF](../../GPSUSER/SCRIPT/ZD_ORBGENF)
+- Source: [ZD_ORBGENF](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGENF)
 ### ZD_ORBMRG
 
 - Package: `ORBMRG`
@@ -4462,7 +4464,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_ORB`, `V_SATSYS`
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_PRE`, `EXT_PRE`
-- Source: [ZD_ORBMRG](../../GPSUSER/SCRIPT/ZD_ORBMRG)
+- Source: [ZD_ORBMRG](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBMRG)
 ### ZD_OSBMERGE
 
 - Package: `OSBMERGE`
@@ -4474,7 +4476,7 @@ Variables:
 - File reads: `$file`
 - File writes: `DIR_OSBV_CBIAS$YSS+0.EXT_OSB`
 - File patterns: `DIR_OSBV_CBIAS$YSS+0[0-9][0-9][0-9].EXT_OSB`
-- Source: [ZD_OSBMERGE](../../GPSUSER/SCRIPT/ZD_OSBMERGE)
+- Source: [ZD_OSBMERGE](source_files/ck18y530-gpsuser/SCRIPT/ZD_OSBMERGE)
 ### ZD_PHABIA
 
 - Package: `PHABIA`
@@ -4486,7 +4488,7 @@ Variables:
   - V_ variables: `V_APR`, `V_CBIA`
   - PARAM parameters: `PARAM2`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
-- Source: [ZD_PHABIA](../../GPSUSER/SCRIPT/ZD_PHABIA)
+- Source: [ZD_PHABIA](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA)
 ### ZD_PHACMB
 
 - Package: `PHACMB`
@@ -4497,7 +4499,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OSB`, `DIR_OUT`, `EXT_OSB`
 - File deletes: `DIR_OSB/" . substr(PARAM4, 0, 2) . "_$YSS+0.EXT_OSB`
-- Source: [ZD_PHACMB](../../GPSUSER/SCRIPT/ZD_PHACMB)
+- Source: [ZD_PHACMB](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHACMB)
 ### ZD_PHACMB_P
 
 - Package: `PHACMB_P`
@@ -4509,7 +4511,7 @@ Variables:
 - File reads: `DIR_OSB/V_OSBFIL.EXT_OSB`, `$file`
 - File writes: `DIR_OSB/V_OSBFIL_merged.EXT_OSB`
 - File patterns: `DIR_OSB/V_FIN_$YYYSS+0_*.EXT_OSB`
-- Source: [ZD_PHACMB_P](../../GPSUSER/SCRIPT/ZD_PHACMB_P)
+- Source: [ZD_PHACMB_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHACMB_P)
 ### ZD_PHACOR
 
 - Package: `PHACOR`
@@ -4521,7 +4523,7 @@ Variables:
   - V_ variables: `V_APR`, `V_CBIA`
   - PARAM parameters: `PARAM2`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
-- Source: [ZD_PHACOR](../../GPSUSER/SCRIPT/ZD_PHACOR)
+- Source: [ZD_PHACOR](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHACOR)
 ### ZD_POLUPD
 
 - Package: `POLUPD`
@@ -4529,7 +4531,7 @@ Variables:
 - Bernese programs: `POLUPD`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF
 - INP files: `POLUPD.INP`
-- Source: [ZD_POLUPD](../../GPSUSER/SCRIPT/ZD_POLUPD)
+- Source: [ZD_POLUPD](source_files/ck18y530-gpsuser/SCRIPT/ZD_POLUPD)
 ### ZD_PPP_HLM
 
 - Package: `PPP_HLM`
@@ -4541,7 +4543,7 @@ Variables:
   - V_ variables: `V_CRDINF`
   - Other keys: `$YYYSS+0`, `DIR_CRD`, `DIR_OUT`, `DIR_VEL`, `EXT_CRD`, `EXT_OUT`, `EXT_VEL`
 - File deletes: `DIR_OUTHLM_$YYYSS+0.EXT_OUT`
-- Source: [ZD_PPP_HLM](../../GPSUSER/SCRIPT/ZD_PPP_HLM)
+- Source: [ZD_PPP_HLM](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPP_HLM)
 ### ZD_PPP_IAR
 
 - Package: `PPP_IAR`
@@ -4550,7 +4552,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_GNSSAR`, `V_OBSTYP`
   - PARAM parameters: `PARAM2`
-- Source: [ZD_PPP_IAR](../../GPSUSER/SCRIPT/ZD_PPP_IAR)
+- Source: [ZD_PPP_IAR](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPP_IAR)
 ### ZD_PPP_KIN
 
 - Package: `PPP_KIN`
@@ -4559,7 +4561,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_KIN`
   - PARAM parameters: `PARAM2`
-- Source: [ZD_PPP_KIN](../../GPSUSER/SCRIPT/ZD_PPP_KIN)
+- Source: [ZD_PPP_KIN](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPP_KIN)
 ### ZD_PPP_RES_SUM
 
 - Package: `PPP_RES_SUM`
@@ -4571,7 +4573,7 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_DEL`, `DIR_OUT`, `DIR_SUM`, `EXT_DEL`, `EXT_OUT`, `EXT_SUM`, `STARTCOUNT`
 - File deletes: `DIR_SUMRES_$YYYSS+0.EXT_SUM`, `DIR_OUTRES_$YYYSS+0.PRC if STARTCOUNT == 1`
-- Source: [ZD_PPP_RES_SUM](../../GPSUSER/SCRIPT/ZD_PPP_RES_SUM)
+- Source: [ZD_PPP_RES_SUM](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPP_RES_SUM)
 ### ZD_PPP_SUM
 
 - Package: `PPP_SUM`
@@ -4582,7 +4584,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YYYSS+0`, `DIR_ATL`, `DIR_BLQ`, `DIR_CRD`, `DIR_DCB`, `DIR_GCC`, `DIR_ION`, `DIR_LST`, `DIR_OUT`, `DIR_SMC`, `DIR_SNX`, `DIR_STA`, `DIR_SUM`, `DIR_VEL`, `EXT_ATL`, `EXT_BLQ`, `EXT_CRD`, `EXT_CRX`
 - File deletes: `DIR_OUTPPP_$YYYSS+0.PRC`, `DIR_OUTRNX_$YYYSS+0.ERR`
 - File patterns: `DIR_SUMWRN_$YYYSS+0_????.EXT_SUM`, `DIR_OUTEDL_$YYYSS+0_????.EXT_OUT`
-- Source: [ZD_PPP_SUM](../../GPSUSER/SCRIPT/ZD_PPP_SUM)
+- Source: [ZD_PPP_SUM](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPP_SUM)
 ### ZD_PPPEDT_P
 
 - Package: `PPPEDT_P`
@@ -4594,7 +4596,7 @@ Variables:
   - V_ variables: `V_OBSTYP`, `V_SATSYS`
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_OUT`, `DIR_RES`, `DIR_SUM`, `EXT_OUT`, `EXT_RES`, `EXT_SUM`
-- Source: [ZD_PPPEDT_P](../../GPSUSER/SCRIPT/ZD_PPPEDT_P)
+- Source: [ZD_PPPEDT_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPPEDT_P)
 ### ZD_PPPEDTAP
 
 - Package: `PPPEDTAP`
@@ -4605,7 +4607,7 @@ Variables:
   - PARAM parameters: `PARAM3`
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_BPEPRT`, `DIR_PZH`, `EXT_PZH`
 - File patterns: `DIR_PZH????$S+0.EXT_PZH`
-- Source: [ZD_PPPEDTAP](../../GPSUSER/SCRIPT/ZD_PPPEDTAP)
+- Source: [ZD_PPPEDTAP](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPPEDTAP)
 ### ZD_PPPIAR_P
 
 - Package: `PPPIAR_P`
@@ -4617,7 +4619,7 @@ Variables:
   - V_ variables: `V_FIN`, `V_GNSSAR`, `V_ORB`
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$S+0`, `$YYYSS+0`
-- Source: [ZD_PPPIAR_P](../../GPSUSER/SCRIPT/ZD_PPPIAR_P)
+- Source: [ZD_PPPIAR_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPPIAR_P)
 ### ZD_PPPIARAP
 
 - Package: `PPPIARAP`
@@ -4626,7 +4628,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_BPEPRT`, `DIR_CZH`, `EXT_CZH`
 - File patterns: `DIR_CZH????$S+0.EXT_CZH`
-- Source: [ZD_PPPIARAP](../../GPSUSER/SCRIPT/ZD_PPPIARAP)
+- Source: [ZD_PPPIARAP](source_files/ck18y530-gpsuser/SCRIPT/ZD_PPPIARAP)
 ### ZD_PRE_ELIM_CLK
 
 - Package: `PRE_ELIM_CLK`
@@ -4638,7 +4640,7 @@ Variables:
   - V_ variables: `V_FIN`
   - Other keys: `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
 - File patterns: `DIR_NEQV_FIN??$YSS+0???.EXT_NEQ`
-- Source: [ZD_PRE_ELIM_CLK](../../GPSUSER/SCRIPT/ZD_PRE_ELIM_CLK)
+- Source: [ZD_PRE_ELIM_CLK](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK)
 ### ZD_PRE_ELIM_CLK_E
 
 - Package: `PRE_ELIM_CLK_E`
@@ -4649,7 +4651,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
-- Source: [ZD_PRE_ELIM_CLK_E](../../GPSUSER/SCRIPT/ZD_PRE_ELIM_CLK_E)
+- Source: [ZD_PRE_ELIM_CLK_E](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_E)
 ### ZD_PRE_ELIM_CLK_P
 
 - Package: `PRE_ELIM_CLK_P`
@@ -4658,7 +4660,7 @@ Variables:
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
 - File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
-- Source: [ZD_PRE_ELIM_CLK_P](../../GPSUSER/SCRIPT/ZD_PRE_ELIM_CLK_P)
+- Source: [ZD_PRE_ELIM_CLK_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P)
 ### ZD_RES_CHK
 
 - Package: `RES_CHK`
@@ -4673,7 +4675,7 @@ Variables:
 - File reads: `DIR_DEL$YD+0.EXT_DEL`, `$$bpe{SYSOUT}`
 - File deletes: `DIR_DEL$YD+0.EXT_DEL`, `$line`
 - File patterns: `DIR_OUT../MSC/V_CPSC$YD+0_????.FLG`
-- Source: [ZD_RES_CHK](../../GPSUSER/SCRIPT/ZD_RES_CHK)
+- Source: [ZD_RES_CHK](source_files/ck18y530-gpsuser/SCRIPT/ZD_RES_CHK)
 ### ZD_RESRMS
 
 - Package: `RESRMS`
@@ -4681,7 +4683,7 @@ Variables:
 - Bernese programs: `RESRMS`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PPP.PCF
 - INP files: `RESRMS.INP`
-- Source: [ZD_RESRMS](../../GPSUSER/SCRIPT/ZD_RESRMS)
+- Source: [ZD_RESRMS](source_files/ck18y530-gpsuser/SCRIPT/ZD_RESRMS)
 ### ZD_RESRMS_MAX
 
 - Package: `RESRMS_MAX`
@@ -4693,7 +4695,7 @@ Variables:
   - V_ variables: `V_CPSC`
   - Other keys: `$YD+0`, `DIR_OUT`, `U`
 - File patterns: `DIR_OUT../MSC/V_CPSC$YD+0_????.FLG`
-- Source: [ZD_RESRMS_MAX](../../GPSUSER/SCRIPT/ZD_RESRMS_MAX)
+- Source: [ZD_RESRMS_MAX](source_files/ck18y530-gpsuser/SCRIPT/ZD_RESRMS_MAX)
 ### ZD_RNXCLK
 
 - Package: `RNXCLK`
@@ -4701,7 +4703,7 @@ Variables:
 - Bernese programs: `RNXCLK`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `RNXCLK.INP`
-- Source: [ZD_RNXCLK](../../GPSUSER/SCRIPT/ZD_RNXCLK)
+- Source: [ZD_RNXCLK](source_files/ck18y530-gpsuser/SCRIPT/ZD_RNXCLK)
 ### ZD_RNXGRA
 
 - Package: `RNXGRA`
@@ -4714,7 +4716,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$S+0`, `DIR_RXO`, `EXT_RXO`
 - File patterns: `DIR_RXO*$S+0.EXT_RXO`, `DIR_RXO*`
-- Source: [ZD_RNXGRA](../../GPSUSER/SCRIPT/ZD_RNXGRA)
+- Source: [ZD_RNXGRA](source_files/ck18y530-gpsuser/SCRIPT/ZD_RNXGRA)
 ### ZD_RNXSMT_P
 
 - Package: `RNXSMT_P`
@@ -4727,7 +4729,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [ZD_RNXSMT_P](../../GPSUSER/SCRIPT/ZD_RNXSMT_P)
+- Source: [ZD_RNXSMT_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_RNXSMT_P)
 ### ZD_RNXSMTAP
 
 - Package: `RNXSMTAP`
@@ -4738,7 +4740,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_OUT`, `DIR_RXO`, `DIR_SMT`, `EXT_OUT`, `EXT_RXO`, `EXT_SMT`
 - File deletes: `DIR_OUTRNX$YSS+0.ERR`
 - File patterns: `"DIR_SMT????$S+0.EXT_SMT"`, `"DIR_OUTSMT$S+0???.EXT_OUT"`, `"DIR_OUTSMT$+0????.EXT_OUT"`, `DIR_SMT????$S+0.EXT_SMT`, `DIR_OUTSMT$S+0???.EXT_OUT`, `DIR_OUTSMT$+0????.EXT_OUT`, `DIR_RXO????$S+0.EXT_RXO`
-- Source: [ZD_RNXSMTAP](../../GPSUSER/SCRIPT/ZD_RNXSMTAP)
+- Source: [ZD_RNXSMTAP](source_files/ck18y530-gpsuser/SCRIPT/ZD_RNXSMTAP)
 ### ZD_RXOBV3_P
 
 - Package: `RXOBV3_P`
@@ -4751,7 +4753,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [ZD_RXOBV3_P](../../GPSUSER/SCRIPT/ZD_RXOBV3_P)
+- Source: [ZD_RXOBV3_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3_P)
 ### ZD_RXOBV3_P_PPP
 
 - Package: `RXOBV3_P_PPP`
@@ -4763,7 +4765,7 @@ Variables:
   - V_ variables: `V_SATSYS`
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$YYYSS+0`, `DIR_OUT`
-- Source: [ZD_RXOBV3_P_PPP](../../GPSUSER/SCRIPT/ZD_RXOBV3_P_PPP)
+- Source: [ZD_RXOBV3_P_PPP](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3_P_PPP)
 ### ZD_RXOBV3AP_PPP
 
 - Package: `RXOBV3AP_PPP`
@@ -4774,7 +4776,7 @@ Variables:
   - PARAM parameters: `PARAM3`
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_PZH`, `DIR_PZO`, `DIR_RBO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_PZH`, `EXT_PZO`, `EXT_RBO`, `EXT_SMT`
 - File patterns: `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO`, `DIR_SMT*$S+0.EXT_SMT`, `DIR_RBO*$S+0.EXT_RBO`
-- Source: [ZD_RXOBV3AP_PPP](../../GPSUSER/SCRIPT/ZD_RXOBV3AP_PPP)
+- Source: [ZD_RXOBV3AP_PPP](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3AP_PPP)
 ### ZD_RXOBV3GP
 
 - Package: `RXOBV3GP`
@@ -4788,7 +4790,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
 - File deletes: `$del`, `$lst`
 - File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT"`, `"DIR_OUTOBS$+0????.EXT_OUT"`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO` and 2 more
-- Source: [ZD_RXOBV3GP](../../GPSUSER/SCRIPT/ZD_RXOBV3GP)
+- Source: [ZD_RXOBV3GP](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP)
 ### ZD_SATMON_P
 
 - Package: `SATMON_P`
@@ -4800,7 +4802,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `DIR_OUT`
 - File patterns: `"DIR_OUTCLKSCREEN$station$S+0.EDT"`, `DIR_OUTCLKSCREEN$station$S+0.EDT`
-- Source: [ZD_SATMON_P](../../GPSUSER/SCRIPT/ZD_SATMON_P)
+- Source: [ZD_SATMON_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_SATMON_P)
 ### ZD_SATMONAP
 
 - Package: `SATMONAP`
@@ -4812,7 +4814,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_CLK`, `DIR_CZH`, `DIR_EDT`, `DIR_OUT`, `EXT_CLK`, `EXT_CZH`, `EXT_EDT`, `EXT_OUT`
 - File deletes: `DIR_CZHCLKSCREEN$sta$S+0.EXT_CZH`, `EXT_OUT$sta$S+0.???`
 - File patterns: `"DIR_CLKFIL$+0????.OUT"`, `"DIR_EDTFIL$+0????.CLK"`, `"DIR_CLKFIL$+0????.CLK"`, `DIR_CLKFIL$+0????.OUT`, `DIR_EDTFIL$+0????.CLK`, `DIR_CLKFIL$+0????.CLK`
-- Source: [ZD_SATMONAP](../../GPSUSER/SCRIPT/ZD_SATMONAP)
+- Source: [ZD_SATMONAP](source_files/ck18y530-gpsuser/SCRIPT/ZD_SATMONAP)
 ### ZD_SATMRK
 
 - Package: `SATMRK`
@@ -4820,7 +4822,7 @@ Variables:
 - Bernese programs: `SATMRK`
 - Used in PCFs: ZDGNSS_AR.PCF, ZDGNSS_PPP.PCF
 - INP files: `SATMRK.INP`
-- Source: [ZD_SATMRK](../../GPSUSER/SCRIPT/ZD_SATMRK)
+- Source: [ZD_SATMRK](source_files/ck18y530-gpsuser/SCRIPT/ZD_SATMRK)
 ### ZD_SAVE_RES
 
 - Package: `SAVE_RES`
@@ -4831,7 +4833,7 @@ Variables:
 - File reads: `DIR_ERP$(SAVE)_$YSS+0.EXT_ERP`, `DIR_SOS$(SAVE)_$YSS+0.${extPre}`, `DIR_RPR$(SAVE)_$YSS+0.EXT_RPR`, `DIR_FIX$(SAVE)_$YSS+0.EXT_OBX`, `DIR_NEQ$(SAVE)_$YSS+0.EXT_FIX`, `DIR_PRE$(SAVE)S$YSS+0.EXT_TRP`, `DIR_CLK$(SAVE)S$YSS+0.EXT_CLK`, `EXT_CRD$(SAVE)_$YSS+0.EXT_NEQ`, `EXT_STD$(SAVE)_$YSS+0.EXT_SOS`, `DIR_ERPDIR_STD_$YSS+0.EXT_ERP`, `DIR_RPRDIR_STD_$YSS+0.EXT_RPR`, `DIR_FIXDIR_STD_$YSS+0.EXT_OBX` and 15 more
 - File writes: `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/STA`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/ORB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/OUT`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/ATM`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/SOL`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/OBS`
 - File patterns: `DIR_CLK/DIR_STD??$S+0001.OUT`, `DIR_CLK/$(SAVE)??$S+0001.OUT`
-- Source: [ZD_SAVE_RES](../../GPSUSER/SCRIPT/ZD_SAVE_RES)
+- Source: [ZD_SAVE_RES](source_files/ck18y530-gpsuser/SCRIPT/ZD_SAVE_RES)
 ### ZD_SAVE_RES_3D
 
 - Package: `SAVE_RES_3D`
@@ -4842,7 +4844,7 @@ Variables:
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`, `EXT_FIX`
 - File reads: `DIR_CRDV_FIN_$YSS+0.EXT_CRD`, `DIR_PREV_FIN_$YSS+0.EXT_PRE`, `DIR_STDV_FIN_$YSS+0.EXT_STD`, `DIR_ERPV_FIN_$YSS+0.EXT_ERP`, `DIR_CLKV_FINS$YSS+0.EXT_CLK`, `DIR_RXCV_FINS$YSS+0.EXT_RXC`, `DIR_RXC/V_FIN_$YSS+0001.OUT`
 - File writes: `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//STA/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OUT/`
-- Source: [ZD_SAVE_RES_3D](../../GPSUSER/SCRIPT/ZD_SAVE_RES_3D)
+- Source: [ZD_SAVE_RES_3D](source_files/ck18y530-gpsuser/SCRIPT/ZD_SAVE_RES_3D)
 ### ZD_SOS_UPDATE
 
 - Package: `SOS_UPDATE`
@@ -4853,7 +4855,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_APSP`, `V_CWGT`
   - Other keys: `$YSS+0`, `DIR_SIG`, `DIR_SOS`, `EXT_SIG`, `EXT_SOS`
-- Source: [ZD_SOS_UPDATE](../../GPSUSER/SCRIPT/ZD_SOS_UPDATE)
+- Source: [ZD_SOS_UPDATE](source_files/ck18y530-gpsuser/SCRIPT/ZD_SOS_UPDATE)
 ### ZD_STATION_SELECTION
 
 - Package: `STATION_SELECTION`
@@ -4865,7 +4867,7 @@ Variables:
 - File reads: `DIR_OUT../MSC/MSC_$YD+0/available_stations_$YD+0.txt`, `DIR_OUT../MSC/MSC_$YD+0/selected_stations_$YD+0.txt`
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `DIR_OUT../RAW/$file)`
-- Source: [ZD_STATION_SELECTION](../../GPSUSER/SCRIPT/ZD_STATION_SELECTION)
+- Source: [ZD_STATION_SELECTION](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATION_SELECTION)
 ### ZD_STATUS
 
 - Package: `STATUS`
@@ -4875,7 +4877,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
   - Other keys: `$YSS+0`, `DIR_OUT`
 - File writes: `$marker`
-- Source: [ZD_STATUS](../../GPSUSER/SCRIPT/ZD_STATUS)
+- Source: [ZD_STATUS](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATUS)
 ### ZD_STDDIF
 
 - Package: `STDDIF`
@@ -4883,14 +4885,14 @@ Variables:
 - Bernese programs: `STDDIF`
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - INP files: `STDDIF.INP`
-- Source: [ZD_STDDIF](../../GPSUSER/SCRIPT/ZD_STDDIF)
+- Source: [ZD_STDDIF](source_files/ck18y530-gpsuser/SCRIPT/ZD_STDDIF)
 ### ZD_STDPRE
 
 - Package: `STDPRE`
 - Purpose: Convert standard orbit to precise orbit file format
 - Bernese programs: `STDPRE`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_AR.PCF, ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
-- Source: [ZD_STDPRE](../../GPSUSER/SCRIPT/ZD_STDPRE)
+- Source: [ZD_STDPRE](source_files/ck18y530-gpsuser/SCRIPT/ZD_STDPRE)
 ### ZD_TIMEST_P
 
 - Package: `TIMEST_P`
@@ -4902,7 +4904,7 @@ Variables:
   - V_ variables: `V_FIXCRD`, `V_FIXPTH`, `V_FIXTRP`, `V_OBSTYP`, `V_SATSYS`
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_CRD`, `DIR_TRP`, `EXT_CRD`, `EXT_TRP`
-- Source: [ZD_TIMEST_P](../../GPSUSER/SCRIPT/ZD_TIMEST_P)
+- Source: [ZD_TIMEST_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_TIMEST_P)
 ### ZD_TIMESTAP
 
 - Package: `TIMESTAP`
@@ -4913,7 +4915,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_PZH`, `EXT_CZH`, `EXT_PZH`
 - File patterns: `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZH????$S+0.EXT_CZH`
-- Source: [ZD_TIMESTAP](../../GPSUSER/SCRIPT/ZD_TIMESTAP)
+- Source: [ZD_TIMESTAP](source_files/ck18y530-gpsuser/SCRIPT/ZD_TIMESTAP)
 ### ZD_TRPMERGE
 
 - Package: `TRPMERGE`
@@ -4926,7 +4928,7 @@ Variables:
 - File writes: `DIR_TRPV_FIN_$YSS+0.EXT_TRP_tmp`
 - File deletes: `DIR_TRPV_FIN_$YSS+0.EXT_TRP_tmp`
 - File patterns: `DIR_TRP????$S+0_REC.EXT_TRP`
-- Source: [ZD_TRPMERGE](../../GPSUSER/SCRIPT/ZD_TRPMERGE)
+- Source: [ZD_TRPMERGE](source_files/ck18y530-gpsuser/SCRIPT/ZD_TRPMERGE)
 ### ZD_WAIT
 
 - Package: `WAIT`
@@ -4934,7 +4936,7 @@ Variables:
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
-- Source: [ZD_WAIT](../../GPSUSER/SCRIPT/ZD_WAIT)
+- Source: [ZD_WAIT](source_files/ck18y530-gpsuser/SCRIPT/ZD_WAIT)
 ### ZDDE_COP
 
 - Purpose: Copy files requiered by ZDMCLKDEN.PCF
@@ -4943,7 +4945,7 @@ Variables:
   - Other keys: `$YD+0`, `DIR_PZH`
 - File reads: `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//OBS//*`
 - File writes: `DIR_PZH`
-- Source: [ZDDE_COP](../../GPSUSER/SCRIPT/ZDDE_COP)
+- Source: [ZDDE_COP](source_files/ck18y530-gpsuser/SCRIPT/ZDDE_COP)
 
 ## File Registry
 
@@ -6115,7 +6117,7 @@ Variables:
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/CMP_SOL/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6126,7 +6128,7 @@ Variables:
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Coordinate Input File Names, Station information file, A priori Coordinate File, A priori Velocity File, PSD corrections for ITRF2014
 - ... and 20 more sections
 - Fields: 82
-- Source: [COMPAR2.INP](../../GPSUSER/OPT/CMP_SOL/COMPAR2.INP)
+- Source: [COMPAR2.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/COMPAR2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6188,7 +6190,7 @@ _... 32 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 94
-- Source: [HELMR1.INP](../../GPSUSER/OPT/CMP_SOL/HELMR1.INP)
+- Source: [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/HELMR1.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6249,7 +6251,7 @@ _... 44 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/CMP_SOL/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6297,7 +6299,7 @@ _... 44 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/CMP_SOL/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6359,7 +6361,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/CMP_SOL/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6420,7 +6422,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/CMP_SOL/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6445,7 +6447,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Title, Show general files, General Constants, ERP File, Standard Orbit File, Satellite Problems, Subdaily ERP Model, Nutation Model
 - ... and 17 more sections
 - Fields: 106
-- Source: [ORBCMP.INP](../../GPSUSER/OPT/CMP_SOL/ORBCMP.INP)
+- Source: [ORBCMP.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/ORBCMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6507,7 +6509,7 @@ _... 56 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/CMP_SOL/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6569,7 +6571,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](../../GPSUSER/OPT/CMP_SOL/STDDIF.INP)
+- Source: [STDDIF.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/STDDIF.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6631,7 +6633,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Planetary Ephemeris
 - ... and 16 more sections
 - Fields: 71
-- Source: [STDELE.INP](../../GPSUSER/OPT/CMP_SOL/STDELE.INP)
+- Source: [STDELE.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/STDELE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6693,7 +6695,7 @@ _... 21 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 147
-- Source: [plotGPSXTR.INP](../../GPSUSER/OPT/CMP_SOL/plotGPSXTR.INP)
+- Source: [plotGPSXTR.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotGPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6755,7 +6757,7 @@ _... 97 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5, Input data: dataset 6
 - ... and 4 more sections
 - Fields: 183
-- Source: [plotHELMR1.INP](../../GPSUSER/OPT/CMP_SOL/plotHELMR1.INP)
+- Source: [plotHELMR1.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotHELMR1.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6817,7 +6819,7 @@ _... 133 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Coordinate File Names (input), Filename for resulting plotz (output), Title: new entry, Size of the plot, Define colormap, Plotting options for GPS, Plotting options for GLONASS
 - ... and 6 more sections
 - Fields: 77
-- Source: [plotSTDELE.INP](../../GPSUSER/OPT/CMP_SOL/plotSTDELE.INP)
+- Source: [plotSTDELE.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotSTDELE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6879,7 +6881,7 @@ _... 27 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: list of precise files, Options for all satellites, Options for GPS satellites, Options for GLO satellites, Options for GAL satellites, Options for SBS satellites
 - ... and 7 more sections
 - Fields: 123
-- Source: [plotSatnum.INP](../../GPSUSER/OPT/CMP_SOL/plotSatnum.INP)
+- Source: [plotSatnum.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotSatnum.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6941,7 +6943,7 @@ _... 73 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: list of coordinate files, Options for all stations, Options for stations with GPS, Options for stations with GLONASS, Options for stations with GAL, Options for stations with SBAS
 - ... and 8 more sections
 - Fields: 131
-- Source: [plotStanum.INP](../../GPSUSER/OPT/CMP_SOL/plotStanum.INP)
+- Source: [plotStanum.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotStanum.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7002,7 +7004,7 @@ _... 81 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FCLK_COD/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7013,7 +7015,7 @@ _... 81 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FCLK_COD/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7075,7 +7077,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FCLK_COD/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7136,7 +7138,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FCLK_COD/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7184,7 +7186,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FCLK_COD/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7246,7 +7248,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FCLK_COD/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7307,7 +7309,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FCLK_COD/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7334,7 +7336,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FCLK_COD/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7396,7 +7398,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FCLK_COD/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7418,7 +7420,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_0/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7429,7 +7431,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Coordinate File Names (input), Epoch of Ref. Coord. (output), Velocity according to Ref.Coo., Approx. velocities at ref. epoch, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, Station list without PSD corrections (output)
 - ... and 7 more sections
 - Fields: 49
-- Source: [COOVEL.INP](../../GPSUSER/OPT/FZDM_0/COOVEL.INP)
+- Source: [COOVEL.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/COOVEL.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7487,7 +7489,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_0/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7535,7 +7537,7 @@ _... 76 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_0/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7597,7 +7599,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_0/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7658,7 +7660,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_0/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7685,7 +7687,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/FZDM_0/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7747,7 +7749,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, Pole Offset Coefficients, Leap Second File, Input ERP Files Bernese Format, Input ERP Files Foreign Format, Output ERP File, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 10 more sections
 - Fields: 69
-- Source: [POLUPD.INP](../../GPSUSER/OPT/FZDM_0/POLUPD.INP)
+- Source: [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/POLUPD.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7809,7 +7811,7 @@ _... 19 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_1DC/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7870,7 +7872,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DC/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7881,7 +7883,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 91
-- Source: [HELMR1.INP](../../GPSUSER/OPT/FZDM_1DC/HELMR1.INP)
+- Source: [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/HELMR1.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7942,7 +7944,7 @@ _... 41 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1DC/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7990,7 +7992,7 @@ _... 41 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DC/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8052,7 +8054,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DC/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8113,7 +8115,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DC/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8140,7 +8142,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DC/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8162,7 +8164,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DF/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8173,7 +8175,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1DF/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8234,7 +8236,7 @@ _... 129 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1DF/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8282,7 +8284,7 @@ _... 129 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DF/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8344,7 +8346,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DF/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8405,7 +8407,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DF/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8432,7 +8434,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DF/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8455,7 +8457,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_1DP/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8516,7 +8518,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DP/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8527,7 +8529,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_1DP/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8588,7 +8590,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1DP/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8636,7 +8638,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DP/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8698,7 +8700,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DP/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8759,7 +8761,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DP/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8786,7 +8788,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DP/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8808,7 +8810,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DR/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8819,7 +8821,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 177
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1DR/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8881,7 +8883,7 @@ _... 127 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_1DR/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8942,7 +8944,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1DR/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8990,7 +8992,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DR/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9052,7 +9054,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DR/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9113,7 +9115,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DR/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9140,7 +9142,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DR/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9163,7 +9165,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_1DS/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9224,7 +9226,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DS/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9235,7 +9237,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 177
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1DS/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9296,7 +9298,7 @@ _... 127 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1DS/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9344,7 +9346,7 @@ _... 127 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DS/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9406,7 +9408,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DS/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9467,7 +9469,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DS/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9494,7 +9496,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/FZDM_1DS/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9556,7 +9558,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DS/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9579,7 +9581,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 147
-- Source: [STDPRE.INP](../../GPSUSER/OPT/FZDM_1DS/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9641,7 +9643,7 @@ _... 97 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_1DU/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9702,7 +9704,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DU/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9712,7 +9714,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1DU/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9760,7 +9762,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DU/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9822,7 +9824,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DU/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9883,7 +9885,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DU/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9910,7 +9912,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DU/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9932,7 +9934,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DX/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9943,7 +9945,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 177
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1DX/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10004,7 +10006,7 @@ _... 127 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1DX/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10052,7 +10054,7 @@ _... 127 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DX/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10114,7 +10116,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DX/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10175,7 +10177,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DX/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10202,7 +10204,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DX/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10224,7 +10226,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1H0/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10235,7 +10237,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1H0/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10297,7 +10299,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Input File for CLKEST, Environment Variables, Show general files, General Constants, Local Geodetic Datum, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Observation selection
 - ... and 66 more sections
 - Fields: 215
-- Source: [CLKEST.INP](../../GPSUSER/OPT/FZDM_1H0/CLKEST.INP)
+- Source: [CLKEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/CLKEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10358,7 +10360,7 @@ _... 165 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1H0/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10406,7 +10408,7 @@ _... 165 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1H0/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10468,7 +10470,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1H0/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10529,7 +10531,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1H0/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10556,7 +10558,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1H0/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10578,7 +10580,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1HN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10589,7 +10591,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1HN/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10650,7 +10652,7 @@ _... 129 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_1HN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10698,7 +10700,7 @@ _... 129 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1HN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10760,7 +10762,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1HN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10821,7 +10823,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1HN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10848,7 +10850,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_1HN/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10871,7 +10873,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_COD/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10932,7 +10934,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_COD/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10943,7 +10945,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_COD/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11005,7 +11007,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/FZDM_COD/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11066,7 +11068,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_COD/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11114,7 +11116,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_COD/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11176,7 +11178,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_COD/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11237,7 +11239,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_COD/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11264,7 +11266,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_COD/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11326,7 +11328,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 78
-- Source: [RESCHK.INP](../../GPSUSER/OPT/FZDM_COD/RESCHK.INP)
+- Source: [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/RESCHK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11388,7 +11390,7 @@ _... 28 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/FZDM_COD/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11450,7 +11452,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/FZDM_COD/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11512,7 +11514,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_COD/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11534,7 +11536,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_EDT/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11545,7 +11547,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FZDM_EDT/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11607,7 +11609,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_EDT/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11669,7 +11671,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/FZDM_EDT/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11730,7 +11732,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_EDT/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11778,7 +11780,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_EDT/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11840,7 +11842,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_EDT/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11901,7 +11903,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_EDT/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11928,7 +11930,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_EDT/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11990,7 +11992,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 78
-- Source: [RESCHK.INP](../../GPSUSER/OPT/FZDM_EDT/RESCHK.INP)
+- Source: [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/RESCHK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12052,7 +12054,7 @@ _... 28 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/FZDM_EDT/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12114,7 +12116,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/FZDM_EDT/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12176,7 +12178,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_EDT/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12199,7 +12201,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_FIN/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12260,7 +12262,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_FIN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12271,7 +12273,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Correction GPS-UTC
 - ... and 16 more sections
 - Fields: 85
-- Source: [ATTXTR.INP](../../GPSUSER/OPT/FZDM_FIN/ATTXTR.INP)
+- Source: [ATTXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/ATTXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12333,7 +12335,7 @@ _... 35 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Coordinate Input File Names, Station information file, A priori Coordinate File, A priori Velocity File, PSD corrections for ITRF2014
 - ... and 20 more sections
 - Fields: 82
-- Source: [COMPAR2.INP](../../GPSUSER/OPT/FZDM_FIN/COMPAR2.INP)
+- Source: [COMPAR2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/COMPAR2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12395,7 +12397,7 @@ _... 32 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/FZDM_FIN/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12456,7 +12458,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_FIN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12504,7 +12506,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_FIN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12566,7 +12568,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_FIN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12627,7 +12629,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_FIN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12654,7 +12656,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/FZDM_FIN/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12716,7 +12718,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_FIN/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12739,7 +12741,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](../../GPSUSER/OPT/FZDM_FIN/STDDIF.INP)
+- Source: [STDDIF.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/STDDIF.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12800,7 +12802,7 @@ _... 39 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_GEN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12811,7 +12813,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/FZDM_GEN/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12873,7 +12875,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Input File for CLKEST, Environment Variables, Show general files, General Constants, Local Geodetic Datum, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Observation selection
 - ... and 66 more sections
 - Fields: 217
-- Source: [CLKEST.INP](../../GPSUSER/OPT/FZDM_GEN/CLKEST.INP)
+- Source: [CLKEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/CLKEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12935,7 +12937,7 @@ _... 167 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](../../GPSUSER/OPT/FZDM_GEN/CODSPP.INP)
+- Source: [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/CODSPP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12997,7 +12999,7 @@ _... 139 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, List of INPUT FILES (CODSPP program output), Broadcast clock input, Program Output File, Error Message File, Subroutine/function debug output, Do rms check, Broadcast clock output, Good file list
 - ... and 4 more sections
 - Fields: 58
-- Source: [CODXTR.INP](../../GPSUSER/OPT/FZDM_GEN/CODXTR.INP)
+- Source: [CODXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/CODXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13059,7 +13061,7 @@ _... 8 more fields omitted in this summary._
 - Sections: Environment Variables, Information for the title, Show general files, General Constants, Geodetic Datum, Satellite Information, Satellite Problems, ERP File, Subdaily Pole Model, Nutation Model
 - ... and 94 more sections
 - Fields: 233
-- Source: [MAUPRP.INP](../../GPSUSER/OPT/FZDM_GEN/MAUPRP.INP)
+- Source: [MAUPRP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MAUPRP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13120,7 +13122,7 @@ _... 183 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_GEN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13168,7 +13170,7 @@ _... 183 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_GEN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13230,7 +13232,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_GEN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13291,7 +13293,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_GEN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13318,7 +13320,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_GEN/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13380,7 +13382,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, General constants, Station name abbreviations, Input files, MAUPRP summary, MAUPRP SAT summary, File deletion list, New baseline definition, Program output file
 - ... and 4 more sections
 - Fields: 56
-- Source: [MPRXTR.INP](../../GPSUSER/OPT/FZDM_GEN/MPRXTR.INP)
+- Source: [MPRXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MPRXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13442,7 +13444,7 @@ _... 6 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/FZDM_GEN/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13504,7 +13506,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/FZDM_GEN/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13566,7 +13568,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_GEN/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13588,7 +13590,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_MON/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13599,7 +13601,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_MON/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13660,7 +13662,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_MON/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13708,7 +13710,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_MON/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13770,7 +13772,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_MON/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13831,7 +13833,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_MON/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13858,7 +13860,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/FZDM_MON/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13920,7 +13922,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_MON/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13942,7 +13944,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_NAV/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13952,7 +13954,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_NAV/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14000,7 +14002,7 @@ _... 65 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_NAV/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14062,7 +14064,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_NAV/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14123,7 +14125,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_NAV/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14150,7 +14152,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Satellite Information, Epoch Window, List of Input Files, Output files
 - ... and 23 more sections
 - Fields: 213
-- Source: [RXN2PRE.INP](../../GPSUSER/OPT/FZDM_NAV/RXN2PRE.INP)
+- Source: [RXN2PRE.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/RXN2PRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14212,7 +14214,7 @@ _... 163 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants Input File, Satellite Problems, Title, Remove bad satellites, Epoch Window, Precise Ephemeris Input Files, Satellite Clock Output File
 - ... and 5 more sections
 - Fields: 56
-- Source: [SATCLK2.INP](../../GPSUSER/OPT/FZDM_NAV/SATCLK2.INP)
+- Source: [SATCLK2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/SATCLK2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14274,7 +14276,7 @@ _... 6 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_ORC/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14335,7 +14337,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_ORC/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14346,7 +14348,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_ORC/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14407,7 +14409,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_ORC/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14455,7 +14457,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_ORC/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14517,7 +14519,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_ORC/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14578,7 +14580,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_ORC/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14605,7 +14607,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_ORC/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14667,7 +14669,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_ORC/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14690,7 +14692,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_ORP/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14751,7 +14753,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_ORP/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14762,7 +14764,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_ORP/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14823,7 +14825,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_ORP/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14871,7 +14873,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_ORP/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14933,7 +14935,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_ORP/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14994,7 +14996,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_ORP/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15021,7 +15023,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_ORP/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15083,7 +15085,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_ORP/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15105,7 +15107,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_RNX/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15116,7 +15118,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, Title, Agency Running Program, Comment Lines, Options, Sampling Interval (sec)    0: Take all observations, Offset to full minute (sec), Sampling tolerance (sec)
 - ... and 23 more sections
 - Fields: 238
-- Source: [CCRNXO.INP](../../GPSUSER/OPT/FZDM_RNX/CCRNXO.INP)
+- Source: [CCRNXO.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/CCRNXO.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15177,7 +15179,7 @@ _... 188 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_RNX/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15225,7 +15227,7 @@ _... 188 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_RNX/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15287,7 +15289,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_RNX/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15348,7 +15350,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_RNX/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15375,7 +15377,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_RNX/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15437,7 +15439,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), List of RINEX Input Files, List of Smoothed RINEX Input Files, Measurement Type, Frequencies, Minimum s/n-ratio
 - ... and 38 more sections
 - Fields: 156
-- Source: [RNXGRA.INP](../../GPSUSER/OPT/FZDM_RNX/RNXGRA.INP)
+- Source: [RNXGRA.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/RNXGRA.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15499,7 +15501,7 @@ _... 106 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), Satellite Problems, Rinex input file
 - ... and 37 more sections
 - Fields: 185
-- Source: [RNXSMT.INP](../../GPSUSER/OPT/FZDM_RNX/RNXSMT.INP)
+- Source: [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/RNXSMT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15561,7 +15563,7 @@ _... 135 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Active Campaign, General Constants, Show general files, Difference of GPS-TIME - UTC-TIME, Satellite Problems, Satellite Information, Antenna phase center corrections, Station Name Abbreviations
 - ... and 86 more sections
 - Fields: 327
-- Source: [RXOBV3.INP](../../GPSUSER/OPT/FZDM_RNX/RXOBV3.INP)
+- Source: [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/RXOBV3.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15623,7 +15625,7 @@ _... 277 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/FZDM_RNX/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15685,7 +15687,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_RNX/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15708,7 +15710,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_SB1/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15769,7 +15771,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_SB1/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15780,7 +15782,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_SB1/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15841,7 +15843,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_SB1/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15889,7 +15891,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_SB1/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15951,7 +15953,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_SB1/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16012,7 +16014,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_SB1/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16039,7 +16041,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_SB1/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16101,7 +16103,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_SB1/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16124,7 +16126,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_SB2/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16185,7 +16187,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_SB2/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16196,7 +16198,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/FZDM_SB2/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16257,7 +16259,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_SB2/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16305,7 +16307,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_SB2/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16367,7 +16369,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_SB2/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16428,7 +16430,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_SB2/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16455,7 +16457,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_SB2/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16478,7 +16480,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_SB3/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16539,7 +16541,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_SB3/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16549,7 +16551,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_SB3/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16597,7 +16599,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_SB3/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16659,7 +16661,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_SB3/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16720,7 +16722,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_SB3/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16747,7 +16749,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_SB3/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16809,7 +16811,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_SB3/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16831,7 +16833,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_SUM/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16841,7 +16843,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_SUM/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16888,7 +16890,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/FZDM_SUM/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16899,7 +16901,7 @@ _... 76 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_SUM/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16961,7 +16963,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_SUM/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17022,7 +17024,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_SUM/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17049,7 +17051,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](../../GPSUSER/OPT/FZDM_SUM/OBSXTR.INP)
+- Source: [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/OBSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17110,7 +17112,7 @@ _... 25 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_WGT/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17121,7 +17123,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/FZDM_WGT/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17183,7 +17185,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/FZDM_WGT/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17244,7 +17246,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/FZDM_WGT/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17292,7 +17294,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_WGT/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17354,7 +17356,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_WGT/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17415,7 +17417,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_WGT/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17442,7 +17444,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/FZDM_WGT/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17504,7 +17506,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 78
-- Source: [RESCHK.INP](../../GPSUSER/OPT/FZDM_WGT/RESCHK.INP)
+- Source: [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/RESCHK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17566,7 +17568,7 @@ _... 28 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/FZDM_WGT/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17628,7 +17630,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/FZDM_WGT/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17650,7 +17652,7 @@ _... 37 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_AMB/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17660,7 +17662,7 @@ _... 37 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/IAR_AMB/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17708,7 +17710,7 @@ _... 37 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/IAR_AMB/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17770,7 +17772,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/IAR_AMB/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17831,7 +17833,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/IAR_AMB/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17858,7 +17860,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/IAR_AMB/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17920,7 +17922,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/IAR_AMB/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17942,7 +17944,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_CHK/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17953,7 +17955,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/IAR_CHK/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18014,7 +18016,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/IAR_CHK/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18062,7 +18064,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/IAR_CHK/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18124,7 +18126,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/IAR_CHK/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18185,7 +18187,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/IAR_CHK/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18212,7 +18214,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/IAR_CHK/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18234,7 +18236,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_NLB/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18245,7 +18247,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/IAR_NLB/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18306,7 +18308,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/IAR_NLB/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18354,7 +18356,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/IAR_NLB/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18416,7 +18418,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/IAR_NLB/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18477,7 +18479,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/IAR_NLB/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18504,7 +18506,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/IAR_NLB/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18566,7 +18568,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](../../GPSUSER/OPT/IAR_NLB/PHABIA.INP)
+- Source: [PHABIA.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/PHABIA.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18622,7 +18624,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/IAR_NLB/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18684,7 +18686,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/IAR_NLB/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18707,7 +18709,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 147
-- Source: [STDPRE.INP](../../GPSUSER/OPT/IAR_NLB/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18768,7 +18770,7 @@ _... 97 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_NLI/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18779,7 +18781,7 @@ _... 97 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/IAR_NLI/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18840,7 +18842,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/IAR_NLI/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18888,7 +18890,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/IAR_NLI/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18950,7 +18952,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/IAR_NLI/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19011,7 +19013,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/IAR_NLI/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19038,7 +19040,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 74
-- Source: [OBSXTR.INP](../../GPSUSER/OPT/IAR_NLI/OBSXTR.INP)
+- Source: [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/OBSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19100,7 +19102,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/IAR_NLI/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19122,7 +19124,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_WLB/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19133,7 +19135,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/IAR_WLB/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19194,7 +19196,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/IAR_WLB/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19242,7 +19244,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/IAR_WLB/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19304,7 +19306,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/IAR_WLB/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19365,7 +19367,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/IAR_WLB/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19392,7 +19394,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](../../GPSUSER/OPT/IAR_WLB/PHABIA.INP)
+- Source: [PHABIA.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/PHABIA.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19448,7 +19450,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/IAR_WLB/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19470,7 +19472,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_WLI/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19481,7 +19483,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/IAR_WLI/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19542,7 +19544,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/IAR_WLI/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19590,7 +19592,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/IAR_WLI/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19652,7 +19654,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/IAR_WLI/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19713,7 +19715,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/IAR_WLI/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19740,7 +19742,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/IAR_WLI/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19762,7 +19764,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_APR/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19773,7 +19775,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](../../GPSUSER/OPT/LPDR_APR/CODSPP.INP)
+- Source: [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/CODSPP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19835,7 +19837,7 @@ _... 139 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Satellite Information File, Check Kinematic Orbit, Write Accuracy Info, consider flags when writing coordinates, Standard Orbit, Edited KIN file, General Constants
 - ... and 20 more sections
 - Fields: 93
-- Source: [KINPRE.INP](../../GPSUSER/OPT/LPDR_APR/KINPRE.INP)
+- Source: [KINPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/KINPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19897,7 +19899,7 @@ _... 43 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, =========================================================================, LEOATT 1: Input Files, Show all general files, Program Output File, Error Message File, Title, Subroutine/function debug output, LEOATT 1.1: General Files, General constants
 - ... and 5 more sections
 - Fields: 59
-- Source: [LEOATT.INP](../../GPSUSER/OPT/LPDR_APR/LEOATT.INP)
+- Source: [LEOATT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/LEOATT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19958,7 +19960,7 @@ _... 9 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_APR/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20003,7 +20005,7 @@ _... 9 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_APR/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20014,7 +20016,7 @@ _... 9 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_APR/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20076,7 +20078,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_APR/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20137,7 +20139,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_APR/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20162,7 +20164,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/LPDR_APR/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20224,7 +20226,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), Satellite Problems, Rinex input file
 - ... and 37 more sections
 - Fields: 185
-- Source: [RNXSMT.INP](../../GPSUSER/OPT/LPDR_APR/RNXSMT.INP)
+- Source: [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/RNXSMT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20284,7 +20286,7 @@ _... 135 more fields omitted in this summary._
 ### RUNGPS.INP
 
 - Fields: 3
-- Source: [RUNGPS.INP](../../GPSUSER/OPT/LPDR_APR/RUNGPS.INP)
+- Source: [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/RUNGPS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20297,7 +20299,7 @@ _... 135 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Active Campaign, General Constants, Show general files, Difference of GPS-TIME - UTC-TIME, Satellite Problems, Satellite Information, Antenna phase center corrections, Station Name Abbreviations
 - ... and 86 more sections
 - Fields: 326
-- Source: [RXOBV3.INP](../../GPSUSER/OPT/LPDR_APR/RXOBV3.INP)
+- Source: [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/RXOBV3.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20358,7 +20360,7 @@ _... 276 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_APS/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20369,7 +20371,7 @@ _... 276 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](../../GPSUSER/OPT/LPDR_APS/CODSPP.INP)
+- Source: [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/CODSPP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20430,7 +20432,7 @@ _... 139 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_APS/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20475,7 +20477,7 @@ _... 139 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_APS/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20486,7 +20488,7 @@ _... 139 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_APS/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20548,7 +20550,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_APS/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20609,7 +20611,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_APS/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20634,7 +20636,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/LPDR_APS/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20695,7 +20697,7 @@ _... 337 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_CMP/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20705,7 +20707,7 @@ _... 337 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_CMP/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20750,7 +20752,7 @@ _... 337 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_CMP/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20761,7 +20763,7 @@ _... 337 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_CMP/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20823,7 +20825,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_CMP/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20884,7 +20886,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_CMP/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20909,7 +20911,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Title, Show general files, General Constants, ERP File, Standard Orbit File, Satellite Problems, Subdaily ERP Model, Nutation Model
 - ... and 16 more sections
 - Fields: 104
-- Source: [ORBCMP.INP](../../GPSUSER/OPT/LPDR_CMP/ORBCMP.INP)
+- Source: [ORBCMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/ORBCMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20970,7 +20972,7 @@ _... 54 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_FIN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20981,7 +20983,7 @@ _... 54 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/LPDR_FIN/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21043,7 +21045,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Phase Center Eccentricities
 - ... and 503 more sections
 - Fields: 1259
-- Source: [GPSEST_SIP.INP](../../GPSUSER/OPT/LPDR_FIN/GPSEST_SIP.INP)
+- Source: [GPSEST_SIP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/GPSEST_SIP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21105,7 +21107,7 @@ _... 1209 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/LPDR_FIN/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21166,7 +21168,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_FIN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21211,7 +21213,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_FIN/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21222,7 +21224,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_FIN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21284,7 +21286,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_FIN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21345,7 +21347,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_FIN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21370,7 +21372,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/LPDR_FIN/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21430,7 +21432,7 @@ _... 337 more fields omitted in this summary._
 ### RUNGPS.INP
 
 - Fields: 3
-- Source: [RUNGPS.INP](../../GPSUSER/OPT/LPDR_FIN/RUNGPS.INP)
+- Source: [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/RUNGPS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21443,7 +21445,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](../../GPSUSER/OPT/LPDR_FIN/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21504,7 +21506,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_GEN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21514,7 +21516,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_GEN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21559,7 +21561,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_GEN/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21570,7 +21572,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_GEN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21632,7 +21634,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_GEN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21693,7 +21695,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_GEN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21718,7 +21720,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/LPDR_GEN/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21780,7 +21782,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, Pole Offset Coefficients, Leap Second File, Input ERP Files Bernese Format, Input ERP Files Foreign Format, Output ERP File, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 10 more sections
 - Fields: 69
-- Source: [POLUPD.INP](../../GPSUSER/OPT/LPDR_GEN/POLUPD.INP)
+- Source: [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/POLUPD.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21841,7 +21843,7 @@ _... 19 more fields omitted in this summary._
 
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Program Output File, Error Message File, Subroutine/function debug output, Title line for satellite clock file
 - Fields: 31
-- Source: [RNXCLK.INP](../../GPSUSER/OPT/LPDR_GEN/RNXCLK.INP)
+- Source: [RNXCLK.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/RNXCLK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21881,7 +21883,7 @@ _... 19 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_GR2/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21892,7 +21894,7 @@ _... 19 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/LPDR_GR2/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21953,7 +21955,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_GR2/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21999,7 +22001,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_GR2/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22061,7 +22063,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_GR2/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22122,7 +22124,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_GR2/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22146,7 +22148,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_GRS/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22157,7 +22159,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/LPDR_GRS/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22218,7 +22220,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_GRS/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22264,7 +22266,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_GRS/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22326,7 +22328,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_GRS/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22387,7 +22389,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_GRS/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22412,7 +22414,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/LPDR_GRS/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22474,7 +22476,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](../../GPSUSER/OPT/LPDR_GRS/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22535,7 +22537,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22546,7 +22548,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Phase Center Eccentricities
 - ... and 504 more sections
 - Fields: 1265
-- Source: [GPSEST.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22607,7 +22609,7 @@ _... 1215 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 35
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22652,7 +22654,7 @@ _... 1215 more fields omitted in this summary._
 - Sections: No path/no extension, General files: Path, General Files: SatCrux/StaCrux, General Files: Ant/Rec translation, General Files: Ocean tide model, General Files: Solid Earth tide model, General Files: Planetary ephemeris, General Files: Frequency information, Orbit files: Broadcast file, Orbit files: Precise file (original)
 - ... and 110 more sections
 - Fields: 485
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22714,7 +22716,7 @@ _... 435 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Bernese to RINEX, Cut/concatenate RINEX
 - ... and 26 more sections
 - Fields: 250
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22775,7 +22777,7 @@ _... 200 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22800,7 +22802,7 @@ _... 200 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 86
-- Source: [RESRMS.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22862,7 +22864,7 @@ _... 36 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22923,7 +22925,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_INT/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22934,7 +22936,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](../../GPSUSER/OPT/LPDR_INT/CODSPP.INP)
+- Source: [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/CODSPP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22995,7 +22997,7 @@ _... 139 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_INT/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23041,7 +23043,7 @@ _... 139 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_INT/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23103,7 +23105,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_INT/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23164,7 +23166,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_INT/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23189,7 +23191,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/LPDR_INT/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23249,7 +23251,7 @@ _... 337 more fields omitted in this summary._
 ### RUNGPS.INP
 
 - Fields: 3
-- Source: [RUNGPS.INP](../../GPSUSER/OPT/LPDR_INT/RUNGPS.INP)
+- Source: [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/RUNGPS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23262,7 +23264,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](../../GPSUSER/OPT/LPDR_INT/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23323,7 +23325,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_KIN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23334,7 +23336,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/LPDR_KIN/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23396,7 +23398,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/LPDR_KIN/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23458,7 +23460,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Satellite Information File, Check Kinematic Orbit, Write Accuracy Info, consider flags when writing coordinates, Standard Orbit, Edited KIN file, General Constants
 - ... and 20 more sections
 - Fields: 93
-- Source: [KINPRE.INP](../../GPSUSER/OPT/LPDR_KIN/KINPRE.INP)
+- Source: [KINPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/KINPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23519,7 +23521,7 @@ _... 43 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_KIN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23564,7 +23566,7 @@ _... 43 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_KIN/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23575,7 +23577,7 @@ _... 43 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_KIN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23637,7 +23639,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_KIN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23698,7 +23700,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_KIN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23723,7 +23725,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/LPDR_KIN/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23783,7 +23785,7 @@ _... 37 more fields omitted in this summary._
 ### RUNGPS.INP
 
 - Fields: 3
-- Source: [RUNGPS.INP](../../GPSUSER/OPT/LPDR_KIN/RUNGPS.INP)
+- Source: [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/RUNGPS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23796,7 +23798,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](../../GPSUSER/OPT/LPDR_KIN/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23857,7 +23859,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_MPG/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23868,7 +23870,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/LPDR_MPG/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23930,7 +23932,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/LPDR_MPG/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23992,7 +23994,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, Information for the title, Show general files, General Constants, Geodetic Datum, Satellite Information, Satellite Problems, ERP File, Subdaily Pole Model, Nutation Model
 - ... and 94 more sections
 - Fields: 234
-- Source: [MAUPRP.INP](../../GPSUSER/OPT/LPDR_MPG/MAUPRP.INP)
+- Source: [MAUPRP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MAUPRP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24053,7 +24055,7 @@ _... 184 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_MPG/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24098,7 +24100,7 @@ _... 184 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_MPG/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24109,7 +24111,7 @@ _... 184 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_MPG/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24171,7 +24173,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_MPG/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24232,7 +24234,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_MPG/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24257,7 +24259,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/LPDR_MPG/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24317,7 +24319,7 @@ _... 337 more fields omitted in this summary._
 ### RUNGPS.INP
 
 - Fields: 3
-- Source: [RUNGPS.INP](../../GPSUSER/OPT/LPDR_MPG/RUNGPS.INP)
+- Source: [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/RUNGPS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24329,7 +24331,7 @@ _... 337 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_RES/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24340,7 +24342,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/LPDR_RES/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24401,7 +24403,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_RES/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24446,7 +24448,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_RES/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24457,7 +24459,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_RES/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24519,7 +24521,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_RES/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24580,7 +24582,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_RES/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24604,7 +24606,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Environment Variables, Some general header information, Program Output File, Error Message File, Subroutine/function debug output, Selection of Observation Files, Title line
 - Fields: 30
-- Source: [RESFMT.INP](../../GPSUSER/OPT/LPDR_RES/RESFMT.INP)
+- Source: [RESFMT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/RESFMT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24644,7 +24646,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/LPDR_RES/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24705,7 +24707,7 @@ _... 37 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_WL/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24716,7 +24718,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1505
-- Source: [GPSEST.INP](../../GPSUSER/OPT/LPDR_WL/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24778,7 +24780,7 @@ _... 1455 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/LPDR_WL/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24839,7 +24841,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](../../GPSUSER/OPT/LPDR_WL/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24884,7 +24886,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_WL/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24895,7 +24897,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_WL/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24957,7 +24959,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_WL/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25018,7 +25020,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_WL/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25041,7 +25043,7 @@ _... 248 more fields omitted in this summary._
 ### RUNGPS.INP
 
 - Fields: 3
-- Source: [RUNGPS.INP](../../GPSUSER/OPT/LPDR_WL/RUNGPS.INP)
+- Source: [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/RUNGPS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25054,7 +25056,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](../../GPSUSER/OPT/LPDR_WL/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25115,7 +25117,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/NO_OPT/CVS/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/CVS/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25163,7 +25165,7 @@ _... 66 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 144 more sections
 - Fields: 648
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/NO_OPT/CVS/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/CVS/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25224,7 +25226,7 @@ _... 598 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/NO_OPT/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25272,7 +25274,7 @@ _... 598 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/NO_OPT/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25334,7 +25336,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/NO_OPT/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25395,7 +25397,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/NO_OPT/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25421,7 +25423,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 14
-- Source: [SETDAY.INP](../../GPSUSER/OPT/NO_OPT/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25445,7 +25447,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/PPP_AUX/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25506,7 +25508,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_AUX/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25517,7 +25519,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 181
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/PPP_AUX/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25579,7 +25581,7 @@ _... 131 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input files, Coordinates or velocities, Coordinate files, Velocity files, Output files, Coordinate file, Velocity file, Station selection file
 - ... and 12 more sections
 - Fields: 61
-- Source: [CRDMERGE.INP](../../GPSUSER/OPT/PPP_AUX/CRDMERGE.INP)
+- Source: [CRDMERGE.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/CRDMERGE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25641,7 +25643,7 @@ _... 11 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 94
-- Source: [HELMR1.INP](../../GPSUSER/OPT/PPP_AUX/HELMR1.INP)
+- Source: [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/HELMR1.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25702,7 +25704,7 @@ _... 44 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/PPP_AUX/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25749,7 +25751,7 @@ _... 44 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/PPP_AUX/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25760,7 +25762,7 @@ _... 44 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/PPP_AUX/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25822,7 +25824,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/PPP_AUX/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25883,7 +25885,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/PPP_AUX/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25910,7 +25912,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](../../GPSUSER/OPT/PPP_AUX/RESCHK.INP)
+- Source: [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/RESCHK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25972,7 +25974,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/PPP_AUX/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26034,7 +26036,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](../../GPSUSER/OPT/PPP_AUX/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26095,7 +26097,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_FIN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26106,7 +26108,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/PPP_FIN/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26168,7 +26170,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/PPP_FIN/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26229,7 +26231,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/PPP_FIN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26276,7 +26278,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/PPP_FIN/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26287,7 +26289,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/PPP_FIN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26349,7 +26351,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/PPP_FIN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26410,7 +26412,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/PPP_FIN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26437,7 +26439,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/PPP_FIN/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26498,7 +26500,7 @@ _... 37 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_GE2/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26509,7 +26511,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](../../GPSUSER/OPT/PPP_GE2/CODSPP.INP)
+- Source: [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/CODSPP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26571,7 +26573,7 @@ _... 139 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input files, Coordinates or velocities, Coordinate files, Velocity files, Output files, Coordinate file, Velocity file, Station selection file
 - ... and 12 more sections
 - Fields: 61
-- Source: [CRDMERGE.INP](../../GPSUSER/OPT/PPP_GE2/CRDMERGE.INP)
+- Source: [CRDMERGE.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/CRDMERGE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26633,7 +26635,7 @@ _... 11 more fields omitted in this summary._
 - Sections: Environment Variables, Information for the title, Show general files, General Constants, Geodetic Datum, Satellite Information, Satellite Problems, ERP File, Subdaily Pole Model, Nutation Model
 - ... and 94 more sections
 - Fields: 234
-- Source: [MAUPRP.INP](../../GPSUSER/OPT/PPP_GE2/MAUPRP.INP)
+- Source: [MAUPRP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MAUPRP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26694,7 +26696,7 @@ _... 184 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/PPP_GE2/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26741,7 +26743,7 @@ _... 184 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/PPP_GE2/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26752,7 +26754,7 @@ _... 184 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/PPP_GE2/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26814,7 +26816,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/PPP_GE2/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26875,7 +26877,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/PPP_GE2/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26902,7 +26904,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, General constants, Station name abbreviations, Input files, MAUPRP summary, MAUPRP SAT summary, File deletion list, New baseline definition, Program output file
 - ... and 4 more sections
 - Fields: 57
-- Source: [MPRXTR.INP](../../GPSUSER/OPT/PPP_GE2/MPRXTR.INP)
+- Source: [MPRXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MPRXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26964,7 +26966,7 @@ _... 7 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), Satellite Problems, Rinex input file
 - ... and 37 more sections
 - Fields: 185
-- Source: [RNXSMT.INP](../../GPSUSER/OPT/PPP_GE2/RNXSMT.INP)
+- Source: [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/RNXSMT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27026,7 +27028,7 @@ _... 135 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Active Campaign, General Constants, Show general files, Difference of GPS-TIME - UTC-TIME, Satellite Problems, Satellite Information, Antenna phase center corrections, Station Name Abbreviations
 - ... and 86 more sections
 - Fields: 327
-- Source: [RXOBV3.INP](../../GPSUSER/OPT/PPP_GE2/RXOBV3.INP)
+- Source: [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/RXOBV3.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27088,7 +27090,7 @@ _... 277 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/PPP_GEN/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27149,7 +27151,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_GEN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27160,7 +27162,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Observation selection, Title, Input File: External Phase Center File (ANTEX file), Conversion abs2rel, Input File: Bernese phase file, Input File: Station information file
 - ... and 27 more sections
 - Fields: 81
-- Source: [ATX2PCV.INP](../../GPSUSER/OPT/PPP_GEN/ATX2PCV.INP)
+- Source: [ATX2PCV.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/ATX2PCV.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27222,7 +27224,7 @@ _... 31 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Input / Output, BIA SINEX File, OSB output File, Use station biases for conversion, Use satellite biases for conversion, Satellite system selection
 - ... and 11 more sections
 - Fields: 52
-- Source: [BIA2OSB.INP](../../GPSUSER/OPT/PPP_GEN/BIA2OSB.INP)
+- Source: [BIA2OSB.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/BIA2OSB.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27284,7 +27286,7 @@ _... 2 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, GPS-UTC file, Title, Files, List of Input Files, Program Output File, Error Message File, Subroutine/function debug output, Scratch File
 - ... and 6 more sections
 - Fields: 97
-- Source: [CCPREORB.INP](../../GPSUSER/OPT/PPP_GEN/CCPREORB.INP)
+- Source: [CCPREORB.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CCPREORB.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27346,7 +27348,7 @@ _... 47 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 181
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/PPP_GEN/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27408,7 +27410,7 @@ _... 131 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, Title, Agency Running Program, Comment Lines, Options, Sampling Interval (sec)    0: Take all observations, Offset to full minute (sec), Sampling tolerance (sec)
 - ... and 21 more sections
 - Fields: 231
-- Source: [CCRNXO.INP](../../GPSUSER/OPT/PPP_GEN/CCRNXO.INP)
+- Source: [CCRNXO.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CCRNXO.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27470,7 +27472,7 @@ _... 181 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](../../GPSUSER/OPT/PPP_GEN/CODSPP.INP)
+- Source: [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CODSPP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27532,7 +27534,7 @@ _... 139 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, List of INPUT FILES (CODSPP program output), Broadcast clock input, Program Output File, Error Message File, Subroutine/function debug output, Do rms check, Broadcast clock output, Good file list
 - ... and 4 more sections
 - Fields: 59
-- Source: [CODXTR.INP](../../GPSUSER/OPT/PPP_GEN/CODXTR.INP)
+- Source: [CODXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CODXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27594,7 +27596,7 @@ _... 9 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input files, Coordinates or velocities, Coordinate files, Velocity files, Output files, Coordinate file, Velocity file, Station selection file
 - ... and 12 more sections
 - Fields: 61
-- Source: [CRDMERGE.INP](../../GPSUSER/OPT/PPP_GEN/CRDMERGE.INP)
+- Source: [CRDMERGE.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CRDMERGE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27656,7 +27658,7 @@ _... 11 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/PPP_GEN/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27718,7 +27720,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/PPP_GEN/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27779,7 +27781,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/PPP_GEN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27826,7 +27828,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/PPP_GEN/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27837,7 +27839,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/PPP_GEN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27899,7 +27901,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/PPP_GEN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27960,7 +27962,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/PPP_GEN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27987,7 +27989,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/PPP_GEN/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28049,7 +28051,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, Pole Offset Coefficients, Leap Second File, Input ERP Files Bernese Format, Input ERP Files Foreign Format, Output ERP File, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 10 more sections
 - Fields: 70
-- Source: [POLUPD.INP](../../GPSUSER/OPT/PPP_GEN/POLUPD.INP)
+- Source: [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/POLUPD.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28111,7 +28113,7 @@ _... 20 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/PPP_GEN/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28172,7 +28174,7 @@ _... 37 more fields omitted in this summary._
 
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Program Output File, Error Message File, Subroutine/function debug output, Title line for satellite clock file
 - Fields: 31
-- Source: [RNXCLK.INP](../../GPSUSER/OPT/PPP_GEN/RNXCLK.INP)
+- Source: [RNXCLK.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RNXCLK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28213,7 +28215,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), List of RINEX Input Files, List of Smoothed RINEX Input Files, Measurement Type, Frequencies, Minimum s/n-ratio
 - ... and 38 more sections
 - Fields: 156
-- Source: [RNXGRA.INP](../../GPSUSER/OPT/PPP_GEN/RNXGRA.INP)
+- Source: [RNXGRA.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RNXGRA.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28275,7 +28277,7 @@ _... 106 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), Satellite Problems, Rinex input file
 - ... and 37 more sections
 - Fields: 185
-- Source: [RNXSMT.INP](../../GPSUSER/OPT/PPP_GEN/RNXSMT.INP)
+- Source: [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RNXSMT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28337,7 +28339,7 @@ _... 135 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Active Campaign, General Constants, Show general files, Difference of GPS-TIME - UTC-TIME, Satellite Problems, Satellite Information, Antenna phase center corrections, Station Name Abbreviations
 - ... and 86 more sections
 - Fields: 327
-- Source: [RXOBV3.INP](../../GPSUSER/OPT/PPP_GEN/RXOBV3.INP)
+- Source: [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RXOBV3.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28399,7 +28401,7 @@ _... 277 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](../../GPSUSER/OPT/PPP_GEN/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28460,7 +28462,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: Environment Variables, Station Name Abbreviations, List of stations, Program Output File for BPE, Error Message File for BPE output, Subroutine/function debug output
 - Fields: 16
-- Source: [STA2ID.INP](../../GPSUSER/OPT/PPP_GEN/STA2ID.INP)
+- Source: [STA2ID.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/STA2ID.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28485,7 +28487,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_IAR/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28496,7 +28498,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/PPP_IAR/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28558,7 +28560,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/PPP_IAR/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28619,7 +28621,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/PPP_IAR/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28666,7 +28668,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/PPP_IAR/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28677,7 +28679,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/PPP_IAR/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28739,7 +28741,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/PPP_IAR/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28800,7 +28802,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/PPP_IAR/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28827,7 +28829,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](../../GPSUSER/OPT/PPP_IAR/OBSXTR.INP)
+- Source: [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/OBSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28889,7 +28891,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](../../GPSUSER/OPT/PPP_IAR/PHABIA.INP)
+- Source: [PHABIA.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/PHABIA.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28945,7 +28947,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/PPP_KIM/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29006,7 +29008,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/PPP_KIM/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29053,7 +29055,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/PPP_KIM/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29064,7 +29066,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/PPP_KIM/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29126,7 +29128,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/PPP_KIM/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29187,7 +29189,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/PPP_KIM/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29213,7 +29215,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_KIN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29224,7 +29226,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/PPP_KIN/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29286,7 +29288,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/PPP_KIN/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29347,7 +29349,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/PPP_KIN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29394,7 +29396,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/PPP_KIN/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29405,7 +29407,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/PPP_KIN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29467,7 +29469,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/PPP_KIN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29528,7 +29530,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/PPP_KIN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29555,7 +29557,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/PPP_SNX/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29616,7 +29618,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_SNX/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29626,7 +29628,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/PPP_SNX/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29673,7 +29675,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/PPP_SNX/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29684,7 +29686,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/PPP_SNX/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29746,7 +29748,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/PPP_SNX/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29807,7 +29809,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/PPP_SNX/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29833,7 +29835,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/VAL_SOL/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29844,7 +29846,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Coordinate Input File Names, Station information file, A priori Coordinate File, A priori Velocity File, PSD corrections for ITRF2014
 - ... and 20 more sections
 - Fields: 81
-- Source: [COMPAR2.INP](../../GPSUSER/OPT/VAL_SOL/COMPAR2.INP)
+- Source: [COMPAR2.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/COMPAR2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29906,7 +29908,7 @@ _... 31 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 94
-- Source: [HELMR1.INP](../../GPSUSER/OPT/VAL_SOL/HELMR1.INP)
+- Source: [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/HELMR1.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29967,7 +29969,7 @@ _... 44 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/VAL_SOL/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30015,7 +30017,7 @@ _... 44 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/VAL_SOL/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30077,7 +30079,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 298
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/VAL_SOL/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30138,7 +30140,7 @@ _... 248 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 15
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/VAL_SOL/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30163,7 +30165,7 @@ _... 248 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/VAL_SOL/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30225,7 +30227,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Planetary Ephemeris
 - ... and 16 more sections
 - Fields: 71
-- Source: [STDELE.INP](../../GPSUSER/OPT/VAL_SOL/STDELE.INP)
+- Source: [STDELE.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/STDELE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30287,7 +30289,7 @@ _... 21 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD3D_3DS/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30348,7 +30350,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD3D_3DS/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30359,7 +30361,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 178
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD3D_3DS/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30420,7 +30422,7 @@ _... 128 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD3D_3DS/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30468,7 +30470,7 @@ _... 128 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD3D_3DS/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30530,7 +30532,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD3D_3DS/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30591,7 +30593,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD3D_3DS/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30618,7 +30620,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/ZD3D_3DS/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30680,7 +30682,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD3D_3DS/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30703,7 +30705,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 147
-- Source: [STDPRE.INP](../../GPSUSER/OPT/ZD3D_3DS/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30765,7 +30767,7 @@ _... 97 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD3D_3DS_o/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30826,7 +30828,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD3D_3DS_o/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30837,7 +30839,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 177
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD3D_3DS_o/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30898,7 +30900,7 @@ _... 127 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD3D_3DS_o/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30946,7 +30948,7 @@ _... 127 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD3D_3DS_o/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31008,7 +31010,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD3D_3DS_o/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31069,7 +31071,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD3D_3DS_o/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31096,7 +31098,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/ZD3D_3DS_o/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31158,7 +31160,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD3D_3DS_o/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31181,7 +31183,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 146
-- Source: [STDPRE.INP](../../GPSUSER/OPT/ZD3D_3DS_o/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31242,7 +31244,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD3D_GEN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31253,7 +31255,7 @@ _... 96 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Coordinate File Names (input), Epoch of Ref. Coord. (output), Velocity according to Ref.Coo., Approx. velocities at ref. epoch, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, Station list without PSD corrections (output)
 - ... and 7 more sections
 - Fields: 49
-- Source: [COOVEL.INP](../../GPSUSER/OPT/ZD3D_GEN/COOVEL.INP)
+- Source: [COOVEL.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/COOVEL.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31311,7 +31313,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD3D_GEN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31359,7 +31361,7 @@ _... 96 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD3D_GEN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31421,7 +31423,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD3D_GEN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31482,7 +31484,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD3D_GEN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31509,7 +31511,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, Pole Offset Coefficients, Leap Second File, Input ERP Files Bernese Format, Input ERP Files Foreign Format, Output ERP File, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 10 more sections
 - Fields: 70
-- Source: [POLUPD.INP](../../GPSUSER/OPT/ZD3D_GEN/POLUPD.INP)
+- Source: [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/POLUPD.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31571,7 +31573,7 @@ _... 20 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD3D_GEN/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31593,7 +31595,7 @@ _... 20 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD3D_GEN_o/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31604,7 +31606,7 @@ _... 20 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Coordinate File Names (input), Epoch of Ref. Coord. (output), Velocity according to Ref.Coo., Approx. velocities at ref. epoch, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, Station list without PSD corrections (output)
 - ... and 7 more sections
 - Fields: 49
-- Source: [COOVEL.INP](../../GPSUSER/OPT/ZD3D_GEN_o/COOVEL.INP)
+- Source: [COOVEL.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/COOVEL.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31662,7 +31664,7 @@ _... 20 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD3D_GEN_o/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31710,7 +31712,7 @@ _... 20 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD3D_GEN_o/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31772,7 +31774,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD3D_GEN_o/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31833,7 +31835,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD3D_GEN_o/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31860,7 +31862,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, Pole Offset Coefficients, Leap Second File, Input ERP Files Bernese Format, Input ERP Files Foreign Format, Output ERP File, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 10 more sections
 - Fields: 68
-- Source: [POLUPD.INP](../../GPSUSER/OPT/ZD3D_GEN_o/POLUPD.INP)
+- Source: [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/POLUPD.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31922,7 +31924,7 @@ _... 18 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD3D_GEN_o/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31944,7 +31946,7 @@ _... 18 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_0/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31955,7 +31957,7 @@ _... 18 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Coordinate File Names (input), Epoch of Ref. Coord. (output), Velocity according to Ref.Coo., Approx. velocities at ref. epoch, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, Station list without PSD corrections (output)
 - ... and 7 more sections
 - Fields: 49
-- Source: [COOVEL.INP](../../GPSUSER/OPT/ZD_0/COOVEL.INP)
+- Source: [COOVEL.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/COOVEL.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32013,7 +32015,7 @@ _... 18 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_0/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32061,7 +32063,7 @@ _... 18 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_0/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32123,7 +32125,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_0/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32184,7 +32186,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_0/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32211,7 +32213,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/ZD_0/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32273,7 +32275,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, Pole Offset Coefficients, Leap Second File, Input ERP Files Bernese Format, Input ERP Files Foreign Format, Output ERP File, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 10 more sections
 - Fields: 70
-- Source: [POLUPD.INP](../../GPSUSER/OPT/ZD_0/POLUPD.INP)
+- Source: [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/POLUPD.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32335,7 +32337,7 @@ _... 20 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_1DC/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32396,7 +32398,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DC/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32407,7 +32409,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](../../GPSUSER/OPT/ZD_1DC/HELMR1.INP)
+- Source: [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/HELMR1.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32468,7 +32470,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1DC/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32516,7 +32518,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DC/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32578,7 +32580,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DC/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32639,7 +32641,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DC/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32666,7 +32668,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1DC/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32688,7 +32690,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DF/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32699,7 +32701,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 180
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_1DF/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32760,7 +32762,7 @@ _... 130 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1DF/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32808,7 +32810,7 @@ _... 130 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DF/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32870,7 +32872,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DF/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32931,7 +32933,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DF/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32958,7 +32960,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1DF/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32981,7 +32983,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_1DP/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33042,7 +33044,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DP/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33053,7 +33055,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_1DP/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33114,7 +33116,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1DP/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33162,7 +33164,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DP/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33224,7 +33226,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DP/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33285,7 +33287,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DP/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33312,7 +33314,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/ZD_1DP/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33374,7 +33376,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1DP/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33396,7 +33398,7 @@ _... 337 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DR/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33407,7 +33409,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 178
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_1DR/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33469,7 +33471,7 @@ _... 128 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_1DR/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33530,7 +33532,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1DR/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33578,7 +33580,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DR/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33640,7 +33642,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DR/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33701,7 +33703,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DR/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33728,7 +33730,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1DR/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33751,7 +33753,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_1DS/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33812,7 +33814,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DS/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33823,7 +33825,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 178
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_1DS/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33884,7 +33886,7 @@ _... 128 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1DS/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33932,7 +33934,7 @@ _... 128 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DS/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33994,7 +33996,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DS/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34055,7 +34057,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DS/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34082,7 +34084,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/ZD_1DS/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34144,7 +34146,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1DS/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34167,7 +34169,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 147
-- Source: [STDPRE.INP](../../GPSUSER/OPT/ZD_1DS/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34229,7 +34231,7 @@ _... 97 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_1DU/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34290,7 +34292,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DU/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34300,7 +34302,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1DU/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34348,7 +34350,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DU/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34410,7 +34412,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DU/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34471,7 +34473,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DU/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34498,7 +34500,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1DU/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34520,7 +34522,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DX/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34531,7 +34533,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 178
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_1DX/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34592,7 +34594,7 @@ _... 128 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1DX/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34640,7 +34642,7 @@ _... 128 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DX/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34702,7 +34704,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DX/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34763,7 +34765,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DX/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34790,7 +34792,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1DX/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34812,7 +34814,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1H0/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34823,7 +34825,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 180
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_1H0/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34885,7 +34887,7 @@ _... 130 more fields omitted in this summary._
 - Sections: Input File for CLKEST, Environment Variables, Show general files, General Constants, Local Geodetic Datum, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Observation selection
 - ... and 66 more sections
 - Fields: 216
-- Source: [CLKEST.INP](../../GPSUSER/OPT/ZD_1H0/CLKEST.INP)
+- Source: [CLKEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/CLKEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34946,7 +34948,7 @@ _... 166 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1H0/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34994,7 +34996,7 @@ _... 166 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1H0/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35056,7 +35058,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1H0/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35117,7 +35119,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1H0/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35144,7 +35146,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1H0/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35166,7 +35168,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1HN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35177,7 +35179,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 180
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_1HN/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35238,7 +35240,7 @@ _... 130 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_1HN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35286,7 +35288,7 @@ _... 130 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1HN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35348,7 +35350,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1HN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35409,7 +35411,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1HN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35436,7 +35438,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_1HN/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35458,7 +35460,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_COC/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35469,7 +35471,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_COC/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35531,7 +35533,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_COC/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35592,7 +35594,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_COC/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35640,7 +35642,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_COC/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35702,7 +35704,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_COC/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35763,7 +35765,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_COC/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35790,7 +35792,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_COC/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35852,7 +35854,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_COC/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35875,7 +35877,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_COD/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35936,7 +35938,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_COD/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35947,7 +35949,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_COD/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36009,7 +36011,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_COD/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36071,7 +36073,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/ZD_COD/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36132,7 +36134,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_COD/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36180,7 +36182,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_COD/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36242,7 +36244,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_COD/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36303,7 +36305,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_COD/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36330,7 +36332,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_COD/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36392,7 +36394,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](../../GPSUSER/OPT/ZD_COD/RESCHK.INP)
+- Source: [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/RESCHK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36454,7 +36456,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/ZD_COD/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36516,7 +36518,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](../../GPSUSER/OPT/ZD_COD/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36578,7 +36580,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_COD/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36600,7 +36602,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_EDT/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36611,7 +36613,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_EDT/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36673,7 +36675,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_EDT/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36735,7 +36737,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/ZD_EDT/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36796,7 +36798,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_EDT/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36844,7 +36846,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_EDT/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36906,7 +36908,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_EDT/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36967,7 +36969,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_EDT/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36994,7 +36996,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_EDT/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37056,7 +37058,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](../../GPSUSER/OPT/ZD_EDT/RESCHK.INP)
+- Source: [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/RESCHK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37118,7 +37120,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/ZD_EDT/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37180,7 +37182,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](../../GPSUSER/OPT/ZD_EDT/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37242,7 +37244,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_EDT/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37265,7 +37267,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_FIN/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37326,7 +37328,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_FIN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37337,7 +37339,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Correction GPS-UTC
 - ... and 16 more sections
 - Fields: 85
-- Source: [ATTXTR.INP](../../GPSUSER/OPT/ZD_FIN/ATTXTR.INP)
+- Source: [ATTXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/ATTXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37399,7 +37401,7 @@ _... 35 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Coordinate Input File Names, Station information file, A priori Coordinate File, A priori Velocity File, PSD corrections for ITRF2014
 - ... and 20 more sections
 - Fields: 82
-- Source: [COMPAR2.INP](../../GPSUSER/OPT/ZD_FIN/COMPAR2.INP)
+- Source: [COMPAR2.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/COMPAR2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37461,7 +37463,7 @@ _... 32 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/ZD_FIN/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37522,7 +37524,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_FIN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37570,7 +37572,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_FIN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37632,7 +37634,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_FIN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37693,7 +37695,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_FIN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37720,7 +37722,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/ZD_FIN/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37782,7 +37784,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_FIN/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37805,7 +37807,7 @@ _... 337 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](../../GPSUSER/OPT/ZD_FIN/STDDIF.INP)
+- Source: [STDDIF.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/STDDIF.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37866,7 +37868,7 @@ _... 39 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_GEN/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37877,7 +37879,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](../../GPSUSER/OPT/ZD_GEN/CCRNXC.INP)
+- Source: [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/CCRNXC.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37939,7 +37941,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Input File for CLKEST, Environment Variables, Show general files, General Constants, Local Geodetic Datum, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Observation selection
 - ... and 66 more sections
 - Fields: 217
-- Source: [CLKEST.INP](../../GPSUSER/OPT/ZD_GEN/CLKEST.INP)
+- Source: [CLKEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/CLKEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38001,7 +38003,7 @@ _... 167 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](../../GPSUSER/OPT/ZD_GEN/CODSPP.INP)
+- Source: [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/CODSPP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38063,7 +38065,7 @@ _... 139 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, List of INPUT FILES (CODSPP program output), Broadcast clock input, Program Output File, Error Message File, Subroutine/function debug output, Do rms check, Broadcast clock output, Good file list
 - ... and 4 more sections
 - Fields: 59
-- Source: [CODXTR.INP](../../GPSUSER/OPT/ZD_GEN/CODXTR.INP)
+- Source: [CODXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/CODXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38125,7 +38127,7 @@ _... 9 more fields omitted in this summary._
 - Sections: Environment Variables, Information for the title, Show general files, General Constants, Geodetic Datum, Satellite Information, Satellite Problems, ERP File, Subdaily Pole Model, Nutation Model
 - ... and 94 more sections
 - Fields: 234
-- Source: [MAUPRP.INP](../../GPSUSER/OPT/ZD_GEN/MAUPRP.INP)
+- Source: [MAUPRP.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MAUPRP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38186,7 +38188,7 @@ _... 184 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_GEN/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38234,7 +38236,7 @@ _... 184 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_GEN/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38296,7 +38298,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_GEN/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38357,7 +38359,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_GEN/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38384,7 +38386,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_GEN/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38446,7 +38448,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, General constants, Station name abbreviations, Input files, MAUPRP summary, MAUPRP SAT summary, File deletion list, New baseline definition, Program output file
 - ... and 4 more sections
 - Fields: 57
-- Source: [MPRXTR.INP](../../GPSUSER/OPT/ZD_GEN/MPRXTR.INP)
+- Source: [MPRXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MPRXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38508,7 +38510,7 @@ _... 7 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/ZD_GEN/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38570,7 +38572,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](../../GPSUSER/OPT/ZD_GEN/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38632,7 +38634,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_GEN/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38654,7 +38656,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_AMB/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38664,7 +38666,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_IAR_AMB/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38712,7 +38714,7 @@ _... 66 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_AMB/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38774,7 +38776,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_AMB/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38835,7 +38837,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_AMB/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38862,7 +38864,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](../../GPSUSER/OPT/ZD_IAR_AMB/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38924,7 +38926,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_AMB/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38946,7 +38948,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_CHK/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38957,7 +38959,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/ZD_IAR_CHK/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39018,7 +39020,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_IAR_CHK/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39066,7 +39068,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_CHK/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39128,7 +39130,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_CHK/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39189,7 +39191,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_CHK/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39216,7 +39218,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_CHK/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39238,7 +39240,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_NLB/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39249,7 +39251,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, GPS-UTC file, Title, Files, List of Input Files, Program Output File, Error Message File, Subroutine/function debug output, Scratch File
 - ... and 6 more sections
 - Fields: 96
-- Source: [CCPREORB.INP](../../GPSUSER/OPT/ZD_IAR_NLB/CCPREORB.INP)
+- Source: [CCPREORB.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/CCPREORB.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39311,7 +39313,7 @@ _... 46 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_IAR_NLB/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39372,7 +39374,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_IAR_NLB/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39420,7 +39422,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_NLB/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39482,7 +39484,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_NLB/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39543,7 +39545,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_NLB/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39570,7 +39572,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 108 more sections
 - Fields: 387
-- Source: [ORBGEN.INP](../../GPSUSER/OPT/ZD_IAR_NLB/ORBGEN.INP)
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/ORBGEN.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39631,7 +39633,7 @@ _... 337 more fields omitted in this summary._
 
 - Sections: PHACOR input panel - private Bernese menu integration test, Environment variables, Menu and session information, General Bernese input files, PHACOR input files, The path and extension definitions follow the STDDIF.INP convention., Debugging
 - Fields: 62
-- Source: [PHACOR.INP](../../GPSUSER/OPT/ZD_IAR_NLB/PHACOR.INP)
+- Source: [PHACOR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/PHACOR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39693,7 +39695,7 @@ _... 12 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/ZD_IAR_NLB/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39755,7 +39757,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_NLB/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39778,7 +39780,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 147
-- Source: [STDPRE.INP](../../GPSUSER/OPT/ZD_IAR_NLB/STDPRE.INP)
+- Source: [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/STDPRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39839,7 +39841,7 @@ _... 97 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_NLI/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39850,7 +39852,7 @@ _... 97 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_IAR_NLI/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39911,7 +39913,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_IAR_NLI/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39959,7 +39961,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_NLI/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40021,7 +40023,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_NLI/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40082,7 +40084,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_NLI/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40109,7 +40111,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](../../GPSUSER/OPT/ZD_IAR_NLI/OBSXTR.INP)
+- Source: [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/OBSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40171,7 +40173,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_NLI/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40193,7 +40195,7 @@ _... 25 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_WLB/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40204,7 +40206,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_IAR_WLB/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40265,7 +40267,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_IAR_WLB/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40313,7 +40315,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_WLB/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40375,7 +40377,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_WLB/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40436,7 +40438,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_WLB/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40463,7 +40465,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](../../GPSUSER/OPT/ZD_IAR_WLB/PHABIA.INP)
+- Source: [PHABIA.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/PHABIA.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40519,7 +40521,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_WLB/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40541,7 +40543,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_WLI/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40552,7 +40554,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1506
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_IAR_WLI/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40613,7 +40615,7 @@ _... 1456 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_IAR_WLI/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40661,7 +40663,7 @@ _... 1456 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_WLI/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40723,7 +40725,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_WLI/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40784,7 +40786,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_WLI/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40811,7 +40813,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_WLI/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40833,7 +40835,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_MON/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40844,7 +40846,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_MON/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40905,7 +40907,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_MON/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40953,7 +40955,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_MON/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41015,7 +41017,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_MON/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41076,7 +41078,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_MON/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41103,7 +41105,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/ZD_MON/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41165,7 +41167,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_MON/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41187,7 +41189,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_NAV/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41197,7 +41199,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_NAV/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41245,7 +41247,7 @@ _... 65 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_NAV/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41307,7 +41309,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_NAV/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41368,7 +41370,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_NAV/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41395,7 +41397,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Satellite Information, Epoch Window, List of Input Files, Output files
 - ... and 23 more sections
 - Fields: 214
-- Source: [RXN2PRE.INP](../../GPSUSER/OPT/ZD_NAV/RXN2PRE.INP)
+- Source: [RXN2PRE.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/RXN2PRE.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41457,7 +41459,7 @@ _... 164 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants Input File, Satellite Problems, Title, Remove bad satellites, Epoch Window, Precise Ephemeris Input Files, Satellite Clock Output File
 - ... and 5 more sections
 - Fields: 57
-- Source: [SATCLK2.INP](../../GPSUSER/OPT/ZD_NAV/SATCLK2.INP)
+- Source: [SATCLK2.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/SATCLK2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41519,7 +41521,7 @@ _... 7 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_ORC/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41580,7 +41582,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_ORC/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41591,7 +41593,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_ORC/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41652,7 +41654,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_ORC/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41700,7 +41702,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_ORC/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41762,7 +41764,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_ORC/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41823,7 +41825,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_ORC/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41850,7 +41852,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_ORC/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41912,7 +41914,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_ORC/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41935,7 +41937,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_ORP/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41996,7 +41998,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_ORP/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42007,7 +42009,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_ORP/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42068,7 +42070,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_ORP/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42116,7 +42118,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_ORP/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42178,7 +42180,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_ORP/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42239,7 +42241,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_ORP/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42266,7 +42268,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_ORP/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42328,7 +42330,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_ORP/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42350,7 +42352,7 @@ _... 77 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_RNX/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42361,7 +42363,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, Title, Agency Running Program, Comment Lines, Options, Sampling Interval (sec)    0: Take all observations, Offset to full minute (sec), Sampling tolerance (sec)
 - ... and 23 more sections
 - Fields: 238
-- Source: [CCRNXO.INP](../../GPSUSER/OPT/ZD_RNX/CCRNXO.INP)
+- Source: [CCRNXO.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/CCRNXO.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42422,7 +42424,7 @@ _... 188 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_RNX/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42470,7 +42472,7 @@ _... 188 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_RNX/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42532,7 +42534,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_RNX/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42593,7 +42595,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_RNX/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42620,7 +42622,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_RNX/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42682,7 +42684,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), List of RINEX Input Files, List of Smoothed RINEX Input Files, Measurement Type, Frequencies, Minimum s/n-ratio
 - ... and 38 more sections
 - Fields: 156
-- Source: [RNXGRA.INP](../../GPSUSER/OPT/ZD_RNX/RNXGRA.INP)
+- Source: [RNXGRA.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/RNXGRA.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42744,7 +42746,7 @@ _... 106 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), Satellite Problems, Rinex input file
 - ... and 37 more sections
 - Fields: 185
-- Source: [RNXSMT.INP](../../GPSUSER/OPT/ZD_RNX/RNXSMT.INP)
+- Source: [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/RNXSMT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42806,7 +42808,7 @@ _... 135 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Active Campaign, General Constants, Show general files, Difference of GPS-TIME - UTC-TIME, Satellite Problems, Satellite Information, Antenna phase center corrections, Station Name Abbreviations
 - ... and 86 more sections
 - Fields: 326
-- Source: [RXOBV3.INP](../../GPSUSER/OPT/ZD_RNX/RXOBV3.INP)
+- Source: [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/RXOBV3.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42868,7 +42870,7 @@ _... 276 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](../../GPSUSER/OPT/ZD_RNX/SATMRK.INP)
+- Source: [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/SATMRK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42930,7 +42932,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_RNX/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42953,7 +42955,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_SB1/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43014,7 +43016,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_SB1/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43025,7 +43027,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_SB1/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43086,7 +43088,7 @@ _... 1446 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_SB1/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43134,7 +43136,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_SB1/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43196,7 +43198,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_SB1/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43257,7 +43259,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_SB1/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43284,7 +43286,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_SB1/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43346,7 +43348,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_SB1/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43369,7 +43371,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_SB2/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43430,7 +43432,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_SB2/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43441,7 +43443,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/ZD_SB2/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43502,7 +43504,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_SB2/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43550,7 +43552,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_SB2/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43612,7 +43614,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_SB2/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43673,7 +43675,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_SB2/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43700,7 +43702,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_SB2/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43723,7 +43725,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_SB3/ADDNEQ2.INP)
+- Source: [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/ADDNEQ2.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43784,7 +43786,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_SB3/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43794,7 +43796,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_SB3/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43842,7 +43844,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_SB3/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43904,7 +43906,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_SB3/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43965,7 +43967,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_SB3/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43992,7 +43994,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 126
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_SB3/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44054,7 +44056,7 @@ _... 76 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_SB3/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44076,7 +44078,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_SUM/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44086,7 +44088,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_SUM/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44133,7 +44135,7 @@ _... 76 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [MENU_CMP.INP](../../GPSUSER/OPT/ZD_SUM/MENU_CMP.INP)
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44144,7 +44146,7 @@ _... 76 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_SUM/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44206,7 +44208,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_SUM/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44267,7 +44269,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_SUM/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44294,7 +44296,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](../../GPSUSER/OPT/ZD_SUM/OBSXTR.INP)
+- Source: [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/OBSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44355,7 +44357,7 @@ _... 25 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_WGT/AIUB_CMP.INP)
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44366,7 +44368,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 555 more sections
 - Fields: 1496
-- Source: [GPSEST.INP](../../GPSUSER/OPT/ZD_WGT/GPSEST.INP)
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/GPSEST.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44428,7 +44430,7 @@ _... 1446 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](../../GPSUSER/OPT/ZD_WGT/GPSXTR.INP)
+- Source: [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/GPSXTR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44489,7 +44491,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](../../GPSUSER/OPT/ZD_WGT/MENU.INP)
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MENU.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44537,7 +44539,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](../../GPSUSER/OPT/ZD_WGT/MENU_EXT.INP)
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MENU_EXT.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44599,7 +44601,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 299
-- Source: [MENU_PGM.INP](../../GPSUSER/OPT/ZD_WGT/MENU_PGM.INP)
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44660,7 +44662,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](../../GPSUSER/OPT/ZD_WGT/MENU_VAR.INP)
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MENU_VAR.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44687,7 +44689,7 @@ _... 249 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](../../GPSUSER/OPT/ZD_WGT/MKCLUS.INP)
+- Source: [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MKCLUS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44749,7 +44751,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](../../GPSUSER/OPT/ZD_WGT/RESCHK.INP)
+- Source: [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/RESCHK.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44811,7 +44813,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](../../GPSUSER/OPT/ZD_WGT/RESRMS.INP)
+- Source: [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/RESRMS.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44873,7 +44875,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 13
-- Source: [SETDAY.INP](../../GPSUSER/OPT/ZD_WGT/SETDAY.INP)
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/SETDAY.INP)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44895,1109 +44897,1109 @@ _... 37 more fields omitted in this summary._
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/CMP_SOL
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/CMP_SOL/AIUB_CMP.INP)
-- [COMPAR2.INP](../../GPSUSER/OPT/CMP_SOL/COMPAR2.INP)
-- [HELMR1.INP](../../GPSUSER/OPT/CMP_SOL/HELMR1.INP)
-- [MENU.INP](../../GPSUSER/OPT/CMP_SOL/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/CMP_SOL/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/CMP_SOL/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/CMP_SOL/MENU_VAR.INP)
-- [ORBCMP.INP](../../GPSUSER/OPT/CMP_SOL/ORBCMP.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/CMP_SOL/ORBGEN.INP)
-- [STDDIF.INP](../../GPSUSER/OPT/CMP_SOL/STDDIF.INP)
-- [STDELE.INP](../../GPSUSER/OPT/CMP_SOL/STDELE.INP)
-- [plotGPSXTR.INP](../../GPSUSER/OPT/CMP_SOL/plotGPSXTR.INP)
-- [plotHELMR1.INP](../../GPSUSER/OPT/CMP_SOL/plotHELMR1.INP)
-- [plotSTDELE.INP](../../GPSUSER/OPT/CMP_SOL/plotSTDELE.INP)
-- [plotSatnum.INP](../../GPSUSER/OPT/CMP_SOL/plotSatnum.INP)
-- [plotStanum.INP](../../GPSUSER/OPT/CMP_SOL/plotStanum.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/AIUB_CMP.INP)
+- [COMPAR2.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/COMPAR2.INP)
+- [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/HELMR1.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/MENU_VAR.INP)
+- [ORBCMP.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/ORBCMP.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/ORBGEN.INP)
+- [STDDIF.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/STDDIF.INP)
+- [STDELE.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/STDELE.INP)
+- [plotGPSXTR.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotGPSXTR.INP)
+- [plotHELMR1.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotHELMR1.INP)
+- [plotSTDELE.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotSTDELE.INP)
+- [plotSatnum.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotSatnum.INP)
+- [plotStanum.INP](source_files/ck18y530-gpsuser/OPT/CMP_SOL/plotStanum.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FCLK_COD
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FCLK_COD/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FCLK_COD/CCRNXC.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FCLK_COD/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/FCLK_COD/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FCLK_COD/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FCLK_COD/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FCLK_COD/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FCLK_COD/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FCLK_COD/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/CCRNXC.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_0
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_0/AIUB_CMP.INP)
-- [COOVEL.INP](../../GPSUSER/OPT/FZDM_0/COOVEL.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_0/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_0/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_0/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_0/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/FZDM_0/ORBGEN.INP)
-- [POLUPD.INP](../../GPSUSER/OPT/FZDM_0/POLUPD.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/AIUB_CMP.INP)
+- [COOVEL.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/COOVEL.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/ORBGEN.INP)
+- [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/FZDM_0/POLUPD.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1DC
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_1DC/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DC/AIUB_CMP.INP)
-- [HELMR1.INP](../../GPSUSER/OPT/FZDM_1DC/HELMR1.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1DC/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DC/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DC/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DC/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DC/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/AIUB_CMP.INP)
+- [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/HELMR1.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DC/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1DF
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DF/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1DF/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1DF/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DF/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DF/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DF/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DF/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DF/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1DP
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_1DP/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DP/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_1DP/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1DP/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DP/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DP/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DP/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DP/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1DR
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DR/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1DR/CCRNXC.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_1DR/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1DR/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DR/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DR/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DR/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DR/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/CCRNXC.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1DS
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_1DS/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DS/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1DS/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1DS/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DS/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DS/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DS/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/FZDM_1DS/ORBGEN.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DS/SETDAY.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/FZDM_1DS/STDPRE.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/ORBGEN.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/SETDAY.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DS/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1DU
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_1DU/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DU/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1DU/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DU/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DU/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DU/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DU/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DU/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1DX
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1DX/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1DX/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1DX/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1DX/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1DX/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1DX/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1DX/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DX/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1H0
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1H0/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1H0/CCRNXC.INP)
-- [CLKEST.INP](../../GPSUSER/OPT/FZDM_1H0/CLKEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1H0/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1H0/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1H0/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1H0/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1H0/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/CCRNXC.INP)
+- [CLKEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/CLKEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1H0/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_1HN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_1HN/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FZDM_1HN/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_1HN/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_1HN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_1HN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_1HN/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_1HN/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1HN/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_COD
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_COD/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_COD/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_COD/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/FZDM_COD/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_COD/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_COD/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_COD/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_COD/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_COD/MKCLUS.INP)
-- [RESCHK.INP](../../GPSUSER/OPT/FZDM_COD/RESCHK.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/FZDM_COD/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/FZDM_COD/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_COD/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/MKCLUS.INP)
+- [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/RESCHK.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_EDT
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_EDT/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FZDM_EDT/CCRNXC.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_EDT/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/FZDM_EDT/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_EDT/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_EDT/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_EDT/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_EDT/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_EDT/MKCLUS.INP)
-- [RESCHK.INP](../../GPSUSER/OPT/FZDM_EDT/RESCHK.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/FZDM_EDT/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/FZDM_EDT/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_EDT/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/CCRNXC.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/MKCLUS.INP)
+- [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/RESCHK.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_FIN
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_FIN/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_FIN/AIUB_CMP.INP)
-- [ATTXTR.INP](../../GPSUSER/OPT/FZDM_FIN/ATTXTR.INP)
-- [COMPAR2.INP](../../GPSUSER/OPT/FZDM_FIN/COMPAR2.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/FZDM_FIN/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_FIN/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_FIN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_FIN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_FIN/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/FZDM_FIN/ORBGEN.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_FIN/SETDAY.INP)
-- [STDDIF.INP](../../GPSUSER/OPT/FZDM_FIN/STDDIF.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/AIUB_CMP.INP)
+- [ATTXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/ATTXTR.INP)
+- [COMPAR2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/COMPAR2.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/ORBGEN.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/SETDAY.INP)
+- [STDDIF.INP](source_files/ck18y530-gpsuser/OPT/FZDM_FIN/STDDIF.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_GEN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_GEN/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/FZDM_GEN/CCRNXC.INP)
-- [CLKEST.INP](../../GPSUSER/OPT/FZDM_GEN/CLKEST.INP)
-- [CODSPP.INP](../../GPSUSER/OPT/FZDM_GEN/CODSPP.INP)
-- [CODXTR.INP](../../GPSUSER/OPT/FZDM_GEN/CODXTR.INP)
-- [MAUPRP.INP](../../GPSUSER/OPT/FZDM_GEN/MAUPRP.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_GEN/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_GEN/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_GEN/MKCLUS.INP)
-- [MPRXTR.INP](../../GPSUSER/OPT/FZDM_GEN/MPRXTR.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/FZDM_GEN/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/FZDM_GEN/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_GEN/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/CCRNXC.INP)
+- [CLKEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/CLKEST.INP)
+- [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/CODSPP.INP)
+- [CODXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/CODXTR.INP)
+- [MAUPRP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MAUPRP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MKCLUS.INP)
+- [MPRXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/MPRXTR.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_GEN/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_MON
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_MON/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_MON/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_MON/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_MON/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_MON/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_MON/MENU_VAR.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/FZDM_MON/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_MON/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/MENU_VAR.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_NAV
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_NAV/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_NAV/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_NAV/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_NAV/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_NAV/MENU_VAR.INP)
-- [RXN2PRE.INP](../../GPSUSER/OPT/FZDM_NAV/RXN2PRE.INP)
-- [SATCLK2.INP](../../GPSUSER/OPT/FZDM_NAV/SATCLK2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/MENU_VAR.INP)
+- [RXN2PRE.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/RXN2PRE.INP)
+- [SATCLK2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_NAV/SATCLK2.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_ORC
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_ORC/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_ORC/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_ORC/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_ORC/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_ORC/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_ORC/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_ORC/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_ORC/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_ORC/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_ORP
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_ORP/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_ORP/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_ORP/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_ORP/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_ORP/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_ORP/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_ORP/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_ORP/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_ORP/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_RNX
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_RNX/AIUB_CMP.INP)
-- [CCRNXO.INP](../../GPSUSER/OPT/FZDM_RNX/CCRNXO.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_RNX/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_RNX/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_RNX/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_RNX/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_RNX/MKCLUS.INP)
-- [RNXGRA.INP](../../GPSUSER/OPT/FZDM_RNX/RNXGRA.INP)
-- [RNXSMT.INP](../../GPSUSER/OPT/FZDM_RNX/RNXSMT.INP)
-- [RXOBV3.INP](../../GPSUSER/OPT/FZDM_RNX/RXOBV3.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/FZDM_RNX/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_RNX/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/AIUB_CMP.INP)
+- [CCRNXO.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/CCRNXO.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/MKCLUS.INP)
+- [RNXGRA.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/RNXGRA.INP)
+- [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/RNXSMT.INP)
+- [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/RXOBV3.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_RNX/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_SB1
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_SB1/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_SB1/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_SB1/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_SB1/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_SB1/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_SB1/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_SB1/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_SB1/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_SB1/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_SB2
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_SB2/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_SB2/AIUB_CMP.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/FZDM_SB2/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_SB2/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_SB2/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_SB2/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_SB2/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_SB2/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/AIUB_CMP.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB2/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_SB3
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/FZDM_SB3/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_SB3/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_SB3/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_SB3/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_SB3/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_SB3/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_SB3/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_SB3/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB3/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_SUM
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_SUM/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_SUM/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/FZDM_SUM/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_SUM/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_SUM/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_SUM/MENU_VAR.INP)
-- [OBSXTR.INP](../../GPSUSER/OPT/FZDM_SUM/OBSXTR.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/MENU_VAR.INP)
+- [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SUM/OBSXTR.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/FZDM_WGT
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/FZDM_WGT/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/FZDM_WGT/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/FZDM_WGT/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/FZDM_WGT/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/FZDM_WGT/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/FZDM_WGT/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/FZDM_WGT/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/FZDM_WGT/MKCLUS.INP)
-- [RESCHK.INP](../../GPSUSER/OPT/FZDM_WGT/RESCHK.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/FZDM_WGT/RESRMS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/FZDM_WGT/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/MKCLUS.INP)
+- [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/RESCHK.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/RESRMS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/IAR_AMB
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_AMB/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/IAR_AMB/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/IAR_AMB/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/IAR_AMB/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/IAR_AMB/MENU_VAR.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/IAR_AMB/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/IAR_AMB/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/MENU_VAR.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_AMB/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/IAR_CHK
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_CHK/AIUB_CMP.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/IAR_CHK/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/IAR_CHK/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/IAR_CHK/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/IAR_CHK/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/IAR_CHK/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/IAR_CHK/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/AIUB_CMP.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_CHK/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/IAR_NLB
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_NLB/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/IAR_NLB/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/IAR_NLB/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/IAR_NLB/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/IAR_NLB/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/IAR_NLB/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/IAR_NLB/ORBGEN.INP)
-- [PHABIA.INP](../../GPSUSER/OPT/IAR_NLB/PHABIA.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/IAR_NLB/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/IAR_NLB/SETDAY.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/IAR_NLB/STDPRE.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/ORBGEN.INP)
+- [PHABIA.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/PHABIA.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/SETDAY.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/IAR_NLI
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_NLI/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/IAR_NLI/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/IAR_NLI/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/IAR_NLI/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/IAR_NLI/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/IAR_NLI/MENU_VAR.INP)
-- [OBSXTR.INP](../../GPSUSER/OPT/IAR_NLI/OBSXTR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/IAR_NLI/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/MENU_VAR.INP)
+- [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/OBSXTR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/IAR_WLB
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_WLB/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/IAR_WLB/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/IAR_WLB/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/IAR_WLB/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/IAR_WLB/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/IAR_WLB/MENU_VAR.INP)
-- [PHABIA.INP](../../GPSUSER/OPT/IAR_WLB/PHABIA.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/IAR_WLB/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/MENU_VAR.INP)
+- [PHABIA.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/PHABIA.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/IAR_WLI
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/IAR_WLI/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/IAR_WLI/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/IAR_WLI/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/IAR_WLI/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/IAR_WLI/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/IAR_WLI/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/IAR_WLI/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_APR
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_APR/AIUB_CMP.INP)
-- [CODSPP.INP](../../GPSUSER/OPT/LPDR_APR/CODSPP.INP)
-- [KINPRE.INP](../../GPSUSER/OPT/LPDR_APR/KINPRE.INP)
-- [LEOATT.INP](../../GPSUSER/OPT/LPDR_APR/LEOATT.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_APR/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_APR/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_APR/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_APR/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_APR/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/LPDR_APR/ORBGEN.INP)
-- [RNXSMT.INP](../../GPSUSER/OPT/LPDR_APR/RNXSMT.INP)
-- [RUNGPS.INP](../../GPSUSER/OPT/LPDR_APR/RUNGPS.INP)
-- [RXOBV3.INP](../../GPSUSER/OPT/LPDR_APR/RXOBV3.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/AIUB_CMP.INP)
+- [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/CODSPP.INP)
+- [KINPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/KINPRE.INP)
+- [LEOATT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/LEOATT.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/ORBGEN.INP)
+- [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/RNXSMT.INP)
+- [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/RUNGPS.INP)
+- [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APR/RXOBV3.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_APS
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_APS/AIUB_CMP.INP)
-- [CODSPP.INP](../../GPSUSER/OPT/LPDR_APS/CODSPP.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_APS/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_APS/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_APS/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_APS/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_APS/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/LPDR_APS/ORBGEN.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/AIUB_CMP.INP)
+- [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/CODSPP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_APS/ORBGEN.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_CMP
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_CMP/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_CMP/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_CMP/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_CMP/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_CMP/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_CMP/MENU_VAR.INP)
-- [ORBCMP.INP](../../GPSUSER/OPT/LPDR_CMP/ORBCMP.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/MENU_VAR.INP)
+- [ORBCMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_CMP/ORBCMP.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_FIN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_FIN/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/LPDR_FIN/GPSEST.INP)
-- [GPSEST_SIP.INP](../../GPSUSER/OPT/LPDR_FIN/GPSEST_SIP.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/LPDR_FIN/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_FIN/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_FIN/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_FIN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_FIN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_FIN/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/LPDR_FIN/ORBGEN.INP)
-- [RUNGPS.INP](../../GPSUSER/OPT/LPDR_FIN/RUNGPS.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/LPDR_FIN/STDPRE.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/GPSEST.INP)
+- [GPSEST_SIP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/GPSEST_SIP.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/ORBGEN.INP)
+- [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/RUNGPS.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_GEN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_GEN/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_GEN/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_GEN/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_GEN/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/LPDR_GEN/ORBGEN.INP)
-- [POLUPD.INP](../../GPSUSER/OPT/LPDR_GEN/POLUPD.INP)
-- [RNXCLK.INP](../../GPSUSER/OPT/LPDR_GEN/RNXCLK.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/ORBGEN.INP)
+- [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/POLUPD.INP)
+- [RNXCLK.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GEN/RNXCLK.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_GR2
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_GR2/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/LPDR_GR2/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_GR2/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_GR2/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_GR2/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_GR2/MENU_VAR.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/MENU_VAR.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_GRS
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_GRS/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/LPDR_GRS/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_GRS/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_GRS/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_GRS/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_GRS/MENU_VAR.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/LPDR_GRS/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/LPDR_GRS/SATMRK.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/MENU_VAR.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SATMRK.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_GRS/SWM2_GRS
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/MENU_VAR.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/LPDR_GRS/SWM2_GRS/SATMRK.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/MENU_VAR.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/SWM2_GRS/SATMRK.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_INT
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_INT/AIUB_CMP.INP)
-- [CODSPP.INP](../../GPSUSER/OPT/LPDR_INT/CODSPP.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_INT/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_INT/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_INT/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_INT/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/LPDR_INT/ORBGEN.INP)
-- [RUNGPS.INP](../../GPSUSER/OPT/LPDR_INT/RUNGPS.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/LPDR_INT/STDPRE.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/AIUB_CMP.INP)
+- [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/CODSPP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/ORBGEN.INP)
+- [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/RUNGPS.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_INT/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_KIN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_KIN/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/LPDR_KIN/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/LPDR_KIN/GPSXTR.INP)
-- [KINPRE.INP](../../GPSUSER/OPT/LPDR_KIN/KINPRE.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_KIN/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_KIN/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_KIN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_KIN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_KIN/MENU_VAR.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/LPDR_KIN/RESRMS.INP)
-- [RUNGPS.INP](../../GPSUSER/OPT/LPDR_KIN/RUNGPS.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/LPDR_KIN/STDPRE.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/GPSXTR.INP)
+- [KINPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/KINPRE.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/MENU_VAR.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/RESRMS.INP)
+- [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/RUNGPS.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_MPG
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_MPG/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/LPDR_MPG/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/LPDR_MPG/GPSXTR.INP)
-- [MAUPRP.INP](../../GPSUSER/OPT/LPDR_MPG/MAUPRP.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_MPG/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_MPG/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_MPG/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_MPG/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_MPG/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/LPDR_MPG/ORBGEN.INP)
-- [RUNGPS.INP](../../GPSUSER/OPT/LPDR_MPG/RUNGPS.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/GPSXTR.INP)
+- [MAUPRP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MAUPRP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/ORBGEN.INP)
+- [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/RUNGPS.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_RES
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_RES/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/LPDR_RES/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_RES/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_RES/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_RES/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_RES/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_RES/MENU_VAR.INP)
-- [RESFMT.INP](../../GPSUSER/OPT/LPDR_RES/RESFMT.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/LPDR_RES/RESRMS.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/MENU_VAR.INP)
+- [RESFMT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/RESFMT.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/RESRMS.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/LPDR_WL
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/LPDR_WL/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/LPDR_WL/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/LPDR_WL/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/LPDR_WL/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/LPDR_WL/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/LPDR_WL/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/LPDR_WL/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/LPDR_WL/MENU_VAR.INP)
-- [RUNGPS.INP](../../GPSUSER/OPT/LPDR_WL/RUNGPS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/LPDR_WL/SATMRK.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/MENU_VAR.INP)
+- [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/RUNGPS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/SATMRK.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/NO_OPT
 
-- [MENU.INP](../../GPSUSER/OPT/NO_OPT/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/NO_OPT/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/NO_OPT/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/NO_OPT/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/NO_OPT/SETDAY.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/NO_OPT/CVS
 
-- [MENU.INP](../../GPSUSER/OPT/NO_OPT/CVS/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/NO_OPT/CVS/MENU_EXT.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/CVS/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/NO_OPT/CVS/MENU_EXT.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/PPP_AUX
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/PPP_AUX/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_AUX/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/PPP_AUX/CCRNXC.INP)
-- [CRDMERGE.INP](../../GPSUSER/OPT/PPP_AUX/CRDMERGE.INP)
-- [HELMR1.INP](../../GPSUSER/OPT/PPP_AUX/HELMR1.INP)
-- [MENU.INP](../../GPSUSER/OPT/PPP_AUX/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/PPP_AUX/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/PPP_AUX/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/PPP_AUX/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/PPP_AUX/MENU_VAR.INP)
-- [RESCHK.INP](../../GPSUSER/OPT/PPP_AUX/RESCHK.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/PPP_AUX/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/PPP_AUX/SATMRK.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/CCRNXC.INP)
+- [CRDMERGE.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/CRDMERGE.INP)
+- [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/HELMR1.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/MENU_VAR.INP)
+- [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/RESCHK.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/PPP_AUX/SATMRK.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/PPP_FIN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_FIN/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/PPP_FIN/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/PPP_FIN/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/PPP_FIN/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/PPP_FIN/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/PPP_FIN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/PPP_FIN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/PPP_FIN/MENU_VAR.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/PPP_FIN/RESRMS.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/MENU_VAR.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/RESRMS.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/PPP_GE2
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_GE2/AIUB_CMP.INP)
-- [CODSPP.INP](../../GPSUSER/OPT/PPP_GE2/CODSPP.INP)
-- [CRDMERGE.INP](../../GPSUSER/OPT/PPP_GE2/CRDMERGE.INP)
-- [MAUPRP.INP](../../GPSUSER/OPT/PPP_GE2/MAUPRP.INP)
-- [MENU.INP](../../GPSUSER/OPT/PPP_GE2/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/PPP_GE2/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/PPP_GE2/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/PPP_GE2/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/PPP_GE2/MENU_VAR.INP)
-- [MPRXTR.INP](../../GPSUSER/OPT/PPP_GE2/MPRXTR.INP)
-- [RNXSMT.INP](../../GPSUSER/OPT/PPP_GE2/RNXSMT.INP)
-- [RXOBV3.INP](../../GPSUSER/OPT/PPP_GE2/RXOBV3.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/AIUB_CMP.INP)
+- [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/CODSPP.INP)
+- [CRDMERGE.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/CRDMERGE.INP)
+- [MAUPRP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MAUPRP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MENU_VAR.INP)
+- [MPRXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/MPRXTR.INP)
+- [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/RNXSMT.INP)
+- [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/PPP_GE2/RXOBV3.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/PPP_GEN
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/PPP_GEN/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_GEN/AIUB_CMP.INP)
-- [ATX2PCV.INP](../../GPSUSER/OPT/PPP_GEN/ATX2PCV.INP)
-- [BIA2OSB.INP](../../GPSUSER/OPT/PPP_GEN/BIA2OSB.INP)
-- [CCPREORB.INP](../../GPSUSER/OPT/PPP_GEN/CCPREORB.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/PPP_GEN/CCRNXC.INP)
-- [CCRNXO.INP](../../GPSUSER/OPT/PPP_GEN/CCRNXO.INP)
-- [CODSPP.INP](../../GPSUSER/OPT/PPP_GEN/CODSPP.INP)
-- [CODXTR.INP](../../GPSUSER/OPT/PPP_GEN/CODXTR.INP)
-- [CRDMERGE.INP](../../GPSUSER/OPT/PPP_GEN/CRDMERGE.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/PPP_GEN/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/PPP_GEN/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/PPP_GEN/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/PPP_GEN/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/PPP_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/PPP_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/PPP_GEN/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/PPP_GEN/ORBGEN.INP)
-- [POLUPD.INP](../../GPSUSER/OPT/PPP_GEN/POLUPD.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/PPP_GEN/RESRMS.INP)
-- [RNXCLK.INP](../../GPSUSER/OPT/PPP_GEN/RNXCLK.INP)
-- [RNXGRA.INP](../../GPSUSER/OPT/PPP_GEN/RNXGRA.INP)
-- [RNXSMT.INP](../../GPSUSER/OPT/PPP_GEN/RNXSMT.INP)
-- [RXOBV3.INP](../../GPSUSER/OPT/PPP_GEN/RXOBV3.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/PPP_GEN/SATMRK.INP)
-- [STA2ID.INP](../../GPSUSER/OPT/PPP_GEN/STA2ID.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/AIUB_CMP.INP)
+- [ATX2PCV.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/ATX2PCV.INP)
+- [BIA2OSB.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/BIA2OSB.INP)
+- [CCPREORB.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CCPREORB.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CCRNXC.INP)
+- [CCRNXO.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CCRNXO.INP)
+- [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CODSPP.INP)
+- [CODXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CODXTR.INP)
+- [CRDMERGE.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/CRDMERGE.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/ORBGEN.INP)
+- [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/POLUPD.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RESRMS.INP)
+- [RNXCLK.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RNXCLK.INP)
+- [RNXGRA.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RNXGRA.INP)
+- [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RNXSMT.INP)
+- [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/RXOBV3.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/SATMRK.INP)
+- [STA2ID.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/STA2ID.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/PPP_IAR
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_IAR/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/PPP_IAR/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/PPP_IAR/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/PPP_IAR/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/PPP_IAR/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/PPP_IAR/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/PPP_IAR/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/PPP_IAR/MENU_VAR.INP)
-- [OBSXTR.INP](../../GPSUSER/OPT/PPP_IAR/OBSXTR.INP)
-- [PHABIA.INP](../../GPSUSER/OPT/PPP_IAR/PHABIA.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/MENU_VAR.INP)
+- [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/OBSXTR.INP)
+- [PHABIA.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/PHABIA.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/PPP_KIM
 
-- [GPSXTR.INP](../../GPSUSER/OPT/PPP_KIM/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/PPP_KIM/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/PPP_KIM/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/PPP_KIM/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/PPP_KIM/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/PPP_KIM/MENU_VAR.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIM/MENU_VAR.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/PPP_KIN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_KIN/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/PPP_KIN/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/PPP_KIN/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/PPP_KIN/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/PPP_KIN/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/PPP_KIN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/PPP_KIN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/PPP_KIN/MENU_VAR.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/MENU_VAR.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/PPP_SNX
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/PPP_SNX/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/PPP_SNX/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/PPP_SNX/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/PPP_SNX/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/PPP_SNX/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/PPP_SNX/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/PPP_SNX/MENU_VAR.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/PPP_SNX/MENU_VAR.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/VAL_SOL
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/VAL_SOL/AIUB_CMP.INP)
-- [COMPAR2.INP](../../GPSUSER/OPT/VAL_SOL/COMPAR2.INP)
-- [HELMR1.INP](../../GPSUSER/OPT/VAL_SOL/HELMR1.INP)
-- [MENU.INP](../../GPSUSER/OPT/VAL_SOL/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/VAL_SOL/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/VAL_SOL/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/VAL_SOL/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/VAL_SOL/ORBGEN.INP)
-- [STDELE.INP](../../GPSUSER/OPT/VAL_SOL/STDELE.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/AIUB_CMP.INP)
+- [COMPAR2.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/COMPAR2.INP)
+- [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/HELMR1.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/ORBGEN.INP)
+- [STDELE.INP](source_files/ck18y530-gpsuser/OPT/VAL_SOL/STDELE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD3D_3DS
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD3D_3DS/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD3D_3DS/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD3D_3DS/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD3D_3DS/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD3D_3DS/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD3D_3DS/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD3D_3DS/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/ZD3D_3DS/ORBGEN.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD3D_3DS/SETDAY.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/ZD3D_3DS/STDPRE.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/ORBGEN.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/SETDAY.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD3D_3DS_o
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD3D_3DS_o/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD3D_3DS_o/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD3D_3DS_o/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD3D_3DS_o/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD3D_3DS_o/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD3D_3DS_o/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD3D_3DS_o/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/ZD3D_3DS_o/ORBGEN.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD3D_3DS_o/SETDAY.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/ZD3D_3DS_o/STDPRE.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/ORBGEN.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/SETDAY.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_3DS_o/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD3D_GEN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD3D_GEN/AIUB_CMP.INP)
-- [COOVEL.INP](../../GPSUSER/OPT/ZD3D_GEN/COOVEL.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD3D_GEN/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD3D_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD3D_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD3D_GEN/MENU_VAR.INP)
-- [POLUPD.INP](../../GPSUSER/OPT/ZD3D_GEN/POLUPD.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD3D_GEN/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/AIUB_CMP.INP)
+- [COOVEL.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/COOVEL.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/MENU_VAR.INP)
+- [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/POLUPD.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD3D_GEN_o
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD3D_GEN_o/AIUB_CMP.INP)
-- [COOVEL.INP](../../GPSUSER/OPT/ZD3D_GEN_o/COOVEL.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD3D_GEN_o/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD3D_GEN_o/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD3D_GEN_o/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD3D_GEN_o/MENU_VAR.INP)
-- [POLUPD.INP](../../GPSUSER/OPT/ZD3D_GEN_o/POLUPD.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD3D_GEN_o/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/AIUB_CMP.INP)
+- [COOVEL.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/COOVEL.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/MENU_VAR.INP)
+- [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/POLUPD.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD3D_GEN_o/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_0
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_0/AIUB_CMP.INP)
-- [COOVEL.INP](../../GPSUSER/OPT/ZD_0/COOVEL.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_0/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_0/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_0/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_0/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/ZD_0/ORBGEN.INP)
-- [POLUPD.INP](../../GPSUSER/OPT/ZD_0/POLUPD.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/AIUB_CMP.INP)
+- [COOVEL.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/COOVEL.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/ORBGEN.INP)
+- [POLUPD.INP](source_files/ck18y530-gpsuser/OPT/ZD_0/POLUPD.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1DC
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_1DC/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DC/AIUB_CMP.INP)
-- [HELMR1.INP](../../GPSUSER/OPT/ZD_1DC/HELMR1.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1DC/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DC/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DC/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DC/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1DC/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/AIUB_CMP.INP)
+- [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/HELMR1.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DC/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1DF
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DF/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_1DF/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1DF/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DF/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DF/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DF/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1DF/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DF/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1DP
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_1DP/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DP/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_1DP/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1DP/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DP/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DP/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DP/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/ZD_1DP/ORBGEN.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1DP/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/ORBGEN.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1DR
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DR/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_1DR/CCRNXC.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_1DR/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1DR/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DR/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DR/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DR/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1DR/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/CCRNXC.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1DS
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_1DS/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DS/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_1DS/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1DS/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DS/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DS/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DS/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/ZD_1DS/ORBGEN.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1DS/SETDAY.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/ZD_1DS/STDPRE.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/ORBGEN.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/SETDAY.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DS/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1DU
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_1DU/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DU/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1DU/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DU/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DU/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DU/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1DU/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DU/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1DX
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1DX/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_1DX/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1DX/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1DX/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1DX/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1DX/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1DX/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DX/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1H0
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1H0/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_1H0/CCRNXC.INP)
-- [CLKEST.INP](../../GPSUSER/OPT/ZD_1H0/CLKEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1H0/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1H0/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1H0/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1H0/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1H0/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/CCRNXC.INP)
+- [CLKEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/CLKEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1H0/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_1HN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_1HN/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_1HN/CCRNXC.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_1HN/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_1HN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_1HN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_1HN/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_1HN/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/CCRNXC.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_COC
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_COC/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_COC/CCRNXC.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_COC/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_COC/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_COC/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_COC/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_COC/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_COC/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_COC/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/CCRNXC.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_COD
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_COD/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_COD/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_COD/CCRNXC.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_COD/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/ZD_COD/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_COD/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_COD/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_COD/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_COD/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_COD/MKCLUS.INP)
-- [RESCHK.INP](../../GPSUSER/OPT/ZD_COD/RESCHK.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/ZD_COD/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/ZD_COD/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_COD/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/CCRNXC.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MKCLUS.INP)
+- [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/RESCHK.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_EDT
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_EDT/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_EDT/CCRNXC.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_EDT/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/ZD_EDT/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_EDT/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_EDT/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_EDT/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_EDT/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_EDT/MKCLUS.INP)
-- [RESCHK.INP](../../GPSUSER/OPT/ZD_EDT/RESCHK.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/ZD_EDT/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/ZD_EDT/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_EDT/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/CCRNXC.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/MKCLUS.INP)
+- [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/RESCHK.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_FIN
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_FIN/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_FIN/AIUB_CMP.INP)
-- [ATTXTR.INP](../../GPSUSER/OPT/ZD_FIN/ATTXTR.INP)
-- [COMPAR2.INP](../../GPSUSER/OPT/ZD_FIN/COMPAR2.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/ZD_FIN/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_FIN/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_FIN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_FIN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_FIN/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/ZD_FIN/ORBGEN.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_FIN/SETDAY.INP)
-- [STDDIF.INP](../../GPSUSER/OPT/ZD_FIN/STDDIF.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/AIUB_CMP.INP)
+- [ATTXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/ATTXTR.INP)
+- [COMPAR2.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/COMPAR2.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/ORBGEN.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/SETDAY.INP)
+- [STDDIF.INP](source_files/ck18y530-gpsuser/OPT/ZD_FIN/STDDIF.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_GEN
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_GEN/AIUB_CMP.INP)
-- [CCRNXC.INP](../../GPSUSER/OPT/ZD_GEN/CCRNXC.INP)
-- [CLKEST.INP](../../GPSUSER/OPT/ZD_GEN/CLKEST.INP)
-- [CODSPP.INP](../../GPSUSER/OPT/ZD_GEN/CODSPP.INP)
-- [CODXTR.INP](../../GPSUSER/OPT/ZD_GEN/CODXTR.INP)
-- [MAUPRP.INP](../../GPSUSER/OPT/ZD_GEN/MAUPRP.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_GEN/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_GEN/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_GEN/MKCLUS.INP)
-- [MPRXTR.INP](../../GPSUSER/OPT/ZD_GEN/MPRXTR.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/ZD_GEN/RESRMS.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/ZD_GEN/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_GEN/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/AIUB_CMP.INP)
+- [CCRNXC.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/CCRNXC.INP)
+- [CLKEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/CLKEST.INP)
+- [CODSPP.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/CODSPP.INP)
+- [CODXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/CODXTR.INP)
+- [MAUPRP.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MAUPRP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MKCLUS.INP)
+- [MPRXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/MPRXTR.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/RESRMS.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_GEN/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_IAR_AMB
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_AMB/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_IAR_AMB/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_AMB/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_AMB/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_AMB/MENU_VAR.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/ZD_IAR_AMB/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_AMB/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/MENU_VAR.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_AMB/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_IAR_CHK
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_CHK/AIUB_CMP.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/ZD_IAR_CHK/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_IAR_CHK/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_CHK/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_CHK/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_CHK/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_CHK/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/AIUB_CMP.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_CHK/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_IAR_NLB
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_NLB/AIUB_CMP.INP)
-- [CCPREORB.INP](../../GPSUSER/OPT/ZD_IAR_NLB/CCPREORB.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_IAR_NLB/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_IAR_NLB/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_NLB/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_NLB/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_NLB/MENU_VAR.INP)
-- [ORBGEN.INP](../../GPSUSER/OPT/ZD_IAR_NLB/ORBGEN.INP)
-- [PHACOR.INP](../../GPSUSER/OPT/ZD_IAR_NLB/PHACOR.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/ZD_IAR_NLB/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_NLB/SETDAY.INP)
-- [STDPRE.INP](../../GPSUSER/OPT/ZD_IAR_NLB/STDPRE.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/AIUB_CMP.INP)
+- [CCPREORB.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/CCPREORB.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/ORBGEN.INP)
+- [PHACOR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/PHACOR.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/SETDAY.INP)
+- [STDPRE.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/STDPRE.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_IAR_NLI
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_NLI/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_IAR_NLI/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_IAR_NLI/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_NLI/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_NLI/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_NLI/MENU_VAR.INP)
-- [OBSXTR.INP](../../GPSUSER/OPT/ZD_IAR_NLI/OBSXTR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_NLI/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/MENU_VAR.INP)
+- [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/OBSXTR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_IAR_WLB
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_WLB/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_IAR_WLB/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_IAR_WLB/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_WLB/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_WLB/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_WLB/MENU_VAR.INP)
-- [PHABIA.INP](../../GPSUSER/OPT/ZD_IAR_WLB/PHABIA.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_WLB/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/MENU_VAR.INP)
+- [PHABIA.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/PHABIA.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_IAR_WLI
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_IAR_WLI/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_IAR_WLI/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_IAR_WLI/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_IAR_WLI/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_IAR_WLI/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_IAR_WLI/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_IAR_WLI/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_MON
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_MON/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_MON/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_MON/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_MON/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_MON/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_MON/MENU_VAR.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/ZD_MON/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_MON/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/MENU_VAR.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_NAV
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_NAV/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_NAV/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_NAV/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_NAV/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_NAV/MENU_VAR.INP)
-- [RXN2PRE.INP](../../GPSUSER/OPT/ZD_NAV/RXN2PRE.INP)
-- [SATCLK2.INP](../../GPSUSER/OPT/ZD_NAV/SATCLK2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/MENU_VAR.INP)
+- [RXN2PRE.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/RXN2PRE.INP)
+- [SATCLK2.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/SATCLK2.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_ORC
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_ORC/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_ORC/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_ORC/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_ORC/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_ORC/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_ORC/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_ORC/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_ORC/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_ORC/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_ORP
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_ORP/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_ORP/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_ORP/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_ORP/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_ORP/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_ORP/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_ORP/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_ORP/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_ORP/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_RNX
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_RNX/AIUB_CMP.INP)
-- [CCRNXO.INP](../../GPSUSER/OPT/ZD_RNX/CCRNXO.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_RNX/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_RNX/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_RNX/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_RNX/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_RNX/MKCLUS.INP)
-- [RNXGRA.INP](../../GPSUSER/OPT/ZD_RNX/RNXGRA.INP)
-- [RNXSMT.INP](../../GPSUSER/OPT/ZD_RNX/RNXSMT.INP)
-- [RXOBV3.INP](../../GPSUSER/OPT/ZD_RNX/RXOBV3.INP)
-- [SATMRK.INP](../../GPSUSER/OPT/ZD_RNX/SATMRK.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_RNX/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/AIUB_CMP.INP)
+- [CCRNXO.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/CCRNXO.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/MKCLUS.INP)
+- [RNXGRA.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/RNXGRA.INP)
+- [RNXSMT.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/RNXSMT.INP)
+- [RXOBV3.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/RXOBV3.INP)
+- [SATMRK.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/SATMRK.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_RNX/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_SB1
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_SB1/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_SB1/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_SB1/GPSEST.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_SB1/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_SB1/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_SB1/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_SB1/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_SB1/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_SB1/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_SB2
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_SB2/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_SB2/AIUB_CMP.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/ZD_SB2/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_SB2/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_SB2/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_SB2/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_SB2/MENU_VAR.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_SB2/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/AIUB_CMP.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB2/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_SB3
 
-- [ADDNEQ2.INP](../../GPSUSER/OPT/ZD_SB3/ADDNEQ2.INP)
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_SB3/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_SB3/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_SB3/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_SB3/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_SB3/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_SB3/MKCLUS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_SB3/SETDAY.INP)
+- [ADDNEQ2.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/ADDNEQ2.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/MKCLUS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB3/SETDAY.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_SUM
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_SUM/AIUB_CMP.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_SUM/MENU.INP)
-- [MENU_CMP.INP](../../GPSUSER/OPT/ZD_SUM/MENU_CMP.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_SUM/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_SUM/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_SUM/MENU_VAR.INP)
-- [OBSXTR.INP](../../GPSUSER/OPT/ZD_SUM/OBSXTR.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/AIUB_CMP.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/MENU_VAR.INP)
+- [OBSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_SUM/OBSXTR.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_WGT
 
-- [AIUB_CMP.INP](../../GPSUSER/OPT/ZD_WGT/AIUB_CMP.INP)
-- [GPSEST.INP](../../GPSUSER/OPT/ZD_WGT/GPSEST.INP)
-- [GPSXTR.INP](../../GPSUSER/OPT/ZD_WGT/GPSXTR.INP)
-- [MENU.INP](../../GPSUSER/OPT/ZD_WGT/MENU.INP)
-- [MENU_EXT.INP](../../GPSUSER/OPT/ZD_WGT/MENU_EXT.INP)
-- [MENU_PGM.INP](../../GPSUSER/OPT/ZD_WGT/MENU_PGM.INP)
-- [MENU_VAR.INP](../../GPSUSER/OPT/ZD_WGT/MENU_VAR.INP)
-- [MKCLUS.INP](../../GPSUSER/OPT/ZD_WGT/MKCLUS.INP)
-- [RESCHK.INP](../../GPSUSER/OPT/ZD_WGT/RESCHK.INP)
-- [RESRMS.INP](../../GPSUSER/OPT/ZD_WGT/RESRMS.INP)
-- [SETDAY.INP](../../GPSUSER/OPT/ZD_WGT/SETDAY.INP)
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/GPSEST.INP)
+- [GPSXTR.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/GPSXTR.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MENU_VAR.INP)
+- [MKCLUS.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/MKCLUS.INP)
+- [RESCHK.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/RESCHK.INP)
+- [RESRMS.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/RESRMS.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/SETDAY.INP)

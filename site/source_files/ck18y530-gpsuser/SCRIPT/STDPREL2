@@ -1,0 +1,57 @@
+package STDPREL2;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  STDPRE2
+#
+# Purpose :  Execute STDPRE, set start of time window to first epoch in
+#            kinematic orbit
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+# Created :  05-Jun-2019
+#
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($V_F,$FROM,
+      $yyssss,$dirPre) = $bpe->getKeys('V_F','V_FROM',
+                                         '$YSS+0','DIR_PRE');
+
+# Open PRE file of kinematic orbit and read first epch
+# ----------------------------------------------------
+  my $kinPre = "${dirPre}KN${V_F}${yyssss}.PRE";
+  my $sec = '';
+  die " *** $kinPre not found\n" unless (-e $kinPre);
+  open PRE, '<', $kinPre;
+  while (my $line = <PRE>) {
+      if ($line =~ /\A\* /) {
+          $sec = (split(' ',$line))[6];
+          $sec = int($sec + $sec/abs($sec*2 || 1)); # Round
+          last;
+      }
+  }
+  close PRE;
+  die " *** Could not find first epoch in $kinPre\n" if ($sec eq '');
+
+# Set time window in STDPRE
+# -------------------------
+  # Get hour and minute of start time
+  my @t = split(' ',$FROM);
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","USEWIN","1");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","STATIM","$t[0] $t[1] $sec");
+  print "Set start of time window to $t[0] $t[1] $sec\n";
+
+# Run program
+# -----------
+  my $PGMNAM = "STDPRE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

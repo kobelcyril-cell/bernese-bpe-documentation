@@ -1,0 +1,67 @@
+{
+    "100": {
+        "notes": "Convert final STD orbit to PRE",
+        "input": "\"V_Z\"_$YSS+0.STD/ELE\n\"V_Z\"S$YSS+0.CLK",
+        "output": "\"V_Z\"_$YSS+0.PRE"
+    },
+    "110": {
+        "notes": "Compare the two final solutions",
+        "input": "\"V_Z\"_$YSS+0.STD\n\"V_Z\"\"V_L\"$YSS+0.STD",
+        "output": "STDDIF_\"V_Z\"\"V_\"\"$YSS+0.PLT"
+    },
+    "111": {
+        "notes": "Compare the station coordinates of the two solutions",
+        "input": "\"V_STAINF\"\n\"V_Z\"_$YSS+0.CRD\n\"V_Z\"\"V_L\"$YSS+0.CRD",
+        "output": "COMPAR2_\"V_Z\"\"_L\"$YSS+0.PLT"
+    },
+    "112": {
+        "notes": "Create summary of comparison of the two final solutions",
+        "input": "STDDIF_\"V_Z\"\"V_L\"$YSS+0.PLT\nCOMPAR2_\"V_Z\"\"V_L\"$YSS+0.PLT\n\"V_Z\"_$YSS+0.ERP\n\"V_Z\"\"V_L\"$YSS+0.ERP\n\"V_Z\"S$YSS+0.CLK\n\"V_Z\"\"V_L\"$YSS+0.CLK",
+        "output": "CMP_LAPACK_$YD+0"
+    },
+    "120": {
+        "notes": "Extract satellite attitude information",
+        "input": "\"V_Z\"_$YSS+0.STD\n\"V_Z\"_$YSS+0.ERP",
+        "output": "\"V_Z\"_$YSS+0.OBX"
+    },
+    "130": {
+        "notes": "",
+        "input": "????$S+0.PZH",
+        "output": "OBSXTR$Z$YSS+0.SUM"
+    },
+    "131": {
+        "notes": "",
+        "input": "OBSXTR\"V_Z\"$YSS+0.OUT",
+        "output": "MSC/PROCESSING_$YD+0"
+    },
+    "132": {
+        "notes": "Extract ambiguity resolution statistics",
+        "input": "IAR$YSS+0.PRC",
+        "output": "PROCESSING_$YD+0"
+    },
+    "133": {
+        "notes": "Extract statistics from solution including clocks",
+        "input": "\"V_Z\"\"V_L\"XTR$YSS+0.SUM",
+        "output": "PROCESSING_$YD+0"
+    },
+    "134": {
+        "notes": "Check completeness of Satellite clocks",
+        "input": "\"V_Z\"S$YSS+0.CLK",
+        "output": "sat_clock_completeness_$YD+0.txt"
+    },
+    "170": {
+        "notes": "Save results to hardcoded campaign. Saving controlled via V_SAVE (YES/NO)",
+        "input": "\"V_K\"\n\"V_Z\"\n\"V_I\"\n\"V_U\"",
+        "output": ""
+    },
+    "171": {
+        "notes": "Script to clean campaign after processing. Enabled via V_CLEAN (YES/NO).\n",
+        "input": "\"V_A\"\n\"V_W\"\n\"V_I\"\n\"V_B\"\n\"V_C\"\n\"V_E\"\n\"V_H\"\n\"V_K\"\n\"V_U\"\n\"V_Z\"\n\"V_L\"",
+        "output": "Entry in LOG-file"
+    },
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

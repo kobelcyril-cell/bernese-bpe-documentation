@@ -1,0 +1,31 @@
+package WAIT_ZD;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  WAIT_ZD
+#
+# Purpose :  Simple waiting script (fixed 60 seconds)
+#
+# PARAMs  :  PARAM1 - Optional waiting time (default: 60 sec)
+#
+# Author  :  C. Kobel
+# Created :  31-Oct-2025
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # Get optional waiting time
+  my ($param1) = $bpe->getKeys('PARAM1');
+  $param1 = 60 if ($param1 eq "");
+
+  prtMess($bpe, "Waiting for $param1 seconds...");
+  sleep($param1);
+  prtMess($bpe, "Wait complete.");
+}
+
+1;

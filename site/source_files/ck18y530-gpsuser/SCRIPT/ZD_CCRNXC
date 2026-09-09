@@ -1,0 +1,23 @@
+package CCRNXC;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CCRNXC
+#
+# Purpose :  Concatenate and combine clock RINEX files.
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005
+#
+# Changes :  15-Jun-2026: ck: Revised
+#===========================================================
+
+use strict;
+use warnings;
+
+sub run {
+  my $bpe = shift;
+  # ---------- Run program ------------
+  my $PGMNAM = "CCRNXC";
+  $bpe->RUN_PGMS($PGMNAM);
+}

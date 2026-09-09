@@ -1,0 +1,93 @@
+package COPY_OBS;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  COPY_OBS
+#
+# Purpose :  Copy observation files
+#
+# Author  :  C. Kobel
+# Created :  20-Apr-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use File::Basename;
+use File::Path qw(make_path);
+
+use lib "$ENV{AUTO}";
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $yy,
+      $ssss,
+      $ddd,
+      $dirRxo,
+      $dirPzh,
+      $extPzh
+  ) = $bpe->getKeys(
+      '$Y',
+      '$S+0',
+      '$+0',
+      'DIR_RXO',
+      'DIR_PZH',
+      'EXT_PZH'
+  );
+
+# ---------- Check DIR_RXO ------------
+  print "Checking existence of DIR_RXO: $dirRxo\n";
+
+  if (-d $dirRxo) {
+    print "DIR_RXO exists: $dirRxo\n";
+  }
+  else {
+    print "WARNING: DIR_RXO does not exist: $dirRxo\n";
+    print "Creating directory: $dirRxo\n";
+
+    make_path($dirRxo)
+      or die "ERROR: Could not create DIR_RXO: $dirRxo\n";
+
+    print "DIR_RXO successfully created: $dirRxo\n";
+  }
+
+# ---------- Check ORX directory ------------
+  my $dirOrx = "$dirRxo/../ORX";
+
+  print "Checking existence of ORX directory: $dirOrx\n";
+
+  if (-d $dirOrx) {
+    print "ORX directory exists: $dirOrx\n";
+  }
+  else {
+    print "WARNING: ORX directory does not exist: $dirOrx\n";
+    print "Creating directory: $dirOrx\n";
+
+    make_path($dirOrx)
+      or die "ERROR: Could not create ORX directory: $dirOrx\n";
+
+    print "ORX directory successfully created: $dirOrx\n";
+  }
+
+# ---------- Remove existing RINEX files ------------
+  unlink("$dirRxo/????${ssss}.*");
+
+# ---------- Retrieve observation files ------------
+  my $cmd = "$ENV{AUTO}/put_igsdata.com $yy $ddd "
+          . "-o $dirRxo \"-or %FIN\" -r";
+
+  system($cmd) == 0
+    or warn "System call failed in COPY_OBS: $!\n";
+
+# General unlink
+unlink(glob("${dirRxo}/../*/AIRA???0.??O")); ##########################
+unlink(glob("${dirRxo}/../*/MAO0???0.??O")); # Apparently, one of these
+unlink(glob("${dirRxo}/../*/AMU2???0.??O")); # stations may degrade the
+unlink(glob("${dirRxo}/../*/CUT0???0.??O")); # reference frame.
+unlink(glob("${dirRxo}/../*/MAYG???0.??O")); # Then, they are removed
+unlink(glob("${dirRxo}/../*/NYA2???0.??O")); ##########################
+
+}

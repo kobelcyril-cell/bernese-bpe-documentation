@@ -1,0 +1,163 @@
+package PHACMB_P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  PHACMB_P
+#
+# Purpose :  Combine OSB file w/ station-specific OSBs
+#
+# PARAMs  :
+#
+# Author  :  C. Kobel
+# Created :  27-May-2026
+#
+# Changes : 
+#===========================================================
+
+use strict;
+use warnings;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+  print "OSB_MERGE: START\n";
+
+# ------------------------------------------------------------
+# GET KEYS
+# ------------------------------------------------------------
+  my (
+      $osbfil, 
+      $fin, 
+      $aprOsbFil, 
+      $dir_osb, 
+      $ext_osb, 
+      $yyssss, 
+      $ys) =
+    $bpe->getKeys(
+      'V_OSBFIL',
+      'V_FIN',
+      'V_APROSB',
+      'DIR_OSB',
+      'EXT_OSB',
+      '$YYYSS+0',
+      '$YSS+0'
+    );
+
+  print "OSB_MERGE: OSB base file: $osbfil.$ext_osb\n";
+  print "OSB_MERGE: FIN pattern: ${fin}_$yyssss\n";
+  print "OSB_MERGE: DIR_OSB: $dir_osb\n";
+
+# ------------------------------------------------------------
+# BASE FILE
+# ------------------------------------------------------------
+  my $base_file = "${dir_osb}/${osbfil}.${ext_osb}";
+  my $tmp_out   = "${dir_osb}/${osbfil}_merged.${ext_osb}";
+  my $aprOsb = "${dir_osb}/${aprOsbFil}${ys}.${ext_osb}";
+  my $aprPha = "${dir_osb}/PHA${ys}.${ext_osb}";
+  print "OSB_MERGE: APR target: $aprOsb\n";
+
+  print "OSB_MERGE: Base file: $base_file\n";
+  print "OSB_MERGE: Temp out:   $tmp_out\n";
+
+  die "OSB_MERGE: Base file missing\n" unless -s $base_file;
+
+# ------------------------------------------------------------
+# COPY BASE FILE
+# ------------------------------------------------------------
+  open(my $out, ">", $tmp_out) or die "Cannot open output";
+
+  open(my $in, "<", $base_file) or die "Cannot open base file";
+  while(<$in>) {
+    print $out $_;
+  }
+  close($in);
+
+# ------------------------------------------------------------
+# FIND STATION OSB-FILES
+# ------------------------------------------------------------
+  my $pattern = "${dir_osb}/${fin}_${yyssss}_*.${ext_osb}";
+  print "OSB_MERGE: Searching: $pattern\n";
+
+  my @files = glob($pattern);
+
+  print "OSB_MERGE: Found FIN files: " . scalar(@files) . "\n";
+
+# ------------------------------------------------------------
+# PROCESS EACH OSB FILE
+# ------------------------------------------------------------
+foreach my $file (@files) {
+
+  print "[OSB_MERGE_FIN] Processing: $file\n";
+
+  open(my $fh, "<", $file) or die "Cannot open $file";
+
+  my $started = 0;
+
+  while(<$fh>) {
+
+    next if /^\s*$/;
+
+    if(!$started) {
+      next unless /^OSB\s+[A-Z]/;
+      $started = 1;
+    }
+
+    # Header safety filter
+    next if /^Format version/;
+    next if /^Reference system/;
+    next if /^Datum definition/;
+    next if /^Sources/;
+    next if /^Written by/;
+    next if /^\*\*\*/;
+
+    chomp;
+    print $out $_ . "\n";
+  }
+
+  close($fh);
+}
+
+  close($out);
+
+# ------------------------------------------------------------
+# FINALIZE
+# ------------------------------------------------------------
+  my $final_file = "${dir_osb}/${osbfil}.${ext_osb}";
+
+  print "OSB_MERGE: Moving temp -> final: $final_file\n";
+
+  move($tmp_out, $final_file)
+  		 or die "OSB_MERGE: Cannot move temp file";
+
+
+  # ------------------------------------------------------------
+# BACKUP + COPY TO APROSB
+# ------------------------------------------------------------
+  if (defined $aprOsb && -e $aprOsb) {
+    my $backup = $aprOsb . ".bak";
+    my $backupPha = $aprPha . ".bak";
+
+    print "OSB_MERGE: Backup existing APR file -> $backup\n";
+    print "OSB_MERGE: Backup existing PHA file -> $backupPha\n";
+
+    copy($aprOsb, $backup)
+      or die "OSB_MERGE: Cannot create backup of $aprOsb";
+
+    copy($aprPha, $backupPha)
+      or die "OSB_MERGE: Cannot create backup of $aprPha";
+  }
+
+  print "OSB_MERGE: Copy merged file -> APR target: $aprOsb\n";
+
+  copy($final_file, $aprOsb)
+    or die "OSB_MERGE: Cannot copy to $aprOsb";
+
+  print "OSB_MERGE: Copy merged file -> APR target: $aprPha\n";
+  copy($final_file, $aprPha)
+    or die "OSB_MERGE: Cannot copy to $aprPha";
+    
+  print "OSB_MERGE: DONE\n";
+}
+
+1;

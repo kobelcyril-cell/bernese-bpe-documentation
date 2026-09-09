@@ -1,0 +1,79 @@
+
+! -------------------------------------------------------------------
+! Input File for SETDAY
+! -------------------------------------------------------------------
+! Environment Variables
+! ---------------------
+ENVIRONMENT 9
+  "U" "/storage/homefs/eb23z835/GPSUSER"
+  "T" "/scratch/local/eb23z835"
+  "X" "/storage/research/aiub_data/BSWsoftware/BERN/GPS"
+  "P" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "eb23z835"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Doy, empty or zero: current day, negative: relative to current day
+! -------------------------------------------------------------------
+DOY 0
+  ## widget = lineedit
+
+! Year, empty or -1: current year
+! -------------------------------
+YEAR 0
+  ## widget = lineedit
+
+! -------------------------------------------------------------------
+! Files
+! -------------------------------------------------------------------
+! Leap seconds
+! ------------
+GPSUTC 1  "${CONFIG}/GPSUTC.BSW"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  # GPSUTC
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! Output MS-DOS (do not modify)
+! -------------
+MSDOS 1  "SETDAY.COM"
+  ## widget = lineedit
+
+! Output VAX (do not modify)
+! ----------
+VAX 1  "SETDAY.COM"
+  ## widget = lineedit
+
+! Output UNIX-SH (do not modify)
+! --------------
+UNIX_SH 1  "SETDAY.COM"
+  ## widget = lineedit
+
+! Output UNIX-CSH (do not modify)
+! ---------------
+UNIX_CSH 1  "SETDAY.CSH"
+  ## widget = lineedit
+
+! Output PERL (do not modify)
+! -----------
+PERL 1  "SETDAY.pl"
+  ## widget = lineedit
+
+! Program Output File
+! -------------------
+SYSOUT 1  "${R}/EB_FZDMGNSS/OUT/SETDAY.L47"
+  ## widget = lineedit
+  # 
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  # 
+
+DESCR_SYSERR 1  "Error message"

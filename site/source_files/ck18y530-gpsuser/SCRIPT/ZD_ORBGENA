@@ -1,0 +1,36 @@
+package ORBGENA;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ORBGENA
+#
+# Purpose :  Execute ORBGEN
+#
+# Author  :  E. Calero
+# Created :  20-Feb-2020
+#
+# Changes :  27-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $sol
+  ) = $bpe->getKeys(
+      "$$bpe{PARAM1}"
+  );
+
+  # ---------- Initialize variables ------------
+  setUserVar($bpe, "SOL", $sol);
+
+  # ---------- Run program ------------
+  my $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+}

@@ -1,0 +1,117 @@
+package RXOBV3GP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      RXOBV3GP
+#
+# Purpose:   A priori script to prepare parallel running of RXOBV3
+#            (use RNXGRA to find a list of the best stations)
+#
+# Programs:  RNXGRA
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005               Last modified: 19-May-2009
+#
+# Changes :  19-May-2009 rd: Session dependent parallelization filenames
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+
+sub run
+{
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ( $yyddd, $ssss, $ddd,
+       $param1, $param2, $numFil, $numClu, $dirBpe, $dirTmp,
+       $dirOut, $dirSmt, $dirCzh, $dirPzh, $dirCzo, $dirPzo,
+       $extOut, $extSmt, $extCzh, $extPzh, $extCzo, $extPzo ) =
+  $bpe->getKeys
+     ( '$YD+0', '$S+0', '$+0',
+       'PARAM1', 'PARAM2', 'V_CLU', 'V_NCLU', ,'DIR_BPEPRT', 'T',
+       'DIR_OUT', 'DIR_SMT', 'DIR_CZH', 'DIR_PZH', 'DIR_CZO', 'DIR_PZO',
+       'EXT_OUT', 'EXT_SMT', 'EXT_CZH', 'EXT_PZH', 'EXT_CZO', 'EXT_PZO' );
+
+  my $numFil = $param2 if ($param2 ne "");
+
+# Use RNXGRA to detect the best RINEX obs files
+# ---------------------------------------------
+  my $PGMNAM = "RNXGRA";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Get the name of the SUMMARY file of RNXGRA
+# ------------------------------------------
+  my $sum = $bpe->getKey("$ENV{U}/INP/RNXGRA.INP","SUMMARY");
+
+# Check for warnings in LOGfile
+# -----------------------------
+  getWarn($bpe,$sum);
+
+# Add the list of bad stations to the summary file
+# ------------------------------------------------
+  my $del = $bpe->getKey("$ENV{U}/INP/RNXGRA.INP","DELFILE");
+  appFile("Files excluded from processing:",0,$del,$sum,0);
+  unlink ($del);
+
+# Get the file name with the list of good RINEX files
+# ---------------------------------------------------
+  my $lst = $bpe->getKey("$ENV{U}/INP/RNXGRA.INP","LSTFILE");
+
+  my @rxoFil = ();
+  open (LST,"< $lst");
+  while (<LST>) { chomp(); push @rxoFil,$_ }
+  close (LST);
+
+  unlink ($lst);
+
+# Define directories and file names
+# ---------------------------------
+  my $bpeFil = "${dirBpe}OBS${ssss}";
+  unlink(glob("${bpeFil}???.BPE"));
+
+# Delete old files (CZH, PZH, CZO, PZO)
+# -------------------------------------
+  unlink glob("${dirCzh}????${ssss}.${extCzh}");
+  unlink glob("${dirPzh}????${ssss}.${extPzh}");
+  unlink glob("${dirCzo}????${ssss}.${extCzo}");
+  unlink glob("${dirPzo}????${ssss}.${extPzo}");
+
+  if ($numFil ne "" || $numClu ne "") {
+    unlink glob("${dirOut}OBS${ssss}???.${extOut}") }
+  else {
+    unlink glob("${dirOut}OBS${ddd}????.${extOut}") }
+
+# Delete collecting file for RINEX error/warning messages
+# -------------------------------------------------------
+  if ($numFil ne "" || $numClu ne "") {
+    unlink glob("${dirOut}OBS${ssss}???.${extOut}") }
+  else {
+    unlink glob("${dirOut}OBS${ddd}????.${extOut}") }
+
+
+# Disable parallel processing when ABBREV.ABB may be updated
+# ----------------------------------------------------------
+  my $abbUpd = $bpe->getKey("$ENV{U}/PAN/RXOBV3.INP","ABBUPD");
+
+  if ($abbUpd ne "ERROR" and ($numFil eq "" || $numClu eq "")) {
+    prtErr($bpe,"PARALLEL PROCESSING NOT POSSIBLE") and
+      die "PROCESSING STOPPED" }
+
+  if ($abbUpd ne "ERROR") {
+    initPar_Cl($bpe,$bpeFil,@rxoFil,1,0,0)
+     }
+  elsif ($numFil ne "") {
+    initPar_Cl($bpe,$bpeFil,@rxoFil,0,$numFil,0) }
+  elsif ($numClu ne "") {
+    initPar_Cl($bpe,$bpeFil,@rxoFil,$numClu,0,0) }
+  else {
+    @rxoFil = map { substr(basename($_),0,4) } @rxoFil;
+    initPar_Bl($bpe,@rxoFil)
+       }
+
+}

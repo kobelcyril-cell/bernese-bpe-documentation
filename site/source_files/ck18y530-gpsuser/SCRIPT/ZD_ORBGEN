@@ -1,0 +1,23 @@
+package ORBGEN;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ORBGEN
+#
+# Purpose :  Run ORBGEN
+#
+# Author  :  C. Kobel
+# Created :  21-Apr-2026
+#
+# Changes :  26-May-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Run program ------------
+  my $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+}

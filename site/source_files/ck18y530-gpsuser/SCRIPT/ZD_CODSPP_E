@@ -1,0 +1,126 @@
+package CODSPP_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CODSPP_E
+#
+# Purpose :  Executes CODSPP in parallel mode.
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  17-Feb-2004 ss: Reduce ITRMAX in ULTRA mode
+#            02-Jul-2026 ck: Cleaned up
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{HOME}/ZDGNSS_RUN/perl";
+use RetryHelper qw(run_with_retry_noerror);
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $ssss,
+      $ddd,
+      $yy,
+      $param1,
+      $subPid,
+      $numClu,
+      $dirOut,
+      $dirCzh,
+      $extCzh,
+      $dirCzo,
+      $extCzo,
+      $dirPzh,
+      $extPzh,
+      $dirPzo,
+      $extPzo,
+  ) = $bpe->getKeys(
+      '$S+0',
+      '$+0',
+      '$Y',
+      'PARAM1',
+      'SUB_PID',
+      'V_NCLU',
+      'DIR_OUT',
+      'DIR_CZH',
+      'EXT_CZH',
+      'DIR_CZO',
+      'EXT_CZO',
+      'DIR_PZH',
+      'EXT_PZH',
+      'DIR_PZO',
+      'EXT_PZO',
+  );
+
+  # ---------- Cluster handling ------------
+  my $cluster =
+    ($numClu eq "")
+    ? "$ddd$param1"
+    : "$ssss$subPid";
+
+  my $ffff =
+    ($numClu eq "")
+    ? $param1
+    : "____";
+
+  setUserVar($bpe, "CLUSTER", $cluster, "FFFF", $ffff, "CCC", $subPid);
+
+  if ($numClu eq "") {
+    print "\n\nStation: ${param1}\n\n"; 
+    $bpe->putKey("$ENV{U}/PAN/CODSPP.INP", "CODEFILE", "$param1$ssss");
+  }
+  else {
+    replaceSel($bpe, "CODSPP", "CODEFILE", $param1);
+  }
+
+  # ---------- Run program ------------
+  my $PGMNAM = "CODSPP";
+  my $return = 1;
+  $return = run_with_retry_noerror($bpe, $PGMNAM, 1);
+  # ------ Delete observation files if program failed ------------
+  if ($return == 0) {
+    print "Program failed for station ${param1}: Deleting observation files...\n";
+
+    my @files = (
+        sprintf("%s%s%s.%s", $dirCzh, $param1, $ssss, $extCzh),
+        sprintf("%s%s%s.%s", $dirCzo, $param1, $ssss, $extCzo),
+        sprintf("%s%s%s.%s", $dirPzh, $param1, $ssss, $extPzh),
+        sprintf("%s%s%s.%s", $dirPzo, $param1, $ssss, $extPzo),
+    );
+
+    foreach my $file (@files) {
+    	print "\n Deleting: $file \n";
+        unlink($file) if -e $file;
+    }
+
+    my $logdir  = "${dirOut}../MSC/MSC_${yy}${ddd}";
+    my $logfile = "${logdir}/CODSPP_PPP.log";
+
+    if (open(my $LOG, ">>", $logfile)) {
+        my $timestamp = scalar localtime;
+        print $LOG "$timestamp | Station $param1 | Observation files deleted after CODSPP failure\n";
+        close($LOG);
+    }
+    else {
+        warn "Cannot write $logfile: $!";
+    }
+   }
+  # ---------- Extract warnings ------------
+  getWarn($bpe, "${dirOut}RNXERR.${yy}_${ssss}");
+
+  # ---------- Cleanup ------------
+  open(my $BPE, $param1);
+  print "\n\n", "-" x 75, "\n";
+  print "Contents of BPE file $param1\n";
+  print "-" x 75, "\n";
+  print <$BPE>;
+  print "-" x 75, "\n";
+  close($BPE);
+
+  unlink($param1);
+}

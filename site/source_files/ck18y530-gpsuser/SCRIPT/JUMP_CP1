@@ -1,0 +1,43 @@
+package JUMP_CP1;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  JUMP_CP1
+#
+# Purpose :  Conduct logical flow through the PCF: screen or not observations
+#
+# Programs:  
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx            
+#
+# Changes :  
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{U}/SCRIPT";
+use JumpLogger qw(logJump);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($repini,     $param2,
+      $dirOut) =
+      $bpe->getKeys(
+      'V_REPINI','PARAM2',
+      'DIR_OUT');
+
+  if ( $repini ne "YES" ) {
+    prtMess($bpe,"SCREEN RAW OBSERVATIONS");
+    logJump($bpe, $param2);
+    prtGoto($bpe,$param2)
+  } else {
+    prtMess($bpe,"COPY SCREENED OBSERVATIONS");
+  }
+
+}

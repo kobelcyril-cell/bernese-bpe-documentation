@@ -1,0 +1,91 @@
+package RXOBV3_P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  RXOBV3_P
+#
+# Purpose :  Parallel RXOBV3 run
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  10-Feb-2005 mm: Old date variables removed
+#            02-Jul-2026 ck: Revised and cleaned up
+#===========================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $yy,
+      $ssss,
+      $ddd,
+      $yyssss,
+      $param1,
+      $subPid,
+      $numClu,
+      $dirOut
+  ) = $bpe->getKeys(
+      '$Y',
+      '$S+0',
+      '$+0',
+      '$YSS+0',
+      'PARAM1',
+      'SUB_PID',
+      'V_NCLU',
+      'DIR_OUT'
+  );
+
+# ---------- Set cluster number and input files ------------
+  my $cluster =
+    ($numClu eq "")
+      ? "$ddd$param1"
+      : "$yyssss" . substr($subPid, 1);
+
+  my $ffff =
+    ($numClu eq "")
+      ? $param1
+      : "____";
+
+  setUserVar($bpe, "CLUSTER", $cluster, "FFFF", $ffff, "CCC", $subPid);
+
+  if ($numClu eq "") {
+    $bpe->putKey(
+      "$ENV{U}/PAN/RXOBV3.INP",
+      "RXOFILE_SHORT",
+      "$param1$ssss"
+    );
+    $bpe->putKey(
+      "$ENV{U}/PAN/RXOBV3.INP",
+      "SMTFILE",
+      "$param1$ssss"
+    );
+  } else {
+    replaceSel($bpe, "RXOBV3", "RXOFILE_SHORT", $param1);
+    replaceSel($bpe, "RXOBV3", "SMTFILE", $param1);
+  }
+
+# ---------- Run program ------------
+  my $PGMNAM = "RXOBV3";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# ---------- Extract warnings from protocol files ------------
+  getWarn($bpe, "${dirOut}/RNXERR.${yy}_${ssss}");
+
+# ---------- Delete BPE file (with logging) ------------
+  open(BPE, $param1);
+  print "\n\n", "-" x 75, "\n";
+  print "Contents of BPE file $param1\n";
+  print "-" x 75, "\n";
+  print <BPE>;
+  print "-" x 75, "\n";
+  close BPE;
+
+  unlink($param1);
+}

@@ -1,0 +1,56 @@
+package ORBGENF;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ORBGENF
+#
+# Purpose :  Execute ORBGEN according to the input argument
+#
+# Author  :  E. Calero
+# Created :  
+#
+# Changes :  12-Dec-2025 CK: Added LARGE solution
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $sol,
+      $V_large,
+      $pul
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      'V_FIN',
+      'V_LARGE',
+      'V_PUL'
+  );
+
+  # ---------- No RPR file written when pulses were estimated ------------
+  if ($pul eq "YES") {
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP", "RPROUT", "");
+    prtMess($bpe, "ORBIT MIDNIGHT PULSES ENABLED, NO RPR FILE GENERATED");
+  }
+  # ---------- Run program ------------
+  my $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Generate Orbit for LARGE solution ------------
+  if ($pul eq "YES") {
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP", "RPROUT", "");
+    prtMess($bpe, "ORBIT MIDNIGHT PULSES ENABLED, NO RPR FILE GENERATED");
+  }
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP", "IMPORB", "${sol}${V_large}${yyssss}");
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP", "POLE",   "${sol}${V_large}${yyssss}");
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP", "STDOUT", "${sol}${V_large}${yyssss}");
+
+  $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+}

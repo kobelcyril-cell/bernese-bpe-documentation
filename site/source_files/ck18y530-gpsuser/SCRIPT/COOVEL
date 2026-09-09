@@ -1,0 +1,28 @@
+package COOVEL;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  COOVEL
+#
+# Purpose :
+#
+# Programs:  COOVEL
+#
+# Author  :  M. Meindl
+# Created :  23-Jul-2003               Last modified: __-___-____
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Run program
+# -----------
+  my $PGMNAM = "COOVEL";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

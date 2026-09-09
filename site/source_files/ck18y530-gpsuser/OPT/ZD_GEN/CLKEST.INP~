@@ -1,0 +1,913 @@
+
+! -------------------------------------------------------------------
+! Input File for CLKEST
+! -------------------------------------------------------------------
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+USR_INFO 1  "hugentob"
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Local Geodetic Datum
+! --------------------
+DATUM 1  "DATUM"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! ERP File
+! ---------
+POLE 1  "$(CSCR)_$YSS+0"
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! Subdaily ERP Model
+! -------------------
+SUBMOD 1  "$(SUBMOD)"
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Nutation Model
+! -------------------
+NUTMOD 1  "$(NUTMOD)"
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+
+DESCR_NUTMOD 1  "Nutation model"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "$(SATINF)_$(PCV)"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Observation selection
+! --------------------
+OBSSEL 1  "$(OBSSEL)"
+  ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_OBSSEL 1  "Observation selection"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "$(SATCRX)"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Antenne phase center corrections
+! --------------------------------
+PHASECC 1  "$(PCVINF)_$(PCV)"
+  ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
+
+DESCR_PHASECC 1  "Antenna corrections"
+
+USE_ANTAZI 1  "0"
+  ## widget = checkbox
+
+MSG_USE_ANTAZI 1  "Consider antenna rotations"
+
+! GPS-UTC file
+! -------------
+GPSUTC 1  "GPSUTC"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  ## emptyallowed = false
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! -------------------------------------------------------------------
+! General Files
+! -------------------------------------------------------------------
+! General Constants
+! -----------------
+! Ocean Loading Corrections
+! -------------------------
+OCNLOAD 1  "$(BLQINF)"
+  ## widget = selwin; path = DIR_BLQ; ext = EXT_BLQ; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_OCNLOAD 1  "Ocean tidal loading"
+
+! Atmospheric Loading Corrections
+! -------------------------------
+ATMLOAD 1  ""
+  ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_ATMLOAD 1  "Atmospheric tidal loading"
+
+! Related error handling
+! ----------------------
+OPTLOAD 1  "ERROR"
+  ## widget = combobox; cards = WARNING ERROR; editable = false
+  ## activeif = ATMLOAD / _ OR OCNLOAD / _
+
+MSG_OPTLOAD 1  "Error handling for tidal loading"
+
+GCCINP 1  ""
+  ## widget = selwin; path = DIR_GCC; ext = EXT_GCC; maxfiles = 1
+  ## emptyallowed = true; activeif = RADIO_P == 1
+
+DESCR_GCCINP 1  "Geocenter coordinates"
+
+! -------------------------------------------------------------------
+! Input Files
+! -------------------------------------------------------------------
+! Station Coordinates
+! -------------------
+COORD 1  "$(CSCR)_$YSS+0"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+
+DESCR_COORD 1  "Station coordinates"
+
+! Estimated troposphere
+! ---------------------
+TROPEST 1  ""
+  ## widget = selwin; path = DIR_TRP; ext = EXT_TRP; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_TROPEST 1  "Estimated troposphere"
+
+! VMF grid file
+! -------------
+VMF_FILES 1  ""
+  ## widget = selwin; path = DIR_GRD; ext = EXT_GRD; emptyallowed = true
+
+MSG_VMF_FILES 1  "VMF grid file"
+
+! Satellite Standard Orbits
+! -------------------------
+STDORB 1  "$(CSCR)_$YSS+0"
+  ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
+
+DESCR_STDORB 1  "Standard orbits"
+
+! A priori Satellite Clock File
+! -----------------------------
+SATCLK 1  "$(CSCR)_$YSS+0"
+  ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_SATCLK 1  "Satellite clock corrections (input)"
+
+! Clock RINEX File to fix on
+! --------------------------
+CLKRNX 1  "$(CSCR)_$YSS+0"
+  ## widget = selwin; path = DIR_RXC; ext = EXT_RXC; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_CLKRNX 1  "Clock RINEX file (input)"
+
+! P1-C1-biases
+! ------------
+DCBINP 1  "$(CBIA)S$YSS+0"
+  ## widget = selwin; path = DIR_OSB; ext = EXT_OSB; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DCBINP 1  "Code bias input file"
+
+! -------------------------------------------------------------------
+! Observation Files
+! -------------------------------------------------------------------
+! List of Input Code Header Files (Col 1)
+! -------------------------------
+OBSFIL 1  "????$S+0"
+  ## widget = selwin; path = DIR_CZH; ext = EXT_CZH; maxfiles = 999
+
+OBSFIL_TXT_COL_1 1  "Observation files (code)"
+
+MSG_OBSFIL 1  "Observation files"
+
+STAINFO 1  ""
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_STAINFO 1  "Station information"
+
+! Extensions of the Code Obs Files (Col 2)
+! --------------------------------
+OBSFIL_EXT_COL_2 0
+  ## widget = initmenu; pointer = EXT_CZO
+
+OBSFIL_PTH_COL_2 0
+  ## widget = initmenu; pointer = DIR_CZO
+
+OBSFIL_TXT_COL_2 0
+
+! Extensions of the Phase Header Files (Col 3)
+! ------------------------------------
+OBSFIL_EXT_COL_3 0
+  ## widget = initmenu; pointer = EXT_PZH
+
+OBSFIL_PTH_COL_3 0
+  ## widget = initmenu; pointer = DIR_PZH
+
+OBSFIL_TXT_COL_3 1  "Observation files (phase)"
+
+! Extensions of the Phase Obs Files (Col 4)
+! ---------------------------------
+OBSFIL_EXT_COL_4 0
+  ## widget = initmenu; pointer = EXT_PZO
+
+OBSFIL_PTH_COL_4 0
+  ## widget = initmenu; pointer = DIR_PZO
+
+OBSFIL_TXT_COL_4 0
+
+! -------------------------------------------------------------------
+! Output Files
+! -------------------------------------------------------------------
+! Satellite Clock RINEX Output File
+! ---------------------------------
+CLKINF 1  "$(CLKA)_$YSS+0"
+  ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC; maxfiles = 1
+
+DESCR_CLKINF 1  "Clock RINEX file (output)"
+
+! Satellite Clock Bernese Output File
+! -----------------------------------
+CLKRES 1  "$(CLKA)_$YSS+0"
+  ## widget = lineedit; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
+
+DESCR_CLKRES 1  "Satellite clock corrections (output)"
+
+! List of missing epochs
+! ----------------------
+EPOCHS 1  "$(CLKA)_$YSS+0.PRC"
+  ## widget = lineedit; path = DIR_OUT; ext = NO_EXT; maxfiles = 1
+
+DESCR_EPOCHS 1  "Missing Epochs"
+
+! Clock and Clock Differences
+! ---------------------------
+CLKDIFF 1  "$E_$YSS+0.DIF"
+  ## widget = lineedit; path = DIR_OUT; ext = NO_EXT; maxfiles = 1
+
+DESCR_CLKDIFF 1  "Clock and Clock differences"
+
+! Detailed Combination Info File
+! ------------------------------
+CMBINFO 1  "$E_$YSS+0.IFO"
+  ## widget = lineedit; path = DIR_OUT; ext = NO_EXT; maxfiles = 1
+
+DESCR_CMBINFO 1  "Detailed Combination Information"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "$(CLKA)_$YSS+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 1  ""
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 1  ""
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title
+! -----
+TITLE 1  "Clock interpolation: $YD+0"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! -------------------------------------------------------------------
+! Processing Options
+! -------------------------------------------------------------------
+! 1. GENERAL PROCESSING OPTIONS
+!    --------------------------
+! Sampling (sec)
+SAMPLING 1  "30"
+  ## widget = lineedit
+
+MSG_SAMPLING 1  "Sampling of data"
+
+! Maximum difference of equal epochs (sec)
+DTSIM 1  "0.1"
+  ## widget = lineedit
+
+MSG_DTSIM 1  "Max diff. of equal epochs"
+
+SECIPL 1  "350"
+  ## widget = lineedit
+
+MSG_SECIPL 1  "Clock interpolation interval"
+
+! Linear Combination to be Used
+LINCOMB 1  "L3"
+  ## widget = combobox; editable = false; cards = L1 L2 L3
+
+MSG_LINCOMB 1  "Linear Combination"
+
+! Reference clock
+! ---------------
+RADIO_SUM 1  "1"
+  ## widget = radiobutton; group = SYNCHR
+
+MSG_RADIO_SUM 1  "Reference clock for synchronization"
+
+RADIO_SAT 1  "0"
+  ## widget = radiobutton; group = SYNCHR; radiokeys = REFSAT
+
+MSG_RADIO_SAT 1  "Reference clock for synchronization: satellite"
+
+REFSAT 1  "14"
+  ## widget = lineedit
+
+MSG_REFSAT 1  "Reference clock for synchronization: satellite"
+
+RADIO_STA 1  "0"
+  ## widget = radiobutton; group = SYNCHR; radiokeys = REFSTA
+
+MSG_RADIO_STA 1  "Reference clock for synchronization: station"
+
+REFSTA 1  "1"
+  ## widget = lineedit
+
+MSG_REFSTA 1  "Reference clock for synchronization: station"
+
+! One Sat has to be Observed by min. Number of Stations
+! -----------------------------------------------------
+MINSTAT 1  "2"
+  ## widget = spinbox; range = 1 20 1
+
+MSG_MINSTAT 1  "Minimum of Stations"
+
+! Periodic Relativistic J2-Correction
+! -----------------------------------
+PRELJ2 1  "0"
+  ## widget = checkbox
+
+MSG_PRELJ2 1  "Per. Relativistic J2-Correction"
+
+! Atmosphere: Tropospheric Model
+! ------------------------------
+TROPOS 1  "GMF"
+  ## widget = combobox; editable = false; activeif = TROPEST = _
+  ## cards = VMF3 VMF1 GPT1 NIELL SAASTAMOINEN HOPFIELD ESSEN-FROOME NONE GPT3 VMF GMF
+
+MSG_TROPOS 1  "Troposphere model"
+
+! Check for missing troposphere values
+CHKTROP 1  "1"
+  ## widget = checkbox; activeif = TROPEST /= _
+
+MSG_CHKTROP 1  "Remove obs with missing trp"
+
+! Combination algorithm
+CMBSEL 1  "SUM_CONDITION"
+  ## widget = combobox; editable = false; cards = TRIDIAG SUM_CONDITION
+
+MSG_CMBSEL 1  "Combination algorithm"
+
+! Constrain on a-priori clock
+IFIX 1  "0"
+  ## widget = checkbox; activeif = CMBSEL == TRIDIAG
+
+MSG_IFIX 1  "Fix on a-priori clocks"
+
+! Remove non-fixed data pieces
+REMOVE 1  "1"
+  ## widget = checkbox; activeif = CMBSEL == TRIDIAG AND IFIX == 1
+
+MSG_REMOVE 1  "Remove non-fixed data pieces"
+
+! Remove clocks farther away from fixing epoch than dtfix (min)
+DTFIX 1  "10"
+  ## widget = lineedit; activeif = CMBSEL == TRIDIAG AND IFIX == 1
+
+MSG_DTFIX 1  "Remove clocks t gt tfix"
+
+! Allign with a-priori clock
+ALLIGN 1  "1"
+  ## widget = checkbox
+
+MSG_ALLIGN 1  "Allign with a priori clocks"
+
+! Maximum Zenith Delay (Deg)
+MAXZEN 1  "85"
+  ## widget = spinbox; range = 70 90 1
+
+MSG_MAXZEN 1  "Max. Zenith Distance (deg)"
+
+! 2. CODE PROCESSING
+!    ---------------
+! Max. Tolerated Term "Observed-Computed" (Meter)
+OMCMXC 1  "100000."
+  ## widget = lineedit
+
+MSG_OMCMXC 1  "Max tolerated term ``obs-comp''"
+
+! A Priori Sigma of Zenith Code Observation
+! -----------------------------------------
+APRSIC 1  "0.5"
+  ## widget = lineedit
+
+MSG_APRSIC 1  "A priori sigma of zenith code observation"
+
+! Use code
+! --------
+USECODE 1  "1"
+  ## widget = checkbox
+
+MSG_USECODE 1  "Use code observations"
+
+! Max. Clock Residual Tolerated (Meter)
+! -------------------------------------
+RESMXC 1  "0.8"
+  ## widget = lineedit
+
+MSG_RESMXC 1  "Max. clock residual tolerated"
+
+! Max. RMS Tolerated for Successful Clock Estimation
+! --------------------------------------------------
+RMSMXC 1  "0.1"
+  ## widget = lineedit
+
+MSG_RMSMXC 1  "Max. RMS tolerated for successful clock estimation"
+
+! Max. Number of Iterations if RMS Exceeded
+! -----------------------------------------
+MAXITC 1  "10"
+  ## widget = spinbox; range = 1 100 10
+
+MSG_MAXITC 1  "Max. number of iterations if RMS exceeded"
+
+! 3. PHASE PROCESSING FOR CLOCK DIFFERENCE ESTIMATION
+!    ------------------------------------------------
+! Max. Tolerated Term "Observed-Computed" (Meter)
+! -----------------------------------------------
+OMCMAX 1  "100.00"
+  ## widget = lineedit
+
+MSG_OMCMAX 1  "Max tolerated term ``obs-comp''"
+
+! A Priori Sigma of Phase Difference Observation
+! ----------------------------------------------
+!APRSIP 1  "200.002"
+APRSIP 1  "0.002"
+  ## widget = lineedit
+
+MSG_APRSIP 1  "A priori sigma of phase difference observation"
+
+! Max. Clock Residual Tolerated (Meter)
+RESMXP 1  "0.01"
+  ## widget = lineedit
+
+MSG_RESMXP 1  "Max. tolerated residual"
+
+! Max. RMS Tolerated for Successful Clock Estimation
+RMSMXP 1  "0.001"
+  ## widget = lineedit
+
+MSG_RMSMXP 1  "Max. tolerated RMS for clock estimation"
+
+! Max. Number of Iterations if RMS Exceeded
+MAXITP 1  "6"
+  ## widget = spinbox; range = 1 100 10
+
+MSG_MAXITP 1  "Max. number of iterations if RMS exceeded"
+
+! -------------------------------------------------------------------
+! Time Window
+! -------------------------------------------------------------------
+! Use observation window
+USEWIN 1  "0"
+  ## widget = checkbox
+
+MSG_USEWIN 1  "Use observation window"
+
+RADIO_1 1  "1"
+  ## widget = radiobutton; group = WINDOW
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by session identifier, year and table"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = WINDOW
+
+MSG_RADIO_2 1  "Defined by start and end times"
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 30"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! -------------------------------------------------------------------
+! Output File Comments
+! -------------------------------------------------------------------
+! Title of Bernese clock file
+! ---------------------------
+TITCLK 1  "HIGH RATE SATELLITE CLOCKS (30 SECONDS)"
+  ## widget = lineedit
+
+MSG_TITCLK 1  "Title of file"
+
+! RINEX header information
+! ------------------------
+OUTFORM 1  "2.00"
+  ## widget = combobox; editable = false; cards = 2.00 3.04
+
+DESCR_OUTFORM 1  "output format version"
+
+RUNBY 1  "CK"
+  ## widget = lineedit
+
+MSG_RUNBY 1  "Run by"
+
+AC 1  "COD"
+  ## widget = lineedit
+
+MSG_AC 1  "Acronym"
+
+ACNAME 1  "CENTER FOR ORBIT DETERMINATION IN EUROPE"
+  ## widget = lineedit
+
+MSG_ACNAME 1  "Agency"
+
+! Time System
+! -----------
+TIMESYS 1  "GLO"
+  ## widget = combobox; editable = false; cards = GPS GLO GAL UTC TAI
+
+MSG_TIMESYS 1  "Time system"
+
+! DCB line
+! --------
+DCBLINE 1  ""
+  ## widget = lineedit
+
+MSG_DCBLINE 1  "Bias line"
+
+COMMENT 1  "CLOCK VALUES BASED ON CODE MEASUREMENTS"
+  ## widget = uniline
+
+MSG_COMMENT 1  "Comment"
+
+! Write station clocks to RINEX
+! -----------------------------
+RADIO_ALL 1  "1"
+  ## widget = radiobutton; group = WRTCLK
+
+MSG_RADIO_ALL 1  "Write all station clocks"
+
+RADIO_FIX 1  "0"
+  ## widget = radiobutton; group = WRTCLK
+
+MSG_RADIO_FIX 1  "Write station clocks at fixing epochs"
+
+RADIO_SPC 1  "0"
+  ## widget = radiobutton; group = WRTCLK
+
+MSG_RADIO_SPC 1  "Write clocks for stations in special list"
+
+RADIO_NOT 1  "0"
+  ## widget = radiobutton; group = WRTCLK
+
+MSG_RADIO_NOT 1  "Write no station clocks (except reference)"
+
+COPYRNX 1  "0"
+  ## widget = checkbox
+
+MSG_COPYRNX 1  "Copy clocks from input RINEX file to output"
+
+MISSRNX 1  "0"
+  ## widget = checkbox; activeif = COPYRNX == 1
+
+MSG_MISSRNX 1  "Do not write clocks missing in input RINEX file"
+
+! Reference Clock Station for Clock Files
+! ---------------------------------------
+RADIO_RXC 1  "0"
+  ## widget = radiobutton; group = REFCLK
+
+MSG_RADIO_RXC 1  "Reference clock from Clock RINEX file"
+
+RADIO_AUTO 1  "0"
+  ## widget = radiobutton; group = REFCLK
+
+MSG_RADIO_AUTO 1  "Reference clock automatically"
+
+RADIO_RFIL 1  "1"
+  ## widget = radiobutton; group = REFCLK
+
+MSG_RADIO_RFIL 1  "Reference clock from file"
+
+REFSIG 1  "$(APSP)_$YSS+0"
+  ## widget = selwin; path = DIR_SIG; ext = EXT_SIG
+  ## activeif = RADIO_RFIL == 1
+
+MSG_REFSIG 1  "File with reference clock candidates"
+
+RADIO_RLST 1  "0"
+  ## widget = radiobutton; group = REFCLK
+
+MSG_RADIO_RLST 1  "Reference clock from list"
+
+RADIO_RSTA 1  "0"
+  ## widget = radiobutton; group = REFCLK; radiokeys = RNXSTA
+
+MSG_RADIO_RSTA 1  "Reference clock name"
+
+REFCLK 1  "BRUS"
+  ## widget = lineedit; activeif = RADIO_RSTA == 1
+
+MSG_REFCLK 1  "Reference clock name"
+
+REFLIST 1  ""
+  ## widget = uniline
+
+MSG_REFLIST 1  "Stations"
+
+! Stations to be written to CLKRNX file
+! -------------------------------------
+STALIST 1  ""
+  ## widget = uniline
+
+MSG_STALIST 1  "Stations"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# EPOCH-WISE CLOCK INTERPOLATION - CLKEST 1: Input Files                       #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files       > % <                                         # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Observation files            > %%%%%%%%%%%% <                              # OBSFIL
+#   Station coordinates          > %%%%%%%%%%%% <                              # COORD
+#   Station information          > %%%%%%%%%%%% <                              # STAINFO
+#                                                                              #
+#   Standard orbits              > %%%%%%%%%%%% <                              # STDORB
+#   Earth rotation parameters    > %%%%%%%%%%%% <                              # POLE
+#   Satellite clock corrections  > %%%%%%%%%%%% <                              # SATCLK
+#   Clock RINEX file             > %%%%%%%%%%%% <                              # CLKRNX
+#   Code bias input file         > %%%%%%%%%%%% <                              # DCBINP
+#                                                                              #
+#   Estimated troposphere        > %%%%%%%%%%%% <                              # TROPEST
+#   VMF grid file                > %%%%%%%%%%%% <                              # VMF_FILES
+#                                                                              #
+#   Ocean tidal loading          > %%%%%%%%%%%% <                              # OCNLOAD
+#   Atmospheric tidal loading    > %%%%%%%%%%%% <                              # ATMLOAD
+#              error handling    > %%%%%%%%%%%% <                              # OPTLOAD
+#   Geocenter coordinates        > %%%%%%%%%%%% <     (for CMC)                # GCCINP
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# CLKEST 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Subdaily ERP model      > %%%%%%%%%%%% <                                   # SUBMOD
+#   Nutation model          > %%%%%%%%%%%% <                                   # NUTMOD
+#   Satellite problems      > %%%%%%%%%%%% <                                   # SATCRUX
+#   Satellite information   > %%%%%%%%%%%% <                                   # SATELL
+#   Observation selection   > %%%%%%%%%%%% <                                   # OBSSEL
+#   Geodetic datum          > %%%%%%%%%%%% <                                   # DATUM
+#   Antenna corrections     > %%%%%%%%%%%% <  > % < Consider antenna rotations # PHASECC USE_ANTAZI
+#   GPS-UTC time difference > %%%%%%%%%%%% <                                   # GPSUTC
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CLKEST 2: Output Files                                                       #
+#                                                                              #
+# OUTPUT FILES                                                                 #
+#   Clock RINEX file                       > %%%%%%%%%%%% <                    # CLKINF
+#   Satellite clock corrections            > %%%%%%%%%%%% <                    # CLKRES
+#   Missing epochs                         > %%%%%%%%%%%% <                    # EPOCHS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output          > % < use CLKEST.Lnn           or > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages          > % < merged to program output or > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CLKEST 3.1: Options                                                          #
+#                                                                              #
+# TITLE    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <           # TITLE
+#                                                                              #
+# OBSERVATION SELECTION                                                        #
+#   Max zenith distance                            > %%%% < degree             # MAXZEN
+#   Use observation window                         > % <                       # USEWIN
+#   Sampling of data                               > %%%%% < seconds           # SAMPLING
+#   Max difference of equal epochs                 > %%%%% < seconds           # DTSIM
+#   Max clock interpolation interval               > %%%%% < seconds           # SECIPL
+#   Linear combination                             > %% <                      # LINCOMB
+#   Min number of stations observing one satellite > % <                       # MINSTAT
+#                                                                              #
+#   Periodic relativistic J2-correction            > % <                       # PRELJ2
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL USEWIN = 1 #######################################################
+# CLKEST 3.2: Observation Window                                               #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <   Session > %%%% <                                    # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CLKEST 3.3: Options                                                          #
+#                                                                              #
+# ATMOSPHERE MODELS                                                            #
+#   Troposphere                                       > %%%%%%%%%%%%%%%% <     # TROPOS
+#   Remove observations with missing troposphere      > % <                    # CHKTROP
+#                                                                              #
+# CLOCK COMBINATION                                                            #
+#   Combination algorithm                             > %%%%%%%%%%%%% <        # CMBSEL
+#   Use code observations                             > % <                    # USECODE
+#   Fix on a priori clocks                            > % <                    # IFIX
+#   Remove non-fixed data pieces                      > % <                    # REMOVE
+#   Remove clocks if interval to Tfix is larger than  > %%%% < minutes         # DTFIX
+#   Align with a priori clocks                        > % <                    # ALLIGN
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CLKEST 4: Screening Options                                                  #
+#                                                                              #
+# OPTIONS FOR PROCESSING                          CODE         PHASE           #
+#   Max tolerated term observed-minus-computed  > %%%%%%%% < > %%%%%%%% < meter# OMCMXC OMCMAX
+#   A priori sigma of zenith observation        > %%%%% <    > %%%%% <    meter# APRSIC APRSIP
+#   Max clock residual tolerated                > %%%%% <    > %%%%% <    meter# RESMXC RESMXP
+#   Max RMS tolerated for clock estimation      > %%%%% <    > %%%%% <    meter# RMSMXC RMSMXP
+#   Max number of iterations if RMS exceeded    > %%% <      > %%% <           # MAXITC MAXITP
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL  CLKINF / _ ######################################################
+# CLKEST 5.1: Write RINEX Clock File                                           #
+#                                                                              #
+# WRITE STATION CLOCKS                                                         #
+#  > % <Write all station clocks                                               # RADIO_ALL
+#  > % <Write clocks for stations in special list                              # RADIO_SPC
+#  > % <Write station clocks at fixing epochs                                  # RADIO_FIX
+#  > % <Write no station clocks (except reference)                             # RADIO_NOT
+#  > % <Copy clocks from input RINEX file to output                            # COPYRNX
+#  > % <Do not write clocks missing in input RINEX file at fixing epochs       # MISSRNX
+#                                                                              #
+# RINEX HEADER INFORMATION                                                     #
+#   Version > %%%% <                                                           # OUTFORM
+#   Run by  > %%%%%%%%%%%%%%%%%%%% <                                           # RUNBY
+#   AC      > %%% <                                                            # AC
+#   AC name > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <        # ACNAME
+#                                                                              #
+#   Time system    > %%%% <                                                    # TIMESYS
+#   Biases applied > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                # DCBLINE
+#                                                                              #
+#   > Comment_______________________________________________________   <       # COMMENT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_SPC = 1 AND CLKRES / _ #####################################
+# CLKEST 5.2: List of Clocks for Output Clock RINEX File                       #
+#                                                                              #
+#   > Stations        <                                                        # STALIST
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL  CLKINF / _ OR CLKRES / _ ########################################
+# CLKEST 5.3: Reference Clock for Clock Files                                  #
+#                                                                              #
+# REFERENCE CLOCK STATION                                                      #
+#  > % <Reference clock from Clock RINEX file (if not available, automatically)# RADIO_RXC
+#  > % <Reference clock automatically                                          # RADIO_AUTO
+#  > % <Reference clock from file   > %%%%%%%%%%%% <                           # RADIO_RFIL REFSIG
+#  > % <Reference clock from list                                              # RADIO_RLST
+#  > % <Reference clock name        > %%%% <                                   # RADIO_RSTA REFCLK
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL CLKINF / _ OR CLKRES / _  AND RADIO_RLST = 1 #####################
+# CLKEST 5.4: List of Reference Clocks for Output Clock File                   #
+#                                                                              #
+#   > Stations        <   (in order of precedency)                             # REFLIST
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL  CLKRES / _ ######################################################
+# CLKEST 5.5: Write Bernese Clock File                                         #
+#                                                                              #
+# TITLE OF FILE                                                                #
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <       # TITCLK
+#                                                                              #
+# END_PANEL ####################################################################

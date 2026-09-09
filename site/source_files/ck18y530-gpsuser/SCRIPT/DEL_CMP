@@ -1,0 +1,126 @@
+package DEL_CMP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  DEL_CMP
+#
+# Purpose :  Delete CMP- and related result files, only if V_DEL=Y.
+#
+# PARAMs  :  DEL
+#
+# Author  :  C. Kobel
+# Created :  08-Dec-2025
+# Updated :  
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+use File::Basename;
+use POSIX qw(strftime);
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  # ---------------------- Parameter -----------------------------------------
+  my (
+    $dirOut, $yyyy, $ssss, $yyssss, $yyddd, $CLEAN
+  ) = $bpe->getKeys('DIR_OUT', '$Y+0', '$S+0', '$YSS+0', '$YD+0', 'V_DEL');
+
+  unless (defined $CLEAN && $CLEAN eq 'Y') {
+    print "CLEAN variable not set to 'Y'. Nothing will be deleted.\n";
+    return;
+  }
+
+
+  # ---------------------- Directories ---------------------------------------
+  my $dirOrb = "${dirOut}../ORB";
+  my $dirMsc = "${dirOut}../MSC";
+  my $tag    = $yyssss;
+
+
+  print "------------------------------------------------------------\n";
+  print "DEL_CMP started for $tag\n";
+  print "------------------------------------------------------------\n";
+
+  # ---------------------- Define files to delete ----------------------------
+  my @out_patterns = (
+    "COMPAR2.L??",
+    "CRDDIFF*${yyddd}.PLT",
+#    "HLMR_*_${yyssss}.OUT",
+    "ORBCMP.L??",
+    "ORBDIFF_*_${yyddd}.LST",
+#    "ORBMISC_*_${yyssss}.OUT",
+    "STDDIFF_*_${yyddd}.PLT",
+    "STDDIF.L??",
+  );
+
+  my @msc_patterns = (
+    "CLKDIFF_*${yyddd}",
+    "ERPDIFF_*${yyddd}",
+  );
+
+  my @orb_patterns = (
+    "F3N${yyddd}.PRE",
+    "F1_${yyddd}.PRE",
+    "F1_${yyddd}.STD",
+    "F1_${yyddd}.ERP",
+  );
+
+  # ---------------------- Delete Files --------------------------------------
+  my $deleted = 0;
+
+  foreach my $pattern (@out_patterns) {
+    foreach my $file (glob("${dirOut}${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+
+  foreach my $pattern (@msc_patterns) {
+    foreach my $file (glob("${dirMsc}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@orb_patterns) {
+    foreach my $file (glob("${dirOrb}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  # ---------------------- Delete Files in BPE directory ----------------------
+  my $dirBpe = "${dirOut}../BPE";
+  my $bpe_pattern = "*CMPSOL*${tag}*";
+
+  foreach my $file (glob("${dirBpe}/${bpe_pattern}")) {
+    # Überspringe die beiden Dateien, die behalten werden sollen
+    next if ($file =~ /CMPSOL${tag}_901_000\.LOG$/);
+    next if ($file =~ /CMPSOL${tag}_901_000\.PRT$/);
+    next if ($file =~ /CMPSOL_R${tag}_901_000\.LOG$/);
+    next if ($file =~ /CMPSOL_R${tag}_901_000\.PRT$/);
+    next if ($file =~ /CMPSOL3D${tag}_901_000\.LOG$/);
+    next if ($file =~ /CMPSOL3D${tag}_901_000\.PRT$/);
+
+    if (-e $file) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  # ---------------------- Summary -------------------------------------------
+  if ($deleted == 0) {
+    print "No files found for $tag.\n";
+  } else {
+    print "------------------------------------------------------------\n";
+    print "Deleted $deleted files for $tag.\n";
+    print "------------------------------------------------------------\n";
+  }
+
+  return;
+}
+
+1;
+# ============================================================================

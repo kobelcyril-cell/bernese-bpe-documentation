@@ -1,0 +1,70 @@
+package CODSPPAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  CODSPPAP
+#
+# Purpose :  Prepare parallel CODSPP run
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 19-May-2009
+#
+# Changes :  26-Jan-2005 mm: new initPar call (w/o tmpFil)
+#            09-Feb-2005 mm: Old date variables removed
+#            19-May-2009 rd: Session dependent parallelization filenames
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ssss    , $yyssss  , $ddd     , $param2,  $numFil,  $numClu,
+      $dirCzh  , $dirOut  , $dirSmc  , $dirSme  , $dirClk  ,  $dirBpe,
+      $extCzh  , $extOut  , $extSmc  , $extSme  , $extClk              ) =
+  $bpe->getKeys
+     ('$S+0'   , '$YSS+0' , '$+0'    , 'PARAM2', 'V_CLU', 'V_NCLU',
+      'DIR_CZH', 'DIR_OUT', 'DIR_SMC', 'DIR_SME', 'DIR_RXC', 'DIR_BPEPRT',
+      'EXT_CZH', 'EXT_OUT', 'EXT_SMC', 'EXT_SME', 'EXT_RXC'            );
+
+# Delete old files (OUT, SMC)
+# ---------------------------
+  my $spp = $param2 || "SPP";
+  unlink "${dirSmc}${spp}${yyssss}.${extSmc}";
+  unlink "${dirSme}${spp}${yyssss}.${extSme}";
+  if ($numFil ne "" || $numClu ne "") {
+    unlink glob("${dirClk}${spp}${ssss}???.${extClk}");
+    unlink glob("${dirOut}${spp}${ssss}???.${extOut}") }
+  else {
+    unlink glob("${dirClk}${spp}${ddd}????.${extClk}");
+    unlink glob("${dirOut}${spp}${ddd}????.${extOut}") }
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}SPP${ssss}";
+  unlink(glob("${bpeFil}???.BPE"));
+  my @czhFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+  if ($numFil ne "") {
+    initPar_Cl($bpe,$bpeFil,@czhFil,0,$numFil,0) }
+  elsif ($numClu ne "") {
+    initPar_Cl($bpe,$bpeFil,@czhFil,$numClu,0,0) }
+  else {
+    @czhFil = map { substr(basename($_),0,4) } @czhFil;
+    initPar_Bl($bpe,@czhFil) }
+
+# Stop if no CZH files found
+# --------------------------
+  if (@czhFil == 0) {
+    prtErr($bpe,"No CZH files found") and
+      die "No CZH files found for session ${ssss}" }
+
+}

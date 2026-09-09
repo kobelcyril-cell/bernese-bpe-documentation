@@ -1,0 +1,99 @@
+package MANMRK;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  MANMRK
+#
+# Purpose :  Marks observations for satellites affected by manoeuvres.
+#            Copies SAT-CRX into campaign first
+#
+# Author  :  E. Calero
+# Created :  02-Jul-2021
+#
+# Changes :  C. Kobel: Also exclude satellites with (-)-sign
+#===========================================================
+
+use strict;
+use warnings;
+
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Parameters ------------
+  my (
+      $satcrx,
+      $yyyy,
+      $ymdstr,
+      $extCrx,
+      $dirSta,
+      $yyddd
+  ) = $bpe->getKeys(
+      'V_SATCRX',
+      '$Y+0',
+      '$YMD_STR+0',
+      'EXT_CRX',
+      'DIR_STA',
+      '$YD+0'
+  );
+
+  my $PGMNAM = "SATMRK";
+
+  # ---------- Scan CRX file ------------
+  my $count     = 0;
+  my $sat       = "";
+  my $exception = "";
+  my $date      = "";
+
+  my $localCrx = "${dirSta}${satcrx}.${extCrx}";
+  open(my $FH, '<', $localCrx) or die $!;
+
+  while (my $line = <$FH>) {
+
+    $count++;
+
+    # ---------- Skip header ------------
+    next if $count < 7;
+
+    last if $line =~ /^\s*$/;
+
+    $exception = substr($line, 14, 11);
+    $sat       = substr($line, 0, 5);
+    $sat       =~ s/^\s+|\s+$//g;
+
+    # ---------- Remove minus sign if present ------------
+    $sat = abs($sat);
+
+    $date = substr($line, 32, 10);
+
+    if ($exception eq "0         0" && $date eq $ymdstr) {
+
+      prtMess($bpe, "EXCLUDED SATELLITE $sat DUE TO MANOEUVRE");
+
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", $sat);
+
+      $bpe->RUN_PGMS($PGMNAM);
+    }
+  }
+
+  close($FH);
+
+  # ---------- Manual exclusions ------------
+  if ($yyddd eq "25324") {
+
+    prtMess($bpe, "SATELLITE 205 MANUALLY EXCLUDED");
+
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", "205");
+
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+}

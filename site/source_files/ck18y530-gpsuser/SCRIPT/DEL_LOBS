@@ -1,0 +1,99 @@
+package DEL_LOBS;
+@ISA = ("RUNBPE");
+# ============================================================
+# Name    : DEL_LOBS
+# Purpose : Delete observation files listed in CODXTR output
+# Author  : C. Kobel
+# Created : 28-Oct-2025
+# ============================================================
+use strict;
+use warnings;
+use File::Basename;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+    my $bpe = shift;
+
+    # ---------------------- Parameter -----------------------------------------
+    my ($dirOut, $yyddd, $ssss, $yyyy) =
+      $bpe->getKeys('DIR_OUT', '$YD+0', '$S+0', '$Y+0');
+
+    my $mscDir  = "${dirOut}/../MSC/MSC_${yyddd}";
+    my $dirObs  = "${dirOut}../OBS";
+    my $outfile = "${mscDir}/PROCESSING_${yyddd}";
+
+    my $yy = substr($yyyy, -2);
+    my $codxtrFil = "${dirOut}CODXTR.${yy}_${ssss}";
+
+    prtMess($bpe, "DEL_LARGE_OBS started");
+    prtMess($bpe, "CODXTR file: $codxtrFil");
+    prtMess($bpe, "Output file: $outfile");
+
+    unless (-e $codxtrFil) {
+        prtMess($bpe, "No CODXTR file found: $codxtrFil");
+        return;
+    }
+
+    open(my $in,  "<", $codxtrFil) or do {
+        prtMess($bpe, "Cannot open $codxtrFil: $!");
+        return;
+    };
+    open(my $out, ">>", $outfile) or do {
+        prtMess($bpe, "Cannot write $outfile: $!");
+        close($in);
+        return;
+    };
+
+    print $out "==== DELETE LARGE OBS FILES ====\n";
+    print $out "CODXTR file: $codxtrFil\n";
+    print $out "Timestamp  : " . scalar(localtime()) . "\n";
+
+    my $deleted_total = 0;
+    my @suffixes = qw(.CZO .CZH .PZO .PZH);
+    my $found_any    = 0;
+
+    my %processed;
+
+    while (<$in>) {
+    	  if (/NUMBER OF BAD OBS LARGER THAN 50% FOR STATION:\s+(\w{4})\s+(\S+)/) {
+          my $station = $1;
+          my $domes   = $2;
+
+          next if exists $processed{$station};
+          $processed{$station} = 1;
+
+	  $found_any = 1;
+
+          my $removed_count = 0;
+          foreach my $suffix (@suffixes) {
+            	  my $file = sprintf("%s/%s%s%s", $dirObs, $station, $ssss, $suffix);
+            	  if (-e $file && unlink($file)) {
+                  $removed_count++;
+                  $deleted_total++;
+            	  }
+       	   }
+
+           if ($removed_count > 0) {
+              print $out "Found station with >50% bad obs: $station $domes -> files removed ($removed_count)\n";
+              } else {
+              print $out "Found station with >50% bad obs: $station $domes -> no files found\n";
+              }
+    	   }
+    }
+
+
+    unless ($found_any) {
+        print $out "No stations with >50% bad observations found.\n";
+    }
+
+    print $out "Total deleted files: $deleted_total\n";
+    print $out "=========================\n";
+
+    close($in);
+    close($out);
+
+    prtMess($bpe, "DEL_LARGE_OBS finished ($deleted_total files deleted)");
+}
+
+1;

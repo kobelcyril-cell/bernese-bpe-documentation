@@ -1,0 +1,42 @@
+package BPE_CLN;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  BPE_CLN
+#
+# Purpose :  Clean BPE subdirectory
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  16-Feb-2004
+#
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssssm30, $ssssm30,
+      $taskId,
+      $dirBpePrt, $dirBpeLog,
+      $extBpePrt, $extBpeLog) =
+    $bpe->getKeys(
+      '$YSS-(30)', '$S-(30)',
+      'TASKID',
+      'DIR_BPEPRT', 'DIR_BPELOG',
+      'EXT_BPEPRT', 'EXT_BPELOG');
+
+# Delete PRT/LOG and BPE files
+# ----------------------------
+  my @delLst = ("${dirBpePrt}${taskId}${yyssssm30}_???_???.${extBpePrt}",
+                "${dirBpeLog}${taskId}${yyssssm30}_???_???.${extBpeLog}",
+                "${dirBpePrt}???${ssssm30}???.BPE");
+
+  map { unlink(glob($_)) } @delLst;
+
+}

@@ -1,0 +1,57 @@
+package PRE_ELIM_CLK;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  PRE_ELIM_CLK
+#
+# Purpose :  Pre-eliminate last set of clocks
+#
+# Author  :  E. Calero
+# Created :  
+#
+# Changes :  28-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $sol,
+      $dirNeq,
+      $extNeq,
+      $yyssss
+  ) = $bpe->getKeys(
+      'V_FIN',
+      'DIR_NEQ',
+      'EXT_NEQ',
+      '$YSS+0'
+  );
+
+  # ---------- Get NEQ files ------------
+  my @NEQfl = glob("${dirNeq}${sol}??${yyssss}???.${extNeq}");
+
+  my $input = "";
+  ($input = basename($NEQfl[0])) =~ s/\.[^.]+$//;
+
+  # ---------- Initialize user variables ------------
+  $sol = "${sol}99";
+  setUserVar($bpe, "D4", '000', "SOL", $sol);
+
+  # ---------- Prepare ADDNEQ2 input ------------
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "INPFILE", $input);
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "NEQOUT", '$(SOL)$YSS+0');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "SYSOUT", '$(SOL)$S+0');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "NOINV",  "1");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "CLKS_ELIM", "BEFORE_STACKING");
+
+  # ---------- Run ADDNEQ2 ------------
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+}

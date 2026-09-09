@@ -1,0 +1,41 @@
+package HELMR1;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      HELMR1
+#
+# Purpose:   HELMR1
+#
+# Programs:  HELMR1
+#
+# Authors:   C. Kobel
+#
+# Created:   10-Nov-2025
+#
+# Changes:   
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run
+{
+  my $bpe = shift;
+
+  my ($sol,$CrdName, $yyssss,$yyddd) = $bpe->getKeys('V_SOL','V_CRD','$YSS+0','$YD+0');
+
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD2","${CrdName}${yyssss}");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","SYSOUT","HLMR_${CrdName}${yyssss}");
+
+
+  my $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD2","F${sol}_${yyddd}");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","SYSOUT","HLMR_F${sol}_${yyssss}");
+
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

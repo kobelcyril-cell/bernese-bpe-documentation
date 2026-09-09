@@ -1,0 +1,669 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some title information
+! ----------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+! Observation selection by new RECEIVER file
+! ------------------------------------------
+OBSSEL 0
+  ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
+  ## activeif = RADIO_O = 1
+  # 
+
+DESCR_OBSSEL 1  "Observation selection"
+
+! Print RINEX observation statistics and selection results
+! --------------------------------------------------------
+PRTOSTAT 1  "0"
+  ## widget = checkbox
+
+MSG_PRTOSTAT 1  "Print observation statistics"
+
+! Print extended OBSSEL warnings (debugging)
+! ------------------------------------------
+EXTOUT 1  "0"
+  ## widget = checkbox
+
+MSG_EXTOUT 1  "Print extended OBSSEL warnings"
+
+! List of RINEX Input Files
+! --------------------------
+RADIO_O 1  "0"
+  ## widget = radiobutton; group = RXOSMT
+  ## radiokeys = OBSFIL_BSW OBSFIL_SHORT OBSFIL_LONG OBSFIL
+
+MSG_RADIO_O 1  "Select original RINEX observation files"
+
+OBSFIL_BSW 0
+  ## widget = selwin; path = DIR_RBO; ext = EXT_RBO; emptyallowed = true
+  ## maxfiles = 999; activeif = RADIO_O = 1
+  # 
+
+OBSFIL_BSW_TXT_COL_1 1  "RINEX observation files"
+
+MSG_OBSFIL_BSW_TXT_COL_1 1  "RINEX observation files (Bernese internal naming)"
+
+OBSFIL_SHORT 0
+  ## widget = selwin; path = DIR_RXO; ext = EXT_RXO; emptyallowed = true
+  ## maxfiles = 999; activeif = RADIO_O = 1
+  # 
+
+OBSFIL_SHORT_TXT_COL_1 1  "RINEX observation files"
+
+MSG_OBSFIL_SHORT_TXT_COL_1 1  "RINEX observation files (RINEX2-style naming)"
+
+OBSFIL_LONG 0
+  ## widget = selwin; path = DIR_RXO; ext = EXT_RNX; emptyallowed = true
+  ## maxfiles = 999; activeif = RADIO_O = 1
+  # 
+
+OBSFIL_LONG_TXT_COL_1 1  "RINEX observation files"
+
+MSG_OBSFIL_LONG 1  "RINEX observation files (RINEX3-style naming)"
+
+OBSFIL 0
+  ## widget = selwin; path = DIR_RXO; emptyallowed = true; maxfiles = 999
+  ## activeif = RADIO_O = 1
+  # 
+
+OBSFIL_TXT_COL_1 1  "RINEX observation files"
+
+MSG_OBSFIL 1  "RINEX observation files (any naming convention)"
+
+! List of Smoothed RINEX Input Files
+! ----------------------------------
+RADIO_S 1  "1"
+  ## widget = radiobutton; group = RXOSMT; radiokeys = SMTFILE
+
+MSG_RADIO_S 1  "Select Smoothed RINEX obs. files"
+
+SMTFIL 1  "????$S+0"
+  ## widget = selwin; path = DIR_SMT; ext = EXT_SMT; maxfiles = 999
+  ## activeif = RADIO_S = 1
+
+SMTFIL_TXT_COL_1 1  "Smoothed RINEX files"
+
+MSG_SMTFIL 1  "Smoothed RINEX observation files"
+
+! Measurement Type
+! ----------------
+MEATYP 1  "PHASE"
+  ## widget = combobox; editable = false; cards = PHASE CODE
+
+MSG_MEATYP 1  "Measurement type"
+
+! Frequencies
+! -----------
+FREQ 1  "BOTH"
+  ## widget = combobox; editable = false; cards = L1 L2 BOTH
+
+MSG_FREQ 1  "Frequencies"
+
+! Minimum s/n-ratio
+! -----------------
+MINSIG 1  "0"
+  ## widget = spinbox; range = 0 9 1
+
+MSG_MINSIG 1  "Minimum s/n ratio requested"
+
+! Display cycle slip flags
+! ------------------------
+CYCGRA 1  "0"
+  ## widget = checkbox; activeif = MEATYP = PHASE
+
+MSG_CYCGRA 1  "Print cycle slip flags"
+
+! Gather station names from
+! -------------------------
+STANAM 1  "FILE_NAME"
+  ## widget = combobox; editable = false
+  ## cards = MARKER_NAME MARKER_NUMBER MARKER_DOMES FILE_NAME
+
+MSG_STANAM 1  "Gather station names from"
+
+! Station Name Translation Table
+! ------------------------------
+STAINFO 1  "$(STAINF)"
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_STAINFO 1  "Station information"
+
+! Stop if Station Name not found in Translation Table
+! ---------------------------------------------------
+STNMSTOP 1  "0"
+  ## widget = checkbox; activeif = STAINFO /= _
+
+MSG_STNMSTOP 1  "Stop if station name not found"
+
+! Use station information file flags
+! ----------------------------------
+USEFLG 1  "0"
+  ## widget = checkbox; activeif = STAINFO /= _
+
+MSG_USEFLG 1  "Consider flags in sta-info file"
+
+! Flag to use in STAINFO: type 001
+! --------------------------------
+FLG001 1  "001"
+  ## widget = lineedit; activeif = STAINFO /= _ AND USEFLG = 1
+
+MSG_FLG001 1  "Flag to be used"
+
+! Output Files
+! ------------
+SUMMARY 1  "SMT$YSS+0"
+  ## widget = lineedit; path = DIR_SMC; ext = EXT_SMC
+
+DESCR_SUMMARY 1  "Summary file"
+
+! Plot width
+! ----------
+PLTWIDTH 1  "72"
+  ## widget = spinbox; range = 1 999 1
+
+MSG_PLTWIDTH 1  "Plot width"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "RNXGRA"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+NOMSGDATE 0
+
+MSG_NOMSGDATE 1  "Suppress writing of message timestamp"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 1  ""
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 1  ""
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Program run title line
+! ----------------------
+TITLE 1  "Smoothed RINEX grafic for day $YD+0"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Tolerance of observations
+! -------------------------
+IOBTOL 1  "5"
+  ## widget = spinbox; range = 0 99 1
+
+MSG_IOBTOL 1  "Epochs allowed per character"
+
+! Get a list of files?
+! --------------------
+GETLST 1  "1"
+  ## widget = checkbox
+
+MSG_GETLST 1  "Get a list of RINEX files"
+
+! Get a list of good files?
+! -------------------------
+LSTFILE 1  "RNX$YSS+0"
+  ## widget = lineedit; path = DIR_LST; ext = EXT_LST
+
+MSG_LSTFILE 1  "File with the list of selected RINEX files"
+
+! Get a list of bad files?
+! ------------------------
+DELFILE 1  "DEL$YSS+0"
+  ## widget = lineedit; path = DIR_DEL; ext = EXT_DEL
+
+MSG_DELFILE 1  "File with the list of unselected RINEX files"
+
+! Max # of stations in list
+! -------------------------
+MAXSTA 1  "999"
+  ## widget = spinbox; range = 1 9999 10
+
+MSG_MAXSTA 1  "Maximum number of selected files (station)"
+
+! Min # of observations per station
+! ---------------------------------
+MINOBS 1  "100"
+  ## widget = spinbox; range = 1 9999 10
+
+MSG_MINOBS 1  "Minimum number of observations per file"
+
+! Max. # of bad obs. per station allowed
+! --------------------------------------
+MAXBAD 1  "100"
+  ## widget = spinbox; range = 1 100 1
+
+MSG_MAXBAD 1  "Maximum number of bad epochs per file allowed"
+
+! Defines what a bad obs. is
+! --------------------------
+BADOBS 1  "3"
+  ## widget = spinbox; range = 0 15 1
+
+MSG_BADOBS 1  "Max. number of observations to define a bad epoch"
+
+! Normalize limits for non-daily session processing
+! -------------------------------------------------
+ADJDAY 1  "1"
+  ## widget = checkbox
+
+MSG_ADJDAY 1  "Normalize limits for non-daily session processing"
+
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! Use Obs. Window
+! ---------------
+USEWIN 1  "0"
+  ## widget = checkbox
+
+MSG_USEWIN 1  "Use observation window"
+
+! Observation Window
+! ------------------
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by year and session identifier"
+
+RADIO_2 1  "1"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_2 1  "Defined by start and end times"
+
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  ## activeif = RADIO_1 = 1
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  ## activeif = RADIO_1 = 1
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 31"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! GNSS selection
+! --------------------------
+! GPS
+USE_G 1  "GRAPHIC+COUNT"
+  ## widget = combobox; editable = false
+  ## cards = GRAPHIC+COUNT ONLY_GRAPHIC IGNORE
+
+MSG_USE_G 1  "Level of usage of GPS data"
+
+! GLONASS
+USE_R 1  "GRAPHIC+COUNT"
+  ## widget = combobox; editable = false
+  ## cards = GRAPHIC+COUNT ONLY_GRAPHIC IGNORE
+
+MSG_USE_R 1  "Level of usage of GLONASS data"
+
+! Galileo
+USE_E 1  "GRAPHIC+COUNT"
+  ## widget = combobox; editable = false
+  ## cards = GRAPHIC+COUNT ONLY_GRAPHIC IGNORE
+
+MSG_USE_E 1  "Level of usage of Galileo data"
+
+! SBAS
+USE_S 1  "GRAPHIC+COUNT"
+  ## widget = combobox; editable = false
+  ## cards = GRAPHIC+COUNT ONLY_GRAPHIC IGNORE
+
+MSG_USE_S 1  "Level of usage of SBAS data"
+
+! BeiDou
+USE_C 1  "GRAPHIC+COUNT"
+  ## widget = combobox; editable = false
+  ## cards = GRAPHIC+COUNT ONLY_GRAPHIC IGNORE
+
+MSG_USE_C 1  "Level of usage of BeiDou data"
+
+! QZSS
+USE_J 1  "GRAPHIC+COUNT"
+  ## widget = combobox; editable = false
+  ## cards = GRAPHIC+COUNT ONLY_GRAPHIC IGNORE
+
+MSG_USE_J 1  "Level of usage of QZSS data"
+
+! IRNSS
+USE_I 1  "IGNORE"
+  ## widget = combobox; editable = false
+  ## cards = GRAPHIC+COUNT ONLY_GRAPHIC IGNORE
+
+MSG_USE_I 1  "Level of usage of IRNSS data"
+
+! Sampling Interval (sec)    0: Take all observations
+! -----------------------
+SAMPLING 1  "0"
+  ## widget = lineedit
+
+MSG_SAMPLING 1  "Sampling interval (sec)"
+
+! Offset to full minute (sec)
+OFFSET 1  "0"
+  ## widget = lineedit
+
+MSG_OFFSET 1  "Offset to full minute (sec)"
+
+! Sampling tolerance (sec)
+SAMPLTOL 1  "0.5"
+  ## widget = lineedit
+
+MSG_SAMPLTOL 1  "Sampling tolerance (sec)"
+
+! RINEX options
+! -------------
+RDRXHDUC 1  "0"
+  ## widget = checkbox
+
+MSG_RDRXHDUC 1  "Change header strings to upper case on read"
+
+RX2_RESTR 1  "0"
+  ## widget = checkbox
+
+MSG_RX2_RESTR 1  "Only GPS/GLO and freq. 1 or 2 for RINEX 2"
+
+REJFAKEOBSMAXFRQ 1  "0"
+  ## widget = spinbox; range = 0 9 1
+
+MSG_REJFAKEOBSMAXFRQ 1  "Maximal frequency for fake observation rejection"
+
+REJFAKEOBSTOL 1  "1d-4"
+  ## widget = lineedit
+
+MSG_REJFAKEOBSTOL 1  "Tolerance for fake observation rejection"
+
+ERRFROMRXHDR 1  "0"
+  ## widget = checkbox
+
+MSG_ERRFROMRXHDR 1  "Write errs/warns from input RNX hdr comments"
+
+PHSCORRAPPL 1  "AS_NEEDED"
+  ## widget = combobox; editable = false; cards = SUPPRESS AS_NEEDED FORCE
+
+MSG_PHSCORRAPPL 1  "Rule for applying phase shift corrections"
+
+! Actions in case of inconsistencies in RINEX headers
+! ---------------------------------------------------
+AOF_ANT_MRK_NAM 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOF_ANT_MRK_NAM 1  "Antenna marker name doesn't match file name"
+
+AOM_GLO_FRQ_NBR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GLO_FRQ_NBR 1  "Missing mand. record: GLONASS SLOT / FRQ #"
+
+AOM_GLO_PHS_BIS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GLO_PHS_BIS 1  "Missing mand. record: GLONASS COD/PHS/BIS"
+
+AOM_SYS_PHS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_SYS_PHS 1  "Missing mand. record: SYS / PHASE SHIFT"
+
+AOM_GENERAL 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GENERAL 1  "Other missing mandatory records"
+
+! Action in case of incons. hdr. modifications
+! --------------------------------------------
+AOI_HDRMOD 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_HDRMOD 1  "Action in case of incons. hdr. modifications"
+
+! What to do in case of event flag
+! --------------------------------
+EPOFLAG 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_EPOFLAG 1  "What to do in case of event flag"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CREATE OBSERVATION STATISTICS - RNXGRA 1: Filenames                          #
+#                                                                              #
+# INPUT FILES                                                                  #
+#   > % < Original RINEX observation files                                     # RADIO_O
+#         Bernese internal naming  > %%%%%%%%%%%%%%%%%% <                      # OBSFIL_BSW
+#         RINEX3-style naming      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # OBSFIL_LONG
+#         RINEX2-style naming      > %%%%%%%% <                                # OBSFIL_SHORT
+#         Any naming convention    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # OBSFIL
+#                                                                              #
+#   > % < Smoothed RINEX observation files                                     # RADIO_S
+#                                  > %%%%%%%%%%%%%%%%%% <                      # SMTFIL
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files                        > % <                        # SHOWGEN
+#   Observation selection                         > %%%%%%%%%%%% <             # OBSSEL
+#   Print observation statistics                  > % <                        # PRTOSTAT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output      > % < use RNXGRA.Lnn            or  > %%%%%%%%%%%% <   # SYSODEF SYSOUT
+#   Error messages      > % < merged to program output  or  > %%%%%%%%%%%% <   # ERRMRG SYSERR
+#   Plot width          > %%%%%% <                                             # PLTWIDTH
+#                                                                              #
+# OUTPUT FILE                                                                  #
+#   Summary file        > %%%%%%%%%%%% <                                       # SUMMARY
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# RNXGRA 1.1: General Files                                                    #
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXGRA 2: Options part I                                                     #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# OBSERVATION SELECTION                                                        #
+#   Use observation window          > % <                                      # USEWIN
+#   Measurement type                > %%%%%% <                                 # MEATYP
+#   Frequencies                     > %%%%%% <                                 # FREQ
+#   Minimum s/n ratio requested     > %% <                                     # MINSIG
+#   Print cycle slip flags          > % <                                      # CYCGRA
+#   Satellite system        GPS     > %%%%%%%%%%%%% < GLONASS > %%%%%%%%%%%%% <# USE_G USE_R
+#                           Galileo > %%%%%%%%%%%%% < BeiDou  > %%%%%%%%%%%%% <# USE_E USE_C
+#                           SBAS    > %%%%%%%%%%%%% < QZSS    > %%%%%%%%%%%%% <# USE_S USE_J
+#                                                                              #
+# MAXIMUM NUMBER OF MISSING EPOCHS                                             #
+#   Allowed per character           > %% <    (1 chr = 20 minutes)             # IOBTOL
+#                                                                              #
+# STATION NAME TRANSLATION                                                     #
+#   Gather station names from       > %%%%%%%%%%%%% <                          # STANAM
+#   Station information             > %%%%%%%%%%%% <                           # STAINFO
+#   Stop if station name not found  > % <                                      # STNMSTOP
+#                                                                              #
+# LIST OF RINEX FILES                                                          #
+#   Get a list of RINEX files       > % <                                      # GETLST
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL USEWIN = 1 #######################################################
+# RNXGRA 2.1: Observation Window                                               #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <   Session > %%%% <                                    # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL STAINFO / _ AND USEFLG == 999 ####################################
+# RNXGRA 2.2: Select Flags from Station Information File to be Used            #
+#                                                                              #
+# ATTENTION!!!!    THIS IS DUMMY AT THE MOMENT!!!!                             #
+# To make the flag handling active, please modify SR GTSTAFLG.f90              #
+#                                                                              #
+#   Consider flags in sta-info file > % <                                      # USEFLG
+#            Flags to be used       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <    # FLG001
+#                                     Flag 999: Any flag will be considered    #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL GETLST == 1 ######################################################
+# RNXGRA 2.3: Options for RINEX File Selection                                 #
+#                                                                              #
+# FILENAMES                                                                    #
+#   File with the list of selected@@ RINEX files         > %%%%%%%% <          # LSTFILE
+#   File with the list of unselected RINEX files         > %%%%%%%% <          # DELFILE
+#                                                                              #
+# FILE SELECTION OPTIONS                                                       #
+#   Maximum number of selected files (station)           > %%%% <              # MAXSTA
+#   Minimum number of observations per file              > %%%% <              # MINOBS
+#   Maximum number of bad epochs per file allowed        > %%%% <              # MAXBAD
+#   Maximum number of observations to define a bad epoch > %%%% <              # BADOBS
+#   Normalize limits for non-daily session processing    > % <                 # ADJDAY
+#      (assuming that the given values refer to one day)                       #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXGRA 3: Options part II                                                    #
+#                                                                              #
+# GENERAL RINEX OPTIONS                                                        #
+#   Change hdr strings to upper case on read   > % <                           # RDRXHDUC
+#   Only GPS/GLO and freq. 1 or 2 for RINEX 2  > % <                           # RX2_RESTR
+#   Output errors from input headers           > % <                           # ERRFROMRXHDR
+#                                                                              #
+# SAMPLING                                                                     #
+#   Sampling interval           > %%%%%% < seconds    (0: use all observations)# SAMPLING
+#   Offset to full minute       > %%%%%% < seconds                             # OFFSET
+#   Sampling tolerance          > %%%%%% < seconds                             # SAMPLTOL
+#                                                                              #
+# RULE FOR APPLYING PHASE SHIFT CORRECTIONS FROM HDR ON READING OBSERVATIONS   #
+#   Phase shift corrections appeared with RINEX version 2.12                   #
+#   Rule                        > %%%%%%%%%%%% <                               # PHSCORRAPPL
+#                                                                              #
+# REJECTION OF FAKE OBSERVATIONS                                               #
+#   Maximal freq. considered    > %%%%%% <            (0: no rejection)        # REJFAKEOBSMAXFRQ
+#   Tolerance                   > %%%%%% <                                     # REJFAKEOBSTOL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNXGRA 4: Check Content of RINEX Header                                      #
+#                                                                              #
+# Action if marker name doesn't match file name  > %%%%%%%%% <                 # AOF_ANT_MRK_NAM
+#                                                                              #
+# ACTIONS IN CASE OF MISSING MANDATORY HEADER RECORDS                          #
+#   Missing record: GLONASS SLOT / FRQ # > %%%%%%%%% <  (RINEX vers ge 3.01)   # AOM_GLO_FRQ_NBR
+#   Missing record: GLONASS COD/PHS/BIS  > %%%%%%%%% <  (RINEX vers ge 3.02)   # AOM_GLO_PHS_BIS
+#   Missing record: SYS / PHASE SHIFT    > %%%%%%%%% <  (RINEX vers ge 2.12)   # AOM_SYS_PHS
+#   Other missing mandatory records      > %%%%%%%%% <                         # AOM_GENERAL
+#                                                                              #
+# ACTIONS IN SPECIAL SITUATIONS BETWEEN OBSERVATIONS                           #
+#   On epoch events                      > %%%%%%%%% <                         # EPOFLAG
+#   On inconsistent header modifications > %%%%%%%%% <                         # AOI_HDRMOD
+#                                                                              #
+#     NONE@@@@: Just continue                                                  #
+#     WARNING@: Write warning and continue                                     #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################

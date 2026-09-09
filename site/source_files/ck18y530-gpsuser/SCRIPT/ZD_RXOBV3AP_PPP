@@ -1,0 +1,113 @@
+package RXOBV3AP_PPP;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  RXOBV3AP_PPP
+#
+# Purpose :  Prepare parallel RXOBV3 run
+#
+# Remark  :  - Whether original or smoothed RINEX files shall be imported
+#              is decided in the script by reading the input option
+#            - If the abbreviation file is updated (taken from the input
+#              options - keyword "ABBUPD" ne "ERROR") all
+#
+# PARAMs  :  PARAM2 - output file identifier (default: OBS)
+#            PARAM3 - empty: stop if no RINEX files are found
+#
+# Author  :  M. Meindl, S. Schaer
+# Created :  23-Jul-2003
+#
+# Changes :  31-Jan-2005 MM: New initPar call (w/o tmpFil)
+#            11-Aug-2011 RD: Updated for version 5.2
+# ============================================================================
+
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtMess prtErr initPar_Bl initPar_Cl cleanFiles);
+
+sub run {
+  my $bpe = shift;
+
+# ------------- Get variables -------------
+  my ( $yyyyssss,
+       $ssss,
+       $param3,
+       $clu,
+       $dirBpe,
+       $dirRxo,
+       $dirSmt,
+       $extRxo,
+       $extSmt,
+       $dirCzh,
+       $dirPzh,
+       $dirCzo,
+       $dirPzo,
+       $extCzh,
+       $extPzh,
+       $extCzo,
+       $extPzo
+     ) =  $bpe->getKeys(
+       '$YYYSS+0',
+       '$S+0',
+       'PARAM3',
+       'V_CLU',
+       'DIR_BPEPRT',
+       'DIR_RBO',
+       'DIR_SMT',
+       'EXT_RBO',
+       'EXT_SMT',
+       'DIR_CZH',
+       'DIR_PZH',
+       'DIR_CZO',
+       'DIR_PZO',
+       'EXT_CZH',
+       'EXT_PZH',
+       'EXT_CZO',
+       'EXT_PZO'
+      );
+
+# ---------- Delete old files (CZH, PZH, CZO, PZO) -----------
+  unlink glob("${dirCzh}????${ssss}.${extCzh}");
+  unlink glob("${dirPzh}????${ssss}.${extPzh}");
+  unlink glob("${dirCzo}????${ssss}.${extCzo}");
+  unlink glob("${dirPzo}????${ssss}.${extPzo}");
+
+# ---------- Delete old output files ----------
+  cleanFiles($bpe,"OBS",["OUT"],$clu);
+
+# ----- Check whether original or smoothed RINEX files are imported -----
+  my $smtRnx = $bpe->getKey("$ENV{U}/PAN/RXOBV3.INP","RADIO_S");
+
+# --------- Initialize parallel run ---------
+  my $bpeFil = "${dirBpe}OBS_${yyyyssss}_";
+  my @rxoFil = $smtRnx ? glob("${dirSmt}*${ssss}.${extSmt}") :
+                         glob("${dirRxo}*${ssss}.${extRxo}");
+
+# -- Disable parallel processing when ABBREV.ABB may be updated --
+  my $abbUpd = $bpe->getKey("$ENV{U}/PAN/RXOBV3.INP","ABBUPD");
+
+  # Abbreviation table is updated -> no parallel mode is possible
+  if ($abbUpd ne "ERROR") {
+    prtMess($bpe,"PARALLEL PROCESSING NOT POSSIBLE");
+    initPar_Cl($bpe,$bpeFil,@rxoFil,1,0,0, ($clu));
+
+  # Processing in clusters (groups of stations)
+  } elsif ($clu ne "") {
+    initPar_Cl($bpe,$bpeFil,@rxoFil,0,$clu,0, ($clu));
+
+  # Processing station by station
+  } else {
+    @rxoFil = map { substr(basename($_),0,9) } @rxoFil;
+    initPar_Bl($bpe,@rxoFil)
+  }
+
+# --------- Stop if no RINEX files found ----------
+  if (@rxoFil == 0 && $param3 eq "") {
+    prtErr($bpe,"No RINEX files found") and
+      die "No RINEX files found for session ${ssss}";
+  }
+
+}

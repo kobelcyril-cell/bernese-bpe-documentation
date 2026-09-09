@@ -1,0 +1,1177 @@
+package MANMRK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  MANMRK
+#
+# Purpose :  Mark observations for satellites with manoeuvres
+#
+# PARAMs  :
+#
+# Author  :  E. Calero
+# Created :  02-Jul-2021
+#
+# Changes :  C. Kobel: Also exclude satellites with (-)-sign
+# ============================================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+  my ($satcrx  ,$yyyy,  $ymdstr,    $extCrx,  $dirSta,  $yyddd, $useMGEX) =
+     $bpe->getKeys(
+     'V_SATCRX','$Y+0','$YMD_STR+0','EXT_CRX','DIR_STA','$YD+0','V_MGEINI');
+
+#  Locally copy CRX file
+   my $localCrx = "${dirSta}${satcrx}.${extCrx}";
+   copyfile("$ENV{CONFIG}/${satcrx}.${extCrx}","$localCrx");
+   
+   my $PGMNAM    = "SATMRK";
+   unless ( $useMGEX eq "YES" ) {
+#    Check for satellites in manoeuvre
+     my $exception = "";
+     my $sat       = "";
+     my $msg       = "";
+     my $count     = 0;
+     open(FH, '<', $localCrx) or die $!;
+     while(<FH>){
+       $count = $count + 1;
+       if ( $count < 7 ) {
+         next
+       }
+       if ( $_ == "" ) {
+         last
+       }
+       $exception = substr($_,14,11);
+       $sat       = substr($_,0,5);
+       $sat       =~ s/^\s+|\s+$//g;
+       $sat = abs($sat);   # ← Remove minus sign (if present)
+       $date      = substr($_,32,10);
+       if ( $exception eq "0         0" and $date eq $ymdstr) {
+         my $msg = "EXCLUDED SATELLITE $sat DUE TO MANOEUVRE";
+         prtMess($bpe,$msg);
+
+#        Run program
+#        -----------
+         $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+         $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+         $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","$sat");
+         $bpe->RUN_PGMS($PGMNAM);
+
+       }
+     }
+     close(FH);
+   }
+
+#  Manual removal of satellites
+#  ------------------------------
+   my @rmvSat = (["18120","108"],
+                 ["18120","124"],
+                 ["18124","221"],
+                 ["18124","225"],
+                 ["18127","214"],
+                 ["18127","221"],
+                 ["18128","211"],
+                 ["18132","18"],
+                 ["18136","105"],
+                 ["18144","225"],
+                 ["18152","227"],
+                 ["18155","1"],
+                 ["18163","24"],
+                 ["18163","126"],
+                 ["18177","109"],
+                 ["18177","126"],
+                 ["18181","126"],
+                 ["18191","221"],
+                 ["18194","219"],
+                 ["18198","221"],
+                 ["18218","105"],
+                 ["18228","4"],
+                 ["18239","221"],
+                 ["18241","118"],
+                 ["18247","221"],
+                 ["18248","221"],
+                 ["18249","2"],
+                 ["18254","221"],
+                 ["18263","18"],
+                 ["18274","126"],
+                 ["18274","221"],
+                 ["18275","126"],
+                 ["18283","4"],
+                 ["18288","18"],
+                 ["18299","4"],
+                 ["18300","4"],
+                 ["18300","18"],
+                 ["18306","4"],
+                 ["18319","4"],
+                 ["18320","18"],
+                 ["18332","18"],
+                 ["18353","236"],
+                 ["18356","4"],
+                 ["18361","233"],
+                 ["19002","4"],
+                 ["19005","236"],
+                 ["19009","4"],
+                 ["19010","4"],
+                 ["19011","236"],
+                 ["19013","21"],
+                 ["19015","103"],
+                 ["19016","103"],
+                 ["19017","4"],
+                 ["19028","4"],
+                 ["19032","4"],
+                 ["19034","233"],
+                 ["19035","4"],
+                 ["19035","236"],
+                 ["19044","122"],
+                 ["19045","122"],
+                 ["19049","218"],
+                 ["19053","218"],
+                 ["19077","214"],
+                 ["19079","4"],
+                 ["19079","107"],
+                 ["19079","119"],
+                 ["19080","4"],
+                 ["19080","119"],
+                 ["19081","214"],
+                 ["19088","18"],
+                 ["19091","118"],
+                 ["19092","21"],
+                 ["19092","233"],
+                 ["19095","233"],
+                 ["19105","4"],
+                 ["19106","4"],
+                 ["19106","231"],
+                 ["19108","231"],
+                 ["19112","4"],
+                 ["19113","21"],
+                 ["19114","1"],
+                 ["19116","18"],
+                 ["19119","4"],
+                 ["19122","208"],
+                 ["19127","205"],
+                 ["19133","4"],
+                 ["19133","222"],
+                 ["19135","4"],
+                 ["19136","4"],
+                 ["19137","4"],
+                 ["19137","18"],
+                 ["19138","4"],
+                 ["19139","4"],
+                 ["19140","4"],
+                 ["19141","4"],
+                 ["19141","222"],
+                 ["19147","4"],
+                 ["19151","4"],
+                 ["19152","4"],
+                 ["19155","4"],
+                 ["19157","4"],
+                 ["19162","4"],
+                 ["19165","4"],
+                 ["19168","4"],
+                 ["19170","4"],
+                 ["19171","4"],
+                 ["19172","4"],
+                 ["19173","4"],
+                 ["19174","4"],
+                 ["19175","4"],
+                 ["19176","4"],
+                 ["19177","4"],
+                 ["19178","4"],
+                 ["19179","4"],
+                 ["19180","4"],
+                 ["19181","4"],
+                 ["19182","4"],
+                 ["19183","4"],
+                 ["19184","4"],
+                 ["19185","4"],
+                 ["19186","4"],
+                 ["19187","4"],
+                 ["19188","4"],
+                 ["19189","4"],
+                 ["19190","4"],
+                 ["19191","4"],
+                 ["19192","4"],
+                 ["19193","4"],
+                 ["19195","18"],
+                 ["19196","25"],
+                 ["19199","4"],
+                 ["19200","4"],
+                 ["19200","23"],
+                 ["19201","4"],
+                 ["19202","4"],
+                 ["19203","4"],
+                 ["19204","4"],
+                 ["19205","4"],
+                 ["19205","20"],
+                 ["19206","4"],
+                 ["19207","4"],
+                 ["19207","18"],
+                 ["19207","26"],
+                 ["19208","4"],
+                 ["19209","4"],
+                 ["19210","4"],
+                 ["19211","4"],
+                 ["19212","4"],
+                 ["19213","4"],
+                 ["19217","3"],
+                 ["19219","9"],
+                 ["19220","4"],
+                 ["19227","4"],
+                 ["19237","104"],
+                 ["19242","4"],
+                 ["19248","15"],
+                 ["19252","4"],
+                 ["19258","214"],
+                 ["19267","4"],
+                 ["19267","18"],
+                 ["19280","4"],
+                 ["19282","27"],
+                 ["19282","218"],
+                 ["19289","218"],
+                 ["19298","18"],
+                 ["19302","225"],
+                 ["19303","211"],
+                 ["19309","29"],
+                 ["19318","211"],
+                 ["19320","18"],
+                 ["19320","122"],
+                 ["19330","4"],
+                 ["19346","4"],
+                 ["19353","11"],
+                 ["19354","4"],
+                 ["20016","28"],
+                 ["20051","11"],
+                 ["20069","18"],
+                 ["20070","124"],
+                 ["20135","18"],
+                 ["20160","122"],
+                 ["20161","23"],
+                 ["20196","23"],
+                 ["20209","14"],
+                 ["20232","23"],
+                 ["20266","32"],
+                 ["20271","109"],
+                 ["20275","23"],
+                 ["20282","19"],
+                 ["20304","17"],
+                 ["20318","30"],
+                 ["20322","14"],
+                 ["21028","11"],
+                 ["21035","8"],
+                 ["21054","120"],
+                 ["21055","120"],
+                 ["21077","24"],
+                 ["21122","21"],
+                 ["21161","31"],
+                 ["21196","20"],
+                 ["21196","111"],
+                 ["21214","122"],
+                 ["21203","5"],
+                 ["21251","11"],
+                 ["21254","122"],
+                 ["21267","10"],
+                 ["21270","11"],
+                 ["21319","226"],
+                 ["21327","226"],
+                 ["21347","113"],
+                 ["21351","101"],
+                 ["21352","101"],
+                 ["22018","22"],
+                 ["22024","22"],
+                 ["22026","112"],
+                 ["22033","11"],
+                 ["22046","14"],
+                 ["22046","208"],
+                 ["22049","219"],
+                 ["22054","208"],
+                 ["22060","224"],
+                 ["22068","224"],
+                 ["22070","2"],
+                 ["22082","209"],
+                 ["22121","201"],
+                 ["22130","114"],
+                 ["22137","201"],
+                 ["22139","18"],
+                 ["22159","212"],
+                 ["22184","21"],
+                 ["22194","118"],
+                 ["22195","118"],
+                 ["22229","210"]);
+   my $msg = "";
+   foreach $i (0..scalar @rmvSat-1) {
+     if ( ${yyddd} eq $rmvSat[$i][0] ) {
+       $msg = "SATELLITE $rmvSat[$i][1] MANUALLY EXCLUDED";
+       prtMess($bpe,$msg);
+       $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+       $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+       $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","$rmvSat[$i][1]");
+       $bpe->RUN_PGMS($PGMNAM);
+     }
+   }
+
+   if ( ${yyddd} eq "25324") {
+
+     my $msg = "SATELLITE 205 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","205");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26162") {
+
+     my $msg = "SATELLITE 34 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","34");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26163") {
+
+     my $msg = "SATELLITE 34 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","34");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26162") {
+
+     my $msg = "SATELLITE 104 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","104");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26163") {
+
+     my $msg = "SATELLITE 104 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","104");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+
+
+   if ( ${yyddd} eq "26196") {
+
+     my $msg = "SATELLITE 13 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","13");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26197") {
+
+     my $msg = "SATELLITE 13 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","13");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+
+   if ( ${yyddd} eq "26198") {
+
+     my $msg = "SATELLITE 13 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","13");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26199") {
+
+     my $msg = "SATELLITE 13 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","13");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26224") {
+
+     my $msg = "SATELLITE 29 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","29");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+
+
+
+#   if ( ${yyddd} eq "26051") {
+#
+#     my $msg = "SATELLITE 20 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","20");
+#     $bpe->RUN_PGMS($PGMNAM);
+#     }
+
+
+
+
+#   if ( ${yyddd} eq "26036") {
+#
+#     my $msg = "SATELLITE 11 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","11");
+#     $bpe->RUN_PGMS($PGMNAM);
+#     }
+
+
+   if ( ${yyddd} eq "25328") {
+
+     my $msg = "SATELLITE 204 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","204");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+if ( ${yyddd} eq "25346") {
+
+     my $msg = "SATELLITE 27 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","27");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+if ( ${yyddd} eq "25350") {
+
+     my $msg = "SATELLITE 128 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","128");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+#Exclude 128 always
+my $msg = "SATELLITE 128 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","128");
+     $bpe->RUN_PGMS($PGMNAM);
+
+if ( ${yyddd} eq "25022") {
+
+     my $msg = "SATELLITE 1 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","1");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+
+#   if ( ${yyddd} eq "20001") {
+#     
+#     my $msg = "SATELLITE 119 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","119");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   if ( ${yyddd} eq "20001") {
+#     
+#     my $msg = "SATELLITE 108 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","108");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   if ( ${yyddd} eq "20010") {
+#     
+#     my $msg = "SATELLITE 9 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","9");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   if ( ${yyddd} eq "20017") {
+#     
+#     my $msg = "SATELLITE 28 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","28");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   if ( ${yyddd} eq "20074") {
+#     
+#     my $msg = "SATELLITE 18 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","18");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   if ( ${yyddd} eq "20075") {
+#     
+#     my $msg = "SATELLITE 18 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","18");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   if ( ${yyddd} eq "20076") {
+#     
+#     my $msg = "SATELLITE 18 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","18");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "20109") {
+#     
+#     my $msg = "SATELLITE 236 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","236");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "20144") {
+#     
+#     my $msg = "SATELLITE 221 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","221");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20158") {
+#     
+#     my $msg = "SATELLITE 1 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","1");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20159") {
+#     
+#     my $msg = "SATELLITE 1 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","1");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20160") {
+#     
+#     my $msg = "SATELLITE 122 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","122");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20160") {
+#     
+#     my $msg = "SATELLITE 1 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","1");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20196") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20197") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   if ( ${yyddd} eq "20198") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "20203") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20204") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20205") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "20227") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20228") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20229") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20234") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20235") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20236") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20237") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20239") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20242") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20249") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20249") {
+#     
+#     my $msg = "SATELLITE 227 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","227");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20272") {
+#     
+#     my $msg = "SATELLITE 23 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","23");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20295") {
+#     
+#     my $msg = "SATELLITE 218 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","218");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20308") {
+#     
+#     my $msg = "SATELLITE 101 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","101");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20310") {
+#     
+#     my $msg = "SATELLITE 101 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","101");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20312") {
+#     
+#     my $msg = "SATELLITE 101 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","101");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "20322") {
+#     
+#     my $msg = "SATELLITE 14 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","14");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20323") {
+#     
+#     my $msg = "SATELLITE 14 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","14");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "20323") {
+#     
+#     my $msg = "SATELLITE 21 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","21");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20359") {
+#     
+#     my $msg = "SATELLITE 7 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","7");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20362") {
+#     
+#     my $msg = "SATELLITE 111 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","111");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "20363") {
+#     
+#     my $msg = "SATELLITE 111 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","111");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20364") {
+#     
+#     my $msg = "SATELLITE 111 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","111");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20365") {
+#     
+#     my $msg = "SATELLITE 111 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","111");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#   
+#   if ( ${yyddd} eq "20366") {
+#     
+#     my $msg = "SATELLITE 111 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","111");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21036") {
+#     
+#     my $msg = "SATELLITE 8 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","8");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21039") {
+#     
+#     my $msg = "SATELLITE 109 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","109");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21054") {
+#     
+#     my $msg = "SATELLITE 120 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","120");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21054") {
+#     
+#     my $msg = "SATELLITE 122 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","122");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21055") {
+#     
+#     my $msg = "SATELLITE 120 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","120");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21055") {
+#     
+#     my $msg = "SATELLITE 122 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","122");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21078") {
+#     
+#     my $msg = "SATELLITE 24 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","24");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   }
+#
+#   if ( ${yyddd} eq "21103") {
+#     
+#     my $msg = "SATELLITE 24 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","24");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21104") {
+#     
+#     my $msg = "SATELLITE 24 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","24");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21105") {
+#     
+#     my $msg = "SATELLITE 24 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","24");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21145") {
+#     
+#     my $msg = "SATELLITE 11 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","11");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+#
+#   if ( ${yyddd} eq "21145") { #Excluded AR in satcrx
+#     
+#     my $msg = "SATELLITE 202 MANUALLY EXCLUDED";
+#     prtMess($bpe,$msg);
+#     
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+#     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","202");
+#     $bpe->RUN_PGMS($PGMNAM);
+#   
+#   }
+
+}

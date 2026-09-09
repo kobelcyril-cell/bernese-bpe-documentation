@@ -1,0 +1,110 @@
+package MPRXTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MPRXTR
+#
+# Purpose :  GENERATE SUMMARY OF THE PARALEL MAUPRP RUNS
+#            IN CASE OF BAD FILES DELETE ZERO AND SINGLE FILES
+#            AND UPDATE TABLES
+#
+# Programs:
+#
+# Author  :  H. Bock
+# Created :  06-Dec-2007
+#
+# Changes :  23-Jul-2008 rd: prepare for reprocessing
+#            19-Nov-2013 rd: jump if last file has been deleted
+#            15-Sep-2017 rd: remove also CZ[HO] files
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+use lib "$ENV{U}/SCRIPT";
+use JumpLogger qw(logJump);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $yy, $ssss,
+      $param1, $param2, $param3,
+      $dirOut, $dirDel, $extDel, $dirPzh, $extPzh, $dirPsh, $extPsh) =
+    $bpe->getKeys(
+      '$YSS+0','$Y','$S+0',
+      'PARAM1','PARAM2','PARAM3',
+      'DIR_OUT', 'DIR_DEL', 'EXT_DEL', 'DIR_PZH', 'EXT_PZH', 'DIR_PSH', 'EXT_PSH');
+
+# Delete old DEL file
+# -------------------
+  my $delFil = "${dirDel}MPR${yyssss}.${extDel}";
+  unlink ($delFil);
+  $bpe->putKey("$ENV{U}/PAN/MPRXTR.INP","DELFIL",$delFil);
+
+# Run the program
+# ---------------
+  my $PGMNAM = "MPRXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Summary of program run for Protocol
+# -----------------------------------
+  my $sumFil = $bpe->getKey("$ENV{U}/INP/MPRXTR.INP","SUMMARY");
+  my $xtrSum="$dirOut/MPRXTR.${yy}_${ssss}";
+
+  appFile ("MAUPRP: " . timstr(localtime(time)),0,"$sumFil","$xtrSum",1);
+
+  my @dellst;
+  if (-e $delFil){
+      appFile("Files excluded from processing:",0,$delFil,$xtrSum,0);
+
+# Delete the files listed in "DELFIL"
+# -----------------------------------
+      open(FIL,"<$delFil");
+      while (<FIL>) {
+          chomp;
+          while ( /^ / ) { s/^ // }  # Remove leading blanks
+          while ( / $/ ) { s/ $// }  # Remove leading blanks
+
+          if (-e $_){
+              prtMess($bpe,"File to be deleted: $_");
+              push @dellst, $_;
+              unlink("$_");
+          }
+          $_ =~ s/\.PZ/.CZ/;         # Remove also code zero-diff file
+          if (-e $_){
+              prtMess($bpe,"File to be deleted: $_");
+              unlink("$_");
+          }
+      }
+      close FIL;}
+
+# If no files available, jump to the end
+# --------------------------------------
+  if ( $param1 eq "NEXTJOB" ) {
+    open(XTR,"$xtrSum");   # Check whether a PSH-file was listed for deletion.
+    my @list = (grep{/${ssss}.${extPsh}/} <XTR>) ?
+               glob ("${dirPsh}????${ssss}.${extPsh}") :
+               glob ("${dirPzh}????${ssss}.${extPzh}");
+    close(XTR);
+    print "scalar ",scalar(@list)," ",scalar(@dellst),"\n";
+    print "Unless list\n" unless @dellst;
+
+    if ( scalar(@list) == 0 && $param3 ne ""){
+        print "GOTO PARAM 3 $param3\n";
+	logJump($bpe, $param3);
+      $bpe->prtGoto($param3);
+      return;
+    };
+
+    if ( scalar(@dellst) > 0 && $param2 ne "") {
+        print "GOTO PARAM 2 $param2\n";
+	logJump($bpe, $param2);
+      $bpe->prtGoto($param2);
+    }
+  }
+}

@@ -1,0 +1,135 @@
+package INIT_BRD;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  INIT_BRD
+#
+# Purpose :  Initialization broadcast PRE and CLK files
+#
+# Programs:
+#
+# Author  :  A. Villiger / P. Stebler
+# Created :  06-Apr-2020
+#
+# Changes :  08-Apr-2020 AV/ST: Copied from l_code_fin to l_code_mgex.
+#                            Change from V_O to V_A for $brd.
+#                            Append underscore if V_? variable has only length 2.
+#            22-Apr-2020 ST: Change 'RB_' to 'BRD_'.
+#                            No more underscore heuristics.
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+use File::Copy;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $ssss, $yyyy, $yyssss,
+      $brd,$useMGEX,
+      $dirPre, $dirClk, $dirRxn,
+      $extPre, $extClk, $extRxn) =
+    $bpe->getKeys('$YD+0', '$+0','$S+0', '$Y+0', '$YSS+0',
+                  'V_A','V_MGEINI',
+                  'DIR_PRE', 'DIR_CLK', 'DIR_RXN',
+                  'EXT_PRE', 'EXT_CLK', 'EXT_RXN');
+  my $yy = substr($yyyy,2,2);
+
+  unless( $useMGEX eq "YES" ) {
+
+#   Define Files
+#   ------------
+    # Destination file
+    my $targetPre = "${dirPre}${brd}_${yyssss}.${extPre}";
+    my $targetClk = "${dirClk}${brd}_${yyssss}.${extClk}";
+    my $targetNav = "${dirRxn}CODE${ssss}.${extRxn}";
+    # Savedisk
+    my $brdPreSavDisk = "$PATH_SAV/$CAMP_SAVRAP/ORB/BRD_${yyddd}.PRE";
+    my $brdClkSavDisk = "$PATH_SAV/$CAMP_SAVRAP/ORB/BRD_${yyddd}.CLK";
+    # Merged Navigation files "CODE"
+    my $brdNavRinex2  = "${CDIR_ORX}/RINEX2/${yyyy}/${ddd}/CODE${ssss}.${yy}N";
+    my @brdNavRinex3 = glob "${CDIR_ORX}/RINEX3/${yyyy}/${ddd}/CODE00MRG_3_${yyyy}${ddd}0000_01D_???_MN.RNX*";
+    my $brdNavRinex3  = $brdNavRinex3[0];
+
+#   Copy Files
+#   ----------
+    my $copPre = putFile($brdPreSavDisk,$targetPre);
+    my $copClk = putFile($brdClkSavDisk,$targetClk);
+    my $copNav = 0;
+    if( $copPre ==1 && $copClk == 1){
+      print "Broadcast PRE and CLK files copied from IGS Rapid Savedisk\n";
+}else{
+  # Try RINEX3 navigation first
+  $copNav = putFile($brdNavRinex3, $targetNav);
+  if ($copNav == 1) {
+    print "took navigation file $brdNavRinex3 -> $targetNav\n";
+  }
+
+  # Fallback to RINEX2 navigation
+  if ($copNav == 0) {
+    $copNav = putFile($brdNavRinex2, $targetNav);
+    if ($copNav == 1) {
+      print "took navigation file $brdNavRinex2 -> $targetNav\n";
+    }
+  }
+
+  if ($copNav == 0) {
+    print "**** No Navigation files found\n";
+    die;
+  }
+}
+
+
+#   Convert Navigation Files to PRE and CLK
+#   ---------------------------------------
+    if($copNav==1){
+      print "Convert BRD to PRE and CLK\n";
+      # Run RXN2PRE
+      # -------------
+      my $PGMNAM = "RXN2PRE";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      # Run SATCLK2
+      # -----------
+      $PGMNAM = "SATCLK2";
+      $bpe->RUN_PGMS($PGMNAM);
+    }
+  }else{
+    prtMess($bpe,"BROADCAST ORBITS AND CLOCKS NOT COPIED")
+  }
+}
+
+sub putFile{
+  my $file = shift;
+  my $loc  = shift;
+  $file =~ s/.(gz|Z)$//;
+  $loc  =~ s/.(gz|Z)$//;
+
+  my $ret = 0;
+  print "FROM: $file TO: $loc\n";
+  if( -e $file){
+    copyfile($file,$loc);
+    $ret = 1
+  }elsif( -e "${file}.gz"){
+    my $basename = basename(${loc});
+    copyfile("${file}.gz","${loc}.gz");
+    system("gzip -df ${loc}.gz");
+    $ret = 1;
+  }elsif( -e "${file}.Z"){
+    my $basename = basename(${loc});
+    copyfile("${file}.Z","${loc}.Z");
+    system("gzip -df ${loc}.Z");
+    $ret = 1;
+  }
+  return $ret;
+}
+

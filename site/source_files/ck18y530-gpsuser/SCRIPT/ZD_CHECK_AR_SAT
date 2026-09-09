@@ -1,0 +1,780 @@
+package CHECK_AR_SAT;
+@ISA = ("RUNBPE");
+
+#===========================================================
+#
+# Name    : CHECK_AR_SAT
+#
+# Purpose : Check whether ambiguity resolution failed for a
+#           satellite or whether degraded satellites require
+#           SATMRK.
+#
+# Author  : C. Kobel
+# Created :
+#
+# Changes : 12-Aug-2026 CK: Check PHACOR_LOG for degraded
+#                           satellites with insufficient
+#                           observations
+#
+#           13-Aug-2026 CK: If multiple satellites are
+#                           DEGRADED, additionally select
+#                           the satellites with the largest
+#                           MEDIAN and MAX values
+#
+#           13-Aug-2026 CK: Archive PHACOR_LOG as ITERx
+#                           before SATMRK processing
+#
+#           13-Aug-2026 CK: Maximum of 3 PHACOR iterations.
+#                           After ITER3, further required
+#                           exclusions result only in a
+#                           warning. No SATMRK and no jump
+#                           back are performed.
+#
+#===========================================================
+
+use strict;
+use warnings;
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+
+
+sub run {
+
+    my $bpe = shift;
+
+    # =========================================================
+    # Get parameters
+    # =========================================================
+
+    my (
+        $dirOut,
+        $param2,
+        $yyddd,
+        $ssss,
+	$yyssss
+    ) = $bpe->getKeys(
+        'DIR_OUT',
+        'PARAM2',
+        '$YD+0',
+        '$S+0',
+	'$YSS+0'
+    );
+
+    my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+
+    # Maximum number of PHACOR/SATMRK iterations
+    my $MAX_ITERATIONS = 3;
+
+
+    # =========================================================
+    # Ensure MSC directory exists
+    # =========================================================
+
+    unless (-d $mscDir) {
+
+        mkdir $mscDir
+            or die "Cannot create directory $mscDir: $!";
+    }
+
+
+    # =========================================================
+    # Open PROCESSING log
+    # =========================================================
+
+    my $logfile = "$mscDir/PROCESSING_${yyddd}";
+
+    open(my $LOG, '>>', $logfile)
+        or die "Cannot open log file $logfile: $!";
+
+    print $LOG "\n=== CHECK_AR_SAT started ===\n";
+
+
+    # =========================================================
+    # Check 1:
+    #
+    # affected_satellite_AR
+    # =========================================================
+
+    my $ar_file = "$mscDir/affected_satellite_AR";
+
+    if (-e $ar_file) {
+
+        open(my $AR, '<', $ar_file)
+            or die "Cannot open $ar_file: $!";
+
+        my $prn;
+
+        while (my $line = <$AR>) {
+
+            if ($line =~ /Affected satellite:\s*(\d+)/i) {
+
+                $prn = $1;
+                last;
+            }
+        }
+
+        close($AR);
+
+
+        if (defined $prn) {
+
+            print $LOG
+                "Problem with ambiguity resolution: "
+                . "affected satellite detected: $prn\n";
+
+
+            # -------------------------------------------------
+            # Delete OUT files
+            # -------------------------------------------------
+
+            my @files = glob("$dirOut/*${ssss}_NLB.OUT");
+
+            foreach my $f (@files) {
+
+                unlink $f
+                    or warn "Cannot delete $f: $!";
+            }
+
+            print $LOG
+                "Deleted "
+                . scalar(@files)
+                . " OUT-files matching *${ssss}_NLB.OUT\n";
+
+
+            # -------------------------------------------------
+            # Run SATMRK
+            # -------------------------------------------------
+
+            $bpe->putKey(
+                "$ENV{U}/PAN/SATMRK.INP",
+                "STADAT",
+                '$YMD_STR+0'
+            );
+
+            $bpe->putKey(
+                "$ENV{U}/PAN/SATMRK.INP",
+                "ENDDAT",
+                '$YMD_STR+0'
+            );
+
+            $bpe->putKey(
+                "$ENV{U}/PAN/SATMRK.INP",
+                "SATNUM",
+                $prn
+            );
+
+            print $LOG
+                "Running SATMRK for satellite $prn\n";
+
+            my $PGMNAM = "SATMRK";
+
+            $bpe->RUN_PGMS($PGMNAM);
+
+            print $LOG
+                "SATMRK completed for satellite $prn\n";
+
+
+            # -------------------------------------------------
+            # Cleanup marker file
+            # -------------------------------------------------
+
+            unlink $ar_file
+                or warn "Cannot delete $ar_file: $!";
+
+            print $LOG
+                "Removed $ar_file\n";
+
+
+            print $LOG
+                "=== CHECK_AR_SAT finished ===\n";
+
+            close($LOG);
+
+
+            print
+                "CHECK_AR_SAT: ambiguity resolution problem detected "
+                . "for satellite $prn. SATMRK executed.\n";
+
+
+            prtGoto($bpe, $param2);
+
+            return;
+        }
+        else {
+
+            print $LOG
+                "No valid PRN found in affected_satellite_AR file.\n";
+        }
+    }
+
+
+    # =========================================================
+    # Check 2:
+    #
+    # PHACOR_LOG
+    #
+    # Find all DEGRADED satellites and store:
+    #
+    #   OBS
+    #   MEDIAN
+    #   MAX
+    #
+    # Rules:
+    #
+    #   1. DEGRADED + OBS < 100
+    #      -> SATMRK
+    #
+    #   2. If more than one satellite is DEGRADED:
+    #
+    #      largest MEDIAN
+    #      -> SATMRK
+    #
+    #      largest MAX
+    #      -> SATMRK
+    #
+    #      The same satellite may be selected twice, but
+    #      will only be processed once.
+    #
+    #   3. Other DEGRADED satellites:
+    #      -> log only
+    #
+    # =========================================================
+
+#    my $phacor_log = "$mscDir/PHACOR_LOG_${yyddd}";
+    my $phacor_log = "$dirOut/PHACOR${yyssss}.OUT";
+    my %degraded_sat;
+
+
+    if (-e $phacor_log) {
+
+        open(my $PHA, '<', $phacor_log)
+            or die "Cannot open $phacor_log: $!";
+
+        my $in_sat_table = 0;
+
+
+        while (my $line = <$PHA>) {
+
+            chomp($line);
+
+
+            # -------------------------------------------------
+            # Start of SAT table
+            # -------------------------------------------------
+
+            if (
+                $line =~
+                /^\s*SAT\s+OBS#\s+FIXED#\s+RAT\s+\[%\]/
+            ) {
+
+                $in_sat_table = 1;
+                next;
+            }
+
+
+            # -------------------------------------------------
+            # End of SAT table
+            # -------------------------------------------------
+
+            if (
+                $line =~
+                /^\s*\*RMS values are given in cycles/
+            ) {
+
+                $in_sat_table = 0;
+                last;
+            }
+
+
+            next unless $in_sat_table;
+
+
+            # -------------------------------------------------
+            # Parse SAT table
+            #
+            # Example:
+            #
+            # 27  69  68  98.551  0.818  0.001  4.177 DEGRADED
+            #
+            # Fields:
+            #
+            # PRN
+            # OBS#
+            # FIXED#
+            # RAT
+            # MEAN
+            # MEDIAN
+            # MAX
+            # DEGRADED
+            # -------------------------------------------------
+
+            if (
+                $line =~ /^\s*
+                            (\d+)          # PRN
+                            \s+
+                            (\d+)          # OBS#
+                            \s+
+                            (\d+)          # FIXED#
+                            \s+
+                            ([\d.]+)       # RAT
+                            \s+
+                            ([\d.]+)       # MEAN
+                            \s+
+                            ([\d.]+)       # MEDIAN
+                            \s+
+                            ([\d.]+)       # MAX
+                            (?:\s+(DEGRADED))?
+                            \s*$/x
+            ) {
+
+                my $prn      = $1;
+                my $obs      = $2;
+                my $median   = $6;
+                my $max      = $7;
+                my $degraded = defined($8);
+
+
+                if ($degraded) {
+
+                    $degraded_sat{$prn} = {
+
+                        obs    => $obs,
+                        median => $median,
+                        max    => $max
+                    };
+                }
+            }
+        }
+
+        close($PHA);
+    }
+    else {
+
+        print $LOG
+            "PHACOR log not found: $phacor_log\n";
+    }
+
+
+    # =========================================================
+    # Determine degraded satellites
+    # =========================================================
+
+    my @degraded_prns = sort {
+        $a <=> $b
+    } keys %degraded_sat;
+
+    my $num_degraded = scalar(@degraded_prns);
+
+    my @problem_prns;
+
+
+    if ($num_degraded > 0) {
+
+        print $LOG
+            "Found $num_degraded DEGRADED satellite(s): "
+            . join(", ", @degraded_prns)
+            . "\n";
+
+
+        # =====================================================
+        # Rule 1:
+        #
+        # DEGRADED + OBS < 100
+        # =====================================================
+
+        foreach my $prn (@degraded_prns) {
+
+            my $obs = $degraded_sat{$prn}{obs};
+
+            if ($obs < 100) {
+
+                print $LOG
+                    "Satellite $prn is DEGRADED and has only "
+                    . "$obs observations (<100) "
+                    . "-> SATMRK required\n";
+
+                push @problem_prns, $prn;
+            }
+        }
+
+
+        # =====================================================
+        # Rules 2 and 3:
+        #
+        # Only if multiple satellites are DEGRADED:
+        #
+        #   largest MEDIAN
+        #   largest MAX
+        # =====================================================
+
+        if ($num_degraded > 1) {
+
+
+            # -------------------------------------------------
+            # Find largest MEDIAN
+            # -------------------------------------------------
+
+            my $max_median_prn = $degraded_prns[0];
+
+            foreach my $prn (@degraded_prns) {
+
+                if (
+                    $degraded_sat{$prn}{median}
+                    >
+                    $degraded_sat{$max_median_prn}{median}
+                ) {
+
+                    $max_median_prn = $prn;
+                }
+            }
+
+
+            print $LOG
+                "DEGRADED satellite with largest MEDIAN: "
+                . "$max_median_prn "
+                . "(MEDIAN="
+                . $degraded_sat{$max_median_prn}{median}
+                . ") -> SATMRK required\n";
+
+            push @problem_prns, $max_median_prn;
+
+
+            # -------------------------------------------------
+            # Find largest MAX
+            # -------------------------------------------------
+
+            my $max_max_prn = $degraded_prns[0];
+
+            foreach my $prn (@degraded_prns) {
+
+                if (
+                    $degraded_sat{$prn}{max}
+                    >
+                    $degraded_sat{$max_max_prn}{max}
+                ) {
+
+                    $max_max_prn = $prn;
+                }
+            }
+
+
+            print $LOG
+                "DEGRADED satellite with largest MAX: "
+                . "$max_max_prn "
+                . "(MAX="
+                . $degraded_sat{$max_max_prn}{max}
+                . ") -> SATMRK required\n";
+
+            push @problem_prns, $max_max_prn;
+        }
+
+
+        # =====================================================
+        # Remove duplicate satellites
+        # =====================================================
+
+        my %seen;
+
+        @problem_prns = grep {
+            !$seen{$_}++
+        } @problem_prns;
+
+
+        # =====================================================
+        # Log satellites which do NOT require SATMRK
+        # =====================================================
+
+        my %selected;
+
+        foreach my $prn (@problem_prns) {
+
+            $selected{$prn} = 1;
+        }
+
+
+        foreach my $prn (@degraded_prns) {
+
+            next if $selected{$prn};
+
+            my $obs    = $degraded_sat{$prn}{obs};
+            my $median = $degraded_sat{$prn}{median};
+            my $max    = $degraded_sat{$prn}{max};
+
+
+            print $LOG
+                "Satellite $prn is DEGRADED but has sufficient "
+                . "$obs observations (>=100), "
+                . "MEDIAN=$median, MAX=$max "
+                . "-> no SATMRK\n";
+        }
+    }
+
+
+    # =========================================================
+    # Process satellites requiring SATMRK
+    # =========================================================
+
+    if (@problem_prns) {
+
+
+        # =====================================================
+        # Determine next iteration number
+        #
+        # Example:
+        #
+        # ITER1 exists
+        # ITER2 exists
+        # ITER3 exists
+        #
+        # -> next iteration = 4
+        # -> no SATMRK
+        # -> no prtGoto
+        # =====================================================
+
+        my $iteration = 1;
+        my $iteration_log;
+
+        while (1) {
+
+            $iteration_log =
+#                "${mscDir}/PHACOR_LOG_${yyddd}_ITER${iteration}";
+		"${dirOut}/PHACOR${yyssss}_ITER${iteration}.OUT";
+            last unless -e $iteration_log;
+
+            $iteration++;
+        }
+
+
+        print $LOG
+            "Next PHACOR iteration: ITER${iteration}\n";
+
+
+        # =====================================================
+        # Maximum number of iterations reached
+        #
+        # ITER1, ITER2 and ITER3 already exist.
+        #
+        # Therefore this would be a fourth attempt.
+        #
+        # IMPORTANT:
+        #
+        #   NO SATMRK
+        #   NO prtGoto()
+        #
+        # Only warning is written.
+        # =====================================================
+
+        if ($iteration > $MAX_ITERATIONS) {
+
+            print $LOG
+                "WARNING: Maximum number of PHACOR iterations "
+                . "($MAX_ITERATIONS) already reached.\n";
+
+            print $LOG
+                "WARNING: Further satellite exclusion would "
+                . "be required for satellite(s): "
+                . join(", ", @problem_prns)
+                . "\n";
+
+            print $LOG
+                "WARNING: NO SATMRK will be executed.\n";
+
+            print $LOG
+                "WARNING: CHECK_AR_SAT will NOT jump back "
+                . "for another iteration.\n";
+
+            print $LOG
+                "=== CHECK_AR_SAT finished with WARNING ===\n";
+
+            close($LOG);
+
+
+            print
+                "CHECK_AR_SAT WARNING: maximum PHACOR iteration "
+                . "$MAX_ITERATIONS reached. "
+                . "Further degraded satellite(s) detected: "
+                . join(", ", @problem_prns)
+                . ". No SATMRK executed and no further iteration "
+                . "started.\n";
+
+            return;
+        }
+
+
+        # =====================================================
+        # Archive PHACOR_LOG
+        #
+        # Example:
+        #
+        # PHACOR_LOG_yyddd
+        #       ->
+        # PHACOR_LOG_yyddd_ITER1
+        #
+        # The rename removes the original PHACOR_LOG_yyddd.
+        # =====================================================
+
+        if (-e $phacor_log) {
+
+            $iteration_log =
+#                "${mscDir}/PHACOR_LOG_${yyddd}_ITER${iteration}";
+		"${dirOut}/PHACOR${yyssss}_ITER${iteration}.OUT";
+
+            if (rename($phacor_log, $iteration_log)) {
+
+                print $LOG
+                    "Archived PHACOR log:\n"
+                    . "  $phacor_log\n"
+                    . "  -> $iteration_log\n";
+            }
+            else {
+
+                print $LOG
+                    "WARNING: Could not archive PHACOR log "
+                    . "$phacor_log to $iteration_log: $!\n";
+            }
+        }
+        else {
+
+            print $LOG
+                "WARNING: PHACOR log $phacor_log does not exist "
+                . "and therefore cannot be archived.\n";
+        }
+
+
+        # =====================================================
+        # Process selected degraded satellites
+        # =====================================================
+
+        foreach my $prn (@problem_prns) {
+
+            my $obs    = $degraded_sat{$prn}{obs};
+            my $median = $degraded_sat{$prn}{median};
+            my $max    = $degraded_sat{$prn}{max};
+
+
+            print $LOG
+                "Processing satellite $prn: "
+                . "DEGRADED, "
+                . "OBS=$obs, "
+                . "MEDIAN=$median, "
+                . "MAX=$max\n";
+
+
+            # -------------------------------------------------
+            # Delete OUT files
+            # -------------------------------------------------
+
+            my @files = glob("$dirOut/*${ssss}_NLB.OUT");
+
+            foreach my $f (@files) {
+
+                unlink $f
+                    or warn "Cannot delete $f: $!";
+            }
+
+
+            print $LOG
+                "Deleted "
+                . scalar(@files)
+                . " OUT-files matching *${ssss}_NLB.OUT\n";
+
+
+            # -------------------------------------------------
+            # Run SATMRK
+            # -------------------------------------------------
+
+            $bpe->putKey(
+                "$ENV{U}/PAN/SATMRK.INP",
+                "STADAT",
+                '$YMD_STR+0'
+            );
+
+            $bpe->putKey(
+                "$ENV{U}/PAN/SATMRK.INP",
+                "ENDDAT",
+                '$YMD_STR+0'
+            );
+
+            $bpe->putKey(
+                "$ENV{U}/PAN/SATMRK.INP",
+                "SATNUM",
+                $prn
+            );
+
+
+            print $LOG
+                "Running SATMRK for satellite $prn\n";
+
+
+            my $PGMNAM = "SATMRK";
+
+            $bpe->RUN_PGMS($PGMNAM);
+
+
+            print $LOG
+                "SATMRK completed for satellite $prn\n";
+        }
+
+
+        # =====================================================
+        # SATMRK summary
+        # =====================================================
+
+        print $LOG
+            "SATMRK executed for "
+            . scalar(@problem_prns)
+            . " satellite(s): "
+            . join(", ", @problem_prns)
+            . "\n";
+
+
+        print $LOG
+            "PHACOR iteration ITER${iteration} completed.\n";
+
+
+        print $LOG
+            "=== CHECK_AR_SAT finished ===\n";
+
+
+        close($LOG);
+
+
+        print
+            "CHECK_AR_SAT: degraded satellite(s) requiring "
+            . "SATMRK detected. "
+            . "SATMRK executed for: "
+            . join(", ", @problem_prns)
+            . "\n";
+
+
+        # =====================================================
+        # Jump back for another PHACOR iteration
+        # =====================================================
+
+        prtGoto($bpe, $param2);
+
+        return;
+    }
+
+
+    # =========================================================
+    # Nothing requiring SATMRK
+    # =========================================================
+
+    print $LOG
+        "Ambiguity resolution fine for all satellites.\n"
+        . "No satellite requires SATMRK.\n";
+
+
+    print $LOG
+        "=== CHECK_AR_SAT finished ===\n";
+
+
+    close($LOG);
+
+
+    print
+        "CHECK_AR_SAT done. Log appended to $logfile\n";
+}

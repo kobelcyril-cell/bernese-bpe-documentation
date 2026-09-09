@@ -1,0 +1,76 @@
+package FIX_CHK;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  FIX_CHK
+#
+# Purpose :  Execute HELMR1 and perform datum definition if enabled by BPE-Variable
+#
+# Author  :  M. Meindl, S. Schaer
+# Created :  
+#
+# Changes :  29-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyddd,
+      $param2,
+      $sol,
+      $checkdate,
+      $dirOut,
+      $extOut,
+      $dirFix,
+      $extFix
+  ) = $bpe->getKeys(
+      '$YD+0',
+      'PARAM2',
+      'V_FIN',
+      'V_VDAT',
+      'DIR_OUT',
+      'EXT_OUT',
+      'DIR_FIX',
+      'EXT_FIX'
+  );
+
+
+  # ---------- Delete BAD FIX file in first run ------------
+  my $fixFil = "${dirFix}BAD${yyddd}.${extFix}";
+
+  unlink($fixFil) if $param2 ne "";
+
+  # ---------- Run HELMR1 ------------
+  if ($param2 ne "") {
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP", "LISTFIL", 'BAD$YD+0');
+  }
+
+  $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP", "EXT_OUT", "LST");
+
+  my $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Check whether datum definition accepted ------------
+  my $outFil = $bpe->getKey("$ENV{U}/INP/HELMR1.INP", "SYSOUT");
+
+  if (-s $fixFil && $param2 ne "") {
+
+    prtMess($bpe, "Inconsistent fiducial station(s) detected");
+
+    if ($checkdate eq "NO") {
+      prtMess($bpe, "No datum verification performed");
+    }
+    else {
+      prtGoto($bpe, $param2);
+    }
+
+  }
+}

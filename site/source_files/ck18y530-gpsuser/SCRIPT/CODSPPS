@@ -1,0 +1,35 @@
+package CODSPPS;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      CODSPP
+#
+# Purpose:   Call CODSPP for LEO POD
+#
+# Programs:  CODSPP
+#
+# Authors:   D. Arnold
+#
+# Created:   29-Aug-2016
+#
+# Changes:
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+sub run {
+    my $bpe = shift;
+
+# Get variables
+# -------------
+    my ( $yyssss, $V_A, $V_SPEC) = $bpe->getKeys('$YSS+0','V_A','V_SPEC');
+
+    if ($V_SPEC eq "Y") {
+        $bpe->putKey("$ENV{U}/PAN/CODSPP.INP","LEOSTD","${V_A}S${yyssss}");
+    }
+
+# Run program
+# -----------
+    my $PGMNAM = "CODSPP";
+    $bpe->RUN_PGMS($PGMNAM);
+}

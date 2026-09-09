@@ -1,0 +1,89 @@
+package GPSEST_ADDNEQ2_OSBR_E;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GPSEST_ADDNEQ2_OSBR_E
+#
+# Purpose :  Execute parallel GPSEST and ADDNEQ2 processing
+#
+# Author  :  C. Kobel
+# Created :  02-Jul-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+#
+# ---------- Subroutine: run ------------
+#
+sub run {
+  my $bpe = shift;
+
+  #
+  # ---------- Get variables ------------
+  #
+  my (
+      $param1,
+      $subPid,
+      $trpModel,
+      $usehoi,
+      $V_CBIA
+  ) = $bpe->getKeys(
+      'PARAM1',
+      'SUB_PID',
+      'V_TRPMOD',
+      'V_USEHOI',
+      'V_CBIA'
+  );
+
+  # ---------- Initialize user variable (cluster identifier) ------------
+  setUserVar($bpe, "CCC", $subPid);
+
+  # ---------- Configure station selection ------------
+  replaceSel($bpe, "GPSEST", "CZFILES", $param1);
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "PZFILES", "");
+
+  # ---------- Handle HOI switch ------------
+  if ($usehoi eq "NO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS","");
+    prtMess($bpe,"HOI SETUP: DISABLED by V_USEHOI=NO");
+  }
+
+  # ---------- Configure troposphere model (optional switch) ------------
+  if ($trpModel eq "GMF") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "VMF_FILES", ' ');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "TROPOS",    "DRY_GMF");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "MAPPNG",    "WET_GMF");
+    prtMess($bpe, "Troposphere model SETUP: $trpModel");
+  }
+
+  # ---------- Log station list content ------------
+  open (BPE, $param1);
+  print "\n\n", "-" x 75, "\n";
+  print "Contents of BPE file $param1\n";
+  print "-" x 75, "\n";
+  print <BPE>;
+  print "-" x 75, "\n";
+  close BPE;
+
+  # ---------- Run GPSEST ------------
+  my $PGMNAM = "GPSEST";
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT", "${V_CBIA}\$S+0\$(CCC)_");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","NEQUARS", "${V_CBIA}\$S+0\$(CCC)_");
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Run ADDNEQ2 (normal equation manipulation, no inversion) ------------
+  # ---------- The resulting NEQs don't contain OSBs for GLONASS ------------
+  $PGMNAM = "ADDNEQ2";
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","INPFILE", "${V_CBIA}\$S+0\$(CCC)_");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT", "${V_CBIA}\$S+0\$(CCC)");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT", "${V_CBIA}\$S+0\$(CCC)");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R", 'PRE-ELIMINATE');
+  if($subPid=~/001/){
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREF", "YES");
+  }
+  $bpe->RUN_PGMS($PGMNAM);
+}

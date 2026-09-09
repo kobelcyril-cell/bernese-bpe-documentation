@@ -1,0 +1,68 @@
+package CODXTR;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CODXTR
+#
+# Purpose :  Execute CODXTR
+#
+# Remark  :  reject binary observation files
+#            if the correspsonding option in CODXTR is enabled
+#
+# PARAMs  :  Note - these are optional parameters:
+#            PARAM1: NEXTJOB to check whether the last observation file
+#                    has been deleted
+#            PARAM2: PID of the protocol script of the BPE
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+#            14-Jun-2013 RD: Call for "deleteFiles" corrected
+#            20-Dec-2013 RD/SS: Improve deletion features
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtGoto prtMess appFile deleteFiles);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ssss,
+      $param1, $param2,
+      $dirCzh, $extCzh) = 
+  $bpe->getKeys(
+      '$S+0',
+      'PARAM1','PARAM2',
+      'DIR_CZH','EXT_CZH');
+
+# Run program
+# -----------
+  my $PGMNAM = "CODXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Delete rejected binary observation files
+# ----------------------------------------
+  if ( $bpe->getKey("$ENV{U}/INP/CODXTR.INP","RMS_OPT") eq "1" ) {
+    my $delFil = $bpe->getKey("$ENV{U}/INP/CODXTR.INP","FILBAD");
+    appFile ("Files excluded from processing:",0,
+             "$delFil","$$bpe{SYSOUT}",1) if (-e $delFil);
+    deleteFiles($bpe,$delFil,1);
+  }
+
+# If no files available, jump to the end
+# --------------------------------------
+  if ( $param1 eq "NEXTJOB" ) {
+    my @list = glob ("${dirCzh}????${ssss}.${extCzh}");
+    unless ( @list ) {
+      print "No code observation files left\n";
+      $bpe->prtMess("No code observation files left");
+      $bpe->prtGoto($param2);
+    }
+  }
+
+}

@@ -1,0 +1,10 @@
+
+MODUS 1  "INTERACTIVE"
+
+INP_FILE_NAME 1  "ORBGEN.INP"
+
+MAIN_PALETTE 1  "255 255 127 85 255 255"
+
+SPECIAL_PATH 2
+  "ORBGEN" "/gpfs/homefs/aiub/l_hpfaiub/AIRDRAG/EXE_G95"
+  "_unused_" "_unused_"

@@ -1,0 +1,105 @@
+# ============================================================================
+# ZDGNSS_PREPARATION.PCF
+# ============================================================================
+#
+# Description:  Perform inital step for ZD-processing
+#
+# Comments   :  Copy observation, necessary files, a priori information
+# Create initial orbit, prepare observation files
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  C. Kobel
+# Created    :  30-Mar-2026
+#
+# Changes    :
+#
+# ============================================================================
+#
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+# Check whether campaign is ready
+# -------------------------------
+001  ZD_CHECK_CAMP           NO_OPT      CPU=ANY
+#
+# Copy observations and necessary files
+# -------------------------------------
+100  ZD_COPY_OBS             NO_OPT      CPU=ANY
+101  ZD_COPY_REF             ZD_0        CPU=ANY
+102  ZD_INIT_BRD             ZD_NAV      CPU=ANY
+103  ZD_INIT_HOI             NO_OPT      CPU=ANY
+104  ZD_INIT_VMF             NO_OPT      CPU=ANY
+105  ZD_CHECK_GRD_FILES      NO_OPT      CPU=ANY; WAIT=101
+#
+# Select station network
+# ----------------------
+110  ZD_STATION_SELECTION    NO_OPT      CPU=HUGE; WAIT=100 101 102 103 104 105
+#
+# Check for station problems
+# --------------------------
+120  ZD_CHECK_OBSENTRIES     NO_OPT      CPU=ANY; WAIT=110
+121  ZD_CHECK_VAPL_ENTRIES   NO_OPT      CPU=ANY; WAIT=120
+122  ZD_NUM_OBSFIL           NO_OPT      CPU=ANY; WAIT=121
+#
+# Prepare a priori coordinates and orbit
+# --------------------------------------
+130  ZD_COOVEL               ZD_0        CPU=ANY; WAIT=122
+131  ZD_ORBGEN               ZD_0        CPU=ANY; WAIT=122
+#
+# Preparing the observation files
+# -------------------------------
+140  ZD_RNXSMTAP             ZD_RNX      CPU=ANY; WAIT=122
+141  ZD_RNXSMT_P             ZD_RNX      CPU=ANY; WAIT=140; PARALLEL=140
+142  ZD_RXOBV3GP             ZD_RNX      CPU=ANY; WAIT=141
+143  ZD_RXOBV3_P             ZD_RNX      CPU=ANY; WAIT=142; PARALLEL=142
+#
+# Check for satellite problems
+# --------------------------
+150  ZD_CHECK_SAT_GAPS       ZD_RNX      CPU=ANY; WAIT=143
+151  ZD_CHECK_SAT_RMS        ZD_RNX      CPU=ANY; WAIT=150
+152  ZD_MANMRK               ZD_RNX      CPU=ANY; WAIT=151
+#
+# Delete stations according to predefined criteria
+# ------------------------------------------------
+160  ZD_MKCLUS               ZD_RNX      CPU=ANY; WAIT=152
+#
+# Checks (nothing yet)
+# --------------------
+#
+# Create status flag
+# ------------------
+999  ZD_STATUS               NO_OPT      CPU=ANY; WAIT=160; PARAM1=PREPARATION; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_BRD    = *;                DESCRIPTION=A priori information (brd, and bull. A)
+V_PSDINF = IG?20;            DESCRIPTION=PSD corrections
+V_CRDINF = IG?20;            DESCRIPTION=CRD/VEL/FIX master file name
+V_BLQINF = FES20*;           DESCRIPTION=BLQ file name, CMC corrections
+V_SATCRX = *;                DESCRIPTION=Satellite problem file for data import
+V_SATINF = *;                DESCRIPTION=Satellite information
+V_MAC    = *;                DESCRIPTION=Satellite Macromodel
+V_PCV    = I??;              DESCRIPTION=GNSS PCV model (absolute)
+V_SUBMOD = *;                DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;                DESCRIPTION=Nutation model
+V_SETID  = *;                DESCRIPTION=Solid Earth Tides
+V_OTID   = *;                DESCRIPTION=Ocean Tides
+V_PEPH   = *;                DESCRIPTION=Planetary ephemeris
+V_AREF   = *;                DESCRIPTION=Albedo reflectivity
+V_AEMI   = *;                DESCRIPTION=Albedo emissivity
+V_FLUX   = *;                DESCRIPTION=Flux index
+V_POTCOE = COSTG_FSM_????;   DESCRIPTION=Gravity field model
+V_NCLU   = *;                DESCRIPTION=Number of clusters to be used                  CHECK_TYPE=integer
+V_OBSSEL = *;                DESCRIPTION=Observation selection file
+V_STAINF = *;                DESCRIPTION=Station information
+V_PCVINF = *;                DESCRIPTION=PCV information
+V_BIAINF = *;                DESCRIPTION=Bias-SINEX information file
+V_MEANPL = *;                DESCRIPTION=Mean pole model
+V_USEHOI = *;                DESCRIPTION=Use HOI-file;                                  CARDS=YES NO
+V_MINC   = *;                DESCRIPTION=Minimum number of stations;                    CHECK_MIN=50
+V_NSTA   = *;                DESCRIPTION=Number of stations used in the processing
+# Configuration
+V_PCFCONFIG = MODEL SETUP_ZDGNSS;    DESCRIPTION=Configuration files
+

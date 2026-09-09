@@ -1,0 +1,57 @@
+package WAIT;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  WAIT
+#
+# Purpose :  Wait if WAIT.FLG found
+#
+# PARAMs  :  PARAM1 - Optional waiting time (default: 60 sec)
+#
+# Author  :  S. Schaer
+# Created :  09-Nov-2006
+#
+# Changes :  05-Aug-2009 DT/RD: Add WAIT_${pid}.FLG
+#
+# ---------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+  my ($camp_pth, $campaign,
+      $ssss, $pcfFil, $taskId, $param1,
+      $pid) =
+    $bpe->getKeys('CAMP_PTH', 'CAMPAIGN',
+                  '$S+0', 'PCFFIL', 'TASKID', 'PARAM1',
+                  'PID');
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $genFlg = "$camp_pth$campaign/MSC/WAIT.FLG";
+  my $sesFlg = "$camp_pth$campaign/MSC/WAIT_${ssss}.FLG";
+  my $pcfFlg = "$camp_pth$campaign/MSC/WAIT_${pcfFil}.FLG";
+  my $tskFlg = "$camp_pth$campaign/MSC/WAIT_${taskId}.FLG";
+  my $pidFlg = "$camp_pth$campaign/MSC/WAIT_${pid}.FLG";
+
+# Set default waiting time
+# ------------------------
+  $param1 = 60 if $param1 eq "";
+
+# Perform waiting loop
+# --------------------
+  my $wait = 0;
+  my $cont = 0;
+  while ($cont == 0) {
+    if (-e $genFlg || -e $sesFlg || -e $pcfFlg || -e $tskFlg || -e $pidFlg) {
+      prtMess($bpe,"WAITING");
+      sleep($param1);
+      $wait++ }
+    else {
+      prtMess($bpe,"CONTINUING") unless $wait == 0;
+      $cont++ } }
+
+}
+

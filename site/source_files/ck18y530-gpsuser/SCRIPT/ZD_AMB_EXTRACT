@@ -1,0 +1,203 @@
+package AMB_EXTRACT;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  AMB_EXTRACT
+#
+# Purpose :  Extract ambiguity resolution summary entries
+#
+# Author  :  C. Kobel
+# Created :  24-Nov-2025
+#
+# Changes :  30-Apr-2026 CK: Reformatted, improved parsing logic
+#===========================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Debug mode ------------
+  my $DEBUG = 0;     # 1 = Debug-statments, 0 = normal
+
+  sub dbg {
+    my ($msg) = @_;
+    print "[DEBUG] $msg\n" if $DEBUG;
+  }
+
+  dbg("========== START AMB_EXTRACT ==========");
+
+  # ---------- Get variables ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyyy,
+      $yyssss
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$Y+0',
+      '$YSS+0'
+  );
+
+  dbg("Variables read:");
+  dbg("  DIR_OUT = $dirOut");
+  dbg("  YYDDD   = $yyddd");
+  dbg("  SSSS    = $ssss");
+  dbg("  YYYY    = $yyyy");
+  dbg("  YYSSSS  = $yyssss");
+
+  # ---------- MSC directory ------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  dbg("MSC directory = $mscDir");
+
+  die "MSC directory does not exist: $mscDir" unless -d $mscDir;
+
+  my $outfile = "$mscDir/PROCESSING_$yyddd";
+  dbg("Output file = $outfile");
+
+  # ---------- Input file ------------
+  my $infile = "${dirOut}/IAR${yyssss}.PRC";
+  dbg("Input file = $infile");
+
+  die "Cannot find input file $infile" unless -f $infile;
+
+  print "Extract from: $infile\n";
+  print "Write into:   $outfile\n";
+
+  # ---------- Read file ------------
+  open(my $fh_in, "<", $infile) or die "Cannot open $infile: $!";
+
+  my @rows;
+  my $line_number = 0;
+
+  dbg("Start reading input file...");
+
+  while (my $line = <$fh_in>) {
+
+    $line_number++;
+
+    chomp(my $dbgline = $line);
+    dbg("------------------------------------------------");
+    dbg("Line $line_number:");
+    dbg($dbgline);
+
+    unless ($line =~ /^\s*Tot:/) {
+      dbg(" -> Not a 'Tot:' line, skipping.");
+      next;
+    }
+
+    dbg(" -> Found Tot line.");
+
+    chomp $line;
+
+    my $comment = '-';
+    if ($line =~ /#(.*)$/) {
+      $comment = $1;
+      dbg("Comment found: '$comment'");
+      $line =~ s/#.*$//;
+    } else {
+      dbg("No comment found.");
+    }
+
+    my @fields = split(/\s+/, $line);
+
+    dbg("Number of fields = " . scalar(@fields));
+    dbg("Fields:");
+    for (my $i = 0; $i < @fields; $i++) {
+      dbg(sprintf("  [%2d] = '%s'", $i, $fields[$i]));
+    }
+
+    # ---------- safer defaults ------------
+    my ($total, $percent, $sys, $amb) = ('-', '-', '-', '-');
+
+    if (@fields >= 4) {
+      $total   = $fields[2];
+      $percent = $fields[7];
+    }
+
+    dbg("Extracted values:");
+    dbg("  Total   = $total");
+    dbg("  Percent = $percent");
+
+    # ---------- SYS extraction (G/E groups) ------------
+    my @sys_fields = grep { /^[GE]+$/ } @fields;
+
+    dbg("SYS candidates:");
+    if (@sys_fields) {
+      foreach my $s (@sys_fields) {
+        dbg("  -> $s");
+      }
+    } else {
+      dbg("  none");
+    }
+
+    $sys = @sys_fields ? join(" ", @sys_fields) : '-';
+
+    dbg("Final SYS = $sys");
+
+    # ---------- AMB/comment fallback ------------
+    $amb = $comment;
+
+    dbg("Final AMB = $amb");
+
+    push @rows, [$total, $percent, $sys, $amb];
+
+    dbg("Row stored:");
+    dbg("  [$total] [$percent] [$sys] [$amb]");
+  }
+
+  close($fh_in);
+
+  dbg("Finished reading file.");
+  dbg("Total extracted rows = " . scalar(@rows));
+
+  # ---------- Write output ------------
+  dbg("Opening output file for append.");
+
+  open(my $fh, ">>", $outfile)
+      or die "Cannot write $outfile: $!";
+
+  print $fh "==== Ambiguity resolution statistics ====\n";
+
+  if (@rows) {
+
+    dbg("Writing table header.");
+
+    print $fh sprintf("%-7s %-7s %-10s %-20s\n",
+                      "Total", "%", "SYS", "AMB");
+
+    print $fh "-------------------------------------------------------------\n";
+
+    foreach my $r (@rows) {
+
+      dbg(sprintf(
+        "Writing row: Total=%s  Percent=%s  SYS=%s  AMB=%s",
+        $r->[0], $r->[1], $r->[2], $r->[3]
+      ));
+
+      print $fh sprintf("%-7s %-7s %-10s %-20s\n",
+                        $r->[0], $r->[1], $r->[2], $r->[3]);
+    }
+
+  } else {
+
+    dbg("No Tot lines found.");
+
+    print $fh "No 'Tot:' lines found!\n";
+  }
+
+  print $fh "=============================================================\n";
+
+  close($fh);
+
+  dbg("Output file closed.");
+  dbg("========== END AMB_EXTRACT ==========");
+
+  print "AMB_EXTRACT done!\n";
+}

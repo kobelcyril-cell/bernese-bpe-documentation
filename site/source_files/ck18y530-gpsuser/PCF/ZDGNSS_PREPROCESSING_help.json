@@ -1,0 +1,67 @@
+{
+    "100": {
+        "notes": "Old output and intermediate files are removed before processing.\nParallelization is initialized based on file or cluster configuration.\nCZH input files define the processing units.\nExecution stops if no valid CZH files are found.",
+        "input": "",
+        "output": ""
+    },
+    "101": {
+        "notes": "",
+        "input": "\"V_A\"$YSS+0.STD/ERP/CLK/CRD\nAPR$YSS+0.OSB",
+        "output": "SPP$S+0$????.CLK\nSPP$S+0$????.OUT"
+    },
+    "102": {
+        "notes": "",
+        "input": "SPP$S+0???.OUT\n\"V_A\"_$YSS+0.CLK",
+        "output": "\"V_A\"_$YSS+0.CLK"
+    },
+    "103": {
+        "notes": "DEL_LOBS scans CODXTR output for stations with >50% bad observations.\nAll corresponding observation files are deleted from the OBS directory.\nResults are appended to the processing log file.\nEach station is processed only once.\nRequires DIR_OUT as input parameter.",
+        "input": "CODXTR.$Y+0_$S+0",
+        "output": "Entry in LOG-file"
+    },
+    "104": {
+        "notes": "",
+        "input": "SPP$S+00??\nTIMLAB.FIX",
+        "output": "\"V_W\"_$YSS+0.CLK\n\"V_W\"_$YSS+0.OUT"
+    },
+    "110": {
+        "notes": "TIMESTAP prepares clustered processing using MKCLUS.\nObservation files are grouped into clusters for parallel GPSEST runs.",
+        "input": "????$S+0.PZH\n\"V_I\" to set BPE-Variable\n\"V_A\"_$YSS+0\n",
+        "output": "\"V_I\"$S+0.CLB"
+    },
+    "111": {
+        "notes": "HOI ionosphere setup is disabled if no valid input file is found (HOI$YD+0.ION).\n\n",
+        "input": "Phase & code Bernese observation files\n\"V_A\"$YSS+0.CRD/STD/ERP/CLK\nAPR$YSS+0.OSB",
+        "output": "\"V_I\"$S+0$????.OUT\n\"V_I\"$S+0$????.RES"
+    },
+    "112": {
+        "notes": "RCLK_CHK performs an iterative quality check using RESRMS and RESCHK.\nIt identifies stations with problematic residuals and generates a deletion list.\nStations listed in the DEL file are removed from further processing.\nIterative reruns up to a defined maximum number of iterations.",
+        "input": "RESRMS:\n$I$S+0???.RES\nRESCHK:\n\"V_I\"$YSS+0.SUM",
+        "output": "RESRMS:\n\"V_I\"_$YSS+0.SUM\n\"V_I\"_$YSS+0.LST\n\"V_I\"0$YSS+0.SOS\nRESCHK:\nRESCHK.${yy}_${ssss}\n"
+    },
+    "120": {
+        "notes": "FILESTAP performs station-wise zero-difference screening of GNSS observation data.\nIt collects PZH/CZH observation files and prepares station lists for parallel processing.",
+        "input": "",
+        "output": ""
+    },
+    "121": {
+        "notes": "FILEST_P performs station-wise zero-difference data screening.\nIt runs GPSEST to generate residual files, applies RMS screening with RESRMS,\ndetects bad stations using RESCHK, and marks outliers with SATMRK.\n\nHOI ionosphere setup is disabled if no valid input file is found (HOI$YD+0.ION).\nTroposphere model can be switched to GMF via V_TRPMOD. (Default: VMF)",
+        "input": "????$S+0.CZH\n\"V_A\"_$YSS+0.CRD/STD/ERP\nAPR$YSS+0.OSB",
+        "output": "FIL$+0$????.OUT\nFIL$+0$????.CLK (Clocks & RINEX)"
+    },
+    "122": {
+        "notes": "Processes GNSS clock solution files and performs epoch-wise quality control of station-based satellite clock estimates on a sampling grid (defined by V_SAMPL).\nInput CLK files are merged into a sorted clock summary. Data are parsed into a hierarchical structure indexed by satellite, epoch, and station.\nFor each satellite epoch, the script:\nenforces a minimum redundancy of 3 station observations\nevaluates intra-epoch consistency via value range checks\napplies simple clustering to separate coherent observation groups from outliers\nflags non-dominant clusters and insufficiently supported epochs for removal.\nDeletion flags are accumulated per station/satellite/epoch and written to summary and filtering output files. A consolidated satellite statistics file is generated.\nFinally, station-specific edit (EDT) files are produced for downstream observation screening, and parallel processing is launched for all stations with valid residual data.\nFIL$S+0???.OUT/CLK-files are deleted at the end.",
+        "input": "FIL$+0$????.CLK",
+        "output": "CLKSCREEN$????$S+0.EDT"
+    },
+    "123": {
+        "notes": "",
+        "input": "????$S+0.CZH\nCLKSCREEN$????$S+0",
+        "output": ""
+    },
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

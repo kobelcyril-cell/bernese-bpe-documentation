@@ -1,0 +1,143 @@
+package STATUS;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  STATUS
+#
+# Purpose :  Create or wait for a status file
+#
+# Author  :  C. Kobel
+# Created :  02-Jul-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Spec;
+use Time::HiRes qw(sleep);
+
+sub run {
+    my $bpe = shift;
+
+    # ---------- Get variables ------------
+    my ($process, $mode, $dirOut, $param3) =
+        $bpe->getKeys('PARAM1','PARAM2','DIR_OUT','PARAM3');
+
+    die "PARAM1 (process) not set!\n" unless defined($process) && $process ne '';
+    die "PARAM2 (mode) not set!\n"    unless defined($mode)    && $mode ne '';
+    die "DIR_OUT not set!\n"          unless defined($dirOut)  && $dirOut ne '';
+
+    $mode = uc($mode);
+
+    # ---------- Define BPE directory ------------
+    my $bpeDir = File::Spec->catdir($dirOut, '..', 'BPE');
+
+    # ---------- CREATE mode ------------
+    if ($mode eq 'CREATE') {
+
+        # Always create only the current day's marker
+        my ($yyssss) = $bpe->getKeys('$YSS+0');
+        die "Could not determine current epoch\n"
+            unless defined($yyssss) && $yyssss ne '';
+
+        my $marker = File::Spec->catfile(
+            $bpeDir,
+            "${process}${yyssss}.FINISHED"
+        );
+
+        open(my $fh, '>', $marker)
+            or die "ERROR: Cannot create $marker\n";
+
+        print $fh "FINISHED $process $yyssss\n";
+        close($fh);
+
+        print "Created FINISHED marker: $marker\n";
+        return;
+    }
+
+    # ---------- CHECK mode ------------
+    elsif ($mode eq 'CHECK') {
+
+        my @markers;
+
+        if (defined($param3) && $param3 == 1) {
+
+            # Check previous, current and next day
+            foreach my $offset (-1, 0, 1) {
+
+                my $yy_key = ($offset >= 0)
+                    ? '$YSS+' . $offset
+                    : '$YSS' . $offset;
+
+                my ($yyssss) = $bpe->getKeys($yy_key);
+
+                die "Could not determine epoch from $yy_key\n"
+                    unless defined($yyssss) && $yyssss ne '';
+
+                push @markers,
+                    File::Spec->catfile(
+                        $bpeDir,
+                        "${process}${yyssss}.FINISHED"
+                    );
+            }
+        }
+        else {
+
+            # Original behaviour: only current day
+            my ($yyssss) = $bpe->getKeys('$YSS+0');
+            die "Could not determine current epoch\n"
+                unless defined($yyssss) && $yyssss ne '';
+
+            push @markers,
+                File::Spec->catfile(
+                    $bpeDir,
+                    "${process}${yyssss}.FINISHED"
+                );
+        }
+
+	print "Searching for the following FINISHED marker(s):\n";
+        foreach my $marker (@markers) {
+            print "  $marker\n";
+        }
+	
+        my $max_checks = 1440;
+        my $interval   = 300;   # seconds
+
+        for (my $i = 1; $i <= $max_checks; $i++) {
+
+            my $all_found = 1;
+
+            foreach my $marker (@markers) {
+
+                unless (-e $marker) {
+                    $all_found = 0;
+                    print "Missing FINISHED marker: $marker\n";
+                }
+            }
+
+            if ($all_found) {
+                print "All required FINISHED marker(s) found after $i check(s).\n";
+                return;
+            }
+
+            print "Waiting ${interval}s... ($i/$max_checks)\n";
+            sleep($interval);
+        }
+
+        print "ERROR: Not all required FINISHED marker(s) found after $max_checks minutes.\n";
+        print "Expected markers:\n";
+        print "  $_\n" foreach @markers;
+
+        die "FINISHED marker timeout\n";
+    }
+
+    # ---------- Invalid mode ------------
+    else {
+        die "ERROR: Invalid mode '$mode' (use CREATE or CHECK)\n";
+    }
+}

@@ -1,0 +1,96 @@
+package IAR_STA;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  IAR_STA
+#
+# Purpose :  Generate statistics of AR based on IAR_PRC script
+#
+# Programs:  GPSXTR
+#
+# Author  :  E. Calero
+# Created :  02-Dec-2021
+#
+# Changes : 
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$yyssss,$ssss,$yyyy,$iRun,
+      $dirCrd,$extCrd,
+      $dirSum,$extSum,
+      $dirOut,$extOut,
+      $dirOsb,$extOsb,
+      $dirBia,$extBia,
+      $dirSum,$extSum,
+      $dirPzh,$extPzh)
+      = $bpe->getKeys(
+      '$YD+0','$YSS+0','$S+0','$Y+0','STARTCOUNT',
+      'DIR_CRD','EXT_CRD',
+      'DIR_SUM','EXT_SUM',
+      'DIR_OUT','EXT_OUT',
+      'DIR_OSB','EXT_OSB',
+      'DIR_BIA','EXT_BIA',
+      'DIR_SUM','EXT_SUM',
+      'DIR_PZH','EXT_PZH');
+
+  my $iarRun = $iRun - 1;
+
+  my $iarPrc = "${dirSum}IAR${yyssss}.PRC";
+  unlink($iarPrc) if $iarRun==0;
+
+  my $PGMNAM = "GPSXTR";
+
+  my $fixNam = "FIX${yyssss}";
+  my $ambNam = "AMB${yyssss}";
+  my $fixFil = "${dirSum}${fixNam}.${extSum}";
+  my $str    = "";
+  my $rms    = "";
+  my $rmsMax = 0.10;
+  unlink($fixFil);
+
+  if ($iarRun==0) {
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$S+0_WLI');
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$fixNam);
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBOUT",$ambNam);
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","WL");
+    $bpe->RUN_PGMS($PGMNAM);
+    appFile("WIDELANE AMBIGUITY RESOLUTION",0,$fixFil,$iarPrc,0);
+    unlink($fixFil);
+  }
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$fixNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBOUT",$ambNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+  $str = $iarRun==0 ? "NL" : "N${iarRun}";
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID",$str);
+  $bpe->RUN_PGMS($PGMNAM);
+  $str = $iarRun==0 ? "" : " $iarRun";
+  appFile("NARROWLANE AMBIGUITY RESOLUTION$str (COUNTING ALL AMBIGUITIES)",0,$fixFil,$iarPrc,0);
+  unlink($fixFil);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$fixNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBOUT",$ambNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+  $str = $iarRun==0 ? "NLR" : "N${iarRun}R";
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID",$str);
+  $bpe->RUN_PGMS($PGMNAM);
+  $str = $iarRun==0 ? "" : " $iarRun";
+  appFile("NARROWLANE AMBIGUITY RESOLUTION$str (COUNTING ONLY WIDELANE-RESOLVED AMBIGUITIES)",0,$fixFil,$iarPrc,0);
+  unlink($fixFil);
+
+
+}

@@ -1,0 +1,180 @@
+package CMP_CLKDIFF;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CMP_CLKDIFF
+#
+# Purpose :  Compare two CLK files and write difference statistics (incl. STD).
+#
+# PARAMs  :  FILE_CLK1, FILE_CLK2, FILE_OUT
+#
+# Author  :  C. Kobel
+# Created :  17-Oct-2025
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $debug = 0;
+  my $bpe = shift;
+
+  my ($yyddd, $yyssss, $Clkname, $dirClk, $extClk, $sol) =
+    $bpe->getKeys('$YD+0','$YSS+0','V_CLK', 'DIR_CLK', 'EXT_CLK','V_SOL');
+
+  my $clk1 = "$dirClk/${Clkname}${yyssss}.${extClk}";
+  my $clk2 = "$dirClk/F3H_${yyssss}.${extClk}";
+  my $outfile = "$dirClk../MSC/CLKDIFF_${Clkname}_${sol}_${yyddd}";
+
+  print "Comparing CLK files:\n  $clk1\n  $clk2\nOutput: $outfile\n";
+
+  open my $f1, '<', $clk1 or die "Cannot open $clk1: $!";
+  open my $f2, '<', $clk2 or die "Cannot open $clk2: $!";
+
+  my %clk1 = read_clk($f1);
+  my %clk2 = read_clk($f2);
+
+  close $f1;
+  close $f2;
+
+  # --------------------------------------------------------------------------
+  # Compute differences for common epochs
+  # --------------------------------------------------------------------------
+  my %diff;
+  foreach my $sat (keys %clk1) {
+    next unless exists $clk2{$sat};
+    my %e1 = %{$clk1{$sat}};
+    my %e2 = %{$clk2{$sat}};
+    foreach my $toc (keys %e1) {
+      next unless exists $e2{$toc};
+      my $d = $e1{$toc} - $e2{$toc};
+      push @{$diff{$sat}}, [$toc, $d];
+    }
+  }
+
+  # --------------------------------------------------------------------------
+  # Compute satellite-wise stats
+  # --------------------------------------------------------------------------
+  my %stats;
+  foreach my $sat (sort {$a<=>$b} keys %diff) {
+    my @vals = map { $_->[1] } @{$diff{$sat}};
+    my $mean = mean(\@vals);
+    my $rms  = rms(\@vals);
+    my $std  = std(\@vals);
+    $stats{$sat} = [$mean, $rms, $std, scalar(@vals)];
+  }
+
+  # --------------------------------------------------------------------------
+  # Compute system-wise and overall stats
+  # --------------------------------------------------------------------------
+  my %groups = (
+    GPS     => [0,   99],
+    GLONASS => [100, 199],
+    GALILEO => [200, 299],
+  );
+
+  my %sys_stats;
+  foreach my $sys (keys %groups) {
+    my ($min, $max) = @{$groups{$sys}};
+    my (@means, @rmsvals, @stdvals);
+    foreach my $sat (keys %stats) {
+      next unless ($sat >= $min && $sat <= $max);
+      push @means,   $stats{$sat}[0];
+      push @rmsvals, $stats{$sat}[1];
+      push @stdvals, $stats{$sat}[2];
+    }
+    next unless @means;
+    $sys_stats{$sys} = [mean(\@means), mean(\@rmsvals), mean(\@stdvals)];
+  }
+
+  my @all_mean = map { $stats{$_}[0] } keys %stats;
+  my @all_rms  = map { $stats{$_}[1] } keys %stats;
+  my @all_std  = map { $stats{$_}[2] } keys %stats;
+  $sys_stats{'ALL'} = [mean(\@all_mean), mean(\@all_rms), mean(\@all_std)];
+
+  # --------------------------------------------------------------------------
+  # Write output
+  # --------------------------------------------------------------------------
+  open my $out, '>', $outfile or die "Cannot write $outfile: $!";
+
+  printf $out "%-10s %10s %10s %10s %8s\n", "Satellite", "Mean[s]", "RMS[s]", "STD[s]", "N";
+  printf $out "%s\n", "-" x 54;
+
+  foreach my $sat (sort {$a<=>$b} keys %stats) {
+    my ($mean, $rms, $std, $n) = @{$stats{$sat}};
+    printf $out "%-10s %10.6e %10.6e %10.6e %8d\n", $sat, $mean, $rms, $std, $n;
+  }
+
+  print $out "\nSystem averages:\n";
+  printf $out "%-10s %10s %10s %10s\n", "System", "Mean[s]", "RMS[s]", "STD[s]";
+  printf $out "%s\n", "-" x 46;
+
+  foreach my $sys (sort keys %sys_stats) {
+    printf $out "%-10s %10.6e %10.6e %10.6e\n", $sys, $sys_stats{$sys}[0], $sys_stats{$sys}[1], $sys_stats{$sys}[2];
+  }
+
+  # --------------------------------------------------------------------------
+  # Optional debug section: print all differences
+  # --------------------------------------------------------------------------
+  if ($debug) {
+    print $out "\nDifferences per satellite\n";
+    print $out "--------------------------------------------\n";
+    foreach my $sat (sort {$a<=>$b} keys %diff) {
+      print $out "SAT $sat\n";
+      foreach my $entry (sort { $a->[0] <=> $b->[0] } @{$diff{$sat}}) {
+        my ($toc, $val) = @$entry;
+        printf $out "  TOC %12.1f : %12.6e\n", $toc, $val;
+      }
+      print $out "\n";
+    }
+  }
+
+  close $out;
+}
+
+# ============================================================================
+# Helper functions
+# ============================================================================
+
+sub read_clk {
+  my $fh = shift;
+  my %data;
+  while (<$fh>) {
+    next unless /^\s*\d+/;     # skip headers etc.
+    my @f = split;
+    next unless @f >= 5;
+    my ($sat, $week, $toc, $par, $a0) = @f;
+    $a0 =~ s/[Dd]/E/;          # handle Fortran D-notation
+    $sat = int($sat);          # unify 01 == 1
+    $data{$sat}{$toc} = $a0;
+  }
+  return %data;
+}
+
+sub mean {
+  my $a = shift;
+  return 0 unless @$a;
+  my $sum = 0; $sum += $_ for @$a;
+  return $sum / @$a;
+}
+
+sub rms {
+  my $a = shift;
+  return 0 unless @$a;
+  my $sum = 0; $sum += $_**2 for @$a;
+  return sqrt($sum / @$a);
+}
+
+sub std {
+  my $a = shift;
+  return 0 unless @$a > 1;
+  my $mean = mean($a);
+  my $sum = 0; $sum += ($_ - $mean)**2 for @$a;
+  return sqrt($sum / (@$a - 1));  # sample std
+}
+
+1;

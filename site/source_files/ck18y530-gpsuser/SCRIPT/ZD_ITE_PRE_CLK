@@ -1,0 +1,55 @@
+package ITE_PRE_CLK;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ITE_PRE_CLK
+#
+# Purpose :  This script manages the iterative process in charge of the
+#            pre-elimination of the clocks
+#
+# Author  :  C. Kobel
+# Created :  02-Jul-2026
+#
+# Changes :
+#===========================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $iRun,
+      $param3,
+      $dirOut,
+      $yyddd
+  ) = $bpe->getKeys(
+      'STARTCOUNT',
+      'PARAM3',
+      'DIR_OUT',
+      '$YD+0'
+  );
+
+  # ---------- Use day-specific MSC directory ------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+
+  # ---------- Get time interval information ------------
+  my $timIntFl = glob("${mscDir}/TIMINT_??");
+  my $timInt   = substr(basename($timIntFl), 7, 2);
+  my $nTotRun  = 24 / $timInt;
+
+  my $overFile = "${mscDir}/TIMOVER";
+
+  prtMess($bpe, "Iteration $iRun out of $nTotRun");
+
+  if (-e $overFile) {
+
+    unlink "$overFile";
+
+  } else {
+    prtGoto($bpe, $param3);
+  }
+}

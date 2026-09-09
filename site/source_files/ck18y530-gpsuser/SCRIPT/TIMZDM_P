@@ -1,0 +1,111 @@
+package TIMCLK_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMCLK_P
+#
+# Purpose :  Parallel run of GPSEST using code and phase data
+#            $(SOL)_ : Deleted OSB parameters
+#            $(SOL)B : OSB parameters kept
+#
+# Programs:  GPSEST and ADDNEQ2
+#
+# Author  :  E. Calero
+# Created :  21-Feb-2020
+#
+# Changes :  
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($param1, $param2, $param3, $param4, $yyddd, $usehoi, $trpModel, $dirOut) =
+    $bpe->getKeys('PARAM1','PARAM2','PARAM3','PARAM4','$YD+0','V_USEHOI', 'V_TRPMOD', 'DIR_OUT');
+
+# Initialize $D4 and $CCC variable with subpid
+# --------------------------------------------
+  setUserVar($bpe,"D4",$param1,"SOL",$param2);
+
+# ------------------------------------------------------------
+# Explicit HOI switch via V_USEHOI
+# ------------------------------------------------------------
+if ($usehoi eq "NO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS","");
+    prtMess($bpe,"HOI SETUP: DISABLED by V_USEHOI=NO");
+}
+
+# --------------------------------------------------
+# Explicit TRPMOD switch via V_TRPMOD
+# --------------------------------------------------
+if ($trpModel eq "GMF") {
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_GMF");
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_GMF");
+   prtMess($bpe,"Troposphere model SETUP: $trpModel");
+}
+
+# ---------- Check GRD status files ------------
+my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+# NTAL
+my $noNtal = "${mscDir}/no_NTAL";
+if (-e $noNtal) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "ALOAD_FILES", ' ' );
+   prtMess( $bpe, "NTAL disabled: no_NTAL exists" ); }
+# NTOL
+my $noNtol = "${mscDir}/no_NTOL";
+if (-e $noNtol) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "ONTLD_FILES", ' ' );
+   prtMess( $bpe, "NTOL disabled: no_NTOL exists" ); }
+# HYDL
+my $noHydl = "${mscDir}/no_HYDL";
+if (-e $noHydl) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "HLOAD_FILES", ' ' );
+   prtMess( $bpe, "HYDL disabled: no_HYDL exists" ); }
+
+
+# Enable IAR if indicated
+# ---------------------------
+
+  if ( $param3 eq "IAR") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DIFLVL","ZERO_AR");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP",'PHA$YSS+0');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","1");
+    prtMess($bpe,"ZERO_AR ENABLED");
+  } else {
+    prtMess($bpe,"ZERO_AR DISABLED");
+  }
+
+  if ( $param4 eq "PUL") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","STCEST","1");
+    prtMess($bpe,"ORBIT MIDNIGHT PULSES ENABLED");
+  } else {
+    prtMess($bpe,"PULSES DISABLED");
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Run program
+# -----------
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT",'$(SOL)_$S+0$(D4)');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT",'$(SOL)_$S+0$(D4)');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBINP",'$CS$YSS+0');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_ELIM","DELETE");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCBS_ELIM","DELETE");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}
+

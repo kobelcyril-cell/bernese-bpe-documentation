@@ -1,0 +1,336 @@
+package LEO_SUM;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_SUM
+#
+# Purpose :  Create LEOPOD BPE processing summary file
+#
+# PARAMs  :
+#
+# Author  :  H. Bock
+# Created :  22-Feb-2012
+#
+# Changes :  23-Dec-2014 DA: Separate clock ID
+#            06-Jun-2016 DA: LEO-specific temp. SUM and RNX ERR file
+#            07-Dec-2019 DA: Adapted to new GPSEST output format (1.1)
+#            07-Jul-2023 DA: Corrected extraction of kin. POD metrics
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(timprt appFile);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $yy, $ssss, $yyyy,
+      $a, $b, $clk, $f, $leo, $obsSel,
+      $refDir, $refInf, $crdInf, $staInf, $blqInf, $atlInf,
+      $satInf, $pcvInf, $pcv,    $satcrx, $sprd, $spkn,  $minel,
+      $sav,    $result, $upd, $leodir, $rnxdir, $attdir,
+      $dirOut, $dirSum, $dirLst, $dirPlt, $dirAtt,
+      $extOut, $extSum, $extLst, $extPlt, $extAtt,
+      $dirCrd, $dirSta, $dirBlq, $dirAtl, $dirRxo,
+      $extCrd, $extSta, $extBlq, $extAtl, $extRxo, $extCrx) =
+    $bpe->getKeys(
+      '$YSS+0', '$Y', '$S+0', '$Y+0',
+      'V_A', 'V_B', 'V_CLK', 'V_F','V_LEO','V_OBSSEL',
+      'V_REFDIR', 'V_REFINF', 'V_CRDINF', 'V_STAINF', 'V_BLQINF', 'V_ATLINF',
+      'V_SATINF', 'V_PCVINF', 'V_PCV',    'V_SATCRX', 'V_SPRD', 'V_SPKN', 'V_MINEL',
+      'V_SAV',    'V_RESULT', 'V_UPD', 'V_LEODIR', 'V_RNXDIR', 'V_ATTDIR',
+      'DIR_OUT','DIR_SUM','DIR_LST','DIR_PLT','DIR_ATT',
+      'EXT_OUT','EXT_SUM','EXT_LST','EXT_PLT','EXT_ATT',
+      'DIR_CRD','DIR_STA','DIR_BLQ','DIR_ATL','DIR_RXO',
+      'EXT_CRD','EXT_STA','EXT_BLQ','EXT_ATL','EXT_RXO', 'EXT_CRX');
+
+  $refDir = '${D}/' . $refDir . '/';
+
+  my @empPar = ("epoch-wise","piece-wise constant",
+                "piece-wise linear");
+  my @dirPar = ("radial       along-track  out-of-plane",
+                "Sun          y-direction  x-direction");
+
+# - Get parameter settings for reduced-dynamic orbit determination
+  my $outFil = "${dirOut}RD$f${yyssss}.${extOut}";
+  my $iLin = -1;
+  my $satNum = -1;
+  my @lin;
+  my @epoch;
+  my @constr;
+  my ($indTyp,$indDir,$ii);
+  open (INP,"${outFil}");
+  while (<INP>) {
+    if ($_=~/   PER  / && $satNum < 0){
+      @lin=split(" ",$_);
+      $satNum = $lin[1];
+      seek(INP,0,0);}
+    if ($iLin >= 0){$iLin++}
+    if ($iLin > 5){
+      @lin=split(" ",$_);
+      if ($lin[1] eq $satNum){
+        if ($lin[2] > 2){last;}
+        $epoch[$lin[2]] = $lin[4];
+        for ($ii=1;$ii<=3;$ii++){
+          $constr[$ii]=$lin[$ii+8];}
+        if ($lin[5] eq "epoch") {$indTyp=0;}
+        if ($lin[5] eq "const") {$indTyp=1;}
+        if ($lin[5] eq "linear") {$indTyp=2;}
+        if ($lin[6] eq "rad") {$indDir=0;}
+        if ($lin[6] eq "Sun") {$indDir=1;}}}
+    if ($_=~/Stochastic orbit parameters:/ && $satNum > 0){
+      $iLin=0;}}
+  close (INP);
+
+  # Spacing of empirical parameters
+  my @hms=split(":",$epoch[1]);
+  my $timFst = $hms[0]*3600.+$hms[1]*60.+$hms[2];
+  @hms=split(":",$epoch[2]);
+  my $timSec = $hms[0]*3600.+$hms[1]*60.+$hms[2];
+
+  my $spacing = ($timSec-$timFst)/60.;
+
+  # Get screening RESRMS settings
+  my %opt = ();
+  $opt{"${dirOut}RR${f}${yyssss}.${extOut}"}{"Outlier_phase"} =
+      &readFile("${dirOut}RR${f}${yyssss}.${extOut}",
+                " Outlier detection level (phase)");
+  $opt{"${dirOut}RR${f}${yyssss}.${extOut}"}{"Outlier_code"} =
+      &readFile("${dirOut}RR${f}${yyssss}.${extOut}",
+                " Outlier detection level (code)");
+
+
+# Initialize processing summary file
+# ----------------------------------
+  my $prcFil = "${dirOut}${leo}${f}${yyssss}.PRC";
+  unlink $prcFil;
+  appFile("LEOPOD BPE PROCESSING SUMMARY FOR ${leo} YEAR-SESSION $yy-$ssss",
+    0,"",$prcFil,0);
+
+# Report the BPE settings
+# -----------------------
+  open(PRC,">> $prcFil");
+  print PRC "Summary file generated at ",timprt()," by LEO_SUM\n\n";
+  print PRC "General files:\n";
+  print PRC "   Antenna phase center eccentricity file:   ${pcvInf}.${pcv}\n";
+  print PRC "   Satellite information file:               ${satInf}.${pcv}\n";
+  print PRC "   Satellite problem file:                   ${satcrx}.${extCrx}\n";
+  print PRC "   Orbit and ERP products used:              $b\n";
+  print PRC "   Clock products used:                      $clk\n";
+  print PRC "\nObservation file selection:\n";
+  print PRC "   RINEX file copied from:                   \${D}/LEO/${leodir}/${rnxdir}\n";
+  print PRC "   Attitude file copied from:                \${D}/LEO/${leodir}/${attdir}\n";
+  print PRC "     RINEX file:                             ".basename($dirRxo)."/${leo}${ssss}.${extRxo}\n";
+  print PRC "     Attitude file:                          ",
+            (-e "${dirAtt}/${leo}${yyssss}.${extAtt}") ? basename($dirAtt)."/${leo}${yyssss}.${extAtt}" : "", "\n";
+  print PRC "     Station information file:               ",
+            $crdInf ne "" ? basename($dirSta)."/${crdInf}.${extSta}" : "", "\n";
+  print PRC "     Ocean tidal loading table:              ",
+            $blqInf ne "" ? basename($dirBlq)."/${blqInf}.${extBlq}" : "", "\n";
+  print PRC "     Atmosphere tidal loading table:         ",
+            $atlInf ne "" ? basename($dirAtl)."/${atlInf}.${extAtl}" : "", "\n";
+  print PRC "\nOther options from PCF:\n";
+  print PRC "   Sampling rate RD:                         ${sprd} seconds\n";
+  print PRC "   Sampling rate KIN:                        ${spkn} seconds\n";
+  print PRC "   Elevation cut-off angle:                  ${minel} degree\n";
+  print PRC "   Reduced-dynamic orbits:\n";
+  print PRC "     Empirical accelerations\n";
+  print PRC "     type:             $empPar[$indTyp]\n";
+  print PRC "     directions:       $dirPar[$indDir]\n";
+  print PRC "     constraints:      $constr[1]    $constr[2]    $constr[3]     m/s**2\n";
+  print PRC "     spacing:          ${spacing} minutes\n";
+
+  print PRC "\nScreening opttions:\n";
+  print PRC "   Screening RESRMS:\n";
+  print PRC "     $opt{\"${dirOut}RR${f}${yyssss}.${extOut}\"}{\"Outlier_phase\"}\n";
+  print PRC "     $opt{\"${dirOut}RR${f}${yyssss}.${extOut}\"}{\"Outlier_code\"}\n";
+
+  print PRC "\nStoring the results:\n";
+  if ( uc $sav eq "Y" ) {
+    my $dirSav = '${S}/LEO/' . $leo . "/$yyyy/";
+    print PRC "   Results files saved to:                     ${dirSav}\n";
+    print PRC "     First a priori orbit (STD,PRE,RPR):       ${a}${yyssss}\n";
+    print PRC "     A priori orb. aft. screen. (STD,RPR):     ${a}_${yyssss}\n";
+    print PRC "     Reduced-dynamic orbits (STD,PRE,ELE,RES): RD${f}${yyssss}\n";
+    print PRC "     Kinematic orbits (PRE,KIN,RES,CLK):       KN${f}${yyssss}\n";
+    print PRC "     Observations files (PZH,PZO,CZH,CZO):     ${leo}${ssss}\n";
+  } else {
+    print PRC "   The results have not been copied into the product database.\n";
+  }
+  print PRC"\n\n";
+  close PRC;
+
+# Append protocol files
+# ---------------------
+# - Orbit generation summary
+  my $sumFil = "${dirLst}ORB${yyssss}.${extLst}";
+  appFile("PART 0: GNSS ORBIT GENERATION SUMMARY",
+    2,$sumFil,$prcFil,1) if (-e $sumFil);
+
+# - Error/warning messages concerning RINEX inconsistencies
+  $sumFil = "${dirOut}RNX${a}${yyssss}.ERR";
+  appFile("PART 1: RINEX CONSISTENCY CHECK",
+    2,$sumFil,$prcFil,1) if -s $sumFil;
+
+# - A priori orbit generation for LEO
+  $sumFil = "${dirLst}OG$a${yyssss}.${extLst}";
+  appFile("PART 2: ${leo} A PRIORI ORBIT GENERATION SUMMARY",
+    2,$sumFil,$prcFil,1);
+
+# - Data screening summary
+    $sumFil = "${dirSum}TMP${a}${yyssss}.${extSum}";
+    my @filLst = glob("${dirSum}${a}[1-9]${yyssss}.${extSum}");
+    $iLin = 0;
+    open (OUT,">$sumFil");
+    foreach my $fil (@filLst){
+      $iLin = 0;
+      open (INP,"${fil}");
+      while (<INP>) {
+        $iLin++;
+        if ($iLin < 2){print OUT "$_\n"}}
+      close(INP);}
+    close(OUT);
+
+    appFile("PART 3: DATA SCREENING SUMMARY (A PRIORI ORBIT IMPROVEMENT WITH GPSEST)",1,$sumFil,$prcFil,1);
+
+# - A priori orbit generation for final orbit solution of the LEO
+    $sumFil = "${dirLst}OF$a${yyssss}.${extLst}";
+    appFile("PART 4: ${leo} A PRIORI ORBIT SUMMARY BEFORE FINAL ORBIT DETERMINATION",
+    2,$sumFil,$prcFil,1);
+
+# - Reduced-dynamic orbit determination
+    $outFil = "${dirOut}RD$f${yyssss}.${extOut}";
+    $sumFil = "${dirSum}TMP${a}${yyssss}.${extSum}";
+    my $ok = 'NOK';
+    open (OUT,">$sumFil");
+    open (INP,"${outFil}");
+    while (<INP>) {
+        if ($_=~/Total number of satellites/){
+            print OUT "$_";
+            $ok = 'NOK';
+            last;
+        }
+        if ($ok eq 'OK'){
+            print OUT "$_";
+        }
+        if ($_=~/Parameter type/){
+            print OUT "$_";
+            $ok='OK';
+        }
+    }
+    close (INP);
+    close OUT;
+
+    appFile("PART 5: REDUCED-DYNAMIC ORBIT DETERMINATION",
+      1,$sumFil,$prcFil,1);
+
+    $sumFil = "${dirSum}RDR$f${yyssss}.${extSum}";
+    appFile("PART 5.1: REDUCED-DYNAMIC ORBIT DETERMINATION - RESIDUAL SUMMARY",
+      1,$sumFil,$prcFil,1);
+
+# - Kinematic orbit determination
+    $outFil = "${dirOut}KN$f${yyssss}.${extOut}";
+    $sumFil = "${dirSum}TMP${a}${yyssss}.${extSum}";
+    $ok = 'NOK';
+    open (OUT,">$sumFil");
+    open (INP,"${outFil}");
+    while (<INP>) {
+        if ($_=~/Total number of unobserved ambiguities/){
+            print OUT "$_";
+            $ok = 'NOK';
+            last;
+        }
+        if ($ok eq 'OK'){
+            print OUT "$_";}
+        if ($_=~/Parameter type/){
+            print OUT "$_";
+            $ok='OK';
+        }
+    }
+    close (INP);
+    close OUT;
+
+    appFile("PART 6: KINEMATIC ORBIT DETERMINATION",
+      1,$sumFil,$prcFil,1);
+
+    $sumFil = "${dirSum}KNR$f${yyssss}.${extSum}";
+    appFile("PART 6.1: KINEMATIC ORBIT DETERMINATION - RESIDUAL SUMMARY",
+      1,$sumFil,$prcFil,1);
+
+# - Orbit comparison
+    my $pltFil = "${dirPlt}CP$f${yyssss}.${extPlt}";
+    my @line;
+    my $out;
+    $sumFil = "${dirSum}TMP${a}${yyssss}.${extSum}";
+    open (OUT,">$sumFil");
+    print OUT " Comparison of reduced-dynamic and kinematic orbit:\n";
+    print OUT "              radial   along-track  out-of-plane\n";
+    open (INP,"${pltFil}");
+    while (<INP>) {
+      if ($_=~/COMPONENT/){
+        @line=split(" ",$_);
+      $out = sprintf("%7s%13.4f%1s%13.4f%1s%13.4f%2s",
+      " RMS   ",$line[7]," ",$line[8]," ",$line[9]," m");
+    printf OUT "$out\n";}
+      if ($_=~/MEAN/){
+        @line=split(" ",$_);
+      $out = sprintf("%7s%13.4f%1s%13.4f%1s%13.4f%2s",
+      " Mean  ",$line[5]," ",$line[6]," ",$line[7]," m");
+    printf OUT "$out\n";}
+      if ($_=~/MIN/){
+        @line=split(" ",$_);
+      $out = sprintf("%7s%13.4f%1s%13.4f%1s%13.4f%2s",
+      " Min   ",$line[5]," ",$line[6]," ",$line[7]," m");
+    printf OUT "$out\n";}
+      if ($_=~/MAX/){
+        @line=split(" ",$_);
+      $out = sprintf("%7s%13.4f%1s%13.4f%1s%13.4f%2s",
+      " Max   ",$line[5]," ",$line[6]," ",$line[7]," m");
+    printf OUT "$out\n";}}
+    close (INP);
+    close OUT;
+    appFile("PART 7: ORBIT COMPARISON",
+      1,$sumFil,$prcFil,1);
+
+    unlink("${sumFil}");
+
+}
+
+sub readFile {
+    my $file = $_[0];
+    my $string = $_[1];
+#    my $col = $_[2];
+
+    unless (-e $file) {
+        print " *** File $file not found\n";
+        return "ERROR";
+    }
+
+    # Grep file for string
+    my $grep = `grep \'^$string\' $file`;
+
+    my @tst = split('\n',$grep);
+
+    # String only once?
+    unless (@tst) {
+        print " *** String \'$string\' not found in $file\n";
+        return "ERROR";
+    }
+    if (@tst > 1) {
+        print " *** String \'$string\' appears ".scalar(@tst)." times in $file\n";
+        return "ERROR";
+    }
+
+    chomp($grep);
+
+    # Get column
+ #   my @p = split(' ',$grep);
+ #   my $val = $p[$col-1];
+
+    return $grep;
+}

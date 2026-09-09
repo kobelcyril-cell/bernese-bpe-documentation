@@ -1,0 +1,148 @@
+package RES_CHK;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  RES_CHK
+#
+# Purpose :  Checks residuals of code or phase observations
+#
+# Author  :  C. Kobel
+# Created :  29-Jun-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+sub run {
+
+  my $bpe = shift;
+
+  # ---------- Parameters ------------
+  my $maxRun = 50;
+
+  # ---------- Get variables ------------
+  my (
+      $yy,
+      $ssss,
+      $yyddd,
+      $iRun,
+      $param3,
+      $param9,
+      $u,
+      $v_cpsc,
+      $dirDel,
+      $extDel,
+      $dirOut
+  ) = $bpe->getKeys(
+      '$Y',
+      '$S+0',
+      '$YD+0',
+      'STARTCOUNT',
+      'PARAM3',
+      'PARAM9',
+      'U',
+      'V_CPSC',
+      'DIR_DEL',
+      'EXT_DEL',
+      'DIR_OUT'
+  );
+
+  $param9 = uc($param9);
+
+  prtMess($bpe, "Iteration $iRun of $maxRun");
+  prtMess($bpe, "Residual check mode: $param9");
+
+  # ---------- Run RESRMS ------------
+  $bpe->putKey("$u/PAN/RESRMS.INP", "DOBIGRES",  "0");
+  $bpe->putKey("$u/PAN/RESRMS.INP", "DOBIGRES2", "0");
+  $bpe->putKey("$u/PAN/RESRMS.INP", "DOBIGRES3", "0");
+
+  my $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Prepare RESCHK ------------
+  my $delFil = "${dirDel}${yyddd}.${extDel}";
+  unlink($delFil);
+
+  $bpe->putKey("$u/PAN/RESCHK.INP", "DELSTA", $delFil);
+
+  # ---------- PHASE-specific settings ------------
+  if ($param9 eq "PHASE") {
+
+    my @rmsFil = glob("${dirOut}../MSC/${v_cpsc}${yyddd}_????.FLG");
+    my $rmsFlg = $rmsFil[0];
+
+    my $maxRMS;
+
+    if (-e $rmsFlg) {
+      ($rmsFlg = basename($rmsFlg)) =~ s/\.[^.]+$//;
+      $maxRMS = substr($rmsFlg, -4);
+      $maxRMS = sprintf("%d", $maxRMS);
+    }
+    else {
+      $maxRMS = 1000;
+    }
+
+    $bpe->putKey("$u/PAN/RESCHK.INP", "MAXRMS", $maxRMS);
+    $bpe->putKey("$u/PAN/RESCHK.INP", "BADSOL", "${maxRMS}0");
+
+    prtMess($bpe, "Phase mode: Max. RMS = $maxRMS mm");
+  }
+
+  # ---------- Run RESCHK ------------
+  $PGMNAM = "RESCHK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Store SYSOUT ------------
+  my $xtrsum = "${dirOut}RESCHK.${yy}_${ssss}";
+  appFile("", 0, $$bpe{SYSOUT}, $xtrsum);
+
+  # ---------- Delete bad stations ------------
+  my $iDel = 0;
+
+  if (-e $delFil) {
+
+    open(my $DEL, "<", $delFil);
+
+    while (my $line = <$DEL>) {
+
+      chomp($line);
+      $line =~ s/^\s+//;
+
+      unlink($line);
+      prtMess($bpe, "$line deleted");
+
+      unless ($iDel) {
+        appFile(
+          "",
+          0,
+          $bpe->getKey("$u/INP/RESCHK.INP", "RESRMS"),
+          $xtrsum
+        );
+      }
+
+      $iDel++;
+    }
+
+    close($DEL);
+    unlink($delFil);
+  }
+
+  # ---------- Check SYSOUT for errors ------------
+  open(my $OUT, "<", $$bpe{SYSOUT});
+
+  while (<$OUT>) {
+    $iDel++ if /^BAD SATELLITE/;
+  }
+
+  close($OUT);
+
+  # ---------- Control flow ------------
+  if ($iDel > 0 && $iRun <= $maxRun) {
+    prtGoto($bpe, $param3);
+  }
+}

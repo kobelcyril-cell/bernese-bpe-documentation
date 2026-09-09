@@ -1,0 +1,33 @@
+package WAIT;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  WAIT
+#
+# Purpose :  Simple waiting script (default: 60 seconds)
+#
+# Author  :  C. Kobel
+# Created :  
+#
+# Changes :  28-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get optional waiting time ------------
+  my (
+      $param1
+  ) = $bpe->getKeys(
+      'PARAM1'
+  );
+  $param1 = 60 if ($param1 eq "");
+
+  prtMess($bpe, "Waiting for $param1 seconds...");
+  sleep($param1);
+  prtMess($bpe, "Wait complete.");
+}

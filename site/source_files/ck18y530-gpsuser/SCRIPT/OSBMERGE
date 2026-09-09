@@ -1,0 +1,112 @@
+package OSBMERGE;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  OSBMERGE
+#
+# Purpose :  Merge OSB-files
+#
+# Programs:
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx
+#
+# Changes :  
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+use Tie::File;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,
+      $v_c, 
+      $dirOsb,  $extOsb) = $bpe->getKeys(
+      '$YSS+0',
+      'V_C',
+      'DIR_OSB','EXT_OSB');
+
+# Define OSB files 
+  my $inOSB   = "${dirOsb}${v_c}_${yyssss}.${extOsb}";
+  my @inOSB_R = glob("${dirOsb}${v_c}S${yyssss}[0-9][0-9][0-9].${extOsb}");
+  my $outOSB  = "${dirOsb}${v_c}S${yyssss}.${extOsb}";
+  
+# Copy OSB file containing CMDA OSBs into output file
+  copy($inOSB, $outOSB);
+
+# Remove last blank line in OSB output file
+  open (FH, "+< $outOSB")               or die "can't update $outOSB: $!";
+  while ( <FH> ) {
+      $addr = tell(FH) unless eof(FH);
+  }
+  truncate(FH, $addr)                 or die "can't truncate $outOSB: $!";
+
+# Open output file to append new lines
+  open(my $fhOut, '>>', $outOSB) or die "Could not open file '$outOSB' $!";
+
+# Loop over the GLONASS OSB files
+  my $count = 0;
+  my @uni_sta = ();
+  my @red_sta = ();
+  my $prevSta = '';
+  my $currSta = '';
+  my $isNew   = 0;
+  my $isRed   = 0;
+  foreach my $OSB_R_file (@inOSB_R) {
+  
+#   Open GLONASS OSB file
+    open(FH, '<', $OSB_R_file) or die "Could not open file '$OSB_R_file' $!";
+
+#   Go through the lines of the file
+    $count   = 0;
+    $prevSta = '';
+    $isRed   = 1;
+    while(<FH>) {
+      chomp;
+      
+#     Skip header or end blank line
+      $count = $count + 1;
+      next if $count <= 11; # The header contains 11 lines
+      last if $_ eq '';
+      
+#     Get station name and compare against the previous
+      $currSta = substr $_, 16, 20;
+      $isNew   = $currSta ne $prevSta;
+      $prevSta = $currSta;
+
+#     If the station is new in file, check if it has already been accounted for
+#     since some (little) redundancy is expected in the GLONASS OSB files
+      if ($isNew) {
+        if ( grep( /^$currSta$/, @uni_sta ) ) {
+          unless ( grep( /^$currSta$/, @red_sta ) ) {
+            push(@red_sta, $currSta);
+          }
+          $isRed = 1;
+        } else {
+          push(@uni_sta, $currSta);
+          $isRed = 0;
+        }
+      }
+
+#     If the station is not redundant, include line
+      unless ($isRed) {
+        print $fhOut "$_\n";
+      }
+    
+    }
+
+#   Close GLONASS OSB file
+    close(FH);
+  }
+
+
+# Close output file
+  close($fhOut);
+
+}
