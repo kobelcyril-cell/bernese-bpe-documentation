@@ -1,0 +1,132 @@
+package CHECK_SAT_RMS;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CHECK_SAT_RMS
+#
+# Purpose :  Checks the ORBGEN_APR file for the RMS (in meters) of each satellite.
+#
+# Author  :  C. Kobel
+# Created :  05-Mar-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+#
+sub run {
+  my $bpe = shift;
+
+# ---------- Parameters ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyyy
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$Y+0'
+  );
+
+  my $yy = substr($yyyy, -2);
+
+  my $orb_file = "${dirOut}/ORBGEN_APR${ssss}.OUT";
+  die "ORBGEN_APR file not found: $orb_file\n" unless -e $orb_file;
+
+  my $PGMNAM = "SATMRK";
+
+# ---------- logfile ------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $logfile = "$mscDir/PROCESSING_${yyddd}";
+  open(my $LOG, '>>', $logfile)
+    or die "Cannot open log file $logfile: $!";
+
+  print $LOG "\n=== CHECK_SAT_RMS started ===\n";
+  print $LOG "Checking file: ORBGEN_APR${ssss}.OUT\n";
+
+# ---------- Read ORBGEN_APR file ------------
+  open(my $ORB, '<', $orb_file)
+    or die "Cannot open $orb_file: $!";
+
+  my $found_block = 0;
+  my %marked_sats;
+
+  while (my $line = <$ORB>) {
+    chomp $line;
+
+    # ---------- Detect RMS block ------------
+    if (!$found_block && $line =~ /RMS ERRORS AND MAX\. RESIDUALS/i) {
+      $found_block = 1;
+      <$ORB> for 1..6;  # Skip header lines
+      next;
+    }
+
+    next unless $found_block;
+
+    # ---------- Stop at empty line or footer ------------
+    last if $line =~ /^\s*$/ || $line =~ /^-+$/;
+
+    # ---------- Extract PRN and RMS ------------
+    my $prn_str = substr($line, 0, 4);
+    my $rms_str = substr($line, 11, 8);
+
+    $prn_str =~ s/^\s+|\s+$//g;
+    $rms_str =~ s/^\s+|\s+$//g;
+
+    next unless $prn_str =~ /^\d+$/;
+    my $prn = $prn_str;
+
+    # ---------- Skip already processed satellites ------------
+    next if exists $marked_sats{$prn};
+
+# ---------- RMS check ------------
+    if ($rms_str =~ /\*/) {
+      print $LOG "-> Large/invalid RMS detected for satellite $prn: number too large to display\n";
+    }
+    else {
+      my $rms = $rms_str + 0;
+      next unless $rms > 5.0;
+
+      print $LOG "-> Large RMS detected for satellite $prn: $rms m\n";
+    }
+
+    $marked_sats{$prn} = 1;
+
+# ---------- Run SATMRK ------------
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", $prn);
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+
+  close($ORB);
+
+# ---------- Summary ------------
+  if (%marked_sats) {
+    my @sat_list = sort { $a <=> $b } keys %marked_sats;
+
+    print $LOG "Satellites marked due to RMS > 5.0 m or invalid RMS: "
+      . join(", ", @sat_list) . "\n";
+    print $LOG "Total satellites marked: " . scalar(@sat_list) . "\n";
+  }
+  else {
+    print $LOG "No satellites with RMS > 5.0 m or invalid RMS detected.\n";
+  }
+
+  print $LOG "=== CHECK_SAT_RMS finished ===\n";
+  close($LOG);
+
+  print "CHECK_SAT_RMS done. Log appended to $logfile\n";
+}

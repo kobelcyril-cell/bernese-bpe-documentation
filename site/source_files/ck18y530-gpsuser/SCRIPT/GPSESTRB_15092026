@@ -1,0 +1,53 @@
+package GPSESTRB;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GPSESTRB
+#
+# Purpose :  Execute GPSEST, estmate receiver code biases if V_ESTOSB non-empty.
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+#
+# Created :  07-Apr-2022
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($OFFS,$IGNERR,$ESTOSB,$OSB,$DIR_OSB) =
+      $bpe->getKeys('V_OFFS','V_IGNERR','V_ESTOSB','V_OSB','DIR_OSB');
+
+# Set sampling to 0 if observations epochs have an offset
+# -------------------------------------------------------
+  if (${OFFS} eq "Y") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SAMPLE","0");
+  }
+
+# Activate observable-specific receiver code biases
+# -------------------------------------------------
+  if (${ESTOSB} ne "") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST","1");
+  } else {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST","0");
+  }
+
+# Set IGNORE_ERR if requested
+# ---------------------------
+  if ($IGNERR) {
+      print "Set IGNORE_ERR to ${IGNERR}\n";
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IGNORE_ERR",$IGNERR);
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+}

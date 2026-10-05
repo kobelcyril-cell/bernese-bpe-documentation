@@ -53,6 +53,13 @@ GENPOLE 1  "0"
 
 MSG_GENPOLE 1  "Use with general ERP file"
 
+! Check consistency of PCV model
+! ------------------------------
+CHKPCV 1  "0"
+  ## widget = checkbox; activeif = RADIO_P = 1
+
+MSG_CHKPCV 1  "Check consistency of PCV model"
+
 ! Update Modus
 ! ------------
 NEWOLD 1  "NEW"
@@ -536,7 +543,7 @@ MSG_HWM_GD2QD 1  "QD coordinate conversion for HWM"
 ! --------------------------------------------------
 ! Satellite maneuver information
 ! --------------------
-MANINFO 1  "$(MAN)"
+MANINFO 1  ""
   ## widget = selwin; path = DIR_MAN; ext = EXT_MAN; emptyallowed = true
 
 DESCR_MANINFO 1  "Satellite maneuver information"
@@ -1208,7 +1215,7 @@ MPOLDEG 1  "0"
 MSG_MPOLDEG 1  "Polynomial degree to model maneuver accelerations"
 
 ! Sigmas for explicit maneuver: A0: constant term
-! --------------------
+! -----------------------------------------------
 MACCSIG10 1  "1D-1"
   ## widget = lineedit; activeif = MACCEST = 1
 
@@ -1225,7 +1232,7 @@ MACCSIG30 1  "1D-1"
 MSG_MACCSIG30 1  "explicit maneuver: A0 sigma, W/Z"
 
 ! Sigmas for explicit maneuver: A1: change rate
-! --------------------
+! ---------------------------------------------
 MACCSIG11 1  "1D-6"
   ## widget = lineedit; activeif = MPOLDEG > 0 AND MACCEST = 1
 
@@ -1242,7 +1249,7 @@ MACCSIG31 1  "1D-6"
 MSG_MACCSIG31 1  "explicit maneuver: A1 sigma, W/Z"
 
 ! Sigmas for explicit maneuver: A2
-! --------------------
+! --------------------------------
 MACCSIG12 1  "1D-10"
   ## widget = lineedit; activeif = MPOLDEG = 2 AND MACCEST = 1
 
@@ -1265,6 +1272,20 @@ MMINLEN 1  "0"
 
 MSG_MMINLEN 1  "Do not estimate acc. for short maneuvers"
 
+! Enable individual maneuver setup
+! --------------------------------
+MANSPC 1  "0"
+  ## widget = checkbox; activeif = MACCEST = 1
+
+MSG_MANSPC 1  "Maneuver setup (global vs. indyvidual)"
+
+! Maneuver specific settings
+! --------------------------
+MANGROUP 1  "" "" "" "" ""
+  ## widget = uniline; numlines = 7; activeif = MACCEST = 1 AND MANSPC = 1
+
+MSG_MANGROUP 1  "Maneuver specific settings"
+
 ! Adjust integartion epochs according to maneuver start/end
 ! ---------------------
 MADJINT 1  "0"
@@ -1284,19 +1305,21 @@ MSG_TITLE 1  "Title line"
 # CREATE/UPDATE STANDARD ORBITS - ORBGEN 1: Input Files                        #
 #                                                                              #
 # GENERAL FILES                                                                #
-#   Show files for force modelling     > % <                                   # SHOWFRC
-#   Show all general files             > % <                                   # SHOWGEN
+#   Show files for force modelling      > % <                                  # SHOWFRC
+#   Show all general files              > % <                                  # SHOWGEN 
 #                                                                              #
 # INPUT FILES                                                                  #
-# > % < Start with precise orbits      > %%%%%%%%%%%% <                        # RADIO_P PREFIL
-#       Use with general ERP file      > % <                                   # GENPOLE
-# > % < Update standard orbit                                                  # RADIO_E
-#            Orbital elements          > %%%%%%%%%%%% <                        # IMPORB
+# > % < Start with precise orbits       > %%%%%%%%%%%% <                       # RADIO_P PREFIL
+#         Use with general ERP file     > % <                                  # GENPOLE
+#         Check consistency of PCV model> % <                                  # CHKPCV
 #                                                                              #
-#   Earth rotation parameters          > %%%%%%%%%%%% <                        # POLE
-#   Ocean tidal loading                > %%%%%%%%%%%% <     (for CMC)          # OCNLOAD
-#   Atmospheric tidal loading          > %%%%%%%%%%%% <     (for CMC)          # ATMLOAD
-#   Geocenter coordinates              > %%%%%%%%%%%% <     (for CMC)          # GCCINP
+# > % < Update standard orbit                                                  # RADIO_E
+#            Orbital elements           > %%%%%%%%%%%% <                       # IMPORB
+#                                                                              #
+#   Earth rotation parameters           > %%%%%%%%%%%% <                       # POLE
+#   Ocean tidal loading                 > %%%%%%%%%%%% <     (for CMC)         # OCNLOAD
+#   Atmospheric tidal loading           > %%%%%%%%%%%% <     (for CMC)         # ATMLOAD
+#   Geocenter coordinates               > %%%%%%%%%%%% <     (for CMC)         # GCCINP
 #                                                                              #
 # END_PANEL ####################################################################
 
@@ -1465,6 +1488,7 @@ MSG_TITLE 1  "Title line"
 #                                                                              #
 #   Estimate accelerations     > % <                                           # MACCEST
 #     Frame                    > %%% <                                         # MACCFRM
+#                                                                              #
 #     Polynomial degree        > %%% <                                         # MPOLDEG
 #                                                                              #
 #     a priori sigmas for:                                                     #
@@ -1474,6 +1498,10 @@ MSG_TITLE 1  "Title line"
 #       Z/W > %%%%%%%%% <  > %%%%%%%%% <  > %%%%%%%%% <                        # MACCSIG30 MACCSIG31 MACCSIG32
 #                                                                              #
 #   Do not estimate acceleration for maneuvers shorter than> %%%%% <sec.       # MMINLEN
+#                                                                              #
+#                                                                              #
+# > % < MANEUVER-SPECIFIC PARAMETER SETUP                                      # MANSPC
+# > SAT EPOCH______________ DEG A0_XR A0_YS A0_ZW A1_XR A1_YS A1_ZW A2_XR A2_YS A2_ZW < # MANGROUP
 #                                                                              #
 # END_PANEL ####################################################################
 

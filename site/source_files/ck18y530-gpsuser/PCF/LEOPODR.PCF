@@ -115,12 +115,11 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 999  DUMMY     NO_OPT    CPU=LOCAL; WAIT=991
 #
 
-VARIABLE     DEFAULT        PARAMETERS
+VARIABLE   DEFAULT        PARAMETERS
 V_LEO      = S3AN;          DESCRIPTION=LEO name
 V_SVN      = 974;           DESCRIPTION=LEO SVN (for LEOATT)
-V_MAC      = SE3A;          DESCRIPTION=Macro model file
+V_LMAC     = SE3A;          DESCRIPTION=Macro model file
 V_ATT      = SE3A$YSS+0;    DESCRIPTION=Attitude file name
-V_MAN      = ;              DESCRIPTION=Maneuver file name
 V_A        = A;             DESCRIPTION=A priori information for LEO
 V_F        = AF;            DESCRIPTION=Final solution identifier for LEO
 V_ORBDIR   = ${S}/IGS/$Y+0/ORB;  DESCRIPTION=GPS orbit/ERP directory
@@ -131,7 +130,7 @@ V_SPEC     = N;             DESCRIPTION=Use special a priori orbit (maneuver)
 V_SMP      = 0;             DESCRIPTION=Sampling in RXOBV3
 V_SPRD     = 10;            DESCRIPTION=Sampling for RD orbit
 V_SPKN     = 1;             DESCRIPTION=Sampling for kin. orbit
-V_ESTOSB   = ;              DESCRIPTION=Output file for estimated rec. code biases
+V_ESTOSB   = NO;            DESCRIPTION=Output file for estimated rec. code biases
 V_AR       = Y;             DESCRIPTION=Zero difference ambiguity resolution
 V_INL1L2   = N;             DESCRIPTION=Introduce L1 and L2 integers (no AR)
 V_OSB      = IAR$YSS+0_V01;  DESCRIPTION=OSB file for ZD AR
@@ -162,7 +161,6 @@ V_RNX3     = N;             DESCRIPTION=Run RNXSMT?
 V_POTCOE   = GOCO06S;       DESCRIPTION=Earth potential coefficients
 V_POTDEG   = 120;           DESCRIPTION=Max. degree for Earth potential
 V_BLQINF   = FES2014b;      DESCRIPTION=BLQ FILE NAME, CMC CORRECTIONS
-V_ATLINF   = RAYPONTE;      DESCRIPTION=ATL FILE NAME, CMC CORRECTIONS
 V_SUBMOD   = DESAI2016;     DESCRIPTION=Subdaily pole model
 V_NUTMOD   = IAU2000R06;    DESCRIPTION=Nutation model
 V_OT       = EOT11A;        DESCRIPTION=Ocean tides file
@@ -170,13 +168,12 @@ V_EPH      = DE421;         DESCRIPTION=Planetary ephemeris
 V_CRDINF   = LEOPOD_IGc20;  DESCRIPTION=CRD FILE NAME
 V_STAINF   = LEOPOD;        DESCRIPTION=ABB and STA FILE NAME
 V_RESULT   = ;              DESCRIPTION=Directory name for the LEO-POD results
-V_PCV      = I20_2401;      DESCRIPTION=GNSS PCV MODEL
+V_PCV      = I20_2425;      DESCRIPTION=GNSS PCV MODEL
 V_PCC4MWGF = 2022 11 27;    DESCRIPTION=PCC applied for MW/GF LC
 V_SATINF   = LEO;           DESCRIPTION=SATELLITE INFORMATION
 V_PCVINF   = LEO_20250527;  DESCRIPTION=PCV INFORMATION
 V_SATCRX   = SAT_$Y+0;      DESCRIPTION=Satellite problem file
 V_OBSSEL   = OBSERV.SEL;    DESCRIPTION=Observation selection
-V_OBSWGT   = ;              DESCRIPTION=Observation sigma factors (SOS file)
 V_REFDIR   = REF;           DESCRIPTION=Directory with basic Bernese files
 V_LEODIR   = SENTINEL-3A;   DESCRIPTION=Directory with LEO data files
 V_RNXDIR   = RNX;           DESCRIPTION=Directory with RINEX files (in V_LEODIR)
@@ -190,3 +187,4 @@ V_IGNERR   = ;              DESCRIPTION=GPSEST SR to ignore errors from
 # DO NOT USE V_D, V_J, V_M, V_Y VARIABLES!
 # (they are used already by the menu)
 #
+

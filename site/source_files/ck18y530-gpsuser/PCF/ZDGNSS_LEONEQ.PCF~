@@ -1,0 +1,46 @@
+# =============================================================================
+# ZDGNSS_LEONEQ.PCF
+# Create LEO NEQs to be included in ZD GNSS processing.
+# =============================================================================
+
+PID  SCRIPT     OPT_DIR    PARAMETERS
+#
+# Check LEO file
+# --------------
+001  LEO_CHECK  NO_OPT     CPU=LOCAL
+#
+# Parallel LEO Orbit preparation
+# ------------------------------
+100  LEO_ORB_P  NO_OPT     CPU=LOCAL
+101  LEO_ORB_E  ZD_LEONEQ  CPU=LOCAL; WAIT=100; PARALLEL=100
+#
+# Parallel NEQ setup
+# ------------------
+200  LEO_NEQ_P  NO_OPT     CPU=LOCAL; WAIT=101
+201  LEO_NEQ_E  ZD_LEONEQ  CPU=LOCAL; WAIT=200; PARALLEL=200
+
+VARIABLE   DEFAULT           PARAMETERS
+V_LFILE  = LEO_INCLUDE.DAT;  DESCRIPTION=LEO configuration file in campaign MSC
+V_CRDINF = LEOPOD_IGc20;     DESCRIPTION=CRD FILE NAME
+V_B      = F1F_;             DESCRIPTION=GPS orbit/ERP
+V_CLK    = F3U_;             DESCRIPTION=GPS CLK information
+V_OSB    = IAR$YSS+0_V01;    DESCRIPTION=OSB file for ZD AR
+V_BLQINF = FES2014b;         DESCRIPTION=BLQ FILE NAME, CMC CORRECTIONS
+V_ATLINF = RAYPONTE;         DESCRIPTION=ATL FILE NAME, CMC CORRECTIONS
+V_STAINF = LEOPOD;           DESCRIPTION=ABB and STA FILE NAME
+V_SATINF = LEO;              DESCRIPTION=SATELLITE INFORMATION
+V_PCVINF = LEO_20250527;     DESCRIPTION=PCV INFORMATION
+V_PCV    = I20_2425;         DESCRIPTION=GNSS PCV MODEL
+V_SATCRX = SAT_$Y+0;         DESCRIPTION=Satellite problem file
+V_POTCOE = GOCO06S;          DESCRIPTION=Earth potential coefficients
+V_SUBMOD = DESAI2016;        DESCRIPTION=Subdaily pole model
+V_NUTMOD = IAU2000R06;       DESCRIPTION=Nutation model
+V_SPRD   = 10;               DESCRIPTION=Sampling for RD orbit
+V_MINEL  = 0;                DESCRIPTION=Elevation cut-off for observations
+V_MXCINT = 30;               DESCRIPTION=Max. clock interpolation (s)
+V_NSTC   = 240;              DESCRIPTION=Number of pseudo-stoch. par. per day
+V_CONR   = 5.0D-09;          DESCRIPTION=Constraint for R pseudo-stoch. par
+V_CONS   = 5.0D-09;          DESCRIPTION=Constraint for S pseudo-stoch. par
+V_CONW   = 5.0D-09;          DESCRIPTION=Constraint for W pseudo-stoch. par
+V_SATINF = LEO;              DESCRIPTION=SATELLITE INFORMATION
+V_OBSSEL = OBSERV.SEL;       DESCRIPTION=Observation selection

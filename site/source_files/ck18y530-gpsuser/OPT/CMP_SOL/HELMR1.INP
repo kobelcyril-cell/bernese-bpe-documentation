@@ -275,24 +275,24 @@ MSG_REJECT 1  "Enable outlier rejection"
 
 ! Maximal number of stations being rejected
 ! -----------------------------------------
-MAXREJ 1  "0"
+MAXREJ 1  "10"
   ## widget = spinbox; range = 0 99 1; activeif = REJECT = 1
 
 MSG_MAXREJ 1  "Maximal number of stations being rejected"
 
-NLIMIT 1  "50"
+NLIMIT 1  "60"
   ## widget = lineedit; activeif = REJECT = 1; check_type = real
   ## check_min = 0
 
 MSG_NLIMIT 1  "Outlier criteria north component"
 
-ELIMIT 1  "50"
+ELIMIT 1  "60"
   ## widget = lineedit; activeif = REJECT = 1; check_type = real
   ## check_min = 0
 
 MSG_ELIMIT 1  "Outlier criteria east component"
 
-ULIMIT 1  "50"
+ULIMIT 1  "60"
   ## widget = lineedit; activeif = REJECT = 1; check_type = real
   ## check_min = 0
 

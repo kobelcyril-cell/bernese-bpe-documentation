@@ -286,7 +286,7 @@ my @delete_list = (
   print $fh "=========================\n";
   print $fh "==== DELETED PROCESSING FILES ====\n";
   print $fh "Timestamp  : $timestamp\n";
-  print $fh "Total deleted files: $total_deleted\n";
+  print $fh "Total removed files: $total_deleted\n";
   print $fh "=========================\n";
 
   close($fh);

@@ -65,7 +65,7 @@ DESCR_OCNLOAD 1  "Ocean tidal loading"
 
 ! Atmospheric loading tables
 ! --------------------------
-ATMLOAD 1  "$(ATLINF)"
+ATMLOAD 1  ""
   ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
   ## emptyallowed = true
 

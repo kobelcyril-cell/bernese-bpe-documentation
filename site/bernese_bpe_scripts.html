@@ -122,20 +122,20 @@
     <div class="hero">
       <h1>Script Overview</h1>
       <p>Generated from: /storage/homefs/ck18y530/GPSUSER</p>
-      <p>Updated: 2026-09-09 12:44:05</p>
+      <p>Updated: 2026-10-05 16:21:37</p>
       <nav class='nav'><a class='' href='bernese_bpe_manual.html'>Overview</a><a class='' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='active' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
     </div>
     
     <div class="stats">
-      <div class="stat"><div class="label">PCF files</div><div class="value">20</div></div>
-      <div class="stat"><div class="label">PCF rows</div><div class="value">505</div></div>
-      <div class="stat"><div class="label">Script files</div><div class="value">286</div></div>
-      <div class="stat"><div class="label">Program refs</div><div class="value">187</div></div>
-      <div class="stat"><div class="label">INP files</div><div class="value">836</div></div>
-      <div class="stat"><div class="label">OPT DIRS</div><div class="value">91</div></div>
-      <div class="stat"><div class="label">INP fields</div><div class="value">220514</div></div>
-      <div class="stat"><div class="label">Handbook pages</div><div class="value">41</div></div>
-      <div class="stat"><div class="label">History entries</div><div class="value">13</div></div>
+      <div class="stat"><div class="label">PCF files</div><div class="value">21</div></div>
+      <div class="stat"><div class="label">PCF rows</div><div class="value">521</div></div>
+      <div class="stat"><div class="label">Script files</div><div class="value">320</div></div>
+      <div class="stat"><div class="label">Program refs</div><div class="value">197</div></div>
+      <div class="stat"><div class="label">INP files</div><div class="value">852</div></div>
+      <div class="stat"><div class="label">OPT DIRS</div><div class="value">93</div></div>
+      <div class="stat"><div class="label">INP fields</div><div class="value">224527</div></div>
+      <div class="stat"><div class="label">Handbook pages</div><div class="value">43</div></div>
+      <div class="stat"><div class="label">History entries</div><div class="value">36</div></div>
     </div>
     
     
@@ -432,7 +432,7 @@
         <details class="pcf-details">
           <summary><span class="pcf-toggle-title">APPOSB</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/APPOSB">APPOSB</a></summary>
           
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: APPOSB</li><li>Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB empty.</li><li>Used in PCFs: 1</li></ul>
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: APPOSB</li><li>Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB is empty or NO.</li><li>Used in PCFs: 1</li></ul>
           <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
     <table class="table">
       <thead><tr><th>Key</th></tr></thead>
@@ -455,6 +455,32 @@
       </tbody>
     </table>
     </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-apposb-15092026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">APPOSB_15092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/APPOSB_15092026">APPOSB_15092026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: APPOSB</li><li>Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB empty.</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_ESTOSB</td></tr><tr><td>V_OSB</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YSS+0</td></tr><tr><td>DIR_OSB</td></tr>
+      </tbody>
+    </table>
+    </section></div>
         </details>
         
     </article>
@@ -2588,7 +2614,54 @@
         <details class="pcf-details">
           <summary><span class="pcf-toggle-title">GPSESTRB</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/GPSESTRB">GPSESTRB</a></summary>
           
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: GPSESTRB</li><li>Purpose: Execute GPSEST, estmate receiver code biases if V_ESTOSB non-empty.</li><li>Programs: GPSEST</li><li>INP files: 2</li><li>Used in PCFs: 1</li></ul>
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: GPSESTRB</li><li>Purpose: Execute GPSEST, estimate receiver code biases if V_ESTOSB contains an output-file prefix (neither empty nor NO).</li><li>Programs: GPSEST</li><li>INP files: 2</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>GPSEST</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>INP modifications</h4>
+    <table class="table">
+      <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
+      <tbody>
+        <tr><td>GPSEST.INP</td><td>SAMPLE</td><td>&quot;0&quot;</td></tr><tr><td>GPSEST.INP</td><td>OSBEST</td><td>&quot;1&quot;</td></tr><tr><td>GPSEST.INP</td><td>OSBEST</td><td>&quot;0&quot;</td></tr><tr><td>GPSEST.INP</td><td>IGNORE_ERR</td><td>$IGNERR</td></tr>
+      </tbody>
+    </table>
+    </section><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_ESTOSB</td></tr><tr><td>V_IGNERR</td></tr><tr><td>V_OFFS</td></tr><tr><td>V_OSB</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>DIR_OSB</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-leopodr-pcf">LEOPODR.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-gpsestrb-15092026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">GPSESTRB_15092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/GPSESTRB_15092026">GPSESTRB_15092026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: GPSESTRB</li><li>Purpose: Execute GPSEST, estmate receiver code biases if V_ESTOSB non-empty.</li><li>Programs: GPSEST</li><li>INP files: 2</li></ul>
           <div class='body'>
     <table class="table">
       <thead><tr><th>Bernese programs</th></tr></thead>
@@ -2624,14 +2697,7 @@
         <tr><td>DIR_OSB</td></tr>
       </tbody>
     </table>
-    </section>
-    <table class="table">
-      <thead><tr><th>PCF files</th></tr></thead>
-      <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-leopodr-pcf">LEOPODR.PCF</a></td></tr>
-      </tbody>
-    </table>
-    </div>
+    </section></div>
         </details>
         
     </article>
@@ -3270,6 +3336,91 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-leo-check">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_CHECK</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK">LEO_CHECK</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_CHECK</li><li>Purpose: Check LEOPOD quality indicators before the LEO NEQ processing, remove failed LEOs from the daily LFILE and write a daily report.</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr><tr><td>V_MAXS</td></tr><tr><td>V_MAX_ALL</td></tr><tr><td>V_MAX_R</td></tr><tr><td>V_MAX_S</td></tr><tr><td>V_MAX_W</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-check-16092026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_CHECK_16092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK_16092026">LEO_CHECK_16092026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_CHECK</li><li>Purpose: Check the LEO configuration and print its contents.</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-check">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_CHECK~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK~">LEO_CHECK~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_CHECK</li><li>Purpose: Check LEOPOD quality indicators before the LEO NEQ processing, remove failed LEOs from the daily LFILE and write a daily report.</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr><tr><td>V_MAXS</td></tr><tr><td>V_MAX_ALL</td></tr><tr><td>V_MAX_R</td></tr><tr><td>V_MAX_S</td></tr><tr><td>V_MAX_W</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-leo-cop">
       
         <details class="pcf-details">
@@ -3366,6 +3517,407 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-leo-neq-check">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_NEQ_CHECK</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_CHECK">LEO_NEQ_CHECK</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_CHECK</li><li>Purpose: Check the daily NEQ output for every selected LEO and write a date-specific report into the MSC directory.</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-neq-e">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_NEQ_E</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E">LEO_NEQ_E</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_E</li><li>Purpose: Execute GPSEST for one LEO.</li><li>Programs: GPSEST</li><li>INP files: 1</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>GPSEST</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM1</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-neq-e-14092026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_NEQ_E_14092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E_14092026">LEO_NEQ_E_14092026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_E</li><li>Purpose: Execute GPSEST for one LEO.</li><li>Programs: GPSEST</li><li>INP files: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>GPSEST</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM1</td></tr><tr><td>PARAM2</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-neq-e">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_NEQ_E~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E~">LEO_NEQ_E~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_E</li><li>Programs: GPSEST</li><li>INP files: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>GPSEST</td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-leoneq-gpsest-inp">GPSEST.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td><td>ZD_LEONEQ</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM1</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-neq-p">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_NEQ_P</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P">LEO_NEQ_P</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_P</li><li>Purpose: Prepare one parallel GPSEST job per selected LEO.</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-neq-p-14092026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_NEQ_P_14092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P_14092026">LEO_NEQ_P_14092026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_P</li><li>Purpose: Prepare one parallel GPSEST job per selected LEO.</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-neq-p-16092026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_NEQ_P_16092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P_16092026">LEO_NEQ_P_16092026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_P</li><li>Purpose: Prepare one parallel GPSEST job per selected LEO.</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-neq-p">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_NEQ_P~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P~">LEO_NEQ_P~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_P</li><li>Purpose: Prepare one parallel GPSEST job per selected LEO.</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-orb-e">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_ORB_E</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_E">LEO_ORB_E</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_P</li><li>Purpose: Execute ORBGEN for one LEO</li><li>Programs: ORBGEN</li><li>INP files: 1</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>ORBGEN</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM1</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YSS+0</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-orb-e">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_ORB_E~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_E~">LEO_ORB_E~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_E</li><li>Programs: ORBGEN</li><li>INP files: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>ORBGEN</td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-leoneq-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td><td>ZD_LEONEQ</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM1</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YSS+0</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-orb-p">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_ORB_P</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P">LEO_ORB_P</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_P</li><li>Purpose: Prepare one parallel ORBGEN job per selected LEO.</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-orb-p-16092026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_ORB_P_16092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P_16092026">LEO_ORB_P_16092026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_P</li><li>Purpose: Prepare one parallel ORBGEN job per selected LEO.</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-orb-p">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_ORB_P~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P~">LEO_ORB_P~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_P</li><li>Purpose: Prepare one parallel ORBGEN job per selected LEO.</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-leo-rnx">
       
         <details class="pcf-details">
@@ -3424,6 +3976,39 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-leopodr-pcf">LEOPODR.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-leo-select">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">LEO_SELECT</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_SELECT">LEO_SELECT</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_CHECK</li><li>Purpose: Check the LEO configuration, copy it for the current YYSSSS and retain only included LEOs for which a PRE orbit file exists.</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_LFILE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YSS+0</td></tr><tr><td>DIR_ORB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_PRE</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -7268,6 +7853,79 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-zd-add-leo">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_ADD_LEO</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_ADD_LEO">ZD_ADD_LEO</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_ADD_LEO</li><li>Purpose: Copy LEO NEQs into the campaign and record the included LEOs in the session&#x27;s MSC directory.</li><li>Deletes: 1</li><li>Used in PCFs: 3</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_DIRLEO</td></tr><tr><td>V_FIN</td></tr><tr><td>V_ILEO</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YSS+0</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>EXT_NEQ</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file)</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-add-leo">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_ADD_LEO~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_ADD_LEO~">ZD_ADD_LEO~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_ADD_LEO</li><li>Purpose: Copy LEO NEQs into the campaign and record the included LEOs in the session&#x27;s MSC directory.</li><li>Deletes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_DIRLEO</td></tr><tr><td>V_FIN</td></tr><tr><td>V_ILEO</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YSS+0</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>EXT_NEQ</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file)</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-zd-addneq2">
       
         <details class="pcf-details">
@@ -7870,6 +8528,25 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-zd-check-camp">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHECK_CAMP~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_CAMP~">ZD_CHECK_CAMP~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: CHECK_CAMP</li><li>Purpose: Check whether campaign is ready for processing</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>DIR_BPEOUT</td></tr><tr><td>DIR_CZH</td></tr><tr><td>DIR_GRD</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>DIR_ORB</td></tr><tr><td>DIR_ORX</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_RXO</td></tr><tr><td>DIR_STA</td></tr><tr><td>DIR_TRP</td></tr><tr><td>EXT_SES</td></tr><tr><td>PTH_SINEXIN</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-zd-check-grd-files">
       
         <details class="pcf-details">
@@ -8047,7 +8724,7 @@
     <table class="table">
       <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_RNX</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_RNX</td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_RNX</td></tr>
       </tbody>
     </table>
     <section class='script-detail-section'><h4>INP modifications</h4>
@@ -8084,6 +8761,53 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-zd-check-sat-rms-05102026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHECK_SAT_RMS_05102026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_RMS_05102026">ZD_CHECK_SAT_RMS_05102026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: CHECK_SAT_RMS</li><li>Purpose: Checks the ORBGEN_APR file for the RMS (in meters) of each satellite.</li><li>Programs: SATMRK</li><li>INP files: 2</li><li>Reads: 1</li><li>Writes: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK</td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_RNX</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>INP modifications</h4>
+    <table class="table">
+      <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>$prn</td></tr>
+      </tbody>
+    </table>
+    </section><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-orbgen-apr-s-0-out">DIR_OUT/ORBGEN_APR$S+0.OUT</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-zd-check-vapl-entries">
       
         <details class="pcf-details">
@@ -8109,6 +8833,159 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-chkprc-ar">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHKPRC_AR</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_AR">ZD_CHKPRC_AR</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_AR</li><li>Purpose: Run processing checks for AR</li><li>Reads: 1</li><li>Writes: 1</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-phacorfile">$phacorFile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ar-pcf">ZDGNSS_AR.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-chkprc-ar">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHKPRC_AR~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_AR~">ZD_CHKPRC_AR~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_AR</li><li>Purpose: Run processing checks for AR</li><li>Reads: 1</li><li>Writes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-phacorfile">$phacorFile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-chkprc-sol">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHKPRC_SOL</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_SOL">ZD_CHKPRC_SOL</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_SOL</li><li>Purpose: Run solution processing checks</li><li>Programs: HELMR1</li><li>INP files: 1</li><li>Reads: 1</li><li>Writes: 1</li><li>Deletes: 1</li><li>Used in PCFs: 3</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>HELMR1</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_CRDINF</td></tr><tr><td>V_FIN</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-helmertfile">$helmertFile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file-deleted">$file)) { $deleted++</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-pattern">$pattern</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-chkprc-sol">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHKPRC_SOL~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_SOL~">ZD_CHKPRC_SOL~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_SOL</li><li>Purpose: Run solution processing checks</li><li>Programs: HELMR1</li><li>INP files: 1</li><li>Reads: 1</li><li>Writes: 1</li><li>Deletes: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>HELMR1</td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-chk-helmr1-inp">HELMR1.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td><td>ZD_CHK</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-chk-helmr1-inp">HELMR1.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td><td>ZD_CHK</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-chk-helmr1-inp">HELMR1.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td><td>ZD_CHK</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_CRDINF</td></tr><tr><td>V_FIN</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-helmertfile">$helmertFile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file-deleted">$file)) { $deleted++</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-pattern">$pattern</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -8961,6 +9838,39 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-zd-del-res-1d">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_DEL_RES_1D~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_1D~">ZD_DEL_RES_1D~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: DEL_RES_1D</li><li>Purpose: Delete specific files, only if V_CLEAN=Y.</li><li>Writes: 1</li><li>Deletes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_APR</td></tr><tr><td>V_APSP</td></tr><tr><td>V_BRD</td></tr><tr><td>V_CBIA</td></tr><tr><td>V_CLEAN</td></tr><tr><td>V_CLKA</td></tr><tr><td>V_CPSC</td></tr><tr><td>V_CSCR</td></tr><tr><td>V_CWGT</td></tr><tr><td>V_FIN</td></tr><tr><td>V_LARGE</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$D+0</td></tr><tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-file">$dir/$file</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-zd-del-res-3d">
       
         <details class="pcf-details">
@@ -8993,6 +9903,39 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-pcf">ZDGNSS_3D.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-final-pcf">ZDGNSS_3D_FINAL.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-del-res-3d">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_DEL_RES_3D~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_3D~">ZD_DEL_RES_3D~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: DEL_RES_3D</li><li>Purpose: Delete result files, only if V_DEL=Y.</li><li>Deletes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_APR</td></tr><tr><td>V_DEL</td></tr><tr><td>V_FIN</td></tr><tr><td>V_ORBAPR</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>$YSS+1</td></tr><tr><td>$YSS-1</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-pattern">DIR_OUT${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-sta-pattern">DIR_OUT../STA/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-orb-pattern">DIR_OUT../ORB/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-sol-pattern">DIR_OUT../SOL/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-bpe-zd3d-day">DIR_OUT../BPE/*ZD3D*${day}*</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -10129,7 +11072,7 @@
         <details class="pcf-details">
           <summary><span class="pcf-toggle-title">ZD_INIT_HOI</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_HOI">ZD_INIT_HOI</a></summary>
           
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: INIT_HOI</li><li>Purpose: Initialize HOI ionosphere file</li><li>Used in PCFs: 1</li></ul>
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: INIT_HOI</li><li>Purpose: Initialize HOI ionosphere file</li><li>Used in PCFs: 2</li></ul>
           <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
     <table class="table">
       <thead><tr><th>Key</th></tr></thead>
@@ -10148,7 +11091,7 @@
     <table class="table">
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -10269,6 +11212,79 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-leoneq-cop">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_LEONEQ_COP</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_LEONEQ_COP">ZD_LEONEQ_COP</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_LEONEQ_COP</li><li>Purpose: Copy files for ZDGNSS_LEONEQ.PCF. Existing destination files are retained and are not copied again.</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_B</td></tr><tr><td>V_CLK</td></tr><tr><td>V_CLKDIR</td></tr><tr><td>V_ORBDIR</td></tr><tr><td>V_OSB</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$+0</td></tr><tr><td>$Y</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_ERP</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_RPR</td></tr><tr><td>DIR_RXC</td></tr><tr><td>DIR_STD</td></tr><tr><td>EXT_ERP</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_RPR</td></tr><tr><td>EXT_RXC</td></tr><tr><td>EXT_STD</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-0-ext-std">V_ORBDIR/V_B$Y$+0.EXT_STD*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-00-ext-std">V_ORBDIR/V_B$Y$+00.EXT_STD*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-0-ext-rpr">V_ORBDIR/V_B$Y$+0.EXT_RPR*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-00-ext-rpr">V_ORBDIR/V_B$Y$+00.EXT_RPR*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-0-erp">V_ORBDIR/V_B$Y$+0.ERP*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-00-erp">V_ORBDIR/V_B$Y$+00.ERP*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-clkdir-v-clk-y-0-ext-rxc">V_CLKDIR/V_CLK$Y$+0.EXT_RXC*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-clkdir-v-clk-y-00-ext-rxc">V_CLKDIR/V_CLK$Y$+00.EXT_RXC*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-osb-ext-osb">V_ORBDIR/V_OSB.EXT_OSB</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-leoneq-cop">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_LEONEQ_COP~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_LEONEQ_COP~">ZD_LEONEQ_COP~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_COP</li><li>Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_ATLINF</td></tr><tr><td>V_B</td></tr><tr><td>V_BLQINF</td></tr><tr><td>V_CLK</td></tr><tr><td>V_CLKDIR</td></tr><tr><td>V_CRDINF</td></tr><tr><td>V_ORBDIR</td></tr><tr><td>V_OSB</td></tr><tr><td>V_REFDIR</td></tr><tr><td>V_STAINF</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$+0</td></tr><tr><td>$Y</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_ABB</td></tr><tr><td>DIR_ATL</td></tr><tr><td>DIR_BLQ</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_ERP</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_RXC</td></tr><tr><td>DIR_STA</td></tr><tr><td>DIR_STD</td></tr><tr><td>EXT_ABB</td></tr><tr><td>EXT_ATL</td></tr><tr><td>EXT_BLQ</td></tr><tr><td>EXT_CRD</td></tr><tr><td>EXT_ERP</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_RXC</td></tr><tr><td>EXT_STA</td></tr><tr><td>EXT_STD</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-0-ext-std">V_ORBDIR/V_B$Y$+0.EXT_STD*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-00-ext-std">V_ORBDIR/V_B$Y$+00.EXT_STD*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-0-erp">V_ORBDIR/V_B$Y$+0.ERP*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-00-erp">V_ORBDIR/V_B$Y$+00.ERP*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-clkdir-v-clk-y-0-ext-rxc">V_CLKDIR/V_CLK$Y$+0.EXT_RXC*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-clkdir-v-clk-y-00-ext-rxc">V_CLKDIR/V_CLK$Y$+00.EXT_RXC*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-osb-ext-osb">V_ORBDIR/V_OSB.EXT_OSB</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-osb-y-0-ext-osb">V_ORBDIR/V_OSB$Y$+0.EXT_OSB*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-osb-y-00-ext-osb">V_ORBDIR/V_OSB$Y$+00.EXT_OSB*</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -11250,6 +12266,46 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-zd-phacor">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_PHACOR~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_PHACOR~">ZD_PHACOR~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PHACOR</li><li>Purpose: Execute PHACOR, special case for ZD-processing NL</li><li>Programs: PHACOR</li><li>INP files: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>PHACOR</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_APR</td></tr><tr><td>V_CBIA</td></tr>
+      </tbody>
+    </table>
+    <h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM2</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_PRE</td></tr><tr><td>EXT_BIA</td></tr><tr><td>EXT_CLK</td></tr><tr><td>EXT_CRD</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_PRE</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-zd-polupd">
       
         <details class="pcf-details">
@@ -11819,7 +12875,40 @@
         <details class="pcf-details">
           <summary><span class="pcf-toggle-title">ZD_PRE_ELIM_CLK_P</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P">ZD_PRE_ELIM_CLK_P</a></summary>
           
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PRE_ELIM_CLK_P</li><li>Purpose: Prepare parallel ADDNEQ2 run using time intervals</li><li>Used in PCFs: 3</li></ul>
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PRE_ELIM_CLK_P</li><li>Purpose: Prepare parallel ADDNEQ2 run using time intervals</li><li>Deletes: 1</li><li>Used in PCFs: 3</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$$bpe{PARAM2}</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_NEQ</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-name">DIR_OUT/../MSC/MSC_$YD+0/$name)</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timintite">&quot;DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??&quot;</a></td></tr><tr><td>pattern</td><td> &quot;DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ&quot;</td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-cov">&quot;DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timint">DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timintite">DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neq-bpe-param2-preite-yss-0-ext-neq">DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neq-bpe-param2-ite-yss-0-ext-neq">DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-cov">DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-pre-elim-clk-p-14092026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_PRE_ELIM_CLK_P_14092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P_14092026">ZD_PRE_ELIM_CLK_P_14092026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PRE_ELIM_CLK_P</li><li>Purpose: Prepare parallel ADDNEQ2 run using time intervals</li></ul>
           <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
     <table class="table">
       <thead><tr><th>Key</th></tr></thead>
@@ -11834,11 +12923,30 @@
         <tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timintite">&quot;DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??&quot;</a></td></tr><tr><td>pattern</td><td> &quot;DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ&quot;</td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-cov">&quot;DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timint">DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timintite">DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neq-bpe-param2-preite-yss-0-ext-neq">DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neq-bpe-param2-ite-yss-0-ext-neq">DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-cov">DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV</a></td></tr>
       </tbody>
     </table>
+    </div>
+        </details>
+        
+    </article>
     
+
+    <article class="card" data-kind="script" id="script-zd-pre-elim-clk-p">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_PRE_ELIM_CLK_P~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P~">ZD_PRE_ELIM_CLK_P~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PRE_ELIM_CLK_P</li><li>Purpose: Prepare parallel ADDNEQ2 run using time intervals</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
     <table class="table">
-      <thead><tr><th>PCF files</th></tr></thead>
+      <thead><tr><th>Key</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
+        <tr><td>$$bpe{PARAM2}</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_NEQ</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timintite">&quot;DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??&quot;</a></td></tr><tr><td>pattern</td><td> &quot;DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ&quot;</td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-cov">&quot;DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timint">DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timintite">DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neq-bpe-param2-preite-yss-0-ext-neq">DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neq-bpe-param2-ite-yss-0-ext-neq">DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-cov">DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -13050,7 +14158,7 @@
     </div>
     
     <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
-    <div class="history-footer">Last change: 2026-09-09T12:39:52+02:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
+    <div class="history-footer">Last change: 2026-10-05T16:17:56+02:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
   </div>
   <script>
     const q = document.getElementById('q');

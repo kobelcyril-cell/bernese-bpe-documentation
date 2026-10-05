@@ -543,7 +543,7 @@ MSG_HWM_GD2QD 1  "QD coordinate conversion for HWM"
 ! --------------------------------------------------
 ! Satellite maneuver information
 ! --------------------
-MANINFO 1  "$(MAN)"
+MANINFO 1  ""
   ## widget = selwin; path = DIR_MAN; ext = EXT_MAN; emptyallowed = true
 
 DESCR_MANINFO 1  "Satellite maneuver information"
@@ -678,7 +678,7 @@ MSG_SATFILERR 1  "Error if not in satellite information file"
 
 ! Satellite macro model
 ! ---------------------
-PLATDEF 1  "$(MAC)"
+PLATDEF 1  "$(LMAC)"
   ## widget = selwin; path = PTH_PLATDEF; ext = EXT_PLATDEF; maxfiles = 1
   ## emptyallowed = true
 

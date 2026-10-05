@@ -1051,7 +1051,7 @@ REJFAKEOBSTOL 1  "1d-4"
 MSG_REJFAKEOBSTOL 1  "Tolerance for fake observation rejection"
 
 REJINCONSCODTOL 0
-  ## widget = lineedit; check_min = 100
+  ## widget = lineedit; check_type = integer; check_min = 100
 
 MSG_REJINCONSCODTOL 1  "Tol. for rejection of inconsistent code obs."
 

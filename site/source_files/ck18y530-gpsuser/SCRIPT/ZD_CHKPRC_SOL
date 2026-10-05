@@ -1,0 +1,198 @@
+package ZD_CHKPRC_SOL;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ZD_CHKPRC_SOL
+#
+# Purpose :  Run solution processing checks
+#
+# Author  :  C. Kobel
+# Created :  05-Oct-2026
+#
+# Changes :
+#===========================================================
+use strict;
+use warnings;
+use File::Spec;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+# ---------- Check parameters ------------
+# Adjust limits here: above soft, log only; above hard, delete station files.
+my $HELMERT_SOFT_LIMIT = 30.0;
+my $HELMERT_HARD_LIMIT = 50.0;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $yysss,
+      $ssss,
+      $crdinf,
+      $sol
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$YSS+0',
+      '$S+0',
+      'V_CRDINF',
+      'V_FIN'
+  );
+
+# ---------- Initialize logging ------------
+  my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $logfile = File::Spec->catfile($mscDir, "PROCESSING_${yyddd}");
+  open(my $LOG, '>>', $logfile)
+    or die "Cannot open log file $logfile: $!";
+
+# ---------- Run checks ------------
+# Add further checks here as needed. Each check receives shared run information and the log handle.
+  my $context = {
+    dirOut => $dirOut,
+    yyddd  => $yyddd,
+    yysss  => $yysss,
+    ssss   => $ssss,
+    crdinf => $crdinf,
+    sol    => $sol
+  };
+
+  print $LOG "\n=== CHECK PROCESS: SOL started ===\n";
+  my @checks = (
+    \&check_helmert_residuals
+  );
+
+  foreach my $check (@checks) {
+    $check->($bpe, $context, $LOG);
+  }
+
+  print $LOG "=== CHECK PROCESS: SOL finished ===\n";
+  close($LOG);
+
+  print "ZD_CHKPRC_SOL done. Log: $logfile\n";
+}
+
+#===========================================================
+# Run HELMR1 and report stations with Helmert coordinates
+# whose absolute component exceeds the configured limit.
+#===========================================================
+sub check_helmert_residuals {
+  my ($bpe, $context, $LOG) = @_;
+
+  my $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $outDir = $context->{dirOut};
+  my $pattern = File::Spec->catfile(
+    $outDir,
+    "HELMERT_$context->{crdinf}*$context->{sol}*$context->{yysss}.OUT"
+  );
+  my @files = glob($pattern);
+  die "No HELMERT output file found for pattern: $pattern\n" unless @files;
+
+  my %station_outliers;
+  foreach my $helmertFile (@files) {
+    open(my $HF, '<', $helmertFile)
+      or die "Cannot open $helmertFile: $!";
+
+    while (my $line = <$HF>) {
+      next unless $line =~ /^\s*\|\s*\d+\s*\|/;
+      my @columns = split(/\|/, $line, -1);
+      next unless @columns >= 5;
+
+      my $stationField = $columns[2];
+      $stationField =~ s/^\s+|\s+$//g;
+      next unless $stationField =~ /^([A-Za-z0-9]{4})\b/;
+      my $station = uc $1;
+
+      my $components = $columns[4];
+      my @values = ($components =~ /([-+]?(?:\d+(?:\.\d*)?|\.\d+)(?:[Ee][-+]?\d+)?)/g);
+      next unless @values >= 3;
+
+      my @directions = qw(N E U);
+      for my $i (0..2) {
+        my $value = $values[$i];
+        if (abs($value) > $HELMERT_SOFT_LIMIT) {
+          push @{ $station_outliers{$station}{ $directions[$i] } }, $value;
+        }
+      }
+    }
+
+    close($HF);
+  }
+
+# ---------- Report once per station ------------
+  foreach my $station (sort keys %station_outliers) {
+    my (@hard_components, @soft_components);
+
+    foreach my $direction (qw(N E U)) {
+      foreach my $value (@{ $station_outliers{$station}{$direction} || [] }) {
+        my $detail = "$direction=$value";
+        if (abs($value) > $HELMERT_HARD_LIMIT) {
+          push @hard_components, $detail;
+        }
+        else {
+          push @soft_components, $detail;
+        }
+      }
+    }
+
+    if (@hard_components) {
+      print $LOG "Excluded station $station: hard limit ${HELMERT_HARD_LIMIT} m exceeded in "
+        . join(', ', @hard_components) . ". Re-included in PPP if not explicitly excluded in script ZD_COPY_OBS\n";
+      delete_station_files($station, $outDir, $context->{ssss}, $LOG);
+    }
+    elsif (@soft_components) {
+      print $LOG "Monitor station $station: soft limit ${HELMERT_SOFT_LIMIT} m exceeded in "
+        . join(', ', @soft_components) . "; hard limit not exceeded.\n";
+    }
+  }
+}
+
+#===========================================================
+# Delete matching observation files for a station from RAW and OBS.
+#===========================================================
+sub delete_station_files {
+  my ($station, $outDir, $ssss, $LOG) = @_;
+  # Call each directory separately so a missing RAW directory cannot bypass OBS.
+  delete_station_files_in_dir($station, $outDir, $ssss, 'RAW', $LOG);
+  delete_station_files_in_dir($station, $outDir, $ssss, 'OBS', $LOG);
+}
+
+sub delete_station_files_in_dir {
+  my ($station, $outDir, $ssss, $directory, $LOG) = @_;
+  my $baseDir = File::Spec->catdir($outDir, '..', $directory);
+  my $sessionDir = File::Spec->catdir($baseDir, "${directory}_${ssss}");
+  my $deleted = 0;
+
+  # RAW files are stored directly under RAW. OBS files may be in both OBS
+  # and its session-specific OBS_#### subdirectory.
+  my @targetDirs = ($baseDir);
+  push @targetDirs, $sessionDir if $directory eq 'OBS';
+
+  foreach my $targetDir (@targetDirs) {
+    my $pattern = File::Spec->catfile($targetDir, "${station}${ssss}.*");
+    unless (-d $targetDir) {
+      next;
+    }
+
+    my @matches = grep { -f $_ } glob($pattern);
+
+    foreach my $file (@matches) {
+      if (unlink($file)) {
+        $deleted++;
+      }
+      else {
+        print $LOG "Could not delete $file: $!\n";
+      }
+    }
+
+  }
+  return $deleted;
+}

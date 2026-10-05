@@ -69,8 +69,8 @@ sub run {
   my @out_patterns = (
      "COOVEL.L??",
      "${V_FIN}${ssss}00?.CLK",
-     "${V_FIN}_${yyssss}00?.OUT",
-     "${V_FIN}S${yyssss}.OUT",
+#     "${V_FIN}_${yyssss}00?.OUT",
+#     "${V_FIN}S${yyssss}.OUT",
      "ORBGEN.L??",
      "POLUPD.L??",
   );

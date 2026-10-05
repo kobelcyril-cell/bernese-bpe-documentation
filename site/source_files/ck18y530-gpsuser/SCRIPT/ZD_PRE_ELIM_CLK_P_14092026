@@ -1,0 +1,378 @@
+package PRE_ELIM_CLK_P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  PRE_ELIM_CLK_P
+#
+# Purpose :  Prepare parallel ADDNEQ2 run using time intervals
+#
+# Author  :  E. Calero
+# Created :  25-Apr-2021
+#
+# Changes :  26-May-2026 CK: Revised and formatted
+#===========================================================
+
+use lib $ENV{BPE};
+
+use bpe_util;
+use File::Basename;
+
+
+sub run {
+
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $yyssss,
+      $yyddd,
+      $sol,
+      $dirOut,
+      $dirNeq,
+      $extNeq
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      '$YD+0',
+      "$$bpe{PARAM2}",
+      'DIR_OUT',
+      'DIR_NEQ',
+      'EXT_NEQ'
+  );
+
+# ---------- Define day-specific MSC directory ------------
+
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+
+# ---------- Get time interval information ------------
+
+  my $timIntFl = glob("${mscDir}/TIMINT_??");
+
+  unless ( -e $timIntFl ) {
+
+    system("touch ${mscDir}/TIMINT_03");
+
+    prtMess($bpe, "DEFAULT TIME INTERVAL: 3 HOURS");
+
+    $timIntFl = glob("${mscDir}/TIMINT_??");
+  }
+
+  my $timInt = substr(basename($timIntFl), 7, 2);
+
+  if ( "24" % $timInt ) {
+
+    prtErr($bpe, "WRONG TIME INTERVAL")
+      and die "Time interval must be multiple of 24";
+  }
+
+# ---------- Get iteration number ------------
+# ---------- Check if iteration file exists, otherwise initialize iteration 0 ------------
+#
+
+  my $timIntIteFl = glob("${mscDir}/TIMINTITE_??");
+  unless ( -e $timIntIteFl ) {
+
+# ---------- Check that MSC directory exists ------------
+
+    unless ( -d $mscDir ) {
+
+      prtMess(
+        $bpe,
+        "MSC directory $mscDir does not exist – creating it."
+      );
+
+      system("mkdir -p $mscDir") == 0
+        or prtErr(
+          $bpe,
+          "ERROR: Could not create MSC directory $mscDir"
+        )
+        and die "Cannot create $mscDir";
+    }
+
+# ---------- Create initial iteration flag and dummy COV file ------------
+
+    system("touch ${mscDir}/TIMINTITE_00");
+    system("touch ${mscDir}/001_00_24.COV");
+
+# ---------- Re-fetch iteration file handle ------------
+
+    $timIntIteFl = glob("${mscDir}/TIMINTITE_??");
+
+# ---------- Build expected NEQ filenames ------------
+
+    my $file1 = "${dirNeq}${sol}_${yyssss}.${extNeq}";
+    my $file2 = "${dirNeq}${sol}00${yyssss}001.${extNeq}";
+
+# ---------- Check that source NEQ file exists before copying ------------
+
+    if ( -e $file1 ) {
+
+      my $cp_status = system("cp $file1 $file2");
+
+      if ( $cp_status == 0 ) {
+
+        prtMess(
+          $bpe,
+          "Copied NEQ file successfully: $file1 → $file2"
+        );
+
+      } else {
+
+        prtErr(
+          $bpe,
+          "ERROR: Copy command failed: $file1 → $file2"
+        );
+      }
+
+    } else {
+
+      prtErr(
+        $bpe,
+        "ERROR: Source NEQ file missing: $file1"
+      );
+
+      prtMess(
+        $bpe,
+        "Skipping creation of $file2 – cannot continue this iteration."
+      );
+    }
+
+# ---------- Ensure copied NEQ file is visible before continuing ------------
+
+    my $wait_visible = 0;
+
+    while ( ! -e $file2 && $wait_visible < 20 ) {
+
+      prtMess(
+        $bpe,
+        sprintf(
+          "Waiting for NEQ file to appear in filesystem: %s (waited %ds)",
+          $file2,
+          $wait_visible
+        )
+      );
+
+      sleep(2);
+
+      $wait_visible += 2;
+    }
+
+    if ( ! -e $file2 ) {
+
+      prtErr(
+        $bpe,
+        sprintf(
+          "File visibility delay exceeded – NEQ file %s not found after %ds",
+          $file2,
+          $wait_visible
+        )
+      );
+
+    } else {
+
+      prtMess(
+        $bpe,
+        "NEQ file visible in filesystem: $file2"
+      );
+    }
+
+  } else {
+
+    prtMess(
+      $bpe,
+      "Existing iteration file found: $timIntIteFl – skipping initialization."
+    );
+  }
+
+  my $ite = substr(basename($timIntIteFl), 10, 2);
+
+# ---------- Create next iteration file ------------
+
+  unlink glob("${mscDir}/TIMINTITE_??");
+
+  my $nextIte = sprintf("%02d", $ite + 1);
+
+  system("touch ${mscDir}/TIMINTITE_${nextIte}");
+
+# ---------- Delete previous NEQ files ------------
+
+  if ( $ite > 0 ) {
+
+    my $preIte = sprintf("%02d", $ite - 1);
+
+    unlink glob(
+      "${dirNeq}${sol}${preIte}${yyssss}???.${extNeq}"
+    );
+  }
+
+# ---------- Check if the preelimination process is over ------------
+
+  my @NEQfl  = glob("${dirNeq}${sol}${ite}${yyssss}???.${extNeq}");
+  my @NEQcov = glob("${mscDir}/???_??_??.COV");
+
+  my $nFiles = scalar @NEQfl;
+  my $isOver = 0;
+
+  if ( $nFiles == 24 / $timInt ) {
+
+    $isOver = 1;
+
+    system("touch ${mscDir}/TIMOVER");
+  }
+
+# ---------- Distinguish between finished or unfinished iterative process ------------
+
+  my @time;
+
+  if ($isOver) {
+
+# ---------- Clean-up ------------
+
+    unlink glob("${mscDir}/???_??_??.COV");
+    unlink glob("${mscDir}/TIMINTITE_??");
+
+# ---------- Create dummy entry ------------
+
+    push @time,
+      sprintf "%s %5s %s",
+      "DUMMY210700001.NQ0",
+      "DUMMY",
+      "00 00";
+
+  } else {
+
+# ---------- Main algorithm loop ------------
+
+    my $idx     = -1;
+    my $fileIn  = "";
+    my $cov     = "";
+    my $ssol    = sprintf("%02i", $ite + 1);
+
+    $ssol = "$sol$ssol";
+
+    my $t1 = "";
+    my $t2 = "";
+
+    my @auxCov;
+    my %auxCovHash;
+
+    foreach (@NEQfl) {
+
+# ---------- Update main information ------------
+
+      $idx = $idx + 1;
+
+      ($fileIn = basename($NEQfl[$idx])) =~ s/\.[^.]+$//;
+
+      $t1 = substr(basename($NEQcov[$idx]), 4, 2);
+      $t2 = substr(basename($NEQcov[$idx]), 7, 2);
+
+# ---------- First entry for this file: modify last epoch ------------
+
+      $cov = sprintf("%02i %02i", $t1, $t2 - $timInt);
+
+      %auxCovHash = map { $_ => 1 } @auxCov;
+
+      unless ( exists($auxCovHash{$cov}) ) {
+
+        push @auxCov, sprintf "%s", $cov;
+
+        push @time,
+          sprintf "%s %5s %s",
+          $fileIn,
+          $ssol,
+          $cov;
+      }
+
+# ---------- Second entry for this file: modify first epoch ------------
+
+      $cov = sprintf("%02i %02i", $t1 + $timInt, $t2);
+
+      %auxCovHash = map { $_ => 1 } @auxCov;
+
+      unless ( exists($auxCovHash{$cov}) ) {
+
+        push @auxCov, sprintf "%s", $cov;
+
+        push @time,
+          sprintf "%s %5s %s",
+          $fileIn,
+          $ssol,
+          $cov;
+      }
+    }
+
+# ---------- Remove redundancy ------------
+
+    my $loopFlag = 1;
+    my $nFor     = 0;
+    my $idx1     = 0;
+    my $idx2     = 0;
+    my $count    = 0;
+
+    while ($loopFlag) {
+
+      $count = $count + 1;
+
+      if ( $count > 1000 ) {
+
+        prtErr($bpe, "TRAPPED IN ENDLESS LOOP")
+          and die "Trapped in endless loop";
+      }
+
+      $nFor = scalar @time - 1;
+
+      for my $idx (0 .. $nFor) {
+
+        $idx1 = $idx;
+        $idx2 = $idx + 2;
+
+        if ( $idx2 > $nFor ) {
+
+          $loopFlag = 0;
+          last;
+        }
+
+        $t1 = substr($auxCov[$idx1], 3, 2);
+        $t2 = substr($auxCov[$idx2], 0, 2);
+
+        if ( $t1 >= $t2 ) {
+
+          splice @auxCov, $idx + 1, 1;
+          splice @time,   $idx + 1, 1;
+
+          last;
+        }
+      }
+    }
+
+# ---------- Write coverage files ------------
+
+    unlink glob("${mscDir}/???_??_??.COV");
+
+    my $covFl = "";
+
+    $idx = 0;
+
+    foreach (@auxCov) {
+
+      $idx = $idx + 1;
+
+      $t1 = substr($_, 0, 2);
+      $t2 = substr($_, 3, 2);
+
+      $covFl = sprintf(
+        "%03i_%02i_%02i.COV",
+        $idx,
+        $t1,
+        $t2
+      );
+
+      system("touch ${mscDir}/$covFl");
+    }
+  }
+
+# ---------- Put the BPE cluster files into the list ------------
+
+  initPar_Fl($bpe, @time);
+
+}

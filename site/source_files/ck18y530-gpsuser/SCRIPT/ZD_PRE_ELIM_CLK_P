@@ -22,6 +22,10 @@ sub run {
 
   my $bpe = shift;
 
+# ---------- Restart the complete run after endless-loop recovery ------------
+
+  RESTART: while (1) {
+
 # ---------- Get variables ------------
   my (
       $yyssss,
@@ -315,8 +319,40 @@ sub run {
 
       if ( $count > 1000 ) {
 
-        prtErr($bpe, "TRAPPED IN ENDLESS LOOP")
-          and die "Trapped in endless loop";
+        prtMess(
+          $bpe,
+          "TRAPPED IN ENDLESS LOOP - cleaning MSC files and restarting."
+        );
+
+# ---------- Delete TIM* and *COV files directly inside the MSC directory ------------
+
+        opendir(my $mscHandle, $mscDir)
+          or die "Cannot open MSC directory $mscDir: $!";
+
+        my @resetFiles = grep {
+          /\ATIM/ || /COV\z/
+        } readdir($mscHandle);
+
+        closedir($mscHandle)
+          or die "Cannot close MSC directory $mscDir: $!";
+
+        foreach my $name (@resetFiles) {
+
+          my $path = "${mscDir}/$name";
+
+# ---------- Remove files and symbolic links, but never directories ------------
+
+          next unless -f $path || -l $path;
+
+          unlink($path)
+            or die "Cannot delete $path during endless-loop recovery: $!";
+        }
+
+        prtMess($bpe, "MSC cleanup completed - restarting from the beginning.");
+
+# ---------- Restart without recursion; all iteration variables are reinitialized ------------
+
+        next RESTART;
       }
 
       $nFor = scalar @time - 1;
@@ -374,5 +410,11 @@ sub run {
 # ---------- Put the BPE cluster files into the list ------------
 
   initPar_Fl($bpe, @time);
+
+# ---------- Finish after a successful run ------------
+
+  last RESTART;
+
+  }
 
 }

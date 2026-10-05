@@ -1,0 +1,115 @@
+package ZD_CHKPRC_AR;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ZD_CHKPRC_AR
+#
+# Purpose :  Run processing checks for AR
+#
+# Author  :  C. Kobel
+# Created :  05-Oct-2026
+#
+# Changes :
+#===========================================================
+use strict;
+use warnings;
+use File::Basename;
+use File::Spec;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyyy
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$Y+0'
+  );
+
+# ---------- Define shared context ------------
+  my $yy = substr($yyyy, -2);
+  my $context = {
+    dirOut => $dirOut,
+    yyddd  => $yyddd,
+    ssss   => $ssss,
+    yyyy   => $yyyy,
+    yy     => $yy,
+
+    # Register additional input files here when adding new checks.
+    files  => {
+      PHACOR => "${dirOut}/PHACOR${yy}${ssss}.OUT"
+    }
+  };
+
+# ---------- Initialize logging ------------
+  my $mscDir = File::Spec->catdir($dirOut, '..', 'MSC/MSC_$yyddd');
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $logfile = File::Spec->catfile($mscDir, "PROCESSING_${yyddd}");
+  open(my $LOG, '>>', $logfile) or die "Cannot open log file $logfile: $!";
+  print $LOG "\n=== CHECK PROCESS: AR started ===\n";
+
+# ---------- Check list ------------
+# Add new checks here. Each check receives shared run information and the log handle.
+  my @checks = (
+    \&check_phacor_satellite_coverage
+  );
+
+  foreach my $check (@checks) {
+    $check->($context, $LOG);
+  }
+
+# ---------- Finish ------------
+  print $LOG "=== CHECK PROCESS: AR finished ===\n";
+  close($LOG);
+
+  print "ZD_CHKPRC_AR done. Log: $logfile\n";
+}
+
+#===========================================================
+# Check satellite coverage in the PHACOR output
+#===========================================================
+sub check_phacor_satellite_coverage {
+  my ($context, $LOG) = @_;
+  my $phacorFile = $context->{files}{PHACOR};
+
+  die "PHACOR file not found: $phacorFile\n" unless (-e $phacorFile);
+  open(my $PF, '<', $phacorFile) or die "Cannot open $phacorFile: $!";
+
+  print $LOG "Checking satellite coverage in " . basename($phacorFile) . "\n";
+
+  my $matched = 0;
+  my $reduced = 0;
+
+  while (my $line = <$PF>) {
+    next unless ($line =~ /covered epochs/i);
+    $matched++;
+
+    if ($line =~ /satellite\s*=\s*(\d+).*?covered epochs\s*=\s*(\d+)/i) {
+      my ($satellite, $covered) = ($1, $2);
+
+      if ($covered != 288) {
+        print $LOG "Satellite $satellite has $covered covered epochs (expected 288): Probably decreased ambiguity-resolution rate\n";
+        $reduced++;
+      }
+    }
+    else {
+      chomp $line;
+      print $LOG "Could not parse covered-epochs line: $line\n";
+    }
+  }
+
+  close($PF);
+
+  print $LOG "Checked $matched covered-epochs lines; $reduced satellite(s) with coverage different from 288 epochs\n";
+}

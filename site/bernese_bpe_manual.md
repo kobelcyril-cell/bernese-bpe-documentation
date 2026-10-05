@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-09-09 12:44:05
+Generated: 2026-10-05 16:21:37
 
 ## Overview
 
@@ -8,17 +8,17 @@ This manual is generated from one or more configured source directories containi
 
 ### Snapshot
 
-- PCF files: 20
-- PCF process rows: 505
-- Script files: 286
-- Bernese program references: 187
-- Script file reads: 207
-- Script file writes: 133
-- Script file deletes: 123
-- File references: 821
-- INP files: 836
-- INP directories: 91
-- INP fields: 220514
+- PCF files: 21
+- PCF process rows: 521
+- Script files: 320
+- Bernese program references: 197
+- Script file reads: 212
+- Script file writes: 139
+- Script file deletes: 130
+- File references: 830
+- INP files: 852
+- INP directories: 93
+- INP fields: 224527
 
 ### Workflow
 
@@ -32,7 +32,7 @@ This manual is generated from one or more configured source directories containi
 
 The following notes are imported from the configured handbook source and mirror the manually written project guide.
 
-- Operation: 12 page(s)
+- Operation: 14 page(s)
 - Perl Controller: 15 page(s)
 - Python Controller: 1 page(s)
 - Python Utilities: 9 page(s)
@@ -43,19 +43,26 @@ The following notes are imported from the configured handbook source and mirror 
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
-- 2026-09-09T12:39:52+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-09-09T12:39:51+02:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-09-09T11:59:36+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-09-09T11:59:33+02:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-09-08T17:54:58+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-09-08T17:54:56+02:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-09-08T17:39:47+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-09-08T17:39:41+02:00 | Cyril Kobel | Menu action | b1 | Selected option b1: Add GPSUSER
-- 2026-09-08T14:09:56+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-09-08T14:09:54+02:00 | Cyril Kobel | Menu action | b1 | Selected option b1: Add GPSUSER
-- 2026-09-08T14:07:57+02:00 | Cyril Kobel | Menu action | b1 | Selected option b1: Add GPSUSER
-- 2026-09-08T14:07:29+02:00 | Cyril Kobel | Menu action | b1 | Selected option b1: Add GPSUSER
-- 2026-09-08T14:07:09+02:00 | Cyril Kobel | Menu action | b1 | Selected option b1: Add GPSUSER
+- 2026-10-05T16:17:56+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T16:17:53+02:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-10-05T16:11:02+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T16:11:00+02:00 | Cyril Kobel | Menu action | d3 | Selected option d3: Edit handbook entry
+- 2026-10-05T16:11:00+02:00 | Cyril Kobel | Updated | Operation/Plot_excluded_stations.py.md | Updated handbook entry Plot_excluded_stations.py
+- 2026-10-05T16:02:55+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T16:02:54+02:00 | Cyril Kobel | Added | Operation/Satellite Problems Plot.md | Created handbook entry Satellite Problems Plot
+- 2026-10-05T15:51:27+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T15:51:26+02:00 | Cyril Kobel | Updated | Operation/Plot_excluded_stations.py.md | Updated handbook entry Plot_excluded_stations.py
+- 2026-10-05T15:37:07+02:00 | Cyril Kobel | Updated | Operation/Station_exclusions_plot.md | Plot the excluded stations. As Input the MSC directory has to be provided. Use, for, example: python3 ~/python/summarize_excluded_stations.py $R/CK_ZDGNSS/MSC. The script is located in ck18y530/python.
+- 2026-10-05T15:36:32+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T15:36:30+02:00 | Cyril Kobel | Menu action | d3 | Selected option d3: Edit handbook entry
+- 2026-10-05T15:28:11+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T15:28:09+02:00 | Cyril Kobel | Menu action | d1 | Selected option d1: Add handbook entry
+- 2026-10-05T15:21:30+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T15:21:29+02:00 | Cyril Kobel | Menu action | d1 | Selected option d1: Add handbook entry
+- 2026-10-05T15:07:49+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T15:07:48+02:00 | Cyril Kobel | Menu action | d3 | Selected option d3: Edit handbook entry
+- 2026-10-05T15:07:17+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-05T15:07:15+02:00 | Cyril Kobel | Menu action | d1 | Selected option d1: Add handbook entry
 
 ## Quick Cross-Reference
 
@@ -311,6 +318,7 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_GPSEST_E` | `GPSEST_E` | `GPSEST` | `ZD_IAR_NLI/GPSEST.INP` |
 | `ZD_IAR_STA` | `IAR_STA` | `GPSXTR` | `ZD_IAR_CHK/GPSXTR.INP` |
 | `COPY_APR_AR_new` | `COPY_APR_AR` | - | - |
+| `ZD_CHKPRC_AR` | `ZD_CHKPRC_AR` | - | - |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_COPY_FIL_CLKD` | `COPY_FIL_CLKD` | - | - |
@@ -376,6 +384,15 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_SAVE_RES` | `SAVE_RES` | - | - |
 | `ZD_DEL_RES_1D` | `DEL_RES_1D` | - | - |
 | `ZD_STATUS` | `STATUS` | - | - |
+| `LEO_SELECT` | `LEO_CHECK` | - | - |
+| `ZD_INIT_HOI` | `INIT_HOI` | - | - |
+| `ZD_LEONEQ_COP` | `ZD_LEONEQ_COP` | - | - |
+| `LEO_CHECK` | `LEO_CHECK` | - | - |
+| `LEO_ORB_P` | `LEO_ORB_P` | - | - |
+| `LEO_ORB_E` | `LEO_ORB_E` | `ORBGEN` | `ZD_LEONEQ/ORBGEN.INP` |
+| `LEO_NEQ_P` | `LEO_NEQ_P` | - | - |
+| `LEO_NEQ_E` | `LEO_NEQ_E` | `GPSEST` | `ZD_LEONEQ/GPSEST.INP` |
+| `LEO_NEQ_CHECK` | `LEO_NEQ_CHECK` | - | - |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_MKCLUS` | `MKCLUS` | `MKCLUS` | `ZD_GEN/MKCLUS.INP` |
 | `ZD_CLKEST_CLU` | `CLKEST_CLU` | `CLKEST` | `ZD_GEN/CLKEST.INP` |
@@ -485,6 +502,7 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_ORBGEN` | `ORBGEN` | `ORBGEN` | `ZD_1DP/ORBGEN.INP` |
 | `ZD_GEN_NEQ_P` | `GEN_NEQ_P` | - | - |
 | `ZD_GEN_NEQ_E` | `GEN_NEQ_E` | `ADDNEQ2`, `GPSEST` | `ZD_1DP/GPSEST.INP`, `ZD_1DP/ADDNEQ2.INP` |
+| `ZD_ADD_LEO` | `ZD_ADD_LEO` | - | - |
 | `ZD_ADDNEQ2_DELNEQ` | `ADDNEQ2_DELNEQ` | `ADDNEQ2` | `ZD_1DU/ADDNEQ2.INP` |
 | `ZD_PRE_ELIM_CLK_P` | `PRE_ELIM_CLK_P` | - | - |
 | `ZD_WAIT` | `WAIT` | - | - |
@@ -499,11 +517,13 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_ADDNEQ2_CLK_E` | `ADDNEQ2_CLK_E` | `ADDNEQ2` | `ZD_1DS/ADDNEQ2.INP` |
 | `ZD_CCRNXC` | `CCRNXC` | `CCRNXC` | `ZD_1DS/CCRNXC.INP` |
 | `ZD_ORBGENF` | `ORBGENF` | `ORBGEN` | `ZD_FIN/ORBGEN.INP` |
+| `ZD_CHKPRC_SOL` | `ZD_CHKPRC_SOL` | `HELMR1` | `ZD_CHK/HELMR1.INP` |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_ORBGEN` | `ORBGEN` | `ORBGEN` | `ZD_1DP/ORBGEN.INP` |
 | `ZD_GEN_NEQ_P` | `GEN_NEQ_P` | - | - |
 | `ZD_GEN_NEQ_E` | `GEN_NEQ_E` | `ADDNEQ2`, `GPSEST` | `ZD_1DP/GPSEST.INP`, `ZD_1DP/ADDNEQ2.INP` |
+| `ZD_ADD_LEO` | `ZD_ADD_LEO` | - | - |
 | `ZD_ADDNEQ2_DELNEQ` | `ADDNEQ2_DELNEQ` | `ADDNEQ2` | `ZD_1DU/ADDNEQ2.INP` |
 | `ZD_PRE_ELIM_CLK_P` | `PRE_ELIM_CLK_P` | - | - |
 | `ZD_WAIT` | `WAIT` | - | - |
@@ -518,11 +538,13 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_ADDNEQ2_CLK_E` | `ADDNEQ2_CLK_E` | `ADDNEQ2` | `ZD_1DS/ADDNEQ2.INP` |
 | `ZD_CCRNXC` | `CCRNXC` | `CCRNXC` | `ZD_1DS/CCRNXC.INP` |
 | `ZD_ORBGENF` | `ORBGENF` | `ORBGEN` | `ZD_FIN/ORBGEN.INP` |
+| `ZD_CHKPRC_SOL` | `ZD_CHKPRC_SOL` | `HELMR1` | `ZD_CHK/HELMR1.INP` |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_ORBGEN` | `ORBGEN` | `ORBGEN` | `ZD_1DP/ORBGEN.INP` |
 | `ZD_GEN_NEQ_P` | `GEN_NEQ_P` | - | - |
 | `ZD_GEN_NEQ_E` | `GEN_NEQ_E` | `ADDNEQ2`, `GPSEST` | `ZD_1DP/GPSEST.INP`, `ZD_1DP/ADDNEQ2.INP` |
+| `ZD_ADD_LEO` | `ZD_ADD_LEO` | - | - |
 | `ZD_ADDNEQ2_DELNEQ` | `ADDNEQ2_DELNEQ` | `ADDNEQ2` | `ZD_1DU/ADDNEQ2.INP` |
 | `ZD_PRE_ELIM_CLK_P` | `PRE_ELIM_CLK_P` | - | - |
 | `ZD_WAIT` | `WAIT` | - | - |
@@ -537,6 +559,7 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_ADDNEQ2_CLK_E` | `ADDNEQ2_CLK_E` | `ADDNEQ2` | `ZD_1DS/ADDNEQ2.INP` |
 | `ZD_CCRNXC` | `CCRNXC` | `CCRNXC` | `ZD_1DS/CCRNXC.INP` |
 | `ZD_ORBGENF` | `ORBGENF` | `ORBGEN` | `ZD_FIN/ORBGEN.INP` |
+| `ZD_CHKPRC_SOL` | `ZD_CHKPRC_SOL` | `HELMR1` | `ZD_CHK/HELMR1.INP` |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `STATUS` | `STATUS` | - | - |
 | `ZDDE_COP` | `ZDDE_COP` | - | - |
@@ -883,9 +906,8 @@ Variables:
 | --- | --- | --- |
 | V_LEO | S3AN | DESCRIPTION=LEO name |
 | V_SVN | 974 | DESCRIPTION=LEO SVN (for LEOATT) |
-| V_MAC | SE3A | DESCRIPTION=Macro model file |
+| V_LMAC | SE3A | DESCRIPTION=Macro model file |
 | V_ATT | SE3A$YSS+0 | DESCRIPTION=Attitude file name |
-| V_MAN |  | DESCRIPTION=Maneuver file name |
 | V_A | A | DESCRIPTION=A priori information for LEO |
 | V_F | AF | DESCRIPTION=Final solution identifier for LEO |
 | V_ORBDIR | ${S}/IGS/$Y+0/ORB | DESCRIPTION=GPS orbit/ERP directory |
@@ -896,7 +918,7 @@ Variables:
 | V_SMP | 0 | DESCRIPTION=Sampling in RXOBV3 |
 | V_SPRD | 10 | DESCRIPTION=Sampling for RD orbit |
 | V_SPKN | 1 | DESCRIPTION=Sampling for kin. orbit |
-| V_ESTOSB |  | DESCRIPTION=Output file for estimated rec. code biases |
+| V_ESTOSB | NO | DESCRIPTION=Output file for estimated rec. code biases |
 | V_AR | Y | DESCRIPTION=Zero difference ambiguity resolution |
 | V_INL1L2 | N | DESCRIPTION=Introduce L1 and L2 integers (no AR) |
 | V_OSB | IAR$YSS+0_V01 | DESCRIPTION=OSB file for ZD AR |
@@ -921,8 +943,9 @@ Variables:
 | V_NSTC | 240 | DESCRIPTION=Number of pseudo-stoch. par. per day |
 | V_CONR | 5.0D-09 | DESCRIPTION=Constraint for R pseudo-stoch. par |
 | V_CONS | 5.0D-09 | DESCRIPTION=Constraint for S pseudo-stoch. par |
+| V_CONW | 5.0D-09 | DESCRIPTION=Constraint for W pseudo-stoch. par |
 
-_... 30 more variables omitted in this summary._
+_... 27 more variables omitted in this summary._
 
 ### VALIDATE_SOLUTION.PCF
 
@@ -1106,7 +1129,8 @@ Process Table
 | 151 | ZD_GPSEST_E | GPSEST_E | ZD_IAR_NLI | `ZD_IAR_NLI/GPSEST.INP` | - | CPU=ANY; WAIT=150; PARALLEL=150 |
 | 161 | ZD_IAR_STA | IAR_STA | ZD_IAR_CHK | `ZD_IAR_CHK/GPSXTR.INP` | D: DIR_SUMIAR$YSS+0.PRC) if $iarRun==0 | CPU=ANY; WAIT=151 |
 | 200 | COPY_APR_AR_new | COPY_APR_AR | NO_OPT | - | R: DIR_STDV_APR_$YSS+0.EXT_STD; W: DIR_STDV_APR_APR_$YSS+0.EXT_STD | CPU=ANY; WAIT=151; PARAM2=END |
-| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=200; PARAM1=AR; PARAM2=CREATE |
+| 900 | ZD_CHKPRC_AR | ZD_CHKPRC_AR | NO_OPT | - | R: $phacorFile; W: $logfile | CPU=ANY; WAIT=161 200 |
+| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=900; PARAM1=AR; PARAM2=CREATE |
 
 Variables:
 
@@ -1366,6 +1390,61 @@ Variables:
 | V_SAVE | * | DESCRIPTION=Save results CARDS=YES NO |
 | V_CLEAN | * | DESCRIPTION=Delete specific files from campaign CARDS=YES NO |
 | V_PCFCONFIG | MODEL SETUP_ZDGNSS FINAL | DESCRIPTION=Configuration files |
+
+### ZDGNSS_LEONEQ.PCF
+
+- Source: [ZDGNSS_LEONEQ.PCF](source_files/ck18y530-gpsuser/PCF/ZDGNSS_LEONEQ.PCF)
+
+Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
+
+Process Table
+
+| PID | Script | Resolved | OPT_DIR | INP files | File flow | Parameters |
+| --- | --- | --- | --- | --- | --- | --- |
+| 001 | LEO_SELECT | LEO_CHECK | NO_OPT | - | - | CPU=ANY |
+| 002 | ZD_INIT_HOI | INIT_HOI | NO_OPT | - | - | CPU=ANY |
+| 003 | ZD_LEONEQ_COP | ZD_LEONEQ_COP | NO_OPT | - | P: V_ORBDIR/V_B$Y$+0.EXT_STD* | CPU=ANY |
+| 004 | LEO_CHECK | LEO_CHECK | NO_OPT | - | - | CPU=ANY; WAIT=001 002 003 |
+| 100 | LEO_ORB_P | LEO_ORB_P | NO_OPT | - | - | CPU=ANY; WAIT=004 |
+| 101 | LEO_ORB_E | LEO_ORB_E | ZD_LEONEQ | `ZD_LEONEQ/ORBGEN.INP` | - | CPU=ANY; WAIT=100; PARALLEL=100 |
+| 200 | LEO_NEQ_P | LEO_NEQ_P | NO_OPT | - | - | CPU=ANY; WAIT=101 |
+| 201 | LEO_NEQ_E | LEO_NEQ_E | ZD_LEONEQ | `ZD_LEONEQ/GPSEST.INP` | - | CPU=ANY; WAIT=200; PARALLEL=200 |
+| 300 | LEO_NEQ_CHECK | LEO_NEQ_CHECK | NO_OPT | - | - | CPU=ANY; WAIT=201 |
+
+Variables:
+
+| Name | Default | Description |
+| --- | --- | --- |
+| V_LFILE | LEO_INCLUDE.DAT | DESCRIPTION=LEO configuration file in campaign MSC |
+| V_MAXS | 4 | DESCRIPTION=Max sigma of RD LEO solution to be included |
+| V_MAX_R | 0.04 | DESCRIPTION=Max RMS (R) RD-KN |
+| V_MAX_S | 0.04 | DESCRIPTION=Max RMS (S) RD-KN |
+| V_MAX_W | 0.04 | DESCRIPTION=Max RMS (W) RD-KN |
+| V_MAX_ALL | 0.04 | DESCRIPTION=Max RMS (ALL) RD-KN |
+| V_CRDINF | LEOPOD_IGc20 | DESCRIPTION=CRD FILE NAME |
+| V_B | T0_ | DESCRIPTION=GNSS orbit/ERP |
+| V_CLK | T0_ | DESCRIPTION=GNSS CLK information |
+| V_ORBDIR | ${K}/CK_ZDGNSS_TEST/ORB | DESCRIPTION=GNSS orbit/ERP directory |
+| V_CLKDIR | ${K}/CK_ZDGNSS_TEST/ORB | DESCRIPTION=GNSS clock directory |
+| V_OSB | IAR$YSS+0_V01 | DESCRIPTION=OSB file for ZD AR |
+| V_BLQINF | FES2014b | DESCRIPTION=BLQ FILE NAME, CMC CORRECTIONS |
+| V_STAINF | LEOPOD | DESCRIPTION=ABB and STA FILE NAME |
+| V_SATINF | LEO | DESCRIPTION=SATELLITE INFORMATION |
+| V_PCVINF | LEO_20250527 | DESCRIPTION=PCV INFORMATION |
+| V_PCV | I20_2425 | DESCRIPTION=GNSS PCV MODEL |
+| V_SATCRX | SAT_$Y+0 | DESCRIPTION=Satellite problem file |
+| V_POTCOE | GOCO06S | DESCRIPTION=Earth potential coefficients |
+| V_SUBMOD | DESAI2016 | DESCRIPTION=Subdaily pole model |
+| V_NUTMOD | IAU2000R06 | DESCRIPTION=Nutation model |
+| V_SPRD | 10 | DESCRIPTION=Sampling for RD orbit |
+| V_MINEL | 0 | DESCRIPTION=Elevation cut-off for observations |
+| V_MXCINT | 30 | DESCRIPTION=Max. clock interpolation (s) |
+| V_NSTC | 240 | DESCRIPTION=Number of pseudo-stoch. par. per day |
+| V_CONR | 5.0D-09 | DESCRIPTION=Constraint for R pseudo-stoch. par |
+| V_CONS | 5.0D-09 | DESCRIPTION=Constraint for S pseudo-stoch. par |
+| V_CONW | 5.0D-09 | DESCRIPTION=Constraint for W pseudo-stoch. par |
+| V_OBSSEL | OBSERV.SEL | DESCRIPTION=Observation selection |
+| V_USEHOI | YES | DESCRIPTION=Use ION file |
 
 ### ZDGNSS_PHASESCREENING.PCF
 
@@ -1678,8 +1757,9 @@ Process Table
 | 099 | ZD_ORBGEN | ORBGEN | ZD_1DP | `ZD_1DP/ORBGEN.INP` | - | CPU=ANY; WAIT=001 |
 | 100 | ZD_GEN_NEQ_P | GEN_NEQ_P | ZD_1DP | - | P: "DIR_NEQV_FIN?$S+0*.EXT_NEQ" | CPU=LOCAL; WAIT=099 |
 | 101 | ZD_GEN_NEQ_E | GEN_NEQ_E | ZD_1DP | `ZD_1DP/GPSEST.INP`, `ZD_1DP/ADDNEQ2.INP` | - | CPU=MEGA; WAIT=100; PARALLEL=100 |
-| 110 | ZD_ADDNEQ2_DELNEQ | ADDNEQ2_DELNEQ | ZD_1DU | `ZD_1DU/ADDNEQ2.INP` | P: "DIR_NEQV_FINA$S+0????.EXT_NEQ" | CPU=MEGA; WAIT=101 |
-| 120 | ZD_PRE_ELIM_CLK_P | PRE_ELIM_CLK_P | NO_OPT | - | P: "DIR_OUT/../MSC/MSC_$YD+0/TIMINTIT... | CPU=LOCAL; WAIT=110; PARAM2=V_FIN |
+| 105 | ZD_ADD_LEO | ZD_ADD_LEO | NO_OPT | - | D: $file) | CPU=LOCAL; WAIT=101 |
+| 110 | ZD_ADDNEQ2_DELNEQ | ADDNEQ2_DELNEQ | ZD_1DU | `ZD_1DU/ADDNEQ2.INP` | P: "DIR_NEQV_FINA$S+0????.EXT_NEQ" | CPU=MEGA; WAIT=101 105 |
+| 120 | ZD_PRE_ELIM_CLK_P | PRE_ELIM_CLK_P | NO_OPT | - | D: DIR_OUT/../MSC/MSC_$YD+0/$name); P: "DIR_OUT/../MSC/MSC_$YD+0/TIMINTIT... | CPU=LOCAL; WAIT=110; PARAM2=V_FIN |
 | 121 | ZD_WAIT | WAIT | NO_OPT | - | - | CPU=SHORT; WAIT=120 |
 | 122 | ZD_PRE_ELIM_CLK_E | PRE_ELIM_CLK_E | ZD_1DS | `ZD_1DS/ADDNEQ2.INP` | - | CPU=HUGE; WAIT=121; PARALLEL=120 |
 | 123 | ZD_ITE_PRE_CLK | ITE_PRE_CLK | NO_OPT | - | D: DIR_OUT/../MSC/MSC_$YD+0/TIMOVER; P: DIR_OUT/../MSC/MSC_$YD+0/TIMINT_?? | CPU=LOCAL; WAIT=122; NEXTJOB=130 120 |
@@ -1692,7 +1772,8 @@ Process Table
 | 171 | ZD_ADDNEQ2_CLK_E | ADDNEQ2_CLK_E | ZD_1DS | `ZD_1DS/ADDNEQ2.INP` | - | CPU=HUGE; WAIT=170; PARALLEL=170 |
 | 180 | ZD_CCRNXC | CCRNXC | ZD_1DS | `ZD_1DS/CCRNXC.INP` | - | CPU=SHORT; WAIT=171 |
 | 190 | ZD_ORBGENF | ORBGENF | ZD_FIN | `ZD_FIN/ORBGEN.INP` | - | CPU=SHORT; WAIT=150 180 |
-| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=190; PARAM1=FA; PARAM2=CREATE |
+| 900 | ZD_CHKPRC_SOL | ZD_CHKPRC_SOL | ZD_CHK | `ZD_CHK/HELMR1.INP` | R: $helmertFile; W: $logfile; D: $file)) { $deleted++; P: $pattern | CPU=SHORT; WAIT=190 |
+| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=900; PARAM1=FA; PARAM2=CREATE |
 
 Variables:
 
@@ -1728,6 +1809,8 @@ Variables:
 | V_IAR | * | DESCRIPTION=Introduce fixed ambiguities; CARDS=YES NO |
 | V_PUL | * | DESCRIPTION=Enable orbit midnight pulses; CARDS=YES NO |
 | V_VDAT | * | DESCRIPTION=Verification of datum definition; CARDS=YES NO |
+| V_ILEO | * | DESCRIPTION=Include LEOs; CARDS=YES NO |
+| V_DIRLEO | ${R}/CK_LEO | DESCRIPTION=Directory with LEO-NEQs |
 | V_PCFCONFIG | MODEL SETUP_ZDGNSS FA | DESCRIPTION=Configuration files |
 
 ### ZDGNSS_SOL_FINAL.PCF
@@ -1748,8 +1831,9 @@ Process Table
 | 099 | ZD_ORBGEN | ORBGEN | ZD_1DP | `ZD_1DP/ORBGEN.INP` | - | CPU=ANY; WAIT=001 |
 | 100 | ZD_GEN_NEQ_P | GEN_NEQ_P | ZD_1DP | - | P: "DIR_NEQV_FIN?$S+0*.EXT_NEQ" | CPU=LOCAL; WAIT=099 |
 | 101 | ZD_GEN_NEQ_E | GEN_NEQ_E | ZD_1DP | `ZD_1DP/GPSEST.INP`, `ZD_1DP/ADDNEQ2.INP` | - | CPU=MEGA; WAIT=100; PARALLEL=100 |
-| 110 | ZD_ADDNEQ2_DELNEQ | ADDNEQ2_DELNEQ | ZD_1DU | `ZD_1DU/ADDNEQ2.INP` | P: "DIR_NEQV_FINA$S+0????.EXT_NEQ" | CPU=MEGA; WAIT=101 |
-| 120 | ZD_PRE_ELIM_CLK_P | PRE_ELIM_CLK_P | NO_OPT | - | P: "DIR_OUT/../MSC/MSC_$YD+0/TIMINTIT... | CPU=LOCAL; WAIT=110; PARAM2=V_FIN |
+| 105 | ZD_ADD_LEO | ZD_ADD_LEO | NO_OPT | - | D: $file) | CPU=LOCAL; WAIT=101 |
+| 110 | ZD_ADDNEQ2_DELNEQ | ADDNEQ2_DELNEQ | ZD_1DU | `ZD_1DU/ADDNEQ2.INP` | P: "DIR_NEQV_FINA$S+0????.EXT_NEQ" | CPU=MEGA; WAIT=101 105 |
+| 120 | ZD_PRE_ELIM_CLK_P | PRE_ELIM_CLK_P | NO_OPT | - | D: DIR_OUT/../MSC/MSC_$YD+0/$name); P: "DIR_OUT/../MSC/MSC_$YD+0/TIMINTIT... | CPU=LOCAL; WAIT=110; PARAM2=V_FIN |
 | 121 | ZD_WAIT | WAIT | NO_OPT | - | - | CPU=SHORT; WAIT=120 |
 | 122 | ZD_PRE_ELIM_CLK_E | PRE_ELIM_CLK_E | ZD_1DS | `ZD_1DS/ADDNEQ2.INP` | - | CPU=HUGE; WAIT=121; PARALLEL=120 |
 | 123 | ZD_ITE_PRE_CLK | ITE_PRE_CLK | NO_OPT | - | D: DIR_OUT/../MSC/MSC_$YD+0/TIMOVER; P: DIR_OUT/../MSC/MSC_$YD+0/TIMINT_?? | CPU=LOCAL; WAIT=122; NEXTJOB=130 120 |
@@ -1762,7 +1846,8 @@ Process Table
 | 171 | ZD_ADDNEQ2_CLK_E | ADDNEQ2_CLK_E | ZD_1DS | `ZD_1DS/ADDNEQ2.INP` | - | CPU=HUGE; WAIT=170; PARALLEL=170 |
 | 180 | ZD_CCRNXC | CCRNXC | ZD_1DS | `ZD_1DS/CCRNXC.INP` | - | CPU=SHORT; WAIT=171 |
 | 190 | ZD_ORBGENF | ORBGENF | ZD_FIN | `ZD_FIN/ORBGEN.INP` | - | CPU=SHORT; WAIT=150 180 |
-| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=190; PARAM1=IA_F; PARAM2=CREATE |
+| 900 | ZD_CHKPRC_SOL | ZD_CHKPRC_SOL | ZD_CHK | `ZD_CHK/HELMR1.INP` | R: $helmertFile; W: $logfile; D: $file)) { $deleted++; P: $pattern | CPU=SHORT; WAIT=190 |
+| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=900; PARAM1=IA_F; PARAM2=CREATE |
 
 Variables:
 
@@ -1798,6 +1883,8 @@ Variables:
 | V_IAR | * | DESCRIPTION=Introduce fixed ambiguities; CARDS=YES NO |
 | V_PUL | * | DESCRIPTION=Enable orbit midnight pulses; CARDS=YES NO |
 | V_VDAT | * | DESCRIPTION=Verification of datum definition; CARDS=YES NO |
+| V_ILEO | * | DESCRIPTION=Include LEOs; CARDS=YES NO |
+| V_DIRLEO | ${R}/CK_LEO | DESCRIPTION=Directory with LEO-NEQs |
 | V_PCFCONFIG | MODEL SETUP_ZDGNSS FINAL | DESCRIPTION=Configuration files |
 
 ### ZDGNSS_SOL_IA.PCF
@@ -1818,8 +1905,9 @@ Process Table
 | 099 | ZD_ORBGEN | ORBGEN | ZD_1DP | `ZD_1DP/ORBGEN.INP` | - | CPU=ANY; WAIT=001 |
 | 100 | ZD_GEN_NEQ_P | GEN_NEQ_P | ZD_1DP | - | P: "DIR_NEQV_FIN?$S+0*.EXT_NEQ" | CPU=LOCAL; WAIT=099 |
 | 101 | ZD_GEN_NEQ_E | GEN_NEQ_E | ZD_1DP | `ZD_1DP/GPSEST.INP`, `ZD_1DP/ADDNEQ2.INP` | - | CPU=MEGA; WAIT=100; PARALLEL=100 |
-| 110 | ZD_ADDNEQ2_DELNEQ | ADDNEQ2_DELNEQ | ZD_1DU | `ZD_1DU/ADDNEQ2.INP` | P: "DIR_NEQV_FINA$S+0????.EXT_NEQ" | CPU=MEGA; WAIT=101 |
-| 120 | ZD_PRE_ELIM_CLK_P | PRE_ELIM_CLK_P | NO_OPT | - | P: "DIR_OUT/../MSC/MSC_$YD+0/TIMINTIT... | CPU=LOCAL; WAIT=110; PARAM2=V_FIN |
+| 105 | ZD_ADD_LEO | ZD_ADD_LEO | NO_OPT | - | D: $file) | CPU=LOCAL; WAIT=101 |
+| 110 | ZD_ADDNEQ2_DELNEQ | ADDNEQ2_DELNEQ | ZD_1DU | `ZD_1DU/ADDNEQ2.INP` | P: "DIR_NEQV_FINA$S+0????.EXT_NEQ" | CPU=MEGA; WAIT=101 105 |
+| 120 | ZD_PRE_ELIM_CLK_P | PRE_ELIM_CLK_P | NO_OPT | - | D: DIR_OUT/../MSC/MSC_$YD+0/$name); P: "DIR_OUT/../MSC/MSC_$YD+0/TIMINTIT... | CPU=LOCAL; WAIT=110; PARAM2=V_FIN |
 | 121 | ZD_WAIT | WAIT | NO_OPT | - | - | CPU=SHORT; WAIT=120 |
 | 122 | ZD_PRE_ELIM_CLK_E | PRE_ELIM_CLK_E | ZD_1DS | `ZD_1DS/ADDNEQ2.INP` | - | CPU=HUGE; WAIT=121; PARALLEL=120 |
 | 123 | ZD_ITE_PRE_CLK | ITE_PRE_CLK | NO_OPT | - | D: DIR_OUT/../MSC/MSC_$YD+0/TIMOVER; P: DIR_OUT/../MSC/MSC_$YD+0/TIMINT_?? | CPU=LOCAL; WAIT=122; NEXTJOB=130 120 |
@@ -1832,7 +1920,8 @@ Process Table
 | 171 | ZD_ADDNEQ2_CLK_E | ADDNEQ2_CLK_E | ZD_1DS | `ZD_1DS/ADDNEQ2.INP` | - | CPU=HUGE; WAIT=170; PARALLEL=170 |
 | 180 | ZD_CCRNXC | CCRNXC | ZD_1DS | `ZD_1DS/CCRNXC.INP` | - | CPU=SHORT; WAIT=171 |
 | 190 | ZD_ORBGENF | ORBGENF | ZD_FIN | `ZD_FIN/ORBGEN.INP` | - | CPU=SHORT; WAIT=150 180 |
-| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=190; PARAM1=IA; PARAM2=CREATE |
+| 900 | ZD_CHKPRC_SOL | ZD_CHKPRC_SOL | ZD_CHK | `ZD_CHK/HELMR1.INP` | R: $helmertFile; W: $logfile; D: $file)) { $deleted++; P: $pattern | CPU=SHORT; WAIT=190 |
+| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=900; PARAM1=IA; PARAM2=CREATE |
 
 Variables:
 
@@ -1868,6 +1957,8 @@ Variables:
 | V_IAR | * | DESCRIPTION=Introduce fixed ambiguities; CARDS=YES NO |
 | V_PUL | * | DESCRIPTION=Enable orbit midnight pulses; CARDS=YES NO |
 | V_VDAT | * | DESCRIPTION=Verification of datum definition; CARDS=YES NO |
+| V_ILEO | * | DESCRIPTION=Include LEOs; CARDS=YES NO |
+| V_DIRLEO | ${R}/CK_LEO | DESCRIPTION=Directory with LEO-NEQs |
 | V_PCFCONFIG | MODEL SETUP_ZDGNSS IA | DESCRIPTION=Configuration files |
 
 ### ZDMCLKDEN.PCF
@@ -2039,12 +2130,20 @@ Variables:
 - Source: [AMBINI](source_files/ck18y530-gpsuser/SCRIPT/AMBINI)
 ### APPOSB
 
-- Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB empty.
+- Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB is empty or NO.
 - Used in PCFs: LEOPODR.PCF
 - Read keys:
   - V_ variables: `V_ESTOSB`, `V_OSB`
   - Other keys: `$YSS+0`, `DIR_OSB`
 - Source: [APPOSB](source_files/ck18y530-gpsuser/SCRIPT/APPOSB)
+### APPOSB_15092026
+
+- Package: `APPOSB`
+- Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB empty.
+- Read keys:
+  - V_ variables: `V_ESTOSB`, `V_OSB`
+  - Other keys: `$YSS+0`, `DIR_OSB`
+- Source: [APPOSB_15092026](source_files/ck18y530-gpsuser/SCRIPT/APPOSB_15092026)
 ### ATTXTR
 
 - Purpose: Excecute ATTXTR Programs:  ATTXTR
@@ -2532,7 +2631,7 @@ Variables:
 - Source: [GPSESTA2](source_files/ck18y530-gpsuser/SCRIPT/GPSESTA2)
 ### GPSESTRB
 
-- Purpose: Execute GPSEST, estmate receiver code biases if V_ESTOSB non-empty.
+- Purpose: Execute GPSEST, estimate receiver code biases if V_ESTOSB contains an output-file prefix (neither empty nor NO).
 - Bernese programs: `GPSEST`
 - Used in PCFs: LEOPODR.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -2540,6 +2639,16 @@ Variables:
   - V_ variables: `V_ESTOSB`, `V_IGNERR`, `V_OFFS`, `V_OSB`
   - Other keys: `DIR_OSB`
 - Source: [GPSESTRB](source_files/ck18y530-gpsuser/SCRIPT/GPSESTRB)
+### GPSESTRB_15092026
+
+- Package: `GPSESTRB`
+- Purpose: Execute GPSEST, estmate receiver code biases if V_ESTOSB non-empty.
+- Bernese programs: `GPSEST`
+- INP files: `GPSEST.INP`, `GPSEST.INP`
+- Read keys:
+  - V_ variables: `V_ESTOSB`, `V_IGNERR`, `V_OFFS`, `V_OSB`
+  - Other keys: `DIR_OSB`
+- Source: [GPSESTRB_15092026](source_files/ck18y530-gpsuser/SCRIPT/GPSESTRB_15092026)
 ### GPSXTR
 
 - Purpose: Generate summary of the paralel GPSEST runs Programs:  GPSXTR
@@ -2686,6 +2795,30 @@ Variables:
 - Used in PCFs: LEOPODR.PCF
 - INP files: `KINPRE.INP`
 - Source: [KINPRE](source_files/ck18y530-gpsuser/SCRIPT/KINPRE)
+### LEO_CHECK
+
+- Purpose: Check LEOPOD quality indicators before the LEO NEQ processing, remove failed LEOs from the daily LFILE and write a daily report.
+- Used in PCFs: ZDGNSS_LEONEQ.PCF
+- Read keys:
+  - V_ variables: `V_LFILE`, `V_MAXS`, `V_MAX_ALL`, `V_MAX_R`, `V_MAX_S`, `V_MAX_W`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
+- Source: [LEO_CHECK](source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK)
+### LEO_CHECK_16092026
+
+- Package: `LEO_CHECK`
+- Purpose: Check the LEO configuration and print its contents.
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YSS+0`, `DIR_OUT`
+- Source: [LEO_CHECK_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK_16092026)
+### LEO_CHECK~
+
+- Package: `LEO_CHECK`
+- Purpose: Check LEOPOD quality indicators before the LEO NEQ processing, remove failed LEOs from the daily LFILE and write a daily report.
+- Read keys:
+  - V_ variables: `V_LFILE`, `V_MAXS`, `V_MAX_ALL`, `V_MAX_R`, `V_MAX_S`, `V_MAX_W`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
+- Source: [LEO_CHECK~](source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK~)
 ### LEO_COP
 
 - Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF
@@ -2715,6 +2848,116 @@ Variables:
 - File deletes: `glob "DIR_OUT*.J_lk"`
 - File patterns: `"DIR_RXOV_LEO$S-5.EXT_RXO"`, `"DIR_PZHV_LEO$S-5.EXT_PZH"`, `"DIR_PZOV_LEO$S-5.EXT_PZO"`, `"DIR_CZHV_LEO$S-5.EXT_CZH"`, `"DIR_CZOV_LEO$S-5.EXT_CZO"`, `"DIR_PZHV_LEO$S-5.EXT_PZH_V_F"`, `"DIR_PZOV_LEO$S-5.EXT_PZO_V_F"`, `"DIR_CZHV_LEO$S-5.EXT_CZH_V_F"`, `"DIR_CZOV_LEO$S-5.EXT_CZO_V_F"`, `"DIR_IEPV_B$W-57.EXT_IEP"`, `"DIR_ERPV_B$YSS-5.EXT_ERP"`, `"DIR_CLKV_B$YSS-5.EXT_CLK"` and 84 more
 - Source: [LEO_DEL](source_files/ck18y530-gpsuser/SCRIPT/LEO_DEL)
+### LEO_NEQ_CHECK
+
+- Purpose: Check the daily NEQ output for every selected LEO and write a date-specific report into the MSC directory.
+- Used in PCFs: ZDGNSS_LEONEQ.PCF
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`
+- Source: [LEO_NEQ_CHECK](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_CHECK)
+### LEO_NEQ_E
+
+- Purpose: Execute GPSEST for one LEO.
+- Bernese programs: `GPSEST`
+- Used in PCFs: ZDGNSS_LEONEQ.PCF
+- INP files: `GPSEST.INP`
+- Read keys:
+  - PARAM parameters: `PARAM1`
+- Source: [LEO_NEQ_E](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E)
+### LEO_NEQ_E_14092026
+
+- Package: `LEO_NEQ_E`
+- Purpose: Execute GPSEST for one LEO.
+- Bernese programs: `GPSEST`
+- INP files: `GPSEST.INP`
+- Read keys:
+  - PARAM parameters: `PARAM1`, `PARAM2`
+- Source: [LEO_NEQ_E_14092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E_14092026)
+### LEO_NEQ_E~
+
+- Package: `LEO_NEQ_E`
+- Bernese programs: `GPSEST`
+- INP files: `GPSEST.INP`
+- Read keys:
+  - PARAM parameters: `PARAM1`
+- Source: [LEO_NEQ_E~](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E~)
+### LEO_NEQ_P
+
+- Purpose: Prepare one parallel GPSEST job per selected LEO.
+- Used in PCFs: ZDGNSS_LEONEQ.PCF
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
+- Source: [LEO_NEQ_P](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P)
+### LEO_NEQ_P_14092026
+
+- Package: `LEO_NEQ_P`
+- Purpose: Prepare one parallel GPSEST job per selected LEO.
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YD+0`, `DIR_OUT`
+- Source: [LEO_NEQ_P_14092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P_14092026)
+### LEO_NEQ_P_16092026
+
+- Package: `LEO_NEQ_P`
+- Purpose: Prepare one parallel GPSEST job per selected LEO.
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YD+0`, `DIR_OUT`
+- Source: [LEO_NEQ_P_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P_16092026)
+### LEO_NEQ_P~
+
+- Package: `LEO_NEQ_P`
+- Purpose: Prepare one parallel GPSEST job per selected LEO.
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
+- Source: [LEO_NEQ_P~](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P~)
+### LEO_ORB_E
+
+- Package: `LEO_ORB_P`
+- Purpose: Execute ORBGEN for one LEO
+- Bernese programs: `ORBGEN`
+- Used in PCFs: ZDGNSS_LEONEQ.PCF
+- INP files: `ORBGEN.INP`
+- Read keys:
+  - PARAM parameters: `PARAM1`
+  - Other keys: `$YSS+0`
+- Source: [LEO_ORB_E](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_E)
+### LEO_ORB_E~
+
+- Package: `LEO_ORB_E`
+- Bernese programs: `ORBGEN`
+- INP files: `ORBGEN.INP`
+- Read keys:
+  - PARAM parameters: `PARAM1`
+  - Other keys: `$YSS+0`
+- Source: [LEO_ORB_E~](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_E~)
+### LEO_ORB_P
+
+- Purpose: Prepare one parallel ORBGEN job per selected LEO.
+- Used in PCFs: ZDGNSS_LEONEQ.PCF
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
+- Source: [LEO_ORB_P](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P)
+### LEO_ORB_P_16092026
+
+- Package: `LEO_ORB_P`
+- Purpose: Prepare one parallel ORBGEN job per selected LEO.
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
+- Source: [LEO_ORB_P_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P_16092026)
+### LEO_ORB_P~
+
+- Package: `LEO_ORB_P`
+- Purpose: Prepare one parallel ORBGEN job per selected LEO.
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
+- Source: [LEO_ORB_P~](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P~)
 ### LEO_RNX
 
 - Purpose: Copy the observation files for LEOPOD.PCF
@@ -2731,6 +2974,15 @@ Variables:
   - V_ variables: `V_A`, `V_F`, `V_LEO`, `V_RESULT`, `V_SAV`
   - Other keys: `$S+0`, `$Y+0`, `$YSS+0`, `DIR_ELE`, `DIR_KIN`, `DIR_OUT`, `DIR_PRE`, `DIR_RES`, `DIR_RPR`, `DIR_RXC`, `DIR_STD`, `EXT_ELE`, `EXT_KIN`, `EXT_OUT`, `EXT_PRE`, `EXT_RES`, `EXT_RPR`, `EXT_RXC`, `EXT_STD`
 - Source: [LEO_SAV](source_files/ck18y530-gpsuser/SCRIPT/LEO_SAV)
+### LEO_SELECT
+
+- Package: `LEO_CHECK`
+- Purpose: Check the LEO configuration, copy it for the current YYSSSS and retain only included LEOs for which a PRE orbit file exists.
+- Used in PCFs: ZDGNSS_LEONEQ.PCF
+- Read keys:
+  - V_ variables: `V_LFILE`
+  - Other keys: `$YSS+0`, `DIR_ORB`, `DIR_OUT`, `EXT_PRE`
+- Source: [LEO_SELECT](source_files/ck18y530-gpsuser/SCRIPT/LEO_SELECT)
 ### LEO_SUM
 
 - Purpose: Create LEOPOD BPE processing summary file
@@ -3562,6 +3814,24 @@ Variables:
 - File reads: `$ENV{REF}/REFCLK.FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_CRDINF??$YSS+0???.EXT_OSB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_CRDINF99$YSS-1.EXT_OSB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_CRDINF99$YSS+1.EXT_OSB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_CRDINF_$YSS+0.EXT_FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_CRDINF_$YSS-1.EXT_FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_CRDINF_$YSS+1.EXT_FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS+0.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS-1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS+1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS+0.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_PSDINF_$YSS-1.EXT_NEQ` and 3 more
 - File writes: `DIR_SOSREFCLK.EXT_SOS`, `DIR_OSB`, `DIR_FIX`, `DIR_ERP`, `DIR_NEQ`, `DIR_RPRFIN$YD+0.EXT_RPR`, `DIR_SOSFIN$YD+0.EXT_SOS`
 - Source: [ZD3D_COP](source_files/ck18y530-gpsuser/SCRIPT/ZD3D_COP)
+### ZD_ADD_LEO
+
+- Purpose: Copy LEO NEQs into the campaign and record the included LEOs in the session's MSC directory.
+- Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
+- Read keys:
+  - V_ variables: `V_DIRLEO`, `V_FIN`, `V_ILEO`
+  - Other keys: `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
+- File deletes: `$file)`
+- Source: [ZD_ADD_LEO](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADD_LEO)
+### ZD_ADD_LEO~
+
+- Package: `ZD_ADD_LEO`
+- Purpose: Copy LEO NEQs into the campaign and record the included LEOs in the session's MSC directory.
+- Read keys:
+  - V_ variables: `V_DIRLEO`, `V_FIN`, `V_ILEO`
+  - Other keys: `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
+- File deletes: `$file)`
+- Source: [ZD_ADD_LEO~](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADD_LEO~)
 ### ZD_ADDNEQ2
 
 - Package: `ADDNEQ2`
@@ -3706,6 +3976,13 @@ Variables:
 - Read keys:
   - Other keys: `DIR_BPEOUT`, `DIR_CZH`, `DIR_GRD`, `DIR_NEQ`, `DIR_ORB`, `DIR_ORX`, `DIR_OUT`, `DIR_RXO`, `DIR_STA`, `DIR_TRP`, `EXT_SES`, `PTH_SINEXIN`
 - Source: [ZD_CHECK_CAMP](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_CAMP)
+### ZD_CHECK_CAMP~
+
+- Package: `CHECK_CAMP`
+- Purpose: Check whether campaign is ready for processing
+- Read keys:
+  - Other keys: `DIR_BPEOUT`, `DIR_CZH`, `DIR_GRD`, `DIR_NEQ`, `DIR_ORB`, `DIR_ORX`, `DIR_OUT`, `DIR_RXO`, `DIR_STA`, `DIR_TRP`, `EXT_SES`, `PTH_SINEXIN`
+- Source: [ZD_CHECK_CAMP~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_CAMP~)
 ### ZD_CHECK_GRD_FILES
 
 - Package: `CHECK_GRD_FILES`
@@ -3762,6 +4039,17 @@ Variables:
 - File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - Source: [ZD_CHECK_SAT_RMS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_RMS)
+### ZD_CHECK_SAT_RMS_05102026
+
+- Package: `CHECK_SAT_RMS`
+- Purpose: Checks the ORBGEN_APR file for the RMS (in meters) of each satellite.
+- Bernese programs: `SATMRK`
+- INP files: `SATMRK.INP`, `SATMRK.INP`
+- Read keys:
+  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
+- File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
+- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
+- Source: [ZD_CHECK_SAT_RMS_05102026](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_RMS_05102026)
 ### ZD_CHECK_VAPL_ENTRIES
 
 - Package: `CHECK_VAPL_ENTRIES`
@@ -3773,6 +4061,52 @@ Variables:
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/VAPL_entries`
 - File deletes: `DIR_PZH$file) { print $LOG " deleted: $file/n"`
 - Source: [ZD_CHECK_VAPL_ENTRIES](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_VAPL_ENTRIES)
+### ZD_CHKPRC_AR
+
+- Purpose: Run processing checks for AR
+- Used in PCFs: ZDGNSS_AR.PCF
+- Read keys:
+  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
+- File reads: `$phacorFile`
+- File writes: `$logfile`
+- Source: [ZD_CHKPRC_AR](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_AR)
+### ZD_CHKPRC_AR~
+
+- Package: `ZD_CHKPRC_AR`
+- Purpose: Run processing checks for AR
+- Read keys:
+  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
+- File reads: `$phacorFile`
+- File writes: `$logfile`
+- Source: [ZD_CHKPRC_AR~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_AR~)
+### ZD_CHKPRC_SOL
+
+- Purpose: Run solution processing checks
+- Bernese programs: `HELMR1`
+- Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
+- INP files: `HELMR1.INP`
+- Read keys:
+  - V_ variables: `V_CRDINF`, `V_FIN`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
+- File reads: `$helmertFile`
+- File writes: `$logfile`
+- File deletes: `$file)) { $deleted++`
+- File patterns: `$pattern`
+- Source: [ZD_CHKPRC_SOL](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_SOL)
+### ZD_CHKPRC_SOL~
+
+- Package: `ZD_CHKPRC_SOL`
+- Purpose: Run solution processing checks
+- Bernese programs: `HELMR1`
+- INP files: `HELMR1.INP`
+- Read keys:
+  - V_ variables: `V_CRDINF`, `V_FIN`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
+- File reads: `$helmertFile`
+- File writes: `$logfile`
+- File deletes: `$file)) { $deleted++`
+- File patterns: `$pattern`
+- Source: [ZD_CHKPRC_SOL~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_SOL~)
 ### ZD_CLKEST
 
 - Package: `CLKEST`
@@ -3982,6 +4316,16 @@ Variables:
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `$dir/$file`
 - Source: [ZD_DEL_RES_1D](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_1D)
+### ZD_DEL_RES_1D~
+
+- Package: `DEL_RES_1D`
+- Purpose: Delete specific files, only if V_CLEAN=Y.
+- Read keys:
+  - V_ variables: `V_APR`, `V_APSP`, `V_BRD`, `V_CBIA`, `V_CLEAN`, `V_CLKA`, `V_CPSC`, `V_CSCR`, `V_CWGT`, `V_FIN`, `V_LARGE`
+  - Other keys: `$D+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
+- File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
+- File deletes: `$dir/$file`
+- Source: [ZD_DEL_RES_1D~](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_1D~)
 ### ZD_DEL_RES_3D
 
 - Package: `DEL_RES_3D`
@@ -3993,6 +4337,16 @@ Variables:
 - File deletes: `$file`
 - File patterns: `DIR_OUT${pattern}`, `DIR_OUT../STA/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../SOL/${pattern}`, `DIR_OUT../BPE/*ZD3D*${day}*`
 - Source: [ZD_DEL_RES_3D](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_3D)
+### ZD_DEL_RES_3D~
+
+- Package: `DEL_RES_3D`
+- Purpose: Delete result files, only if V_DEL=Y.
+- Read keys:
+  - V_ variables: `V_APR`, `V_DEL`, `V_FIN`, `V_ORBAPR`
+  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_OUT`
+- File deletes: `$file`
+- File patterns: `DIR_OUT${pattern}`, `DIR_OUT../STA/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../SOL/${pattern}`, `DIR_OUT../BPE/*ZD3D*${day}*`
+- Source: [ZD_DEL_RES_3D~](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_3D~)
 ### ZD_DEL_RES_CLKD
 
 - Package: `DEL_RES_CLKD`
@@ -4257,7 +4611,7 @@ Variables:
 
 - Package: `INIT_HOI`
 - Purpose: Initialize HOI ionosphere file
-- Used in PCFs: ZDGNSS_PREPARATION.PCF
+- Used in PCFs: ZDGNSS_LEONEQ.PCF, ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_USEHOI`
   - Other keys: `$Y+0`, `$YD+0`, `DIR_ION`, `EXT_ION`
@@ -4294,6 +4648,24 @@ Variables:
 - File deletes: `DIR_OUT/../MSC/MSC_$YD+0/TIMOVER`
 - File patterns: `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`
 - Source: [ZD_ITE_PRE_CLK](source_files/ck18y530-gpsuser/SCRIPT/ZD_ITE_PRE_CLK)
+### ZD_LEONEQ_COP
+
+- Purpose: Copy files for ZDGNSS_LEONEQ.PCF. Existing destination files are retained and are not copied again.
+- Used in PCFs: ZDGNSS_LEONEQ.PCF
+- Read keys:
+  - V_ variables: `V_B`, `V_CLK`, `V_CLKDIR`, `V_ORBDIR`, `V_OSB`
+  - Other keys: `$+0`, `$Y`, `$YD+0`, `$YSS+0`, `DIR_ERP`, `DIR_OSB`, `DIR_OUT`, `DIR_RPR`, `DIR_RXC`, `DIR_STD`, `EXT_ERP`, `EXT_OSB`, `EXT_RPR`, `EXT_RXC`, `EXT_STD`
+- File patterns: `V_ORBDIR/V_B$Y$+0.EXT_STD*`, `V_ORBDIR/V_B$Y$+00.EXT_STD*`, `V_ORBDIR/V_B$Y$+0.EXT_RPR*`, `V_ORBDIR/V_B$Y$+00.EXT_RPR*`, `V_ORBDIR/V_B$Y$+0.ERP*`, `V_ORBDIR/V_B$Y$+00.ERP*`, `V_CLKDIR/V_CLK$Y$+0.EXT_RXC*`, `V_CLKDIR/V_CLK$Y$+00.EXT_RXC*`, `V_ORBDIR/V_OSB.EXT_OSB`
+- Source: [ZD_LEONEQ_COP](source_files/ck18y530-gpsuser/SCRIPT/ZD_LEONEQ_COP)
+### ZD_LEONEQ_COP~
+
+- Package: `LEO_COP`
+- Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF
+- Read keys:
+  - V_ variables: `V_ATLINF`, `V_B`, `V_BLQINF`, `V_CLK`, `V_CLKDIR`, `V_CRDINF`, `V_ORBDIR`, `V_OSB`, `V_REFDIR`, `V_STAINF`
+  - Other keys: `$+0`, `$Y`, `$YD+0`, `$YSS+0`, `DIR_ABB`, `DIR_ATL`, `DIR_BLQ`, `DIR_CRD`, `DIR_ERP`, `DIR_OSB`, `DIR_OUT`, `DIR_RXC`, `DIR_STA`, `DIR_STD`, `EXT_ABB`, `EXT_ATL`, `EXT_BLQ`, `EXT_CRD`, `EXT_ERP`, `EXT_OSB`
+- File patterns: `V_ORBDIR/V_B$Y$+0.EXT_STD*`, `V_ORBDIR/V_B$Y$+00.EXT_STD*`, `V_ORBDIR/V_B$Y$+0.ERP*`, `V_ORBDIR/V_B$Y$+00.ERP*`, `V_CLKDIR/V_CLK$Y$+0.EXT_RXC*`, `V_CLKDIR/V_CLK$Y$+00.EXT_RXC*`, `V_ORBDIR/V_OSB.EXT_OSB`, `V_ORBDIR/V_OSB$Y$+0.EXT_OSB*`, `V_ORBDIR/V_OSB$Y$+00.EXT_OSB*`
+- Source: [ZD_LEONEQ_COP~](source_files/ck18y530-gpsuser/SCRIPT/ZD_LEONEQ_COP~)
 ### ZD_MANMRK
 
 - Package: `MANMRK`
@@ -4524,6 +4896,17 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
 - Source: [ZD_PHACOR](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHACOR)
+### ZD_PHACOR~
+
+- Package: `PHACOR`
+- Purpose: Execute PHACOR, special case for ZD-processing NL
+- Bernese programs: `PHACOR`
+- INP files: `PHACOR.INP`
+- Read keys:
+  - V_ variables: `V_APR`, `V_CBIA`
+  - PARAM parameters: `PARAM2`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
+- Source: [ZD_PHACOR~](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHACOR~)
 ### ZD_POLUPD
 
 - Package: `POLUPD`
@@ -4659,8 +5042,25 @@ Variables:
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
+- File deletes: `DIR_OUT/../MSC/MSC_$YD+0/$name)`
 - File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
 - Source: [ZD_PRE_ELIM_CLK_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P)
+### ZD_PRE_ELIM_CLK_P_14092026
+
+- Package: `PRE_ELIM_CLK_P`
+- Purpose: Prepare parallel ADDNEQ2 run using time intervals
+- Read keys:
+  - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
+- File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
+- Source: [ZD_PRE_ELIM_CLK_P_14092026](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P_14092026)
+### ZD_PRE_ELIM_CLK_P~
+
+- Package: `PRE_ELIM_CLK_P`
+- Purpose: Prepare parallel ADDNEQ2 run using time intervals
+- Read keys:
+  - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
+- File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
+- Source: [ZD_PRE_ELIM_CLK_P~](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P~)
 ### ZD_RES_CHK
 
 - Package: `RES_CHK`
@@ -4953,8 +5353,8 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ???_??_??.COV" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
-| TIMINTITE_??" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| ???_??_??.COV" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
+| TIMINTITE_??" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
 
 ### "DIR_RXO/../*
 
@@ -4970,7 +5370,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| $file | - | - | CLEAN_FILES, ZD_DEL_RES_1D | - |
+| $file | - | - | CLEAN_FILES, ZD_DEL_RES_1D, ZD_DEL_RES_1D~ | - |
 
 ### $ENV{AIUB}/SKL
 
@@ -5201,7 +5601,7 @@ Variables:
 | "DIR_NEQ$$bpe{PARAM1}_$S+0????.EXT_NEQ" | - | - | - | ADDNEQZD |
 | "DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ" | - | - | - | ADDNEQZD |
 | "DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ" | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
-| "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
 | "DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ" | - | - | - | TIMZDMAP |
 | "DIR_NEQV_FIN?$S+0*.EXT_NEQ" | - | - | - | ZD_GEN_NEQ_P |
 | "DIR_NEQV_FIN_$S+0????.EXT_NEQ" | - | - | - | ZD_ADDNEQ2_DELNEQ |
@@ -5371,15 +5771,21 @@ Variables:
 | $dst | - | ZD_COPY_PPP | - | - |
 | $f | - | - | CHECK_AR_SAT, CLEANUP, ZD_CHECK_AR_SAT | - |
 | $fil | - | - | - | LEOITER |
-| $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_INIT_BRD, ZD_OSBMERGE, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD | - |
+| $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_INIT_BRD, ZD_OSBMERGE, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~, ZD_DEL_RES_CLKD | - |
+| $file) | - | - | ZD_ADD_LEO, ZD_ADD_LEO~ | - |
 | $file) if -e $file | - | - | ZD_CODSPP_E | - |
+| $file)) { $deleted++ | - | - | ZD_CHKPRC_SOL, ZD_CHKPRC_SOL~ | - |
 | $file)) { $removed_count++ | - | - | DEL_LOBS, ZD_DEL_CDXT_OBS | - |
+| $helmertFile | ZD_CHKPRC_SOL, ZD_CHKPRC_SOL~ | - | - | - |
 | $inpFil | CODXTR, ZD_CODXTR | - | - | - |
 | $line | - | - | ZD_RES_CHK | - |
 | $loc | - | INIT_BRD, ZD_INIT_BRD | - | - |
+| $logfile | - | ZD_CHKPRC_AR, ZD_CHKPRC_AR~, ZD_CHKPRC_SOL, ZD_CHKPRC_SOL~ | - | - |
 | $lst | - | - | RXOBV3GP, ZD_RXOBV3GP | - |
 | $marker | - | STATUS, ZD_STATUS | - | - |
 | $OSB_R_file | OSBMERGE | - | - | - |
+| $pattern | - | - | - | ZD_CHKPRC_SOL, ZD_CHKPRC_SOL~ |
+| $phacorFile | ZD_CHKPRC_AR, ZD_CHKPRC_AR~ | - | - | - |
 | $rxo) | - | - | ZD_DEL_RXO | - |
 | $src | ZD_COPY_PPP | - | - | - |
 | $target | - | ZD_COPY_REF | - | - |
@@ -5500,8 +5906,8 @@ Variables:
 | DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ | - | - | - | ADDNEQZD |
 | DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
 | DIR_NEQ$$bpe{PARAM2}$S+0[0-9][0-9][0-9]_.EXT_NEQ | - | - | - | TIMNEQAP, ZD_ADDNEQ2_P |
-| DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
-| DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
+| DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
 | DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ | - | - | - | TIMZDMAP |
 | DIR_NEQ$$bpe{PARAM2}??$YSS+0???.EXT_NEQ | - | - | - | SOLCLKAP, SOLLONAP |
 | DIR_NEQ$(SAVE)_$YSS+0.EXT_FIX | ZD_SAVE_RES | - | - | - |
@@ -5537,7 +5943,7 @@ Variables:
 | DIR_OUT$$bpe{PARAM2}?$S+0*.EXT_OUT | - | - | - | TIMZDMAP |
 | DIR_OUT${mpr}$+0????.EXT_OUT | - | - | - | MAUPRPAP |
 | DIR_OUT${mpr}$YSS+0??.EXT_OUT | - | - | - | MAUPRPAP |
-| DIR_OUT${pattern} | - | - | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD |
+| DIR_OUT${pattern} | - | - | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~, ZD_DEL_RES_CLKD |
 | DIR_OUT${spp}$+0????.EXT_OUT | - | - | - | CODSPPAP, ZD_CODSPP_P |
 | DIR_OUT${spp}$S+0???.EXT_OUT | - | - | - | CODSPPAP, ZD_CODSPP_P |
 | DIR_OUT*V_A$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
@@ -5915,7 +6321,7 @@ Variables:
 | MPRXTR.$Y_$S+0 | ZD_MPR_XTR | - | - | - |
 | OBSXTRV_FIN$YSS+0.OUT | ZD_OBSXTR_EXTRACT | - | - | - |
 | OBSXTRV_Z$YSS+0.OUT | OBSXTR_EXTRACT | - | - | - |
-| ORBGEN_APR$S+0.OUT | CHECK_SAT_RMS, ZD_CHECK_SAT_RMS | - | - | - |
+| ORBGEN_APR$S+0.OUT | CHECK_SAT_RMS, ZD_CHECK_SAT_RMS, ZD_CHECK_SAT_RMS_05102026 | - | - | - |
 | PHACOR$YSS+0.OUT | ZD_CHECK_AR_SAT | - | - | - |
 | SMT${yy}$S+0.SMC | CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS | - | - | - |
 | V1_*.LIS | - | - | - | CONCATOUT_VS |
@@ -5937,7 +6343,7 @@ Variables:
 | *CLKDEN*${day}* | - | - | - | ZD_DEL_RES_CLKD |
 | *CLKDEN*${tag}* | - | - | - | DEL_CLKD |
 | *CMPSOL*${tag}* | - | - | - | DEL_CMP |
-| *ZD3D*${day}* | - | - | - | ZD_DEL_RES_3D |
+| *ZD3D*${day}* | - | - | - | ZD_DEL_RES_3D, ZD_DEL_RES_3D~ |
 | *ZD3D*${tag}* | - | - | - | DEL_ZD3D |
 
 ### DIR_OUT../MSC
@@ -5963,7 +6369,7 @@ Variables:
 | available_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION | - | - | - |
 | GPSEST_ERROR.log | - | FILEST_P | - | - |
 | no_${type} | - | CHECK_GRD_FILES, ZD_CHECK_GRD_FILES | - | - |
-| PROCESSING_$YD+0 | - | CHECK_GRD_FILES, CLEAN_FILES, STATION_SELECTION, ZD_CHECK_GRD_FILES, ZD_CHECK_OBSENTRIES, ZD_DEL_RES_1D, ZD_STATION_SELECTION | - | - |
+| PROCESSING_$YD+0 | - | CHECK_GRD_FILES, CLEAN_FILES, STATION_SELECTION, ZD_CHECK_GRD_FILES, ZD_CHECK_OBSENTRIES, ZD_DEL_RES_1D, ZD_DEL_RES_1D~, ZD_STATION_SELECTION | - | - |
 | selected_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION | - | - | - |
 | VAPL_entries | - | ZD_CHECK_VAPL_ENTRIES | - | - |
 
@@ -5989,7 +6395,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ${pattern} | - | - | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD |
+| ${pattern} | - | - | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~, ZD_DEL_RES_CLKD |
 
 ### DIR_OUT../RAW
 
@@ -6003,24 +6409,25 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ${pattern} | - | - | - | DEL_ZD3D, ZD_DEL_RES_3D |
+| ${pattern} | - | - | - | DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~ |
 
 ### DIR_OUT../STA
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ${pattern} | - | - | - | DEL_ZD3D, ZD_DEL_RES_3D |
+| ${pattern} | - | - | - | DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~ |
 | V_CRDINF.EXT_CRD | CHECK_OBSENTRIES | - | - | - |
 
 ### DIR_OUT/../MSC/MSC_$YD+0
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ???_??_??.COV | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| $name) | - | - | ZD_PRE_ELIM_CLK_P | - |
+| ???_??_??.COV | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
 | affected_satellite_AR | CHECK_AR_SAT, ZD_CHECK_AR_SAT | - | CHECK_AR_SAT, ZD_CHECK_AR_SAT | - |
-| PROCESSING_$YD+0 | - | AMB_EXTRACT, CHECK_AR_SAT, CHECK_OBSENTRIES, CHECK_SAT_GAPS, CHECK_SAT_RMS, DEL_LOBS, GPSXTR_EXTRACT, NUM_OBSFIL, OBSXTR_EXTRACT, ZD_CHECK_AR_SAT, ZD_CHECK_SAT_GAPS, ZD_CHECK_SAT_RMS, ZD_DEL_CDXT_OBS, ZD_GPSXTR_EXTRACT, ZD_NUM_OBSFIL, ZD_OBSXTR_EXTRACT | - | - |
-| TIMINT_?? | - | - | - | ITEPRECL, PRECLKAP, ZD_ITE_PRE_CLK, ZD_PRE_ELIM_CLK_P |
-| TIMINTITE_?? | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| PROCESSING_$YD+0 | - | AMB_EXTRACT, CHECK_AR_SAT, CHECK_OBSENTRIES, CHECK_SAT_GAPS, CHECK_SAT_RMS, DEL_LOBS, GPSXTR_EXTRACT, NUM_OBSFIL, OBSXTR_EXTRACT, ZD_CHECK_AR_SAT, ZD_CHECK_SAT_GAPS, ZD_CHECK_SAT_RMS, ZD_CHECK_SAT_RMS_05102026, ZD_DEL_CDXT_OBS, ZD_GPSXTR_EXTRACT, ZD_NUM_OBSFIL, ZD_OBSXTR_EXTRACT | - | - |
+| TIMINT_?? | - | - | - | ITEPRECL, PRECLKAP, ZD_ITE_PRE_CLK, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
+| TIMINTITE_?? | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
 | TIMOVER | - | - | ITEPRECL, ZD_ITE_PRE_CLK | - |
 | VAPL_entries | - | CHECK_VAPL_ENTRIES | - | - |
 
@@ -6095,20 +6502,22 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_CLK$Y$+0.EXT_RXC* | - | - | - | LEO_COP |
-| V_CLK$Y$+00.EXT_RXC* | - | - | - | LEO_COP |
+| V_CLK$Y$+0.EXT_RXC* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_CLK$Y$+00.EXT_RXC* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
 
 ### V_ORBDIR
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_B$Y$+0.ERP* | - | - | - | LEO_COP |
-| V_B$Y$+0.EXT_STD* | - | - | - | LEO_COP |
-| V_B$Y$+00.ERP* | - | - | - | LEO_COP |
-| V_B$Y$+00.EXT_STD* | - | - | - | LEO_COP |
-| V_OSB$Y$+0.EXT_OSB* | - | - | - | LEO_COP |
-| V_OSB$Y$+00.EXT_OSB* | - | - | - | LEO_COP |
-| V_OSB.EXT_OSB | - | - | - | LEO_COP |
+| V_B$Y$+0.ERP* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_B$Y$+0.EXT_RPR* | - | - | - | ZD_LEONEQ_COP |
+| V_B$Y$+0.EXT_STD* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_B$Y$+00.ERP* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_B$Y$+00.EXT_RPR* | - | - | - | ZD_LEONEQ_COP |
+| V_B$Y$+00.EXT_STD* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_OSB$Y$+0.EXT_OSB* | - | - | - | LEO_COP, ZD_LEONEQ_COP~ |
+| V_OSB$Y$+00.EXT_OSB* | - | - | - | LEO_COP, ZD_LEONEQ_COP~ |
+| V_OSB.EXT_OSB | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
 
 
 ## INP Catalog
@@ -21468,7 +21877,7 @@ _... 337 more fields omitted in this summary._
 | DESCR_POLE | 1 | Earth rotation parameters | ERP File |
 | OCNLOAD | 1 | $(BLQINF) | Ocean loading tables |
 | DESCR_OCNLOAD | 1 | Ocean tidal loading | Ocean loading tables |
-| ATMLOAD | 1 | $(ATLINF) | Atmospheric loading tables |
+| ATMLOAD | 1 |  | Atmospheric loading tables |
 | DESCR_ATMLOAD | 1 | Atmospheric tidal loading | Atmospheric loading tables |
 | GCCINP | 1 |  | Atmospheric loading tables |
 | DESCR_GCCINP | 1 | Geocenter coordinates | Atmospheric loading tables |
@@ -23287,7 +23696,7 @@ _... 337 more fields omitted in this summary._
 | DESCR_POLE | 1 | Earth rotation parameters | ERP File |
 | OCNLOAD | 1 | $(BLQINF) | Ocean loading tables |
 | DESCR_OCNLOAD | 1 | Ocean tidal loading | Ocean loading tables |
-| ATMLOAD | 1 | $(ATLINF) | Atmospheric loading tables |
+| ATMLOAD | 1 |  | Atmospheric loading tables |
 | DESCR_ATMLOAD | 1 | Atmospheric tidal loading | Atmospheric loading tables |
 | GCCINP | 1 |  | Atmospheric loading tables |
 | DESCR_GCCINP | 1 | Geocenter coordinates | Atmospheric loading tables |
@@ -23821,7 +24230,7 @@ _... 37 more fields omitted in this summary._
 | DESCR_POLE | 1 | Earth rotation parameters | ERP File |
 | OCNLOAD | 1 | $(BLQINF) | Ocean loading tables |
 | DESCR_OCNLOAD | 1 | Ocean tidal loading | Ocean loading tables |
-| ATMLOAD | 1 | $(ATLINF) | Atmospheric loading tables |
+| ATMLOAD | 1 |  | Atmospheric loading tables |
 | DESCR_ATMLOAD | 1 | Atmospheric tidal loading | Atmospheric loading tables |
 | GCCINP | 1 |  | Atmospheric loading tables |
 | DESCR_GCCINP | 1 | Geocenter coordinates | Atmospheric loading tables |
@@ -35460,6 +35869,298 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/AIUB_CMP.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| MSG_CAMPAIGN | 1 | Campaign directory | List of Campaigns |
+
+### HELMR1.INP
+
+- Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
+- ... and 17 more sections
+- Fields: 94
+- Source: [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/HELMR1.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| ENVIRONMENT | 0 |  | Environment Variables |
+| CAMPAIGN | 0 |  | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| SESSION_TABLE | 0 |  | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| DESCR_SESSION_TABLE | 1 | Session table | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| YR4_INFO | 1 | $Y+0 | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| SES_INFO | 1 | $S+0 | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| USR_INFO | 1 | ${USER} | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| SHOWGEN | 1 | 1 | Show general files |
+| MSG_SHOWGEN | 1 | Show all general files | Show general files |
+| CONST | 1 | CONST | Constants |
+| DESCR_CONST | 1 | General constants | Constants |
+| DATUM | 1 | DATUM | Local Geodetic Datum |
+| DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
+| COORD1 | 1 | $(CRDINF) | Coordinate and Velocity Files |
+| DESCR_COORD1 | 1 | First coordinate file | Coordinate and Velocity Files |
+| VELAPR | 1 | $(CRDINF) | Coordinate and Velocity Files |
+| DESCR_VELAPR | 1 | Velocities for first file | Coordinate and Velocity Files |
+| PSDDAT | 1 | $(CRDINF) | PSD corrections for ITRF2014 |
+| DESCR_PSDDAT | 1 | PSD corrections | PSD corrections for ITRF2014 |
+| PERDAT | 1 |  | Periodic corrections for ITRF2014 |
+| DESCR_PERDAT | 1 | Annual/semiannual corrections (since ITRF14) | Periodic corrections for ITRF2014 |
+| LOADDAT | 0 |  | Loading corrections for DTRF2014 |
+| MSG_LOADDAT | 1 | Loading corrections (since DTRF14) | Loading corrections for DTRF2014 |
+| PSDSTA | 1 | USE | What to do with the other stations |
+| MSG_PSDSTA | 1 | Handling of stations with PSD corrections | What to do with the other stations |
+| COORD2 | 1 | $(FIN)_$YSS+0 | What to do with the other stations |
+| DESCR_COORD2 | 1 | Second coordinate file | What to do with the other stations |
+| COORDRS | 1 |  | Transformed Coordinates |
+| DESCR_COORDRS | 1 | Coordinates | Transformed Coordinates |
+| OKSTA | 1 |  | Output station fix file |
+| DESCR_OKSTA | 1 | List of accepted stations | Output station fix file |
+| SYSODEF | 1 | 0 | Program Output File |
+| MSG_SYSODEF | 1 | Program output | Program Output File |
+| SYSOUT | 1 | HELMERT_$(CRDINF)$(FIN)$YSS+0 | Program Output File |
+| DESCR_SYSOUT | 1 | Program output | Program Output File |
+| ERRMRG | 1 | 1 | Error Message File |
+| MSG_ERRMRG | 1 | Error message | Error Message File |
+| SYSERR | 0 |  | Error Message File |
+| DESCR_SYSERR | 1 | Error message | Error Message File |
+| DEBUG_STKLOG | 0 |  | Subroutine/function debug output |
+| DESCR_DEBUG_STKLOG | 1 | Debug stack log output | Subroutine/function debug output |
+| DEBUG_SUMMARY | 0 |  | Subroutine/function debug output |
+| DESCR_DEBUG_SUMMARY | 1 | Debug summary output | Subroutine/function debug output |
+| DEBUG_INTERVAL | 1 | 00 01 00 | Subroutine/function debug output |
+| MSG_DEBUG_INTERVAL | 1 | Interval for intermediate debug summary | Subroutine/function debug output |
+| AUXFIL | 1 | HELMR1$J | Scratch File |
+| DESCR_AUXFIL | 1 | Scratch file | Scratch File |
+| DELETE_FILES | 1 | AUXFIL | Scratch File |
+| USESTA | 1 |  | List of reference stations |
+| DESCR_USESTA | 1 | List of reference stations | List of reference stations |
+
+_... 44 more fields omitted in this summary._
+
+### MENU.INP
+
+- Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
+- Fields: 38
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/MENU.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| RELEASE_INFO | 1 | ${DOC}/RELEASE.TXT | Release Information Notes |
+| USER_INFO | 1 | ${DOC}/USER.TXT | Release Information Notes |
+| MENU_BAR_INP | 1 | ${PAN}/MENU_BAR.json | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_BAR_INP | 1 | Menu bar configuration | List of Remaining Menu Input Files (full Pathes) |
+| MENU_CMP_INP | 1 | ${PAN}/AIUB_CMP.INP | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_CMP_INP | 1 | Edit list of campaigns | List of Remaining Menu Input Files (full Pathes) |
+| MENU_VAR_INP | 1 | ${U}/PAN/MENU_VAR.INP | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_VAR_INP | 1 | Menu variables | List of Remaining Menu Input Files (full Pathes) |
+| MENU_EXT_INP | 1 | ${U}/PAN/MENU_EXT.INP | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_EXT_INP | 1 | Paths and extensions | List of Remaining Menu Input Files (full Pathes) |
+| MENU_PGM_INP | 1 | ${U}/PAN/MENU_PGM.INP | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_PGM_INP | 1 | Program names | List of Remaining Menu Input Files (full Pathes) |
+| ACTIVE_CAMPAIGN | 1 | ${K}/CK_ZDGNSS_2025 | Active Campaign |
+| MODJULDATE | 1 | 61076.000000 | Modified Julian Date |
+| SESSION_CHAR | 1 | 0 | Session (only the last character is relevant) |
+| SESSION_TABLE | 1 | SESSIONS | Session (only the last character is relevant) |
+| JOB_ID | 1 |  | Job character |
+| MAIN_WIDTH | 1 | 1280 | Size of the Main Window |
+| MAIN_HEIGHT | 1 | 729 | Size of the Main Window |
+| MAIN_PALETTE | 1 | 170 85 255 255 170 0 | Colors (RGB Button + RGB Background) |
+| FONTTYPE_BASE | 1 | Source Code Pro Medium | Font Types and Font Sizes |
+| FONTSIZE_BASE | 1 | 12 | Font Types and Font Sizes |
+| FONTBOLD_BASE | 1 | 0 | Font Types and Font Sizes |
+| FONTITALIC_BASE | 1 | 0 | Font Types and Font Sizes |
+| FONTSTRIKEOUT_BASE | 1 | 0 | Font Types and Font Sizes |
+| FONTUNDERLINE_BASE | 1 | 0 | Font Types and Font Sizes |
+| FONTTYPE_LARGE | 1 | URW Bookman [urw] | Font Types and Font Sizes |
+| FONTSIZE_LARGE | 1 | 10 | Font Types and Font Sizes |
+| FONTBOLD_LARGE | 1 | 0 | Font Types and Font Sizes |
+| FONTITALIC_LARGE | 1 | 0 | Font Types and Font Sizes |
+| FONTSTRIKEOUT_LARGE | 1 | 0 | Font Types and Font Sizes |
+| FONTUNDERLINE_LARGE | 1 | 0 | Font Types and Font Sizes |
+| FONTTYPE_SMALL | 1 | URW Gothic [urw] | Font Types and Font Sizes |
+| FONTSIZE_SMALL | 1 | 12 | Font Types and Font Sizes |
+| FONTBOLD_SMALL | 1 | 1 | Font Types and Font Sizes |
+| FONTITALIC_SMALL | 1 | 0 | Font Types and Font Sizes |
+| FONTSTRIKEOUT_SMALL | 1 | 0 | Font Types and Font Sizes |
+| FONTUNDERLINE_SMALL | 1 | 0 | Font Types and Font Sizes |
+
+### MENU_EXT.INP
+
+- Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
+- ... and 145 more sections
+- Fields: 652
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/MENU_EXT.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| NO_PTH | 0 |  | No path/no extension |
+| NO_EXT | 0 |  | No path/no extension |
+| GEN_CONST_FILE | 1 | CONST | General Constants File |
+| PTH_CONST | 1 | ${MODEL} | General Constants File |
+| MSG_PTH_CONST | 1 | General Constants file: path | General Constants File |
+| EXT_CONST | 1 | BSW | General Constants File |
+| MSG_EXT_CONST | 1 | General Constants file: extension | General Constants File |
+| PTH_SUBMOD | 1 | ${MODEL} | Sub-daily Earth Rotation Model |
+| MSG_PTH_SUBMOD | 1 | Sub-daily Earth Rotation Model: path | Sub-daily Earth Rotation Model |
+| EXT_SUBMOD | 1 | SUB | Sub-daily Earth Rotation Model |
+| MSG_EXT_SUBMOD | 1 | Sub-daily Earth Rotation Model: extension | Sub-daily Earth Rotation Model |
+| PTH_NUTMOD | 1 | ${MODEL} | Nutation Model |
+| MSG_PTH_NUTMOD | 1 | Nutation Model: path | Nutation Model |
+| EXT_NUTMOD | 1 | NUT | Nutation Model |
+| MSG_EXT_NUTMOD | 1 | Nutation Model: extension | Nutation Model |
+| PTH_POTCOE | 1 | ${MODEL} | Earth Potential Coefficients |
+| MSG_PTH_POTCOE | 1 | Earth Potential Coefficients: path | Earth Potential Coefficients |
+| EXT_POTCOE | 1 | GRV | Earth Potential Coefficients |
+| MSG_EXT_POTCOE | 1 | Earth Potential Coefficients: extension | Earth Potential Coefficients |
+| PTH_ALBEMIS | 1 | ${MODEL} | Albedo Emissivity |
+| MSG_PTH_ALBEMIS | 1 | Albedo Emissivity: path | Albedo Emissivity |
+| EXT_ALBEMIS | 1 | EXT | Albedo Emissivity |
+| MSG_EXT_ALBEMIS | 1 | Albedo Emissivity: extension | Albedo Emissivity |
+| PTH_ALBREFL | 1 | ${MODEL} | Albedo Reflectivity |
+| MSG_PTH_ALBREFL | 1 | Albedo Reflectivity: path | Albedo Reflectivity |
+| EXT_ALBREFL | 1 | EXT | Albedo Reflectivity |
+| MSG_EXT_ALBREFL | 1 | Albedo Reflectivity: extension | Albedo Reflectivity |
+| PTH_AIRSOLAR | 1 | ${MODEL} | Solar indices for JB2008 atmos. model (ORBGEN) |
+| MSG_PTH_AIRSOLAR | 1 | Solar indices for JB2008 atmos. model: path | Solar indices for JB2008 atmos. model (ORBGEN) |
+| EXT_AIRSOLAR | 1 | FLX | Solar indices for JB2008 atmos. model (ORBGEN) |
+| MSG_EXT_AIRSOLAR | 1 | Solar indices for JB2008 atmos. model: extension | Solar indices for JB2008 atmos. model (ORBGEN) |
+| PTH_DTCVAL | 1 | ${MODEL} | Solar indices for JB2008 atmos. model (ORBGEN) |
+| MSG_PTH_DTCVAL | 1 | JB2008: Geomag. storm dTc values: path | Solar indices for JB2008 atmos. model (ORBGEN) |
+| EXT_DTCVAL | 1 | TXT | Solar indices for JB2008 atmos. model (ORBGEN) |
+| MSG_EXT_DTCVAL | 1 | JB2008: Geomag. storm dTc values: extension | Solar indices for JB2008 atmos. model (ORBGEN) |
+| PTH_FLXAPFIL | 1 | ${MODEL} | Solar F10.7 flux and geomagnetic index (ORBGEN) |
+| MSG_PTH_FLXAPFIL | 1 | Solar F10.7 flux and geomagnetic index: path | Solar F10.7 flux and geomagnetic index (ORBGEN) |
+| EXT_FLXAPFIL | 1 | FLX | Solar F10.7 flux and geomagnetic index (ORBGEN) |
+| MSG_EXT_FLXAPFIL | 1 | Solar F10.7 flux and geomagnetic index: extension | Solar F10.7 flux and geomagnetic index (ORBGEN) |
+| PTH_JPLEPH | 1 | ${MODEL} | Planetary Ephemeris File |
+| MSG_PTH_JPLEPH | 1 | Planetary Ephemeris File: path | Planetary Ephemeris File |
+| EXT_JPLEPH | 1 | EPH | Planetary Ephemeris File |
+| MSG_EXT_JPLEPH | 1 | Planetary Ephemeris File: extension | Planetary Ephemeris File |
+| PTH_TPO | 1 | ${MODEL} | Solid Earth tides model |
+| MSG_PTH_TPO | 1 | Solid Earth tides model: path | Solid Earth tides model |
+| EXT_TPO | 1 | TPO | Solid Earth tides model |
+| MSG_EXT_TPO | 1 | Solid Earth tides model: extension | Solid Earth tides model |
+| PTH_TID | 1 | ${MODEL} | Ocean Tide Model |
+| MSG_PTH_TID | 1 | Ocean Tide Model: path | Ocean Tide Model |
+| EXT_TID | 1 | TID | Ocean Tide Model |
+
+_... 602 more fields omitted in this summary._
+
+### MENU_PGM.INP
+
+- Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
+- ... and 29 more sections
+- Fields: 299
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/MENU_PGM.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| CMD_PATH | 1 | ${XG} | Command to Run the Fortran Program |
+| MSG_CMD_PATH | 1 | Default program path to the executables | Command to Run the Fortran Program |
+| CMD_FOREGROUND | 1 | 1 | Command to Run the Fortran Program |
+| MSG_CMD_FOREGROUND | 1 | Run Fortran programs in foreground | Command to Run the Fortran Program |
+| CMD_BACKGROUND | 1 | 0 | Command to Run the Fortran Program |
+| MSG_CMD_BACKGROUND | 1 | Run Fortran programs in background | Command to Run the Fortran Program |
+| CMD_USE_CPUFILE | 1 | 0 | Command to Run the Fortran Program |
+| MSG_CMD_USE_CPUFILE | 1 | Use selected CPU file to run Fortran programs | Command to Run the Fortran Program |
+| CPU_FILE | 0 |  | CPU File |
+| MSG_CPU_FILE | 1 | CPU control file | CPU File |
+| CMD_CPUNAME | 1 |  | CPU File |
+| MSG_CMD_CPUNAME | 1 | CPU name | CPU File |
+| CMD_LOGFILE | 0 |  | CPU File |
+| MSG_CMD_LOGFILE | 1 | Log File | CPU File |
+| MAXJOBNUM | 1 | 99 | CPU File |
+| MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
+| SPECIAL_PATH | 1 | ADDNEQ2" "/storage/homefs/l_hpfaiub/ADDNEQ2_LAPACK/EXE_IFC" " | List of Programs with special path to the executable |
+| MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
+| USER1_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
+| USER2_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER2_INP | 1 | USER2 | Names of Programs/Input Files |
+| USER3_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER3_INP | 1 | USER3 | Names of Programs/Input Files |
+| USER4_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER4_INP | 1 | USER4 | Names of Programs/Input Files |
+| USER5_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER5_INP | 1 | USER5 | Names of Programs/Input Files |
+| USER6_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER6_INP | 1 | USER6 | Names of Programs/Input Files |
+| USER7_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER7_INP | 1 | USER7 | Names of Programs/Input Files |
+| USER8_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER8_INP | 1 | USER8 | Names of Programs/Input Files |
+| USER9_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER9_INP | 1 | USER9 | Names of Programs/Input Files |
+| USER10_INP | 1 |  | Names of Programs/Input Files |
+| MSG_USER10_INP | 1 | USER10 | Names of Programs/Input Files |
+| CHNGEN_INP | 1 | CHNGEN | Configure |
+| MSG_CHNGEN_INP | 1 | Program input file: Change general options | Configure |
+| UPDPAN_INP | 1 | UPDPAN | Configure |
+| MSG_UPDPAN_INP | 1 | Program input file: Update program input files | Configure |
+| NEWCAMP_INP | 1 | NEWCAMP | Campaign |
+| MSG_NEWCAMP_INP | 1 | Program input file: Create new campaign | Campaign |
+| EDITCRD_INP | 1 | EDITCRD | Station files |
+| MSG_EDITCRD_INP | 1 | Program input file: Create/update station coordinates | Station files |
+| EDITVEL_INP | 1 | EDITVEL | Station files |
+| MSG_EDITVEL_INP | 1 | Program input file: Create/update station velocities | Station files |
+| EDITECC_INP | 1 | EDITECC | Station files |
+| MSG_EDITECC_INP | 1 | Program input file: Create/update station eccentricities | Station files |
+
+_... 249 more fields omitted in this summary._
+
+### MENU_VAR.INP
+
+- Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
+- Fields: 17
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/MENU_VAR.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| YEAR2 | 1 | $Y | 2-digit year |
+| MSG_YEAR2 | 1 | Two digit year of the current session | 2-digit year |
+| MONTH2 | 1 | $M | Month |
+| MSG_MONTH2 | 1 | Month of the current session | Month |
+| DAY2 | 1 | $D | Day of month |
+| MSG_DAY2 | 1 | Day of month of the current session | Day of month |
+| JOB_ID | 1 | $J | Job ID |
+| MSG_JOB_ID | 1 | Job ID | Job ID |
+| CAMP_VAL | 1 | $(CAMP) | Active campaign via $(CAMP) |
+| MSG_CAMP_VAL | 1 | Active campaign via $(CAMP) | Active campaign via $(CAMP) |
+| VAR_MINUS | 1 | -1 | Ranges of $-Variables |
+| MSG_VAR_MINUS | 1 | Minus range | Ranges of $-Variables |
+| VAR_PLUS | 1 | 1 | Ranges of $-Variables |
+| MSG_VAR_PLUS | 1 | Plus range | Ranges of $-Variables |
+| USERVAR | 1 | " " | User-defined Variables |
+| MSG_USERVAR | 1 | User-defined variables | User-defined Variables |
+| MSG_ENVIR_LIST | 1 | Environment variables | List of Environment Variables |
+
+### SETDAY.INP
+
+- Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
+- ... and 3 more sections
+- Fields: 13
+- Source: [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/SETDAY.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| DOY | 0 |  | Doy, empty or zero: current day, negative: relative to current day |
+| YEAR | 0 |  | Year, empty or -1: current year |
+| GPSUTC | 1 | ${CONFIG}/GPSUTC.BSW | Leap seconds |
+| DESCR_GPSUTC | 1 | GPS-UTC time difference | Leap seconds |
+| MSDOS | 1 | SETDAY.COM | Output MS-DOS (do not modify) |
+| VAX | 1 | SETDAY.COM | Output VAX (do not modify) |
+| UNIX_SH | 1 | SETDAY.COM | Output UNIX-SH (do not modify) |
+| UNIX_CSH | 1 | SETDAY.CSH | Output UNIX-CSH (do not modify) |
+| PERL | 1 | SETDAY.pl | Output PERL (do not modify) |
+| SYSOUT | 1 | ${R}/EB_FZDMGNSS/OUT/SETDAY.L31 | Program Output File |
+| DESCR_SYSOUT | 1 | Program output | Program Output File |
+| SYSERR | 0 |  | Error Message File |
+| DESCR_SYSERR | 1 | Error message | Error Message File |
+
+### AIUB_CMP.INP
+
+- Sections: List of Campaigns
+- Fields: 1
 - Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
@@ -40835,6 +41536,354 @@ _... 249 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
+- Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/AIUB_CMP.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| MSG_CAMPAIGN | 1 | Campaign directory | List of Campaigns |
+
+### GPSEST.INP
+
+- Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
+- ... and 555 more sections
+- Fields: 1506
+- Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/GPSEST.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| CAMPAIGN | 0 |  |  |
+| SESSION_TABLE | 0 |  |  |
+| DESCR_SESSION_TABLE | 1 | Session table |  |
+| YR4_INFO | 1 | $Y+0 |  |
+| SES_INFO | 1 | $S+0 |  |
+| USR_INFO | 1 | ${USER} |  |
+| ENVIRONMENT | 0 |  | Environment Variables |
+| GEOTEC | 1 | GNSS | Spce geodetic technique |
+| MSG_GEOTEC | 1 | Space geodetic technique | Spce geodetic technique |
+| DIFLVL | 1 | ZERO_AR | Differencing level |
+| MSG_DIFLVL | 1 | Differencing level | Differencing level |
+| LEOPROC | 1 | 1 | LEO processing |
+| MSG_LEOPROC | 1 | LEO data processing | LEO processing |
+| SHOWGEN | 1 | 1 | Show general files |
+| MSG_SHOWGEN | 1 | Show all general files | Show general files |
+| CONST | 1 | CONST | General Constants |
+| DESCR_CONST | 1 | General constants | General Constants |
+| DATUM | 1 | DATUM | Local Geodetic Datum |
+| DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
+| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
+| USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
+| MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
+| OBSSEL | 1 | $(OBSSEL) | Observation selection |
+| DESCR_OBSSEL | 1 | Observation selection | Observation selection |
+| SATELL | 1 | $(SATINF)_$(PCV) | Satellite Information |
+| DESCR_SATELL | 1 | Satellite information | Satellite Information |
+| SATCRUX | 1 | $(SATCRX) | Satellite Problems |
+| DESCR_SATCRUX | 1 | Satellite problems | Satellite Problems |
+| POTCOE | 1 | $(POTCOE) | Earth Potential |
+| DESCR_POTCOE | 1 | Earth potential coefficients | Earth Potential |
+| CS2021 | 1 |  | Earth Potential |
+| DESCR_CS2021 | 1 | Time-variable C20,C21,S21 | Earth Potential |
+| ZONALS | 1 |  | Earth Potential |
+| DESCR_ZONALS | 1 | Time-variable zonals | Earth Potential |
+| SUBMOD | 1 | $(SUBMOD) | Subdaily ERP Model |
+| DESCR_SUBMOD | 1 | Subdaily ERP model | Subdaily ERP Model |
+| NUTMOD | 1 | $(NUTMOD) | Nutation Model |
+| DESCR_NUTMOD | 1 | Nutation model | Nutation Model |
+| SINEXIN | 1 | SINEX | SINEX General Input File |
+| DESCR_SINEXIN | 1 | SINEX general input file | SINEX General Input File |
+| IONEXCF | 1 | IONEX | IONEX Control File |
+| DESCR_IONEXCF | 1 | IONEX control file | IONEX Control File |
+| GPSUTC | 1 | GPSUTC | GPS-UTC file |
+| DESCR_GPSUTC | 1 | GPS-UTC time difference | GPS-UTC file |
+| FRQINFO | 0 |  | Frequency Information |
+| DESCR_FRQINFO | 1 | Frequency information | Frequency Information |
+| AUXFIL | 1 | GPSEST$J | Scratch Files |
+| DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
+| AUXFIL1 | 1 | GPSEST$J | Scratch Files |
+
+_... 1456 more fields omitted in this summary._
+
+### MENU.INP
+
+- Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
+- Fields: 36
+- Source: [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| RELEASE_INFO | 1 | ${X}/DOC/RELEASE.TXT | Release Information Notes |
+| USER_INFO | 1 | ${DOC}/USER.TXT | Release Information Notes |
+| MENU_CMP_INP | 1 | ${PAN}/MENU_CMP.INP | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_CMP_INP | 1 | Edit list of campaigns | List of Remaining Menu Input Files (full Pathes) |
+| MENU_VAR_INP | 1 | ${U}/PAN/MENU_VAR.INP | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_VAR_INP | 1 | Menu variables | List of Remaining Menu Input Files (full Pathes) |
+| MENU_EXT_INP | 1 | ${U}/PAN/MENU_EXT.INP | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_EXT_INP | 1 | Paths and extensions | List of Remaining Menu Input Files (full Pathes) |
+| MENU_PGM_INP | 1 | ${U}/PAN/MENU_PGM.INP | List of Remaining Menu Input Files (full Pathes) |
+| MSG_MENU_PGM_INP | 1 | Program names | List of Remaining Menu Input Files (full Pathes) |
+| ACTIVE_CAMPAIGN | 1 | ${P}/INTRO | Active Campaign |
+| MODJULDATE | 1 | 55403.000000 | Modified Julian Date |
+| SESSION_CHAR | 1 | 0 | Session (only the last character is relevant) |
+| SESSION_TABLE | 1 | ${P}/EXAMPLE/GEN/SESSIONS.SES | Session (only the last character is relevant) |
+| JOB_ID | 0 |  | Job character |
+| MAIN_WIDTH | 1 | 864 | Size of the Main Window |
+| MAIN_HEIGHT | 1 | 561 | Size of the Main Window |
+| MAIN_PALETTE | 0 |  | Colors (RGB Button + RGB Background) |
+| FONTTYPE_BASE | 1 | Helvetica | Font Types and Font Sizes |
+| FONTSIZE_BASE | 1 | 10 | Font Types and Font Sizes |
+| FONTBOLD_BASE | 1 | 0 | Font Types and Font Sizes |
+| FONTITALIC_BASE | 1 | 0 | Font Types and Font Sizes |
+| FONTSTRIKEOUT_BASE | 1 | 0 | Font Types and Font Sizes |
+| FONTUNDERLINE_BASE | 1 | 0 | Font Types and Font Sizes |
+| FONTTYPE_LARGE | 1 | Terminal [Dec] | Font Types and Font Sizes |
+| FONTSIZE_LARGE | 1 | 10 | Font Types and Font Sizes |
+| FONTBOLD_LARGE | 1 | 0 | Font Types and Font Sizes |
+| FONTITALIC_LARGE | 1 | 0 | Font Types and Font Sizes |
+| FONTSTRIKEOUT_LARGE | 1 | 0 | Font Types and Font Sizes |
+| FONTUNDERLINE_LARGE | 1 | 0 | Font Types and Font Sizes |
+| FONTTYPE_SMALL | 1 | Terminal [Dec] | Font Types and Font Sizes |
+| FONTSIZE_SMALL | 1 | 10 | Font Types and Font Sizes |
+| FONTBOLD_SMALL | 1 | 0 | Font Types and Font Sizes |
+| FONTITALIC_SMALL | 1 | 0 | Font Types and Font Sizes |
+| FONTSTRIKEOUT_SMALL | 1 | 0 | Font Types and Font Sizes |
+| FONTUNDERLINE_SMALL | 1 | 0 | Font Types and Font Sizes |
+
+### MENU_CMP.INP
+
+- Sections: List of Campaigns
+- Fields: 1
+- Source: [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU_CMP.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| MSG_CAMPAIGN | 1 | Campaign directory | List of Campaigns |
+
+### MENU_EXT.INP
+
+- Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
+- ... and 145 more sections
+- Fields: 652
+- Source: [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU_EXT.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| NO_PTH | 0 |  | No path/no extension |
+| NO_EXT | 0 |  | No path/no extension |
+| GEN_CONST_FILE | 1 | CONST. | General Constants File |
+| PTH_CONST | 1 | ${MODEL} | General Constants File |
+| MSG_PTH_CONST | 1 | General Constants file: path | General Constants File |
+| EXT_CONST | 1 | BSW | General Constants File |
+| MSG_EXT_CONST | 1 | General Constants file: extension | General Constants File |
+| PTH_SUBMOD | 1 | ${MODEL} | Sub-daily Earth Rotation Model |
+| MSG_PTH_SUBMOD | 1 | Sub-daily Earth Rotation Model: path | Sub-daily Earth Rotation Model |
+| EXT_SUBMOD | 1 | SUB | Sub-daily Earth Rotation Model |
+| MSG_EXT_SUBMOD | 1 | Sub-daily Earth Rotation Model: extension | Sub-daily Earth Rotation Model |
+| PTH_NUTMOD | 1 | ${MODEL} | Nutation Model |
+| MSG_PTH_NUTMOD | 1 | Nutation Model: path | Nutation Model |
+| EXT_NUTMOD | 1 | NUT | Nutation Model |
+| MSG_EXT_NUTMOD | 1 | Nutation Model: extension | Nutation Model |
+| PTH_POTCOE | 1 | ${MODEL} | Earth Potential Coefficients |
+| MSG_PTH_POTCOE | 1 | Earth Potential Coefficients: path | Earth Potential Coefficients |
+| EXT_POTCOE | 1 | GRV | Earth Potential Coefficients |
+| MSG_EXT_POTCOE | 1 | Earth Potential Coefficients: extension | Earth Potential Coefficients |
+| PTH_ALBEMIS | 1 | ${MODEL} | Albedo Emissivity |
+| MSG_PTH_ALBEMIS | 1 | Albedo Emissivity: path | Albedo Emissivity |
+| EXT_ALBEMIS | 1 | EXT | Albedo Emissivity |
+| MSG_EXT_ALBEMIS | 1 | Albedo Emissivity: extension | Albedo Emissivity |
+| PTH_ALBREFL | 1 | ${MODEL} | Albedo Reflectivity |
+| MSG_PTH_ALBREFL | 1 | Albedo Reflectivity: path | Albedo Reflectivity |
+| EXT_ALBREFL | 1 | EXT | Albedo Reflectivity |
+| MSG_EXT_ALBREFL | 1 | Albedo Reflectivity: extension | Albedo Reflectivity |
+| PTH_AIRSOLAR | 1 | ${MODEL} | Solar indices for JB2008 atmos. model (ORBGEN) |
+| MSG_PTH_AIRSOLAR | 1 | Solar indices for JB2008 atmos. model: path | Solar indices for JB2008 atmos. model (ORBGEN) |
+| EXT_AIRSOLAR | 1 | FLX | Solar indices for JB2008 atmos. model (ORBGEN) |
+| MSG_EXT_AIRSOLAR | 1 | Solar indices for JB2008 atmos. model: extension | Solar indices for JB2008 atmos. model (ORBGEN) |
+| PTH_DTCVAL | 1 | ${MODEL} | Solar indices for JB2008 atmos. model (ORBGEN) |
+| MSG_PTH_DTCVAL | 1 | JB2008: Geomag. storm dTc values: path | Solar indices for JB2008 atmos. model (ORBGEN) |
+| EXT_DTCVAL | 1 | TXT | Solar indices for JB2008 atmos. model (ORBGEN) |
+| MSG_EXT_DTCVAL | 1 | JB2008: Geomag. storm dTc values: extension | Solar indices for JB2008 atmos. model (ORBGEN) |
+| PTH_FLXAPFIL | 1 | ${MODEL} | Solar F10.7 flux and geomagnetic index (ORBGEN) |
+| MSG_PTH_FLXAPFIL | 1 | Solar F10.7 flux and geomagnetic index: path | Solar F10.7 flux and geomagnetic index (ORBGEN) |
+| EXT_FLXAPFIL | 1 | FLX | Solar F10.7 flux and geomagnetic index (ORBGEN) |
+| MSG_EXT_FLXAPFIL | 1 | Solar F10.7 flux and geomagnetic index: extension | Solar F10.7 flux and geomagnetic index (ORBGEN) |
+| PTH_JPLEPH | 1 | ${MODEL} | Planetary Ephemeris File |
+| MSG_PTH_JPLEPH | 1 | Planetary Ephemeris File: path | Planetary Ephemeris File |
+| EXT_JPLEPH | 1 | EPH | Planetary Ephemeris File |
+| MSG_EXT_JPLEPH | 1 | Planetary Ephemeris File: extension | Planetary Ephemeris File |
+| PTH_TPO | 1 | ${MODEL} | Solid Earth tides model |
+| MSG_PTH_TPO | 1 | Solid Earth tides model: path | Solid Earth tides model |
+| EXT_TPO | 1 | TPO | Solid Earth tides model |
+| MSG_EXT_TPO | 1 | Solid Earth tides model: extension | Solid Earth tides model |
+| PTH_TID | 1 | ${MODEL} | Ocean Tide Model |
+| MSG_PTH_TID | 1 | Ocean Tide Model: path | Ocean Tide Model |
+| EXT_TID | 1 | TID | Ocean Tide Model |
+
+_... 602 more fields omitted in this summary._
+
+### MENU_PGM.INP
+
+- Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
+- ... and 29 more sections
+- Fields: 298
+- Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU_PGM.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| CMD_PATH | 1 | ${XG} | Command to Run the Fortran Program |
+| MSG_CMD_PATH | 1 | Default program path to the executables | Command to Run the Fortran Program |
+| CMD_FOREGROUND | 1 | 1 | Command to Run the Fortran Program |
+| MSG_CMD_FOREGROUND | 1 | Run Fortran programs in foreground | Command to Run the Fortran Program |
+| CMD_BACKGROUND | 1 | 0 | Command to Run the Fortran Program |
+| MSG_CMD_BACKGROUND | 1 | Run Fortran programs in background | Command to Run the Fortran Program |
+| CMD_USE_CPUFILE | 1 | 0 | Command to Run the Fortran Program |
+| MSG_CMD_USE_CPUFILE | 1 | Use selected CPU file to run Fortran programs | Command to Run the Fortran Program |
+| CPU_FILE | 0 |  | CPU File |
+| MSG_CPU_FILE | 1 | CPU control file | CPU File |
+| CMD_CPUNAME | 1 |  | CPU File |
+| MSG_CMD_CPUNAME | 1 | CPU name | CPU File |
+| CMD_LOGFILE | 0 |  | CPU File |
+| MSG_CMD_LOGFILE | 1 | Log File | CPU File |
+| MAXJOBNUM | 1 | 99 | CPU File |
+| MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
+| MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
+| USER1_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
+| USER2_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER2_INP | 1 | USER2 | Names of Programs/Input Files |
+| USER3_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER3_INP | 1 | USER3 | Names of Programs/Input Files |
+| USER4_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER4_INP | 1 | USER4 | Names of Programs/Input Files |
+| USER5_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER5_INP | 1 | USER5 | Names of Programs/Input Files |
+| USER6_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER6_INP | 1 | USER6 | Names of Programs/Input Files |
+| USER7_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER7_INP | 1 | USER7 | Names of Programs/Input Files |
+| USER8_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER8_INP | 1 | USER8 | Names of Programs/Input Files |
+| USER9_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER9_INP | 1 | USER9 | Names of Programs/Input Files |
+| USER10_INP | 0 |  | Names of Programs/Input Files |
+| MSG_USER10_INP | 1 | USER10 | Names of Programs/Input Files |
+| CHNGEN_INP | 1 | CHNGEN | Configure |
+| MSG_CHNGEN_INP | 1 | Program input file: Change general options | Configure |
+| UPDPAN_INP | 1 | UPDPAN | Configure |
+| MSG_UPDPAN_INP | 1 | Program input file: Update program input files | Configure |
+| NEWCAMP_INP | 1 | NEWCAMP | Campaign |
+| MSG_NEWCAMP_INP | 1 | Program input file: Create new campaign | Campaign |
+| EDITCRD_INP | 1 | EDITCRD | Station files |
+| MSG_EDITCRD_INP | 1 | Program input file: Create/update station coordinates | Station files |
+| EDITVEL_INP | 1 | EDITVEL | Station files |
+| MSG_EDITVEL_INP | 1 | Program input file: Create/update station velocities | Station files |
+| EDITECC_INP | 1 | EDITECC | Station files |
+| MSG_EDITECC_INP | 1 | Program input file: Create/update station eccentricities | Station files |
+| EDSTACRX_INP | 1 | EDITSTA | Station files |
+
+_... 248 more fields omitted in this summary._
+
+### MENU_VAR.INP
+
+- Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Ranges of $-Variables, User-defined Variables, List of Environment Variables
+- Fields: 15
+- Source: [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU_VAR.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| YEAR2 | 1 | 22 | 2-digit year |
+| MSG_YEAR2 | 1 | Two digit year of the current session | 2-digit year |
+| MONTH2 | 1 | 10 | Month |
+| MSG_MONTH2 | 1 | Month of the current session | Month |
+| DAY2 | 1 | 28 | Day of month |
+| MSG_DAY2 | 1 | Day of month of the current session | Day of month |
+| JOB_ID | 1 |  | Job ID |
+| MSG_JOB_ID | 1 | Job ID | Job ID |
+| VAR_MINUS | 1 | -1 | Ranges of $-Variables |
+| MSG_VAR_MINUS | 1 | Minus range | Ranges of $-Variables |
+| VAR_PLUS | 1 | 1 | Ranges of $-Variables |
+| MSG_VAR_PLUS | 1 | Plus range | Ranges of $-Variables |
+| USERVAR | 1 | " " | User-defined Variables |
+| MSG_USERVAR | 1 | User-defined variables | User-defined Variables |
+| MSG_ENVIR_LIST | 1 | Environment variables | List of Environment Variables |
+
+### ORBGEN.INP
+
+- Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
+- ... and 108 more sections
+- Fields: 387
+- Source: [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/ORBGEN.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| ENVIRONMENT | 0 |  | Environment Variables |
+| CAMPAIGN | 0 |  | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| SESSION_TABLE | 0 |  | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| DESCR_SESSION_TABLE | 1 | Session table | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| YR4_INFO | 1 | $Y+0 | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| SES_INFO | 1 | $S+0 | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| USR_INFO | 1 | ${USER} | SOME KEYWORDS FOR AUTOMATIC OUTPUT |
+| RADIO_P | 1 | 1 | Input Precise Files |
+| MSG_RADIO_P | 1 | Start with precise orbits | Input Precise Files |
+| PREFIL | 1 | SCRIPT | Input Precise Files |
+| MSG_PREFIL | 1 | Start with precise orbits | Input Precise Files |
+| PREFIL_EXT_COL_2 | 0 |  | Extension of the ERP Files |
+| PREFIL_PTH_COL_2 | 0 |  | Extension of the ERP Files |
+| GENPOLE | 1 | 1 | Use general ERP file |
+| MSG_GENPOLE | 1 | Use with general ERP file | Use general ERP file |
+| CHKPCV | 1 | 0 | Check consistency of PCV model |
+| MSG_CHKPCV | 1 | Check consistency of PCV model | Check consistency of PCV model |
+| NEWOLD | 1 | NEW | Update Modus |
+| MSG_NEWOLD | 1 | SELECTION OF ORBITAL ELEMENTS | Update Modus |
+| TRUEATTI | 1 | 1 | True yaw attitude modelling of satellites |
+| MSG_TRUEATTI | 1 | True yaw attitude modelling of satellites | True yaw attitude modelling of satellites |
+| BETAOUT | 1 | 0 | True yaw attitude modelling of satellites |
+| MSG_BETAOUT | 1 | Print beta angle and attit. switch info to STDOUT | True yaw attitude modelling of satellites |
+| PRINTYAW | 1 | 0 | True yaw attitude modelling of satellites |
+| MSG_PRINTYAW | 1 | Print yaw angle | True yaw attitude modelling of satellites |
+| PRINTOSC | 1 | 0 | True yaw attitude modelling of satellites |
+| MSG_PRINTOSC | 1 | Print osculating elements | True yaw attitude modelling of satellites |
+| PRTFITRMS | 1 | 0 | True yaw attitude modelling of satellites |
+| MSG_PRTFITRMS | 1 | Print RMS after last iteration | True yaw attitude modelling of satellites |
+| PAR1 | 1 | 1 | Estimated Parameters |
+| MSG_PAR1 | 1 | Parameter 1 of an empirical model for GNSS | Estimated Parameters |
+| PAR2 | 1 | 1 | Estimated Parameters |
+| MSG_PAR2 | 1 | Parameter 2 of an empirical model for GNSS | Estimated Parameters |
+| PAR3 | 1 | 1 | Estimated Parameters |
+| MSG_PAR3 | 1 | Parameter 3 of an empirical model for GNSS | Estimated Parameters |
+| PAR4 | 1 | 1 | Estimated Parameters |
+| MSG_PAR4 | 1 | Parameter 4 of an empirical model for GNSS | Estimated Parameters |
+| PAR5 | 1 | 1 | Estimated Parameters |
+| MSG_PAR5 | 1 | Parameter 5 of an empirical model for GNSS | Estimated Parameters |
+| PAR6 | 1 | 1 | Estimated Parameters |
+| MSG_PAR6 | 1 | Parameter 6 of an empirical model for GNSS | Estimated Parameters |
+| PAR7 | 1 | 1 | Estimated Parameters |
+| MSG_PAR7 | 1 | Parameter 7 of an empirical model for GNSS | Estimated Parameters |
+| PAR8 | 1 | 1 | Estimated Parameters |
+| MSG_PAR8 | 1 | Parameter 8 of an empirical model for GNSS | Estimated Parameters |
+| PAR9 | 1 | 1 | Estimated Parameters |
+| MSG_PAR9 | 1 | Parameter 9 of an empirical model for GNSS | Estimated Parameters |
+| SCL1 | 1 | 1.0E+7 | Scaling factors for printing purposes |
+| MSG_SCL1 | 1 | Scaling factor of PAR_1 (for output) | Scaling factors for printing purposes |
+| SCL2 | 1 | 1.0E+7 | Scaling factors for printing purposes |
+
+_... 337 more fields omitted in this summary._
+
+### RUNGPS.INP
+
+- Fields: 3
+- Source: [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/RUNGPS.INP)
+
+| Key | Type | Value | Section |
+| --- | --- | --- | --- |
+| MODUS | 1 | INTERACTIVE |  |
+| INP_FILE_NAME | 1 | GPSEST.INP |  |
+| MAIN_PALETTE | 1 | 255 255 127 85 255 255 |  |
+
+### AIUB_CMP.INP
+
+- Sections: List of Campaigns
+- Fields: 1
 - Source: [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/AIUB_CMP.INP)
 
 | Key | Type | Value | Section |
@@ -45741,6 +46790,16 @@ _... 37 more fields omitted in this summary._
 - [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/MENU_VAR.INP)
 - [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_1HN/SETDAY.INP)
 
+### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_CHK
+
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/AIUB_CMP.INP)
+- [HELMR1.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/HELMR1.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/MENU.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/MENU_VAR.INP)
+- [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_CHK/SETDAY.INP)
+
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_COC
 
 - [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/AIUB_CMP.INP)
@@ -45885,6 +46944,18 @@ _... 37 more fields omitted in this summary._
 - [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU_PGM.INP)
 - [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/MENU_VAR.INP)
 - [SETDAY.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/SETDAY.INP)
+
+### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_LEONEQ
+
+- [AIUB_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/AIUB_CMP.INP)
+- [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/GPSEST.INP)
+- [MENU.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU.INP)
+- [MENU_CMP.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU_CMP.INP)
+- [MENU_EXT.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU_EXT.INP)
+- [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU_PGM.INP)
+- [MENU_VAR.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/MENU_VAR.INP)
+- [ORBGEN.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/ORBGEN.INP)
+- [RUNGPS.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/RUNGPS.INP)
 
 ### /storage/homefs/ck18y530/GPSUSER/OPT/ZD_MON
 

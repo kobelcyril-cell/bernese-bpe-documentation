@@ -4,7 +4,8 @@ package GPSESTRB;
 #
 # Name    :  GPSESTRB
 #
-# Purpose :  Execute GPSEST, estmate receiver code biases if V_ESTOSB non-empty.
+# Purpose :  Execute GPSEST, estimate receiver code biases if V_ESTOSB contains
+#            an output-file prefix (neither empty nor NO).
 #
 # PARAMs  :
 #
@@ -12,7 +13,7 @@ package GPSESTRB;
 #
 # Created :  07-Apr-2022
 #
-# Changes :
+# Changes :  15-Sep-2026 CK: Treat V_ESTOSB=NO like an empty value
 #
 # ============================================================================
 use strict;
@@ -33,7 +34,7 @@ sub run {
 
 # Activate observable-specific receiver code biases
 # -------------------------------------------------
-  if (${ESTOSB} ne "") {
+  if (${ESTOSB} ne "" && uc(${ESTOSB}) ne "NO") {
       $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST","1");
   } else {
       $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST","0");

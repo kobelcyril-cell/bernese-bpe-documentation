@@ -489,7 +489,7 @@ DESCR_POLERS 1  "Bernese ERP file"
 
 ! IERS ERP file
 ! -------------
-IERSPOL 1  "DUMMY"
+IERSPOL 1  ""
   ## widget = lineedit; path = DIR_IEP; ext = EXT_IEP
 
 DESCR_IERSPOL 1  "IERS ERP file"

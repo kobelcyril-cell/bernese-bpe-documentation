@@ -1,0 +1,70 @@
+package LEO_ORB_E;
+our @ISA = ('RUNBPE');
+
+# Execute ORBGEN for one LEO, using the selected ORBGEN option directory.
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util qw(setUserVar);
+
+sub run {
+    my ($bpe) = @_;
+    print "\n[LEO_ORB_E] ==================================================\n";
+    print "[LEO_ORB_E] START: execute one parallel LEO job\n";
+    print "[LEO_ORB_E] ATT transport: PARAM1=RNX__ATT; PARAM2 is not used\n";
+    my ($job) = $bpe->getKeys('PARAM1');
+    print "[LEO_ORB_E] PARAM1 = '" . (defined $job ? $job : '<undefined>') . "'\n";
+    die "[LEO_ORB_E] PARAM1 is missing; ORBGEN will not be started\n"
+        unless defined $job && length $job;
+    if ($job eq 'NO_LEO') {
+        print "[LEO_ORB_E] NO_LEO: no active LEO for this day; ORBGEN will not be called\n";
+        print "[LEO_ORB_E] END: no-op job finished\n";
+        print "[LEO_ORB_E] ==================================================\n\n";
+        return;
+    }
+    my ($rnx, $att) = $job =~ /^([A-Za-z0-9]{4})__([A-Za-z0-9][A-Za-z0-9_.-]*)$/;
+    die "[LEO_ORB_E] Expected PARAM1=RNX__ATT, got '$job'. Update LEO_ORB_P and rerun preparation; ORBGEN will not be started\n"
+        unless defined $rnx && defined $att;
+    print "[LEO_ORB_E][$rnx] Split PARAM1: RNX='$rnx', ATT='$att'\n";
+
+    print "[LEO_ORB_E][$rnx] Set LEO = '$rnx': POD options use the four-character receiver code\n";
+    setUserVar($bpe, 'LEO', $rnx);
+    print "[LEO_ORB_E][$rnx] setUserVar(LEO) returned\n";
+    print "[LEO_ORB_E][$rnx] Set RNX = '$rnx': observation file prefix from first part of PARAM1\n";
+    setUserVar($bpe, 'RNX', $rnx);
+    print "[LEO_ORB_E][$rnx] setUserVar(RNX) returned\n";
+    print "[LEO_ORB_E][$rnx] Set ATT = '$att': expanded attitude file basename from second part of PARAM1\n";
+    setUserVar($bpe, 'ATT', $att);
+    print "[LEO_ORB_E][$rnx] setUserVar(ATT) returned\n";
+
+    print "[LEO_ORB_E][$rnx] Variables passed to setUserVar: LEO='$rnx', RNX='$rnx', ATT='$att'\n";
+    my ($yyssss) = $bpe->getKeys('$YSS+0');
+    die "[LEO_ORB_E][$rnx] Invalid processing session\n"
+        unless defined $yyssss && $yyssss =~ /^\d{5}[A-Za-z0-9]$/;
+    my $mac = $att;
+    die "[LEO_ORB_E][$rnx] Cannot derive PLATDEF: ATT '$att' must end with '$yyssss' and have a model prefix\n"
+        unless $mac =~ s/\Q$yyssss\E$// && length $mac;
+    print "[LEO_ORB_E][$rnx] PLATDEF derived from ATT: '$att' minus trailing '$yyssss' -> '$mac'\n";
+    print "[LEO_ORB_E][$rnx] Set MAC = '$mac': LEO-specific satellite macro model\n";
+    setUserVar($bpe, 'MAC', $mac);
+    my $input = "RD${rnx}${yyssss}";
+    my $output = "ZD${rnx}${yyssss}";
+    print "[LEO_ORB_E][$rnx] Input ELE basename: '$input'\n";
+    print "[LEO_ORB_E][$rnx] Output STD/RPR basename: '$output'\n";
+    my $inp = "$ENV{U}/PAN/ORBGEN.INP";
+    for my $pair (['ATTIT', $att], ['PLATDEF', $mac],
+                  ['PREFIL', $input], ['STDOUT', $output],
+                  ['RPROUT', $output], ['SYSOUT', $output], ['SYSERR', $output]) {
+        print "[LEO_ORB_E][$rnx] Set ORBGEN $pair->[0] = '$pair->[1]'\n";
+        $bpe->putKey($inp, @$pair);
+    }
+    print "[LEO_ORB_E][$rnx] ORBGEN uses the option directory selected in the PCF\n";
+    print "[LEO_ORB_E][$rnx] Call RUN_PGMS('ORBGEN')\n";
+    my $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+    print "[LEO_ORB_E][$rnx] RUN_PGMS('ORBGEN') returned; see ORBGEN output for processing details\n";
+    print "[LEO_ORB_E][$rnx] END: execution script finished\n";
+    print "[LEO_ORB_E] ==================================================\n\n";
+}
+
+1;

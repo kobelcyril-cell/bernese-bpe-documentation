@@ -11,3 +11,26 @@
 {"timestamp": "2026-09-09T11:59:36+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
 {"timestamp": "2026-09-09T12:39:51+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "b3", "summary": "Selected option b3: Update GPSUSER", "path": ""}
 {"timestamp": "2026-09-09T12:39:52+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T15:05:11+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "d1", "summary": "Selected option d1: Add handbook entry", "path": ""}
+{"timestamp": "2026-10-05T15:05:35+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "d1", "summary": "Selected option d1: Add handbook entry", "path": ""}
+{"timestamp": "2026-10-05T15:05:37+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T15:07:15+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "d1", "summary": "Selected option d1: Add handbook entry", "path": ""}
+{"timestamp": "2026-10-05T15:07:17+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T15:07:48+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "d3", "summary": "Selected option d3: Edit handbook entry", "path": ""}
+{"timestamp": "2026-10-05T15:07:49+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T15:21:29+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "d1", "summary": "Selected option d1: Add handbook entry", "path": ""}
+{"timestamp": "2026-10-05T15:21:30+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T15:28:09+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "d1", "summary": "Selected option d1: Add handbook entry", "path": ""}
+{"timestamp": "2026-10-05T15:28:11+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T15:36:30+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "d3", "summary": "Selected option d3: Edit handbook entry", "path": ""}
+{"timestamp": "2026-10-05T15:36:32+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T15:37:07+02:00", "user": "Cyril Kobel", "action": "updated", "target": "Operation/Station_exclusions_plot.md", "summary": "Plot the excluded stations. As Input the MSC directory has to be provided. Use, for, example: python3 ~/python/summarize_excluded_stations.py $R/CK_ZDGNSS/MSC. The script is located in ck18y530/python.", "path": "Operation/Station_exclusions_plot.md"}
+{"timestamp": "2026-10-05T15:51:26+02:00", "user": "Cyril Kobel", "action": "updated", "target": "Operation/Plot_excluded_stations.py.md", "summary": "Updated handbook entry Plot_excluded_stations.py", "path": "Operation/Plot_excluded_stations.py.md"}
+{"timestamp": "2026-10-05T15:51:27+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T16:02:54+02:00", "user": "Cyril Kobel", "action": "added", "target": "Operation/Satellite Problems Plot.md", "summary": "Created handbook entry Satellite Problems Plot", "path": "Operation/Satellite Problems Plot.md"}
+{"timestamp": "2026-10-05T16:02:55+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T16:11:00+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "d3", "summary": "Selected option d3: Edit handbook entry", "path": ""}
+{"timestamp": "2026-10-05T16:11:00+02:00", "user": "Cyril Kobel", "action": "updated", "target": "Operation/Plot_excluded_stations.py.md", "summary": "Updated handbook entry Plot_excluded_stations.py", "path": "Operation/Plot_excluded_stations.py.md"}
+{"timestamp": "2026-10-05T16:11:02+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-10-05T16:17:53+02:00", "user": "Cyril Kobel", "action": "menu_action", "target": "a", "summary": "Selected option a: Only rebuild the manual", "path": ""}
+{"timestamp": "2026-10-05T16:17:56+02:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}

@@ -362,7 +362,7 @@ DESCR_OCNLOAD 1  "Ocean tidal loading"
 
 ! Atmospheric Tidal Loading Tables
 ! --------------------------------
-ATMLOAD 1  "$(ATLINF)"
+ATMLOAD 1  ""
   ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
   ## emptyallowed = true
 
@@ -460,7 +460,7 @@ DESCR_KININP 1  "Input kinematic coordinates"
 
 ! Station Observation sigma factors for scaling the outlier limits
 ! ----------------------------------------------------------------
-STAWGT 1  "$(OBSWGT)"
+STAWGT 1  ""
   ## widget = selwin; path = DIR_SOS; ext = EXT_SOS; maxfiles = 1
   ## emptyallowed = true
 
@@ -468,7 +468,7 @@ DESCR_STAWGT 1  "Observation sigma factors"
 
 ! Station directional weighting sigma factors
 ! -------------------------------------------
-DIRWGT 0
+DIRWGT 1  ""
   ## widget = selwin; path = DIR_DWG; ext = EXT_DWG; maxfiles = 1
   ## emptyallowed = true
 
@@ -484,7 +484,7 @@ DESCR_ECCENT 1  "Station eccentricities"
 
 ! Input clock collocation
 ! -----------------
-INCLKTIE 0
+INCLKTIE 1  ""
   ## widget = selwin; path = DIR_CTI; ext = EXT_CTI; emptyallowed = true
 
 DESCR_INCLKTIE 1  "Input clock collocation file"

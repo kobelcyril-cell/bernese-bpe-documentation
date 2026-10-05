@@ -10,13 +10,13 @@ package CHECK_CAMP;
 # Author  :  C. Kobel
 # Created : 10-Aug-2026
 #
-# Changes :
+# Changes : Create subfolders if not present in campaign
 #
 #===========================================================
 
 use strict;
 use warnings;
-
+use File::Path qw(make_path);
 
 sub run {
     my $bpe = shift;
@@ -90,13 +90,27 @@ sub run {
             next;
         }
 
-        # Check that directory exists
-        if (!-e $path) {
+	# Create missing directory
+	if (!-e $path) {
 
-            print "ERROR: Directory does not exist: $path\n";
-            $errors++;
-            next;
-        }
+    	   print "INFO : Directory does not exist: $path\n";
+    	   print "INFO : Creating directory: $path\n";
+
+    	   my $created = eval {
+              make_path($path);
+              1;
+    	   };
+
+    	   if (!$created || !-d $path) {
+              my $reason = $@ || "Directory was not created\n";
+
+              print "ERROR: Could not create directory $path: $reason";
+              $errors++;
+              next;
+    	   }
+
+    	   print "INFO : Directory created: $path\n";
+	}
 
         # Check that path is actually a directory
         if (!-d $path) {

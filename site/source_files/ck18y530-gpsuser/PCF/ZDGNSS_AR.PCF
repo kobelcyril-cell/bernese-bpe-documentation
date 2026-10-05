@@ -73,12 +73,13 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 # --------------------------------------
 200  COPY_APR_AR_new     NO_OPT   CPU=ANY; WAIT=151; PARAM2=END
 #
-# Checks (nothing yet)
+# Checks
 # -------------------------------------
+900  ZD_CHKPRC_AR     NO_OPT      CPU=ANY; WAIT=161 200
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS        NO_OPT      CPU=ANY; WAIT=200; PARAM1=AR; PARAM2=CREATE
+999  ZD_STATUS        NO_OPT      CPU=ANY; WAIT=900; PARAM1=AR; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
 V_CBIA   = *;               DESCRIPTION=Unify inter-system/frequency biases

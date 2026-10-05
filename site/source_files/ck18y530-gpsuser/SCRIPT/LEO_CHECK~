@@ -1,0 +1,404 @@
+package LEO_CHECK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_CHECK
+#
+# Purpose :  Check LEOPOD quality indicators before the LEO NEQ processing,
+#            remove failed LEOs from the daily LFILE and write a daily report.
+#
+# Author  :  C. Kobel
+# Created :  16-Sep-2026
+#
+# ============================================================================
+use strict;
+use warnings;
+use File::Basename qw(dirname basename);
+use File::Spec;
+
+# ---------------------------------------------------------------------------
+# Quality limits -- adjust these values as required.
+#
+# RD...RES/SUM: RMS value printed as "Rms: ...".
+# CP...LST:     R, S and W values from "RMS / COMPONENT" and the first value
+#               from "OVERALL RMS/IQR/MAX(3D)".
+# ---------------------------------------------------------------------------
+#my $MAX_RD_RMS          = 2.000;
+#my @MAX_CP_RMS_COMPONENT = (0.020, 0.020, 0.020); # R, S, W [m]
+#my $MAX_CP_OVERALL_RMS  = 0.020;                  # [m]
+
+# A missing/unreadable quality product cannot prove that the LEO is good.
+# Set this to 0 if such a LEO should remain in the daily LFILE.
+#my $REJECT_IF_QUALITY_MISSING = 1;
+
+#my $NUMBER_RE = qr/[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[Ee][+-]?\d+)?/;
+
+sub run {
+    my ($bpe) = @_;
+
+    my ($name, $dir_out, $yyddd, $yyddds,$maxs,$max_r,$max_s,$max_w,$max_all) =
+        $bpe->getKeys('V_LFILE', 'DIR_OUT', '$YD+0', '$YSS+0','V_MAXS','V_MAX_R','V_MAX_S','V_MAX_W','V_MAX_ALL');
+
+    # ---------------------------------------------------------------------------
+    # Quality limits
+    #
+    # RD...RES/SUM: RMS value printed as "Rms: ...".
+    # CP...LST:     R, S and W values from "RMS / COMPONENT" and the first value
+    #               from "OVERALL RMS/IQR/MAX(3D)".
+    # ---------------------------------------------------------------------------
+    my $MAX_RD_RMS          = $maxs; #2.000;
+    my @MAX_CP_RMS_COMPONENT = ($max_r, $max_s, $max_w); #(0.020, 0.020, 0.020); # R, S, W [m]
+    my $MAX_CP_OVERALL_RMS  = $max_all;# 0.020;                  # [m]
+
+    # A missing/unreadable quality product cannot prove that the LEO is good.
+    # Set this to 0 if such a LEO should remain in the daily LFILE.
+    my $REJECT_IF_QUALITY_MISSING = 1;
+
+    my $NUMBER_RE = qr/[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[Ee][+-]?\d+)?/;
+
+    die "V_LFILE must be a filename without a directory\n"
+        unless defined $name && $name =~ /^[A-Za-z0-9][A-Za-z0-9_.-]*$/;
+    die "DIR_OUT is not set\n" unless defined $dir_out && length $dir_out;
+    die "\$YD+0 must expand to YYDDD (five digits)\n"
+        unless defined $yyddd && $yyddd =~ /^\d{5}$/;
+    die "\$YSS+0 must expand to YYDDDS (six digits)\n"
+        unless defined $yyddds && $yyddds =~ /^\d{6}$/;
+
+    $dir_out =~ s{[\\/]+$}{};
+    my $msc_dir = File::Spec->catdir(dirname($dir_out), 'MSC');
+    my $daily_file = File::Spec->catfile($msc_dir, $name . '_' . $yyddds);
+    my $report_file = File::Spec->catfile(
+        $msc_dir, 'LEO_QUALITY_REPORT_' . $yyddd . '.txt'
+    );
+
+    my $config = read_config($daily_file);
+    my $date = substr($yyddd, 0, 2) . '/' . substr($yyddd, 2, 3);
+    my %excluded_today = map { $_->[1] => 1 }
+                         grep { $_->[0] eq $date }
+                         @{$config->{exclusions}};
+
+    my (@results, %quality_rejected);
+    for my $leo (@{$config->{leos}}) {
+        my ($rnx) = @{$config->{variables}{$leo}};
+
+        if ($config->{included}{$leo} ne 'Y') {
+            push @results, {
+                leo => $leo, rnx => $rnx, decision => 'NOT_EXPECTED',
+                reason => 'Included = N',
+            };
+            next;
+        }
+        if ($excluded_today{$leo}) {
+            push @results, {
+                leo => $leo, rnx => $rnx, decision => 'NOT_EXPECTED',
+                reason => "Excluded for $date in the LFILE",
+            };
+            next;
+        }
+
+        my $stem = $rnx . $yyddds;
+        my ($rd_file, $rd_rms) = read_rd_rms($dir_out, 'RD' . $stem);
+        my $cp_file = File::Spec->catfile($dir_out, 'CP' . $stem . '.LST');
+        my $cp = -f $cp_file ? read_cp_statistics($cp_file) : undef;
+
+        my @reasons;
+        if (!defined $rd_rms) {
+            push @reasons, 'RD RMS missing or unreadable'
+                if $REJECT_IF_QUALITY_MISSING;
+        } elsif ($rd_rms > $MAX_RD_RMS) {
+            push @reasons, sprintf('RD RMS %.4f > %.4f', $rd_rms, $MAX_RD_RMS);
+        }
+
+        if (!defined $cp || !defined $cp->{rms_component}
+                         || !defined $cp->{overall_rms}) {
+            push @reasons, 'CP statistics missing or unreadable'
+                if $REJECT_IF_QUALITY_MISSING;
+        } else {
+            for my $index (0 .. 2) {
+                my $value = $cp->{rms_component}[$index];
+                if ($value > $MAX_CP_RMS_COMPONENT[$index]) {
+                    my $axis = (qw(R S W))[$index];
+                    push @reasons, sprintf(
+                        'CP RMS %s %.4f > %.4f',
+                        $axis, $value, $MAX_CP_RMS_COMPONENT[$index]
+                    );
+                }
+            }
+            if ($cp->{overall_rms} > $MAX_CP_OVERALL_RMS) {
+                push @reasons, sprintf(
+                    'CP overall RMS %.4f > %.4f',
+                    $cp->{overall_rms}, $MAX_CP_OVERALL_RMS
+                );
+            }
+        }
+
+        my $decision = @reasons ? 'EXCLUDED_QC' : 'USE_FOR_NEQ';
+        $quality_rejected{$leo} = 1 if @reasons;
+        push @results, {
+            leo      => $leo,
+            rnx      => $rnx,
+            rd_file  => $rd_file,
+            rd_rms   => $rd_rms,
+            cp_file  => $cp_file,
+            cp       => $cp,
+            decision => $decision,
+            reason   => @reasons ? join('; ', @reasons) : 'All limits satisfied',
+        };
+    }
+
+    # Remove rejected LEO data rows from all three sections. Headers, comments,
+    # blank lines and formatting are retained.
+    if (%quality_rejected) {
+        open my $out, '>', $daily_file
+            or die "Cannot modify daily LEO file $daily_file: $!\n";
+        for my $index (0 .. $#{$config->{source_lines}}) {
+            my $line_no = $index + 1;
+            if (exists $config->{row_leo}{$line_no}) {
+                next if $quality_rejected{$config->{row_leo}{$line_no}};
+            }
+            print {$out} $config->{source_lines}[$index]
+                or die "Cannot write daily LEO file $daily_file: $!\n";
+        }
+        close $out or die "Cannot close daily LEO file $daily_file: $!\n";
+    }
+
+    write_report(
+        $report_file, $date, $yyddd, $yyddds, $daily_file, \@results
+    );
+
+    my $accepted = grep { $_->{decision} eq 'USE_FOR_NEQ' } @results;
+    my $rejected = grep { $_->{decision} eq 'EXCLUDED_QC' } @results;
+    my $not_expected = grep { $_->{decision} eq 'NOT_EXPECTED' } @results;
+    print "\n[LEO_QUALITY_CHECK] Report: $report_file\n";
+    print "[LEO_QUALITY_CHECK] Use for NEQ: $accepted\n";
+    print "[LEO_QUALITY_CHECK] Excluded by quality control: $rejected\n";
+    print "[LEO_QUALITY_CHECK] Not expected today: $not_expected\n";
+    print "[LEO_QUALITY_CHECK] Updated daily LFILE: $daily_file\n\n";
+}
+
+sub read_rd_rms {
+    my ($dir_out, $stem) = @_;
+    my @candidates = map { File::Spec->catfile($dir_out, "$stem.$_") }
+                     qw(RES SUM);
+    my $first_existing;
+
+    for my $file (@candidates) {
+        next unless -f $file;
+        $first_existing //= $file;
+        open my $fh, '<', $file or next;
+        while (my $line = <$fh>) {
+            if ($line =~ /\bRms\s*:\s*($NUMBER_RE)/i) {
+                my $value = 0 + $1;
+                close $fh;
+                return ($file, $value);
+            }
+        }
+        close $fh;
+    }
+
+    return ($first_existing, undef);
+}
+
+sub read_cp_statistics {
+    my ($file) = @_;
+    open my $fh, '<', $file or return;
+    my %stats;
+
+    while (my $line = <$fh>) {
+        if ($line =~ /RMS\s*\/\s*COMPONENT.*?($NUMBER_RE)\s+($NUMBER_RE)\s+($NUMBER_RE)/i) {
+            $stats{rms_component} = [map { 0 + $_ } ($1, $2, $3)];
+        } elsif ($line =~ /\|\s*IQR\s*\|.*?($NUMBER_RE)\s+($NUMBER_RE)\s+($NUMBER_RE)/i) {
+            $stats{iqr_component} = [map { 0 + $_ } ($1, $2, $3)];
+        } elsif ($line =~ /\|\s*MEAN\s*\|.*?($NUMBER_RE)\s+($NUMBER_RE)\s+($NUMBER_RE)/i) {
+            $stats{mean_component} = [map { 0 + $_ } ($1, $2, $3)];
+        } elsif ($line =~ /\|\s*MEDIAN\s*\|.*?($NUMBER_RE)\s+($NUMBER_RE)\s+($NUMBER_RE)/i) {
+            $stats{median_component} = [map { 0 + $_ } ($1, $2, $3)];
+        } elsif ($line =~ /\|\s*MIN\s*\|.*?($NUMBER_RE)\s+($NUMBER_RE)\s+($NUMBER_RE)/i) {
+            $stats{min_component} = [map { 0 + $_ } ($1, $2, $3)];
+        } elsif ($line =~ /\|\s*MAX\s*\|.*?($NUMBER_RE)\s+($NUMBER_RE)\s+($NUMBER_RE)/i) {
+            $stats{max_component} = [map { 0 + $_ } ($1, $2, $3)];
+        } elsif ($line =~ /OVERALL\s+RMS\/IQR\/MAX\(3D\)\s+($NUMBER_RE)\s+($NUMBER_RE)\s+($NUMBER_RE)/i) {
+            ($stats{overall_rms}, $stats{overall_iqr}, $stats{overall_max_3d}) =
+                map { 0 + $_ } ($1, $2, $3);
+        } elsif ($line =~ /RMS\s+OF\s+TRANSFORMATION\s*:\s*($NUMBER_RE)/i) {
+            $stats{transformation_rms} = 0 + $1;
+        }
+    }
+    close $fh;
+    return \%stats;
+}
+
+sub write_report {
+    my ($file, $date, $yyddd, $yyddds, $daily_file, $results) = @_;
+    open my $fh, '>', $file or die "Cannot create quality report $file: $!\n";
+
+    print {$fh} "LEOPOD QUALITY REPORT\n";
+    print {$fh} "Date             : $date\n";
+    print {$fh} "YYDDD / YYDDDS   : $yyddd / $yyddds\n";
+    print {$fh} "Daily LFILE      : $daily_file\n";
+    print {$fh} "\nQUALITY LIMITS\n";
+    printf {$fh} "RD RMS           : %.4f\n", $MAX_RD_RMS;
+    printf {$fh} "CP RMS R/S/W     : %.4f / %.4f / %.4f m\n",
+        @MAX_CP_RMS_COMPONENT;
+    printf {$fh} "CP overall RMS   : %.4f m\n", $MAX_CP_OVERALL_RMS;
+    print {$fh} "Reject if missing: "
+        . ($REJECT_IF_QUALITY_MISSING ? 'YES' : 'NO') . "\n";
+
+    for my $result (@$results) {
+        print {$fh} "\n============================================================\n";
+        print {$fh} "LEO / RNX        : $result->{leo} / $result->{rnx}\n";
+        print {$fh} "Decision         : $result->{decision}\n";
+        print {$fh} "Reason           : $result->{reason}\n";
+        next if $result->{decision} eq 'NOT_EXPECTED';
+
+        print {$fh} "RD file          : "
+            . (defined $result->{rd_file} ? $result->{rd_file} : 'MISSING') . "\n";
+        print {$fh} "RD RMS           : "
+            . format_value($result->{rd_rms}) . "\n";
+        print {$fh} "CP file          : $result->{cp_file}\n";
+
+        my $cp = $result->{cp};
+        print {$fh} "CP RMS R/S/W     : "
+            . format_triplet($cp, 'rms_component') . "\n";
+        print {$fh} "CP IQR R/S/W     : "
+            . format_triplet($cp, 'iqr_component') . "\n";
+        print {$fh} "CP MEAN R/S/W    : "
+            . format_triplet($cp, 'mean_component') . "\n";
+        print {$fh} "CP MEDIAN R/S/W  : "
+            . format_triplet($cp, 'median_component') . "\n";
+        print {$fh} "CP MIN R/S/W     : "
+            . format_triplet($cp, 'min_component') . "\n";
+        print {$fh} "CP MAX R/S/W     : "
+            . format_triplet($cp, 'max_component') . "\n";
+        print {$fh} "CP overall RMS   : "
+            . format_hash_value($cp, 'overall_rms') . "\n";
+        print {$fh} "CP overall IQR   : "
+            . format_hash_value($cp, 'overall_iqr') . "\n";
+        print {$fh} "CP overall MAX3D : "
+            . format_hash_value($cp, 'overall_max_3d') . "\n";
+        print {$fh} "CP transform RMS : "
+            . format_hash_value($cp, 'transformation_rms') . "\n";
+    }
+
+    close $fh or die "Cannot close quality report $file: $!\n";
+}
+
+sub format_value {
+    my ($value) = @_;
+    return 'MISSING' unless defined $value;
+    return sprintf('%.6f', $value);
+}
+
+sub format_hash_value {
+    my ($hash, $key) = @_;
+    return 'MISSING' unless defined $hash && defined $hash->{$key};
+    return format_value($hash->{$key});
+}
+
+sub format_triplet {
+    my ($hash, $key) = @_;
+    return 'MISSING' unless defined $hash && defined $hash->{$key};
+    return join(' / ', map { sprintf('%.6f', $_) } @{$hash->{$key}});
+}
+
+sub read_config {
+    my ($file) = @_;
+    open my $fh, '<', $file
+        or die "Cannot read filtered LEO file $file: $!\n";
+
+    my (@source_lines, @leos, @exclusions, %included, %variables);
+    my (%rnx, %excluded, %row_leo);
+    my ($section, $header, $line_no) = (0, 0, 0);
+    my @titles = ('', 'LEOs', 'Exclusions', 'Variables');
+    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT');
+
+    while (my $raw_line = <$fh>) {
+        push @source_lines, $raw_line;
+        ++$line_no;
+        my $line = $raw_line;
+        $line =~ s/^\xEF\xBB\xBF// if $line_no == 1;
+        $line =~ s/#.*$//;
+        $line =~ s/^\s+|\s+$//g;
+        next unless length $line;
+        my $error = sub { die "$file, line $line_no: $_[0]\n" };
+
+        if ($line =~ /^SECTION\s*([123])\s*:\s*(.+)$/i) {
+            my ($number, $title) = ($1, $2);
+            $error->('Sections must occur once, in order 1, 2, 3')
+                unless $number == $section + 1;
+            $error->("Missing column header in section $section")
+                if $section && !$header;
+            $error->("Expected section title '$titles[$number]'")
+                unless lc($title) eq lc($titles[$number]);
+            ($section, $header) = ($number, 0);
+            next;
+        }
+
+        $error->('Expected SECTION 1: LEOs') unless $section;
+        my @fields = split /\s+/, $line;
+        if (!$header) {
+            $error->("Expected column header '$headers[$section]'")
+                unless join(' ', @fields) eq $headers[$section];
+            $header = 1;
+            next;
+        }
+
+        if ($section == 1) {
+            $error->('Expected LEO name and Y or N')
+                unless @fields == 2 && $fields[1] =~ /^[YN]$/;
+            my ($leo, $flag) = @fields;
+            $error->('Invalid LEO name')
+                unless $leo =~ /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
+            $error->("Duplicate LEO '$leo'") if exists $included{$leo};
+            push @leos, $leo;
+            $included{$leo} = $flag;
+            $row_leo{$line_no} = $leo;
+        } elsif ($section == 2) {
+            $error->('Expected YY/DDD and LEO name')
+                unless @fields == 2 && $fields[0] =~ /^(\d{2})\/(\d{3})$/;
+            my ($year, $day) = (2000 + $1, 0 + $2);
+            my $max_day = ($year % 4 == 0) ? 366 : 365;
+            $error->('Invalid day of year')
+                unless $day >= 1 && $day <= $max_day;
+            my ($date, $leo) = @fields;
+            $error->("Unknown LEO '$leo'") unless exists $included{$leo};
+            $error->("Duplicate exclusion '$date $leo'")
+                if $excluded{"$date $leo"}++;
+            push @exclusions, [$date, $leo];
+            $row_leo{$line_no} = $leo;
+        } else {
+            $error->('Expected LEO name, RNX and ATT') unless @fields == 3;
+            my ($leo, $prefix, $att) = @fields;
+            $error->("Unknown LEO '$leo'") unless exists $included{$leo};
+            $error->("Duplicate variables for '$leo'")
+                if exists $variables{$leo};
+            $error->('RNX must contain four letters or digits')
+                unless $prefix =~ /^[A-Za-z0-9]{4}$/;
+            $error->("Duplicate RNX prefix '$prefix'") if $rnx{uc $prefix}++;
+            $error->('ATT must be a basename; Bernese variables are allowed')
+                unless $att =~ /^[A-Za-z0-9_\$().+{}-]+$/;
+            $variables{$leo} = [$prefix, $att];
+            $row_leo{$line_no} = $leo;
+        }
+    }
+    close $fh;
+
+    die "$file: all three sections and their column headers are required\n"
+        unless $section == 3 && $header;
+    die "$file: section 1 contains no LEOs\n" unless @leos;
+    for my $leo (@leos) {
+        die "$file: missing variables for '$leo'\n"
+            unless exists $variables{$leo};
+    }
+
+    return {
+        source_lines => \@source_lines,
+        row_leo      => \%row_leo,
+        leos         => \@leos,
+        included     => \%included,
+        exclusions   => \@exclusions,
+        variables    => \%variables,
+    };
+}
+
+1;

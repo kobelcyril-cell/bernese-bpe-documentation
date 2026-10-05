@@ -1,0 +1,166 @@
+package LEO_CHECK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_CHECK
+#
+# Purpose :  Check the LEO configuration, copy it for the current YYSSSS and
+#            retain only included LEOs for which a PRE orbit file exists.
+#
+# Author  :  C. Kobel
+# Created :  10-Sep-2026
+#
+# Changes :
+# 16-Sep-2026  Copy and filter the LFILE using the available PRE orbit files.
+#
+# ============================================================================
+use strict;
+use warnings;
+use File::Basename qw(dirname);
+use File::Copy qw(copy);
+use File::Spec;
+
+sub run {
+    my ($bpe) = @_;
+    my ($name, $dir_out, $yyssss, $dir_orb, $ext_pre) = $bpe->getKeys(
+        'V_LFILE', 'DIR_OUT', '$YSS+0', 'DIR_ORB', 'EXT_PRE'
+    );
+
+    die "V_LFILE must be a filename without a directory\n"
+        unless defined $name && $name =~ /^[A-Za-z0-9][A-Za-z0-9_.-]*$/;
+    die "DIR_OUT is not set\n" unless defined $dir_out && length $dir_out;
+    die "\$YSS+0 must expand to YYSSSS (six digits)\n"
+        unless defined $yyssss && $yyssss =~ /^\d{6}$/;
+    die "DIR_ORB is not set\n" unless defined $dir_orb && length $dir_orb;
+    die "EXT_PRE is invalid\n"
+        unless defined $ext_pre && $ext_pre =~ /^[A-Za-z0-9_-]+$/;
+
+    $dir_out =~ s{[\\/]+$}{};
+    $dir_orb =~ s{[\\/]+$}{};
+
+    my $file = File::Spec->catfile(dirname($dir_out), 'MSC', $name);
+    my $copy_file = $file . '_' . $yyssss;
+
+    # Work exclusively on a dated copy. The original LFILE remains unchanged.
+    copy($file, $copy_file)
+        or die "Cannot copy LEO file $file to $copy_file: $!\n";
+
+    open my $fh, '<', $copy_file
+        or die "Cannot read copied LEO file $copy_file: $!\n";
+
+    my (@source_lines, @leos, @exclusions, %included, %variables, %rnx, %excluded);
+    my (%row_section, %row_leo);
+    my ($section, $header, $line_no) = (0, 0, 0);
+    my @titles = ('', 'LEOs', 'Exclusions', 'Variables');
+    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT');
+
+    while (my $raw_line = <$fh>) {
+        push @source_lines, $raw_line;
+        ++$line_no;
+
+        my $line = $raw_line;
+        $line =~ s/^\xEF\xBB\xBF// if $line_no == 1;
+        $line =~ s/#.*$//;
+        $line =~ s/^\s+|\s+$//g;
+        next unless length $line;
+        my $error = sub { die "$copy_file, line $line_no: $_[0]\n" };
+
+        if ($line =~ /^SECTION\s*([123])\s*:\s*(.+)$/i) {
+            my ($number, $title) = ($1, $2);
+            $error->('Sections must occur once, in order 1, 2, 3')
+                unless $number == $section + 1;
+            $error->("Missing column header in section $section") if $section && !$header;
+            $error->("Expected section title '$titles[$number]'")
+                unless lc($title) eq lc($titles[$number]);
+            ($section, $header) = ($number, 0);
+            next;
+        }
+
+        $error->('Expected SECTION 1: LEOs') unless $section;
+        my @fields = split /\s+/, $line;
+        if (!$header) {
+            $error->("Expected column header '$headers[$section]'")
+                unless join(' ', @fields) eq $headers[$section];
+            $header = 1;
+            next;
+        }
+
+        if ($section == 1) {
+            $error->('Expected LEO name and Y or N')
+                unless @fields == 2 && $fields[1] =~ /^[YN]$/;
+            my ($leo, $flag) = @fields;
+            $error->('Invalid LEO name') unless $leo =~ /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
+            $error->("Duplicate LEO '$leo'") if exists $included{$leo};
+            push @leos, $leo;
+            $included{$leo} = $flag;
+            ($row_section{$line_no}, $row_leo{$line_no}) = (1, $leo);
+        } elsif ($section == 2) {
+            $error->('Expected YY/DDD and LEO name')
+                unless @fields == 2 && $fields[0] =~ /^(\d{2})\/(\d{3})$/;
+            my ($year, $day) = (2000 + $1, 0 + $2);
+            my $max_day = ($year % 4 == 0) ? 366 : 365;
+            $error->('Invalid day of year') unless $day >= 1 && $day <= $max_day;
+            my ($date, $leo) = @fields;
+            $error->("Unknown LEO '$leo'") unless exists $included{$leo};
+            $error->("Duplicate exclusion '$date $leo'") if $excluded{"$date $leo"}++;
+            push @exclusions, [$date, $leo];
+            ($row_section{$line_no}, $row_leo{$line_no}) = (2, $leo);
+        } else {
+            $error->('Expected LEO name, RNX and ATT') unless @fields == 3;
+            my ($leo, $prefix, $att) = @fields;
+            $error->("Unknown LEO '$leo'") unless exists $included{$leo};
+            $error->("Duplicate variables for '$leo'") if exists $variables{$leo};
+            $error->('RNX must contain four letters or digits') unless $prefix =~ /^[A-Za-z0-9]{4}$/;
+            $error->("Duplicate RNX prefix '$prefix'") if $rnx{uc $prefix}++;
+            $error->('ATT must be a basename; Bernese variables are allowed')
+                unless $att =~ /^[A-Za-z0-9_\$().+{}-]+$/;
+            $variables{$leo} = [$prefix, $att];
+            ($row_section{$line_no}, $row_leo{$line_no}) = (3, $leo);
+        }
+    }
+    close $fh;
+
+    die "$copy_file: all three sections and their column headers are required\n"
+        unless $section == 3 && $header;
+    die "$copy_file: section 1 contains no LEOs\n" unless @leos;
+    for my $leo (@leos) {
+        die "$copy_file: missing variables for '$leo'\n" unless exists $variables{$leo};
+    }
+
+    my (%keep, %orbit_file);
+    for my $leo (@leos) {
+        next unless $included{$leo} eq 'Y';
+        my $rnx = $variables{$leo}[0];
+        my $orbit_name = 'RD' . $rnx . $yyssss . '.' . $ext_pre;
+        my $orbit_file = File::Spec->catfile($dir_orb, $orbit_name);
+        $orbit_file{$leo} = $orbit_file;
+        $keep{$leo} = 1 if -f $orbit_file;
+    }
+
+    # Remove every data row belonging to a LEO that is not retained. Section
+    # headings, column headings, comments, blank lines and formatting survive.
+    open my $out, '>', $copy_file
+        or die "Cannot modify copied LEO file $copy_file: $!\n";
+    for my $index (0 .. $#source_lines) {
+        my $source_line_no = $index + 1;
+        if (exists $row_leo{$source_line_no}) {
+            next unless $keep{$row_leo{$source_line_no}};
+        }
+        print {$out} $source_lines[$index]
+            or die "Cannot write copied LEO file $copy_file: $!\n";
+    }
+    close $out or die "Cannot close copied LEO file $copy_file: $!\n";
+
+    print "\nFiltered LEO configuration: $copy_file\n";
+    print "Orbit directory: $dir_orb\n\n";
+    for my $leo (@leos) {
+        if ($included{$leo} ne 'Y') {
+            print "$leo: removed (Included = N)\n";
+        } elsif ($keep{$leo}) {
+            print "$leo: retained ($orbit_file{$leo})\n";
+        } else {
+            print "$leo: removed; orbit file not found ($orbit_file{$leo})\n";
+        }
+    }
+    print "\n";
+}

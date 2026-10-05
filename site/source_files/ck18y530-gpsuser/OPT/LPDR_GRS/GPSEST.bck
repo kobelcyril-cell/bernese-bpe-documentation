@@ -362,7 +362,7 @@ DESCR_OCNLOAD 1  "Ocean tidal loading"
 
 ! Atmospheric Tidal Loading Tables
 ! --------------------------------
-ATMLOAD 1  "$(ATLINF)"
+ATMLOAD 1  ""
   ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
   ## emptyallowed = true
 
@@ -465,6 +465,14 @@ STAWGT 1  "$(OBSWGT)"
   ## emptyallowed = true
 
 DESCR_STAWGT 1  "Observation sigma factors"
+
+! Station directional weighting sigma factors
+! -------------------------------------------
+DIRWGT 0
+  ## widget = selwin; path = DIR_DWG; ext = EXT_DWG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DIRWGT 1  "Directional obs. sigma factors"
 
 ! Site Eccentricities
 ! -------------------
@@ -2565,8 +2573,8 @@ SIGPAR92 0
 
 MSG_SIGPAR92 1  "LEO orb.est: EMP model parameter 9 sigma"
 
-! Estimate explicit maneuvers?
-! ----------
+! Estimate explicit maneuvers
+! ---------------------------
 MACCEST 1  "0"
   ## widget = checkbox
 
@@ -2678,6 +2686,21 @@ MPULINT 1  "300"
   ## widget = lineedit; activeif = MPULAUTO = 1
 
 MSG_MPULINT 1  "Interval for the maneuver pulses"
+
+! Enable individual maneuver setup
+! --------------------------------
+MANSPC 1  "0"
+  ## widget = checkbox; activeif == MACCEST = 1
+
+MSG_MANSPC 1  "Maneuver setup (global vs. individual)"
+
+! Maneuver specific settings
+! --------------------------
+MANGROUP 1  "" "" "" "" ""
+  ## widget = uniline; numlines = 7
+  ## activeif = MACCEST = 1 AND MINDSETUP = 1
+
+MSG_MANGROUP 1  "Maneuver specific settings"
 
 ! Stoch.Orb: Vel./Acc.
 ! --------------------
@@ -5644,6 +5667,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Station information            > %%%%%%%%%%%% <                            # STAINFO
 #   Kinematic coordinates          > %%%%%%%%%%%% <                            # KININP
 #   Observation sigma factors      > %%%%%%%%%%%% <                            # STAWGT
+#   Directional obs. sigma factors > %%%%%%%%%%%% <                            # DIRWGT
 #   Station eccentricities         > %%%%%%%%%%%% <                            # ECCENT
 #   Clock collocation              > %%%%%%%%%%%% <                            # INCLKTIE
 # END_PANEL ####################################################################
@@ -6326,14 +6350,13 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #                                                                              #
 #                                                                              #
 # VELOCITY PULSES                                                              #
-#   > % < at the beginning     > % < in the middle     > % < at the end        # MPULBEG MPULMID MPULEND
-#                                                                              #
-#   > % < evenly distributed, no more often than every> %%%%% <sec.            # MPULAUTO MPULINT
+#   > % <start  > % <middle > % <end > % <evenly distributed every> %%%%% <sec.# MPULBEG MPULMID MPULEND MPULAUTO MPULINT
 #                                                                              #
 #  a priori sigma [m/s]                                                        #
-#    X/R > %%%%%%%%% <                                                         # MPULSIG1
-#    Y/S > %%%%%%%%% <                                                         # MPULSIG2
-#    Z/W > %%%%%%%%% <                                                         # MPULSIG3
+#    X/R > %%%%%%%%% <   Y/S > %%%%%%%%% <   Z/W > %%%%%%%%% <                 # MPULSIG1 MPULSIG2 MPULSIG3
+#                                                                              #
+# > % < MANEUVER-SPECIFIC PARAMETER SETUP                                      # MANSPC
+# > SAT EPOCH______________ DEG A0_XR A0_YS A0_ZW A1_XR A1_YS A1_ZW A2_XR A2_YS A2_ZW PSET P_XR_ P_YS_ P_ZW_<# MANGROUP
 #                                                                              #
 # END_PANEL ####################################################################
 

@@ -1,0 +1,197 @@
+package LEO_ORB_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_ORB_P
+#
+# Purpose :  Prepare one parallel ORBGEN job per selected LEO.
+#
+# Author  :  C. Kobel
+# Created :  14-Sep-2026
+#
+# Changes :
+# 16-Sep-2026  Read the filtered LFILE copy with the YYSSSS suffix.
+#
+# ============================================================================
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util qw(initPar_Fl);
+use File::Basename qw(dirname);
+use File::Spec;
+
+sub read_config {
+    my ($bpe) = @_;
+    my ($name, $dir_out, $yyssss) =
+        $bpe->getKeys('V_LFILE', 'DIR_OUT', '$YSS+0');
+
+    die "V_LFILE must be a filename without a directory\n"
+        unless defined $name && $name =~ /^[A-Za-z0-9][A-Za-z0-9_.-]*$/;
+    die "DIR_OUT is not set\n" unless defined $dir_out && length $dir_out;
+    die "\$YSS+0 must expand to YYSSSS (five digits)\n"
+        unless defined $yyssss && $yyssss =~ /^\d{5}$/;
+
+    $dir_out =~ s{[\\/]+$}{};
+
+    # LEO_CHECK creates this dated, filtered copy in the MSC directory.
+    my $dated_name = $name . '_' . $yyssss;
+    my $file = File::Spec->catfile(dirname($dir_out), 'MSC', $dated_name);
+    open my $fh, '<', $file
+        or die "Cannot read filtered LEO file $file: $!\n";
+
+    my (@leos, @exclusions, %included, %variables, %rnx, %excluded);
+    my ($section, $header, $line_no) = (0, 0, 0);
+    my @titles = ('', 'LEOs', 'Exclusions', 'Variables');
+    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT');
+
+    while (my $line = <$fh>) {
+        ++$line_no;
+        $line =~ s/^\xEF\xBB\xBF// if $line_no == 1;
+        $line =~ s/#.*$//;
+        $line =~ s/^\s+|\s+$//g;
+        next unless length $line;
+        my $error = sub { die "$file, line $line_no: $_[0]\n" };
+
+        if ($line =~ /^SECTION\s*([123])\s*:\s*(.+)$/i) {
+            my ($number, $title) = ($1, $2);
+            $error->('Sections must occur once, in order 1, 2, 3')
+                unless $number == $section + 1;
+            $error->("Missing column header in section $section") if $section && !$header;
+            $error->("Expected section title '$titles[$number]'")
+                unless lc($title) eq lc($titles[$number]);
+            ($section, $header) = ($number, 0);
+            next;
+        }
+
+        $error->('Expected SECTION 1: LEOs') unless $section;
+        my @fields = split /\s+/, $line;
+        if (!$header) {
+            $error->("Expected column header '$headers[$section]'")
+                unless join(' ', @fields) eq $headers[$section];
+            $header = 1;
+            next;
+        }
+
+        if ($section == 1) {
+            $error->('Expected LEO name and Y or N')
+                unless @fields == 2 && $fields[1] =~ /^[YN]$/;
+            my ($leo, $flag) = @fields;
+            $error->('Invalid LEO name') unless $leo =~ /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
+            $error->("Duplicate LEO '$leo'") if exists $included{$leo};
+            push @leos, $leo;
+            $included{$leo} = $flag;
+        } elsif ($section == 2) {
+            $error->('Expected YY/DDD and LEO name')
+                unless @fields == 2 && $fields[0] =~ /^(\d{2})\/(\d{3})$/;
+            my ($year, $day) = (2000 + $1, 0 + $2);
+            my $max_day = ($year % 4 == 0) ? 366 : 365;
+            $error->('Invalid day of year') unless $day >= 1 && $day <= $max_day;
+            my ($date, $leo) = @fields;
+            $error->("Unknown LEO '$leo'") unless exists $included{$leo};
+            $error->("Duplicate exclusion '$date $leo'") if $excluded{"$date $leo"}++;
+            push @exclusions, [$date, $leo];
+        } else {
+            $error->('Expected LEO name, RNX and ATT') unless @fields == 3;
+            my ($leo, $prefix, $att) = @fields;
+            $error->("Unknown LEO '$leo'") unless exists $included{$leo};
+            $error->("Duplicate variables for '$leo'") if exists $variables{$leo};
+            $error->('RNX must contain four letters or digits') unless $prefix =~ /^[A-Za-z0-9]{4}$/;
+            $error->("Duplicate RNX prefix '$prefix'") if $rnx{uc $prefix}++;
+            $error->('ATT must be a basename; Bernese variables are allowed')
+                unless $att =~ /^[A-Za-z0-9_\$().+{}-]+$/;
+            $variables{$leo} = [$prefix, $att];
+        }
+    }
+    close $fh;
+    die "$file: all three sections and their column headers are required\n"
+        unless $section == 3 && $header;
+    die "$file: section 1 contains no LEOs\n" unless @leos;
+    for my $leo (@leos) {
+        die "$file: missing variables for '$leo'\n" unless exists $variables{$leo};
+    }
+
+    return {
+        file => $file, leos => \@leos, included => \%included,
+        exclusions => \@exclusions, variables => \%variables,
+    };
+}
+
+sub run {
+    my ($bpe) = @_;
+    print "\n[LEO_ORB_P] ==================================================\n";
+    print "[LEO_ORB_P] START: prepare parallel ORBGEN jobs\n";
+    print "[LEO_ORB_P] Read and validate the filtered, dated LEO file directly in LEO_ORB_P\n";
+    my $config = read_config($bpe);
+    print "[LEO_ORB_P] Validation successful: $config->{file}\n";
+    print "[LEO_ORB_P] Number of configured LEOs: " . scalar(@{$config->{leos}}) . "\n";
+    my ($yyddd) = $bpe->getKeys('$YD+0');
+    print '[LEO_ORB_P] Processing date from $YD+0: ' . "'$yyddd'\n";
+    die "Invalid processing date: $yyddd\n" unless $yyddd =~ /^\d{5}$/;
+    my $date = substr($yyddd, 0, 2) . '/' . substr($yyddd, 2, 3);
+    print "[LEO_ORB_P] Date used for exclusion matching: '$date' (YY/DDD)\n";
+    print "[LEO_ORB_P] Check each configured exclusion:\n";
+    for my $entry (@{$config->{exclusions}}) {
+        my ($excluded_date, $leo) = @$entry;
+        my $reason = $excluded_date eq $date
+            ? 'MATCH: this LEO is excluded today'
+            : 'NO MATCH: exclusion applies to another day';
+        print "[LEO_ORB_P]   $excluded_date  $leo -> $reason\n";
+    }
+    print "[LEO_ORB_P]   No exclusions configured\n" unless @{$config->{exclusions}};
+    my %excluded = map { $_->[1] => 1 }
+                   grep { $_->[0] eq $date } @{$config->{exclusions}};
+
+    my @jobs;
+    for my $leo (@{$config->{leos}}) {
+        my ($rnx, $att) = @{$config->{variables}{$leo}};
+        print "[LEO_ORB_P] --------------------------------------------------\n";
+        print "[LEO_ORB_P] Evaluate LEO: $leo\n";
+        print "[LEO_ORB_P]   Included = '$config->{included}{$leo}' (section 1)\n";
+        print "[LEO_ORB_P]   RNX = '$rnx', ATT = '$att' (section 3)\n";
+        print "[LEO_ORB_P]   Excluded on $date = " . ($excluded{$leo} ? 'YES' : 'NO') . "\n";
+        unless ($config->{included}{$leo} eq 'Y') {
+            print "[LEO_ORB_P]   SKIP: Included is N; no job will be created\n";
+            next;
+        }
+        if ($excluded{$leo}) {
+            print "[LEO_ORB_P]   SKIP: daily exclusion overrides Included=Y\n";
+            next;
+        }
+        print "[LEO_ORB_P]   SELECT: Included=Y and no exclusion for this day\n";
+        # Expand date tokens before passing a single, whitespace-free job value.
+        $att =~ s/(\$(?:YYYSS|YSS|YD|Y|S)\+0)/expand_date($bpe, $1)/ge;
+        die "[LEO_ORB_P] Unsupported or unresolved ATT value '$att' for $leo\n"
+            unless $att =~ /^[A-Za-z0-9][A-Za-z0-9_.-]*$/;
+        print "[LEO_ORB_P]   Expanded ATT = '$att'\n";
+        print "[LEO_ORB_P]   PARAM1 <- RNX__ATT: '${rnx}__${att}'\n";
+        print "[LEO_ORB_P]   One field carries both values; PARAM2 is not used\n";
+        push @jobs, "${rnx}__${att}";
+        print "[LEO_ORB_P]   Added job " . scalar(@jobs) . ": '$jobs[-1]'\n";
+    }
+
+    print "[LEO_ORB_P] Selected LEO jobs: " . scalar(@jobs) . "\n";
+    # Explicit no-op if no LEO is selected for this day.
+    unless (@jobs) {
+        print "[LEO_ORB_P] No LEO selected for $date\n";
+        print "[LEO_ORB_P] Add NO_LEO job so the execution script can return without ORBGEN\n";
+        @jobs = ('NO_LEO');
+    }
+    print "[LEO_ORB_P] Entries passed to initPar_Fl:\n";
+    for my $index (0 .. $#jobs) {
+        print "[LEO_ORB_P]   Entry " . ($index + 1) . ": '$jobs[$index]'\n";
+    }
+    print "[LEO_ORB_P] Call initPar_Fl; scheduling is controlled by PARALLEL in the PCF\n";
+    initPar_Fl($bpe, @jobs);
+    print "[LEO_ORB_P] initPar_Fl returned\n";
+    print "[LEO_ORB_P] END: parallel job preparation finished\n";
+    print "[LEO_ORB_P] ==================================================\n\n";
+}
+
+sub expand_date {
+    my ($bpe, $token) = @_;
+    my ($value) = $bpe->getKeys($token);
+    die "[LEO_ORB_P] Cannot resolve date token '$token'\n"
+        unless defined $value && $value =~ /^[A-Za-z0-9]+$/;
+    print "[LEO_ORB_P]   ATT date substitution: '$token' -> '$value'\n";
+    return $value;
+}

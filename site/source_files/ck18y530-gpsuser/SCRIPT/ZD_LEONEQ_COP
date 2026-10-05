@@ -1,0 +1,184 @@
+package ZD_LEONEQ_COP;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+#
+# Name    :  ZD_LEONEQ_COP
+#
+# Purpose :  Copy files for ZDGNSS_LEONEQ.PCF. Existing destination files are
+#            retained and are not copied again.
+#
+# Author  :  C. Kobel
+#
+# Created :  15-Sep-2026
+#
+# Changes :  15-Sep-2026 CK: Skip files which already exist at destination
+#
+# ============================================================================
+use strict;
+
+use File::Copy;
+
+use lib $ENV{BPE};
+use bpe_util qw(copyFil);
+
+sub run {
+  my $bpe = shift;
+
+  # Get variables
+  # -------------
+  my ($yyssss,$yy,$ddd,$yyddd,
+      $extOsb,$dirOsb,
+      $v_b,$clk,$orbDir,$clkDir,$osb,
+      $dirStd,$dirRpr,$dirErp,$dirClk,$dirOut,
+      $extStd,$extRpr,$extErp,$extClk) =
+      $bpe->getKeys(
+          '$YSS+0','$Y','$+0','$YD+0',
+          'EXT_OSB','DIR_OSB',
+          'V_B','V_CLK','V_ORBDIR','V_CLKDIR','V_OSB',
+          'DIR_STD','DIR_RPR','DIR_ERP','DIR_RXC','DIR_OUT',
+          'EXT_STD','EXT_RPR','EXT_ERP','EXT_RXC'
+      );
+
+  # Copy GNSS STD orbits and ERPs, unless the final destination exists
+  # ------------------------------------------------------------------
+  my @filLst = ();
+
+  my $stdDst = "${dirStd}${v_b}${yyssss}.${extStd}";
+  my $stdDstWithout0 = "${dirStd}${v_b}${yy}${ddd}.${extStd}";
+  if (-e $stdDst) {
+      print "Keep existing file $stdDst\n";
+  } elsif (-e $stdDstWithout0) {
+      print "File $stdDstWithout0 is already copied; rename it below\n";
+  } else {
+      my @stdFil = glob("${orbDir}/${v_b}${yy}${ddd}.${extStd}*");
+      my @stdFil0 = glob("${orbDir}/${v_b}${yy}${ddd}0.${extStd}*");
+      if (@stdFil) {
+          push @filLst,"${dirStd}${v_b}${yy}${ddd}.${extStd} 1";
+      } elsif (@stdFil0) {
+          push @filLst,"${dirStd}${v_b}${yy}${ddd}0.${extStd} 1";
+      } else {
+          die " *** No STD orbit file\n" .
+              "${orbDir}/${v_b}${yy}${ddd}.${extStd}*\n" .
+              "or\n" .
+              "${orbDir}/${v_b}${yy}${ddd}0.${extStd}*\n" .
+              "found\n";
+      }
+  }
+
+  my $rprDst = "${dirRpr}${v_b}${yyssss}.${extRpr}";
+  my $rprDstWithout0 = "${dirRpr}${v_b}${yy}${ddd}.${extRpr}";
+  if (-e $rprDst) {
+      print "Keep existing file $rprDst\n";
+  } elsif (-e $rprDstWithout0) {
+      print "File $rprDstWithout0 is already copied; rename it below\n";
+  } else {
+      my @rprFil = glob("${orbDir}/${v_b}${yy}${ddd}.${extRpr}*");
+      my @rprFil0 = glob("${orbDir}/${v_b}${yy}${ddd}0.${extRpr}*");
+      if (@rprFil) {
+          push @filLst,"${dirRpr}${v_b}${yy}${ddd}.${extRpr} 1";
+      } elsif (@rprFil0) {
+          push @filLst,"${dirRpr}${v_b}${yy}${ddd}0.${extRpr} 1";
+      } else {
+          die " *** No RPR orbit file\n" .
+              "${orbDir}/${v_b}${yy}${ddd}.${extRpr}*\n" .
+              "or\n" .
+              "${orbDir}/${v_b}${yy}${ddd}0.${extRpr}*\n" .
+              "found\n";
+      }
+  }
+
+  my $erpDst = "${dirErp}${v_b}${yyssss}.${extErp}";
+  my $erpDstWithout0 = "${dirErp}${v_b}${yy}${ddd}.${extErp}";
+  if (-e $erpDst) {
+      print "Keep existing file $erpDst\n";
+  } elsif (-e $erpDstWithout0) {
+      print "File $erpDstWithout0 is already copied; rename it below\n";
+  } else {
+      my @erpFil = glob("${orbDir}/${v_b}${yy}${ddd}.ERP*");
+      my @erpFil0 = glob("${orbDir}/${v_b}${yy}${ddd}0.ERP*");
+      if (@erpFil) {
+          push @filLst,"${dirErp}${v_b}${yy}${ddd}.ERP 1";
+      } elsif (@erpFil0) {
+          push @filLst,"${dirErp}${v_b}${yy}${ddd}0.ERP 1";
+      } else {
+          die " *** No ERP file\n" .
+              "${orbDir}/${v_b}${yy}${ddd}.ERP*\n" .
+              "or\n" .
+              "${orbDir}/${v_b}${yy}${ddd}0.ERP*\n" .
+              "found\n";
+      }
+  }
+
+  copyFil($orbDir,@filLst) if @filLst;
+
+  # Copy GNSS Bernese clock file, unless it already exists
+  # -------------------------------------------------------
+  @filLst = ();
+  my $clkDst = "${dirStd}${clk}${yyssss}.${extClk}";
+  my $clkDstWithout0 = "${dirStd}${clk}${yy}${ddd}.${extClk}";
+  if (-e $clkDst) {
+      print "Keep existing file $clkDst\n";
+  } elsif (-e $clkDstWithout0) {
+      print "File $clkDstWithout0 is already copied; rename it below\n";
+  } else {
+      my @clkFil = glob("${clkDir}/${clk}${yy}${ddd}.${extClk}*");
+      my @clkFil0 = glob("${clkDir}/${clk}${yy}${ddd}0.${extClk}*");
+      if (@clkFil) {
+          push @filLst,"${dirStd}${clk}${yy}${ddd}.${extClk} 1";
+      } elsif (@clkFil0) {
+          push @filLst,"${dirStd}${clk}${yy}${ddd}0.${extClk} 1";
+      } else {
+          die " *** No Bernese clock file\n" .
+              "${clkDir}/${clk}${yy}${ddd}.${extClk}*\n" .
+              "or\n" .
+              "${clkDir}/${clk}${yy}${ddd}0.${extClk}*\n" .
+              "found\n";
+      }
+      copyFil($clkDir,@filLst);
+  }
+
+  # Copy OSB file, unless it already exists
+  # ----------------------------------------
+  my $osbDst = "${dirStd}${osb}.${extOsb}";
+  if (-e $osbDst) {
+      print "Keep existing file $osbDst\n";
+  } else {
+      my @osbFil = glob("${orbDir}/${osb}.${extOsb}");
+      if (@osbFil) {
+          copyFil($orbDir,"${dirStd}${osb}.${extOsb} 1");
+      } else {
+          die " *** No OSB file\n" .
+              "${orbDir}/${osb}.${extOsb}\n" .
+              "found\n";
+      }
+  }
+
+  # Append 0 to copied file names if the source name did not contain it.
+  # Existing final files were skipped above and are therefore not touched.
+  # ---------------------------------------------------------------------
+  if (-e $erpDstWithout0 && !-e $erpDst) {
+      print "Found file $erpDstWithout0\n";
+      print "Rename it to $erpDst\n";
+      move($erpDstWithout0,$erpDst)
+          or die " *** Cannot rename ERP file: $!\n";
+  }
+  if (-e $stdDstWithout0 && !-e $stdDst) {
+      print "Found file $stdDstWithout0\n";
+      print "Rename it to $stdDst\n";
+      move($stdDstWithout0,$stdDst)
+          or die " *** Cannot rename STD file: $!\n";
+  }
+  if (-e $rprDstWithout0 && !-e $rprDst) {
+      print "Found file $rprDstWithout0\n";
+      print "Rename it to $rprDst\n";
+      move($rprDstWithout0,$rprDst)
+          or die " *** Cannot rename RPR file: $!\n";
+  }
+  if (-e $clkDstWithout0 && !-e $clkDst) {
+      print "Found file $clkDstWithout0\n";
+      print "Rename it to $clkDst\n";
+      move($clkDstWithout0,$clkDst)
+          or die " *** Cannot rename clock file: $!\n";
+  }
+}

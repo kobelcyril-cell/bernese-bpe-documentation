@@ -1,6 +1,5 @@
 package CHECK_SAT_RMS;
 @ISA = ("RUNBPE");
-
 #===========================================================
 # Name    :  CHECK_SAT_RMS
 #
@@ -9,9 +8,8 @@ package CHECK_SAT_RMS;
 # Author  :  C. Kobel
 # Created :  05-Mar-2026
 #
-# Changes :  
+# Changes :  Added configurable soft and hard RMS limits.
 #===========================================================
-
 use strict;
 use warnings;
 use lib $ENV{BPE};
@@ -19,7 +17,12 @@ use bpe_util;
 use lib "$ENV{AUTO}";
 use gpsutil;
 
-#
+# ---------- RMS limits (meters) ------------
+# Adjust the values here: above the soft limit a warning is logged;
+# above the hard limit the satellite is excluded with SATMRK.
+my $RMS_SOFT_LIMIT = 5.0;
+my $RMS_HARD_LIMIT = 10.0;
+
 sub run {
   my $bpe = shift;
 
@@ -55,6 +58,7 @@ sub run {
 
   print $LOG "\n=== CHECK_SAT_RMS started ===\n";
   print $LOG "Checking file: ORBGEN_APR${ssss}.OUT\n";
+  print $LOG "RMS soft limit: $RMS_SOFT_LIMIT m; hard limit: $RMS_HARD_LIMIT m\n";
 
 # ---------- Read ORBGEN_APR file ------------
   open(my $ORB, '<', $orb_file)
@@ -62,6 +66,7 @@ sub run {
 
   my $found_block = 0;
   my %marked_sats;
+  my %warned_sats;
 
   while (my $line = <$ORB>) {
     chomp $line;
@@ -88,21 +93,29 @@ sub run {
     next unless $prn_str =~ /^\d+$/;
     my $prn = $prn_str;
 
-    # ---------- Skip already processed satellites ------------
+    # ---------- Skip already excluded satellites ------------
     next if exists $marked_sats{$prn};
 
 # ---------- RMS check ------------
     if ($rms_str =~ /\*/) {
-      print $LOG "-> Large/invalid RMS detected for satellite $prn: number too large to display\n";
+      print $LOG "-> Large/invalid RMS detected for satellite $prn: number too large to display; excluding satellite\n";
+      $marked_sats{$prn} = 1;
     }
     else {
       my $rms = $rms_str + 0;
-      next unless $rms > 5.0;
+      next unless $rms > $RMS_SOFT_LIMIT;
 
-      print $LOG "-> Large RMS detected for satellite $prn: $rms m\n";
+      if ($rms > $RMS_HARD_LIMIT) {
+        print $LOG "-> Large RMS detected for satellite $prn: $rms m (above hard limit); excluding satellite\n";
+        $marked_sats{$prn} = 1;
+      }
+      else {
+        print $LOG "-> Large RMS ($rms m) of a priori orbit for satellite $prn. Keep an eye on this.\n";
+        $warned_sats{$prn} = 1;
+      }
     }
 
-    $marked_sats{$prn} = 1;
+    next unless exists $marked_sats{$prn};
 
 # ---------- Run SATMRK ------------
     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
@@ -114,15 +127,21 @@ sub run {
   close($ORB);
 
 # ---------- Summary ------------
+  if (%warned_sats) {
+    my @sat_list = sort { $a <=> $b } keys %warned_sats;
+    print $LOG "Satellites with RMS above soft limit (warning only): "
+      . join(", ", @sat_list) . "\n";
+  }
+
   if (%marked_sats) {
     my @sat_list = sort { $a <=> $b } keys %marked_sats;
 
-    print $LOG "Satellites marked due to RMS > 5.0 m or invalid RMS: "
+    print $LOG "Satellites marked due to RMS above $RMS_HARD_LIMIT m or invalid RMS: "
       . join(", ", @sat_list) . "\n";
     print $LOG "Total satellites marked: " . scalar(@sat_list) . "\n";
   }
   else {
-    print $LOG "No satellites with RMS > 5.0 m or invalid RMS detected.\n";
+    print $LOG "No satellites above hard limit or with invalid RMS were detected.\n";
   }
 
   print $LOG "=== CHECK_SAT_RMS finished ===\n";

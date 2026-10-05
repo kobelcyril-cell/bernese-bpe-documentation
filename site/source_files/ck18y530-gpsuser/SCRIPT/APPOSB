@@ -5,7 +5,7 @@ package APPOSB;
 # Name    :  APPOSB
 #
 # Purpose :  Appends estimated OSB values from file V_ESTOSB to input OSB
-#            file V_OSB. Does nothing if V_ESTOSB empty.
+#            file V_OSB. Does nothing if V_ESTOSB is empty or NO.
 #
 # PARAMs  :
 #
@@ -13,7 +13,8 @@ package APPOSB;
 #
 # Created :  07-Apr-2022
 #
-# Changes :  31-Jan-2023 DA: Appended yyssss to OSB names
+# Changes :  15-Sep-2026 CK: Treat V_ESTOSB=NO like an empty value
+#            31-Jan-2023 DA: Appended yyssss to OSB names
 #            18-Jan-2024 DA: Removed yyssss from OSB names
 #
 # ============================================================================
@@ -26,8 +27,8 @@ sub run {
   my ($yyssss,$ESTOSB,$OSB,$DIR_OSB) =
       $bpe->getKeys('$YSS+0','V_ESTOSB','V_OSB','DIR_OSB');
 
-  # Do nothing if V_ESTOSB empty
-  return if (${ESTOSB} eq "");
+  # Do nothing if V_ESTOSB is empty (legacy) or NO
+  return if (${ESTOSB} eq "" || uc(${ESTOSB}) eq "NO");
 
   # Input and output files
   my $osbIn = "${DIR_OSB}/${OSB}.OSB";

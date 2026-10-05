@@ -104,7 +104,7 @@ DESCR_COORDRS 1  "Coordinates"
 
 ! Output station fix file
 ! -----------------------
-OKSTA 1  "$(CRD)$YSS+0"
+OKSTA 1  ""
   ## widget = lineedit; path = DIR_FIX; ext = EXT_FIX
 
 DESCR_OKSTA 1  "List of accepted stations"
@@ -268,31 +268,31 @@ MSG_HLM_7 1  "Parameters to be computed: scale"
 
 ! Outlier rejection
 ! -----------------
-REJECT 1  "0"
+REJECT 1  "1"
   ## widget = checkbox
 
 MSG_REJECT 1  "Enable outlier rejection"
 
 ! Maximal number of stations being rejected
 ! -----------------------------------------
-MAXREJ 1  "0"
+MAXREJ 1  "10"
   ## widget = spinbox; range = 0 99 1; activeif = REJECT = 1
 
 MSG_MAXREJ 1  "Maximal number of stations being rejected"
 
-NLIMIT 1  "50"
+NLIMIT 1  "60"
   ## widget = lineedit; activeif = REJECT = 1; check_type = real
   ## check_min = 0
 
 MSG_NLIMIT 1  "Outlier criteria north component"
 
-ELIMIT 1  "50"
+ELIMIT 1  "60"
   ## widget = lineedit; activeif = REJECT = 1; check_type = real
   ## check_min = 0
 
 MSG_ELIMIT 1  "Outlier criteria east component"
 
-ULIMIT 1  "50"
+ULIMIT 1  "60"
   ## widget = lineedit; activeif = REJECT = 1; check_type = real
   ## check_min = 0
 
@@ -300,9 +300,8 @@ MSG_ULIMIT 1  "Outlier criteria up component"
 
 ! List of outliers
 ! ----------------
-LISTFIL 0
+LISTFIL 1  ""
   ## widget = lineedit; path = DIR_FIX; ext = EXT_FIX; activeif = REJECT = 1
-  # 
 
 DESCR_LISTFIL 1  "List of rejected stations"
 

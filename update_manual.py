@@ -28,6 +28,7 @@ import json
 import os
 import re
 import shutil
+import shlex
 import stat
 import subprocess
 import sys
@@ -369,7 +370,10 @@ def safe_handbook_filename(title: str) -> str:
 def editor_command() -> List[str]:
     editor = os.environ.get("VISUAL") or os.environ.get("EDITOR")
     if editor:
-        return [editor]
+        # EDITOR and VISUAL often contain arguments, for example "emacs -nw".
+        command = shlex.split(editor, posix=(os.name != "nt"))
+        if command:
+            return command
     if os.name == "nt" and shutil.which("notepad.exe"):
         return ["notepad.exe"]
     if shutil.which("nano"):
@@ -3516,3 +3520,7 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
+
+
+
