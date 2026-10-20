@@ -71,6 +71,7 @@ V_BLQINF = FES20*;        DESCRIPTION=BLQ file name, CMC corrections
 V_SATCRX = *;             DESCRIPTION=Satellite problem file for data import
 V_SATINF = *;             DESCRIPTION=Satellite information
 V_PCV    = I??;           DESCRIPTION=GNSS PCV model (absolute)
+V_PCVM   = ????;          DESCRIPTION=GNSS PCV model version
 V_SUBMOD = *;             DESCRIPTION=Subdaily pole model
 V_NUTMOD = *;             DESCRIPTION=Nutation model
 V_STAINF = *;             DESCRIPTION=Station information

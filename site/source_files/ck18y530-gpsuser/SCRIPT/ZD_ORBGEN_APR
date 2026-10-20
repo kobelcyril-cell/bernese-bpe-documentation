@@ -1,0 +1,205 @@
+package ZD_ORBGEN_APR;
+@ISA = ("RUNBPE");
+
+#====================================================================
+# Name    : ZD_ORBGEN_APR
+#
+# Purpose : Run ORBGEN, check for bad satellites, and add exclusions
+#           to the SATCRX file.
+#
+# Author  : C. Kobel
+# Created : 21-Apr-2026
+#
+# Changes : 26-May-2026 CK: Revised and formatted
+#====================================================================
+
+use strict;
+use warnings;
+use File::Basename qw(basename dirname);
+use File::Spec;
+
+sub run {
+  my $bpe = shift;
+
+  # Run ORBGEN and check for error.
+  my $PGMNAM = "ORBGEN";
+  my $run_error;
+  eval { $bpe->RUN_PGMS($PGMNAM); 1 } or $run_error = $@ || "ORBGEN failed";
+  return unless $run_error;
+
+  # ORBGEN may leave useful output files even when RUN_PGMS reports an error.
+  my (
+    $dirOut,
+    $ssss,
+    $yyddd,
+    $yyssss,
+    $satcrx,
+    $dirCrx,
+    $extCrx,
+    $dirBpe,
+    $taskId,
+    $pid,
+    $extLog
+  ) = $bpe->getKeys(
+    'DIR_OUT',
+    '$S+0',
+    '$YD+0',
+    '$YSS+0',
+    'V_SATCRX',
+    'DIR_CRX',
+    'EXT_CRX',
+    'DIR_BPELOG',
+    'TASKID',
+    'PID',
+    'EXT_BPELOG'
+  );
+
+  my $orb_file = "${dirOut}/ORBGEN_APR${ssss}.OUT";
+  die "ORBGEN_APR file not found: $orb_file\n" unless -e $orb_file;
+
+  my %bad_satellites;
+  my %velocity_bad_satellites;
+  my ($from, $to);
+  open my $out, '<', $orb_file
+    or die "Cannot read ORBGEN output $orb_file: $!\n";
+  my $in_rms_table = 0;
+  while (my $line = <$out>) {
+    if ($line =~ /^
+      \s*\d+\s+
+      (\d{4}-\d\d-\d\d)\s+\d\d:\d\d:\d\d\s+
+      (\d{4}-\d\d-\d\d)\s+\d\d:\d\d:\d\d\s+
+      BOUNDARIES\s+OK
+    /x) {
+      ($from, $to) = ($1, $2);
+    }
+    if ($line =~ /RMS ERRORS AND MAX\. RESIDUALS/) {
+      $in_rms_table = 1;
+      next;
+    }
+    if ($in_rms_table && $line =~ /^\s*(\d{1,4})\s+\d+[^\r\n]*\*{3,}/) {
+      $bad_satellites{$1} = 1;
+    }
+    $in_rms_table = 0 if $in_rms_table && $line =~ /PARAMETERS AND RMS ERRORS/;
+  }
+  close $out;
+
+  # Read velocity diagnostics from the matching section in the BPE log.
+  my $log_ext = $extLog;
+  $log_ext =~ s/^\.//;
+  my $task_log = File::Spec->catfile(
+    $dirBpe, "${taskId}${yyssss}_${pid}_000.${log_ext}");
+  die "ORBGEN task log not found: $task_log\n" unless -e $task_log;
+  open my $task_log_fh, '<', $task_log
+    or die "Cannot read ORBGEN BPE log $task_log: $!\n";
+  my $task_log_text;
+  {
+    local $/;
+    $task_log_text = <$task_log_fh>;
+  }
+  close $task_log_fh or die "Cannot close ORBGEN BPE log $task_log: $!\n";
+
+  # RUN_PGMS may return the diagnostic in its exception instead of the log.
+  $task_log_text .= "\n$run_error" if defined $run_error;
+
+  # Match each velocity error with its satellite number in the same block.
+  my $velocity_error_pattern = qr/
+    It\s+does\s+not\s+look\s+like\s+a\s+satellite\s+velocity\.
+    (?:(?!It\s+does\s+not\s+look\s+like\s+a\s+satellite\s+velocity\.).)*?
+    Satellite\s+number:\s*(\d+)\b
+  /isx;
+  for my $sr_section (split /(?=\*{3,}\s+SR\b)/s, $task_log_text) {
+    next unless $sr_section =~ /\*{3,}\s+SR\s+deqrhs,\s*PG\s+ORBGEN\b/i;
+    while ($sr_section =~ /$velocity_error_pattern/g) {
+      my $sat = $1;
+      $velocity_bad_satellites{$sat} = 1;
+      $bad_satellites{$sat} = 1;
+    }
+  }
+
+  die "Cannot exclude satellite(s) with ORBGEN velocity errors: date boundaries are missing\n"
+    if %velocity_bad_satellites && (!$from || !$to);
+
+  if (%bad_satellites && $from && $to) {
+    my $satcrx_name = basename($satcrx);
+    my $crx_ext = $extCrx;
+    $crx_ext =~ s/^\.//;
+    $satcrx_name =~ s/\.\Q$crx_ext\E\z//i;
+    $satcrx_name .= "." . $crx_ext;
+    my $satcrx_file = File::Spec->catfile($dirCrx, $satcrx_name);
+
+    open my $crx_in, '<', $satcrx_file
+      or die "Cannot read SATCRX file $satcrx_file: $!\n";
+    my @crx_lines = <$crx_in>;
+    close $crx_in or die "Cannot close SATCRX file $satcrx_file after reading: $!\n";
+    my @new_crx_lines;
+    for my $sat (sort { $a <=> $b } keys %bad_satellites) {
+      my ($from_year, $from_month, $from_day) = $from =~ /^(\d{4})-(\d\d)-(\d\d)$/;
+      my ($to_year, $to_month, $to_day) = $to =~ /^(\d{4})-(\d\d)-(\d\d)$/;
+      die "Unexpected ORBGEN date format: '$from' through '$to'\n"
+        unless defined $from_year && defined $from_month && defined $from_day
+            && defined $to_year && defined $to_month && defined $to_day;
+      my $crx_line = sprintf(
+        "%5d         3         2       %4d %02d %02d 00 00 00  %4d %02d %02d 23 59 59\n",
+        $sat, $from_year, $from_month, $from_day, $to_year, $to_month, $to_day);
+      push @new_crx_lines, ["$from_year$from_month$from_day", $crx_line];
+    }
+
+    # Search the 3 2 list from the bottom and insert after the last entry
+    # whose start date is not later than the new entry's start date.
+    for my $new_record (sort { $a->[0] cmp $b->[0] } @new_crx_lines) {
+      my ($new_date, $new_line) = @$new_record;
+      my $insert_at;
+      for (my $i = $#crx_lines; $i >= 0; --$i) {
+        if ($crx_lines[$i] =~ /^\s*\d+\s+3\s+2\s+(\d{4})\s+(\d\d)\s+(\d\d)\b/) {
+          my $old_date = "$1$2$3";
+          if ($old_date le $new_date) {
+            $insert_at = $i + 1;
+            last;
+          }
+        }
+      }
+      $insert_at = 0 unless defined $insert_at;
+      splice @crx_lines, $insert_at, 0, $new_line;
+    }
+
+    if (@crx_lines && $crx_lines[-1] !~ /[\r\n]\z/) {
+      $crx_lines[-1] .= "\n";
+    }
+    open my $crx_out, '>', $satcrx_file
+      or die "Cannot rewrite SATCRX file $satcrx_file: $!\n";
+    print {$crx_out} @crx_lines or die "Cannot write SATCRX file $satcrx_file: $!\n";
+    close $crx_out or die "Cannot close SATCRX file $satcrx_file: $!\n";
+
+    # Record each exclusion in the processing log.
+    my $processing_file = File::Spec->catfile(
+      dirname($orb_file), '..', 'MSC', "MSC_$yyddd", "PROCESSING_$yyddd");
+    open my $processing, '>>', $processing_file
+      or die "Cannot append to processing file $processing_file: $!\n";
+    print {$processing} "=== CREATE FIRST A PRIORI ORBIT started ===\n"
+      or die "Cannot write processing file $processing_file: $!\n";
+    for my $sat (sort { $a <=> $b } keys %bad_satellites) {
+      my $note = $velocity_bad_satellites{$sat}
+        ? sprintf(
+            "Satellite %d excluded because ORBGEN reported an invalid satellite velocity; entry in SAT-crx created\n",
+            $sat
+          )
+        : sprintf(
+            "Very bad a priori orbit for satellite %d -> Excluded; entry in SAT-crx created\n",
+            $sat
+          );
+      print {$processing} $note
+        or die "Cannot write processing file $processing_file: $!\n";
+    }
+    print {$processing} "=== CREATE FIRST A PRIORI ORBIT finished ===\n"
+      or die "Cannot write processing file $processing_file: $!\n";
+    close $processing or die "Cannot close processing file $processing_file: $!\n";
+
+    # Re-run once with the problematic satellites excluded for this arc.
+    my $retry_error;
+    eval { $bpe->RUN_PGMS($PGMNAM); 1 } or $retry_error = $@ || "ORBGEN retry failed";
+    return unless $retry_error;
+    die $retry_error;
+  }
+
+  die $run_error;
+}

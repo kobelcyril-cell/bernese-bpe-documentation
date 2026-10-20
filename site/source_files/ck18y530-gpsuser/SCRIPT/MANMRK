@@ -427,6 +427,38 @@ sub run {
      $bpe->RUN_PGMS($PGMNAM);
      }
 
+   if ( ${yyddd} eq "26234") {
+
+     my $msg = "SATELLITE 126 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","126");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26235") {
+
+     my $msg = "SATELLITE 126 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","126");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
+
+   if ( ${yyddd} eq "26236") {
+
+     my $msg = "SATELLITE 126 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
+
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","126");
+     $bpe->RUN_PGMS($PGMNAM);
+     }
 
 
 

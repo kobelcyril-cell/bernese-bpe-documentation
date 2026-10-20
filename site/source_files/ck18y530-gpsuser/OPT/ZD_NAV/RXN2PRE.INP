@@ -244,12 +244,12 @@ USE_S 1  "0"
 
 MSG_USE_S 1  "Use SBAS navigation messages"
 
-USE_C 1  "0"
+USE_C 1  "1"
   ## widget = checkbox
 
 MSG_USE_C 1  "Use BEIDOU navigation messages"
 
-USE_J 1  "0"
+USE_J 1  "1"
   ## widget = checkbox
 
 MSG_USE_J 1  "Use QZSS navigation messages"
@@ -280,7 +280,7 @@ MINMSG_S 1  "2"
 
 MSG_MINMSG_S 1  "Min number of broadcast messages (SBAS)"
 
-MINMSG_C 1  "6"
+MINMSG_C 1  "1"
   ## widget = spinbox; range = 1 100 1; activeif = USE_C == 1
 
 MSG_MINMSG_C 1  "Min number of broadcast messages (BeiDou)"
@@ -316,12 +316,12 @@ BE_S 1  "-1"
 
 MSG_BE_S 1  "Max nb of bad epo or epo diffs btw good (SBAS)"
 
-BE_C 1  "6"
+BE_C 1  "-1"
   ## widget = spinbox; range = -1 99999 1; activeif = USE_C == 1
 
 MSG_BE_C 1  "Max nb of bad epo or epo diffs btw good (BeiDou)"
 
-BE_J 1  "6"
+BE_J 1  "-1"
   ## widget = spinbox; range = -1 99999 1; activeif = USE_J == 1
 
 MSG_BE_J 1  "Max nb of bad epo or epo diffs btw good (QZSS)"
@@ -388,12 +388,12 @@ ININT_S 1  "60"
 
 MSG_ININT_S 1  "Expected input interval [s] (SBAS)"
 
-ININT_C 1  "3600"
+ININT_C 1  "600"
   ## widget = spinbox; range = 0 99999 1; activeif = USE_C == 1
 
 MSG_ININT_C 1  "Expected input interval [s] (BeiDou)"
 
-ININT_J 1  "3600"
+ININT_J 1  "600"
   ## widget = spinbox; range = 0 99999 1; activeif = USE_J == 1
 
 MSG_ININT_J 1  "Expected input interval [s] (QZSS)"
@@ -438,22 +438,22 @@ DATUM_I 1  "WGS - 84"
 
 MSG_DATUM_I 1  "Datum for interpreting IRNSS brd msgs"
 
-MSGT_PRIO_G 1  "LNAV CNAV CNV2"
+MSGT_PRIO_G 1  ""
   ## widget = lineedit; activeif = USE_G == 1
 
 MSG_MSGT_PRIO_G 1  "GPS nav. msg. type priority list"
 
-MSGT_PRIO_E 1  "INAV FNAV"
+MSGT_PRIO_E 1  ""
   ## widget = lineedit; activeif = USE_E == 1
 
 MSG_MSGT_PRIO_E 1  "Galileo nav. msg. type priority list"
 
-MSGT_PRIO_C 1  "D1D2 CNV1 CNV2 CNV3"
+MSGT_PRIO_C 1  ""
   ## widget = lineedit; activeif = USE_C == 1
 
 MSG_MSGT_PRIO_C 1  "BeiDou nav. msg. type priority list"
 
-MSGT_PRIO_J 1  "LNAV CNAV CNV2"
+MSGT_PRIO_J 1  ""
   ## widget = lineedit; activeif = USE_J == 1
 
 MSG_MSGT_PRIO_J 1  "QZSS nav. msg. type priority list"
@@ -499,7 +499,7 @@ RM_UNHEALTHY 1  "0"
 MSG_RM_UNHEALTHY 1  "Remove epos where sat is unhealthy"
 
 ! Remove epochs where satellite is unregistered
-RM_UNREGISTERED 1  "1"
+RM_UNREGISTERED 1  "0"
   ## widget = checkbox; activeif = SATELL /= _
 
 MSG_RM_UNREGISTERED 1  "Remove epos where sat is unregistered"
@@ -510,32 +510,19 @@ RM_WRONG_FRQ_NBS 1  "1"
 
 MSG_RM_WRONG_FRQ_NBS 1  "Remove epos where GLO sat has wrong freq slot nbr"
 
-EPOCHS_DEF 4
-  "" "" "100" "0" "0.5"
-  "C" "" "100" "14" "0.5"
-  "S" "" "1" "0" "0.5"
-  "I" "" "1" "0" "0.5"
+EPOCHS_DEF 1  "" "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
   ## check_type.4 = real; check_type.5 = real; numlines = 10
 
 MSG_EPOCHS_DEF 1  "Definition of valid epochs"
 
-LIM_VEL_NORM 1  "R" "" "3.9d3" "4d3"
+LIM_VEL_NORM 1  "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
   ## check_type.4 = real; check_min.4 = 0d0; numlines = 10
 
 MSG_LIM_VEL_NORM 1  "Norm of satellite velocity [m/s]"
 
-LIM_SEMI_MAJ_AXIS 9
-  "G" "" "26d6" "27d6" "100" "2.8d-3"
-  "R" "" "25d6" "26d6" "5000" "2.8d-2"
-  "E" "" "29.5d6" "30.5d6" "100" "2.8d-3"
-  "E" "Ext" "26d6" "28d6" "1d20" "1d40"
-  "S" "" "41d6" "43.1d6" "1d20" "1d40"
-  "C" "" "27.5d6" "28.5d6" "1d20" "1d40"
-  "C" "IGSO1" "41.5d6" "42.5d6" "1d20" "1d40"
-  "C" "IGSO2" "41.5d6" "42.5d6" "1d20" "1d40"
-  "J" "" "41.5d6" "42.5d6" "1d20" "1d40"
+LIM_SEMI_MAJ_AXIS 1  "" "" "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
   ## check_type.4 = real; check_min.4 = 0d0; check_type.5 = real
   ## check_min.5 = 0d0; check_type.6 = real; check_min.6 = 0d0
@@ -543,39 +530,27 @@ LIM_SEMI_MAJ_AXIS 9
 
 MSG_LIM_SEMI_MAJ_AXIS 1  "Semi major axis [m]"
 
-LIM_NODE 4
-  "G" "" "-1d20" "1d20" "2d-4" "1.4d-7"
-  "R" "" "-1d20" "1d20" "2d-3" "8.4d-7"
-  "E" "" "-1d20" "1d20" "2d-4" "1.4d-7"
-  "E" "Ext" "-1d20" "1d20" "2d-3" "1.4d-7"
+LIM_NODE 1  "" "" "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_type.4 = real
   ## check_type.5 = real; check_min.5 = 0d0; check_type.6 = real
   ## check_min.6 = 0d0; numlines = 10
 
 MSG_LIM_NODE 1  "Node [deg]"
 
-LIM_NODE_DOT 1  "G" "" "-6d-7" "-2.5d-7"
+LIM_NODE_DOT 1  "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_type.4 = real
   ## numlines = 10
 
 MSG_LIM_NODE_DOT 1  "Rate of node [deg/s]"
 
-LIM_MEAN_ANOMALY 2
-  "G" "" "-1d20" "1d20" "2" "2.2d-5"
-  "G" "circ" "-1d20" "1d20" "10" "2.7d-6"
+LIM_MEAN_ANOMALY 1  "" "" "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_type.4 = real
   ## check_type.5 = real; check_min.5 = 0d0; check_type.6 = real
   ## check_min.6 = 0d0; numlines = 10
 
 MSG_LIM_MEAN_ANOMALY 1  "Mean anomaly [deg]"
 
-LIM_ECCENTRICITY 6
-  "" "" "0d0" "0.1d0" "1d20" "1d40"
-  "G" "" "0d0" "0.1d0" "5d-6" "1.4d-10"
-  "G" "circ" "0d0" "1d-3" "5d-6" "1.4d-10"
-  "R" "" "0d0" "0.1d0" "2d-4" "6.9e-9"
-  "E" "" "0d0" "0.1d0" "5d-6" "1.4d-10"
-  "E" "Ext" "0.1d0" "0.2d0" "2d-5" "1.4d-10"
+LIM_ECCENTRICITY 1  "" "" "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
   ## check_type.4 = real; check_min.4 = 0d0; check_type.5 = real
   ## check_min.5 = 0d0; check_type.6 = real; check_min.6 = 0d0
@@ -583,35 +558,21 @@ LIM_ECCENTRICITY 6
 
 MSG_LIM_ECCENTRICITY 1  "Eccentricity"
 
-LIM_INCLINATION 10
-  "G" "" "50d0" "58d0" "5d-4" "8.3d-8"
-  "G" "I" "60d0" "65d0" "5d-4" "8.3d-8"
-  "R" "" "63d0" "67d0" "5d-3" "8.3d-7"
-  "E" "" "50d0" "60d0" "5d-4" "8.3d-8"
-  "E" "Ext" "50d0" "60d0" "2d-3" "8.3d-8"
-  "C" "" "50d0" "60d0" "1d20" "1d40"
-  "C" "IGSO1" "50d0" "60d0" "1d20" "1d40"
-  "C" "IGSO2" "-10d0" "10d0" "1d20" "1d40"
-  "J" "" "40d0" "45d0" "1d20" "1d40"
-  "J" "GEO" "-5d0" "5d0" "1d20" "1d40"
+LIM_INCLINATION 1  "" "" "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_type.4 = real
   ## check_type.5 = real; check_min.5 = 0d0; check_type.6 = real
   ## check_min.6 = 0d0; numlines = 10
 
 MSG_LIM_INCLINATION 1  "Inclination [deg]"
 
-LIM_PERIGEE 4
-  "G" "" "-1d20" "1d20" "2" "2.8d-6"
-  "G" "circ" "-1d20" "1d20" "10" "2.8d-6"
-  "J" "" "265d0" "275d0" "1d20" "1d40"
-  "J" "GEO" "0d0" "361d0" "1d20" "1d40"
+LIM_PERIGEE 1  "" "" "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_type.4 = real
   ## check_type.5 = real; check_min.5 = 0d0; check_type.6 = real
   ## check_min.6 = 0d0; numlines = 10
 
 MSG_LIM_PERIGEE 1  "Perigee [deg]"
 
-LIM_DELTA_N 1  "G" "" "5.7d-9" "401d-9"
+LIM_DELTA_N 1  "" "" "" ""
   ## widget = uniline; check_type.3 = real; check_type.4 = real
   ## numlines = 10
 

@@ -123,14 +123,13 @@ sub run {
     my $LOGfileM= "$mscDir/Station_selection.log";
 
     my $matlab_cmd = qq{matlab -batch "addpath('$matlab_dir'); gnss_station_selection($V_NSTA, '$crdfile', '$py_out', '$timlab_file', $makePlots, '$gif', '$hist', '$matlab_selected')" >> $LOGfileM };
-    # ---------- system($matlab_cmd) == 0 or die "MATLAB selection failed: $!\n"; ------------
+
     my $ret = system($matlab_cmd);
 
     print "system() returned $ret\n";
     print "exit code = " . ($ret >> 8) . "\n";
     print "signal    = " . ($ret & 127) . "\n";
     print "errno     = $!\n\n\n";
-    print "Are there observation files in the campaign?\n\n\n";
   }
 
 # ---------- Compare and remove unused stations ------------

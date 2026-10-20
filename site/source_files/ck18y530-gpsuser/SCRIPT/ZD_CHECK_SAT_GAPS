@@ -96,7 +96,7 @@ sub run {
         if ($few_obs_warning) {
 
           # Only warning, no SATMRK
-          print $LOG "WARNING: Few observations for satellite $prn - Satellite not excluded\n";
+          print $LOG "Few observations for satellite $prn - Satellite not excluded\n";
 
         } else {
 
@@ -126,5 +126,5 @@ sub run {
   print $LOG "=== CHECK_SAT_GAPS finished ===\n";
   close($LOG);
 
-  print "CHECK_SMC_GAPS done. Log appended to $logfile\n";
+  print "CHECK_SAT_GAPS done. Log appended to $logfile\n";
 }

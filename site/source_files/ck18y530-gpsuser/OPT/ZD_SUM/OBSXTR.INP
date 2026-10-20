@@ -179,7 +179,7 @@ USE_E 1  "1"
 MSG_USE_E 1  "Include Galileo in the statistics"
 
 ! SBAS
-USE_S 1  "1"
+USE_S 1  "0"
   ## widget = checkbox
 
 MSG_USE_S 1  "Include SBAS in the statistics"

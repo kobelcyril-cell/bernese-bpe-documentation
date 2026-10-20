@@ -80,10 +80,10 @@ MSG_ABS2REL 1  "Conversion of absolute phase patterns"
 
 ! Input File: Bernese phase file
 ! ------------------------------
-PHASECC 1  "${CAMP}/GEN/$(PCVINF)_$(PCV).PCV"
+PHASECC 1  "${CAMP}/GEN/$(PCVINF)_$(PCV)_$(PCVM).PCV"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC
   ## emptyallowed = true
-  # $(PCVINF)_$(PCV)
+  # $(PCVINF)_$(PCV)_$(PCVM)
 
 DESCR_PHASECC 1  "Input Bernese antenna correction file"
 

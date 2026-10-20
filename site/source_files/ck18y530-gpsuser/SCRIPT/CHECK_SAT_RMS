@@ -89,7 +89,7 @@ sub run {
             print $LOG "→ Large/invalid RMS detected for satellite $prn: number too large to display\n";
         } else {
             my $rms = $rms_str + 0;
-            if ($rms > 5.0) {
+            if ($rms > 10.0) {
                 print $LOG "→ Large RMS detected for satellite $prn: $rms m\n";
             } else {
                 next;
@@ -110,10 +110,10 @@ sub run {
     # ---------------------- Zusammenfassung -----------------------------------
     if (%marked_sats) {
         my @sat_list = sort { $a <=> $b } keys %marked_sats;
-        print $LOG "Satellites marked due to RMS > 5.0 m or invalid RMS: " . join(", ", @sat_list) . "\n";
+        print $LOG "Satellites marked due to RMS > 10.0 m or invalid RMS: " . join(", ", @sat_list) . "\n";
         print $LOG "Total satellites marked: " . scalar(@sat_list) . "\n";
     } else {
-        print $LOG "No satellites with RMS > 5.0 m or invalid RMS detected.\n";
+        print $LOG "No satellites with RMS > 10.0 m or invalid RMS detected.\n";
     }
 
     print $LOG "=== CHECK_SAT_RMS finished ===\n";

@@ -63,6 +63,7 @@ V_FLUX   = *;                DESCRIPTION=Flux index
 V_POTCOE = COSTG_FSM_????;   DESCRIPTION=Gravity field model
 V_PCVINF = *;                DESCRIPTION=PCV information
 V_PCV    = I??;              DESCRIPTION=GNSS PCV model (absolute)
+V_PCVM   = ????;             DESCRIPTION=GNSS PCV model version
 V_OBSSEL = *;                DESCRIPTION=Observation selection file
 V_SATCRX = *;                DESCRIPTION=Satellite problem file for data import
 V_SATINF = *;                DESCRIPTION=Satellite information

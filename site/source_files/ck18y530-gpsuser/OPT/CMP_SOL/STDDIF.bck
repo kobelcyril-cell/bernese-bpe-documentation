@@ -63,7 +63,7 @@ DESCR_SATELL 1  "Satellite information"
 
 ! Satellite Problems
 ! ------------------
-SATCRUX 1  "SAT_$Y+0"
+SATCRUX 1  "$(SATCRX)_$Y+0"
   ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
 
 DESCR_SATCRUX 1  "Satellite problems"

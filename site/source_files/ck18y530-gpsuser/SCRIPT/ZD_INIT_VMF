@@ -48,7 +48,7 @@ sub run {
   unlink($grdFil);
 
 # ---------- Retrieve latest VMF data ------------
-  system("$ENV{AUTO}/get_vmf.com");
+#  system("$ENV{AUTO}/get_vmf.com");
 
 # ---------- Copy VMF grid into campaign directory ------------
   system("$ENV{AUTO}/copyGrid.pl $dirOut/../ $ddd $yyyy VMF -oneFile");

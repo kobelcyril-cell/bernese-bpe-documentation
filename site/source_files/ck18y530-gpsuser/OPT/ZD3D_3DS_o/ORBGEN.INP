@@ -621,7 +621,7 @@ DESCR_NUTMOD 1  "Nutation model"
 
 ! Earth Potential
 ! ---------------
-POTCOE 1  "COSTG_FSM_2509"
+POTCOE 1  "COSTG_FSM_2603"
   ## widget = selwin; path = PTH_POTCOE; ext = EXT_POTCOE; maxfiles = 1
 
 DESCR_POTCOE 1  "Coeff. of Earth potential"

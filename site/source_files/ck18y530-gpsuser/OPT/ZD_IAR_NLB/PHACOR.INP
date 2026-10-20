@@ -27,25 +27,12 @@ USR_INFO 1  "${USER}"
 ! -------------------------------------------------------------------------
 ! General Bernese input files
 ! -------------------------------------------------------------------------
-SHOWGEN 1  "1"
-  ## widget = checkbox
-
-MSG_SHOWGEN 1  "Show all general files"
-
+! Use the same Bernese constants file as GPSEST; PHACOR maps each NLB
+! observable code to its constellation-specific carrier frequency from this file.
 CONST 1  "CONST"
   ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
 
-DESCR_CONST 1  "General constants"
-
-SATELL 1  "SATELLIT_I20"
-  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
-
-DESCR_SATELL 1  "Satellite information"
-
-SATCRUX 1  "ZD_SAT_$Y+0"
-  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
-
-DESCR_SATCRUX 1  "Satellite problems"
+DESCR_CONST 1  "General constants and GNSS carrier frequencies"
 
 ! -------------------------------------------------------------------------
 ! PHACOR input files
@@ -125,12 +112,41 @@ SYSERR 0
 DESCR_SYSERR 1  "Error message"
 
 ! -------------------------------------------------------------------------
-! Debugging
+! GNSS system selection (same USE_* names as GPSEST.INP)
 ! -------------------------------------------------------------------------
-DEBUG_PHACOR 1  "0"
+USE_G 1  "1"
   ## widget = checkbox
 
-MSG_DEBUG_PHACOR 1  "Write detailed PHACOR debug trace to program output"
+MSG_USE_G 1  "Use GPS"
+
+USE_E 1  "1"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Use Galileo"
+
+USE_C 1  "1"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Use BeiDou"
+
+USE_J 1  "0"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Use QZSS"
+
+! -------------------------------------------------------------------------
+! Debugging
+! -------------------------------------------------------------------------
+DEBUG_PHACOR 1  "1"
+  ## widget = checkbox
+
+MSG_DEBUG_PHACOR 1  "Write detailed PHACOR trace to a separate output file"
+
+DEBUG_OUT 1  "PHACOR_DEBUG$YSS+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = DEBUG_PHACOR == 1; emptyallowed = false
+
+DESCR_DEBUG_OUT 1  "Separate output file for the detailed trace"
 
 CHECK_PHASE_JUMPS 1  "1"
   ## widget = checkbox
@@ -191,6 +207,7 @@ RADIAL_CONSTRAINT_SIGMA 1  "0.50"
 # PHACOR 1: Input and Output Files                                             #
 #                                                                              #
 # INPUT FILES                                                                  #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
 #   GPSEST output files      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # LOGFILES
 #   Reference orbit file     > %%%%%%%%%%%% <                                  # ORBITFILE
 #   Station coordinate file  > %%%%%%%%%%%% <                                  # COORDFILE
@@ -212,6 +229,12 @@ RADIAL_CONSTRAINT_SIGMA 1  "0.50"
 
 # BEGIN_PANEL NO_CONDITION #####################################################
 # PHACOR 2: Settings                                                           #
+#   Satellite systems                                                         #
+#     GPS                     > % <                                           # USE_G
+#     Galileo                 > % <                                           # USE_E
+#     BeiDou                  > % <                                           # USE_C
+#     QZSS                    > % <                                           # USE_J
+#                                                                              #
 #   Check phase jumps            > % <                                         # CHECK_PHASE_JUMPS
 #   Integer clock output         > % <                                         # INTEGER_CLOCK
 #   Processing sampling [s]      > %%%%%%%%% <                                 # PROCESSING_SAMPLING
@@ -233,5 +256,6 @@ RADIAL_CONSTRAINT_SIGMA 1  "0.50"
 #                                                                              #
 # Extended Output                                                              #
 #   Enable detailed trace        > % <                                         # DEBUG_PHACOR
+#   Detailed trace output file   > %%%%%%%%%%%% <                              # DEBUG_OUT
 #                                                                              #
 # END_PANEL ####################################################################

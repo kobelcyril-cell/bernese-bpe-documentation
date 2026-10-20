@@ -69,10 +69,11 @@ sub run {
   my @out_patterns = (
      "COOVEL.L??",
      "${V_FIN}${ssss}00?.CLK",
-#     "${V_FIN}_${yyssss}00?.OUT",
+     "${V_FIN}_${yyssss}00?.OUT",
 #     "${V_FIN}S${yyssss}.OUT",
      "ORBGEN.L??",
      "POLUPD.L??",
+     "${V_FIN}_STDPRE.OUT",
   );
 
   my @sta_patterns = (
@@ -150,17 +151,20 @@ sub run {
 
   # ---------- Delete Files in BPE directory ------------
   my $dirBpe = "${dirOut}../BPE";
-  my $bpe_pattern = "*ZD3D*${day}*";
+  my $bpe_pattern = "*${day}*";
 
   foreach my $file (glob("${dirBpe}/${bpe_pattern}")) {
-    # ---------- Skip deletion of LOG/PRT file ------------
-    next if ($file =~ /ZD3D${day}_700_000\.LOG$/);
-    next if ($file =~ /ZD3D${day}_700_000\.PRT$/);
 
-    if (-e $file) {
-      unlink $file and print "Deleted: $file\n" and $deleted++;
-    }
-  }
+    	  # ---------- Only delete LOG and PRT files ------------
+    	  next unless ($file =~ /\.(LOG|PRT)$/);
+
+    	  # ---------- Skip files containing _700_000 ------------
+    	  next if ($file =~ /_700_000/);
+
+    	  if (-e $file) {
+             unlink $file and print "Deleted: $file\n" and $deleted++;
+    	     }
+	  }
 
   # ---------- Summary ------------
   if ($deleted == 0) {

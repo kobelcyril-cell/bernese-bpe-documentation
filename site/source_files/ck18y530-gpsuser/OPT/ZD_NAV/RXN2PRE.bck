@@ -139,7 +139,7 @@ MSG_FILELIST 1  "RINEX nav. inp files, any naming convention"
 
 ! Output files
 ! ------------
-PREFIL 1  "$A_$YSS+0"
+PREFIL 1  "$(BRD)_$YSS+0"
   ## widget = lineedit; path = DIR_PRE; ext = EXT_PRE; emptyallowed = true
 
 MSG_PREFIL 1  "Precise orbit file"
@@ -208,7 +208,7 @@ MSG_AGENCY 1  "Agency"
 
 ! Titles
 ! ------
-TITLE 1  "Broadcast Orbit for Day $+0, Year $Y+0"
+TITLE 1  "Broadcast Orbit: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -244,12 +244,12 @@ USE_S 1  "0"
 
 MSG_USE_S 1  "Use SBAS navigation messages"
 
-USE_C 1  "0"
+USE_C 1  "1"
   ## widget = checkbox
 
 MSG_USE_C 1  "Use BEIDOU navigation messages"
 
-USE_J 1  "0"
+USE_J 1  "1"
   ## widget = checkbox
 
 MSG_USE_J 1  "Use QZSS navigation messages"
@@ -280,7 +280,7 @@ MINMSG_S 1  "2"
 
 MSG_MINMSG_S 1  "Min number of broadcast messages (SBAS)"
 
-MINMSG_C 1  "6"
+MINMSG_C 1  "1"
   ## widget = spinbox; range = 1 100 1; activeif = USE_C == 1
 
 MSG_MINMSG_C 1  "Min number of broadcast messages (BeiDou)"
@@ -316,12 +316,12 @@ BE_S 1  "-1"
 
 MSG_BE_S 1  "Max nb of bad epo or epo diffs btw good (SBAS)"
 
-BE_C 1  "6"
+BE_C 1  "-1"
   ## widget = spinbox; range = -1 99999 1; activeif = USE_C == 1
 
 MSG_BE_C 1  "Max nb of bad epo or epo diffs btw good (BeiDou)"
 
-BE_J 1  "6"
+BE_J 1  "-1"
   ## widget = spinbox; range = -1 99999 1; activeif = USE_J == 1
 
 MSG_BE_J 1  "Max nb of bad epo or epo diffs btw good (QZSS)"
@@ -388,12 +388,12 @@ ININT_S 1  "60"
 
 MSG_ININT_S 1  "Expected input interval [s] (SBAS)"
 
-ININT_C 1  "3600"
+ININT_C 1  "600"
   ## widget = spinbox; range = 0 99999 1; activeif = USE_C == 1
 
 MSG_ININT_C 1  "Expected input interval [s] (BeiDou)"
 
-ININT_J 1  "3600"
+ININT_J 1  "600"
   ## widget = spinbox; range = 0 99999 1; activeif = USE_J == 1
 
 MSG_ININT_J 1  "Expected input interval [s] (QZSS)"
@@ -639,7 +639,7 @@ SYSODEF 1  "1"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "${P}/IGSRAPID/OUT/RXN2PRE"
+SYSOUT 1  "RXN2PRE"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 

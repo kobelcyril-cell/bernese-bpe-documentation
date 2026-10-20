@@ -62,7 +62,6 @@ sub run {
 
   my @out_patterns = (
      "CCRNXC.L??",
-# ---------- "${V_FINCLK}_${yyssss}.CLK", ------------
      "${V_FINCLK}_${yyssss}.OUT",
      "${V_FINCLK}A${yyssss}.CLK",
      "${V_FINCLK}S${yyssss}.CLK",
@@ -78,6 +77,7 @@ sub run {
      "${V_FIN}R${yyssss}.OUT",
      "????${ssss}_REC.CLK",
      "????${ssss}_REC.OUT",
+     "CCRNXC${yyssss}.OUT",
   );
 
   my @atm_patterns = (
@@ -127,15 +127,18 @@ sub run {
 
   # ---------- Delete Files in BPE directory ------------
   my $dirBpe = "${dirOut}../BPE";
-  my $bpe_pattern = "*CLKDEN*${day}*";
+  my $bpe_pattern = "*${day}*";
 
   foreach my $file (glob("${dirBpe}/${bpe_pattern}")) {
-    # ---------- Skip deletion of LOG/PRT file ------------
-    next if ($file =~ /CLKDEN${day}_500_000\.LOG$/);
-    next if ($file =~ /CLKDEN${day}_500_000\.PRT$/);
+
+    # ---------- Only delete LOG and PRT files ------------
+    next unless ($file =~ /\.(LOG|PRT)$/);
+
+    # ---------- Skip files containing _500_000 ------------
+    next if ($file =~ /_500_000/);
 
     if (-e $file) {
-      unlink $file and print "Deleted: $file\n" and $deleted++;
+        unlink $file and print "Deleted: $file\n" and $deleted++;
     }
   }
 

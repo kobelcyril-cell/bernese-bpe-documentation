@@ -79,12 +79,13 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 # --------------------
 190  ZD_ORBGENF            ZD_FIN      CPU=SHORT; WAIT=150 180
 #
-# Checks (nothing yet)
-# --------------------
+# Checks
+# ------
+900  ZD_CHKPRC_SOL         ZD_CHK      CPU=SHORT; WAIT=190
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS             NO_OPT      CPU=ANY; WAIT=190; PARAM1=FA; PARAM2=CREATE
+999  ZD_STATUS             NO_OPT      CPU=ANY; WAIT=900; PARAM1=FA; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
 V_BRD    = *;             DESCRIPTION=A priori information (brd, and bull. A)
@@ -118,7 +119,7 @@ V_IAR    = *;             DESCRIPTION=Introduce fixed ambiguities;              
 V_PUL    = *;             DESCRIPTION=Enable orbit midnight pulses;                     CARDS=YES NO
 V_VDAT   = *;             DESCRIPTION=Verification of datum definition;                 CARDS=YES NO
 V_ILEO   = *;             DESCRIPTION=Include LEOs;                                     CARDS=YES NO
-V_DIRLEO = *;             DESCRIPTION=Directory with LEO-NEQs;
+V_DIRLEO = ${R}/CK_LEO;   DESCRIPTION=Directory with LEO-NEQs
 # Configuration
 V_PCFCONFIG = MODEL SETUP_ZDGNSS FA;    DESCRIPTION=Configuration files
 

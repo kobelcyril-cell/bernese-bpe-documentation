@@ -40,6 +40,7 @@ sub run {
     my (
         $yyssss,
         $ddd,
+	$yyyy,
         $camp_pth,
         $campaign,
         $psdInf,
@@ -60,6 +61,7 @@ sub run {
     ) = $bpe->getKeys(
         '$YSS+0',
         '$+0',
+	'$Y+0',
         'CAMP_PTH',
         'CAMPAIGN',
         'V_PSDINF',
@@ -87,12 +89,21 @@ sub run {
     die "ERROR: copyRef.pl failed (return code: $ret)\n"
         if $ret != 0;
 
+    my $iarFile = "$ENV{S}/IGS/${yyyy}/ORB/IAR${yyssss}.${extOsb}";
+    my $aprFile = "${dirOsb}APR${yyssss}.${extOsb}";
 
-    copy_required(
-        "${dirOsb}CODE.${extOsb}",
-        "${dirOsb}APR${yyssss}.${extOsb}"
-    );
+    if (-e $iarFile) {
+       print "Using file as a priori: $iarFile\n";
+       copy_required($iarFile, $aprFile);
+       }
+    else {
+    	 my $codeFile = "${dirOsb}CODE.${extOsb}";
 
+    	 print "Appropriate file not found: $iarFile\n";
+    	 print "Using fallback file: $codeFile\n";
+
+    	 copy_required($codeFile, $aprFile);
+	 }
 
     # ---------- Create REF OSB (remove GLONASS) ------------
 

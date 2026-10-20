@@ -50,7 +50,7 @@ MSG_MAXJOBNUM 1  "Maximum program output file number"
 
 ! List of Programs with special path to the executable
 ! ----------------------------------------------------
-SPECIAL_PATH 1  "" "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" ""
+SPECIAL_PATH 1  "" "" ""
   ## widget = uniline; numlines = 20
 
 MSG_SPECIAL_PATH 1  "Programs executed from special paths"

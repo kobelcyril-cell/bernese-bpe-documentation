@@ -289,14 +289,14 @@ RZFILES_TXT_COL_2 1  "OBSERVATION FILE"
 
 ! A priori Coordinates
 ! --------------------
-COORD 1  "$A_$YSS+0"
+COORD 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
 
 DESCR_COORD 1  "Station coordinates"
 
 ! Standard Orbit
 ! --------------
-STDORB 1  "$A_$YSS+0"
+STDORB 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
   ## activeif = STDORB_NEW == _
 
@@ -310,14 +310,14 @@ DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
 
 ! ERP File
 ! ---------
-POLE 1  "$A_$YSS+0"
+POLE 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
 
 DESCR_POLE 1  "Earth rotation parameters"
 
 ! Satellite Clocks
 ! ----------------
-SATCLK 1  "$A_$YSS+0"
+SATCLK 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
   ## emptyallowed = true; activeif = DIFLVL = ZERO OR DIFLVL = ZERO_AR
 
@@ -385,7 +385,7 @@ DESCR_GCCINP 1  "Geocenter coordinates"
 
 ! Radiation Pressure Coef.
 ! ------------------------
-RPRCOE 1  "$A_$YSS+0"
+RPRCOE 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_RPR; ext = EXT_RPR; maxfiles = 1
   ## emptyallowed = true; activeif = STDORB_NEW == _
 
@@ -461,7 +461,7 @@ DESCR_KININP 1  "Input kinematic coordinates"
 
 ! Station Observation sigma factors for scaling the outlier limits
 ! ----------------------------------------------------------------
-STAWGT 1  "$I0$YSS+0"
+STAWGT 1  "$(CWGT)0$YSS+0"
   ## widget = selwin; path = DIR_SOS; ext = EXT_SOS; maxfiles = 1
   ## emptyallowed = true
 
@@ -570,7 +570,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "$B$S+0$(CCC)"
+SYSOUT 1  "$(CSCR)$S+0$(CCC)"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -625,7 +625,7 @@ MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
 
 ! Normal Equations
 ! ----------------
-NEQUARS 1  "$B$S+0$(CCC)"
+NEQUARS 1  "$(CSCR)$S+0$(CCC)"
   ## widget = lineedit; path = DIR_NEQ; ext = EXT_NEQ
 
 DESCR_NEQUARS 1  "Normal equations"
@@ -863,7 +863,7 @@ DESCR_RGBOUT 1  "Range biases"
 ! ----------------------------------------------------------------------
 ! Title
 ! -----
-TITLE 1  "$YD+0, CLOCK ESTIMATION, RESIDUAL SCREENING: $B"
+TITLE 1  "Clock estimation and residual screening: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"

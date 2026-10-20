@@ -65,7 +65,7 @@ sub run {
 
         my @markers;
 
-        if (defined($param3) && $param3 == 1) {
+	if (defined($param3) && $param3 ne '' && $param3 eq '1') {
 
             # Check previous, current and next day
             foreach my $offset (-1, 0, 1) {
@@ -87,8 +87,6 @@ sub run {
             }
         }
         else {
-
-            # Original behaviour: only current day
             my ($yyssss) = $bpe->getKeys('$YSS+0');
             die "Could not determine current epoch\n"
                 unless defined($yyssss) && $yyssss ne '';
@@ -105,8 +103,8 @@ sub run {
             print "  $marker\n";
         }
 	
-        my $max_checks = 1440;
-        my $interval   = 300;   # seconds
+        my $max_checks = 360;
+        my $interval   = 30;   # seconds
 
         for (my $i = 1; $i <= $max_checks; $i++) {
 

@@ -1,26 +1,24 @@
 
-CAMPAIGN 1  "./DUMMY"
+CAMPAIGN 0
   ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
 
-SESSION_TABLE 1  "${PAN}/SESSIONS.SES"
+SESSION_TABLE 0
   ## widget = initmenu; pointer = SESSION_TABLE
 
 DESCR_SESSION_TABLE 1  "Session table"
 
-YR4_INFO 1  "1980"
+YR4_INFO 1  "$Y+0"
   ## widget = comment
-  # $Y+0
 
-SES_INFO 1  "0060"
+SES_INFO 1  "$S+0"
   ## widget = comment
-  # $S+0
 
 USR_INFO 1  "${USER}"
   ## widget = comment
 
 ! Environment Variables
 ! ---------------------
-ENVIRONMENT 1  "" "${}"
+ENVIRONMENT 0
   ## widget = initmenu; pointer = ENVIR_LIST
 
 ! ----------------------------------------------------------------------
@@ -60,25 +58,22 @@ MSG_SHOWGEN 1  "Show all general files"
 ! ----------------------------------------------------------------------
 ! General Constants
 ! -----------------
-CONST 1  "${MODEL}/CONST.BSW"
+CONST 1  "CONST"
   ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
-  # CONST
 
 DESCR_CONST 1  "General constants"
 
 ! Local Geodetic Datum
 ! --------------------
-DATUM 1  "${CONFIG}/DATUM.BSW"
+DATUM 1  "DATUM"
   ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
-  # DATUM
 
 DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "${CAMP}/GEN/$(PCVINF)_$(PCV).PCV"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
-  # $(PCVINF)_$(PCV)
 
 DESCR_PHASECC 1  "Antenna corrections"
 
@@ -89,74 +84,83 @@ MSG_USE_ANTAZI 1  "Consider antenna rotations"
 
 ! Observation selection
 ! --------------------
-OBSSEL 1  "${CAMP}/GEN/$(OBSSEL).SEL"
+OBSSEL 1  "$(OBSSEL)"
   ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
-  # $(OBSSEL)
 
 DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+SATELL 1  "$(SATINF)_$(PCV)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
-  # $(SATINF)_$(PCV)
 
 DESCR_SATELL 1  "Satellite information"
 
 ! Satellite Problems
 ! ------------------
-SATCRUX 1  "${CONFIG}/SAT_1980.CRX"
+SATCRUX 1  "$(SATCRX)"
   ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
   ## emptyallowed = true
-  # SAT_$Y+0
 
 DESCR_SATCRUX 1  "Satellite problems"
 
 ! Earth Potential
 ! ---------------
-POTCOE 1  "${MODEL}/EGM2008_SMALL.GRV"
+POTCOE 1  "EGM2008_SMALL"
   ## widget = selwin; path = PTH_POTCOE; ext = EXT_POTCOE; maxfiles = 1
   ## emptyallowed = true
-  # EGM2008_SMALL
 
 DESCR_POTCOE 1  "Earth potential coefficients"
 
+CS2021 1  ""
+  ## widget = selwin; path = PTH_CS2021; ext = EXT_CS2021; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_CS2021 1  "Time-variable C20,C21,S21"
+
+! Earth Potential
+! ---------------
+ZONALS 1  ""
+  ## widget = selwin; path = PTH_ZONALS; ext = EXT_ZONALS; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_ZONALS 1  "Time-variable zonals"
+
 ! Subdaily ERP Model
 ! -------------------
-SUBMOD 1  "${MODEL}/$(SUBMOD).SUB"
+SUBMOD 1  "$(SUBMOD)"
   ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
-  # $(SUBMOD)
 
 DESCR_SUBMOD 1  "Subdaily ERP model"
 
 ! Nutation Model
 ! -------------------
-NUTMOD 1  "${MODEL}/$(NUTMOD).NUT"
+NUTMOD 1  "$(NUTMOD)"
   ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
-  # $(NUTMOD)
 
 DESCR_NUTMOD 1  "Nutation model"
 
 ! SINEX General Input File
 ! ------------------------
-SINEXIN 0
+SINEXIN 1  ""
   ## widget = selwin; path = PTH_SINEXIN; ext = EXT_SINEXIN; maxfiles = 1
+  ## emptyallowed = true
 
 DESCR_SINEXIN 1  "SINEX general input file"
 
 ! IONEX Control File
 ! ------------------
-IONEXCF 0
+IONEXCF 1  ""
   ## widget = selwin; path = PTH_IONEXCF; ext = EXT_IONEXCF; maxfiles = 1
+  ## emptyallowed = true
 
 DESCR_IONEXCF 1  "IONEX control file"
 
 ! GPS-UTC file
 ! -------------
-GPSUTC 1  "${CONFIG}/GPSUTC.BSW"
+GPSUTC 1  "GPSUTC"
   ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
   ## emptyallowed = false
-  # GPSUTC
 
 DESCR_GPSUTC 1  "GPS-UTC time difference"
 
@@ -171,21 +175,18 @@ DESCR_FRQINFO 1  "Frequency information"
 
 ! Scratch Files
 ! -------------
-AUXFIL 1  "${U}/WORK/GPSEST.SCR"
+AUXFIL 1  "GPSEST$J"
   ## widget = lineedit; path = PTH_SCR; ext = EXT_SCR; emptyallowed = false
-  # GPSEST$J
 
 DESCR_AUXFIL 1  "Scratch file"
 
-AUXFIL1 1  "${U}/WORK/GPSEST.SC1"
+AUXFIL1 1  "GPSEST$J"
   ## widget = lineedit; path = PTH_SCR; ext = EXT_SC1; emptyallowed = false
-  # GPSEST$J
 
 DESCR_AUXFIL1 1  "Scratch files"
 
-KINSCR 1  "${U}/WORK/GPSEST.SC2"
+KINSCR 1  "GPSEST$J"
   ## widget = lineedit; path = PTH_SCR; ext = EXT_SC2; emptyallowed = false
-  # GPSEST$J
 
 MSG_KINSCR 1  "Scratch files"
 
@@ -198,17 +199,16 @@ DELETE_FILES 3
 ! Input files
 ! ----------------------------------------------------------------------
 ! Phase Zero Differences
-PZFILES 1  "./DUMMY/OBS/SCRIPT.PZH"
+PZFILES 1  "SCRIPT"
   ## widget = selwin; path = DIR_PZH; ext = EXT_PZH; emptyallowed = true
   ## activeif = DIFLVL = ZERO OR DIFLVL = ZERO_AR
-  # SCRIPT
 
 MSG_PZFILES 1  "Phase observation files"
 
-PZFILES_PTH_COL_2 1  "./DUMMY/OBS/"
+PZFILES_PTH_COL_2 0
   ## widget = initmenu; pointer = DIR_PZO
 
-PZFILES_EXT_COL_2 1  "PZO"
+PZFILES_EXT_COL_2 0
   ## widget = initmenu; pointer = EXT_PZO
 
 PZFILES_TXT_COL_1 1  "OBSERVATION FILE HEADER"
@@ -223,10 +223,10 @@ PSFILES 0
 
 MSG_PSFILES 1  "Phase observation files"
 
-PSFILES_PTH_COL_2 1  "./DUMMY/OBS/"
+PSFILES_PTH_COL_2 0
   ## widget = initmenu; pointer = DIR_PSO
 
-PSFILES_EXT_COL_2 1  "PSO"
+PSFILES_EXT_COL_2 0
   ## widget = initmenu; pointer = EXT_PSO
 
 PSFILES_TXT_COL_1 1  "OBSERVATION FILE HEADER"
@@ -234,17 +234,16 @@ PSFILES_TXT_COL_1 1  "OBSERVATION FILE HEADER"
 PSFILES_TXT_COL_2 1  "OBSERVATION FILE"
 
 ! Code Zero Differences
-CZFILES 1  "./DUMMY/OBS/SCRIPT.CZH"
+CZFILES 1  "SCRIPT"
   ## widget = selwin; path = DIR_CZH; ext = EXT_CZH; emptyallowed = true
   ## activeif = DIFLVL = ZERO OR DIFLVL = ZERO_AR
-  # SCRIPT
 
 MSG_CZFILES 1  "Code observation files"
 
-CZFILES_PTH_COL_2 1  "./DUMMY/OBS/"
+CZFILES_PTH_COL_2 0
   ## widget = initmenu; pointer = DIR_CZO
 
-CZFILES_EXT_COL_2 1  "CZO"
+CZFILES_EXT_COL_2 0
   ## widget = initmenu; pointer = EXT_CZO
 
 CZFILES_TXT_COL_1 1  "OBSERVATION FILE HEADER"
@@ -259,10 +258,10 @@ CSFILES 0
 
 MSG_CSFILES 1  "Code observation files"
 
-CSFILES_PTH_COL_2 1  "./DUMMY/OBS/"
+CSFILES_PTH_COL_2 0
   ## widget = initmenu; pointer = DIR_CSO
 
-CSFILES_EXT_COL_2 1  "CSO"
+CSFILES_EXT_COL_2 0
   ## widget = initmenu; pointer = EXT_CSO
 
 CSFILES_TXT_COL_1 1  "OBSERVATION FILE HEADER"
@@ -277,10 +276,10 @@ RZFILES 0
 
 MSG_RZFILES 1  "Range observation files"
 
-RZFILES_PTH_COL_2 1  "./DUMMY/OBS/"
+RZFILES_PTH_COL_2 0
   ## widget = initmenu; pointer = DIR_RZO
 
-RZFILES_EXT_COL_2 1  "RZO"
+RZFILES_EXT_COL_2 0
   ## widget = initmenu; pointer = EXT_RZO
 
 RZFILES_TXT_COL_1 1  "OBSERVATION FILE HEADER"
@@ -289,45 +288,47 @@ RZFILES_TXT_COL_2 1  "OBSERVATION FILE"
 
 ! A priori Coordinates
 ! --------------------
-COORD 1  "./DUMMY/STA/$(PPP)_$(CLUSTER).CRD"
+COORD 1  "$(PPP)_$(CLUSTER)"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
-  # $(PPP)_$(CLUSTER)
 
 DESCR_COORD 1  "Station coordinates"
 
 ! Standard Orbit
 ! --------------
-STDORB 1  "./DUMMY/ORB/$(ORB)_19800060.STD"
+STDORB 1  "$(ORB)_$YYYSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
-  # $(ORB)_$YYYSS+0
+  ## activeif = STDORB_NEW == _
 
 DESCR_STDORB 1  "Standard orbits (GNSS)"
 
+STDORB_NEW 1  ""
+  ## widget = selwin; path = DIR_ORB; ext = EXT_ORB; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
+
 ! ERP File
 ! ---------
-POLE 1  "./DUMMY/ORB/$(ORB)_19800060.ERP"
+POLE 1  "$(ORB)_$YYYSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
-  # $(ORB)_$YYYSS+0
 
 DESCR_POLE 1  "Earth rotation parameters"
 
 ! Satellite Clocks
 ! ----------------
-SATCLK 1  "./DUMMY/ORB/SCRIPT.CLK"
+SATCLK 1  "SCRIPT"
   ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
   ## emptyallowed = true; activeif = DIFLVL = ZERO OR DIFLVL = ZERO_AR
-  # SCRIPT
 
 DESCR_SATCLK 1  "Satellite clock corrections"
 
 ! Code Biases
 ! -----------
-DCBINP 1  "./DUMMY/ORB/$(OSBFIL).OSB"
+DCBINP 1  "$(OSBFIL)"
   ## widget = selwin; path = DIR_OSB; ext = EXT_OSB; maxfiles = 1
   ## emptyallowed = true; activeif = GEOTEC = GNSS
-  # $(OSBFIL)
 
-DESCR_DCBINP 1  "Observable-specifc biases"
+DESCR_DCBINP 1  "Observable-specific biases"
 
 ! NL phase biases from CLK
 ! ------------------------
@@ -338,35 +339,32 @@ MSG_NLBCLK 1  "NL phase biases from CLK"
 
 ! VMF grid file
 ! -------------
-VMF_FILES 0
+VMF_FILES 1  ""
   ## widget = selwin; path = DIR_GRD; ext = EXT_GRD; emptyallowed = true
 
 MSG_VMF_FILES 1  "VMF grid file"
 
 ! Ionosphere Models
 ! -----------------
-IONOS 1  "./DUMMY/ATM/SCRIPT.ION"
+IONOS 1  "SCRIPT"
   ## widget = selwin; path = DIR_ION; ext = EXT_ION; maxfiles = 1
   ## emptyallowed = true; activeif = GEOTEC = GNSS
-  # SCRIPT
 
 DESCR_IONOS 1  "Ionosphere models"
 
 ! Ocean Loading Tables
 ! --------------------
-OCNLOAD 1  "./DUMMY/STA/$(BLQINF).BLQ"
+OCNLOAD 1  "$(BLQINF)"
   ## widget = selwin; path = DIR_BLQ; ext = EXT_BLQ; maxfiles = 1
   ## emptyallowed = true
-  # $(BLQINF)
 
 DESCR_OCNLOAD 1  "Ocean tidal loading"
 
 ! Atmospheric Tidal Loading Tables
 ! --------------------------------
-ATMLOAD 1  "./DUMMY/STA/$(ATLINF).ATL"
+ATMLOAD 1  "$(ATLINF)"
   ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
   ## emptyallowed = true
-  # $(ATLINF)
 
 DESCR_ATMLOAD 1  "Atmospheric tidal loading"
 
@@ -378,17 +376,23 @@ OPTLOAD 1  "WARNING"
 
 MSG_OPTLOAD 1  "Error handling for tidal loading"
 
+GCCINP 1  ""
+  ## widget = selwin; path = DIR_GCC; ext = EXT_GCC; maxfiles = 1
+  ## emptyallowed = true; activeif = RADIO_P == 1
+
+DESCR_GCCINP 1  "Geocenter coordinates"
+
 ! Radiation Pressure Coef.
 ! ------------------------
-RPRCOE 0
+RPRCOE 1  ""
   ## widget = selwin; path = DIR_RPR; ext = EXT_RPR; maxfiles = 1
-  ## emptyallowed = true
+  ## emptyallowed = true; activeif = STDORB_NEW == _
 
 DESCR_RPRCOE 1  "Satellite orbit partials (GNSS)"
 
 ! Clock RINEX File
 ! ----------------
-RXCLKIN 0
+RXCLKIN 1  ""
   ## widget = selwin; path = DIR_RXC; ext = EXT_RXC; maxfiles = 1
   ## emptyallowed = true; activeif = DIFLVL = ZERO OR DIFLVL = ZERO_AR
 
@@ -396,7 +400,7 @@ DESCR_RXCLKIN 1  "Input clock RINEX file"
 
 ! Intersystem Biases
 ! ------------------
-ISBINP 0
+ISBINP 1  ""
   ## widget = selwin; path = DIR_ISB; ext = EXT_ISB; maxfiles = 1
   ## emptyallowed = true
 
@@ -404,7 +408,7 @@ DESCR_ISBINP 1  "Inter-system biases"
 
 ! Estimated troposphere
 ! ---------------------
-TROPEST 0
+TROPEST 1  ""
   ## widget = selwin; path = DIR_TRP; ext = EXT_TRP; maxfiles = 1
   ## emptyallowed = true; activeif = GEOTEC = GNSS
 
@@ -412,44 +416,43 @@ DESCR_TROPEST 1  "Estimated troposphere"
 
 ! Meteo Data
 ! ----------
-METFIL 0
+METFIL 1  ""
   ## widget = selwin; path = DIR_MET; ext = EXT_MET; emptyallowed = true
 
 MSG_METFIL 1  "Meteorological data"
 
 ! Atm. loading grid files
 ! -----------------------
-ALOAD_FILES 0
+ALOAD_FILES 1  ""
   ## widget = selwin; path = DIR_GRD; ext = EXT_GRD; emptyallowed = true
 
 MSG_ALOAD_FILES 1  "Grid files for atmospheric pressure loading"
 
 ! Ocean non-tidal loading grid files
 ! ----------------------------------
-ONTLD_FILES 0
+ONTLD_FILES 1  ""
   ## widget = selwin; path = DIR_GRD; ext = EXT_GRD; emptyallowed = true
 
 MSG_ONTLD_FILES 1  "Grid files for ocean non-tidal loading"
 
 ! Hydrostatic loading grid files
 ! ------------------------------
-HLOAD_FILES 0
+HLOAD_FILES 1  ""
   ## widget = selwin; path = DIR_GRD; ext = EXT_GRD; emptyallowed = true
 
 MSG_HLOAD_FILES 1  "Grid files for hydrostatic pressure loading"
 
 ! Station crux file
 ! -----------------
-STAINFO 1  "./DUMMY/STA/$(STAINF).STA"
+STAINFO 1  "$(STAINF)"
   ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
   ## emptyallowed = true
-  # $(STAINF)
 
 DESCR_STAINFO 1  "Station information"
 
 ! Kinematic positions for LEOs and Stations
 ! -----------------------------------------
-KININP 0
+KININP 1  ""
   ## widget = selwin; path = DIR_KIN; ext = EXT_KIN; maxfiles = 1
   ## emptyallowed = true; activeif = GEOTEC = GNSS
 
@@ -457,19 +460,44 @@ DESCR_KININP 1  "Input kinematic coordinates"
 
 ! Station Observation sigma factors for scaling the outlier limits
 ! ----------------------------------------------------------------
-STAWGT 0
+STAWGT 1  ""
   ## widget = selwin; path = DIR_SOS; ext = EXT_SOS; maxfiles = 1
   ## emptyallowed = true
 
 DESCR_STAWGT 1  "Observation sigma factors"
 
+! Station directional weighting sigma factors
+! -------------------------------------------
+DIRWGT 1  ""
+  ## widget = selwin; path = DIR_DWG; ext = EXT_DWG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DIRWGT 1  "Directional obs. sigma factors"
+
 ! Site Eccentricities
 ! -------------------
-ECCENT 0
+ECCENT 1  ""
   ## widget = selwin; path = DIR_ECC; ext = EXT_ECC; maxfiles = 1
   ## emptyallowed = true
 
 DESCR_ECCENT 1  "Station eccentricities"
+
+! Input clock collocation
+! -----------------
+INCLKTIE 1  ""
+  ## widget = selwin; path = DIR_CTI; ext = EXT_CTI; emptyallowed = true
+  ## maxfiles = 1
+
+DESCR_INCLKTIE 1  "Input clock collocation file"
+
+! Output clock collocation
+! -----------------
+OUTCLKTIE 0
+  ## widget = lineedit; path = DIR_CTI; ext = EXT_CTI
+  ## activeif = INCLKTIE /= _ AND DIVLVL /= DOUBLE; emptyallowed = true
+  # 
+
+MSG_OUTCLKTIE 1  "clock collocation file: to be implemented"
 
 ! LEO Standard Orbits
 ! -------------------
@@ -479,6 +507,13 @@ LEOSTD 0
   # 
 
 DESCR_LEOSTD 1  "LEO standard orbits"
+
+LEOSTD_NEW 0
+  ## widget = selwin; path = DIR_ORB; ext = EXT_ORB; maxfiles = 1
+  ## activeif = LEOPROC = 1; emptyallowed = true
+  # 
+
+DESCR_LEOSTD_NEW 1  "Standard orbits (new)"
 
 ! LEO Dynamic partials
 ! --------------------
@@ -496,7 +531,9 @@ ATTIT 0
   ## activeif = LEOPROC = 1; emptyallowed = true
   # 
 
-DESCR_ATTIT 1  "Attitude data"
+MSG_ATTIT 1  "Attitude data"
+
+ATTIT_TXT_COL_1 1  "Path"
 
 ! LEO Precise Orbit for SLR validation
 ! ------------------------------------
@@ -535,10 +572,9 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "./DUMMY/OUT/SCRIPT.OUT"
+SYSOUT 1  "SCRIPT"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
-  # SCRIPT
 
 DESCR_SYSOUT 1  "Program output"
 
@@ -549,10 +585,9 @@ ERRMRG 1  "0"
 
 MSG_ERRMRG 1  "Error message"
 
-SYSERR 1  "${U}/WORK/ERROR.MSG"
+SYSERR 1  "ERROR"
   ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
   ## activeif = ERRMRG == 0; emptyallowed = false
-  # ERROR
 
 DESCR_SYSERR 1  "Error message"
 
@@ -597,11 +632,17 @@ NEQUARS 0
 
 DESCR_NEQUARS 1  "Normal equations"
 
+! Create partials w.r.t. Earth's potential coeff.
+! -----------------------------------------------
+RPR2EP 1  "0"
+  ## widget = checkbox
+
+MSG_RPR2EP 1  "Create file with partials wrt Earth pot. coeff"
+
 ! Coordinate Results
 ! ------------------
-COORDRS 1  "./DUMMY/STA/SCRIPT.CRD"
+COORDRS 1  "SCRIPT"
   ## widget = lineedit; path = DIR_CRD; ext = EXT_CRD
-  # SCRIPT
 
 DESCR_COORDRS 1  "Station coordinates"
 
@@ -705,6 +746,13 @@ PHASRSH 0
 
 DESCR_PHASRSH 1  "Phase center variations (harm)"
 
+! Gravity field coefficients
+! --------------------------
+GRVOUT 0
+  ## widget = lineedit; path = DIR_GRV; ext = EXT_GRV
+
+DESCR_GRVOUT 1  "Gravity field coefficients"
+
 ! Satellite Clock File
 ! --------------------
 CLKSAV 0
@@ -720,6 +768,34 @@ CLKRNX 0
   ## activeif = DIFLVL = ZERO  OR DIFLVL = ZERO_AR OR GEOTEC = SLR
 
 DESCR_CLKRNX 1  "Clock RINEX"
+
+! Receiver clock corrections (RCC file)
+! --------------------------
+RCCFIL 0
+  ## widget = lineedit; path = DIR_RCC; ext = EXT_RCC
+  ## activeif = DIFLVL = ZERO  OR DIFLVL = ZERO_AR
+
+DESCR_RCCFIL 1  "Receiver clock corrections"
+
+! Interpolate receiver clock corrections
+! --------------------------------------
+RCCINT 1  "0"
+  ## widget = checkbox; activeif = DIFLVL = ZERO  OR DIFLVL = ZERO_AR
+
+MSG_RCCINT 1  "Interpolate receiver clock corrections"
+
+! Reference time for recriver clock correction
+! --------------------------------------------
+RCCREF_GNS 1  "1"
+  ## widget = radiobutton; group = RCCREFOPT
+  ## radiokeys = SESSION_YEAR1 SESSION_STRG1
+
+MSG_RCCREF_GNS 1  "Reference for receiver clock correction: GNSS"
+
+RCCREF_LOC 1  "0"
+  ## widget = radiobutton; group = RCCREFOPT
+
+MSG_RCCREF_LOC 1  "Reference for receiver clock correction: LOCAL"
 
 ! Kinem. Coordinates (output)
 ! ---------------------------
@@ -844,7 +920,7 @@ MSG_FREQUENCY 1  "Frequency/linear combination"
 ! -------------------------------------------------------
 PCC4MWGF 1  "NEVER"
   ## widget = combobox; editable = true
-  ## cards = "ALWAYS" "NEVER" "2022 07 01"
+  ## cards = "ALWAYS" "NEVER" "2022 11 27"
   ## activeif = FREQUENCY = MELWUEBB OR FREQUENCY = L4
 
 MSG_PCC4MWGF 1  "PCC applied for MW/GF LC"
@@ -921,7 +997,6 @@ MSG_NORRES 1  "Type of computed residuals"
 ! ------------
 CORREL 1  "BASELINE"
   ## widget = combobox; editable = false; cards = CORRECT BASELINE FREQUENCY
-  ## activeif = GEOTEC = GNSS
 
 MSG_CORREL 1  "Correlation strategy"
 
@@ -959,23 +1034,20 @@ MSG_RADIO1_2 1  "Observation window defined by start and end times"
 
 ! Observation Window: defined by session
 ! --------------------------------------
-SESSION_YEAR1 1  "1980"
+SESSION_YEAR1 1  "$Y+0"
   ## widget = lineedit; multilineallowed = true; emptyallowed = false
-  # $Y+0
 
 MSG_SESSION_YEAR1 1  "Year for sessions def. the time window"
 
-SESSION_STRG1 1  "0060"
+SESSION_STRG1 1  "$S+0"
   ## widget = lineedit; multilineallowed = true; emptyallowed = false
-  # $S+0
 
 MSG_SESSION_STRG1 1  "Session defining the time window"
 
 ! Observation Window: defined by date
 ! -----------------------------------
-STADAT1 1  "1980 01 06"
+STADAT1 1  "$YMD_STR+0"
   ## widget = lineedit; activeif = RADIO1_2 = 1; check_type = date
-  # $YMD_STR+0
 
 MSG_STADAT1 1  "Start time(year month day)"
 
@@ -985,9 +1057,8 @@ STATIM1 1  "00 00 00"
 
 MSG_STATIM1 1  "Start of time window (hour minutes seconds)"
 
-ENDDAT1 1  "1980 01 06"
+ENDDAT1 1  "$YMD_STR+0"
   ## widget = lineedit; activeif = RADIO1_2 = 1; check_type = date
-  # $YMD_STR+0
 
 MSG_ENDDAT1 1  "End of time window (year month day)"
 
@@ -1152,14 +1223,14 @@ MSG_PRTELEV 1  "Printing: Satellite elevations"
 PRTNOBEL 1  "1"
   ## widget = checkbox
 
-MSG_PRTNOBEL 1  "Printing: Histogram of observations by elevation angle bins"
+MSG_PRTNOBEL 1  "Printing: Histogram of obs by elevation angle bins"
 
 ! Printing: 0.5-Degree Bin Observation Statistics (Nadir Angle)
 ! -------------------------------------------------------------
 PRTNOBNA 1  "0"
   ## widget = checkbox
 
-MSG_PRTNOBNA 1  "Printing:  Histogram of observations by nadir angle bins"
+MSG_PRTNOBNA 1  "Printing:  Histogram of obs by nadir angle bins"
 
 ! Printing: Phase-connected time intervals
 ! ----------------------------------------
@@ -1201,56 +1272,56 @@ MSG_SUMTRP 1  "Printing: Extended summary concerning troposphere"
 PRTAMBIT 1  "0"
   ## widget = checkbox; activeif = AMBSTRAT / NONE AND PRTAMB = 0
 
-MSG_PRTAMBIT 1  "Printing: Unresolved ambiguities after each iteration step"
+MSG_PRTAMBIT 1  "Printing: Unresolved ambig. after each iter. step"
 
 ! Printing: Detailed troposphere parameter information
 ! ----------------------------------------------------
 PRTTRP 1  "0"
   ## widget = checkbox
 
-MSG_PRTTRP 1  "Printing: Suppression of output concerning troposphere"
+MSG_PRTTRP 1  "Printing: Suppression of output concerning tropo"
 
 ! Printing: Detailed coordinate parameter information
 ! ---------------------------------------------------
 PRTCRD 1  "0"
   ## widget = checkbox
 
-MSG_PRTCRD 1  "Printing: Suppression of output concerning coordinates"
+MSG_PRTCRD 1  "Printing: Suppression of output concerning coords"
 
 ! Printing: Suppress output for ambiguities
 ! -----------------------------------------
 PRTAMB 1  "0"
   ## widget = checkbox; activeif = AMBSTRAT / NONE
 
-MSG_PRTAMB 1  "Printing: Suppression of output concerning ambiguities"
+MSG_PRTAMB 1  "Printing: Suppression of output concerning ambig"
 
 ! Printing: Supress results of epoch parameters
 ! ---------------------------------------------
 PRTEPPAR 1  "0"
   ## widget = checkbox
 
-MSG_PRTEPPAR 1  "Printing: Suppression of output concerning epoch parameters"
+MSG_PRTEPPAR 1  "Printing: Suppression of output conc. epoch param"
 
 ! Printing: Ambiguities in Files
 ! ------------------------------
 PRTAMBFL 1  "0"
   ## widget = checkbox
 
-MSG_PRTAMBFL 1  "Printing: Resolved ambiguities from observation files"
+MSG_PRTAMBFL 1  "Printing: Resolved ambiguities from obs. files"
 
 ! Printing: Constants, Ant. Offsets, Ion. Coeff
 ! ---------------------------------------------
 PRTPOLE 1  "1"
   ## widget = checkbox
 
-MSG_PRTPOLE 1  "Printing: Constants, antenna offsets, ionosphere coefficients"
+MSG_PRTPOLE 1  "Printing: Constants, ant offsets, ionosphere coeff"
 
 ! Printing: Pos.Eccent./Receiver Info
 ! -----------------------------------
 PRTPOSEC 1  "1"
   ## widget = checkbox
 
-MSG_PRTPOSEC 1  "Printing: Station eccentricities, receiver information"
+MSG_PRTPOSEC 1  "Printing: Station eccentricities, receiver info"
 
 ! Printing: Synchronization Errors
 ! --------------------------------
@@ -1346,7 +1417,7 @@ MSG_IF21 1  "Minimum allowed RMS ratio re 2nd best to best"
 IFSWLC 1  "0.1"
   ## widget = lineedit; check_type = real; check_min = 0.0
 
-MSG_IFSWLC 1  "Search width for geometry-free linear combination (L1 cycles)"
+MSG_IFSWLC 1  "Search width for geometry-free lin combi (L1 cycl)"
 
 ! ----------------------------------------------------------------------
 ! Ambiguity resolution: Sigma
@@ -1356,7 +1427,7 @@ MSG_IFSWLC 1  "Search width for geometry-free linear combination (L1 cycles)"
 MXAMBIT 1  "1"
   ## widget = spinbox; range = 0 999 1
 
-MSG_MXAMBIT 1  "Maximal number of ambiguities fixed per iteration step"
+MSG_MXAMBIT 1  "Maximal number of ambiguities fixed per iter. step"
 
 ! Amb-Sigma: Ambiguity Resolvable if Exactly 1 Integer within
 ! -----------------------------------------------------------
@@ -1387,6 +1458,13 @@ GLORES 1  "NEVER"
   ## cards = NEVER SAME_RCVR_TYPE SAME_RCVR_MODEL SAME_RCVR_GROUP ALWAYS
 
 MSG_GLORES 1  "GLONASS amb. resol. between different frequencies"
+
+! Amb-Sigma: Omit sigma ambiguity resolution during LEO maneuvers
+! ----------------------------------------------------------------------------
+NOATLMAN 1  "0"
+  ## widget = checkbox; activeif = DIVLVL = ZERO_AR AND AMBSTRAT = SIGMA
+
+MSG_NOATLMAN 1  "Omit ambiguity resolution during LEO maneuvers"
 
 ! ----------------------------------------------------------------------
 ! Ambiguity resolution: QIF
@@ -1427,14 +1505,14 @@ MSG_MAXFRAC 1  "Max. fractional part of resolvable NL ambiguity"
 LAFXFL 1  "5.0"
   ## widget = lineedit; check_type = real; check_min = 0.0
 
-MSG_LAFXFL 1  "Maximum allowed RMS ratio concerning fixed to float"
+MSG_LAFXFL 1  "Max. allowed RMS ratio concerning fixed to float"
 
 ! LAMBDA: Maximum allowed RMS of unit weight for fixed solution
 ! -------------------------------------------------------------
 LAMXFX 1  "0.005"
   ## widget = lineedit; check_type = real; check_min = 0.0
 
-MSG_LAMXFX 1  "Maximum allowed RMS of unit weight for fixed solution"
+MSG_LAMXFX 1  "Max. allowed RMS of unit weight for fixed solution"
 
 ! LAMBDA: Resolution mode concerning involved GNSS
 ! ------------------------------------------------
@@ -1544,12 +1622,33 @@ EDTLVL 0
 
 MSG_EDTLVL 1  "Maximum tolerated O-C term"
 
-! Periodic Relativistic J2-Correction
-! -----------------------------------
+! Periodic Relativistic J2-Correction for GNSS
+! --------------------------------------------
 PRELJ2 1  "0"
   ## widget = checkbox; activeif = DIFLVL / DOUBLE
 
-MSG_PRELJ2 1  "Periodic relativistic J2 correction"
+MSG_PRELJ2 1  "Periodic relativistic J2 correction for GNSS"
+
+! Periodic Relativistic J2-Correction for LEO
+! -------------------------------------------
+PRELJ2L 1  "0"
+  ## widget = checkbox; activeif = DIFLVL / DOUBLE AND LEOPROC = 1
+
+MSG_PRELJ2L 1  "Periodic relativistic J2 correction for LEO"
+
+! Correction due to orbit eccentricity (LEO)
+! ------------------------------------------
+RELECCL 1  "0"
+  ## widget = checkbox; activeif = DIFLVL / DOUBLE AND LEOPROC = 1
+
+MSG_RELECCL 1  "Correction due to LEO orbit eccentricity"
+
+! Add info about relativistic clock corrections to RINEX clock file
+! -----------------------------------------------------------------
+CRNXRELINF 1  "0"
+  ## widget = checkbox; activeif = DIFLVL / DOUBLE
+
+MSG_CRNXRELINF 1  "RINEX clock: Add info about relativistic corr."
 
 ! Polarization Effect
 ! -------------------
@@ -1646,7 +1745,7 @@ MSG_STAFILE4 1  "List of stations (and sigmas) from file"
 STAFLAG4 0
   ## widget = lineedit; activeif = SIGSTA = WITH_FLAG
 
-MSG_STAFLAG4 1  "Constrain: Stations with specific flags in CRD file"
+MSG_STAFLAG4 1  "Constrain: Sta. with specific flags in CRD file"
 
 ! Positioning: Default Sigma north
 ! --------------------------------
@@ -1683,13 +1782,13 @@ MSG_SIGCRDU 1  "Default a priori sigma up"
 ! -----------------------
 ORBADJ 1  "0"
   ## widget = checkbox
-  ## activeif = RPRCOE / _ AND FREQUENCY / L4 AND FREQUENCY / MELWUEBB AND FREQUENCY / DTEC
+  ## activeif = RPRCOE / _ AND FREQUENCY / L4 AND FREQUENCY / MELWUEBB AND FREQUENCY / DTEC OR STDORB_NEW / _
 
 MSG_ORBADJ 1  "Parameter setup: GNSS orbit determination"
 
 ORBADJL 1  "0"
   ## widget = checkbox
-  ## activeif = LEORPR / _ AND LEOPROC = 1 AND FREQUENCY / L4 AND FREQUENCY / MELWUEBB AND FREQUENCY / DTEC
+  ## activeif = LEORPR / _ AND LEOPROC = 1 AND FREQUENCY / L4 AND FREQUENCY / MELWUEBB AND FREQUENCY / DTEC OR LEOSTD_NEW / _
 
 MSG_ORBADJL 1  "Parameter setup: LEO orbit determination"
 
@@ -1944,6 +2043,171 @@ SIGPAR9 0
 
 MSG_SIGPAR9 1  "GNSS orb.est: EMP model parameter 9 sigma"
 
+! Dynamic Parameters (ORBGEN2) - temporary
+! ------------------
+PAR_D_0 1  "1"
+  ## widget = checkbox
+
+PAR_DC1 1  "1"
+  ## widget = checkbox
+
+PAR_DC2 1  "0"
+  ## widget = checkbox
+
+PAR_DC3 1  "0"
+  ## widget = checkbox
+
+PAR_DC4 1  "0"
+  ## widget = checkbox
+
+PAR_DS1 1  "1"
+  ## widget = checkbox
+
+PAR_DS2 1  "0"
+  ## widget = checkbox
+
+PAR_DS3 1  "0"
+  ## widget = checkbox
+
+PAR_DS4 1  "0"
+  ## widget = checkbox
+
+PAR_Y_0 1  "1"
+  ## widget = checkbox
+
+PAR_YC1 1  "1"
+  ## widget = checkbox
+
+PAR_YC2 1  "0"
+  ## widget = checkbox
+
+PAR_YC3 1  "0"
+  ## widget = checkbox
+
+PAR_YC4 1  "0"
+  ## widget = checkbox
+
+PAR_YS1 1  "1"
+  ## widget = checkbox
+
+PAR_YS2 1  "0"
+  ## widget = checkbox
+
+PAR_YS3 1  "0"
+  ## widget = checkbox
+
+PAR_YS4 1  "0"
+  ## widget = checkbox
+
+PAR_X_0 1  "1"
+  ## widget = checkbox
+
+PAR_XC1 1  "1"
+  ## widget = checkbox
+
+PAR_XC2 1  "0"
+  ## widget = checkbox
+
+PAR_XC3 1  "0"
+  ## widget = checkbox
+
+PAR_XC4 1  "0"
+  ## widget = checkbox
+
+PAR_XS1 1  "1"
+  ## widget = checkbox
+
+PAR_XS2 1  "0"
+  ## widget = checkbox
+
+PAR_XS3 1  "0"
+  ## widget = checkbox
+
+PAR_XS4 1  "0"
+  ## widget = checkbox
+
+PAR_R_0 1  "0"
+  ## widget = checkbox
+
+PAR_RC1 1  "0"
+  ## widget = checkbox
+
+PAR_RC2 1  "0"
+  ## widget = checkbox
+
+PAR_RC3 1  "0"
+  ## widget = checkbox
+
+PAR_RC4 1  "0"
+  ## widget = checkbox
+
+PAR_RS1 1  "0"
+  ## widget = checkbox
+
+PAR_RS2 1  "0"
+  ## widget = checkbox
+
+PAR_RS3 1  "0"
+  ## widget = checkbox
+
+PAR_RS4 1  "0"
+  ## widget = checkbox
+
+PAR_A_0 1  "0"
+  ## widget = checkbox
+
+PAR_AC1 1  "0"
+  ## widget = checkbox
+
+PAR_AC2 1  "0"
+  ## widget = checkbox
+
+PAR_AC3 1  "0"
+  ## widget = checkbox
+
+PAR_AC4 1  "0"
+  ## widget = checkbox
+
+PAR_AS1 1  "0"
+  ## widget = checkbox
+
+PAR_AS2 1  "0"
+  ## widget = checkbox
+
+PAR_AS3 1  "0"
+  ## widget = checkbox
+
+PAR_AS4 1  "0"
+  ## widget = checkbox
+
+PAR_O_0 1  "0"
+  ## widget = checkbox
+
+PAR_OC1 1  "0"
+  ## widget = checkbox
+
+PAR_OC2 1  "0"
+  ## widget = checkbox
+
+PAR_OC3 1  "0"
+  ## widget = checkbox
+
+PAR_OC4 1  "0"
+  ## widget = checkbox
+
+PAR_OS1 1  "0"
+  ## widget = checkbox
+
+PAR_OS2 1  "0"
+  ## widget = checkbox
+
+PAR_OS3 1  "0"
+  ## widget = checkbox
+
+PAR_OS4 1  "0"
+  ## widget = checkbox
+
+! end of ORBGEN2 parameters
 ! Stoch.Orb?
 ! ----------
 STCEST 1  "0"
@@ -2318,12 +2582,134 @@ SIGPAR92 0
 
 MSG_SIGPAR92 1  "LEO orb.est: EMP model parameter 9 sigma"
 
+! Estimate explicit maneuvers
+! ---------------------------
+MACCEST 1  "0"
+  ## widget = checkbox
+
+MSG_MACCEST 1  "Estimation of explicit maneuvers"
+
 ! Stoch.Orb?
 ! ----------
 STCEST2 1  "1"
   ## widget = checkbox
 
 MSG_STCEST2 1  "Estimation of stochastic pulses"
+
+! Selecting polynomial degree to model maneuver accelerations
+! ---------------------
+MPOLDEG 1  "2"
+  ## widget = combobox; editable = false; cards = 0 1 2
+
+MSG_MPOLDEG 1  "Polynomial degree to model maneuver accelerations"
+
+! Sigmas for explicit maneuver: A0: constant term
+! --------------------
+MACCSIG10 1  "1D-5"
+  ## widget = lineedit
+
+MSG_MACCSIG10 1  "explicit maneuver: A0 sigma, R/X"
+
+MACCSIG20 1  "1D-5"
+  ## widget = lineedit
+
+MSG_MACCSIG20 1  "explicit maneuver: A0 sigma, S/Y"
+
+MACCSIG30 1  "1D-5"
+  ## widget = lineedit
+
+MSG_MACCSIG30 1  "explicit maneuver: A0 sigma, W/Z"
+
+! Sigmas for explicit maneuver: A1: change rate
+! --------------------
+MACCSIG11 1  "1D-6"
+  ## widget = lineedit; activeif = MPOLDEG > 0
+
+MSG_MACCSIG11 1  "explicit maneuver: A1 sigma, R/X"
+
+MACCSIG21 1  "1D-6"
+  ## widget = lineedit; activeif = MPOLDEG > 0
+
+MSG_MACCSIG21 1  "explicit maneuver: A1 sigma, S/Y"
+
+MACCSIG31 1  "1D-6"
+  ## widget = lineedit; activeif = MPOLDEG > 0
+
+MSG_MACCSIG31 1  "explicit maneuver: A1 sigma, W/Z"
+
+! Sigmas for explicit maneuver: A2
+! --------------------
+MACCSIG12 1  "1D-10"
+  ## widget = lineedit; activeif = MPOLDEG = 2
+
+MSG_MACCSIG12 1  "explicit maneuver: A2 sigma, R/X"
+
+MACCSIG22 1  "1D-10"
+  ## widget = lineedit; activeif = MPOLDEG = 2
+
+MSG_MACCSIG22 1  "explicit maneuver: A2 sigma, S/Y"
+
+MACCSIG32 1  "1D-10"
+  ## widget = lineedit; activeif = MPOLDEG = 2
+
+MSG_MACCSIG32 1  "explicit maneuver: A2 sigma, W/Z"
+
+! Maneuver related stochastic pulses
+! --------------------
+MPULSIG1 1  "1D-1"
+  ## widget = lineedit
+
+MSG_MPULSIG1 1  "Sigma maneuver A0, R/X"
+
+MPULSIG2 1  "1D-1"
+  ## widget = lineedit
+
+MSG_MPULSIG2 1  "Sigma maneuver A0, S/Y"
+
+MPULSIG3 1  "1D-1"
+  ## widget = lineedit
+
+MSG_MPULSIG3 1  "Sigma maneuver A0, W/Z"
+
+MPULBEG 1  "1"
+  ## widget = checkbox; activeif = MPULAUTO = 0
+
+MSG_MPULBEG 1  "Set velocity pulse at the beginning"
+
+MPULMID 1  "1"
+  ## widget = checkbox; activeif = MPULAUTO = 0
+
+MSG_MPULMID 1  "Set velocity in the middle"
+
+MPULEND 1  "1"
+  ## widget = checkbox; activeif = MPULAUTO = 0
+
+MSG_MPULEND 1  "Set velocity pulse at the end"
+
+MPULAUTO 1  "1"
+  ## widget = checkbox
+
+MSG_MPULAUTO 1  "Automatically set maneuver pulses"
+
+MPULINT 1  "300"
+  ## widget = lineedit; activeif = MPULAUTO = 1
+
+MSG_MPULINT 1  "Interval for the maneuver pulses"
+
+! Enable individual maneuver setup
+! --------------------------------
+MANSPC 1  "0"
+  ## widget = checkbox; activeif == MACCEST = 1
+
+MSG_MANSPC 1  "Maneuver setup (global vs. individual)"
+
+! Maneuver specific settings
+! --------------------------
+MANGROUP 1  "" "" "" "" ""
+  ## widget = uniline; numlines = 7
+  ## activeif = MACCEST = 1 AND MINDSETUP = 1
+
+MSG_MANGROUP 1  "Maneuver specific settings"
 
 ! Stoch.Orb: Vel./Acc.
 ! --------------------
@@ -2437,12 +2823,55 @@ STCSPEC2 1  "0"
 
 MSG_STCSPEC2 1  "Additional requests for further epochs"
 
+! Constrain nominal stochastic parameters if too close to maneuver
+! -----------------------------------------------------------------
+STCMCON2 1  "0"
+  ## widget = checkbox; activeif = MACCEST = 1
+
+MSG_STCMCON2 1  "Optional constraining of stoch. par."
+
+! Constrain nominal stochastic parameters if too close to maneuver: tolerance
+! ---------------------------------------------------------------------------
+STCMTOL2 1  "0"
+  ## widget = lineedit; activeif = STCMCON2 = 1
+
+MSG_STCMTOL2 1  "Constrain pulses if too close to maneuver"
+
+STCMSIG1 1  "2.0D-4"
+  ## widget = lineedit; activeif = STCMCON2 = 1
+
+MSG_STCMANS1 1  "Sigma X-direction pulses"
+
+STCMSIG2 1  "2.0D-4"
+  ## widget = lineedit; activeif = STCMCON2 = 1
+
+MSG_STCMANS2 1  "Sigma X-direction pulses"
+
+STCMSIG3 1  "2.0D-4"
+  ## widget = lineedit; activeif = STCMCON2 = 1
+
+MSG_STCMANS3 1  "Sigma X-direction pulses"
+
 ! Stoch.Orb: List of more requests for stoch. orbit
 ! -------------------------------------------------
 STCGROUP2 1  "" "" "" "" "" ""
   ## widget = uniline; numlines = 10
 
 MSG_STCGROUP2 1  "Additional setup requests for stoch. pulses"
+
+! Constrain nominal stochastic parameters if too close to special requests
+! -------------------------------------------------------------------------
+STCNCON2 1  "0"
+  ## widget = checkbox
+
+MSG_STCNCON2 1  "Optional constraining of stoch. par."
+
+! Constrain nominal stochastic parameters if too close to special requests: tolerance
+! ------------------------------------------------------------------------------------
+STCNTOL2 1  "0"
+  ## widget = lineedit; activeif = STCNCON2 = 1
+
+MSG_STCNTOL2 1  "Tolerance for constraining stochastic par."
 
 ! -----------------------------------------
 !
@@ -2533,7 +2962,7 @@ NTRPSEL 1  "NONE"
   ## widget = combobox; editable = false
   ## cards = NONE FIRST LAST FROM_FILE MANUAL WITH_TROPO
 
-MSG_NTRPSEL 1  "Tropo: list of stations with no troposphere estimation"
+MSG_NTRPSEL 1  "Tropo: list of sta. with no troposphere estimation"
 
 ! Tropo: Absolute Special Zenith A Priori Sigma
 ! ---------------------------------------------
@@ -2600,7 +3029,7 @@ STAFILE6 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1; emptyallowed = true
   # 
 
-MSG_STAFILE6 1  "Tropo: file with stations(s) with no troposphere est."
+MSG_STAFILE6 1  "Tropo: file with sta(s) with no troposphere est."
 
 ! Tropo: Mapping Function
 ! -----------------------
@@ -2698,9 +3127,8 @@ MSG_NUMION 1  "GIM: Parameter spacing/interval"
 
 ! GIM: Number of Coefficient Sets Per Session
 ! -------------------------------------------
-GIMNAM 1  "0060"
+GIMNAM 1  "$S+0"
   ## widget = lineedit; activeif = MLTMOD = 0
-  # $S+0
 
 MSG_GIMNAM 1  "GIM: 4-figure model name"
 
@@ -2853,28 +3281,28 @@ MSG_DIFFION 1  "Parameter Setup: stochastic ionosphere parameters"
 DIONELI 0
   ## widget = checkbox
 
-MSG_DIONELI 1  "Stoch Iono: elimination of reference ionosphere parameters"
+MSG_DIONELI 1  "Stoch Iono: elim. of ref. ionosphere parameters"
 
 ! Stoch Iono: Elevation-Dependent Parameter Constraining
 ! ------------------------------------------------------
 DIONCON 1  "1"
   ## widget = checkbox
 
-MSG_DIONCON 1  "Stoch Iono: elevation-dependent parameter constraining"
+MSG_DIONCON 1  "Stoch Iono: elevation-dependent param constraining"
 
 ! Stoch Iono: Absolute A Priori Sigma on Single Difference Level
 ! --------------------------------------------------------------
 DIONSIG 1  "0.25"
   ## widget = lineedit; check_type = real; check_min = 0.0
 
-MSG_DIONSIG 1  "Stoch Iono: absolute a priori sigma on single difference level"
+MSG_DIONSIG 1  "Stoch Iono: abs a priori sigma on single diff lvl"
 
 ! Stoch Iono: Relative A Priori Sigma of Ionospheric Random Walk
 ! --------------------------------------------------------------
 DIONSIGR 1  "0.00"
   ## widget = lineedit; check_type = real; check_min = 0.0
 
-MSG_DIONSIGR 1  "Stoch Iono: relative a priori sigma of ionospheric random walk"
+MSG_DIONSIGR 1  "Stoch Iono: rel a priori sigma of iono random walk"
 
 ! ------------------------------------------------------------------------------
 ! PARAMETER TYPE: Higher-order ionosphere scaling factors
@@ -2883,7 +3311,7 @@ SCALHOI 1  "0"
   ## widget = checkbox
   ## activeif = IONOS / _ AND FREQUENCY / L1 AND FREQUENCY / L2 AND FREQUENCY / L5 AND FREQUENCY / MELWUEBB AND FREQUENCY / DTEC AND GEOTEC = GNSS
 
-MSG_SCALHOI 1  "Parameter setup: Higher-order iono. scaling factors"
+MSG_SCALHOI 1  "Parameter setup: Higher-order iono. scaling factor"
 
 HOI1 1  "NO"
   ## widget = combobox; editable = false
@@ -3538,7 +3966,7 @@ RAOGRPI 0
   ## widget = selwin; pointer = ANTGRPRI
   ## activeif = RAOSEL = RECEIVER-INDEPENDENT
 
-MSG_RAOGRPI 1  "Rec.Ant.offset: list of estimated antenna groups (rec.-indep.)"
+MSG_RAOGRPI 1  "Rec.Ant.offset: list of est ant grps (rec.-indep.)"
 
 ! Rec. ant. off: list of reference antennas (rec.-indep.)
 ! -------------------------------------------------------
@@ -3546,7 +3974,7 @@ RAOREFGI 0
   ## widget = selwin; pointer = ANTGRPRI
   ## activeif = RAOSEL = RECEIVER-INDEPENDENT
 
-MSG_RAOREFGI 1  "Rec.Ant.offset: list of reference antennas (rec.-indep.)"
+MSG_RAOREFGI 1  "Rec.Ant.offset: list of ref. ant (rec.-indep.)"
 
 ! Rec. ant. off: list of antenna groups (rec.-dep.)
 ! -------------------------------------------------
@@ -3562,7 +3990,7 @@ RAOREFG 0
   ## widget = selwin; pointer = ANTGRP
   ## activeif = RAOSEL = RECEIVER-DEPENDENT
 
-MSG_RAOREFG 1  "Rec.Ant.offset: list of reference antennas (rec.-dep.)"
+MSG_RAOREFG 1  "Rec.Ant.offset: list of ref. ant. (rec.-dep.)"
 
 ! Rec. ant. off: individual requests
 ! ----------------------------------
@@ -4206,6 +4634,11 @@ RGBLST 1  "FROM_FILE"
 
 MSG_RGBLST 1  "Station selection"
 
+STAFRQ 1  "0"
+  ## widget = checkbox; activeif = GEOTEC = SLR
+
+MSG_STAFRQ 1  "Range biases: one bias per wavelength"
+
 ! Range biases: Manual selection of stations
 ! ------------------------------------------
 STATION9 0
@@ -4215,10 +4648,9 @@ MSG_STATION9 1  "Range biases:Selection of list of stations"
 
 ! Range biases: File with Stations(s)
 ! -----------------------------------
-STAFILE9 1  "./DUMMY/STA/SLR_RB.FIX"
-  ## widget = selwin; activeif = RGBLST == FROM_FILE; path = DIR_FIX
-  ## ext = EXT_FIX; maxfiles = 1; emptyallowed = true
-  # SLR_RB
+STAFILE9 1  "SLR_RB"
+  ## widget = selwin; path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
+  ## emptyallowed = true
 
 MSG_STAFILE9 1  "Range biases: File with the list of stations"
 
@@ -4237,6 +4669,13 @@ SIGRGB 1  "1.0"
 
 MSG_SIGRGB 1  "Range biases: a priori sigma"
 
+! Range biases: Individual setup
+! ------------------------------
+RGBIND 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_RGBIND 1  "Range biases: individual setup"
+
 ! -----------------------------------------
 !
 ! PARAMETER TYPE: Observable-specific code biases
@@ -4254,7 +4693,7 @@ MSG_OSBEST 1  "Observable-specific biases"
 OSBSAT 1  "0"
   ## widget = checkbox; activeif = OSBEST = 1 AND OSBMUL = 0
 
-MSG_OSBSAT 1  "Estimate observable-specific code biases for satellites"
+MSG_OSBSAT 1  "Estimate observable-specific code biases for sat"
 
 ! OSB: Estimate Differential Code Bias Multiplier
 ! -----------------------------------------------
@@ -4398,7 +4837,7 @@ MSG_IFBMAX 1  "Alarming limit for receiver code biases"
 ! Extend OSB and BIASINEX validity
 ! --------------------------------
 OSBVAL 1  "00 00 00"
-  ## widget = lineedit; check_type = integer; emptyallowed = true
+  ## widget = lineedit; emptyallowed = true
 
 MSG_OSBVAL 1  "Extend validity of observable-specific biases"
 
@@ -4518,7 +4957,7 @@ MSG_SVNSIG 1  "Satellite specific a priori sigmas"
 ! Enable Hill resonance
 ! ---------------------
 HILL 1  "0"
-  ## widget = checkbox; activeif = RPRCOE / _
+  ## widget = checkbox; activeif = RPRCOE / _ OR STDORB_NEW / _
 
 MSG_HILL 1  "Hill resonance terms"
 
@@ -4653,7 +5092,7 @@ MSG_HILSATSTR 1  "Hill: List of satellites"
 ! Enable Earth gravity field
 ! --------------------------
 GRAVITY 1  "0"
-  ## widget = checkbox; activeif = RPRCOE / _
+  ## widget = checkbox; activeif = RPRCOE / _ OR STDORB_NEW / _
 
 MSG_GRAVITY 1  "Earth gravity field"
 
@@ -4711,7 +5150,7 @@ MSG_POTSTR 1  "Gravity: manual setup of special coefficients"
 ! Enable Earth Albedo Radiation
 ! -----------------------------
 ALBEDO 1  "0"
-  ## widget = checkbox; activeif = RPRCOE / _
+  ## widget = checkbox; activeif = RPRCOE / _ OR STDORB_NEW / _
 
 MSG_ALBEDO 1  "Earth albedo radiation"
 
@@ -4743,7 +5182,7 @@ SIGALB2 0
   ## widget = lineedit; activeif = ALB2 == 1; check_type = real
   ## check_min = 0.0
 
-MSG_SIGALB2 1  "Albedo: Sigma for absorption, variable surface due to solar panels"
+MSG_SIGALB2 1  "Albedo: Sig for absorp, var surf. due to solar pan"
 
 ! Albedo: Reflection
 ! ------------------
@@ -4980,7 +5419,7 @@ PRE27 1  "NO"
   ## widget = combobox; editable = false
   ## cards = NO EVERY_SESSION PRIOR_TO_NEQ_SAVING; activeif = SCALHOI = 1
 
-MSG_PRE27 1  "Pre-elimination: Higher-order ionosphere scaling parameters"
+MSG_PRE27 1  "Pre-elimination: Higher-order iono scaling param"
 
 ! Pre: GNSS-specific parameters
 ! -----------------------------
@@ -4989,6 +5428,15 @@ PRE30 1  "NO"
   ## cards = NO EVERY_SESSION PRIOR_TO_NEQ_SAVING; activeif = GNSSPEC = 1
 
 MSG_PRE30 1  "Pre-elimination: GNSS-Specific parameters"
+
+! Pre: Clock Ties
+! -------------------
+PRE33 1  "NO"
+  ## widget = combobox; editable = false
+  ## cards = NO BEFORE_INVERSION PRIOR_TO_NEQ_SAVING
+  ## activeif = INCLKTIE /= _
+
+MSG_PRE33 1  "Pre-elimination: Clock ties"
 
 ! Define Time Offset
 ! ------------------
@@ -5041,7 +5489,7 @@ MSG_GRDCENLST 1  "List of ground stations"
 ! -----------------------------------------
 SATLST 0
   ## widget = selwin; menuaux = MENUAUX; action = SATLST
-  ## menuauxkeys = CONST PSFILES CSFILES PZFILES CZFILES RZFILES
+  ## menuauxkeys = CONST PSFILES CSFILES PZFILES CZFILES RZFILES GEOTEC DIFLVL
 
 MSG_SATLST 1  "Satellite list"
 
@@ -5194,7 +5642,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #                                                                              #
 # MAIN INPUT FILES                                                             #
 #   Station coordinates            > %%%%%%%%%%%% <                            # COORD
-#   Standard orbits                > %%%%%%%%%%%% <                            # STDORB
+#   Standard orbits                > %%%%%%%%%%%% <     (new) > %%%%%%%%%%%% < # STDORB STDORB_NEW
 #   Earth rotation parameters      > %%%%%%%%%%%% <                            # POLE
 #   Satellite clock corrections    > %%%%%%%%%%%% <                            # SATCLK
 #   Observable-specific biases     > %%%%%%%%%%%% < > % < NL phase biases from CLK # DCBINP NLBCLK
@@ -5205,6 +5653,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Ocean tidal loading            > %%%%%%%%%%%% <                            # OCNLOAD
 #   Atmospheric tidal loading      > %%%%%%%%%%%% <                            # ATMLOAD
 #     related error handling       > %%%%%%%%%%%% <                            # OPTLOAD
+#   Geocenter coordinates          > %%%%%%%%%%%% <     (for CMC)              # GCCINP
 # END_PANEL ####################################################################
 
 
@@ -5227,7 +5676,9 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Station information            > %%%%%%%%%%%% <                            # STAINFO
 #   Kinematic coordinates          > %%%%%%%%%%%% <                            # KININP
 #   Observation sigma factors      > %%%%%%%%%%%% <                            # STAWGT
+#   Directional obs. sigma factors > %%%%%%%%%%%% <                            # DIRWGT
 #   Station eccentricities         > %%%%%%%%%%%% <                            # ECCENT
+#   Clock collocation              > %%%%%%%%%%%% <                            # INCLKTIE
 # END_PANEL ####################################################################
 
 
@@ -5235,7 +5686,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 # GPSEST 1.3: LEO- and SLR-specific Input Files                                #
 #                                                                              #
 # LEO-SPECIFIC INPUT FILES                                                     #
-#   LEO standard orbit             > %%%%%%%%%%%% <                            # LEOSTD
+#   Standard orbits                > %%%%%%%%%%%% <     (new) > %%%%%%%%%%%% < # LEOSTD LEOSTD_NEW
 #   Orbit partial derivatives      > %%%%%%%%%%%% <                            # LEORPR
 #   Attitude data                  > %%%%%%%%%%%% <                            # ATTIT
 #   Kinematic velocities           > %%%%%%%%%%%% <                            # KINVEL
@@ -5257,6 +5708,8 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Satellite information       > %%%%%%%%%%%% <                               # SATELL
 #   Satellite problems          > %%%%%%%%%%%% <                               # SATCRUX
 #   Earth potential coefficients> %%%%%%%%%%%% <                               # POTCOE
+#   Time-var. C20,C21,S21       > %%%%%%%%%%%% <                               # CS2021
+#   Time-var. zonals            > %%%%%%%%%%%% <                               # ZONALS
 #   Subdaily ERP model          > %%%%%%%%%%%% <                               # SUBMOD
 #   Nutation model              > %%%%%%%%%%%% <                               # NUTMOD
 #   SINEX header file           > %%%%%%%%%%%% <                               # SINEXIN
@@ -5302,7 +5755,9 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Program output      > % < use GPSEST.Lnn             or > %%%%%%%%%%%% <   # SYSODEF SYSOUT
 #   Error messages      > % < merged to program output   or > %%%%%%%%%%%% <   # ERRMRG SYSERR
 #                                                                              #
-# NORMAL EQUATION SYSTEM             > %%%%%%%%%%%% <                          # NEQUARS
+# NORMAL EQUATION SYSTEM                          > %%%%%%%%%%%% <             # NEQUARS
+#                                                                              #
+#   Create file with partials w.r.t. Earth potential coefficients > % <        # RPR2EP
 #                                                                              #
 # STATION- AND SATELLITE-RELATED RESULTS                                       #
 #   Station coordinates              > %%%%%%%%%%%% <                          # COORDRS
@@ -5328,10 +5783,15 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Inter-system biases                > %%%%%%%%%%%% <                        # ISBOUT
 #   Phase center variations (gridded)  > %%%%%%%%%%%% <                        # PHASRSG
 #   Phase center variations (spherical)> %%%%%%%%%%%% <                        # PHASRSH
+#   Gravity field coefficients         > %%%%%%%%%%%% <                        # GRVOUT
 #                                                                              #
 # EPOCH-SPECIFIC RESULTS                                                       #
 #   GNSS clock corrections             > %%%%%%%%%%%% <                        # CLKSAV
 #   Clock RINEX                        > %%%%%%%%%%%% <                        # CLKRNX
+#   Receiver clock corrections         > %%%%%%%%%%%% <                        # RCCFIL
+#     interpolate                      > % <                                   # RCCINT
+#     reference time                     GNSS> % <   LOCAL> % <                # RCCREF_GNS RCCREF_LOC
+#                                                                              #
 #   Kinematic coordinates              > %%%%%%%%%%%% <                        # KINOUT
 #   Epoch-wise KIN covariances (LEOs)  > %%%%%%%%%%%% <                        # KINQXX
 #                                                                              #
@@ -5490,6 +5950,10 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #                                                                              #
 # OPTIONS FOR GLONASS AMBIGUITY RESOLUTION                                     #
 #   Resolution between different frequency channels        > %%%%%%%%%%%%%%% < # GLORES
+#                                                                              #
+# OPTION LEO SATELLITES                                                        #
+#   Omit ambiguity resolution during maneuver > % <                            # NOATLMAN
+#                                                                              #
 # END_PANEL ####################################################################
 
 
@@ -5516,22 +5980,24 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 # END_PANEL ####################################################################
 
 
-# BEGIN_PANEL DIFLVL = ZERO OR DIFLVL = ZERO_AR OR GEOTEC = SLR ################
-# GPSEST 3.3: General Options 3                                                #
-#                                                                              #
-# OPTIONS CONCERNING INTRODUCED CLOCK CORRECTIONS                              #
-#   Primary source for satellite clocks          > %%%%%%%%%%%%%%%%% <         # USERXCLK
-#   Receiver@ clock missing in clock RINEX file  > %%%%%%%%%%%%%%%%% <         # NORXCLKR
-#   Satellite clock missing in clock RINEX file  > %%%%%%%%%%%%%%%%% <         # NORXCLKS
-#   Satellite clock missing in Bernese clock file> %%%%%%%%%%%%%%%%% <         # NOSATCLK
-#   Clock interpolation allowed over             > %%%%%% <seconds             # SECIPL
-#                                                                              #
-# OPTIONS FOR ZERO DIFFERENCE PROCESSING                                       #
-#   Maximum tolerated O-C term                   > %%%%%% <meters              # EDTLVL
-#   Apply periodic relativistic J2 correction    > % <                         # PRELJ2
-#   Correction for polarization effect           > %%%%%%%%%% < total effect   # POLARI2D
-#                                                > %%%%%%%%%% < geometric part # POLARI1D
-# END_PANEL ####################################################################
+# BEGIN_PANEL DIFLVL = ZERO OR DIFLVL = ZERO_AR OR GEOTEC = SLR ##################
+# GPSEST 3.3: General Options 3                                                  #
+#                                                                                #
+# OPTIONS CONCERNING INTRODUCED CLOCK CORRECTIONS                                #
+#   Primary source for satellite clocks             > %%%%%%%%%%%%%%%%% <        # USERXCLK
+#   Receiver@ clock missing in clock RINEX file     > %%%%%%%%%%%%%%%%% <        # NORXCLKR
+#   Satellite clock missing in clock RINEX file     > %%%%%%%%%%%%%%%%% <        # NORXCLKS
+#   Satellite clock missing in Bernese clock file   > %%%%%%%%%%%%%%%%% <        # NOSATCLK
+#   Clock interpolation allowed over                > %%%%%% <seconds            # SECIPL
+#                                                                                #
+# OPTIONS FOR ZERO DIFFERENCE PROCESSING                                         #
+#   Maximum tolerated O-C term                      > %%%%%% <meters             # EDTLVL
+#   GNSS: Apply periodic relativistic J2 correction > % <                        # PRELJ2
+#   LEO: @Apply periodic relativistic J2 correction > % <                        # PRELJ2L
+#   LEO: @Apply correction due to orbit eccentricity> % <                        # RELECCL
+#   Correction for polarization effect              > %%%%%%%%%% < total effect  # POLARI2D
+#                                                   > %%%%%%%%%% < geometric part# POLARI1D
+# END_PANEL ######################################################################
 
 
 # BEGIN_PANEL FREQUENCY / L4 AND FREQUENCY / MELWUEBB AND FREQUENCY / DTEC #####
@@ -5573,24 +6039,25 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 # GPSEST 5.1: Setup of Parameters and Pre-Elimination 1                        #
 #                                                                              #
 # STATION-RELATED PARAMETERS               Setup          Pre-Elimination      #
-#   Station coordinates                             > %%%%%%%%%%%%%%%%%%%% <   # PRE01
-#   Ambiguities                                     > %%%%%%%%%%%%%%%%%%%% <   # PRE04
+#   Station coordinates                               > %%%%%%%%%%%%%%%%%%%% < # PRE01
+#   Ambiguities                                       > %%%%%%%%%%%%%%%%%%%% < # PRE04
 #                                                                              #
 # ATMOSPHERIC PARAMETERS                                                       #
-#   Site-specific troposphere parameters   > % <    > %%%%%%%%%%%%%%%%%%%% <   # SITETROP PRE06
-#   Global ionosphere parameters           > % <    > %%%%%%%%%%%%%%%%%%%% <   # GLOBION PRE19
+#   Site-specific troposphere parameters > % <        > %%%%%%%%%%%%%%%%%%%% < # SITETROP PRE06
+#   Global ionosphere parameters         > % <        > %%%%%%%%%%%%%%%%%%%% < # GLOBION PRE19
 #                                                                              #
 # GLOBAL PARAMETERS                                                            #
-#   Orbital parameters                     > % <GNSS> %%%%%%%%%%%%%%%%%%%% <   # ORBADJ PRE03
-#                                          > % <LEO > %%%%%%%%%%%%%%%%%%%% <   # ORBADJL PRE3L
-#   Earth orientation parameters           > % <    > %%%%%%%%%%%%%%%%%%%% <   # ERP PRE10
-#   Geocenter coordinates                  > % <    > %%%%%%%%%%%%%%%%%%%% <   # GEOCENT PRE16
+#   Orbital parameters                   > % <GNSS/SLR> %%%%%%%%%%%%%%%%%%%% < # ORBADJ PRE03
+#                                        > % <LEO     > %%%%%%%%%%%%%%%%%%%% < # ORBADJL PRE3L
+#   Earth orientation parameters         > % <        > %%%%%%%%%%%%%%%%%%%% < # ERP PRE10
+#   Geocenter coordinates                > % <        > %%%%%%%%%%%%%%%%%%%% < # GEOCENT PRE16
 #                                                                              #
 # EPOCH PARAMETERS                                                             #
-#   Receiver clock offsets                 > % <    > %%%%%%%%%%%%%%%%%%%% <   # CLOCKR PRE23
-#   Satellite clock offsets                > % <    > %%%%%%%%%%%%%%%%%%%% <   # CLOCKS PRE24
-#   Kinematic coordinates                  > % <    > %%%%%%%%%%%%%%%%%%%% <   # KINEST PRE21
-#   Stochastic ionosphere parameters       > % <    > %%%%%%%%%%%%%%%%%%%% <   # DIFFION PRE17
+#   Receiver clock offsets               > % <        > %%%%%%%%%%%%%%%%%%%% < # CLOCKR PRE23
+#   Satellite clock offsets              > % <        > %%%%%%%%%%%%%%%%%%%% < # CLOCKS PRE24
+#   Kinematic coordinates                > % <        > %%%%%%%%%%%%%%%%%%%% < # KINEST PRE21
+#   Stochastic ionosphere parameters     > % <        > %%%%%%%%%%%%%%%%%%%% < # DIFFION PRE17
+#                                                                              #
 # END_PANEL ####################################################################
 
 
@@ -5768,6 +6235,24 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 # END_PANEL ####################################################################
 
 
+# BEGIN_PANEL STDORB_NEW / _ AND ORBADJ = 1 ####################################
+# GPSEST 6.3.2: Satellite Orbit Determination 2 (ORBGEN2 temporary options)    #
+#                                                                              #
+#                                                                              #
+# DYNAMICAL ORBIT PARAMETERS                                                   #
+#                                  cos                      sin                #
+#                  0         1    2    3    4         1    2    3    4         #
+#   Direct       > % <     > % <> % <> % <> % <     > % <> % <> % <> % <       # PAR_D_0 PAR_DC1 PAR_DC2 PAR_DC3 PAR_DC4 PAR_DS1 PAR_DS2 PAR_DS3 PAR_DS4
+#   Y-Bias       > % <     > % <> % <> % <> % <     > % <> % <> % <> % <       # PAR_Y_0 PAR_YC1 PAR_YC2 PAR_YC3 PAR_YC4 PAR_YS1 PAR_YS2 PAR_YS3 PAR_YS4
+#   X            > % <     > % <> % <> % <> % <     > % <> % <> % <> % <       # PAR_X_0 PAR_XC1 PAR_XC2 PAR_XC3 PAR_XC4 PAR_XS1 PAR_XS2 PAR_XS3 PAR_XS4
+#                                                                              #
+#   Radial       > % <     > % <> % <> % <> % <     > % <> % <> % <> % <       # PAR_R_0 PAR_RC1 PAR_RC2 PAR_RC3 PAR_RC4 PAR_RS1 PAR_RS2 PAR_RS3 PAR_RS4
+#   Along-Track  > % <     > % <> % <> % <> % <     > % <> % <> % <> % <       # PAR_A_0 PAR_AC1 PAR_AC2 PAR_AC3 PAR_AC4 PAR_AS1 PAR_AS2 PAR_AS3 PAR_AS4
+#   Out-of-Plane > % <     > % <> % <> % <> % <     > % <> % <> % <> % <       # PAR_O_0 PAR_OC1 PAR_OC2 PAR_OC3 PAR_OC4 PAR_OS1 PAR_OS2 PAR_OS3 PAR_OS4
+#                                                                              #
+# END_PANEL ####################################################################
+
+
 # BEGIN_PANEL RPRCOE / _ AND ORBADJ = 1 AND STCEST = 1 #########################
 # GPSEST 6.3.3: GNSS Orbit Determination 3                                     #
 #                                                                              #
@@ -5837,7 +6322,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 # BEGIN_PANEL LEORPR / _ AND LEOPROC = 1 AND ORBADJL = 1 #######################
 # GPSEST 6.4.2: LEO Orbit Determination 2                                      #
 #                                                                              #
-# Default (model-specific) constraining of dynamical parameterS > % <          # DEFSIGMA2
+# Default (model-specific) constraining of dynamical parameters > % <          # DEFSIGMA2
 #                                                                              #
 # Setup of dynamical parameters          A priori sigma (in meters/sec**2)     #
 #   Parameter 1             > % <         > %%%%%%%%% <                        # PAR12   SIGPAR12
@@ -5852,38 +6337,85 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #                                                                              #
 #                                                                              #
 #                                                                              #
-# ESTIMATION OF STOCHASTIC PARAMETERS     > % <                                # STCEST2
+# ESTIMATION OF EXPLICIT MANEUVERS     > % <                                   # MACCEST
+# ESTIMATION OF STOCHASTIC PARAMETERS  > % <                                   # STCEST2
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL LEORPR / _ AND LEOPROC = 1 AND ORBADJL = 1 AND MACCEST = 1 #######
+# GPSEST 6.4.3: LEO Orbit Determination 3                                      #
+#                                                                              #
+# EXPLICIT MANEUVERS                                                           #
+#                                                                              #
+# ACCELERATION                                                                 #
+#  Polynomial degree > %%% <                                                   # MPOLDEG
+#                                                                              #
+#  a priori sigmas for:                                                        #
+#          A0 [m/s**2]    A1 [m/s**3]    A2 [m/s**4]                           #
+#    X/R > %%%%%%%%% <  > %%%%%%%%% <  > %%%%%%%%% <                           # MACCSIG10 MACCSIG11 MACCSIG12
+#    Y/S > %%%%%%%%% <  > %%%%%%%%% <  > %%%%%%%%% <                           # MACCSIG20 MACCSIG21 MACCSIG22
+#    Z/W > %%%%%%%%% <  > %%%%%%%%% <  > %%%%%%%%% <                           # MACCSIG30 MACCSIG31 MACCSIG32
+#                                                                              #
+#                                                                              #
+# VELOCITY PULSES                                                              #
+#   > % <start  > % <middle > % <end > % <evenly distributed every> %%%%% <sec.# MPULBEG MPULMID MPULEND MPULAUTO MPULINT
+#                                                                              #
+#  a priori sigma [m/s]                                                        #
+#    X/R > %%%%%%%%% <   Y/S > %%%%%%%%% <   Z/W > %%%%%%%%% <                 # MPULSIG1 MPULSIG2 MPULSIG3
+#                                                                              #
+# > % < MANEUVER-SPECIFIC PARAMETER SETUP                                      # MANSPC
+# > SAT EPOCH______________ DEG A0_XR A0_YS A0_ZW A1_XR A1_YS A1_ZW A2_XR A2_YS A2_ZW PSET P_XR_ P_YS_ P_ZW_<# MANGROUP
 #                                                                              #
 # END_PANEL ####################################################################
 
 
 # BEGIN_PANEL LEORPR / _ AND LEOPROC = 1 AND ORBADJL = 1 AND STCEST2 = 1 #######
-# GPSEST 6.4.3: LEO Orbit Determination 3                                      #
+# GPSEST 6.4.4: LEO Orbit Determination 4                                      #
 #                                                                              #
-# OPTIONS CONCERNING ESTIMATION OF STOCHASTIC PARAMETERS                       #
+# OPTIONS CONCERNING ESTIMATION OF NOMINAL STOCHASTIC PARAMETERS               #
 #   Parameters are defined as changes in  > %%%%%%%%%%%% <                     # PULSDEF2
 #   Number of parameter sets per day      > %%% <                              # NUMSET12
-#   Additional requests for further epochs> % <                                # STCSPEC2
 #                                                                              #
-# SETUP AND SIGMAS FOR STOCHASTIC PULSES                                       #
-#   FRAME:    RSW> % <    DYX> % <       A priori sigma (in meters/sec**2)     # SPFR_RSW2 SPFR_DYX2
-#     Radial             > % <            > %%%%%%%%% <                        # ESTRAD2  SIGRAD2
-#     Along track        > % <            > %%%%%%%%% <                        # ESTPRP2  SIGPRP2
-#     Out of plane       > % <            > %%%%%%%%% <                        # ESTNOR2  SIGNOR2
-#     Direction to Sun   > % <            > %%%%%%%%% <                        # ESTSUN2  SIGSUN2
-#     Y-direction        > % <            > %%%%%%%%% <                        # ESTYDIR2 SIGYDIR2
-#     X-direction        > % <            > %%%%%%%%% <                        # ESTXDIR2 SIGXDIR2
+#   > % <Additional requests for velocity pulses                               # STCSPEC2
+#                                                                              #
+#                                                                              #
+# SETUP AND SIGMAS FOR STOCHASTIC PULSES     Vel: [m/s]   Acc: [m/s^2]         #
+#    FRAME: RSW    > % <  sigma        FRAME: DYX       > % <  sigma           # SPFR_RSW2 SPFR_DYX2
+#      Radial      > % <> %%%%%%%%% <   Direction to Sun> % <> %%%%%%%%% <     # ESTRAD2 SIGRAD2 ESTSUN2  SIGSUN2
+#      Along track > % <> %%%%%%%%% <   Y-direction     > % <> %%%%%%%%% <     # ESTPRP2 SIGPRP2 ESTYDIR2 SIGYDIR2
+#      Out of plane> % <> %%%%%%%%% <   X-direction     > % <> %%%%%%%%% <     # ESTNOR2 SIGNOR2 ESTXDIR2 SIGXDIR2
+#                                                                              #
+#   > % <Apply special sigmas close to maneuver; tolerance:> %%%%% <sec.       # STCMCON2 STCMTOL2
+#          R/D > %%%%%%%%% <                                                   # STCMSIG1
+#          S/Y > %%%%%%%%% <                                                   # STCMSIG2
+#          W/X > %%%%%%%%% <                                                   # STCMSIG3
 #                                                                              #
 # SATELLITE-SPECIFIC PARAMETER SETUP                                           #
 # > LEO Par/day _Sigma1_ _Sigma2_ _Sigma3_     <                               # SATGROUP2
 # END_PANEL ####################################################################
 
 
-# BEGIN_PANEL LEORPR / _ AND LEOPROC = 1 AND ORBADJL = 1 AND STCEST2 = 1 AND STCSPEC2 = 1 #
-# GPSEST 6.4.4: LEO Orbit Determination 4                                      #
+# BEGIN_PANEL STCSPEC2 = 1 OR MPULBEG = 1 OR MPULMID = 1 OR MPULEND = 1 OR MPULAUTO = 1 AND LEORPR / _ AND LEOPROC = 1 AND ORBADJL = 1 AND STCEST2 = 1 #
+# GPSEST 6.4.5: LEO Orbit Determination 5                                      #
 #                                                                              #
 # ADDITIONAL SETUP REQUESTS FOR STOCHASTIC PARAMETERS                          #
 # > LEO yyyy_mm_dd hh_mm_ss _Sigma1_ _Sigma2_ _Sigma3_   <                     # STCGROUP2
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+# Potential maneuver related pulses are internally added to this list          #
+#                                                                              #
+# > % <Remove nominal stochastic parameters if too close to additional requests# STCNCON2
+#      tolerance:> %%%%% <sec.                                                 # STCNTOL2
+#                                                                              #
 # END_PANEL ####################################################################
 
 
@@ -5975,6 +6507,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Biases applied > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                # DCBLINE
 #                                                                              #
 #   Comment lines:                                                             #
+#      > % < add info about relativistic clock corrections                     # CRNXRELINF
 #      > Comment_lines_______________________________________________   <      # COMMENT
 # END_PANEL ####################################################################
 
@@ -6256,12 +6789,16 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #                                                                              #
 # PARAMETER SETUP                                                              #
 #   Station selection               > %%%%%%%%%%% <                            # RGBLST
+#   Per wavelength                  > % <                                      # STAFRQ
 #   File with the list of stations  > %%%%%%%%%%%% <                           # STAFILE9
 #   Manual selection of stations    > %%%%%%%%%%%%%%%%%%%% <                   # STATION9
 #   Definition of satellite groups  > %%%%%%%%%%%% <                           # SATRGB
 #                                                                              #
 # PARAMETER CONSTRAINING                                                       #
 #   A priori sigma                  > %%%%%%%%% <meters                        # SIGRGB
+#                                                                              #
+# INDIVIDUAL SETUP                                                             #
+# > Station Wavelength PRN_(from) PRN_(to)      <                              # RGBIND
 #                                                                              #
 # END_PANEL ####################################################################
 

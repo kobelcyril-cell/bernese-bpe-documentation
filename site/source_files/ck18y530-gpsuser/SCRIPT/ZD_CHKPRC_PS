@@ -1,0 +1,165 @@
+package ZD_CHKPRC_PS;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ZD_CHKPRC_PS
+#
+# Purpose :  Run observation quality checks
+#
+# Author  :  C. Kobel
+# Created :  12-Oct-2026
+#
+# Changes :
+#===========================================================
+use strict;
+use warnings;
+use File::Spec;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+  my ($dirOut, $yyddd, $ssss) = $bpe->getKeys(
+    'DIR_OUT',
+    '$YD+0',
+    '$S+0'
+  );
+
+  my $mscDir = File::Spec->catdir($dirOut, '..', 'MSC', "MSC_${yyddd}");
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $logfile = File::Spec->catfile($mscDir, "PROCESSING_${yyddd}");
+  open(my $LOG, '>>', $logfile)
+    or die "Cannot open log file $logfile: $!";
+
+  my $context = { dirOut => $dirOut, yyddd => $yyddd, ssss => $ssss };
+  print $LOG "\n=== CHECK PROCESS: PHASE-SCREENING started ===\n";
+  check_code_only_clock_bad_observations($context, $LOG);
+  print $LOG "=== CHECK PROCESS: PHASE-SCREENING finished ===\n";
+  close($LOG);
+
+  print "ZD_CHKPRC_PS done. Log: $logfile\n";
+}
+
+#===========================================================
+# Sum OK and BAD observations per satellite and frequency across all
+# matching CRC output files. Write the totals, matched files, and source
+# rows to a report, then flag satellites where BAD exceeds OK.
+#===========================================================
+sub check_code_only_clock_bad_observations {
+  my ($context, $LOG) = @_;
+
+  my $outDir = $context->{dirOut};
+  my $pattern = File::Spec->catfile($outDir, "CRC$context->{ssss}0??.OUT");
+  my @files = sort grep { -f $_ } glob($pattern);
+  die "No CRC output files found for pattern: $pattern\n" unless @files;
+
+  my %counts;
+  my @debug;
+  my @fileDebug;
+  foreach my $file (@files) {
+    push @fileDebug, $file;
+    open(my $IN, '<', $file)
+      or die "Cannot open $file: $!";
+
+    my (@satellites, $block);
+    my %current;
+    my $lineNumber = 0;
+    while (my $line = <$IN>) {
+      $lineNumber++;
+
+      # Accept optional whitespace around the label and the colon.
+      if ($line =~ /^\s*(?:\d+\s+)?SATEL\s*\.\s*:\s*(.*?)\s*$/i) {
+        @satellites = ($1 =~ /\d+/g);
+        $block++;
+        %current = (L1 => {}, L2 => {});
+        push @debug, "$file:$lineNumber [block $block] SATEL: "
+          . (@satellites ? join(' ', @satellites) : '<no satellite IDs parsed>');
+        next;
+      }
+
+      if ($line =~ /^\s*#\s*L([12])\s+(OK|BAD)\s*:\s*(.*?)\s*$/i) {
+        my ($level, $kind, $valuesText) = ("L" . $1, uc($2), $3);
+        my @values = ($valuesText =~ /\d+/g);
+        my $status = @values == @satellites ? 'matched' : 'COUNT MISMATCH';
+        push @debug, "$file:$lineNumber [block $block] L$level $kind: "
+          . "satellites=" . scalar(@satellites) . ", values=" . scalar(@values)
+          . " ($status); values=" . (@values ? join(' ', @values) : '<none>');
+
+        unless (@satellites && @values == @satellites) {
+          next;
+        }
+
+        for my $i (0 .. $#satellites) {
+          my $satellite = $satellites[$i];
+          $current{$level}{$satellite}{$kind} = $values[$i];
+        }
+
+        if ($kind eq 'BAD') {
+          for my $satellite (@satellites) {
+            next unless exists $current{$level}{$satellite}{OK};
+            my $ok = $current{$level}{$satellite}{OK};
+            my $bad = $current{$level}{$satellite}{BAD};
+            $counts{$satellite}{$level}{OK} += $ok;
+            $counts{$satellite}{$level}{BAD} += $bad;
+            push @debug, "$file:$lineNumber [block $block] accumulated L$level: "
+              . "satellite=$satellite OK=$ok BAD=$bad";
+          }
+        }
+      }
+    }
+    close($IN);
+  }
+
+  my $report = File::Spec->catfile(
+    $outDir, '..', 'MSC', "MSC_$context->{yyddd}",
+    'Code_only_clock_estimation_bad_obs.txt'
+  );
+  open(my $OUT, '>', $report)
+    or die "Cannot create report $report: $!";
+
+  print $OUT "Code-only clock estimation: OK/BAD observations per satellite\n";
+  print $OUT "Search pattern: $pattern\n";
+  print $OUT "Input files: ", scalar(@files), " matching CRC output files\n";
+  print $OUT "BAD percent = 100 * BAD / (OK + BAD). OK and BAD combine L1 and L2.\n\n";
+  print $OUT "Found files:\n";
+  print $OUT "  $_\n" for @fileDebug;
+  print $OUT "\nAggregated summary (L1 + L2 per satellite):\n";
+  print $OUT "Satellite          OK          BAD  Bad percent\n";
+  print $OUT "---------  ----------  ----------  ------------\n";
+  my (@rows, @warnings);
+  for my $satellite (sort { $a <=> $b } keys %counts) {
+    my $ok = ($counts{$satellite}{L1}{OK} || 0)
+           + ($counts{$satellite}{L2}{OK} || 0);
+    my $bad = ($counts{$satellite}{L1}{BAD} || 0)
+            + ($counts{$satellite}{L2}{BAD} || 0);
+    next unless $ok || $bad;
+    my $total = $ok + $bad;
+    my $badPercent = $total ? 100 * $bad / $total : 0;
+    push @rows, {
+      satellite => $satellite, ok => $ok, bad => $bad,
+      badPercent => $badPercent
+    };
+    push @warnings, { satellite => $satellite, ok => $ok, bad => $bad }
+      if $bad > $ok;
+  }
+
+  for my $row (@rows) {
+    printf $OUT "%9s  %10d  %10d  %11.2f%%\n",
+      $row->{satellite}, $row->{ok}, $row->{bad}, $row->{badPercent};
+  }
+  close($OUT);
+
+  print $LOG "Code-only clock observation report written to $report\n";
+  if (@warnings) {
+    for my $warning (@warnings) {
+      print $LOG "WARNING: Satellite $warning->{satellite}: combined L1/L2 BAD observations ($warning->{bad}) exceed OK observations ($warning->{ok}).\n";
+    }
+  }
+  else {
+    print $LOG "All satellites look healthy: for every satellite, combined L1/L2 BAD observations do not exceed OK observations.\n";
+  }
+}

@@ -27,9 +27,6 @@ sub run {
       $yyddd,
       $ssss,
       $ddd,
-      $param1,
-      $param2,
-      $numFil,
       $numClu,
       $dirBpe,
       $dirTmp,
@@ -49,9 +46,6 @@ sub run {
       '$YD+0',
       '$S+0',
       '$+0',
-      'PARAM1',
-      'PARAM2',
-      'V_CLU',
       'V_NCLU',
       'DIR_BPEPRT',
       'T',
@@ -68,8 +62,6 @@ sub run {
       'EXT_CZO',
       'EXT_PZO'
   );
-
-  $numFil = $param2 if ($param2 ne "");
 
 # ---------- Use RNXGRA to detect the best RINEX obs files ------------
   my $PGMNAM = "RNXGRA";
@@ -109,14 +101,14 @@ sub run {
   unlink glob("${dirCzo}????${ssss}.${extCzo}");
   unlink glob("${dirPzo}????${ssss}.${extPzo}");
 
-  if ($numFil ne "" || $numClu ne "") {
+  if ($numClu ne "") {
     unlink glob("${dirOut}OBS${ssss}???.${extOut}");
   } else {
     unlink glob("${dirOut}OBS${ddd}????.${extOut}");
   }
 
 # ---------- Delete collecting file for RINEX error/warning messages ------------
-  if ($numFil ne "" || $numClu ne "") {
+  if ($numClu ne "") {
     unlink glob("${dirOut}OBS${ssss}???.${extOut}");
   } else {
     unlink glob("${dirOut}OBS${ddd}????.${extOut}");
@@ -125,7 +117,7 @@ sub run {
 # ---------- Disable parallel processing when ABBREV.ABB may be updated ------------
   my $abbUpd = $bpe->getKey("$ENV{U}/PAN/RXOBV3.INP", "ABBUPD");
 
-  if ($abbUpd ne "ERROR" && ($numFil eq "" || $numClu eq "")) {
+  if ($abbUpd ne "ERROR" && ($numClu eq "")) {
     prtErr($bpe, "PARALLEL PROCESSING NOT POSSIBLE") and
       die "PROCESSING STOPPED";
   }
@@ -133,9 +125,6 @@ sub run {
 # ---------- Initialize parallel run ------------
   if ($abbUpd ne "ERROR") {
     initPar_Cl($bpe, $bpeFil, @rxoFil, 1, 0, 0);
-
-  } elsif ($numFil ne "") {
-    initPar_Cl($bpe, $bpeFil, @rxoFil, 0, $numFil, 0);
 
   } elsif ($numClu ne "") {
     initPar_Cl($bpe, $bpeFil, @rxoFil, $numClu, 0, 0);

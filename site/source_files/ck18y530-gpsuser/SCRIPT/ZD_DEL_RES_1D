@@ -92,9 +92,9 @@ print "------------------------------------------------------------\n";
 
 # ---------- List of files to be deleted ------------
 my @delete_list = (
-  { dir => $dirBpe, pattern => qr/ZDGNSS*${yyssss}*/ },
+  { dir => $dirBpe, pattern => qr/\Q${yyssss}\E.*\.(LOG|PRT)$/ },
 
-  # ---------- ATM ------------
+# ---------- ATM ------------
   { dir => $dirAtm, pattern => qr/^${V_CPSC}_${yyssss}\.TRP$/ },
   { dir => $dirAtm, pattern => qr/^${V_APR}_${yyssss}\.TRP$/ },
 
@@ -102,11 +102,14 @@ my @delete_list = (
   { dir => $dirMsc, pattern => qr/^TIMINT_03$/ },
 
   # ---------- OBS ------------
-# ---------- { dir => $dirObs, pattern => qr/^....${ssss}\..*/ }, ------------
 
   # ---------- ORB ------------
   { dir => $dirOrb, pattern => qr/^APR${yyssss}\.OSB$/ },
   { dir => $dirOrb, pattern => qr/^REF${yyssss}\.OSB$/ },
+  { dir => $dirOrb, pattern => qr/^REF${yyssss}\.OSB.bak$/ },
+  { dir => $dirOrb, pattern => qr/^CLK${yyddd}\.SUM$/ },
+  { dir => $dirOrb, pattern => qr/^SAT${yyddd}\.OUT$/ },
+  { dir => $dirOrb, pattern => qr/^SAT${yyddd}\.LST$/ },
   { dir => $dirOrb, pattern => qr/^${V_BRD}_${yyssss}\.(ERP|PRE|CLK|STD|RPR)$/ },
   { dir => $dirOrb, pattern => qr/^TMP_${yyssss}\.(ERP|PRE|CLK|STD|RPR)$/ },
   { dir => $dirOrb, pattern => qr/^${V_CSCR}_${yyssss}\.(ELE|ERP|STD|RPR|CLK)$/ },
@@ -117,12 +120,13 @@ my @delete_list = (
   { dir => $dirOrb, pattern => qr/^${V_CBIA}S${yyssss}\.OSB$/ },
   { dir => $dirOrb, pattern => qr/^${V_CLKA}_${yyssss}\.CLK$/ },
   { dir => $dirOrb, pattern => qr/^${V_APR}08${ssss}00.\.CLK$/ },
-  { dir => $dirOrb, pattern => qr/^${V_FIN}08${ssss}00.\.CLK$/ },
-# ---------- { dir => $dirOrb, pattern => qr/^${V_APR}_${yyssss}\.(ELE|ERP|RPR|STD)$/ }, ------------
-# ---------- { dir => $dirOrb, pattern => qr/^${V_APR}S${yyssss}\.CLK$/ }, ------------
+  { dir => $dirOrb, pattern => qr/^${V_APR}${ssss}00.\.CLK$/ },
+  { dir => $dirOrb, pattern => qr/^${V_FIN}${ssss}00.\.CLK$/ },
+  { dir => $dirOrb, pattern => qr/^${V_APR}_APR_${yyssss}\.(RPR|STD)$/ },
   { dir => $dirOrb, pattern => qr/^${V_FIN}_${yyssss}\.OBX$/ },
-  
-  { dir => $dirOrb, pattern => qr/^NL_${yyssss}\.(BIA|BIA_mod|OSB|OSB_mod)$/ },
+  { dir => $dirOrb, pattern => qr/^NL_${yyssss}\.(BIA|OSB)$/ },
+  { dir => $dirOrb, pattern => qr/^NL_${yyssss}_mod\.(BIA|OSB)$/ },
+  { dir => $dirOrb, pattern => qr/^${V_APR}_${yyssss}_mod\.(PRE|CLK)$/ },
   { dir => $dirOrb, pattern => qr/^NLB${yyssss}\.OSB$/ },
 
   
@@ -166,9 +170,21 @@ my @delete_list = (
   { dir => $dirOut, pattern => qr/^${V_FIN}0[1-8]${ssss}00.\.(OUT|CLK)$/ },
   { dir => $dirOut, pattern => qr/^${V_FIN}A${ssss}....\.OUT$/ },
   { dir => $dirOut, pattern => qr/^${V_FIN}99${ssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_FIN}S${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_APR}${ssss}00.\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_APR}${ssss}00.\.CLK$/ },
+  { dir => $dirOut, pattern => qr/^${V_FIN}${ssss}00.\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_FIN}${ssss}00.\.CLK$/ },
+  { dir => $dirOut, pattern => qr/^FIL${ddd}....\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^HELMERT_.....${V_FIN}${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^CCPREORB\.L..$/ },
+  { dir => $dirOut, pattern => qr/^COMPAR2\.L..$/ },
+  { dir => $dirOut, pattern => qr/^COMPAR2_${V_FIN}${V_LARGE}${yyssss}\.PLT$/ },
+  { dir => $dirOut, pattern => qr/^STDDIF_${V_FIN}${V_LARGE}${yyssss}\.PLT$/ },
   { dir => $dirOut, pattern => qr/^GPSCMP\.${yy}_${ssss}$/ },
   { dir => $dirOut, pattern => qr/^GPSWKS\.${yy}_${ssss}$/ },
   { dir => $dirOut, pattern => qr/^GPSXTR\.${yy}_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^GPSXTR\.L..$/ },
   { dir => $dirOut, pattern => qr/^MPR${yyssss}..\.OUT$/ },
   { dir => $dirOut, pattern => qr/^MPR${yyssss}\.(EDT|SUM)$/ },
   { dir => $dirOut, pattern => qr/^MPXTR\.${yy}\_${ssss}$/ },
@@ -179,6 +195,7 @@ my @delete_list = (
   { dir => $dirOut, pattern => qr/^RESCHK\.${yy}_${ssss}$/ },
   { dir => $dirOut, pattern => qr/^RESCHK\.L..$/ },
   { dir => $dirOut, pattern => qr/^RESRMS\.L..$/ },
+  { dir => $dirOut, pattern => qr/^RNXCLK\.L..$/ },
   { dir => $dirOut, pattern => qr/^RNXPRE\.L..$/ },
   { dir => $dirOut, pattern => qr/^RXOBV3\.L..$/ },
   { dir => $dirOut, pattern => qr/^SATCLK\.L..$/ },
@@ -186,6 +203,8 @@ my @delete_list = (
   { dir => $dirOut, pattern => qr/^RXN2PRE\.L..$/ },
   { dir => $dirOut, pattern => qr/^SATCLK2\.L..$/ },
   { dir => $dirOut, pattern => qr/^SATMRK...\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^SATMRK\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^STDDIF\.L..$/ },
   { dir => $dirOut, pattern => qr/^RNX${yyssss}\.EDT$/ },
   { dir => $dirOut, pattern => qr/^RNXERR\.${yy}_${ssss}$/ },
   { dir => $dirOut, pattern => qr/^RNXGRA\.L..$/ },
@@ -194,6 +213,7 @@ my @delete_list = (
   { dir => $dirOut, pattern => qr/^SATMRK${ddd}\.OUT$/ },
   { dir => $dirOut, pattern => qr/^SMT${ssss}0..\.OUT$/ },
   { dir => $dirOut, pattern => qr/^SPP${ssss}0..\.(CLK|OUT)$/ },
+  { dir => $dirOut, pattern => qr/^${V_FIN}_STDPRE\.OUT$/ },
   { dir => $dirOut, pattern => qr/^${V_CPSC}${ssss}0..\.(CLK|OUT|RES)$/ },
   { dir => $dirOut, pattern => qr/^${V_CPSC}_${ssss}\.OUT$/ },
   { dir => $dirOut, pattern => qr/^${V_CPSC}_${yyssss}\.(CLK|EDT|LST|OUT|SUM)$/ },
@@ -210,6 +230,8 @@ my @delete_list = (
   { dir => $dirOut, pattern => qr/^${V_FIN}${V_LARGE}XTR${yyssss}\.SUM$/ },
   { dir => $dirOut, pattern => qr/^${V_FIN}U${yyssss}\.OUT$/ },
   { dir => $dirOut, pattern => qr/^${V_FIN}C${ssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^NLBORBGEN\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^NLBSTDPRE\.OUT$/ },
 
   # ---------- RAW ------------
   { dir => $dirRaw, pattern => qr/^....${ssss}\.(SMT|${yy}O)$/ },
@@ -222,14 +244,12 @@ my @delete_list = (
   { dir => $dirSol, pattern => qr/^${V_CBIA}_${yyssss}\.NQ0$/ },
   { dir => $dirSol, pattern => qr/^${V_APR}07${yyssss}00.\.NQ0$/ },
   { dir => $dirSol, pattern => qr/^${V_APR}_${yyssss}\.NQ0$/ },
-# ---------- { dir => $dirSol, pattern => qr/^${V_FIN}07${yyssss}00.\.NQ0$/ }, ------------
+  { dir => $dirSol, pattern => qr/^${V_FIN}07${yyssss}00.\.NQ0$/ },
   { dir => $dirSol, pattern => qr/^${V_FIN}_${yyssss}\.NQ0$/ },
-# ---------- { dir => $dirSol, pattern => qr/^${V_FIN}99${yyssss}\.NQ0$/ }, ------------
 
   # ---------- STA ------------
   { dir => $dirSta, pattern => qr/^....${ssss}_NLB\.CRD$/ },
   { dir => $dirSta, pattern => qr/^....${ssss}_NLI\.CRD$/ },
-#  { dir => $dirSta, pattern => qr/^${V_BRD}_${yyssss}\.CRD$/ },
   { dir => $dirSta, pattern => qr/^${V_CPSC}_${yyssss}\.CRD$/ },
   { dir => $dirSta, pattern => qr/^${V_APSP}_${yyssss}\.SIG$/ },
   { dir => $dirSta, pattern => qr/^${V_CBIA}${ssss}0.\.CLB$/ },
@@ -237,9 +257,7 @@ my @delete_list = (
   { dir => $dirSta, pattern => qr/^${V_CSCR}${ssss}0.\.CLB$/ },
   { dir => $dirSta, pattern => qr/^${V_CSCR}_${yyssss}\.CRD$/ },
   { dir => $dirSta, pattern => qr/^${V_CWGT}${ssss}0.\.CLB$/ },
-#  { dir => $dirSta, pattern => qr/^${V_CWGT}_${yyssss}\.SOS$/ },
   { dir => $dirSta, pattern => qr/^${V_CWGT}0${yyssss}\.SOS$/ },
-# ---------- { dir => $dirSta, pattern => qr/^${V_FIN}_${yyddd}\.FIX$/ }, ------------
   { dir => $dirSta, pattern => qr/^${V_CPSC}${ssss}..\.CLB$/ },
 );
 

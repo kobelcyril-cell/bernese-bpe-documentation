@@ -1,0 +1,108 @@
+# ============================================================================
+# ZDGNSS_PHASESCREENING.PCF
+# ============================================================================
+#
+# Description:  Screening of phase observations
+#
+# Comments   :
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  C. Kobel
+# Created    :  31-Mar-2026
+#
+# Changes    :
+#
+# ============================================================================
+#
+#
+
+PID  SCRIPT                 OPT_DIR   PARAMETERS
+#
+# Wait for status flag
+# --------------------
+001  ZD_STATUS           NO_OPT      CPU=ANY; PARAM1=CODESCREENING; PARAM2=CHECK
+#
+# Preprocessing (only once)
+# -------------------------
+100  ZD_MKCLUS           ZD_GEN      CPU=ANY; WAIT=001
+101  ZD_CLKEST_CLU       ZD_GEN      CPU=BIG; WAIT=100; PARAM1=V_CLKA
+102  ZD_MAUPRP_P         ZD_GEN      CPU=ANY; WAIT=101
+103  ZD_MAUPRP_E         ZD_GEN      CPU=ANY; WAIT=102; PARALLEL=102
+104  ZD_MPR_XTR          ZD_GEN      CPU=ANY; WAIT=103
+#
+# Improve global parameters (start iterative screening)
+# -----------------------------------------------------
+110  ZD_GPSEST_DELOLD_P  ZD_ORP      CPU=ANY; WAIT=104; PARAM2=V_CPSC
+111  ZD_GPSESTCP_E       ZD_ORP      CPU=ANY; WAIT=110; PARALLEL=110
+112  ZD_ADDNEQ2          ZD_ORP      CPU=ANY; WAIT=111
+113  ZD_ORBGENA          ZD_1DS      CPU=ANY; WAIT=112; PARAM1=V_CPSC
+#
+# Residual computation
+# --------------------
+120  ZD_GPSEST_DELOLD_P  ZD_EDT      CPU=ANY; WAIT=113; PARAM2=V_CPSC
+121  ZD_GPSESTCP_E       ZD_EDT      CPU=ANY; WAIT=120; PARALLEL=120
+122  ZD_GPSXTR           ZD_EDT      CPU=ANY; WAIT=121
+#
+# Check for bad stations
+# ----------------------
+130  ZD_RES_CHK          ZD_EDT      CPU=ANY; WAIT=122; NEXTJOB=140 110; PARAM9=PHASE
+#
+# Check for bad observations
+# --------------------------
+140  ZD_RESRMS_MAX       ZD_EDT      CPU=ANY; WAIT=130
+141  ZD_MRKOB__P         ZD_EDT      CPU=ANY; WAIT=140; PARAM2=BOTH; PARAM3=SYNCHRO
+142  ZD_MRKOB__E         ZD_EDT      CPU=ANY; WAIT=141; PARALLEL=141
+#
+# Modify threshold (or stop iterative procedure)
+# ---------------------------------------------
+150  ZD_ITE_PHASE_THR    NO_OPT      CPU=ANY; WAIT=142; NEXTJOB=150 110 130
+#
+# Compute/update weights
+# ----------------------
+160  ZD_SOS_UPDATE       ZD_GEN      CPU=ANY; WAIT=150
+#
+# Combine clocks
+# --------------
+170  ZD_CCRNXC           ZD_EDT      CPU=ANY; WAIT=150
+#
+# Checks (nothing yet)
+# -------------------------------------
+#
+# Create status flag
+# ------------------
+999  ZD_STATUS           NO_OPT      CPU=ANY; WAIT=170; PARAM1=PHASESCREENING; PARAM2=CREATE
+
+VARIABLE   DEFAULT          PARAMETERS
+V_APSP   = *;               DESCRIPTION=CODSPP apriori solution
+V_CWGT   = *;               DESCRIPTION=Weights for the code observations
+V_CSCR   = *;               DESCRIPTION=Code screening
+V_CBIA   = *;               DESCRIPTION=Unify inter-system/frequency biases
+V_CLKA   = *;               DESCRIPTION=CLKEST for starting the MAUPRP
+V_CPSC   = *;               DESCRIPTION=Code+phase screening in reg. clusters
+V_CRDINF = IG?20;           DESCRIPTION=CRD/VEL/FIX master file name
+V_BLQINF = FES20*;          DESCRIPTION=BLQ file name, CMC corrections
+V_SATCRX = *;               DESCRIPTION=Satellite problem file for data import
+V_SATINF = *;               DESCRIPTION=Satellite information
+V_MAC    = *;               DESCRIPTION=Satellite Macromodel
+V_PCV    = I??;             DESCRIPTION=GNSS PCV model (absolute)
+V_SUBMOD = *;               DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;               DESCRIPTION=Nutation model
+V_SETID  = *;               DESCRIPTION=Solid Earth Tides
+V_OTID   = *;               DESCRIPTION=Ocean Tides
+V_PEPH   = *;               DESCRIPTION=Planetary ephemeris
+V_AREF   = *;               DESCRIPTION=Albedo reflectivity
+V_AEMI   = *;               DESCRIPTION=Albedo emissivity
+V_FLUX   = *;               DESCRIPTION=Flux index
+V_POTCOE = *;               DESCRIPTION=Gravity field model
+V_NCLU   = *;               DESCRIPTION=Number of clusters to be used             CHECK_TYPE=integer
+V_OBSSEL = *;               DESCRIPTION=Observation selection file
+V_STAINF = *;               DESCRIPTION=Station information
+V_PCVINF = *;               DESCRIPTION=PCV information
+V_SAMPL  = *;               DESCRIPTION=Sampling rate of the GPSEST solution      CHECK_TYPE=integer
+V_USEHOI = *;               DESCRIPTION=Use HOI-file                              CARDS=YES NO
+V_TRPMOD = VMF;             DESCRIPTION=Troposphere model
+# Configuration
+V_PCFCONFIG = MODEL SETUP_ZDGNSS;    DESCRIPTION=Configuration files

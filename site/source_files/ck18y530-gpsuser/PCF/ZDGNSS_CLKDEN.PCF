@@ -73,6 +73,7 @@ V_FIN    = *;             DESCRIPTION=Global solution (a priori)
 V_FINCLK = *;             DESCRIPTION=Final high-rate clocks
 V_BLQINF = FES20*;        DESCRIPTION=BLQ file name, CMC corrections
 V_PCV    = I??;           DESCRIPTION=GNSS PCV model (absolute)
+V_PCVM   = ????;          DESCRIPTION=GNSS PCV model version
 V_PCVINF = *;             DESCRIPTION=PCV information
 V_OBSSEL = *;             DESCRIPTION=Observation selection file
 V_SATINF = *;             DESCRIPTION=Satellite information

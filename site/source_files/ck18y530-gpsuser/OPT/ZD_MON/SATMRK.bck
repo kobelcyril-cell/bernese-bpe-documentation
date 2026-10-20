@@ -289,7 +289,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title: new entry
 ! ----------------
-TITLE 1  "Mark satellite clock outliers"
+TITLE 1  "Mark satellite clock outliers: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"

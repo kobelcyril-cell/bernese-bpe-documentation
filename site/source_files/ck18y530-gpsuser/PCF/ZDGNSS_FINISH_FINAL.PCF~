@@ -1,0 +1,81 @@
+# ============================================================================
+# ZDGNSS_FINISH.PCF
+# ============================================================================
+#
+# Description:  Create final products and summaries of ZD processing
+#
+# Comments   :
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  C. Kobel
+# Created    :  31-Mar-2026
+#
+# Changes    :
+#
+# ============================================================================
+#
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Wait for status flag
+# --------------------
+001  ZD_STATUS            NO_OPT      CPU=ANY; PARAM1=IA_F; PARAM2=CHECK
+#
+# Create final PRE-orbits
+# -----------------------
+100  ZD_STDPRE            ZD_1DS      CPU=ANY; WAIT=001
+#
+# Compare solutions (full NEQ vs pre-elim. clocks)
+# ------------------------------------------------
+110  ZD_STDDIF            ZD_FIN      CPU=ANY; WAIT=001
+111  ZD_COMPAR2_ZD        ZD_FIN      CPU=ANY; WAIT=001
+112  ZD_CMP_LAPACK        NO_OPT      CPU=ANY; WAIT=110 111
+#
+# Create Satellite attitude information
+# -------------------------------------
+120  ZD_ATTXTR            ZD_FIN      CPU=ANY; WAIT=001
+#
+# Summary of processing
+# ---------------------
+130  ZD_OBSXTR            ZD_SUM      CPU=ANY; WAIT=001
+131  ZD_OBSXTR_EXTRACT    NO_OPT      CPU=ANY; WAIT=130
+132  ZD_AMB_EXTRACT       NO_OPT      CPU=ANY; WAIT=001
+133  ZD_GPSXTR_EXTRACT    NO_OPT      CPU=ANY; WAIT=001
+134  ZD_CHECK_SAT_CLOCKS  NO_OPT      CPU=ANY; WAIT=001
+#
+# Save results and delete intermediate products
+# ---------------------------------------------
+170  ZD_SAVE_RES          NO_OPT      CPU=ANY; WAIT=100 120; PARAM2=V_FIN; PARAM3=V_CWGT; PARAM4=V_APR
+171  ZD_DEL_RES_1D        NO_OPT      CPU=ANY; WAIT=112 131 132 133 134 170
+#
+# Create status flag
+# ------------------
+999  ZD_STATUS            NO_OPT      CPU=ANY; WAIT=171; PARAM1=FINISH_F; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_BRD    = *;             DESCRIPTION=A priori information (brd, and bull. A)
+V_APSP   = *;             DESCRIPTION=CODSPP apriori solution
+V_CWGT   = *;             DESCRIPTION=Weights for the code observations
+V_CSCR   = *;             DESCRIPTION=Code screening
+V_CBIA   = *;             DESCRIPTION=Unify inter-system/frequency biases
+V_CLKA   = *;             DESCRIPTION=CLKEST for starting the MAUPRP
+V_CPSC   = *;             DESCRIPTION=Code+phase screening in reg. clusters
+V_APR    = *;             DESCRIPTION=FA Final results, 1d
+V_FIN    = *;             DESCRIPTION=IA Final results, 1d
+V_LARGE  = *;             DESCRIPTION=IA Final results, full solution (one ADDNEQ2)
+V_BLQINF = FES20*;        DESCRIPTION=BLQ file name, CMC corrections
+V_SATCRX = *;             DESCRIPTION=Satellite problem file for data import
+V_SATINF = *;             DESCRIPTION=Satellite information
+V_PCV    = I??;           DESCRIPTION=GNSS PCV model (absolute)
+V_SUBMOD = *;             DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;             DESCRIPTION=Nutation model
+V_STAINF = *;             DESCRIPTION=Station information
+V_SAVE   = *;             DESCRIPTION=Save results                                      CARDS=YES NO
+V_CLEAN  = *;             DESCRIPTION=Delete specific files from campaign               CARDS=YES NO
+# Configuration
+V_PCFCONFIG = MODEL SETUP_ZDGNSS FINAL;    DESCRIPTION=Configuration files
+

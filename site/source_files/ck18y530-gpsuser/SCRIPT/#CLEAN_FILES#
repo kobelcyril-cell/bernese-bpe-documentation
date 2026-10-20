@@ -1,0 +1,279 @@
+package CLEAN_FILES;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CLEAN_FILES
+#
+# Purpose :  Delete specific files, only if V_CLEAN=Y.
+#
+# PARAMs  :  CLEAN
+#
+# Author  :  C. Kobel
+# Created :  30-Oct-2025
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+use File::Basename;
+use POSIX qw(strftime);
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  # ---------------------- Parameter -----------------------------------------
+  my ($dirOut, $yyddd, $ssss, $yyyy, $yyssss, $ddd, $CLEAN, $V_A, $V_W, $V_I, $V_B, $V_C, $V_E, $V_H, $V_K, $V_U, $V_Z, $V_L) =
+    $bpe->getKeys('DIR_OUT', '$YD+0', '$S+0', '$Y+0', '$YSS+0','$D+0', 'V_CLEAN', 'V_A', 'V_W', 'V_I', 'V_B', 'V_C', 'V_E', 'V_H', 'V_K', 'V_U', 'V_Z','V_L');
+
+  unless (defined $CLEAN && $CLEAN eq 'YES') {
+    print "CLEAN variable not set to 'Y'. Nothing to delete.\n";
+    return;
+  }
+
+  my $yy = substr($yyyy, -2);
+  my $yysss = "${yy}${ssss}";
+
+   # ---------------------- PROCESSING file -----------------------------------
+  my $mscDir  = "${dirOut}../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    die "Cannot find directory $mscDir: $!";
+  }
+  my $outfile = "$mscDir/PROCESSING_$yyddd";
+
+  # ---------------------- Directories ---------------------------------------
+  my $dirBpe = "${dirOut}../BPE";
+  my $dirOrb = "${dirOut}../ORB";
+  my $dirAtm = "${dirOut}../ATM";
+  my $dirObs = "${dirOut}../OBS";
+  my $dirRaw = "${dirOut}../RAW";
+  my $dirSol = "${dirOut}../SOL";
+  my $dirSta = "${dirOut}../STA";
+  my $dirMsc = "${dirOut}../MSC/MSC_${yyddd}";
+
+print "------------------------------------------------------------\n";
+print "CLEAN_FILES started for $yysss\n";
+print "------------------------------------------------------------\n";
+
+# ---------------------- List of files to be deleted ----------------------
+my @delete_list = (
+  { dir => $dirBpe, pattern => qr/ZDGNSS*${yyssss}*/ },
+
+  # ATM
+  { dir => $dirAtm, pattern => qr/^${V_H}_${yyssss}\.TRP$/ },
+  { dir => $dirAtm, pattern => qr/^${V_U}_${yyssss}\.TRP$/ },
+#  { dir => $dirAtm, pattern => qr/^${V_Z}_${yyssss}\.TRP$/ },
+#  { dir => $dirAtm, pattern => qr/^${V_Z}${V_L}${yyssss}\.TRP$/ },
+
+  # MSC
+  { dir => $dirMsc, pattern => qr/^TIMINT_03$/ },
+
+  # OBS
+  { dir => $dirObs, pattern => qr/^....${ssss}\..*/ },
+
+  # ORB
+  { dir => $dirOrb, pattern => qr/^APR${yyssss}\.OSB$/ },
+  { dir => $dirOrb, pattern => qr/^CLK${yyddd}\.SUM$/ },
+  { dir => $dirOrb, pattern => qr/^SAT${yyddd}\.OUT$/ },
+  { dir => $dirOrb, pattern => qr/^SAT${yyddd}\.LST$/ },
+  { dir => $dirOrb, pattern => qr/^REF${yyssss}\.OSB$/ },
+  { dir => $dirOrb, pattern => qr/^REF${yyssss}\.OSB.bak$/ },
+  { dir => $dirOrb, pattern => qr/^${V_A}_${yyssss}\.(ERP|PRE|CLK|STD|RPR)$/ },
+  { dir => $dirOrb, pattern => qr/^TMP_${yyssss}\.(ERP|PRE|CLK|STD|RPR)$/ },
+  { dir => $dirOrb, pattern => qr/^${V_B}_${yyssss}\.(ELE|ERP|STD|RPR|CLK)$/ },
+  { dir => $dirOrb, pattern => qr/^${V_B}C${ssss}00.\.CLK$/ },
+  { dir => $dirOrb, pattern => qr/^${V_B}${ssss}00.\.OSB$/ },
+  { dir => $dirOrb, pattern => qr/^${V_C}S${yyssss}00.\.OSB$/ },
+  { dir => $dirOrb, pattern => qr/^${V_C}_${yyssss}\.(BIA|CLK|OSB)$/ },
+  { dir => $dirOrb, pattern => qr/^${V_C}S${yyssss}\.OSB$/ },
+  { dir => $dirOrb, pattern => qr/^${V_E}_${yyssss}\.CLK$/ },
+  { dir => $dirOrb, pattern => qr/^${V_U}08${ssss}00.\.CLK$/ },
+  { dir => $dirOrb, pattern => qr/^${V_Z}08${ssss}00.\.CLK$/ },
+#  { dir => $dirOrb, pattern => qr/^${V_U}_${yyssss}\.(ELE|ERP|RPR|STD)$/ },
+#  { dir => $dirOrb, pattern => qr/^${V_U}S${yyssss}\.CLK$/ },
+  { dir => $dirOrb, pattern => qr/^${V_Z}_${yyssss}\.OBX$/ },
+  
+  { dir => $dirOrb, pattern => qr/^NL_${yyssss}\.(BIA|BIA_mod|OSB|OSB_mod)$/ },
+  { dir => $dirOrb, pattern => qr/^NLB${yyssss}\.OSB$/ },
+
+  
+  # T0_ / T1_
+  { dir => $dirOrb, pattern => qr/^${V_H}_${yyssss}\.(CLK|ELE|ERP|RPR|STD)$/ },
+  { dir => $dirOrb, pattern => qr/^${V_K}_${yyssss}\.(CLK|CLK_mod|ERP|PRE|PRE_mod|RPR|STD)$/ },
+
+  # WL / WLB
+  { dir => $dirOrb, pattern => qr/^WL_${yyssss}\.(BIA|OSB)$/ },
+  { dir => $dirOrb, pattern => qr/^WLB${yyssss}\.OSB$/ },
+
+  # OUT
+  { dir => $dirOut, pattern => qr/^....${ssss}_NLB\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^AMB${yyssss}\.SUM$/ },
+  { dir => $dirOut, pattern => qr/^....${ssss}_WLB\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^....${ssss}_WLI\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^....${ssss}_NLI\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_W}_${yyssss}\.(CLK|OUT)$/ },
+  { dir => $dirOut, pattern => qr/^${V_C}${ssss}00.\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_C}${ssss}00._\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_C}_${yyssss}\.(CLK|OUT)$/ },
+  { dir => $dirOut, pattern => qr/^${V_C}_${yyssss}_.SUM$/ },
+  { dir => $dirOut, pattern => qr/^${V_C}S${yyssss}00.\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_E}_${yyssss}\.(CLK|DIF|IFO|OUT|PRC)$/ },
+  { dir => $dirOut, pattern => qr/^CLK${yyddd}\.SUM$/ },
+  { dir => $dirOut, pattern => qr/^CODXTR\.${yy}_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^${V_I}_${yyddd}\.(LST|SUM)$/ },
+  { dir => $dirOut, pattern => qr/^${V_I}_${yyssss}\.(LST|SUM)$/ },
+  { dir => $dirOut, pattern => qr/^${V_B}_${ssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_B}_${yyssss}\.(CLK|EDT|LST|OUT|SUM)$/ },
+  { dir => $dirOut, pattern => qr/^${V_B}C${ssss}00.\.(CLK|OUT)$/ },
+  { dir => $dirOut, pattern => qr/^${V_B}G${yyssss}\.SUM$/ },
+  { dir => $dirOut, pattern => qr/^${V_B}R${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_I}${ssss}00.\.(OUT|RES)$/ },
+  { dir => $dirOut, pattern => qr/^${V_I}G${yyssss}\.SUM$/ },
+  { dir => $dirOut, pattern => qr/^${V_I}R${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_U}_${ssss}....\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_U}0[1-8]${ssss}00.\.(OUT|CLK)$/ },
+  { dir => $dirOut, pattern => qr/^${V_U}A${ssss}....\.OUT$/ },
+#  { dir => $dirOut, pattern => qr/^${V_U}S${yyssss}\.(CLK|OUT)$/ },
+  { dir => $dirOut, pattern => qr/^${V_U}U${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_Z}_${ssss}....\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_Z}0[1-8]${ssss}00.\.(OUT|CLK)$/ },
+  { dir => $dirOut, pattern => qr/^${V_Z}A${ssss}....\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_Z}99${ssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^GPSCMP\.${yy}_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^GPSWKS\.${yy}_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^GPSXTR\.${yy}_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^MPR${yyssss}..\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^MPR${yyssss}\.(EDT|SUM)$/ },
+  { dir => $dirOut, pattern => qr/^MPXTR\.${yy}\_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^MPRXTR\.${yy}\_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^MPXTR\.L..$/ },
+  { dir => $dirOut, pattern => qr/^MPRXTR\.L..$/ },
+  { dir => $dirOut, pattern => qr/^MPS${yyssss}\.SUM$/ },
+  { dir => $dirOut, pattern => qr/^RESCHK\.${yy}_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^RESCHK\.L..$/ },
+  { dir => $dirOut, pattern => qr/^RESRMS\.L..$/ },
+  { dir => $dirOut, pattern => qr/^RNXPRE\.L..$/ },
+  { dir => $dirOut, pattern => qr/^RXOBV3\.L..$/ },
+  { dir => $dirOut, pattern => qr/^SATCLK\.L..$/ },
+  { dir => $dirOut, pattern => qr/^SATMRK\.L..$/ },
+  { dir => $dirOut, pattern => qr/^RXN2PRE\.L..$/ },
+  { dir => $dirOut, pattern => qr/^SATCLK2\.L..$/ },
+  { dir => $dirOut, pattern => qr/^SATMRK...\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^RNX${yyssss}\.EDT$/ },
+  { dir => $dirOut, pattern => qr/^RNXERR\.${yy}_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^RNXGRA\.L..$/ },
+  { dir => $dirOut, pattern => qr/^RNXSTAT\.${yy}_${ssss}$/ },
+  { dir => $dirOut, pattern => qr/^SAT${yyddd}\.(LST|OUT)$/ },
+  { dir => $dirOut, pattern => qr/^SATMRK${ddd}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^SMT${ssss}0..\.OUT$/ },
+  #{ dir => $dirOut, pattern => qr/^SMT${yyssss}\.SMC$/ },
+  { dir => $dirOut, pattern => qr/^SPP${ssss}0..\.(CLK|OUT)$/ },
+  { dir => $dirOut, pattern => qr/^${V_H}${ssss}0..\.(CLK|OUT|RES)$/ },
+  { dir => $dirOut, pattern => qr/^${V_H}_${ssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_H}_${yyssss}\.(CLK|EDT|LST|OUT|SUM)$/ },
+  { dir => $dirOut, pattern => qr/^${V_H}G${yyssss}\.SUM$/ },
+  { dir => $dirOut, pattern => qr/^${V_H}R${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^${V_K}_${yyssss}\.CLK$/ },
+  { dir => $dirOut, pattern => qr/^WLB${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^XTR${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^OBSXTR${V_Z}${yyssss}\.OUT$/ },
+  { dir => $dirOut, pattern => qr/^OBSXTR${V_Z}${yyssss}\.SUM$/ },
+  { dir => $dirOut, pattern => qr/^ATTXTR\.L..$/ },
+  { dir => $dirOut, pattern => qr/^CODXTR\.L..$/ },
+  { dir => $dirOut, pattern => qr/^MKCLUS\.L..$/ },
+  { dir => $dirOut, pattern => qr/^${V_Z}C${yyddd}\.LST$/ },
+  { dir => $dirOut, pattern => qr/^${V_Z}${V_L}XTR${yyssss}\.SUM$/ },
+  #{ dir => $dirOut, pattern => qr/^${V_Z}${V_L}${yyssss}\.CLK$/ },
+  { dir => $dirOut, pattern => qr/^${V_Z}U${yyssss}\.OUT$/ },
+#  { dir => $dirOut, pattern => qr/^${V_Z}S${yyssss}\.(OUT|CLK)$/ },
+  #{ dir => $dirOut, pattern => qr/^IAR${yyssss}\.PRC$/ },
+  { dir => $dirOut, pattern => qr/^${V_Z}C${ssss}\.OUT$/ },
+
+  # RAW
+  { dir => $dirRaw, pattern => qr/^....${ssss}\.(SMT|${yy}O)$/ },
+  { dir => $dirRaw, pattern => qr/^CODE${ssss}\.${yy}N$/ },
+  { dir => $dirRaw, pattern => qr/^RNXFIL${yyddd}\.lst$/ },
+
+  # SOL
+  { dir => $dirSol, pattern => qr/^${V_C}${ssss}00.\.NQ0$/ },
+  { dir => $dirSol, pattern => qr/^${V_C}${ssss}00._\.NQ0$/ },
+  { dir => $dirSol, pattern => qr/^${V_C}_${yyssss}\.NQ0$/ },
+  { dir => $dirSol, pattern => qr/^${V_U}07${yyssss}00.\.NQ0$/ },
+  { dir => $dirSol, pattern => qr/^${V_U}_${yyssss}\.NQ0$/ },
+  { dir => $dirSol, pattern => qr/^${V_Z}07${yyssss}00.\.NQ0$/ },
+  { dir => $dirSol, pattern => qr/^${V_Z}_${yyssss}\.NQ0$/ },
+  { dir => $dirSol, pattern => qr/^${V_Z}99${yyssss}\.NQ0$/ },
+
+  # STA
+  { dir => $dirSta, pattern => qr/^....${ssss}_NLB\.CRD$/ },
+  { dir => $dirSta, pattern => qr/^....${ssss}_NLI\.CRD$/ },
+  { dir => $dirSta, pattern => qr/^${V_A}_${yyssss}\.CRD$/ },
+  { dir => $dirSta, pattern => qr/^${V_H}_${yyssss}\.CRD$/ },
+  { dir => $dirSta, pattern => qr/^${V_K}_${yyssss}\.CRD$/ },
+  { dir => $dirSta, pattern => qr/^${V_W}_${yyssss}\.SIG$/ },
+  { dir => $dirSta, pattern => qr/^${V_C}${ssss}0.\.CLB$/ },
+  { dir => $dirSta, pattern => qr/^${V_E}${ssss}01\.CLB$/ },
+  { dir => $dirSta, pattern => qr/^${V_B}${ssss}0.\.CLB$/ },
+  { dir => $dirSta, pattern => qr/^${V_B}_${yyssss}\.CRD$/ },
+  { dir => $dirSta, pattern => qr/^${V_I}${ssss}0.\.CLB$/ },
+  { dir => $dirSta, pattern => qr/^${V_I}_${yyssss}\.SOS$/ },
+  { dir => $dirSta, pattern => qr/^${V_I}0${yyssss}\.SOS$/ },
+  { dir => $dirSta, pattern => qr/^${V_Z}_${yyddd}\.FIX$/ },
+#  { dir => $dirSta, pattern => qr/^${V_Z}C${ssss}\.CRD$/ },
+  { dir => $dirSta, pattern => qr/^${V_H}${ssss}..\.CLB$/ },
+#  { dir => $dirSta, pattern => qr/^${V_U}_${yyssss}\.CRD$/ },
+);
+
+  my $total_deleted = 0;
+  # ---------------------- Delete files -------------------------------------
+  foreach my $entry (@delete_list) {
+    my $dir     = $entry->{dir};
+    my $pattern = $entry->{pattern};
+
+    unless (-d $dir) {
+      print "Directory $dir not found, skipping.\n";
+      next;
+    }
+
+    opendir(my $dh, $dir) or die "Cannot open $dir: $!";
+    my @files = grep { /$pattern/ && -f "$dir/$_" } readdir($dh);
+    closedir($dh);
+
+    foreach my $file (@files) {
+
+      # Do not delete BPE-files fpr PID 171
+      if ($dir eq $dirBpe && $file =~ /_171_/) {
+        print "Skipping (protected) file: $file\n";
+        next;
+      }
+
+      my $path = "$dir/$file";
+      unlink $path or warn "Could not delete $path: $!";
+      print "Deleted: $path\n";
+      $total_deleted++;
+    }
+
+    print "Cleanup in $dir done (" . scalar(@files) . " files removed)\n";
+  }
+
+  print "------------------------------------------------------------\n";
+  print "CLEAN_FILES finished successfully.\n";
+  print "------------------------------------------------------------\n";
+
+  # ---------------------- Write to PROCESSING-File -----------------------
+  open(my $fh, ">>", $outfile) or die "Cannot open $outfile: $!";
+  my $timestamp = strftime("%a %b %d %H:%M:%S %Y", localtime);
+
+  print $fh "=========================\n";
+  print $fh "==== DELETED PROCESSING FILES ====\n";
+  print $fh "Timestamp  : $timestamp\n";
+  print $fh "Total deleted files: $total_deleted\n";
+  print $fh "=========================\n";
+
+  close($fh);
+
+}
+
+1;

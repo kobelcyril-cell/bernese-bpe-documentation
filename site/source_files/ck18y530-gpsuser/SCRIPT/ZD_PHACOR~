@@ -67,17 +67,17 @@ sub run {
   my $biaNL_flm   = "${dirOsb}/NL_${yyssss}_mod.BIA";
   my $clk_flm     = "${dirOsb}/${v_apr}_${yyssss}_mod.CLK";
   my $pre_flm     = "${dirPre}/${v_apr}_${yyssss}_mod.PRE";
-#  system("cp ${osbNL_fl} ${osbNL_flm}");
-#  system("cp ${biaNL_fl} ${biaNL_flm}");
-#  system("cp ${clk_fl} ${clk_flm}");
-#  system("cp ${pre_fl} ${pre_flm}");
 
-  system("cp ${osbNL_flm} ${osbNL_fl}");
-  system("cp ${biaNL_flm} ${biaNL_fl}");
-  system("cp ${clk_flm} ${clk_fl}");
-  system("cp ${pre_flm} ${pre_fl}");
+  system("cp ${osbNL_flm} ${osbNL_fl}") == 0
+    or die "PHACOR: copying OSB failed (status=$?). Try to put CLOCK_COEFFCIENTS and ORBIT_COEFFICIENTSS to 5\n";
+  system("cp ${biaNL_flm} ${biaNL_fl}") == 0
+    or die "PHACOR: copying BIA failed (status=$?). Try to put CLOCK_COEFFCIENTS and ORBIT_COEFFICIENTSS to 5\n";
+  system("cp ${clk_flm} ${clk_fl}") == 0
+    or die "PHACOR: copying CLK failed (status=$?). Try to put CLOCK_COEFFCIENTS and ORBIT_COEFFICIENTSS to 5\n";
+  system("cp ${pre_flm} ${pre_fl}") == 0
+    or die "PHACOR: copying PRE failed (status=$?). Try to put CLOCK_COEFFCIENTS and ORBIT_COEFFICIENTSS to 5\n";
 
-  # ---------- Create combined OSB file ------------
+# ---------- Create combined OSB file ------------
   if ($inposb ne '') {
 
     my $iOsbFil = "${dirOsb}/${inposb}${yyssss}.${extOsb}";

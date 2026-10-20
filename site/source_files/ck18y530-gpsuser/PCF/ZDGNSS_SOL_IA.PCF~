@@ -34,9 +34,13 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 100  ZD_GEN_NEQ_P          ZD_1DP      CPU=LOCAL; WAIT=099
 101  ZD_GEN_NEQ_E          ZD_1DP      CPU=MEGA; WAIT=100; PARALLEL=100
 #
+# Get LEO NEQs if to be included
+# ------------------------------
+105  ZD_ADD_LEO            NO_OPT      CPU=LOCAL; WAIT=101
+#
 # Combine NEQs
 # ------------
-110  ZD_ADDNEQ2_DELNEQ     ZD_1DU      CPU=MEGA; WAIT=101
+110  ZD_ADDNEQ2_DELNEQ     ZD_1DU      CPU=MEGA; WAIT=101 105
 #
 # Pre-eliminate clocks
 # --------------------
@@ -75,12 +79,13 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 # --------------------
 190  ZD_ORBGENF            ZD_FIN      CPU=SHORT; WAIT=150 180
 #
-# Checks (nothing yet)
-# --------------------
+# Checks
+# ------
+900  ZD_CHKPRC_SOL         ZD_CHK      CPU=SHORT; WAIT=190
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS             NO_OPT      CPU=ANY; WAIT=190; PARAM1=IA; PARAM2=CREATE
+999  ZD_STATUS             NO_OPT      CPU=ANY; WAIT=900; PARAM1=IA; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
 V_BRD    = *;             DESCRIPTION=A priori information (brd, and bull. A)

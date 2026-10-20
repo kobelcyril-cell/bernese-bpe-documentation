@@ -250,7 +250,7 @@ USE_E 1  "1"
 MSG_USE_E 1  "Use Galileo"
 
 ! SBAS
-USE_S 1  "1"
+USE_S 1  "0"
   ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
 
 MSG_USE_S 1  "Use SBAS"

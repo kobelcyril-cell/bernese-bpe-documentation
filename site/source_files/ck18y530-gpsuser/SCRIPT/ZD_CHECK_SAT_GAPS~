@@ -1,0 +1,130 @@
+package CHECK_SAT_GAPS;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CHECK_SAT_GAPS
+#
+# Purpose :  Checks the SMC file (PHASE OBSERVATIONS) for satellite data gaps.
+#
+# Author  :  C. Kobel
+# Created :  03-Feb-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+# ---------- Get parameters ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyyy
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$Y+0'
+  );
+
+  my $yy = substr($yyyy, -2);
+
+  my $smc_file = "${dirOut}/SMT${yy}${ssss}.SMC";
+  die "SMC file not found: $smc_file\n" unless -e $smc_file;
+
+  my $PGMNAM = "SATMRK";
+# ---------- Prepare common log file ------------
+
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $logfile = "$mscDir/PROCESSING_${yyddd}";
+  open(my $LOG, '>>', $logfile)
+    or die "Cannot open log file $logfile: $!";
+
+  print $LOG "\n=== CHECK_SAT_GAPS started ===\n";
+  print $LOG "Checking file: SMT${yy}${ssss}.SMC\n";
+
+# ---------- Read SMC file ------------
+  open(my $SMC, '<', $smc_file)
+    or die "Cannot open $smc_file: $!";
+
+  my $in_phase_block = 0;
+  my $gap_count      = 0;
+
+  while (my $line = <$SMC>) {
+    chomp $line;
+
+    # ---------- Start of PHASE OBSERVATIONS block ------------
+    if ($line =~ /^\s*PHASE OBSERVATIONS/i) {
+      $in_phase_block = 1;
+      next;
+    }
+
+    next unless $in_phase_block;
+
+    # ---------- Stop at axis footer ------------
+    last if $line =~ /^-+\+/;
+
+    # ---------- Satellite line: PRN | timebar ------------
+    if ($line =~ /^\s*(\d+)\s*\|\s*(.+)$/) {
+      my $prn = $1;
+      my $bar = $2;
+
+      # ---------- Check data gaps ------------
+      if ($bar =~ /[^*]/) {
+
+        # Check if all non-* characters are digits 1-9
+        my $few_obs_warning = 1;
+
+        my $tmp_bar = $bar;
+        $tmp_bar =~ s/\*//g;       # remove all '*'
+
+        if ($tmp_bar =~ /[^1-9]/) {
+          $few_obs_warning = 0;    # contains something other than 1-9
+        }
+
+        if ($few_obs_warning) {
+
+          # Only warning, no SATMRK
+          print $LOG "Few observations for satellite $prn - Satellite not excluded\n";
+
+        } else {
+
+          # Real data gap -> run SATMRK
+          print $LOG "→ Data gap detected for satellite $prn\n";
+          $gap_count++;
+
+          $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
+          $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
+          $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", $prn);
+
+          $bpe->RUN_PGMS($PGMNAM);
+        }
+      }
+    }
+  }
+
+  close($SMC);
+
+# ---------- Summary ------------
+  if ($gap_count == 0) {
+    print $LOG "No data gaps detected in PHASE OBSERVATIONS.\n";
+  } else {
+    print $LOG "Detected data gaps for $gap_count satellites.\n";
+  }
+
+  print $LOG "=== CHECK_SAT_GAPS finished ===\n";
+  close($LOG);
+
+  print "CHECK_SMC_GAPS done. Log appended to $logfile\n";
+}

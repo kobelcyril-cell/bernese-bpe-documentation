@@ -108,6 +108,9 @@ sub run {
     $osb{C}{L2X}{L2X} = 1;
     $osb{C}{L7X}{L7I} = 1;
     $osb{C}{L7X}{L7X} = 1;
+    $osb{C}{L1X}{L1P} = 1;
+    $osb{C}{L5X}{L5P} = 1;
+
 
     $osb{J}{L1X}{L1C} = 1;
     $osb{J}{L1X}{L1X} = 1;

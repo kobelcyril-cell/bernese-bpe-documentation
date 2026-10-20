@@ -122,20 +122,20 @@
     <div class="hero">
       <h1>Script Overview</h1>
       <p>Generated from: /storage/homefs/ck18y530/GPSUSER</p>
-      <p>Updated: 2026-10-05 16:21:37</p>
+      <p>Updated: 2026-10-20 14:06:24</p>
       <nav class='nav'><a class='' href='bernese_bpe_manual.html'>Overview</a><a class='' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='active' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
     </div>
     
     <div class="stats">
       <div class="stat"><div class="label">PCF files</div><div class="value">21</div></div>
-      <div class="stat"><div class="label">PCF rows</div><div class="value">521</div></div>
-      <div class="stat"><div class="label">Script files</div><div class="value">320</div></div>
-      <div class="stat"><div class="label">Program refs</div><div class="value">197</div></div>
+      <div class="stat"><div class="label">PCF rows</div><div class="value">523</div></div>
+      <div class="stat"><div class="label">Script files</div><div class="value">328</div></div>
+      <div class="stat"><div class="label">Program refs</div><div class="value">207</div></div>
       <div class="stat"><div class="label">INP files</div><div class="value">852</div></div>
       <div class="stat"><div class="label">OPT DIRS</div><div class="value">93</div></div>
-      <div class="stat"><div class="label">INP fields</div><div class="value">224527</div></div>
+      <div class="stat"><div class="label">INP fields</div><div class="value">224657</div></div>
       <div class="stat"><div class="label">Handbook pages</div><div class="value">43</div></div>
-      <div class="stat"><div class="label">History entries</div><div class="value">36</div></div>
+      <div class="stat"><div class="label">History entries</div><div class="value">38</div></div>
     </div>
     
     
@@ -161,6 +161,86 @@
     <h2>Script Overview</h2>
     <div id="cards" class="section">
       
+    <article class="card" data-kind="script" id="script-clean-files">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">#CLEAN_FILES#</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/#CLEAN_FILES#">#CLEAN_FILES#</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: CLEAN_FILES</li><li>Purpose: Delete specific files, only if V_CLEAN=Y.</li><li>Writes: 1</li><li>Deletes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_A</td></tr><tr><td>V_B</td></tr><tr><td>V_C</td></tr><tr><td>V_CLEAN</td></tr><tr><td>V_E</td></tr><tr><td>V_H</td></tr><tr><td>V_I</td></tr><tr><td>V_K</td></tr><tr><td>V_L</td></tr><tr><td>V_U</td></tr><tr><td>V_W</td></tr><tr><td>V_Z</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$D+0</td></tr><tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-file">$dir/$file</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-manmrk">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">#MANMRK#</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/#MANMRK#">#MANMRK#</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: MANMRK</li><li>Purpose: Mark observations for satellites with manoeuvres</li><li>Programs: SATMRK</li><li>INP files: 2</li><li>Reads: 2</li><li>Writes: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>INP modifications</h4>
+    <table class="table">
+      <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;$sat&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;$rmvSat[$i][1]&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;205&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;34&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;104&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;13&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;29&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;126&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;20&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;11&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;204&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;27&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;128&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;1&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;119&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;108&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;9&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;28&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;18&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;236&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;221&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;122&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;23&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;227&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;218&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;101&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;14&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;21&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;7&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;111&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;8&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;109&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;120&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;24&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;202&quot;</td></tr>
+      </tbody>
+    </table>
+    </section><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_MGEINI</td></tr><tr><td>V_SATCRX</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YMD_STR+0</td></tr><tr><td>DIR_STA</td></tr><tr><td>EXT_CRX</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-stav-satcrx-ext-crx">DIR_STAV_SATCRX.EXT_CRX</a></td></tr><tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-env-config-v-satcrx-ext-crx">$ENV{CONFIG}/V_SATCRX.EXT_CRX</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-stav-satcrx-ext-crx">DIR_STAV_SATCRX.EXT_CRX</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-addneq2">
       
         <details class="pcf-details">
@@ -857,6 +937,46 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-check-sat-rms">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">CHECK_SAT_RMS~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/CHECK_SAT_RMS~">CHECK_SAT_RMS~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: CHECK_SAT_RMS</li><li>Purpose: Prüft im ORBGEN_APR-File die RMS (M) jedes Satelliten. Wenn RMS &gt; 5.0 m oder RMS ungültig (Sternchen / kaputte Zahl), wird SATMRK ausgeführt. Jeder betroffene Satellit wird ins Processing-Log geschrieben.</li><li>Programs: SATMRK</li><li>INP files: 2</li><li>Reads: 1</li><li>Writes: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>INP modifications</h4>
+    <table class="table">
+      <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>$prn</td></tr>
+      </tbody>
+    </table>
+    </section><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-orbgen-apr-s-0-out">DIR_OUT/ORBGEN_APR$S+0.OUT</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -3395,32 +3515,6 @@
     </article>
     
 
-    <article class="card" data-kind="script" id="script-leo-check">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">LEO_CHECK~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK~">LEO_CHECK~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_CHECK</li><li>Purpose: Check LEOPOD quality indicators before the LEO NEQ processing, remove failed LEOs from the daily LFILE and write a daily report.</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>V_LFILE</td></tr><tr><td>V_MAXS</td></tr><tr><td>V_MAX_ALL</td></tr><tr><td>V_MAX_R</td></tr><tr><td>V_MAX_S</td></tr><tr><td>V_MAX_W</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
-      </tbody>
-    </table>
-    </section></div>
-        </details>
-        
-    </article>
-    
-
     <article class="card" data-kind="script" id="script-leo-cop">
       
         <details class="pcf-details">
@@ -3596,32 +3690,6 @@
         <tr><td>GPSEST</td></tr>
       </tbody>
     </table>
-    <section class='script-detail-section'><h4>Read keys</h4><h5>PARAM parameters</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>PARAM1</td></tr><tr><td>PARAM2</td></tr>
-      </tbody>
-    </table>
-    </section></div>
-        </details>
-        
-    </article>
-    
-
-    <article class="card" data-kind="script" id="script-leo-neq-e">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">LEO_NEQ_E~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E~">LEO_NEQ_E~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_E</li><li>Programs: GPSEST</li><li>INP files: 1</li></ul>
-          <div class='body'>
-    <table class="table">
-      <thead><tr><th>Bernese programs</th></tr></thead>
-      <tbody>
-        <tr><td>GPSEST</td></tr>
-      </tbody>
-    </table>
     
     <table class="table">
       <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
@@ -3633,7 +3701,7 @@
     <table class="table">
       <thead><tr><th>Key</th></tr></thead>
       <tbody>
-        <tr><td>PARAM1</td></tr>
+        <tr><td>PARAM1</td></tr><tr><td>PARAM2</td></tr>
       </tbody>
     </table>
     </section></div>
@@ -3727,78 +3795,12 @@
     </article>
     
 
-    <article class="card" data-kind="script" id="script-leo-neq-p">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">LEO_NEQ_P~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P~">LEO_NEQ_P~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_NEQ_P</li><li>Purpose: Prepare one parallel GPSEST job per selected LEO.</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>V_LFILE</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
-      </tbody>
-    </table>
-    </section></div>
-        </details>
-        
-    </article>
-    
-
     <article class="card" data-kind="script" id="script-leo-orb-e">
       
         <details class="pcf-details">
           <summary><span class="pcf-toggle-title">LEO_ORB_E</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_E">LEO_ORB_E</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_P</li><li>Purpose: Execute ORBGEN for one LEO</li><li>Programs: ORBGEN</li><li>INP files: 1</li><li>Used in PCFs: 1</li></ul>
-          <div class='body'>
-    <table class="table">
-      <thead><tr><th>Bernese programs</th></tr></thead>
-      <tbody>
-        <tr><td>ORBGEN</td></tr>
-      </tbody>
-    </table>
-    <section class='script-detail-section'><h4>Read keys</h4><h5>PARAM parameters</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>PARAM1</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$YSS+0</td></tr>
-      </tbody>
-    </table>
-    </section>
-    <table class="table">
-      <thead><tr><th>PCF files</th></tr></thead>
-      <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
-      </tbody>
-    </table>
-    </div>
-        </details>
-        
-    </article>
-    
-
-    <article class="card" data-kind="script" id="script-leo-orb-e">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">LEO_ORB_E~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_E~">LEO_ORB_E~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_E</li><li>Programs: ORBGEN</li><li>INP files: 1</li></ul>
           <div class='body'>
     <table class="table">
       <thead><tr><th>Bernese programs</th></tr></thead>
@@ -3827,7 +3829,14 @@
         <tr><td>$YSS+0</td></tr>
       </tbody>
     </table>
-    </section></div>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-leoneq-pcf">ZDGNSS_LEONEQ.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
         </details>
         
     </article>
@@ -3870,32 +3879,6 @@
       
         <details class="pcf-details">
           <summary><span class="pcf-toggle-title">LEO_ORB_P_16092026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P_16092026">LEO_ORB_P_16092026</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_P</li><li>Purpose: Prepare one parallel ORBGEN job per selected LEO.</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>V_LFILE</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
-      </tbody>
-    </table>
-    </section></div>
-        </details>
-        
-    </article>
-    
-
-    <article class="card" data-kind="script" id="script-leo-orb-p">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">LEO_ORB_P~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P~">LEO_ORB_P~</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_ORB_P</li><li>Purpose: Prepare one parallel ORBGEN job per selected LEO.</li></ul>
           <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
@@ -4168,7 +4151,7 @@
     <table class="table">
       <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
       <tbody>
-        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;$sat&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;$rmvSat[$i][1]&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;205&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;34&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;104&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;13&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;29&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;20&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;11&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;204&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;27&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;128&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;1&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;119&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;108&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;9&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;28&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;18&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;236&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;221&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;122&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;23&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;227&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;218&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;101&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;14&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;21&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;7&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;111&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;8&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;109&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;120&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;24&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;202&quot;</td></tr>
+        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;$sat&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;$rmvSat[$i][1]&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;205&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;34&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;104&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;13&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;29&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;126&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;20&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;11&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;204&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;27&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;128&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;1&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;119&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;108&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;9&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;28&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;18&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;236&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;221&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;122&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;23&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;227&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;218&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;101&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;14&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;21&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;7&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;111&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;8&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;109&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;120&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;24&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;202&quot;</td></tr>
       </tbody>
     </table>
     </section><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
@@ -4197,6 +4180,53 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-manmrk">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">MANMRK~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/MANMRK~">MANMRK~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: MANMRK</li><li>Purpose: Mark observations for satellites with manoeuvres</li><li>Programs: SATMRK</li><li>INP files: 2</li><li>Reads: 2</li><li>Writes: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>INP modifications</h4>
+    <table class="table">
+      <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;$sat&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;$rmvSat[$i][1]&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;205&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;34&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;104&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;13&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;29&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;126&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;20&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;11&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;204&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;27&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;128&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;1&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;119&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;108&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;9&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;28&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;18&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;236&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;221&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;122&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;23&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;227&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;218&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;101&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;14&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;21&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;7&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;111&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;8&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;109&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;120&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;24&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;202&quot;</td></tr>
+      </tbody>
+    </table>
+    </section><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_MGEINI</td></tr><tr><td>V_SATCRX</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YMD_STR+0</td></tr><tr><td>DIR_STA</td></tr><tr><td>EXT_CRX</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-stav-satcrx-ext-crx">DIR_STAV_SATCRX.EXT_CRX</a></td></tr><tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-env-config-v-satcrx-ext-crx">$ENV{CONFIG}/V_SATCRX.EXT_CRX</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-stav-satcrx-ext-crx">DIR_STAV_SATCRX.EXT_CRX</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -7893,39 +7923,6 @@
     </article>
     
 
-    <article class="card" data-kind="script" id="script-zd-add-leo">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZD_ADD_LEO~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_ADD_LEO~">ZD_ADD_LEO~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_ADD_LEO</li><li>Purpose: Copy LEO NEQs into the campaign and record the included LEOs in the session&#x27;s MSC directory.</li><li>Deletes: 1</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>V_DIRLEO</td></tr><tr><td>V_FIN</td></tr><tr><td>V_ILEO</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$YSS+0</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>EXT_NEQ</td></tr>
-      </tbody>
-    </table>
-    </section>
-    <table class="table">
-      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
-      <tbody>
-        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file)</a></td></tr>
-      </tbody>
-    </table>
-    </div>
-        </details>
-        
-    </article>
-    
-
     <article class="card" data-kind="script" id="script-zd-addneq2">
       
         <details class="pcf-details">
@@ -8528,25 +8525,6 @@
     </article>
     
 
-    <article class="card" data-kind="script" id="script-zd-check-camp">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZD_CHECK_CAMP~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_CAMP~">ZD_CHECK_CAMP~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: CHECK_CAMP</li><li>Purpose: Check whether campaign is ready for processing</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>DIR_BPEOUT</td></tr><tr><td>DIR_CZH</td></tr><tr><td>DIR_GRD</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>DIR_ORB</td></tr><tr><td>DIR_ORX</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_RXO</td></tr><tr><td>DIR_STA</td></tr><tr><td>DIR_TRP</td></tr><tr><td>EXT_SES</td></tr><tr><td>PTH_SINEXIN</td></tr>
-      </tbody>
-    </table>
-    </section></div>
-        </details>
-        
-    </article>
-    
-
     <article class="card" data-kind="script" id="script-zd-check-grd-files">
       
         <details class="pcf-details">
@@ -8572,6 +8550,65 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-check-mauprp-del">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHECK_MAUPRP_DEL</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_MAUPRP_DEL">ZD_CHECK_MAUPRP_DEL</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: CHECK_MAUPRP_DEL</li><li>Purpose: Checks the MAUPRP deletion file for excluded stations.</li><li>Reads: 1</li><li>Writes: 1</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-mpr-yss-0-del">DIR_OUT/MPR$YSS+0.DEL</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-phasescreening-pcf">ZDGNSS_PHASESCREENING.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-check-mauprp-del">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHECK_MAUPRP_DEL~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_MAUPRP_DEL~">ZD_CHECK_MAUPRP_DEL~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: CHECK_MAUPRP_DEL</li><li>Purpose: Checks the MAUPRP deletion file for excluded stations.</li><li>Reads: 1</li><li>Writes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-mpr-yss-0-del">DIR_OUT/MPR$YSS+0.DEL</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -8670,7 +8707,7 @@
     <table class="table">
       <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_RNX</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_RNX</td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_RNX</td></tr>
       </tbody>
     </table>
     <section class='script-detail-section'><h4>INP modifications</h4>
@@ -8699,6 +8736,53 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-check-sat-gaps">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHECK_SAT_GAPS~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_GAPS~">ZD_CHECK_SAT_GAPS~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: CHECK_SAT_GAPS</li><li>Purpose: Checks the SMC file (PHASE OBSERVATIONS) for satellite data gaps.</li><li>Programs: SATMRK</li><li>INP files: 2</li><li>Reads: 1</li><li>Writes: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK</td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_RNX</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>INP modifications</h4>
+    <table class="table">
+      <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>$prn</td></tr>
+      </tbody>
+    </table>
+    </section><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-smt-yy-s-0-smc">DIR_OUT/SMT${yy}$S+0.SMC</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -8874,24 +8958,57 @@
     </article>
     
 
-    <article class="card" data-kind="script" id="script-zd-chkprc-ar">
+    <article class="card" data-kind="script" id="script-zd-chkprc-ps">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZD_CHKPRC_AR~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_AR~">ZD_CHKPRC_AR~</a></summary>
+          <summary><span class="pcf-toggle-title">ZD_CHKPRC_PS</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_PS">ZD_CHKPRC_PS</a></summary>
           
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_AR</li><li>Purpose: Run processing checks for AR</li><li>Reads: 1</li><li>Writes: 1</li></ul>
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_PS</li><li>Purpose: Run observation quality checks</li><li>Reads: 1</li><li>Writes: 2</li><li>Used in PCFs: 1</li></ul>
           <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
     <table class="table">
       <thead><tr><th>Key</th></tr></thead>
       <tbody>
-        <tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
       </tbody>
     </table>
     </section>
     <table class="table">
       <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
       <tbody>
-        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-phacorfile">$phacorFile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-report">$report</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-pattern">$pattern</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-phasescreening-pcf">ZDGNSS_PHASESCREENING.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-chkprc-ps">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_CHKPRC_PS~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_PS~">ZD_CHKPRC_PS~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_PS</li><li>Purpose: Run observation quality checks</li><li>Reads: 1</li><li>Writes: 2</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-report">$report</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-pattern">$pattern</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -8906,53 +9023,6 @@
           <summary><span class="pcf-toggle-title">ZD_CHKPRC_SOL</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_SOL">ZD_CHKPRC_SOL</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_SOL</li><li>Purpose: Run solution processing checks</li><li>Programs: HELMR1</li><li>INP files: 1</li><li>Reads: 1</li><li>Writes: 1</li><li>Deletes: 1</li><li>Used in PCFs: 3</li></ul>
-          <div class='body'>
-    <table class="table">
-      <thead><tr><th>Bernese programs</th></tr></thead>
-      <tbody>
-        <tr><td>HELMR1</td></tr>
-      </tbody>
-    </table>
-    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>V_CRDINF</td></tr><tr><td>V_FIN</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
-      </tbody>
-    </table>
-    </section>
-    <table class="table">
-      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
-      <tbody>
-        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-helmertfile">$helmertFile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file-deleted">$file)) { $deleted++</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-pattern">$pattern</a></td></tr>
-      </tbody>
-    </table>
-    
-    <table class="table">
-      <thead><tr><th>PCF files</th></tr></thead>
-      <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
-      </tbody>
-    </table>
-    </div>
-        </details>
-        
-    </article>
-    
-
-    <article class="card" data-kind="script" id="script-zd-chkprc-sol">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZD_CHKPRC_SOL~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_SOL~">ZD_CHKPRC_SOL~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_CHKPRC_SOL</li><li>Purpose: Run solution processing checks</li><li>Programs: HELMR1</li><li>INP files: 1</li><li>Reads: 1</li><li>Writes: 1</li><li>Deletes: 1</li></ul>
           <div class='body'>
     <table class="table">
       <thead><tr><th>Bernese programs</th></tr></thead>
@@ -8986,6 +9056,13 @@
       <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
       <tbody>
         <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-helmertfile">$helmertFile</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-logfile">$logfile</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file-deleted">$file)) { $deleted++</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-pattern">$pattern</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -9655,7 +9732,7 @@
     <table class="table">
       <thead><tr><th>Key</th></tr></thead>
       <tbody>
-        <tr><td>$+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>CAMPAIGN</td></tr><tr><td>CAMP_PTH</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_ERP</td></tr><tr><td>DIR_FIX</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_STA</td></tr><tr><td>EXT_CRX</td></tr><tr><td>EXT_ERP</td></tr><tr><td>EXT_FIX</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_SINEXIN</td></tr><tr><td>PTH_SINEXIN</td></tr>
+        <tr><td>$+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>CAMPAIGN</td></tr><tr><td>CAMP_PTH</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_ERP</td></tr><tr><td>DIR_FIX</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_STA</td></tr><tr><td>EXT_CRX</td></tr><tr><td>EXT_ERP</td></tr><tr><td>EXT_FIX</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_SINEXIN</td></tr><tr><td>PTH_SINEXIN</td></tr>
       </tbody>
     </table>
     </section>
@@ -9670,6 +9747,46 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-copy-ref">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_COPY_REF~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_REF~">ZD_COPY_REF~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: COPY_REF</li><li>Purpose: Copy required files for processing</li><li>Programs: POLUPD</li><li>INP files: 1</li><li>Reads: 2</li><li>Writes: 2</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>POLUPD</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_BIAINF</td></tr><tr><td>V_CRDINF</td></tr><tr><td>V_PSDINF</td></tr><tr><td>V_SATCRX</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>CAMPAIGN</td></tr><tr><td>CAMP_PTH</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_ERP</td></tr><tr><td>DIR_FIX</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_STA</td></tr><tr><td>EXT_CRX</td></tr><tr><td>EXT_ERP</td></tr><tr><td>EXT_FIX</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_SINEXIN</td></tr><tr><td>PTH_SINEXIN</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-erpapr-yyssss-ext-erp">DIR_ERPAPR${yyssss}.EXT_ERP</a></td></tr><tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-yss-0">$YSS+0</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-erpref-yyssss-ext-erp">DIR_ERPREF${yyssss}.EXT_ERP</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-target">$target</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -9838,39 +9955,6 @@
     </article>
     
 
-    <article class="card" data-kind="script" id="script-zd-del-res-1d">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZD_DEL_RES_1D~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_1D~">ZD_DEL_RES_1D~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: DEL_RES_1D</li><li>Purpose: Delete specific files, only if V_CLEAN=Y.</li><li>Writes: 1</li><li>Deletes: 1</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>V_APR</td></tr><tr><td>V_APSP</td></tr><tr><td>V_BRD</td></tr><tr><td>V_CBIA</td></tr><tr><td>V_CLEAN</td></tr><tr><td>V_CLKA</td></tr><tr><td>V_CPSC</td></tr><tr><td>V_CSCR</td></tr><tr><td>V_CWGT</td></tr><tr><td>V_FIN</td></tr><tr><td>V_LARGE</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$D+0</td></tr><tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
-      </tbody>
-    </table>
-    </section>
-    <table class="table">
-      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
-      <tbody>
-        <tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-file">$dir/$file</a></td></tr>
-      </tbody>
-    </table>
-    </div>
-        </details>
-        
-    </article>
-    
-
     <article class="card" data-kind="script" id="script-zd-del-res-3d">
       
         <details class="pcf-details">
@@ -9895,7 +9979,7 @@
     <table class="table">
       <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
       <tbody>
-        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-pattern">DIR_OUT${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-sta-pattern">DIR_OUT../STA/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-orb-pattern">DIR_OUT../ORB/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-sol-pattern">DIR_OUT../SOL/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-bpe-zd3d-day">DIR_OUT../BPE/*ZD3D*${day}*</a></td></tr>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-pattern">DIR_OUT${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-sta-pattern">DIR_OUT../STA/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-orb-pattern">DIR_OUT../ORB/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-sol-pattern">DIR_OUT../SOL/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-bpe-day">DIR_OUT../BPE/*${day}*</a></td></tr>
       </tbody>
     </table>
     
@@ -9903,39 +9987,6 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-pcf">ZDGNSS_3D.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-final-pcf">ZDGNSS_3D_FINAL.PCF</a></td></tr>
-      </tbody>
-    </table>
-    </div>
-        </details>
-        
-    </article>
-    
-
-    <article class="card" data-kind="script" id="script-zd-del-res-3d">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZD_DEL_RES_3D~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_3D~">ZD_DEL_RES_3D~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: DEL_RES_3D</li><li>Purpose: Delete result files, only if V_DEL=Y.</li><li>Deletes: 1</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>V_APR</td></tr><tr><td>V_DEL</td></tr><tr><td>V_FIN</td></tr><tr><td>V_ORBAPR</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$S+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>$YSS+1</td></tr><tr><td>$YSS-1</td></tr><tr><td>DIR_OUT</td></tr>
-      </tbody>
-    </table>
-    </section>
-    <table class="table">
-      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
-      <tbody>
-        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-pattern">DIR_OUT${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-sta-pattern">DIR_OUT../STA/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-orb-pattern">DIR_OUT../ORB/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-sol-pattern">DIR_OUT../SOL/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-bpe-zd3d-day">DIR_OUT../BPE/*ZD3D*${day}*</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -9968,7 +10019,7 @@
     <table class="table">
       <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
       <tbody>
-        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-pattern">DIR_OUT${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-atm-pattern">DIR_OUT../ATM/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-obs-pattern">DIR_OUT../OBS/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-orb-pattern">DIR_OUT../ORB/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-bpe-clkden-day">DIR_OUT../BPE/*CLKDEN*${day}*</a></td></tr>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-file">$file</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-pattern">DIR_OUT${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-atm-pattern">DIR_OUT../ATM/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-obs-pattern">DIR_OUT../OBS/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-orb-pattern">DIR_OUT../ORB/${pattern}</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-bpe-day">DIR_OUT../BPE/*${day}*</a></td></tr>
       </tbody>
     </table>
     
@@ -10023,16 +10074,16 @@
 
 # Delete Files if requested
 # -------------------------
-    print </td></tr><tr><td>$S+0</td></tr><tr><td>$S-5</td></tr><tr><td>$YYYD+0</td></tr><tr><td>$YYYD-5</td></tr><tr><td>$YYYSS+0</td></tr><tr><td>$YYYSS-5</td></tr><tr><td>;
+    print </td></tr><tr><td>$+0</td></tr><tr><td>$S+0</td></tr><tr><td>$S-5</td></tr><tr><td>$YYYD+0</td></tr><tr><td>$YYYD-5</td></tr><tr><td>$YYYSS+0</td></tr><tr><td>$YYYSS-5</td></tr><tr><td>;
 
-    if ( ${del} ne </td></tr><tr><td>DIR_BIA</td></tr><tr><td>DIR_CLK</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_CZH</td></tr><tr><td>DIR_CZO</td></tr><tr><td>DIR_DCB</td></tr><tr><td>DIR_EDT</td></tr><tr><td>DIR_ERP</td></tr><tr><td>DIR_GCC</td></tr><tr><td>DIR_IEP</td></tr><tr><td>DIR_ION</td></tr><tr><td>DIR_KIN</td></tr><tr><td>DIR_LST</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>DIR_OBO</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_PRE</td></tr><tr><td>DIR_PZH</td></tr><tr><td>DIR_PZO</td></tr>
+    if ( ${del} ne </td></tr><tr><td>DIR_BIA</td></tr><tr><td>DIR_CLK</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_CZH</td></tr><tr><td>DIR_CZO</td></tr><tr><td>DIR_DCB</td></tr><tr><td>DIR_EDT</td></tr><tr><td>DIR_ERP</td></tr><tr><td>DIR_GCC</td></tr><tr><td>DIR_IEP</td></tr><tr><td>DIR_ION</td></tr><tr><td>DIR_KIN</td></tr><tr><td>DIR_LST</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>DIR_OBO</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_PRE</td></tr><tr><td>DIR_PZH</td></tr>
       </tbody>
     </table>
     </section>
     <table class="table">
       <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
       <tbody>
-        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-glob-dir-out-j-lk">glob &quot;DIR_OUT*.J_lk&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-obo-yyyss-5-ext-rbo">&quot;DIR_OBO*$YYYSS-5.EXT_RBO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-rbo-yyyss-5-ext-rbo">&quot;DIR_RBO*$YYYSS-5.EXT_RBO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-smt-yyyss-5-ext-smt">&quot;DIR_SMT*$YYYSS-5.EXT_SMT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzh-s-5-ext-pzh">&quot;DIR_PZH????$S-5.EXT_PZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzo-s-5-ext-pzo">&quot;DIR_PZO????$S-5.EXT_PZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czh-s-5-ext-czh">&quot;DIR_CZH????$S-5.EXT_CZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czo-s-5-ext-czo">&quot;DIR_CZO????$S-5.EXT_CZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-ionv-hoifil-ext-ion">&quot;DIR_IONV_HOIFIL.EXT_ION&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-ppp-yyyss-5-ext-trp">&quot;DIR_TRPV_PPP_$YYYSS-5.EXT_TRP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-ppp-yyyss-5-ext-tro">&quot;DIR_TROV_PPP_$YYYSS-5.EXT_TRO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-fin-yyyss-5-ext-trp">&quot;DIR_TRPV_FIN_$YYYSS-5.EXT_TRP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-fin-yyyss-5-ext-tro">&quot;DIR_TROV_FIN_$YYYSS-5.EXT_TRO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-trp-yyyss-5-ext-trp-if-v-trp-ne">&quot;DIR_TRPV_TRP_$YYYSS-5.EXT_TRP&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-trp-yyyss-5-ext-tro-if-v-trp-ne">&quot;DIR_TROV_TRP_$YYYSS-5.EXT_TRO&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-ppp-yyyss-5-ext-trp">&quot;DIR_TRPV_PPP_$YYYSS-5_????.EXT_TRP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-ppp-yyyss-5-ext-tro">&quot;DIR_TROV_PPP_$YYYSS-5_????.EXT_TRO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-fin-yyyss-5-ext-trp">&quot;DIR_TRPV_FIN_$YYYSS-5_????.EXT_TRP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-fin-yyyss-5-ext-tro">&quot;DIR_TROV_FIN_$YYYSS-5_????.EXT_TRO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-trp-yyyss-5-ext-trp-if-v-trp-ne">&quot;DIR_TRPV_TRP_$YYYSS-5_????.EXT_TRP&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-trp-yyyss-5-ext-tro-if-v-trp-ne">&quot;DIR_TROV_TRP_$YYYSS-5_????.EXT_TRO&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-osbv-osbfil-ext-osb">&quot;DIR_OSBV_OSBFIL.EXT_OSB&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-prev-orb-yyyd-5-ext-pre">&quot;DIR_PREV_ORB_$YYYD-5.EXT_PRE&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-iepv-orb-yyyd-5-ext-iep">&quot;DIR_IEPV_ORB_$YYYD-5.EXT_IEP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-biav-orb-yyyd-5-ext-bia">&quot;DIR_BIAV_ORB_$YYYD-5.EXT_BIA&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-clkv-orb-yyyss-5-ext-clk">&quot;DIR_CLKV_ORB_$YYYSS-5.EXT_CLK&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-erpv-orb-yyyss-5-ext-erp">&quot;DIR_ERPV_ORB_$YYYSS-5.EXT_ERP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-prev-orb-yyyss-5-ext-pre">&quot;DIR_PREV_ORB_$YYYSS-5.EXT_PRE&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-stdv-orb-yyyss-5-ext-std">&quot;DIR_STDV_ORB_$YYYSS-5.EXT_STD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-gccv-gcc-yyyss-5-ext-gcc-if-v-gcc-ne">&quot;DIR_GCCV_GCC_$YYYSS-5.EXT_GCC&quot;) if &quot;V_GCC&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-red-yyyss-5-ext-neq">&quot;DIR_NEQV_RED_$YYYSS-5.EXT_NEQ&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-snxv-red-yyyss-5-ext-snx">&quot;DIR_SNXV_RED_$YYYSS-5.EXT_SNX&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-ppp-yyyss-5-ext-neq">&quot;DIR_NEQV_PPP_$YYYSS-5.EXT_NEQ&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-ppp-yyyss-5-ext-neq">&quot;DIR_NEQV_PPP_$YYYSS-5_????.EXT_NEQ&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-snxv-ppp-yyyss-5-ext-snx">&quot;DIR_SNXV_PPP_$YYYSS-5_????.EXT_SNX&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-trp-yyyss-5-ext-neq-if-v-trp-ne">&quot;DIR_NEQV_TRP_$YYYSS-5_????.EXT_NEQ&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-apr-yyyss-5-ext-crd">&quot;DIR_CRDV_APR_$YYYSS-5.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-velv-apr-yyyss-5-ext-vel">&quot;DIR_VELV_APR_$YYYSS-5.EXT_VEL&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-ppp-yyyss-5-ext-crd">&quot;DIR_CRDV_PPP_$YYYSS-5.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-fin-yyyss-5-ext-crd">&quot;DIR_CRDV_FIN_$YYYSS-5.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-gcc-yyyss-5-ext-crd-if-v-gcc-ne">&quot;DIR_CRDV_GCC_$YYYSS-5.EXT_CRD&quot;) if &quot;V_GCC&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-apr-yyyss-5-ext-crd">&quot;DIR_CRDV_APR_$YYYSS-5_????.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-ppp-yyyss-5-ext-crd">&quot;DIR_CRDV_PPP_$YYYSS-5_????.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-kinv-kin-yyyss-5-ext-kin-if-v-kin-ne">&quot;DIR_KINV_KIN_$YYYSS-5_????.EXT_KIN&quot;) if &quot;V_KIN&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-trp-yyyss-5-ext-crd-if-v-trp-ne">&quot;DIR_CRDV_TRP_$YYYSS-5_????.EXT_CRD&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outppp-yyyss-5-prc">&quot;DIR_OUTPPP_$YYYSS-5.PRC&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outcrd-yyyss-5-ext-out">&quot;DIR_OUTCRD_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outvel-yyyss-5-ext-out">&quot;DIR_OUTVEL_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outnuv-yyyss-5-ext-out">&quot;DIR_OUTNUV_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outhlm-yyyss-5-ext-out">&quot;DIR_OUTHLM_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outres-yyyss-5-prc">&quot;DIR_OUTRES_$YYYSS-5.PRC&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outchk-yyyss-5-ext-out">&quot;DIR_OUTCHK_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-sumchk-yyyss-5-ext-sum">&quot;DIR_SUMCHK_$YYYSS-5.EXT_SUM&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-summpr-yyyss-5-ext-sum">&quot;DIR_SUMMPR_$YYYSS-5.EXT_SUM&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-summps-yyyss-5-ext-sum">&quot;DIR_SUMMPS_$YYYSS-5.EXT_SUM&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-sumres-yyyss-5-ext-sum">&quot;DIR_SUMRES_$YYYSS-5.EXT_SUM&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outedl-yyyss-5-ext-out">&quot;DIR_OUTEDL_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-sumedl-yyyss-5-ext-sum">&quot;DIR_SUMEDL_$YYYSS-5.EXT_SUM&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outedf-yyyss-5-ext-out">&quot;DIR_OUTEDF_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-sumedf-yyyss-5-ext-sum">&quot;DIR_SUMEDF_$YYYSS-5.EXT_SUM&quot;</a></td></tr>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-glob-dir-out-j-lk">glob &quot;DIR_OUT*.J_lk&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-obo-yyyss-5-ext-rbo">&quot;DIR_OBO*$YYYSS-5.EXT_RBO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-rbo-yyyss-5-ext-rbo">&quot;DIR_RBO*$YYYSS-5.EXT_RBO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-smt-yyyss-5-ext-smt">&quot;DIR_SMT*$YYYSS-5.EXT_SMT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzh-s-5-ext-pzh">&quot;DIR_PZH????$S-5.EXT_PZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzo-s-5-ext-pzo">&quot;DIR_PZO????$S-5.EXT_PZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czh-s-5-ext-czh">&quot;DIR_CZH????$S-5.EXT_CZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czo-s-5-ext-czo">&quot;DIR_CZO????$S-5.EXT_CZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-ionv-hoifil-ext-ion">&quot;DIR_IONV_HOIFIL.EXT_ION&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-ppp-yyyss-5-ext-trp">&quot;DIR_TRPV_PPP_$YYYSS-5.EXT_TRP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-ppp-yyyss-5-ext-tro">&quot;DIR_TROV_PPP_$YYYSS-5.EXT_TRO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-fin-yyyss-5-ext-trp">&quot;DIR_TRPV_FIN_$YYYSS-5.EXT_TRP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-fin-yyyss-5-ext-tro">&quot;DIR_TROV_FIN_$YYYSS-5.EXT_TRO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-trp-yyyss-5-ext-trp-if-v-trp-ne">&quot;DIR_TRPV_TRP_$YYYSS-5.EXT_TRP&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-trp-yyyss-5-ext-tro-if-v-trp-ne">&quot;DIR_TROV_TRP_$YYYSS-5.EXT_TRO&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-ppp-yyyss-5-ext-trp">&quot;DIR_TRPV_PPP_$YYYSS-5_????.EXT_TRP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-ppp-yyyss-5-ext-tro">&quot;DIR_TROV_PPP_$YYYSS-5_????.EXT_TRO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-fin-yyyss-5-ext-trp">&quot;DIR_TRPV_FIN_$YYYSS-5_????.EXT_TRP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-fin-yyyss-5-ext-tro">&quot;DIR_TROV_FIN_$YYYSS-5_????.EXT_TRO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trpv-trp-yyyss-5-ext-trp-if-v-trp-ne">&quot;DIR_TRPV_TRP_$YYYSS-5_????.EXT_TRP&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-trov-trp-yyyss-5-ext-tro-if-v-trp-ne">&quot;DIR_TROV_TRP_$YYYSS-5_????.EXT_TRO&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-osbv-osbfil-ext-osb">&quot;DIR_OSBV_OSBFIL.EXT_OSB&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-osbv-fin-yyyss-5-ext-osb">&quot;DIR_OSBV_FIN_$YYYSS-5_????.EXT_OSB&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-prev-orb-yyyd-5-ext-pre">&quot;DIR_PREV_ORB_$YYYD-5.EXT_PRE&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-iepv-orb-yyyd-5-ext-iep">&quot;DIR_IEPV_ORB_$YYYD-5.EXT_IEP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-biav-orb-yyyd-5-ext-bia">&quot;DIR_BIAV_ORB_$YYYD-5.EXT_BIA&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-clkv-orb-yyyss-5-ext-clk">&quot;DIR_CLKV_ORB_$YYYSS-5.EXT_CLK&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-erpv-orb-yyyss-5-ext-erp">&quot;DIR_ERPV_ORB_$YYYSS-5.EXT_ERP&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-prev-orb-yyyss-5-ext-pre">&quot;DIR_PREV_ORB_$YYYSS-5.EXT_PRE&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-stdv-orb-yyyss-5-ext-std">&quot;DIR_STDV_ORB_$YYYSS-5.EXT_STD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-gccv-gcc-yyyss-5-ext-gcc-if-v-gcc-ne">&quot;DIR_GCCV_GCC_$YYYSS-5.EXT_GCC&quot;) if &quot;V_GCC&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-red-yyyss-5-ext-neq">&quot;DIR_NEQV_RED_$YYYSS-5.EXT_NEQ&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-snxv-red-yyyss-5-ext-snx">&quot;DIR_SNXV_RED_$YYYSS-5.EXT_SNX&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-ppp-yyyss-5-ext-neq">&quot;DIR_NEQV_PPP_$YYYSS-5.EXT_NEQ&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-ppp-yyyss-5-ext-neq">&quot;DIR_NEQV_PPP_$YYYSS-5_????.EXT_NEQ&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-snxv-ppp-yyyss-5-ext-snx">&quot;DIR_SNXV_PPP_$YYYSS-5_????.EXT_SNX&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-trp-yyyss-5-ext-neq-if-v-trp-ne">&quot;DIR_NEQV_TRP_$YYYSS-5_????.EXT_NEQ&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-fin-yyyss-5-ext-neq">&quot;DIR_NEQV_FIN_$YYYSS-5_????.EXT_NEQ&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neqv-fin-yyyss-5-ext-neq">&quot;DIR_NEQV_FIN_$YYYSS-5.EXT_NEQ&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-apr-yyyss-5-ext-crd">&quot;DIR_CRDV_APR_$YYYSS-5.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-velv-apr-yyyss-5-ext-vel">&quot;DIR_VELV_APR_$YYYSS-5.EXT_VEL&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-ppp-yyyss-5-ext-crd">&quot;DIR_CRDV_PPP_$YYYSS-5.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-fin-yyyss-5-ext-crd">&quot;DIR_CRDV_FIN_$YYYSS-5.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-gcc-yyyss-5-ext-crd-if-v-gcc-ne">&quot;DIR_CRDV_GCC_$YYYSS-5.EXT_CRD&quot;) if &quot;V_GCC&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-apr-yyyss-5-ext-crd">&quot;DIR_CRDV_APR_$YYYSS-5_????.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-ppp-yyyss-5-ext-crd">&quot;DIR_CRDV_PPP_$YYYSS-5_????.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-kinv-kin-yyyss-5-ext-kin-if-v-kin-ne">&quot;DIR_KINV_KIN_$YYYSS-5_????.EXT_KIN&quot;) if &quot;V_KIN&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-trp-yyyss-5-ext-crd-if-v-trp-ne">&quot;DIR_CRDV_TRP_$YYYSS-5_????.EXT_CRD&quot;) if &quot;V_TRP&quot; ne &quot;&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdv-fin-yyyss-5-ext-crd">&quot;DIR_CRDV_FIN_$YYYSS-5_????.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdnli-yyyss-5-ext-crd">&quot;DIR_CRDNLI_$YYYSS-5_????.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-crdspp-0-ext-crd">&quot;DIR_CRDSPP_$+0????.EXT_CRD&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outppp-yyyss-5-prc">&quot;DIR_OUTPPP_$YYYSS-5.PRC&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outv-fin-yyyss-5-ext-out">&quot;DIR_OUTV_FIN_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outres-yyyss-5-ext-out">&quot;DIR_OUTRES_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outcrd-yyyss-5-ext-out">&quot;DIR_OUTCRD_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outvel-yyyss-5-ext-out">&quot;DIR_OUTVEL_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outnuv-yyyss-5-ext-out">&quot;DIR_OUTNUV_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outhlm-yyyss-5-ext-out">&quot;DIR_OUTHLM_$YYYSS-5.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outres-yyyss-5-prc">&quot;DIR_OUTRES_$YYYSS-5.PRC&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outv-fin-yyyss-5-out-ext-sum">&quot;DIR_OUTV_FIN_$YYYSS-5_OUT.EXT_SUM&quot;</a></td></tr>
       </tbody>
     </table>
     
@@ -11133,6 +11184,32 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-zd-init-vmf">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_INIT_VMF~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_VMF~">ZD_INIT_VMF~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: INIT_VMF</li><li>Purpose: Initialize VMF grid files</li><li>Deletes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$+0</td></tr><tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_GRD</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_GRD</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-grdvmf-yd-0-ext-grd">DIR_GRDVMF$YD+0.EXT_GRD</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-zd-ite-phase-thr">
       
         <details class="pcf-details">
@@ -11260,39 +11337,6 @@
     </article>
     
 
-    <article class="card" data-kind="script" id="script-zd-leoneq-cop">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZD_LEONEQ_COP~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_LEONEQ_COP~">ZD_LEONEQ_COP~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: LEO_COP</li><li>Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>V_ATLINF</td></tr><tr><td>V_B</td></tr><tr><td>V_BLQINF</td></tr><tr><td>V_CLK</td></tr><tr><td>V_CLKDIR</td></tr><tr><td>V_CRDINF</td></tr><tr><td>V_ORBDIR</td></tr><tr><td>V_OSB</td></tr><tr><td>V_REFDIR</td></tr><tr><td>V_STAINF</td></tr>
-      </tbody>
-    </table>
-    <h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$+0</td></tr><tr><td>$Y</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_ABB</td></tr><tr><td>DIR_ATL</td></tr><tr><td>DIR_BLQ</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_ERP</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_RXC</td></tr><tr><td>DIR_STA</td></tr><tr><td>DIR_STD</td></tr><tr><td>EXT_ABB</td></tr><tr><td>EXT_ATL</td></tr><tr><td>EXT_BLQ</td></tr><tr><td>EXT_CRD</td></tr><tr><td>EXT_ERP</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_RXC</td></tr><tr><td>EXT_STA</td></tr><tr><td>EXT_STD</td></tr>
-      </tbody>
-    </table>
-    </section>
-    <table class="table">
-      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
-      <tbody>
-        <tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-0-ext-std">V_ORBDIR/V_B$Y$+0.EXT_STD*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-00-ext-std">V_ORBDIR/V_B$Y$+00.EXT_STD*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-0-erp">V_ORBDIR/V_B$Y$+0.ERP*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-b-y-00-erp">V_ORBDIR/V_B$Y$+00.ERP*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-clkdir-v-clk-y-0-ext-rxc">V_CLKDIR/V_CLK$Y$+0.EXT_RXC*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-clkdir-v-clk-y-00-ext-rxc">V_CLKDIR/V_CLK$Y$+00.EXT_RXC*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-osb-ext-osb">V_ORBDIR/V_OSB.EXT_OSB</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-osb-y-0-ext-osb">V_ORBDIR/V_OSB$Y$+0.EXT_OSB*</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-v-orbdir-v-osb-y-00-ext-osb">V_ORBDIR/V_OSB$Y$+00.EXT_OSB*</a></td></tr>
-      </tbody>
-    </table>
-    </div>
-        </details>
-        
-    </article>
-    
-
     <article class="card" data-kind="script" id="script-zd-manmrk">
       
         <details class="pcf-details">
@@ -11310,14 +11354,14 @@
     <table class="table">
       <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_RNX</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_RNX</td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_RNX</td></tr>
       </tbody>
     </table>
     <section class='script-detail-section'><h4>INP modifications</h4>
     <table class="table">
       <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
       <tbody>
-        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>$sat</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;205&quot;</td></tr>
+        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>$sat</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;205&quot;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;450&quot;</td></tr>
       </tbody>
     </table>
     </section><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
@@ -11346,6 +11390,60 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-manmrk">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_MANMRK~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_MANMRK~">ZD_MANMRK~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: MANMRK</li><li>Purpose: Marks observations for satellites affected by manoeuvres. Copies SAT-CRX into campaign first</li><li>Programs: SATMRK</li><li>INP files: 2</li><li>Reads: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK</td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-rnx-satmrk-inp">SATMRK.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_RNX</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>INP modifications</h4>
+    <table class="table">
+      <thead><tr><th>INP file</th><th>Key</th><th>Value or operation</th></tr></thead>
+      <tbody>
+        <tr><td>SATMRK.INP</td><td>STADAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>ENDDAT</td><td>&#x27;$YMD_STR+0&#x27;</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>$sat</td></tr><tr><td>SATMRK.INP</td><td>SATNUM</td><td>&quot;205&quot;</td></tr>
+      </tbody>
+    </table>
+    </section><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_SATCRX</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$Y+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YMD_STR+0</td></tr><tr><td>DIR_STA</td></tr><tr><td>EXT_CRX</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-stav-satcrx-ext-crx">DIR_STAV_SATCRX.EXT_CRX</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -11855,7 +11953,7 @@
         <details class="pcf-details">
           <summary><span class="pcf-toggle-title">ZD_ORBGEN</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN">ZD_ORBGEN</a></summary>
           
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ORBGEN</li><li>Purpose: Run ORBGEN</li><li>Programs: ORBGEN</li><li>INP files: 1</li><li>Used in PCFs: 8</li></ul>
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ORBGEN</li><li>Purpose: Run ORBGEN</li><li>Programs: ORBGEN</li><li>INP files: 1</li><li>Used in PCFs: 7</li></ul>
           <div class='body'>
     <table class="table">
       <thead><tr><th>Bernese programs</th></tr></thead>
@@ -11867,17 +11965,130 @@
     <table class="table">
       <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-0-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_0</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-iar-nlb-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>IAR_NLB</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd3d-3ds-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-pcf">ZDGNSS_3D.PCF</a></td><td>ZD3D_3DS</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd3d-3ds-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-final-pcf">ZDGNSS_3D_FINAL.PCF</a></td><td>ZD3D_3DS</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-iar-nlb-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ar-pcf">ZDGNSS_AR.PCF</a></td><td>ZD_IAR_NLB</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-ppp-gen-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ppp-pcf">ZDGNSS_PPP.PCF</a></td><td>PPP_GEN</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-0-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_0</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-1dp-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td><td>ZD_1DP</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-1dp-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td><td>ZD_1DP</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-1dp-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td><td>ZD_1DP</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd3d-3ds-o-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdmfin3d-pcf">ZDMFIN3D.PCF</a></td><td>ZD3D_3DS_o</td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-0-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_0</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-iar-nlb-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>IAR_NLB</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd3d-3ds-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-pcf">ZDGNSS_3D.PCF</a></td><td>ZD3D_3DS</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd3d-3ds-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-final-pcf">ZDGNSS_3D_FINAL.PCF</a></td><td>ZD3D_3DS</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-iar-nlb-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ar-pcf">ZDGNSS_AR.PCF</a></td><td>ZD_IAR_NLB</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-ppp-gen-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ppp-pcf">ZDGNSS_PPP.PCF</a></td><td>PPP_GEN</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-1dp-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td><td>ZD_1DP</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-1dp-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td><td>ZD_1DP</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-1dp-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td><td>ZD_1DP</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd3d-3ds-o-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdmfin3d-pcf">ZDMFIN3D.PCF</a></td><td>ZD3D_3DS_o</td></tr>
       </tbody>
     </table>
     
     <table class="table">
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-pcf">ZDGNSS_3D.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-final-pcf">ZDGNSS_3D_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ar-pcf">ZDGNSS_AR.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ppp-pcf">ZDGNSS_PPP.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-pcf">ZDGNSS_3D.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-final-pcf">ZDGNSS_3D_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ar-pcf">ZDGNSS_AR.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ppp-pcf">ZDGNSS_PPP.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
       </tbody>
     </table>
     </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-orbgen-apr">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_ORBGEN_APR</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR">ZD_ORBGEN_APR</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_ORBGEN_APR</li><li>Purpose: Run ORBGEN, check for bad satellites, and add exclusions to the SATCRX file.</li><li>Programs: ORBGEN</li><li>INP files: 1</li><li>Used in PCFs: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>ORBGEN</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_SATCRX</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_BPELOG</td></tr><tr><td>DIR_CRX</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_BPELOG</td></tr><tr><td>EXT_CRX</td></tr><tr><td>PID</td></tr><tr><td>TASKID</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-orbgen-apr-20102026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_ORBGEN_APR_20102026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR_20102026">ZD_ORBGEN_APR_20102026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_ORBGEN_APR</li><li>Purpose: Run ORBGEN, check for bad satellites and create entry in SATCRX file for these.</li><li>Programs: ORBGEN</li><li>INP files: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>ORBGEN</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_SATCRX</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_CRX</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_CRX</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-orbgen-apr">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_ORBGEN_APR~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR~">ZD_ORBGEN_APR~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: ZD_ORBGEN_APR</li><li>Purpose: Run ORBGEN, check for bad satellites, and add exclusions to the SATCRX file.</li><li>Programs: ORBGEN</li><li>INP files: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>ORBGEN</td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-0-orbgen-inp">ORBGEN.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_0</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_SATCRX</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_BPELOG</td></tr><tr><td>DIR_CRX</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_BPELOG</td></tr><tr><td>EXT_CRX</td></tr><tr><td>PID</td></tr><tr><td>TASKID</td></tr>
+      </tbody>
+    </table>
+    </section></div>
         </details>
         
     </article>
@@ -12076,7 +12287,7 @@
         <details class="pcf-details">
           <summary><span class="pcf-toggle-title">ZD_PHABIA</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA">ZD_PHABIA</a></summary>
           
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PHABIA</li><li>Purpose: Execute PHABIA, special case for ZD-processing WL</li><li>Programs: PHABIA</li><li>INP files: 1</li><li>Used in PCFs: 1</li></ul>
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PHABIA</li><li>Purpose: Execute PHABIA, Create a combined OSB file</li><li>Programs: PHABIA</li><li>INP files: 1</li><li>Used in PCFs: 1</li></ul>
           <div class='body'>
     <table class="table">
       <thead><tr><th>Bernese programs</th></tr></thead>
@@ -12088,7 +12299,7 @@
     <table class="table">
       <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-iar-wlb-phabia-inp">PHABIA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>IAR_WLB</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-iar-nlb-phabia-inp">PHABIA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>IAR_NLB</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-iar-wlb-phabia-inp">PHABIA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ar-pcf">ZDGNSS_AR.PCF</a></td><td>ZD_IAR_WLB</td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-iar-wlb-phabia-inp">PHABIA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ar-pcf">ZDGNSS_AR.PCF</a></td><td>ZD_IAR_WLB</td></tr>
       </tbody>
     </table>
     <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
@@ -12120,6 +12331,93 @@
       </tbody>
     </table>
     </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-phabia-19102026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_PHABIA_19102026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA_19102026">ZD_PHABIA_19102026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PHABIA</li><li>Purpose: Execute PHABIA, Create a combined OSB file</li><li>Programs: PHABIA</li><li>INP files: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>PHABIA</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_APR</td></tr><tr><td>V_CBIA</td></tr>
+      </tbody>
+    </table>
+    <h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM2</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_PRE</td></tr><tr><td>EXT_BIA</td></tr><tr><td>EXT_CLK</td></tr><tr><td>EXT_CRD</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_PRE</td></tr>
+      </tbody>
+    </table>
+    </section></div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-phabia">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_PHABIA~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA~">ZD_PHABIA~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PHABIA</li><li>Purpose: Execute PHABIA, Create a combined OSB file</li><li>Programs: PHABIA</li><li>INP files: 1</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>PHABIA</td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-iar-wlb-phabia-inp">PHABIA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>IAR_WLB</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-iar-nlb-phabia-inp">PHABIA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>IAR_NLB</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_APR</td></tr><tr><td>V_CBIA</td></tr>
+      </tbody>
+    </table>
+    <h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM2</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_CRD</td></tr><tr><td>DIR_OSB</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_PRE</td></tr><tr><td>EXT_BIA</td></tr><tr><td>EXT_CLK</td></tr><tr><td>EXT_CRD</td></tr><tr><td>EXT_OSB</td></tr><tr><td>EXT_PRE</td></tr>
+      </tbody>
+    </table>
+    </section></div>
         </details>
         
     </article>
@@ -12929,32 +13227,6 @@
     </article>
     
 
-    <article class="card" data-kind="script" id="script-zd-pre-elim-clk-p">
-      
-        <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZD_PRE_ELIM_CLK_P~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P~">ZD_PRE_ELIM_CLK_P~</a></summary>
-          
-          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: PRE_ELIM_CLK_P</li><li>Purpose: Prepare parallel ADDNEQ2 run using time intervals</li></ul>
-          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>Other keys</h5>
-    <table class="table">
-      <thead><tr><th>Key</th></tr></thead>
-      <tbody>
-        <tr><td>$$bpe{PARAM2}</td></tr><tr><td>$YD+0</td></tr><tr><td>$YSS+0</td></tr><tr><td>DIR_NEQ</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_NEQ</td></tr>
-      </tbody>
-    </table>
-    </section>
-    <table class="table">
-      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
-      <tbody>
-        <tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timintite">&quot;DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??&quot;</a></td></tr><tr><td>pattern</td><td> &quot;DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ&quot;</td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-cov">&quot;DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timint">DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-timintite">DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neq-bpe-param2-preite-yss-0-ext-neq">DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-neq-bpe-param2-ite-yss-0-ext-neq">DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-cov">DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV</a></td></tr>
-      </tbody>
-    </table>
-    </div>
-        </details>
-        
-    </article>
-    
-
     <article class="card" data-kind="script" id="script-zd-res-chk">
       
         <details class="pcf-details">
@@ -13512,7 +13784,54 @@
     <table class="table">
       <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-rnx-rnxgra-inp">RNXGRA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_RNX</td></tr><tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-rnx-rnxgra-inp">RNXGRA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_RNX</td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-zd-rnx-rnxgra-inp">RNXGRA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td><td>ZD_RNX</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_NCLU</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$+0</td></tr><tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_BPEPRT</td></tr><tr><td>DIR_CZH</td></tr><tr><td>DIR_CZO</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_PZH</td></tr><tr><td>DIR_PZO</td></tr><tr><td>DIR_SMT</td></tr><tr><td>EXT_CZH</td></tr><tr><td>EXT_CZO</td></tr><tr><td>EXT_OUT</td></tr><tr><td>EXT_PZH</td></tr><tr><td>EXT_PZO</td></tr><tr><td>EXT_SMT</td></tr><tr><td>T</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-del">$del</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-lst">$lst</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-bpeprtobs-s-0-bpe">&quot;DIR_BPEPRTOBS$S+0???.BPE&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czh-s-0-ext-czh">&quot;DIR_CZH????$S+0.EXT_CZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzh-s-0-ext-pzh">&quot;DIR_PZH????$S+0.EXT_PZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czo-s-0-ext-czo">&quot;DIR_CZO????$S+0.EXT_CZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzo-s-0-ext-pzo">&quot;DIR_PZO????$S+0.EXT_PZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-s-0-ext-out">&quot;DIR_OUTOBS$S+0???.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-0-ext-out">&quot;DIR_OUTOBS$+0????.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-bpeprtobs-s-0-bpe">DIR_BPEPRTOBS$S+0???.BPE</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czh-s-0-ext-czh">DIR_CZH????$S+0.EXT_CZH</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzh-s-0-ext-pzh">DIR_PZH????$S+0.EXT_PZH</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czo-s-0-ext-czo">DIR_CZO????$S+0.EXT_CZO</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzo-s-0-ext-pzo">DIR_PZO????$S+0.EXT_PZO</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-s-0-ext-out">DIR_OUTOBS$S+0???.EXT_OUT</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-0-ext-out">DIR_OUTOBS$+0????.EXT_OUT</a></td></tr>
+      </tbody>
+    </table>
+    
+    <table class="table">
+      <thead><tr><th>PCF files</th></tr></thead>
+      <tbody>
+        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-rxobv3gp-07102026">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_RXOBV3GP_07102026</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP_07102026">ZD_RXOBV3GP_07102026</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: RXOBV3GP</li><li>Purpose: A priori script to prepare parallel running of RXOBV3</li><li>Programs: RNXGRA</li><li>INP files: 1</li><li>Deletes: 2</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>RNXGRA</td></tr>
       </tbody>
     </table>
     <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
@@ -13543,11 +13862,58 @@
         <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-del">$del</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-lst">$lst</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-bpeprtobs-s-0-bpe">&quot;DIR_BPEPRTOBS$S+0???.BPE&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czh-s-0-ext-czh">&quot;DIR_CZH????$S+0.EXT_CZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzh-s-0-ext-pzh">&quot;DIR_PZH????$S+0.EXT_PZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czo-s-0-ext-czo">&quot;DIR_CZO????$S+0.EXT_CZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzo-s-0-ext-pzo">&quot;DIR_PZO????$S+0.EXT_PZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-s-0-ext-out">&quot;DIR_OUTOBS$S+0???.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-0-ext-out">&quot;DIR_OUTOBS$+0????.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-bpeprtobs-s-0-bpe">DIR_BPEPRTOBS$S+0???.BPE</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czh-s-0-ext-czh">DIR_CZH????$S+0.EXT_CZH</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzh-s-0-ext-pzh">DIR_PZH????$S+0.EXT_PZH</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czo-s-0-ext-czo">DIR_CZO????$S+0.EXT_CZO</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzo-s-0-ext-pzo">DIR_PZO????$S+0.EXT_PZO</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-s-0-ext-out">DIR_OUTOBS$S+0???.EXT_OUT</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-0-ext-out">DIR_OUTOBS$+0????.EXT_OUT</a></td></tr>
       </tbody>
     </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-rxobv3gp">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_RXOBV3GP~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP~">ZD_RXOBV3GP~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: RXOBV3GP</li><li>Purpose: A priori script to prepare parallel running of RXOBV3</li><li>Programs: RNXGRA</li><li>INP files: 1</li><li>Deletes: 2</li></ul>
+          <div class='body'>
+    <table class="table">
+      <thead><tr><th>Bernese programs</th></tr></thead>
+      <tbody>
+        <tr><td>RNXGRA</td></tr>
+      </tbody>
+    </table>
     
     <table class="table">
-      <thead><tr><th>PCF files</th></tr></thead>
+      <thead><tr><th>INP file</th><th>PCF</th><th>OPT_DIR</th></tr></thead>
       <tbody>
-        <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr>
+        <tr><td><a class="ref-link" href="bernese_bpe_inp.html#inp-storage-homefs-ck18y530-gpsuser-opt-fzdm-rnx-rnxgra-inp">RNXGRA.INP</a></td><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-fzdmgnss-orig-ec-pcf">FZDMGNSS_ORIG_EC.PCF</a></td><td>FZDM_RNX</td></tr>
+      </tbody>
+    </table>
+    <section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_CLU</td></tr><tr><td>V_NCLU</td></tr>
+      </tbody>
+    </table>
+    <h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM1</td></tr><tr><td>PARAM2</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$+0</td></tr><tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_BPEPRT</td></tr><tr><td>DIR_CZH</td></tr><tr><td>DIR_CZO</td></tr><tr><td>DIR_OUT</td></tr><tr><td>DIR_PZH</td></tr><tr><td>DIR_PZO</td></tr><tr><td>DIR_SMT</td></tr><tr><td>EXT_CZH</td></tr><tr><td>EXT_CZO</td></tr><tr><td>EXT_OUT</td></tr><tr><td>EXT_PZH</td></tr><tr><td>EXT_PZO</td></tr><tr><td>EXT_SMT</td></tr><tr><td>T</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-del">$del</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-lst">$lst</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-bpeprtobs-s-0-bpe">&quot;DIR_BPEPRTOBS$S+0???.BPE&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czh-s-0-ext-czh">&quot;DIR_CZH????$S+0.EXT_CZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzh-s-0-ext-pzh">&quot;DIR_PZH????$S+0.EXT_PZH&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czo-s-0-ext-czo">&quot;DIR_CZO????$S+0.EXT_CZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzo-s-0-ext-pzo">&quot;DIR_PZO????$S+0.EXT_PZO&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-s-0-ext-out">&quot;DIR_OUTOBS$S+0???.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-0-ext-out">&quot;DIR_OUTOBS$+0????.EXT_OUT&quot;</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-bpeprtobs-s-0-bpe">DIR_BPEPRTOBS$S+0???.BPE</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czh-s-0-ext-czh">DIR_CZH????$S+0.EXT_CZH</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzh-s-0-ext-pzh">DIR_PZH????$S+0.EXT_PZH</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-czo-s-0-ext-czo">DIR_CZO????$S+0.EXT_CZO</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-pzo-s-0-ext-pzo">DIR_PZO????$S+0.EXT_PZO</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-s-0-ext-out">DIR_OUTOBS$S+0???.EXT_OUT</a></td></tr><tr><td>pattern</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-outobs-0-ext-out">DIR_OUTOBS$+0????.EXT_OUT</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -13850,6 +14216,39 @@
     </article>
     
 
+    <article class="card" data-kind="script" id="script-zd-station-selection">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_STATION_SELECTION~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_STATION_SELECTION~">ZD_STATION_SELECTION~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: STATION_SELECTION</li><li>Purpose: Select GNSS stations and remove unused observations</li><li>Reads: 2</li><li>Writes: 1</li><li>Deletes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>V_ variables</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>V_NSTA</td></tr><tr><td>V_STAINF</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$S+0</td></tr><tr><td>$YD+0</td></tr><tr><td>DIR_FIX</td></tr><tr><td>DIR_OUT</td></tr><tr><td>EXT_CRD</td></tr><tr><td>EXT_FIX</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-available-stations-yd-0-txt">DIR_OUT../MSC/MSC_$YD+0/available_stations_$YD+0.txt</a></td></tr><tr><td>read</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-selected-stations-yd-0-txt">DIR_OUT../MSC/MSC_$YD+0/selected_stations_$YD+0.txt</a></td></tr><tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-msc-msc-yd-0-processing-yd-0">DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0</a></td></tr><tr><td>delete</td><td><a class="ref-link" href="bernese_bpe_files.html#file-dir-out-raw-file">DIR_OUT../RAW/$file)</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
     <article class="card" data-kind="script" id="script-zd-status">
       
         <details class="pcf-details">
@@ -13882,6 +14281,39 @@
       <thead><tr><th>PCF files</th></tr></thead>
       <tbody>
         <tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-pcf">ZDGNSS_3D.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-3d-final-pcf">ZDGNSS_3D_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ar-pcf">ZDGNSS_AR.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-clkden-pcf">ZDGNSS_CLKDEN.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-codescreening-pcf">ZDGNSS_CODESCREENING.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-finish-pcf">ZDGNSS_FINISH.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-finish-final-pcf">ZDGNSS_FINISH_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-phasescreening-pcf">ZDGNSS_PHASESCREENING.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-ppp-pcf">ZDGNSS_PPP.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preparation-pcf">ZDGNSS_PREPARATION.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-preprocessing-pcf">ZDGNSS_PREPROCESSING.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-fa-pcf">ZDGNSS_SOL_FA.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-final-pcf">ZDGNSS_SOL_FINAL.PCF</a></td></tr><tr><td><a class="ref-link" href="bernese_bpe_pcf.html#pcf-zdgnss-sol-ia-pcf">ZDGNSS_SOL_IA.PCF</a></td></tr>
+      </tbody>
+    </table>
+    </div>
+        </details>
+        
+    </article>
+    
+
+    <article class="card" data-kind="script" id="script-zd-status">
+      
+        <details class="pcf-details">
+          <summary><span class="pcf-toggle-title">ZD_STATUS~</span><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="source_files/ck18y530-gpsuser/SCRIPT/ZD_STATUS~">ZD_STATUS~</a></summary>
+          
+          <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>Package: STATUS</li><li>Purpose: Create or wait for a status file</li><li>Writes: 1</li></ul>
+          <div class='body'><section class='script-detail-section'><h4>Read keys</h4><h5>PARAM parameters</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>PARAM1</td></tr><tr><td>PARAM2</td></tr><tr><td>PARAM3</td></tr>
+      </tbody>
+    </table>
+    <h5>Other keys</h5>
+    <table class="table">
+      <thead><tr><th>Key</th></tr></thead>
+      <tbody>
+        <tr><td>$YSS+0</td></tr><tr><td>DIR_OUT</td></tr>
+      </tbody>
+    </table>
+    </section>
+    <table class="table">
+      <thead><tr><th>Type</th><th>File or pattern</th></tr></thead>
+      <tbody>
+        <tr><td>write</td><td><a class="ref-link" href="bernese_bpe_files.html#file-marker">$marker</a></td></tr>
       </tbody>
     </table>
     </div>
@@ -14158,7 +14590,7 @@
     </div>
     
     <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
-    <div class="history-footer">Last change: 2026-10-05T16:17:56+02:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
+    <div class="history-footer">Last change: 2026-10-20T14:03:38+02:00 by Cyril Kobel (Menu action) - <a href="bernese_bpe_history.html">full change history</a></div>
   </div>
   <script>
     const q = document.getElementById('q');

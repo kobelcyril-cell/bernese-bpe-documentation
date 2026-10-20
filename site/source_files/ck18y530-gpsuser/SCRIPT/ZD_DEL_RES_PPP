@@ -34,7 +34,7 @@ sub run {
 
 # Get variables
 # -------------
-  my ($thisSess, $yyyyssss, $ssss, $yyyyddd,
+  my ($thisSess, $yyyyssss, $ssss, $yyyyddd, $ddd,
       $apr, $orb, $ppp, $fin, $ref, $red, $gcc, $kin, $trp,
       $del, $hoiFil, $osbFil, $param1,
       $dirOut, $dirSum, $dirLst, $dirSmc, $dirEdt, $dirRes,
@@ -50,7 +50,7 @@ sub run {
       $dirIon, $dirOsb,
       $extIon, $extOsb) =
     $bpe->getKeys(
-      '$YYYSS+0', '$YYYSS-5', '$S-5', '$YYYD-5',
+      '$YYYSS+0', '$YYYSS-5', '$S-5', '$YYYD-5', '$+0',
       'V_APR', 'V_ORB', 'V_PPP', 'V_FIN', 'V_REF', 'V_RED', 'V_GCC', 'V_KIN', 'V_TRP',
       'V_DEL','V_HOIFIL', 'V_OSBFIL', 'PARAM1',
       'DIR_OUT','DIR_SUM','DIR_LST','DIR_SMC','DIR_EDT','DIR_RES',
@@ -126,6 +126,7 @@ sub run {
 
 # Orbit, ERP, satellite clocks
 #        unlink glob("${dirOsb}${osbFil}.${extOsb}");
+	unlink glob("${dirOsb}${fin}_${yyyyssss}_????.${extOsb}");
         unlink glob("${dirPre}${orb}_${yyyyddd}.${extPre}");
         unlink glob("${dirIep}${orb}_${yyyyddd}.${extIep}");
         unlink glob("${dirBia}${orb}_${yyyyddd}.${extBia}");
@@ -146,28 +147,40 @@ sub run {
 
         unlink glob("${dirNeq}${trp}_${yyyyssss}_????.${extNeq}") if "$trp" ne "";
 
+	unlink glob("${dirNeq}${fin}_${yyyyssss}_????.${extNeq}");
+	unlink glob("${dirNeq}${fin}_${yyyyssss}.${extNeq}");
+
 
 
 # Coordinate and other station related files
         unlink glob("${dirCrd}${apr}_${yyyyssss}.${extCrd}");
         unlink glob("${dirVel}${apr}_${yyyyssss}.${extVel}");
         unlink glob("${dirCrd}${ppp}_${yyyyssss}.${extCrd}");
-#        unlink glob("${dirCrd}${fin}_${yyyyssss}.${extCrd}");
+        unlink glob("${dirCrd}${fin}_${yyyyssss}.${extCrd}");
         unlink glob("${dirCrd}${gcc}_${yyyyssss}.${extCrd}") if "$gcc" ne "";
 
         unlink glob("${dirCrd}${apr}_${yyyyssss}_????.${extCrd}");
         unlink glob("${dirCrd}${ppp}_${yyyyssss}_????.${extCrd}");
         unlink glob("${dirKin}${kin}_${yyyyssss}_????.${extKin}") if "$kin" ne "";
         unlink glob("${dirCrd}${trp}_${yyyyssss}_????.${extCrd}") if "$trp" ne "";
+	unlink glob("${dirCrd}${fin}_${yyyyssss}_????.${extCrd}");
+	unlink glob("${dirCrd}NLI_${yyyyssss}_????.${extCrd}");
+	unlink glob("${dirCrd}SPP_${ddd}????.${extCrd}");
 
 
 # Program output and summary files
 #        unlink glob("${dirOut}PPP_${yyyyssss}.PRC");
+	unlink glob("${dirOut}${fin}_${yyyyssss}.${extOut}");
+	unlink glob("${dirOut}RES_${yyyyssss}.${extOut}");
         unlink glob("${dirOut}CRD_${yyyyssss}.${extOut}");
         unlink glob("${dirOut}VEL_${yyyyssss}.${extOut}");
         unlink glob("${dirOut}NUV_${yyyyssss}.${extOut}");
         unlink glob("${dirOut}HLM_${yyyyssss}.${extOut}");
         unlink glob("${dirOut}RES_${yyyyssss}.PRC");
+	unlink glob("${dirOut}${fin}_${yyyyssss}_OUT.${extSum}");
+	unlink glob("${dirOut}${fin}_${yyyyssss}_CRD.${extSum}");
+	unlink glob("${dirOut}${fin}${ddd}RES.${extSum}");
+	unlink glob("${dirOut}${fin}${ssss}RES.${extSum}");
         unlink glob("${dirOut}CHK_${yyyyssss}.${extOut}");
         unlink glob("${dirSum}CHK_${yyyyssss}.${extSum}");
         unlink glob("${dirSum}MPR_${yyyyssss}.${extSum}");
@@ -204,6 +217,9 @@ sub run {
         unlink glob("${dirSum}${trp}_${yyyyssss}.${extSum}") if "$trp" ne "";
         unlink glob("${dirOut}POL_${yyyyssss}.${extOut}");
         unlink glob("${dirOut}RNX_${yyyyssss}.ERR");
+	unlink glob("${dirOut}CRDMERGE.L??");
+	unlink glob("${dirOut}GPSXTR.L??");
+	unlink glob("${dirOut}TMP_${yyyyssss}.${extOut}");
         unlink glob("${dirOut}MRG_${yyyyssss}_???.${extOut}");
         unlink glob("${dirOut}EDF_${yyyyssss}_????.${extOut}");
         unlink glob("${dirRes}EDF_${yyyyssss}_????.${extRes}");
@@ -218,12 +234,20 @@ sub run {
         unlink glob("${dirOut}${kin}_${yyyyssss}_????.${extOut}") if "$kin" ne "";
         unlink glob("${dirSum}${kin}_${yyyyssss}_????.${extSum}") if "$kin" ne "";
         unlink glob("${dirOut}${trp}_${yyyyssss}_????.${extOut}") if "$trp" ne "";
+	unlink glob("${dirOut}${fin}_${yyyyssss}_????.${extOut}");
+        unlink glob("${dirRxc}${fin}_${yyyyssss}_????.${extRxc}");
+        unlink glob("${dirRes}${fin}_${yyyyssss}_????.${extRes}");
+	unlink glob("${dirOut}NLI_${yyyyssss}_????.${extOut}");
+	unlink glob("${dirOut}WLI_${yyyyssss}_????.${extOut}");
         unlink glob("${dirOut}RES_${yyyyssss}_????.${extOut}");
         unlink glob("${dirEdt}RES_${yyyyssss}_????.${extEdt}");
         unlink glob("${dirOut}SPP_${yyyyssss}_????.${extOut}");
         unlink glob("${dirOut}MPR_${yyyyssss}_????.${extOut}");
         unlink glob("${dirOut}SMT_${yyyyssss}_?????????.${extOut}");
-        unlink glob("${dirOut}COO_${yyyyssss}.${extOut}");
+	unlink glob("${dirOut}SMT_${ddd}????.${extOut}");
+	unlink glob("${dirOut}SPP_${ddd}????.${extOut}");
+	unlink glob("${dirOut}FIL${ddd}????.${extOut}");
+	unlink glob("${dirOut}COO_${yyyyssss}.${extOut}");
         unlink glob("${dirSum}WRN_${yyyyssss}_????.${extSum}");
 
 

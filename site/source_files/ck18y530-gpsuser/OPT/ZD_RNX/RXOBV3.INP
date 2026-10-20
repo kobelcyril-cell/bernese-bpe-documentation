@@ -63,7 +63,7 @@ DESCR_SATELL 1  "Satellite information"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -319,13 +319,13 @@ USE_S 1  "0"
 MSG_USE_S 1  "Use SBAS"
 
 ! BeiDou
-USE_C 1  "0"
+USE_C 1  "1"
   ## widget = checkbox
 
 MSG_USE_C 1  "Use BeiDou"
 
 ! QZSS
-USE_J 1  "0"
+USE_J 1  "1"
   ## widget = checkbox
 
 MSG_USE_J 1  "Use QZSS"

@@ -288,14 +288,14 @@ RZFILES_TXT_COL_2 1  "OBSERVATION FILE"
 
 ! A priori Coordinates
 ! --------------------
-COORD 1  "$A_$YSS+0"
+COORD 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
 
 DESCR_COORD 1  "Station coordinates"
 
 ! Standard Orbit
 ! --------------
-STDORB 1  "$A_$YSS+0"
+STDORB 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
   ## activeif = STDORB_NEW == _
 
@@ -309,7 +309,7 @@ DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
 
 ! ERP File
 ! ---------
-POLE 1  "$A_$YSS+0"
+POLE 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
 
 DESCR_POLE 1  "Earth rotation parameters"
@@ -862,7 +862,7 @@ DESCR_RGBOUT 1  "Range biases"
 ! ----------------------------------------------------------------------
 ! Title
 ! -----
-TITLE 1  "Satellite clock determination for screening"
+TITLE 1  "Satellite clock determination for screening: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"

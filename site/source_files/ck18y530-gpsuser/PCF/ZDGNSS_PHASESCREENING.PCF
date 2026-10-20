@@ -19,7 +19,7 @@
 #
 #
 
-PID  SCRIPT                 OPT_DIR   PARAMETERS
+PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Wait for status flag
 # --------------------
@@ -68,14 +68,16 @@ PID  SCRIPT                 OPT_DIR   PARAMETERS
 # --------------
 170  ZD_CCRNXC           ZD_EDT      CPU=ANY; WAIT=150
 #
-# Checks (nothing yet)
-# -------------------------------------
+# Checks
+# ------
+900  ZD_CHKPRC_PS        NO_OPT      CPU=ANY; WAIT=170
+901  ZD_CHECK_MAUPRP_DEL NO_OPT      CPU=ANY; WAIT=900
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS           NO_OPT      CPU=ANY; WAIT=170; PARAM1=PHASESCREENING; PARAM2=CREATE
+999  ZD_STATUS           NO_OPT      CPU=ANY; WAIT=901; PARAM1=PHASESCREENING; PARAM2=CREATE
 
-VARIABLE   DEFAULT          PARAMETERS
+VARIABLE   DEFAULT        PARAMETERS
 V_APSP   = *;               DESCRIPTION=CODSPP apriori solution
 V_CWGT   = *;               DESCRIPTION=Weights for the code observations
 V_CSCR   = *;               DESCRIPTION=Code screening
@@ -88,6 +90,7 @@ V_SATCRX = *;               DESCRIPTION=Satellite problem file for data import
 V_SATINF = *;               DESCRIPTION=Satellite information
 V_MAC    = *;               DESCRIPTION=Satellite Macromodel
 V_PCV    = I??;             DESCRIPTION=GNSS PCV model (absolute)
+V_PCVM   = ????;            DESCRIPTION=GNSS PCV model version
 V_SUBMOD = *;               DESCRIPTION=Subdaily pole model
 V_NUTMOD = *;               DESCRIPTION=Nutation model
 V_SETID  = *;               DESCRIPTION=Solid Earth Tides
@@ -106,3 +109,4 @@ V_USEHOI = *;               DESCRIPTION=Use HOI-file                            
 V_TRPMOD = VMF;             DESCRIPTION=Troposphere model
 # Configuration
 V_PCFCONFIG = MODEL SETUP_ZDGNSS;    DESCRIPTION=Configuration files
+

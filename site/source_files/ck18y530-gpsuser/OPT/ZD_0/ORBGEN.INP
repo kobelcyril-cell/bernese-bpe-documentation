@@ -1093,12 +1093,12 @@ USE_E 1  "1"
 
 MSG_USE_E 1  "Consider satellites from GALILEO"
 
-USE_C 1  "0"
+USE_C 1  "1"
   ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
 
 MSG_USE_C 1  "Consider satellites from BEIDOU"
 
-USE_J 1  "0"
+USE_J 1  "1"
   ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
 
 MSG_USE_J 1  "Consider satellites from QZSS"

@@ -908,14 +908,14 @@ MSG_RESSYS 1  "Print Presiduals in RSW Coordinates"
 
 ! Number of Iterations
 ! --------------------
-NUMITER 1  "3"
+NUMITER 1  "8"
   ## widget = spinbox; range = 1 20 1; activeif = RADIO_P == 1
 
 MSG_NUMITER 1  "Number of iterations"
 
 ! Automatic number of Iterations
 ! ------------------------------
-AUTOITER 1  "0"
+AUTOITER 1  "1"
   ## widget = checkbox; activeif = RADIO_P == 1
 
 MSG_AUTOITER 1  "Automatic number of iterations"
@@ -1098,12 +1098,12 @@ USE_C 1  "1"
 
 MSG_USE_C 1  "Consider satellites from BEIDOU"
 
-USE_J 1  "0"
+USE_J 1  "1"
   ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
 
 MSG_USE_J 1  "Consider satellites from QZSS"
 
-USE_S 1  "1"
+USE_S 1  "0"
   ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
 
 MSG_USE_S 1  "Consider satellites from SBAS"

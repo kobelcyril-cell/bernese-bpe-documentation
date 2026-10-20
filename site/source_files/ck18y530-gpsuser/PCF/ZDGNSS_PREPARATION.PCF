@@ -47,7 +47,7 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 # Prepare a priori coordinates and orbit
 # --------------------------------------
 130  ZD_COOVEL               ZD_0        CPU=ANY; WAIT=122
-131  ZD_ORBGEN               ZD_0        CPU=ANY; WAIT=122
+131  ZD_ORBGEN_APR           ZD_0        CPU=ANY; WAIT=122
 #
 # Preparing the observation files
 # -------------------------------
@@ -82,6 +82,7 @@ V_SATCRX = *;                DESCRIPTION=Satellite problem file for data import
 V_SATINF = *;                DESCRIPTION=Satellite information
 V_MAC    = *;                DESCRIPTION=Satellite Macromodel
 V_PCV    = I??;              DESCRIPTION=GNSS PCV model (absolute)
+V_PCVM   = ????;             DESCRIPTION=GNSS PCV model version
 V_SUBMOD = *;                DESCRIPTION=Subdaily pole model
 V_NUTMOD = *;                DESCRIPTION=Nutation model
 V_SETID  = *;                DESCRIPTION=Solid Earth Tides

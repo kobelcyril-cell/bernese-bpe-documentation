@@ -218,7 +218,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -1843,7 +1843,7 @@ MSG_TRP_EXFLG 1  "Selection for station exceptions from flag: troposphere ZPDs"
 
 ! Atmospheric parameters: Troposphere gradient
 ! --------------------------------------------
-GRD_ELIM 1  "NO"
+GRD_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
@@ -1901,7 +1901,7 @@ GIM_EXCP 1  ""
 
 MSG_GIM_EXCP 1  "Except for files: Global ionosphere parameters"
 
-HOI_ELIM 1  "NO"
+HOI_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 

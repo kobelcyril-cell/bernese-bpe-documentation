@@ -116,6 +116,7 @@ V_MEANPL = *;                                           DESCRIPTION=Mean pole mo
 V_SUBMOD = *;                                           DESCRIPTION=Subdaily pole model
 V_NUTMOD = *;                                           DESCRIPTION=Nutation model
 V_PCV    = I??;                                         DESCRIPTION=Antenna phase center (PCV) model
+V_PCVM   = ????;             				DESCRIPTION=GNSS PCV model version
 V_PCVINF = *;                                           DESCRIPTION=PCV information file
 V_SATINF = *;                                           DESCRIPTION=Satellite information file
 V_SATCRX = *;                                           DESCRIPTION=Satellite problem file

@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-10-05 16:21:37
+Generated: 2026-10-20 14:06:24
 
 ## Overview
 
@@ -9,16 +9,16 @@ This manual is generated from one or more configured source directories containi
 ### Snapshot
 
 - PCF files: 21
-- PCF process rows: 521
-- Script files: 320
-- Bernese program references: 197
-- Script file reads: 212
-- Script file writes: 139
-- Script file deletes: 130
-- File references: 830
+- PCF process rows: 523
+- Script files: 328
+- Bernese program references: 207
+- Script file reads: 225
+- Script file writes: 151
+- Script file deletes: 133
+- File references: 877
 - INP files: 852
 - INP directories: 93
-- INP fields: 224527
+- INP fields: 224657
 
 ### Workflow
 
@@ -43,6 +43,8 @@ The following notes are imported from the configured handbook source and mirror 
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
+- 2026-10-20T14:03:38+02:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-10-20T14:03:38+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-10-05T16:17:56+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-10-05T16:17:53+02:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
 - 2026-10-05T16:11:02+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
@@ -61,8 +63,6 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 - 2026-10-05T15:21:29+02:00 | Cyril Kobel | Menu action | d1 | Selected option d1: Add handbook entry
 - 2026-10-05T15:07:49+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-10-05T15:07:48+02:00 | Cyril Kobel | Menu action | d3 | Selected option d3: Edit handbook entry
-- 2026-10-05T15:07:17+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-10-05T15:07:15+02:00 | Cyril Kobel | Menu action | d1 | Selected option d1: Add handbook entry
 
 ## Quick Cross-Reference
 
@@ -389,7 +389,7 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_LEONEQ_COP` | `ZD_LEONEQ_COP` | - | - |
 | `LEO_CHECK` | `LEO_CHECK` | - | - |
 | `LEO_ORB_P` | `LEO_ORB_P` | - | - |
-| `LEO_ORB_E` | `LEO_ORB_E` | `ORBGEN` | `ZD_LEONEQ/ORBGEN.INP` |
+| `LEO_ORB_E` | `LEO_ORB_P` | `ORBGEN` | `ZD_LEONEQ/ORBGEN.INP` |
 | `LEO_NEQ_P` | `LEO_NEQ_P` | - | - |
 | `LEO_NEQ_E` | `LEO_NEQ_E` | `GPSEST` | `ZD_LEONEQ/GPSEST.INP` |
 | `LEO_NEQ_CHECK` | `LEO_NEQ_CHECK` | - | - |
@@ -413,6 +413,8 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_ITE_PHASE_THR` | `ITE_PHASE_THR` | - | - |
 | `ZD_SOS_UPDATE` | `SOS_UPDATE` | `RESRMS` | `ZD_GEN/RESRMS.INP` |
 | `ZD_CCRNXC` | `CCRNXC` | `CCRNXC` | `ZD_EDT/CCRNXC.INP` |
+| `ZD_CHKPRC_PS` | `ZD_CHKPRC_PS` | - | - |
+| `ZD_CHECK_MAUPRP_DEL` | `CHECK_MAUPRP_DEL` | - | - |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_STATUS` | `STATUS` | - | - |
 | `ZD_COPY_PPP` | `COPY_PPP` | - | - |
@@ -474,7 +476,7 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 | `ZD_CHECK_VAPL_ENTRIES` | `CHECK_VAPL_ENTRIES` | - | - |
 | `ZD_NUM_OBSFIL` | `NUM_OBSFIL` | - | - |
 | `ZD_COOVEL` | `COOVEL` | `COOVEL` | `ZD_0/COOVEL.INP` |
-| `ZD_ORBGEN` | `ORBGEN` | `ORBGEN` | `ZD_0/ORBGEN.INP` |
+| `ZD_ORBGEN_APR` | `ZD_ORBGEN_APR` | `ORBGEN` | `ZD_0/ORBGEN.INP` |
 | `ZD_RNXSMTAP` | `RNXSMTAP` | - | - |
 | `ZD_RNXSMT_P` | `RNXSMT_P` | `RNXSMT` | `ZD_RNX/RNXSMT.INP` |
 | `ZD_RXOBV3GP` | `RXOBV3GP` | `RNXGRA` | `ZD_RNX/RNXGRA.INP` |
@@ -823,7 +825,7 @@ Variables:
 | V_PCV | I20 | DESCRIPTION=GNSS PCV model (absolute) |
 | V_SUBMOD | DESAI2016 | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | IAU2000R06 | DESCRIPTION=Nutation model |
-| V_POTCOE | COSTG_FSM_2509 | DESCRIPTION=Gravity field model |
+| V_POTCOE | COSTG_FSM_2603 | DESCRIPTION=Gravity field model |
 | V_NCLU | 14 | DESCRIPTION=Number of clusters to be used |
 | V_OBSSEL | OBSERV_COD | DESCRIPTION=Observation selection file |
 | V_STAINF | CODE | DESCRIPTION=Station information |
@@ -1027,6 +1029,7 @@ Variables:
 | V_POTCOE | COSTG_FSM_???? | DESCRIPTION=Gravity field model |
 | V_PCVINF | * | DESCRIPTION=PCV information |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_OBSSEL | * | DESCRIPTION=Observation selection file |
 | V_SATCRX | * | DESCRIPTION=Satellite problem file for data import |
 | V_SATINF | * | DESCRIPTION=Satellite information |
@@ -1085,6 +1088,7 @@ Variables:
 | V_POTCOE | COSTG_FSM_???? | DESCRIPTION=Gravity field model |
 | V_PCVINF | * | DESCRIPTION=PCV information |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_OBSSEL | * | DESCRIPTION=Observation selection file |
 | V_SATCRX | * | DESCRIPTION=Satellite problem file for data import |
 | V_SATINF | * | DESCRIPTION=Satellite information |
@@ -1143,6 +1147,7 @@ Variables:
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_MAC | * | DESCRIPTION=Satellite Macromodel |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_POTCOE | * | DESCRIPTION=Gravity field model |
@@ -1197,6 +1202,7 @@ Variables:
 | V_FINCLK | * | DESCRIPTION=Final high-rate clocks |
 | V_BLQINF | FES20* | DESCRIPTION=BLQ file name, CMC corrections |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_PCVINF | * | DESCRIPTION=PCV information |
 | V_OBSSEL | * | DESCRIPTION=Observation selection file |
 | V_SATINF | * | DESCRIPTION=Satellite information |
@@ -1264,6 +1270,7 @@ Variables:
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_MAC | * | DESCRIPTION=Satellite Macromodel |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_SETID | * | DESCRIPTION=Solid Earth Tides |
@@ -1330,6 +1337,7 @@ Variables:
 | V_SATCRX | * | DESCRIPTION=Satellite problem file for data import |
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_STAINF | * | DESCRIPTION=Station information |
@@ -1384,6 +1392,7 @@ Variables:
 | V_SATCRX | * | DESCRIPTION=Satellite problem file for data import |
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_STAINF | * | DESCRIPTION=Station information |
@@ -1406,7 +1415,7 @@ Process Table
 | 003 | ZD_LEONEQ_COP | ZD_LEONEQ_COP | NO_OPT | - | P: V_ORBDIR/V_B$Y$+0.EXT_STD* | CPU=ANY |
 | 004 | LEO_CHECK | LEO_CHECK | NO_OPT | - | - | CPU=ANY; WAIT=001 002 003 |
 | 100 | LEO_ORB_P | LEO_ORB_P | NO_OPT | - | - | CPU=ANY; WAIT=004 |
-| 101 | LEO_ORB_E | LEO_ORB_E | ZD_LEONEQ | `ZD_LEONEQ/ORBGEN.INP` | - | CPU=ANY; WAIT=100; PARALLEL=100 |
+| 101 | LEO_ORB_E | LEO_ORB_P | ZD_LEONEQ | `ZD_LEONEQ/ORBGEN.INP` | - | CPU=ANY; WAIT=100; PARALLEL=100 |
 | 200 | LEO_NEQ_P | LEO_NEQ_P | NO_OPT | - | - | CPU=ANY; WAIT=101 |
 | 201 | LEO_NEQ_E | LEO_NEQ_E | ZD_LEONEQ | `ZD_LEONEQ/GPSEST.INP` | - | CPU=ANY; WAIT=200; PARALLEL=200 |
 | 300 | LEO_NEQ_CHECK | LEO_NEQ_CHECK | NO_OPT | - | - | CPU=ANY; WAIT=201 |
@@ -1480,7 +1489,9 @@ Process Table
 | 150 | ZD_ITE_PHASE_THR | ITE_PHASE_THR | NO_OPT | - | D: @resFil; P: DIR_EDT../MSC/V_CPSC$YD+0_????.FLG | CPU=ANY; WAIT=142; NEXTJOB=150 110 130 |
 | 160 | ZD_SOS_UPDATE | SOS_UPDATE | ZD_GEN | `ZD_GEN/RESRMS.INP` | - | CPU=ANY; WAIT=150 |
 | 170 | ZD_CCRNXC | CCRNXC | ZD_EDT | `ZD_EDT/CCRNXC.INP` | - | CPU=ANY; WAIT=150 |
-| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=170; PARAM1=PHASESCREENING; PARAM2=CREATE |
+| 900 | ZD_CHKPRC_PS | ZD_CHKPRC_PS | NO_OPT | - | R: $file; W: $logfile; P: $pattern | CPU=ANY; WAIT=170 |
+| 901 | ZD_CHECK_MAUPRP_DEL | CHECK_MAUPRP_DEL | NO_OPT | - | R: DIR_OUT/MPR$YSS+0.DEL; W: DIR_OUT/../MSC/MSC_$YD+0/PROCESSIN... | CPU=ANY; WAIT=900 |
+| 999 | ZD_STATUS | STATUS | NO_OPT | - | W: $marker | CPU=ANY; WAIT=901; PARAM1=PHASESCREENING; PARAM2=CREATE |
 
 Variables:
 
@@ -1498,6 +1509,7 @@ Variables:
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_MAC | * | DESCRIPTION=Satellite Macromodel |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_SETID | * | DESCRIPTION=Solid Earth Tides |
@@ -1587,6 +1599,7 @@ Variables:
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_PCV | I?? | DESCRIPTION=Antenna phase center (PCV) model |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_PCVINF | * | DESCRIPTION=PCV information file |
 | V_SATINF | * | DESCRIPTION=Satellite information file |
 | V_SATCRX | * | DESCRIPTION=Satellite problem file |
@@ -1645,7 +1658,7 @@ Process Table
 | 121 | ZD_CHECK_VAPL_ENTRIES | CHECK_VAPL_ENTRIES | NO_OPT | - | R: DIR_ATL/VAPL.EXT_ATL; W: DIR_OUT../MSC/MSC_$YD+0/VAPL_entri...; D: DIR_PZH$file) { print $LOG " delet... | CPU=ANY; WAIT=120 |
 | 122 | ZD_NUM_OBSFIL | NUM_OBSFIL | NO_OPT | - | W: DIR_OUT/../MSC/MSC_$YD+0/PROCESSIN... | CPU=ANY; WAIT=121 |
 | 130 | ZD_COOVEL | COOVEL | ZD_0 | `ZD_0/COOVEL.INP` | - | CPU=ANY; WAIT=122 |
-| 131 | ZD_ORBGEN | ORBGEN | ZD_0 | `ZD_0/ORBGEN.INP` | - | CPU=ANY; WAIT=122 |
+| 131 | ZD_ORBGEN_APR | ZD_ORBGEN_APR | ZD_0 | `ZD_0/ORBGEN.INP` | - | CPU=ANY; WAIT=122 |
 | 140 | ZD_RNXSMTAP | RNXSMTAP | ZD_RNX | - | D: DIR_OUTRNX$YSS+0.ERR; P: "DIR_SMT????$S+0.EXT_SMT" | CPU=ANY; WAIT=122 |
 | 141 | ZD_RNXSMT_P | RNXSMT_P | ZD_RNX | `ZD_RNX/RNXSMT.INP` | D: PARAM1 | CPU=ANY; WAIT=140; PARALLEL=140 |
 | 142 | ZD_RXOBV3GP | RXOBV3GP | ZD_RNX | `ZD_RNX/RNXGRA.INP` | D: $del; P: "DIR_BPEPRTOBS$S+0???.BPE" | CPU=ANY; WAIT=141 |
@@ -1668,6 +1681,7 @@ Variables:
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_MAC | * | DESCRIPTION=Satellite Macromodel |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_SETID | * | DESCRIPTION=Solid Earth Tides |
@@ -1728,6 +1742,7 @@ Variables:
 | V_SATCRX | * | DESCRIPTION=Satellite problem file for data import |
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_NCLU | * | DESCRIPTION=Number of clusters to be used |
@@ -1791,6 +1806,7 @@ Variables:
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_MAC | * | DESCRIPTION=Satellite Macromodel |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_SETID | * | DESCRIPTION=Solid Earth Tides |
@@ -1865,6 +1881,7 @@ Variables:
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_MAC | * | DESCRIPTION=Satellite Macromodel |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_SETID | * | DESCRIPTION=Solid Earth Tides |
@@ -1939,6 +1956,7 @@ Variables:
 | V_SATINF | * | DESCRIPTION=Satellite information |
 | V_MAC | * | DESCRIPTION=Satellite Macromodel |
 | V_PCV | I?? | DESCRIPTION=GNSS PCV model (absolute) |
+| V_PCVM | ???? | DESCRIPTION=GNSS PCV model version |
 | V_SUBMOD | * | DESCRIPTION=Subdaily pole model |
 | V_NUTMOD | * | DESCRIPTION=Nutation model |
 | V_SETID | * | DESCRIPTION=Solid Earth Tides |
@@ -2064,6 +2082,28 @@ Variables:
 
 ## Script Catalog
 
+### #CLEAN_FILES#
+
+- Package: `CLEAN_FILES`
+- Purpose: Delete specific files, only if V_CLEAN=Y.
+- Read keys:
+  - V_ variables: `V_A`, `V_B`, `V_C`, `V_CLEAN`, `V_E`, `V_H`, `V_I`, `V_K`, `V_L`, `V_U`, `V_W`, `V_Z`
+  - Other keys: `$D+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
+- File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
+- File deletes: `$dir/$file`
+- Source: [#CLEAN_FILES#](source_files/ck18y530-gpsuser/SCRIPT/#CLEAN_FILES#)
+### #MANMRK#
+
+- Package: `MANMRK`
+- Purpose: Mark observations for satellites with manoeuvres
+- Bernese programs: `SATMRK`
+- INP files: `SATMRK.INP`, `SATMRK.INP`
+- Read keys:
+  - V_ variables: `V_MGEINI`, `V_SATCRX`
+  - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
+- File reads: `DIR_STAV_SATCRX.EXT_CRX`, `$ENV{CONFIG}/V_SATCRX.EXT_CRX`
+- File writes: `DIR_STAV_SATCRX.EXT_CRX`
+- Source: [#MANMRK#](source_files/ck18y530-gpsuser/SCRIPT/#MANMRK#)
 ### ADDNEQ2
 
 - Purpose: Combine NQ0-files Programs:  ADDNEQ2, GPSXTR
@@ -2240,6 +2280,17 @@ Variables:
 - File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - Source: [CHECK_SAT_RMS](source_files/ck18y530-gpsuser/SCRIPT/CHECK_SAT_RMS)
+### CHECK_SAT_RMS~
+
+- Package: `CHECK_SAT_RMS`
+- Purpose: Prüft im ORBGEN_APR-File die RMS (M) jedes Satelliten. Wenn RMS > 5.0 m oder RMS ungültig (Sternchen / kaputte Zahl), wird SATMRK ausgeführt. Jeder betroffene Satellit wird ins Processing-Log geschrieben.
+- Bernese programs: `SATMRK`
+- INP files: `SATMRK.INP`, `SATMRK.INP`
+- Read keys:
+  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
+- File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
+- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
+- Source: [CHECK_SAT_RMS~](source_files/ck18y530-gpsuser/SCRIPT/CHECK_SAT_RMS~)
 ### CHECK_VAPL_ENTRIES
 
 - Purpose: Checks OBS files (????$ssss.*) against station entries in STA/VAPL.ATL. If a station is missing in VAPL.ATL, all corresponding OBS files are removed.
@@ -2811,14 +2862,6 @@ Variables:
   - V_ variables: `V_LFILE`
   - Other keys: `$YSS+0`, `DIR_OUT`
 - Source: [LEO_CHECK_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK_16092026)
-### LEO_CHECK~
-
-- Package: `LEO_CHECK`
-- Purpose: Check LEOPOD quality indicators before the LEO NEQ processing, remove failed LEOs from the daily LFILE and write a daily report.
-- Read keys:
-  - V_ variables: `V_LFILE`, `V_MAXS`, `V_MAX_ALL`, `V_MAX_R`, `V_MAX_S`, `V_MAX_W`
-  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
-- Source: [LEO_CHECK~](source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK~)
 ### LEO_COP
 
 - Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF
@@ -2874,14 +2917,6 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`
 - Source: [LEO_NEQ_E_14092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E_14092026)
-### LEO_NEQ_E~
-
-- Package: `LEO_NEQ_E`
-- Bernese programs: `GPSEST`
-- INP files: `GPSEST.INP`
-- Read keys:
-  - PARAM parameters: `PARAM1`
-- Source: [LEO_NEQ_E~](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E~)
 ### LEO_NEQ_P
 
 - Purpose: Prepare one parallel GPSEST job per selected LEO.
@@ -2906,14 +2941,6 @@ Variables:
   - V_ variables: `V_LFILE`
   - Other keys: `$YD+0`, `DIR_OUT`
 - Source: [LEO_NEQ_P_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P_16092026)
-### LEO_NEQ_P~
-
-- Package: `LEO_NEQ_P`
-- Purpose: Prepare one parallel GPSEST job per selected LEO.
-- Read keys:
-  - V_ variables: `V_LFILE`
-  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
-- Source: [LEO_NEQ_P~](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P~)
 ### LEO_ORB_E
 
 - Package: `LEO_ORB_P`
@@ -2925,15 +2952,6 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$YSS+0`
 - Source: [LEO_ORB_E](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_E)
-### LEO_ORB_E~
-
-- Package: `LEO_ORB_E`
-- Bernese programs: `ORBGEN`
-- INP files: `ORBGEN.INP`
-- Read keys:
-  - PARAM parameters: `PARAM1`
-  - Other keys: `$YSS+0`
-- Source: [LEO_ORB_E~](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_E~)
 ### LEO_ORB_P
 
 - Purpose: Prepare one parallel ORBGEN job per selected LEO.
@@ -2950,14 +2968,6 @@ Variables:
   - V_ variables: `V_LFILE`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
 - Source: [LEO_ORB_P_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P_16092026)
-### LEO_ORB_P~
-
-- Package: `LEO_ORB_P`
-- Purpose: Prepare one parallel ORBGEN job per selected LEO.
-- Read keys:
-  - V_ variables: `V_LFILE`
-  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
-- Source: [LEO_ORB_P~](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P~)
 ### LEO_RNX
 
 - Purpose: Copy the observation files for LEOPOD.PCF
@@ -3026,6 +3036,18 @@ Variables:
 - File reads: `DIR_STAV_SATCRX.EXT_CRX`, `$ENV{CONFIG}/V_SATCRX.EXT_CRX`
 - File writes: `DIR_STAV_SATCRX.EXT_CRX`
 - Source: [MANMRK](source_files/ck18y530-gpsuser/SCRIPT/MANMRK)
+### MANMRK~
+
+- Package: `MANMRK`
+- Purpose: Mark observations for satellites with manoeuvres
+- Bernese programs: `SATMRK`
+- INP files: `SATMRK.INP`, `SATMRK.INP`
+- Read keys:
+  - V_ variables: `V_MGEINI`, `V_SATCRX`
+  - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
+- File reads: `DIR_STAV_SATCRX.EXT_CRX`, `$ENV{CONFIG}/V_SATCRX.EXT_CRX`
+- File writes: `DIR_STAV_SATCRX.EXT_CRX`
+- Source: [MANMRK~](source_files/ck18y530-gpsuser/SCRIPT/MANMRK~)
 ### MAUPRP_P
 
 - Purpose: Parallel run for automatic cleaning of double difference phase observations Programs:  MAUPRP
@@ -3823,15 +3845,6 @@ Variables:
   - Other keys: `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
 - File deletes: `$file)`
 - Source: [ZD_ADD_LEO](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADD_LEO)
-### ZD_ADD_LEO~
-
-- Package: `ZD_ADD_LEO`
-- Purpose: Copy LEO NEQs into the campaign and record the included LEOs in the session's MSC directory.
-- Read keys:
-  - V_ variables: `V_DIRLEO`, `V_FIN`, `V_ILEO`
-  - Other keys: `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
-- File deletes: `$file)`
-- Source: [ZD_ADD_LEO~](source_files/ck18y530-gpsuser/SCRIPT/ZD_ADD_LEO~)
 ### ZD_ADDNEQ2
 
 - Package: `ADDNEQ2`
@@ -3976,13 +3989,6 @@ Variables:
 - Read keys:
   - Other keys: `DIR_BPEOUT`, `DIR_CZH`, `DIR_GRD`, `DIR_NEQ`, `DIR_ORB`, `DIR_ORX`, `DIR_OUT`, `DIR_RXO`, `DIR_STA`, `DIR_TRP`, `EXT_SES`, `PTH_SINEXIN`
 - Source: [ZD_CHECK_CAMP](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_CAMP)
-### ZD_CHECK_CAMP~
-
-- Package: `CHECK_CAMP`
-- Purpose: Check whether campaign is ready for processing
-- Read keys:
-  - Other keys: `DIR_BPEOUT`, `DIR_CZH`, `DIR_GRD`, `DIR_NEQ`, `DIR_ORB`, `DIR_ORX`, `DIR_OUT`, `DIR_RXO`, `DIR_STA`, `DIR_TRP`, `EXT_SES`, `PTH_SINEXIN`
-- Source: [ZD_CHECK_CAMP~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_CAMP~)
 ### ZD_CHECK_GRD_FILES
 
 - Package: `CHECK_GRD_FILES`
@@ -3994,6 +4000,25 @@ Variables:
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`, `DIR_OUT../MSC/MSC_$YD+0/no_${type}`
 - File deletes: `DIR_OUT../MSC/MSC_$YD+0/no_${type} if (-e DIR_OUT../MSC/MSC_$YD+0/no_${type}`
 - Source: [ZD_CHECK_GRD_FILES](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_GRD_FILES)
+### ZD_CHECK_MAUPRP_DEL
+
+- Package: `CHECK_MAUPRP_DEL`
+- Purpose: Checks the MAUPRP deletion file for excluded stations.
+- Used in PCFs: ZDGNSS_PHASESCREENING.PCF
+- Read keys:
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
+- File reads: `DIR_OUT/MPR$YSS+0.DEL`
+- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
+- Source: [ZD_CHECK_MAUPRP_DEL](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_MAUPRP_DEL)
+### ZD_CHECK_MAUPRP_DEL~
+
+- Package: `CHECK_MAUPRP_DEL`
+- Purpose: Checks the MAUPRP deletion file for excluded stations.
+- Read keys:
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
+- File reads: `DIR_OUT/MPR$YSS+0.DEL`
+- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
+- Source: [ZD_CHECK_MAUPRP_DEL~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_MAUPRP_DEL~)
 ### ZD_CHECK_OBSENTRIES
 
 - Package: `CHECK_OBSENTRIES`
@@ -4027,6 +4052,17 @@ Variables:
 - File reads: `DIR_OUT/SMT${yy}$S+0.SMC`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - Source: [ZD_CHECK_SAT_GAPS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_GAPS)
+### ZD_CHECK_SAT_GAPS~
+
+- Package: `CHECK_SAT_GAPS`
+- Purpose: Checks the SMC file (PHASE OBSERVATIONS) for satellite data gaps.
+- Bernese programs: `SATMRK`
+- INP files: `SATMRK.INP`, `SATMRK.INP`
+- Read keys:
+  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
+- File reads: `DIR_OUT/SMT${yy}$S+0.SMC`
+- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
+- Source: [ZD_CHECK_SAT_GAPS~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_GAPS~)
 ### ZD_CHECK_SAT_RMS
 
 - Package: `CHECK_SAT_RMS`
@@ -4070,15 +4106,26 @@ Variables:
 - File reads: `$phacorFile`
 - File writes: `$logfile`
 - Source: [ZD_CHKPRC_AR](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_AR)
-### ZD_CHKPRC_AR~
+### ZD_CHKPRC_PS
 
-- Package: `ZD_CHKPRC_AR`
-- Purpose: Run processing checks for AR
+- Purpose: Run observation quality checks
+- Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - Read keys:
-  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
-- File reads: `$phacorFile`
-- File writes: `$logfile`
-- Source: [ZD_CHKPRC_AR~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_AR~)
+  - Other keys: `$S+0`, `$YD+0`, `DIR_OUT`
+- File reads: `$file`
+- File writes: `$logfile`, `$report`
+- File patterns: `$pattern`
+- Source: [ZD_CHKPRC_PS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_PS)
+### ZD_CHKPRC_PS~
+
+- Package: `ZD_CHKPRC_PS`
+- Purpose: Run observation quality checks
+- Read keys:
+  - Other keys: `$S+0`, `$YD+0`, `DIR_OUT`
+- File reads: `$file`
+- File writes: `$logfile`, `$report`
+- File patterns: `$pattern`
+- Source: [ZD_CHKPRC_PS~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_PS~)
 ### ZD_CHKPRC_SOL
 
 - Purpose: Run solution processing checks
@@ -4093,20 +4140,6 @@ Variables:
 - File deletes: `$file)) { $deleted++`
 - File patterns: `$pattern`
 - Source: [ZD_CHKPRC_SOL](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_SOL)
-### ZD_CHKPRC_SOL~
-
-- Package: `ZD_CHKPRC_SOL`
-- Purpose: Run solution processing checks
-- Bernese programs: `HELMR1`
-- INP files: `HELMR1.INP`
-- Read keys:
-  - V_ variables: `V_CRDINF`, `V_FIN`
-  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
-- File reads: `$helmertFile`
-- File writes: `$logfile`
-- File deletes: `$file)) { $deleted++`
-- File patterns: `$pattern`
-- Source: [ZD_CHKPRC_SOL~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_SOL~)
 ### ZD_CLKEST
 
 - Package: `CLKEST`
@@ -4271,10 +4304,22 @@ Variables:
 - INP files: `POLUPD.INP`
 - Read keys:
   - V_ variables: `V_BIAINF`, `V_CRDINF`, `V_PSDINF`, `V_SATCRX`
-  - Other keys: `$+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_OSB`, `DIR_STA`, `EXT_CRX`, `EXT_ERP`, `EXT_FIX`, `EXT_OSB`, `EXT_SINEXIN`, `PTH_SINEXIN`
+  - Other keys: `$+0`, `$Y+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_OSB`, `DIR_STA`, `EXT_CRX`, `EXT_ERP`, `EXT_FIX`, `EXT_OSB`, `EXT_SINEXIN`, `PTH_SINEXIN`
 - File reads: `DIR_ERPAPR${yyssss}.EXT_ERP`, `$YSS+0`
 - File writes: `DIR_ERPREF${yyssss}.EXT_ERP`, `$target`
 - Source: [ZD_COPY_REF](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_REF)
+### ZD_COPY_REF~
+
+- Package: `COPY_REF`
+- Purpose: Copy required files for processing
+- Bernese programs: `POLUPD`
+- INP files: `POLUPD.INP`
+- Read keys:
+  - V_ variables: `V_BIAINF`, `V_CRDINF`, `V_PSDINF`, `V_SATCRX`
+  - Other keys: `$+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_OSB`, `DIR_STA`, `EXT_CRX`, `EXT_ERP`, `EXT_FIX`, `EXT_OSB`, `EXT_SINEXIN`, `PTH_SINEXIN`
+- File reads: `DIR_ERPAPR${yyssss}.EXT_ERP`, `$YSS+0`
+- File writes: `DIR_ERPREF${yyssss}.EXT_ERP`, `$target`
+- Source: [ZD_COPY_REF~](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_REF~)
 ### ZD_CRDMERGE
 
 - Package: `CRDMERGE`
@@ -4316,16 +4361,6 @@ Variables:
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `$dir/$file`
 - Source: [ZD_DEL_RES_1D](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_1D)
-### ZD_DEL_RES_1D~
-
-- Package: `DEL_RES_1D`
-- Purpose: Delete specific files, only if V_CLEAN=Y.
-- Read keys:
-  - V_ variables: `V_APR`, `V_APSP`, `V_BRD`, `V_CBIA`, `V_CLEAN`, `V_CLKA`, `V_CPSC`, `V_CSCR`, `V_CWGT`, `V_FIN`, `V_LARGE`
-  - Other keys: `$D+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
-- File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- File deletes: `$dir/$file`
-- Source: [ZD_DEL_RES_1D~](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_1D~)
 ### ZD_DEL_RES_3D
 
 - Package: `DEL_RES_3D`
@@ -4335,18 +4370,8 @@ Variables:
   - V_ variables: `V_APR`, `V_DEL`, `V_FIN`, `V_ORBAPR`
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_OUT`
 - File deletes: `$file`
-- File patterns: `DIR_OUT${pattern}`, `DIR_OUT../STA/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../SOL/${pattern}`, `DIR_OUT../BPE/*ZD3D*${day}*`
+- File patterns: `DIR_OUT${pattern}`, `DIR_OUT../STA/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../SOL/${pattern}`, `DIR_OUT../BPE/*${day}*`
 - Source: [ZD_DEL_RES_3D](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_3D)
-### ZD_DEL_RES_3D~
-
-- Package: `DEL_RES_3D`
-- Purpose: Delete result files, only if V_DEL=Y.
-- Read keys:
-  - V_ variables: `V_APR`, `V_DEL`, `V_FIN`, `V_ORBAPR`
-  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_OUT`
-- File deletes: `$file`
-- File patterns: `DIR_OUT${pattern}`, `DIR_OUT../STA/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../SOL/${pattern}`, `DIR_OUT../BPE/*ZD3D*${day}*`
-- Source: [ZD_DEL_RES_3D~](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_3D~)
 ### ZD_DEL_RES_CLKD
 
 - Package: `DEL_RES_CLKD`
@@ -4356,7 +4381,7 @@ Variables:
   - V_ variables: `V_DEL`, `V_FIN`, `V_FINCLK`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File deletes: `$file`
-- File patterns: `DIR_OUT${pattern}`, `DIR_OUT../ATM/${pattern}`, `DIR_OUT../OBS/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../BPE/*CLKDEN*${day}*`
+- File patterns: `DIR_OUT${pattern}`, `DIR_OUT../ATM/${pattern}`, `DIR_OUT../OBS/${pattern}`, `DIR_OUT../ORB/${pattern}`, `DIR_OUT../BPE/*${day}*`
 - Source: [ZD_DEL_RES_CLKD](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_CLKD)
 ### ZD_DEL_RES_PPP
 
@@ -4381,11 +4406,11 @@ Variables:
 
 # Delete Files if requested
 # -------------------------
-    print `, `$S+0`, `$S-5`, `$YYYD+0`, `$YYYD-5`, `$YYYSS+0`, `$YYYSS-5`, `;
+    print `, `$+0`, `$S+0`, `$S-5`, `$YYYD+0`, `$YYYD-5`, `$YYYSS+0`, `$YYYSS-5`, `;
 
-    if ( ${del} ne `, `DIR_BIA`, `DIR_CLK`, `DIR_CRD`, `DIR_CZH`, `DIR_CZO`, `DIR_DCB`, `DIR_EDT`, `DIR_ERP`, `DIR_GCC`, `DIR_IEP`
+    if ( ${del} ne `, `DIR_BIA`, `DIR_CLK`, `DIR_CRD`, `DIR_CZH`, `DIR_CZO`, `DIR_DCB`, `DIR_EDT`, `DIR_ERP`, `DIR_GCC`
 - File deletes: `glob "DIR_OUT*.J_lk"`
-- File patterns: `"DIR_OBO*$YYYSS-5.EXT_RBO"`, `"DIR_RBO*$YYYSS-5.EXT_RBO"`, `"DIR_SMT*$YYYSS-5.EXT_SMT"`, `"DIR_PZH????$S-5.EXT_PZH"`, `"DIR_PZO????$S-5.EXT_PZO"`, `"DIR_CZH????$S-5.EXT_CZH"`, `"DIR_CZO????$S-5.EXT_CZO"`, `"DIR_IONV_HOIFIL.EXT_ION"`, `"DIR_TRPV_PPP_$YYYSS-5.EXT_TRP"`, `"DIR_TROV_PPP_$YYYSS-5.EXT_TRO"`, `"DIR_TRPV_FIN_$YYYSS-5.EXT_TRP"`, `"DIR_TROV_FIN_$YYYSS-5.EXT_TRO"` and 202 more
+- File patterns: `"DIR_OBO*$YYYSS-5.EXT_RBO"`, `"DIR_RBO*$YYYSS-5.EXT_RBO"`, `"DIR_SMT*$YYYSS-5.EXT_SMT"`, `"DIR_PZH????$S-5.EXT_PZH"`, `"DIR_PZO????$S-5.EXT_PZO"`, `"DIR_CZH????$S-5.EXT_CZH"`, `"DIR_CZO????$S-5.EXT_CZO"`, `"DIR_IONV_HOIFIL.EXT_ION"`, `"DIR_TRPV_PPP_$YYYSS-5.EXT_TRP"`, `"DIR_TROV_PPP_$YYYSS-5.EXT_TRO"`, `"DIR_TRPV_FIN_$YYYSS-5.EXT_TRP"`, `"DIR_TROV_FIN_$YYYSS-5.EXT_TRO"` and 248 more
 - Source: [ZD_DEL_RES_PPP](source_files/ck18y530-gpsuser/SCRIPT/ZD_DEL_RES_PPP)
 ### ZD_DEL_RXO
 
@@ -4625,6 +4650,14 @@ Variables:
   - Other keys: `$+0`, `$Y+0`, `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`
 - File deletes: `DIR_GRDVMF$YD+0.EXT_GRD`
 - Source: [ZD_INIT_VMF](source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_VMF)
+### ZD_INIT_VMF~
+
+- Package: `INIT_VMF`
+- Purpose: Initialize VMF grid files
+- Read keys:
+  - Other keys: `$+0`, `$Y+0`, `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`
+- File deletes: `DIR_GRDVMF$YD+0.EXT_GRD`
+- Source: [ZD_INIT_VMF~](source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_VMF~)
 ### ZD_ITE_PHASE_THR
 
 - Package: `ITE_PHASE_THR`
@@ -4657,15 +4690,6 @@ Variables:
   - Other keys: `$+0`, `$Y`, `$YD+0`, `$YSS+0`, `DIR_ERP`, `DIR_OSB`, `DIR_OUT`, `DIR_RPR`, `DIR_RXC`, `DIR_STD`, `EXT_ERP`, `EXT_OSB`, `EXT_RPR`, `EXT_RXC`, `EXT_STD`
 - File patterns: `V_ORBDIR/V_B$Y$+0.EXT_STD*`, `V_ORBDIR/V_B$Y$+00.EXT_STD*`, `V_ORBDIR/V_B$Y$+0.EXT_RPR*`, `V_ORBDIR/V_B$Y$+00.EXT_RPR*`, `V_ORBDIR/V_B$Y$+0.ERP*`, `V_ORBDIR/V_B$Y$+00.ERP*`, `V_CLKDIR/V_CLK$Y$+0.EXT_RXC*`, `V_CLKDIR/V_CLK$Y$+00.EXT_RXC*`, `V_ORBDIR/V_OSB.EXT_OSB`
 - Source: [ZD_LEONEQ_COP](source_files/ck18y530-gpsuser/SCRIPT/ZD_LEONEQ_COP)
-### ZD_LEONEQ_COP~
-
-- Package: `LEO_COP`
-- Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF
-- Read keys:
-  - V_ variables: `V_ATLINF`, `V_B`, `V_BLQINF`, `V_CLK`, `V_CLKDIR`, `V_CRDINF`, `V_ORBDIR`, `V_OSB`, `V_REFDIR`, `V_STAINF`
-  - Other keys: `$+0`, `$Y`, `$YD+0`, `$YSS+0`, `DIR_ABB`, `DIR_ATL`, `DIR_BLQ`, `DIR_CRD`, `DIR_ERP`, `DIR_OSB`, `DIR_OUT`, `DIR_RXC`, `DIR_STA`, `DIR_STD`, `EXT_ABB`, `EXT_ATL`, `EXT_BLQ`, `EXT_CRD`, `EXT_ERP`, `EXT_OSB`
-- File patterns: `V_ORBDIR/V_B$Y$+0.EXT_STD*`, `V_ORBDIR/V_B$Y$+00.EXT_STD*`, `V_ORBDIR/V_B$Y$+0.ERP*`, `V_ORBDIR/V_B$Y$+00.ERP*`, `V_CLKDIR/V_CLK$Y$+0.EXT_RXC*`, `V_CLKDIR/V_CLK$Y$+00.EXT_RXC*`, `V_ORBDIR/V_OSB.EXT_OSB`, `V_ORBDIR/V_OSB$Y$+0.EXT_OSB*`, `V_ORBDIR/V_OSB$Y$+00.EXT_OSB*`
-- Source: [ZD_LEONEQ_COP~](source_files/ck18y530-gpsuser/SCRIPT/ZD_LEONEQ_COP~)
 ### ZD_MANMRK
 
 - Package: `MANMRK`
@@ -4678,6 +4702,17 @@ Variables:
   - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
 - File reads: `DIR_STAV_SATCRX.EXT_CRX`
 - Source: [ZD_MANMRK](source_files/ck18y530-gpsuser/SCRIPT/ZD_MANMRK)
+### ZD_MANMRK~
+
+- Package: `MANMRK`
+- Purpose: Marks observations for satellites affected by manoeuvres. Copies SAT-CRX into campaign first
+- Bernese programs: `SATMRK`
+- INP files: `SATMRK.INP`, `SATMRK.INP`
+- Read keys:
+  - V_ variables: `V_SATCRX`
+  - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
+- File reads: `DIR_STAV_SATCRX.EXT_CRX`
+- Source: [ZD_MANMRK~](source_files/ck18y530-gpsuser/SCRIPT/ZD_MANMRK~)
 ### ZD_MAUPRP_E
 
 - Package: `MAUPRP_E`
@@ -4802,9 +4837,39 @@ Variables:
 - Package: `ORBGEN`
 - Purpose: Run ORBGEN
 - Bernese programs: `ORBGEN`
-- Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_AR.PCF, ZDGNSS_PPP.PCF, ZDGNSS_PREPARATION.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
+- Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_AR.PCF, ZDGNSS_PPP.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ORBGEN.INP`
 - Source: [ZD_ORBGEN](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN)
+### ZD_ORBGEN_APR
+
+- Purpose: Run ORBGEN, check for bad satellites, and add exclusions to the SATCRX file.
+- Bernese programs: `ORBGEN`
+- Used in PCFs: ZDGNSS_PREPARATION.PCF
+- INP files: `ORBGEN.INP`
+- Read keys:
+  - V_ variables: `V_SATCRX`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPELOG`, `DIR_CRX`, `DIR_OUT`, `EXT_BPELOG`, `EXT_CRX`, `PID`, `TASKID`
+- Source: [ZD_ORBGEN_APR](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR)
+### ZD_ORBGEN_APR_20102026
+
+- Package: `ZD_ORBGEN_APR`
+- Purpose: Run ORBGEN, check for bad satellites and create entry in SATCRX file for these.
+- Bernese programs: `ORBGEN`
+- INP files: `ORBGEN.INP`
+- Read keys:
+  - V_ variables: `V_SATCRX`
+  - Other keys: `$S+0`, `$YD+0`, `DIR_CRX`, `DIR_OUT`, `EXT_CRX`
+- Source: [ZD_ORBGEN_APR_20102026](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR_20102026)
+### ZD_ORBGEN_APR~
+
+- Package: `ZD_ORBGEN_APR`
+- Purpose: Run ORBGEN, check for bad satellites, and add exclusions to the SATCRX file.
+- Bernese programs: `ORBGEN`
+- INP files: `ORBGEN.INP`
+- Read keys:
+  - V_ variables: `V_SATCRX`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPELOG`, `DIR_CRX`, `DIR_OUT`, `EXT_BPELOG`, `EXT_CRX`, `PID`, `TASKID`
+- Source: [ZD_ORBGEN_APR~](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR~)
 ### ZD_ORBGENA
 
 - Package: `ORBGENA`
@@ -4852,7 +4917,7 @@ Variables:
 ### ZD_PHABIA
 
 - Package: `PHABIA`
-- Purpose: Execute PHABIA, special case for ZD-processing WL
+- Purpose: Execute PHABIA, Create a combined OSB file
 - Bernese programs: `PHABIA`
 - Used in PCFs: ZDGNSS_AR.PCF
 - INP files: `PHABIA.INP`
@@ -4861,6 +4926,28 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
 - Source: [ZD_PHABIA](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA)
+### ZD_PHABIA_19102026
+
+- Package: `PHABIA`
+- Purpose: Execute PHABIA, Create a combined OSB file
+- Bernese programs: `PHABIA`
+- INP files: `PHABIA.INP`
+- Read keys:
+  - V_ variables: `V_APR`, `V_CBIA`
+  - PARAM parameters: `PARAM2`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
+- Source: [ZD_PHABIA_19102026](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA_19102026)
+### ZD_PHABIA~
+
+- Package: `PHABIA`
+- Purpose: Execute PHABIA, Create a combined OSB file
+- Bernese programs: `PHABIA`
+- INP files: `PHABIA.INP`
+- Read keys:
+  - V_ variables: `V_APR`, `V_CBIA`
+  - PARAM parameters: `PARAM2`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
+- Source: [ZD_PHABIA~](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA~)
 ### ZD_PHACMB
 
 - Package: `PHACMB`
@@ -5053,14 +5140,6 @@ Variables:
   - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
 - File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
 - Source: [ZD_PRE_ELIM_CLK_P_14092026](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P_14092026)
-### ZD_PRE_ELIM_CLK_P~
-
-- Package: `PRE_ELIM_CLK_P`
-- Purpose: Prepare parallel ADDNEQ2 run using time intervals
-- Read keys:
-  - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
-- File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
-- Source: [ZD_PRE_ELIM_CLK_P~](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P~)
 ### ZD_RES_CHK
 
 - Package: `RES_CHK`
@@ -5185,12 +5264,37 @@ Variables:
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - INP files: `RNXGRA.INP`
 - Read keys:
+  - V_ variables: `V_NCLU`
+  - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
+- File deletes: `$del`, `$lst`
+- File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT"`, `"DIR_OUTOBS$+0????.EXT_OUT"`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO` and 2 more
+- Source: [ZD_RXOBV3GP](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP)
+### ZD_RXOBV3GP_07102026
+
+- Package: `RXOBV3GP`
+- Purpose: A priori script to prepare parallel running of RXOBV3
+- Bernese programs: `RNXGRA`
+- INP files: `RNXGRA.INP`
+- Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
 - File deletes: `$del`, `$lst`
 - File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT"`, `"DIR_OUTOBS$+0????.EXT_OUT"`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO` and 2 more
-- Source: [ZD_RXOBV3GP](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP)
+- Source: [ZD_RXOBV3GP_07102026](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP_07102026)
+### ZD_RXOBV3GP~
+
+- Package: `RXOBV3GP`
+- Purpose: A priori script to prepare parallel running of RXOBV3
+- Bernese programs: `RNXGRA`
+- INP files: `RNXGRA.INP`
+- Read keys:
+  - V_ variables: `V_CLU`, `V_NCLU`
+  - PARAM parameters: `PARAM1`, `PARAM2`
+  - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
+- File deletes: `$del`, `$lst`
+- File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT"`, `"DIR_OUTOBS$+0????.EXT_OUT"`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO` and 2 more
+- Source: [ZD_RXOBV3GP~](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP~)
 ### ZD_SATMON_P
 
 - Package: `SATMON_P`
@@ -5268,6 +5372,17 @@ Variables:
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `DIR_OUT../RAW/$file)`
 - Source: [ZD_STATION_SELECTION](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATION_SELECTION)
+### ZD_STATION_SELECTION~
+
+- Package: `STATION_SELECTION`
+- Purpose: Select GNSS stations and remove unused observations
+- Read keys:
+  - V_ variables: `V_NSTA`, `V_STAINF`
+  - Other keys: `$S+0`, `$YD+0`, `DIR_FIX`, `DIR_OUT`, `EXT_CRD`, `EXT_FIX`
+- File reads: `DIR_OUT../MSC/MSC_$YD+0/available_stations_$YD+0.txt`, `DIR_OUT../MSC/MSC_$YD+0/selected_stations_$YD+0.txt`
+- File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
+- File deletes: `DIR_OUT../RAW/$file)`
+- Source: [ZD_STATION_SELECTION~](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATION_SELECTION~)
 ### ZD_STATUS
 
 - Package: `STATUS`
@@ -5278,6 +5393,15 @@ Variables:
   - Other keys: `$YSS+0`, `DIR_OUT`
 - File writes: `$marker`
 - Source: [ZD_STATUS](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATUS)
+### ZD_STATUS~
+
+- Package: `STATUS`
+- Purpose: Create or wait for a status file
+- Read keys:
+  - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
+  - Other keys: `$YSS+0`, `DIR_OUT`
+- File writes: `$marker`
+- Source: [ZD_STATUS~](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATUS~)
 ### ZD_STDDIF
 
 - Package: `STDDIF`
@@ -5353,8 +5477,8 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ???_??_??.COV" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
-| TIMINTITE_??" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
+| ???_??_??.COV" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
+| TIMINTITE_??" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
 
 ### "DIR_RXO/../*
 
@@ -5370,7 +5494,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| $file | - | - | CLEAN_FILES, ZD_DEL_RES_1D, ZD_DEL_RES_1D~ | - |
+| $file | - | - | #CLEAN_FILES#, CLEAN_FILES, ZD_DEL_RES_1D | - |
 
 ### $ENV{AIUB}/SKL
 
@@ -5383,7 +5507,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_SATCRX.EXT_CRX | MANMRK | - | - | - |
+| V_SATCRX.EXT_CRX | #MANMRK#, MANMRK, MANMRK~ | - | - | - |
 
 ### $ENV{HOME}/perl
 
@@ -5552,7 +5676,7 @@ Variables:
 | "DIR_BPEPRTMPR$S+0???.BPE" | - | - | - | MAUPRPAP, ZD_MAUPRP_P |
 | "DIR_BPEPRTMRK$S+0???.BPE" | - | - | - | MRKOB_AP, ZD_MRKOB__P |
 | "DIR_BPEPRTMRK$YSS+0???.BPE" | - | - | - | MRKOBSAP |
-| "DIR_BPEPRTOBS$S+0???.BPE" | - | - | - | RXOBV3GP, ZD_RXOBV3GP |
+| "DIR_BPEPRTOBS$S+0???.BPE" | - | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | "DIR_BPEPRTSPP$S+0???.BPE" | - | - | - | CODSPPAP, ZD_CODSPP_P |
 | "DIR_CLB$YSS+0*.EXT_CLB" | - | - | - | TIMESTAP, TIMORBAP |
 | "DIR_CLB${clbnam}*.EXT_CLB" | - | - | - | ZD_GPSEST_DELOLD_P |
@@ -5562,18 +5686,21 @@ Variables:
 | "DIR_CLKV_B$YSS-5.EXT_CLK" | - | - | - | LEO_DEL |
 | "DIR_CLKV_FIN?$S+0*.EXT_CLK" | - | - | - | ZD_GEN_NEQ_P |
 | "DIR_CLKV_ORB_$YYYSS-5.EXT_CLK" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_CRDNLI_$YYYSS-5_????.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_CRDSPP_$+0????.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_APR_$YYYSS-5.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_APR_$YYYSS-5_????.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_FIN_$YYYSS-5.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_CRDV_FIN_$YYYSS-5_????.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_GCC_$YYYSS-5.EXT_CRD") if "V_GCC" ne "" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_PPP_$YYYSS-5.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_PPP_$YYYSS-5_????.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_TRP_$YYYSS-5_????.EXT_CRD") if "V_TRP" ne "" | - | - | - | ZD_DEL_RES_PPP |
-| "DIR_CZH????$S+0.EXT_CZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
+| "DIR_CZH????$S+0.EXT_CZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | "DIR_CZH????$S-5.EXT_CZH" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CZHV_LEO$S-5.EXT_CZH" | - | - | - | LEO_DEL |
 | "DIR_CZHV_LEO$S-5.EXT_CZH_V_F" | - | - | - | LEO_DEL |
-| "DIR_CZO????$S+0.EXT_CZO" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
+| "DIR_CZO????$S+0.EXT_CZO" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | "DIR_CZO????$S-5.EXT_CZO" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CZOV_LEO$S-5.EXT_CZO" | - | - | - | LEO_DEL |
 | "DIR_CZOV_LEO$S-5.EXT_CZO_V_F" | - | - | - | LEO_DEL |
@@ -5601,16 +5728,19 @@ Variables:
 | "DIR_NEQ$$bpe{PARAM1}_$S+0????.EXT_NEQ" | - | - | - | ADDNEQZD |
 | "DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ" | - | - | - | ADDNEQZD |
 | "DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ" | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
-| "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
+| "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
 | "DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ" | - | - | - | TIMZDMAP |
 | "DIR_NEQV_FIN?$S+0*.EXT_NEQ" | - | - | - | ZD_GEN_NEQ_P |
 | "DIR_NEQV_FIN_$S+0????.EXT_NEQ" | - | - | - | ZD_ADDNEQ2_DELNEQ |
+| "DIR_NEQV_FIN_$YYYSS-5.EXT_NEQ" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_NEQV_FIN_$YYYSS-5_????.EXT_NEQ" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_NEQV_FINA$S+0????.EXT_NEQ" | - | - | - | ZD_ADDNEQ2_DELNEQ |
 | "DIR_NEQV_PPP_$YYYSS-5.EXT_NEQ" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_NEQV_PPP_$YYYSS-5_????.EXT_NEQ" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_NEQV_RED_$YYYSS-5.EXT_NEQ" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_NEQV_TRP_$YYYSS-5_????.EXT_NEQ") if "V_TRP" ne "" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OBO*$YYYSS-5.EXT_RBO" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OSBV_FIN_$YYYSS-5_????.EXT_OSB" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OSBV_OSBFIL.EXT_OSB" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT" | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
 | "DIR_OUT$$bpe{PARAM2}?$S+0*.EXT_OUT" | - | - | - | TIMZDMAP |
@@ -5631,12 +5761,15 @@ Variables:
 | "DIR_OUTCLKSCREEN????$S+0.EDT" | - | - | - | SATMONAP |
 | "DIR_OUTCOO_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTCRD_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTCRDMERGE.L??" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTEDF_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTEDF_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTEDL_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTEDL_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTFIL$+0????.CLK" | - | - | - | SATMONAP |
+| "DIR_OUTFIL$+0????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTFIL$+0????.OUT" | - | - | - | SATMONAP |
+| "DIR_OUTGPSXTR.L??" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTGRA_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTHLM_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTMP$+0????.EXT_OUT" | - | - | - | ZD_MAUPRP_P |
@@ -5644,10 +5777,11 @@ Variables:
 | "DIR_OUTMPR_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTMRG_$YYYSS-5_???.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTMRK_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTNLI_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTNUV_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTO?V_A$YSS-5.EXT_OUT" | - | - | - | LEO_DEL |
-| "DIR_OUTOBS$+0????.EXT_OUT" | - | - | - | ZD_RXOBV3GP |
-| "DIR_OUTOBS$S+0???.EXT_OUT" | - | - | - | ZD_RXOBV3GP |
+| "DIR_OUTOBS$+0????.EXT_OUT" | - | - | - | ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| "DIR_OUTOBS$S+0???.EXT_OUT" | - | - | - | ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | "DIR_OUTOBS$S+0???.EXT_OUT") } else { unlink glob("DIR_OUTOBS$+0????.EXT_OUT") } | - | - | - | RXOBV3GP |
 | "DIR_OUTOBS_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTORB$YSS-5.EXT_OUT" | - | - | - | LEO_DEL |
@@ -5656,6 +5790,7 @@ Variables:
 | "DIR_OUTPOL_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTPPP_$YYYSS-5.PRC" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTPU$YSS-5.EXT_OUT" | - | - | - | LEO_DEL |
+| "DIR_OUTRES_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTRES_$YYYSS-5.PRC" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTRES_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTRNX_$YYYSS-5.ERR" | - | - | - | ZD_DEL_RES_PPP |
@@ -5663,11 +5798,20 @@ Variables:
 | "DIR_OUTSMT$+0????.EXT_OUT" | - | - | - | ZD_RNXSMTAP |
 | "DIR_OUTSMT$S+0???.EXT_OUT" | - | - | - | ZD_RNXSMTAP |
 | "DIR_OUTSMT$S+0???.EXT_OUT") } else { unlink glob("DIR_OUTSMT$+0????.EXT_OUT") } | - | - | - | RNXSMTAP |
+| "DIR_OUTSMT_$+0????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTSMT_$YYYSS-5_?????????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTSPP_$+0????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTSPP_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTSPP_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTTAB$YSS-5.EXT_OUT" | - | - | - | LEO_DEL |
+| "DIR_OUTTMP_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTV_FIN$+0RES.EXT_SUM" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTV_FIN$S-5RES.EXT_SUM" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTV_FIN?$S+0*.EXT_OUT" | - | - | - | ZD_GEN_NEQ_P |
+| "DIR_OUTV_FIN_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTV_FIN_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTV_FIN_$YYYSS-5_CRD.EXT_SUM" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTV_FIN_$YYYSS-5_OUT.EXT_SUM" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTV_GCC_$YYYSS-5.EXT_OUT") if "V_GCC" ne "" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTV_KIN_$YYYSS-5.EXT_OUT") if "V_KIN" ne "" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTV_KIN_$YYYSS-5_????.EXT_OUT") if "V_KIN" ne "" | - | - | - | ZD_DEL_RES_PPP |
@@ -5679,6 +5823,7 @@ Variables:
 | "DIR_OUTV_TRP_$YYYSS-5.EXT_OUT") if "V_TRP" ne "" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTV_TRP_$YYYSS-5_????.EXT_OUT") if "V_TRP" ne "" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTVEL_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
+| "DIR_OUTWLI_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTXTR_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_PLTCPV_F$YSS-5.EXT_PLT" | - | - | - | LEO_DEL |
 | "DIR_PREKNV_F$YSS-5.EXT_PRE" | - | - | - | LEO_DEL |
@@ -5687,11 +5832,11 @@ Variables:
 | "DIR_PREV_B$YSS-5.EXT_PRE" | - | - | - | LEO_DEL |
 | "DIR_PREV_ORB_$YYYD-5.EXT_PRE" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_PREV_ORB_$YYYSS-5.EXT_PRE" | - | - | - | ZD_DEL_RES_PPP |
-| "DIR_PZH????$S+0.EXT_PZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
+| "DIR_PZH????$S+0.EXT_PZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | "DIR_PZH????$S-5.EXT_PZH" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_PZHV_LEO$S-5.EXT_PZH" | - | - | - | LEO_DEL |
 | "DIR_PZHV_LEO$S-5.EXT_PZH_V_F" | - | - | - | LEO_DEL |
-| "DIR_PZO????$S+0.EXT_PZO" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
+| "DIR_PZO????$S+0.EXT_PZO" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | "DIR_PZO????$S-5.EXT_PZO" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_PZOV_LEO$S-5.EXT_PZO" | - | - | - | LEO_DEL |
 | "DIR_PZOV_LEO$S-5.EXT_PZO_V_F" | - | - | - | LEO_DEL |
@@ -5705,6 +5850,7 @@ Variables:
 | "DIR_RESRDV_F$YSS-5.EXT_RES" | - | - | - | LEO_DEL |
 | "DIR_RESV_A$YSS-5.EXT_RES" | - | - | - | LEO_DEL |
 | "DIR_RESV_FIN?$S+0*.EXT_RES" | - | - | - | ZD_GEN_NEQ_P |
+| "DIR_RESV_FIN_$YYYSS-5_????.EXT_RES" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_RESV_PPP_$YYYSS-5_????.EXT_RES" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_RPRV_A*$YSS-5.EXT_RPR" | - | - | - | LEO_DEL |
 | "DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC" | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
@@ -5713,6 +5859,7 @@ Variables:
 | "DIR_RXCKNV_F$YSS-5.EXT_RXC" | - | - | - | LEO_DEL |
 | "DIR_RXCV_A$YSS-5.EXT_RXC" | - | - | - | LEO_DEL |
 | "DIR_RXCV_B$YSS-5.EXT_RXC" | - | - | - | LEO_DEL |
+| "DIR_RXCV_FIN_$YYYSS-5_????.EXT_RXC" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_RXCV_ORB_$YYYD-5.EXT_RXC" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_RXCV_ORB_$YYYSS-5.EXT_RXC" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_RXCV_PPP_$YYYSS-5.EXT_RXC" | - | - | - | ZD_DEL_RES_PPP |
@@ -5767,32 +5914,33 @@ Variables:
 | $auxfl[$#auxfl] | ZD_SAVE_RES | - | - | - |
 | $auxfl[@auxfl - 1] | SAVERES | - | - | - |
 | $czfile | - | - | ZD_MPR_XTR | - |
-| $del | - | - | RXOBV3GP, TIMESTAP, ZD_RXOBV3GP | - |
+| $del | - | - | RXOBV3GP, TIMESTAP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ | - |
 | $dst | - | ZD_COPY_PPP | - | - |
 | $f | - | - | CHECK_AR_SAT, CLEANUP, ZD_CHECK_AR_SAT | - |
 | $fil | - | - | - | LEOITER |
-| $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_INIT_BRD, ZD_OSBMERGE, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~, ZD_DEL_RES_CLKD | - |
-| $file) | - | - | ZD_ADD_LEO, ZD_ADD_LEO~ | - |
+| $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_CHKPRC_PS, ZD_CHKPRC_PS~, ZD_INIT_BRD, ZD_OSBMERGE, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD | - |
+| $file) | - | - | ZD_ADD_LEO | - |
 | $file) if -e $file | - | - | ZD_CODSPP_E | - |
-| $file)) { $deleted++ | - | - | ZD_CHKPRC_SOL, ZD_CHKPRC_SOL~ | - |
+| $file)) { $deleted++ | - | - | ZD_CHKPRC_SOL | - |
 | $file)) { $removed_count++ | - | - | DEL_LOBS, ZD_DEL_CDXT_OBS | - |
-| $helmertFile | ZD_CHKPRC_SOL, ZD_CHKPRC_SOL~ | - | - | - |
+| $helmertFile | ZD_CHKPRC_SOL | - | - | - |
 | $inpFil | CODXTR, ZD_CODXTR | - | - | - |
 | $line | - | - | ZD_RES_CHK | - |
 | $loc | - | INIT_BRD, ZD_INIT_BRD | - | - |
-| $logfile | - | ZD_CHKPRC_AR, ZD_CHKPRC_AR~, ZD_CHKPRC_SOL, ZD_CHKPRC_SOL~ | - | - |
-| $lst | - | - | RXOBV3GP, ZD_RXOBV3GP | - |
-| $marker | - | STATUS, ZD_STATUS | - | - |
+| $logfile | - | ZD_CHKPRC_AR, ZD_CHKPRC_PS, ZD_CHKPRC_PS~, ZD_CHKPRC_SOL | - | - |
+| $lst | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ | - |
+| $marker | - | STATUS, ZD_STATUS, ZD_STATUS~ | - | - |
 | $OSB_R_file | OSBMERGE | - | - | - |
-| $pattern | - | - | - | ZD_CHKPRC_SOL, ZD_CHKPRC_SOL~ |
-| $phacorFile | ZD_CHKPRC_AR, ZD_CHKPRC_AR~ | - | - | - |
+| $pattern | - | - | - | ZD_CHKPRC_PS, ZD_CHKPRC_PS~, ZD_CHKPRC_SOL |
+| $phacorFile | ZD_CHKPRC_AR | - | - | - |
+| $report | - | ZD_CHKPRC_PS, ZD_CHKPRC_PS~ | - | - |
 | $rxo) | - | - | ZD_DEL_RXO | - |
 | $src | ZD_COPY_PPP | - | - | - |
-| $target | - | ZD_COPY_REF | - | - |
+| $target | - | ZD_COPY_REF, ZD_COPY_REF~ | - | - |
 | $troFiles[0] | TRPMERZD | - | - | - |
 | $troOutFl | - | TRPMERZD | - | - |
 | $trpFil | TRPMERZD, ZD_TRPMERGE | - | - | - |
-| $YSS+0 | ZD_COPY_REF | - | - | - |
+| $YSS+0 | ZD_COPY_REF, ZD_COPY_REF~ | - | - | - |
 | ${file}.gz | INIT_BRD, ZD_INIT_BRD | - | - | - |
 | ${file}.Z | INIT_BRD, ZD_INIT_BRD | - | - | - |
 | ${loc}.gz | - | INIT_BRD, ZD_INIT_BRD | - | - |
@@ -5807,7 +5955,7 @@ Variables:
 | DIR_BPEPRTMPR$S+0???.BPE | - | - | - | MAUPRPAP, ZD_MAUPRP_P |
 | DIR_BPEPRTMRK$S+0???.BPE | - | - | - | MRKOB_AP, ZD_MRKOB__P |
 | DIR_BPEPRTMRK$YSS+0???.BPE | - | - | - | MRKOBSAP |
-| DIR_BPEPRTOBS$S+0???.BPE | - | - | - | RXOBV3GP, ZD_RXOBV3GP |
+| DIR_BPEPRTOBS$S+0???.BPE | - | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | DIR_BPEPRTSPP$S+0???.BPE | - | - | - | CODSPPAP, ZD_CODSPP_P |
 | DIR_CLB$YD+0RNX.EXT_CLB | ZD_GPSEST_DELOLD_P | - | - | - |
 | DIR_CLB$YSS+0*.EXT_CLB | - | - | - | TIMESTAP, TIMORBAP |
@@ -5829,21 +5977,24 @@ Variables:
 | DIR_CLKV_ORB_$YYYSS-5.EXT_CLK | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CLKV_PSDINF_$YSS+0.EXT_CLK | - | REP_COP | - | - |
 | DIR_CRD$(SAVE)S$YSS+0.EXT_CRD | SAVERES3D | - | - | - |
+| DIR_CRDNLI_$YYYSS-5_????.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
+| DIR_CRDSPP_$+0????.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CRDV_APR_$YYYSS-5.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CRDV_APR_$YYYSS-5_????.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CRDV_FIN_$YSS+0.EXT_CRD | ZD_SAVE_RES_3D | - | - | - |
 | DIR_CRDV_FIN_$YYYSS-5.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
+| DIR_CRDV_FIN_$YYYSS-5_????.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CRDV_GCC_$YYYSS-5.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CRDV_PPP_$YYYSS-5.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CRDV_PPP_$YYYSS-5_????.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CRDV_TRP_$YYYSS-5_????.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CZH$sta$S+0.??? | - | - | SATMONAP | - |
-| DIR_CZH????$S+0.EXT_CZH | - | - | - | CODSPP, CODSPPAP, FILESTAP, MRKOB_AP, RXOBV3GP, ZD_CODSPP_P, ZD_CODXTRP, ZD_GPSEST_P, ZD_MRKOB__P, ZD_PPPIARAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_TIMESTAP |
+| DIR_CZH????$S+0.EXT_CZH | - | - | - | CODSPP, CODSPPAP, FILESTAP, MRKOB_AP, RXOBV3GP, ZD_CODSPP_P, ZD_CODXTRP, ZD_GPSEST_P, ZD_MRKOB__P, ZD_PPPIARAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~, ZD_TIMESTAP |
 | DIR_CZH????$S-5.EXT_CZH | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CZHCLKSCREEN$sta$S+0.EXT_CZH | - | - | ZD_SATMONAP | - |
 | DIR_CZHV_LEO$S-5.EXT_CZH | - | - | - | LEO_DEL |
 | DIR_CZHV_LEO$S-5.EXT_CZH_V_F | - | - | - | LEO_DEL |
-| DIR_CZO????$S+0.EXT_CZO | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
+| DIR_CZO????$S+0.EXT_CZO | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | DIR_CZO????$S-5.EXT_CZO | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CZOV_LEO$S-5.EXT_CZO | - | - | - | LEO_DEL |
 | DIR_CZOV_LEO$S-5.EXT_CZO_V_F | - | - | - | LEO_DEL |
@@ -5864,13 +6015,13 @@ Variables:
 | DIR_ERP$(SAVE)_$YSS+0.EXT_ERP | ZD_SAVE_RES | - | - | - |
 | DIR_ERP$(SAVE)S$YSS+0.EXT_ERP | SAVERES3D | - | - | - |
 | DIR_ERP_$YSS+0.EXT_ERP | FZDM_UPD | - | - | - |
-| DIR_ERPAPR${yyssss}.EXT_ERP | ZD_COPY_REF | - | - | - |
+| DIR_ERPAPR${yyssss}.EXT_ERP | ZD_COPY_REF, ZD_COPY_REF~ | - | - | - |
 | DIR_ERPBULLET_A.ERP | FZDM_COP | - | - | - |
 | DIR_ERPDIR_CLKS$YSS+0.EXT_ERP | SAVERES | - | - | - |
 | DIR_ERPDIR_CRD_$YSS+0.EXT_ERP | - | FZDM_UPD | - | - |
 | DIR_ERPDIR_RXCS$YSS+0.EXT_ERP | SAVERES | - | - | - |
 | DIR_ERPDIR_STD_$YSS+0.EXT_ERP | ZD_SAVE_RES | - | - | - |
-| DIR_ERPREF${yyssss}.EXT_ERP | - | ZD_COPY_REF | - | - |
+| DIR_ERPREF${yyssss}.EXT_ERP | - | ZD_COPY_REF, ZD_COPY_REF~ | - | - |
 | DIR_ERPTMP_$YSS+0.EXT_ERP | - | FZDM_COP | - | - |
 | DIR_ERPV_A$YSS+0.DIR_ERP | - | - | ORBAPR, ORBAPRS | - |
 | DIR_ERPV_ACOP$YSS+0.DIR_ERP | - | - | ORBAPF | - |
@@ -5889,7 +6040,7 @@ Variables:
 | DIR_FIXREFCLK.EXT_FIX | - | FZDM_COP, ZD_COPY_FIL_3D | - | - |
 | DIR_GCCV_GCC_$YYYSS-5.EXT_GCC | - | - | - | ZD_DEL_RES_PPP |
 | DIR_GRD${file} | CHECK_GRD_FILES, ZD_CHECK_GRD_FILES | - | - | - |
-| DIR_GRDVMF$YD+0.EXT_GRD | - | - | INIT_VMF, ZD_INIT_VMF | - |
+| DIR_GRDVMF$YD+0.EXT_GRD | - | - | INIT_VMF, ZD_INIT_VMF, ZD_INIT_VMF~ | - |
 | DIR_IEPV_B$W-57.EXT_IEP | - | - | - | LEO_DEL |
 | DIR_IEPV_ORB_$YYYD-5.EXT_IEP | - | - | - | ZD_DEL_RES_PPP |
 | DIR_IONV_HOIFIL.EXT_ION | - | - | - | ZD_DEL_RES_PPP |
@@ -5906,8 +6057,8 @@ Variables:
 | DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ | - | - | - | ADDNEQZD |
 | DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
 | DIR_NEQ$$bpe{PARAM2}$S+0[0-9][0-9][0-9]_.EXT_NEQ | - | - | - | TIMNEQAP, ZD_ADDNEQ2_P |
-| DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
-| DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
+| DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
+| DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
 | DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ | - | - | - | TIMZDMAP |
 | DIR_NEQ$$bpe{PARAM2}??$YSS+0???.EXT_NEQ | - | - | - | SOLCLKAP, SOLLONAP |
 | DIR_NEQ$(SAVE)_$YSS+0.EXT_FIX | ZD_SAVE_RES | - | - | - |
@@ -5918,6 +6069,8 @@ Variables:
 | DIR_NEQV_FIN?$S+0*.EXT_NEQ | - | - | - | ZD_GEN_NEQ_P |
 | DIR_NEQV_FIN??$YSS+0???.EXT_NEQ | - | - | - | ZD_ADDNEQ2_CLK_P, ZD_PRE_ELIM_CLK |
 | DIR_NEQV_FIN_$S+0????.EXT_NEQ | - | - | - | ZD_ADDNEQ2_DELNEQ |
+| DIR_NEQV_FIN_$YYYSS-5.EXT_NEQ | - | - | - | ZD_DEL_RES_PPP |
+| DIR_NEQV_FIN_$YYYSS-5_????.EXT_NEQ | - | - | - | ZD_DEL_RES_PPP |
 | DIR_NEQV_FINA$S+0????.EXT_NEQ | - | - | - | ZD_ADDNEQ2_DELNEQ |
 | DIR_NEQV_PPP_$YYYSS-5.EXT_NEQ | - | - | - | ZD_DEL_RES_PPP |
 | DIR_NEQV_PPP_$YYYSS-5_????.EXT_NEQ | - | - | - | ZD_DEL_RES_PPP |
@@ -5937,13 +6090,14 @@ Variables:
 | DIR_OSBV_CBIAS$YSS+0[0-9][0-9][0-9].EXT_OSB | - | - | - | ZD_OSBMERGE |
 | DIR_OSBV_CS$YSS+0.EXT_OSB | - | OSBMERGE | - | - |
 | DIR_OSBV_CS$YSS+0[0-9][0-9][0-9].EXT_OSB | - | - | - | OSBMERGE |
+| DIR_OSBV_FIN_$YYYSS-5_????.EXT_OSB | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OSBV_OSBFIL.EXT_OSB | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OSBV_PSDINF_$YSS+0.EXT_OSB | - | REP_COP | - | - |
 | DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
 | DIR_OUT$$bpe{PARAM2}?$S+0*.EXT_OUT | - | - | - | TIMZDMAP |
 | DIR_OUT${mpr}$+0????.EXT_OUT | - | - | - | MAUPRPAP |
 | DIR_OUT${mpr}$YSS+0??.EXT_OUT | - | - | - | MAUPRPAP |
-| DIR_OUT${pattern} | - | - | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~, ZD_DEL_RES_CLKD |
+| DIR_OUT${pattern} | - | - | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD |
 | DIR_OUT${spp}$+0????.EXT_OUT | - | - | - | CODSPPAP, ZD_CODSPP_P |
 | DIR_OUT${spp}$S+0???.EXT_OUT | - | - | - | CODSPPAP, ZD_CODSPP_P |
 | DIR_OUT*V_A$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
@@ -5961,13 +6115,16 @@ Variables:
 | DIR_OUTCODXTR.${yy}_$S+0 | DEL_LOBS, ZD_DEL_CDXT_OBS | - | - | - |
 | DIR_OUTCOO_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTCRD_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTCRDMERGE.L?? | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTEDF_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTEDF_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTEDL_$YYYSS+0_????.EXT_OUT | - | - | - | ZD_PPP_SUM |
 | DIR_OUTEDL_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTEDL_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTFIL$+0????.CLK | - | - | - | SATMONAP |
+| DIR_OUTFIL$+0????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTFIL$+0????.OUT | - | - | - | SATMONAP |
+| DIR_OUTGPSXTR.L?? | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTGRA_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTHLM_$YYYSS+0.EXT_OUT | - | - | ZD_PPP_HLM | - |
 | DIR_OUTHLM_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
@@ -5976,10 +6133,11 @@ Variables:
 | DIR_OUTMPR_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTMRG_$YYYSS-5_???.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTMRK_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTNLI_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTNUV_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTO?V_A$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
-| DIR_OUTOBS$+0????.EXT_OUT | - | - | - | RXOBV3GP, ZD_RXOBV3GP |
-| DIR_OUTOBS$S+0???.EXT_OUT | - | - | - | RXOBV3GP, ZD_RXOBV3GP |
+| DIR_OUTOBS$+0????.EXT_OUT | - | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| DIR_OUTOBS$S+0???.EXT_OUT | - | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | DIR_OUTOBS_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTORB$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
 | DIR_OUTORB_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
@@ -5989,6 +6147,7 @@ Variables:
 | DIR_OUTPPP_$YYYSS-5.PRC | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTPU$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
 | DIR_OUTRES_$YYYSS+0.PRC if STARTCOUNT == 1 | - | - | ZD_PPP_RES_SUM | - |
+| DIR_OUTRES_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTRES_$YYYSS-5.PRC | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTRES_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTRNX$YSS+0.ERR | - | - | ZD_RNXSMTAP | - |
@@ -5998,12 +6157,21 @@ Variables:
 | DIR_OUTRNXV_A$YSS-5.ERR | - | - | - | LEO_DEL |
 | DIR_OUTSMT$+0????.EXT_OUT | - | - | - | RNXSMTAP, ZD_RNXSMTAP |
 | DIR_OUTSMT$S+0???.EXT_OUT | - | - | - | RNXSMTAP, ZD_RNXSMTAP |
+| DIR_OUTSMT_$+0????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTSMT_$YYYSS-5_?????????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTSPP_$+0????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTSPP_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTSPP_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTTAB$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
 | DIR_OUTTMP_$YYYSS+0.EXT_OUT | - | - | ZD_IARXTR | - |
+| DIR_OUTTMP_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTV_FIN$+0RES.EXT_SUM | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTV_FIN$S-5RES.EXT_SUM | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTV_FIN?$S+0*.EXT_OUT | - | - | - | ZD_GEN_NEQ_P |
+| DIR_OUTV_FIN_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTV_FIN_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTV_FIN_$YYYSS-5_CRD.EXT_SUM | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTV_FIN_$YYYSS-5_OUT.EXT_SUM | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTV_GCC_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTV_KIN_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTV_KIN_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
@@ -6016,6 +6184,7 @@ Variables:
 | DIR_OUTV_TRP_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTV_TRP_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTVEL_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
+| DIR_OUTWLI_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTXTR_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_PLTCPV_F$YSS-5.EXT_PLT | - | - | - | LEO_DEL |
 | DIR_PRE$(SAVE)_$YSS+0.EXT_TRP | SAVERES | - | - | - |
@@ -6037,13 +6206,13 @@ Variables:
 | DIR_PZH | - | ZD_COPY_FIL_CLKD, ZDDE_COP | - | - |
 | DIR_PZH$(SAVE)99$YSS+0.EXT_PRE | ZD_SAVE_RES | - | - | - |
 | DIR_PZH$(SAVE)??$YSS+0???.EXT_PRE | ZD_SAVE_RES | - | - | - |
-| DIR_PZH????$S+0.EXT_PZH | - | - | - | FILESTAP, MAUPRPAP, MPRXTR, MRKOB_AP, RXOBV3GP, TIMZDMAP, ZD_GEN_NEQ_P, ZD_GPSEST_P, ZD_MAUPRP_P, ZD_MPR_XTR, ZD_MRKOB__P, ZD_PPPEDTAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_TIMESTAP |
+| DIR_PZH????$S+0.EXT_PZH | - | - | - | FILESTAP, MAUPRPAP, MPRXTR, MRKOB_AP, RXOBV3GP, TIMZDMAP, ZD_GEN_NEQ_P, ZD_GPSEST_P, ZD_MAUPRP_P, ZD_MPR_XTR, ZD_MRKOB__P, ZD_PPPEDTAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~, ZD_TIMESTAP |
 | DIR_PZH????$S-5.EXT_PZH | - | - | - | ZD_DEL_RES_PPP |
 | DIR_PZHDIR_RXC_$YD+0.EXT_PRE | SAVERES | - | - | - |
 | DIR_PZHV_LEO$S-5.EXT_PZH | - | - | - | LEO_DEL |
 | DIR_PZHV_LEO$S-5.EXT_PZH_V_F | - | - | - | LEO_DEL |
 | DIR_PZHV_PSDINF_$YSS+0.EXT_FIX | - | REP_COP | - | - |
-| DIR_PZO????$S+0.EXT_PZO | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
+| DIR_PZO????$S+0.EXT_PZO | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
 | DIR_PZO????$S-5.EXT_PZO | - | - | - | ZD_DEL_RES_PPP |
 | DIR_PZOV_LEO$S-5.EXT_PZO | - | - | - | LEO_DEL |
 | DIR_PZOV_LEO$S-5.EXT_PZO_V_F | - | - | - | LEO_DEL |
@@ -6058,6 +6227,7 @@ Variables:
 | DIR_RESRDV_F$YSS-5.EXT_RES | - | - | - | LEO_DEL |
 | DIR_RESV_A$YSS-5.EXT_RES | - | - | - | LEO_DEL |
 | DIR_RESV_FIN?$S+0*.EXT_RES | - | - | - | ZD_GEN_NEQ_P |
+| DIR_RESV_FIN_$YYYSS-5_????.EXT_RES | - | - | - | ZD_DEL_RES_PPP |
 | DIR_RESV_PPP_$YYYSS-5_????.EXT_RES | - | - | - | ZD_DEL_RES_PPP |
 | DIR_RPR | - | ZD_COPY_FIL_3D | - | - |
 | DIR_RPR$(SAVE)_$YSS+0.EXT_RPR | SAVERES3D, ZD_SAVE_RES | - | - | - |
@@ -6076,6 +6246,7 @@ Variables:
 | DIR_RXCKNV_F$YSS-5.EXT_RXC | - | - | - | LEO_DEL |
 | DIR_RXCV_A$YSS-5.EXT_RXC | - | - | - | LEO_DEL |
 | DIR_RXCV_B$YSS-5.EXT_RXC | - | - | - | LEO_DEL |
+| DIR_RXCV_FIN_$YYYSS-5_????.EXT_RXC | - | - | - | ZD_DEL_RES_PPP |
 | DIR_RXCV_FINS$YSS+0.EXT_RXC | ZD_SAVE_RES_3D | - | - | - |
 | DIR_RXCV_ORB_$YYYD-5.EXT_RXC | - | - | - | ZD_DEL_RES_PPP |
 | DIR_RXCV_ORB_$YYYSS-5.EXT_RXC | - | - | - | ZD_DEL_RES_PPP |
@@ -6101,7 +6272,7 @@ Variables:
 | DIR_SOSFIN$YD+0.EXT_SOS | - | ZD3D_COP | - | - |
 | DIR_SOSREFCLK.EXT_SOS | - | ZD3D_COP | - | - |
 | DIR_SOSV_PSDINF_$YSS+0.EXT_SOS | - | REP_COP | - | - |
-| DIR_STAV_SATCRX.EXT_CRX | MANMRK, ZD_MANMRK | MANMRK | - | - |
+| DIR_STAV_SATCRX.EXT_CRX | #MANMRK#, MANMRK, MANMRK~, ZD_MANMRK, ZD_MANMRK~ | #MANMRK#, MANMRK, MANMRK~ | - | - |
 | DIR_STD | - | ZD_COPY_FIL_3D | - | - |
 | DIR_STD$(SAVE)_$YSS+0.EXT_STD | SAVERES3D | - | - | - |
 | DIR_STD_$YSS+0.EXT_STD | FZDM_UPD | - | - | - |
@@ -6318,12 +6489,13 @@ Variables:
 | --- | --- | --- | --- | --- |
 | *$S+0_NLB.OUT | - | - | - | CHECK_AR_SAT, ZD_CHECK_AR_SAT |
 | IAR$YSS+0.PRC | AMB_EXTRACT | - | - | - |
+| MPR$YSS+0.DEL | ZD_CHECK_MAUPRP_DEL, ZD_CHECK_MAUPRP_DEL~ | - | - | - |
 | MPRXTR.$Y_$S+0 | ZD_MPR_XTR | - | - | - |
 | OBSXTRV_FIN$YSS+0.OUT | ZD_OBSXTR_EXTRACT | - | - | - |
 | OBSXTRV_Z$YSS+0.OUT | OBSXTR_EXTRACT | - | - | - |
-| ORBGEN_APR$S+0.OUT | CHECK_SAT_RMS, ZD_CHECK_SAT_RMS, ZD_CHECK_SAT_RMS_05102026 | - | - | - |
+| ORBGEN_APR$S+0.OUT | CHECK_SAT_RMS, CHECK_SAT_RMS~, ZD_CHECK_SAT_RMS, ZD_CHECK_SAT_RMS_05102026 | - | - | - |
 | PHACOR$YSS+0.OUT | ZD_CHECK_AR_SAT | - | - | - |
-| SMT${yy}$S+0.SMC | CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS | - | - | - |
+| SMT${yy}$S+0.SMC | CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS~ | - | - | - |
 | V1_*.LIS | - | - | - | CONCATOUT_VS |
 | V1_*.LST | - | - | - | CONCATOUT_VS |
 | V_FINV_LARGEXTR$YSS+0.SUM | ZD_GPSXTR_EXTRACT | - | - | - |
@@ -6340,10 +6512,9 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| *CLKDEN*${day}* | - | - | - | ZD_DEL_RES_CLKD |
+| *${day}* | - | - | - | ZD_DEL_RES_3D, ZD_DEL_RES_CLKD |
 | *CLKDEN*${tag}* | - | - | - | DEL_CLKD |
 | *CMPSOL*${tag}* | - | - | - | DEL_CMP |
-| *ZD3D*${day}* | - | - | - | ZD_DEL_RES_3D, ZD_DEL_RES_3D~ |
 | *ZD3D*${tag}* | - | - | - | DEL_ZD3D |
 
 ### DIR_OUT../MSC
@@ -6366,11 +6537,11 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| available_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION | - | - | - |
+| available_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION, ZD_STATION_SELECTION~ | - | - | - |
 | GPSEST_ERROR.log | - | FILEST_P | - | - |
 | no_${type} | - | CHECK_GRD_FILES, ZD_CHECK_GRD_FILES | - | - |
-| PROCESSING_$YD+0 | - | CHECK_GRD_FILES, CLEAN_FILES, STATION_SELECTION, ZD_CHECK_GRD_FILES, ZD_CHECK_OBSENTRIES, ZD_DEL_RES_1D, ZD_DEL_RES_1D~, ZD_STATION_SELECTION | - | - |
-| selected_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION | - | - | - |
+| PROCESSING_$YD+0 | - | #CLEAN_FILES#, CHECK_GRD_FILES, CLEAN_FILES, STATION_SELECTION, ZD_CHECK_GRD_FILES, ZD_CHECK_OBSENTRIES, ZD_DEL_RES_1D, ZD_STATION_SELECTION, ZD_STATION_SELECTION~ | - | - |
+| selected_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION, ZD_STATION_SELECTION~ | - | - | - |
 | VAPL_entries | - | ZD_CHECK_VAPL_ENTRIES | - | - |
 
 ### DIR_OUT../MSC/MSC_$YD+0/no_${type} if (-e DIR_OUT../MSC/MSC_$YD+0
@@ -6395,27 +6566,27 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ${pattern} | - | - | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~, ZD_DEL_RES_CLKD |
+| ${pattern} | - | - | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD |
 
 ### DIR_OUT../RAW
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
 | $file") | - | - | CHECK_OBSENTRIES | - |
-| $file) | - | - | ZD_STATION_SELECTION | - |
+| $file) | - | - | ZD_STATION_SELECTION, ZD_STATION_SELECTION~ | - |
 | $pattern) | - | - | STATION_SELECTION | - |
 
 ### DIR_OUT../SOL
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ${pattern} | - | - | - | DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~ |
+| ${pattern} | - | - | - | DEL_ZD3D, ZD_DEL_RES_3D |
 
 ### DIR_OUT../STA
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ${pattern} | - | - | - | DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_3D~ |
+| ${pattern} | - | - | - | DEL_ZD3D, ZD_DEL_RES_3D |
 | V_CRDINF.EXT_CRD | CHECK_OBSENTRIES | - | - | - |
 
 ### DIR_OUT/../MSC/MSC_$YD+0
@@ -6423,11 +6594,11 @@ Variables:
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
 | $name) | - | - | ZD_PRE_ELIM_CLK_P | - |
-| ???_??_??.COV | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
+| ???_??_??.COV | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
 | affected_satellite_AR | CHECK_AR_SAT, ZD_CHECK_AR_SAT | - | CHECK_AR_SAT, ZD_CHECK_AR_SAT | - |
-| PROCESSING_$YD+0 | - | AMB_EXTRACT, CHECK_AR_SAT, CHECK_OBSENTRIES, CHECK_SAT_GAPS, CHECK_SAT_RMS, DEL_LOBS, GPSXTR_EXTRACT, NUM_OBSFIL, OBSXTR_EXTRACT, ZD_CHECK_AR_SAT, ZD_CHECK_SAT_GAPS, ZD_CHECK_SAT_RMS, ZD_CHECK_SAT_RMS_05102026, ZD_DEL_CDXT_OBS, ZD_GPSXTR_EXTRACT, ZD_NUM_OBSFIL, ZD_OBSXTR_EXTRACT | - | - |
-| TIMINT_?? | - | - | - | ITEPRECL, PRECLKAP, ZD_ITE_PRE_CLK, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
-| TIMINTITE_?? | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026, ZD_PRE_ELIM_CLK_P~ |
+| PROCESSING_$YD+0 | - | AMB_EXTRACT, CHECK_AR_SAT, CHECK_OBSENTRIES, CHECK_SAT_GAPS, CHECK_SAT_RMS, CHECK_SAT_RMS~, DEL_LOBS, GPSXTR_EXTRACT, NUM_OBSFIL, OBSXTR_EXTRACT, ZD_CHECK_AR_SAT, ZD_CHECK_MAUPRP_DEL, ZD_CHECK_MAUPRP_DEL~, ZD_CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS~, ZD_CHECK_SAT_RMS, ZD_CHECK_SAT_RMS_05102026, ZD_DEL_CDXT_OBS, ZD_GPSXTR_EXTRACT, ZD_NUM_OBSFIL, ZD_OBSXTR_EXTRACT | - | - |
+| TIMINT_?? | - | - | - | ITEPRECL, PRECLKAP, ZD_ITE_PRE_CLK, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
+| TIMINTITE_?? | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
 | TIMOVER | - | - | ITEPRECL, ZD_ITE_PRE_CLK | - |
 | VAPL_entries | - | CHECK_VAPL_ENTRIES | - | - |
 
@@ -6502,22 +6673,22 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_CLK$Y$+0.EXT_RXC* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
-| V_CLK$Y$+00.EXT_RXC* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_CLK$Y$+0.EXT_RXC* | - | - | - | LEO_COP, ZD_LEONEQ_COP |
+| V_CLK$Y$+00.EXT_RXC* | - | - | - | LEO_COP, ZD_LEONEQ_COP |
 
 ### V_ORBDIR
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_B$Y$+0.ERP* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_B$Y$+0.ERP* | - | - | - | LEO_COP, ZD_LEONEQ_COP |
 | V_B$Y$+0.EXT_RPR* | - | - | - | ZD_LEONEQ_COP |
-| V_B$Y$+0.EXT_STD* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
-| V_B$Y$+00.ERP* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_B$Y$+0.EXT_STD* | - | - | - | LEO_COP, ZD_LEONEQ_COP |
+| V_B$Y$+00.ERP* | - | - | - | LEO_COP, ZD_LEONEQ_COP |
 | V_B$Y$+00.EXT_RPR* | - | - | - | ZD_LEONEQ_COP |
-| V_B$Y$+00.EXT_STD* | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
-| V_OSB$Y$+0.EXT_OSB* | - | - | - | LEO_COP, ZD_LEONEQ_COP~ |
-| V_OSB$Y$+00.EXT_OSB* | - | - | - | LEO_COP, ZD_LEONEQ_COP~ |
-| V_OSB.EXT_OSB | - | - | - | LEO_COP, ZD_LEONEQ_COP, ZD_LEONEQ_COP~ |
+| V_B$Y$+00.EXT_STD* | - | - | - | LEO_COP, ZD_LEONEQ_COP |
+| V_OSB$Y$+0.EXT_OSB* | - | - | - | LEO_COP |
+| V_OSB$Y$+00.EXT_OSB* | - | - | - | LEO_COP |
+| V_OSB.EXT_OSB | - | - | - | LEO_COP, ZD_LEONEQ_COP |
 
 
 ## INP Catalog
@@ -7484,8 +7655,8 @@ _... 129 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FCLK_COD/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -7541,7 +7712,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -8936,8 +9107,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DP/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -8993,7 +9164,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -9290,8 +9461,8 @@ _... 127 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_1DR/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -9347,7 +9518,7 @@ _... 127 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -11352,8 +11523,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_COD/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -11409,7 +11580,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -12016,8 +12187,8 @@ _... 129 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_EDT/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -12073,7 +12244,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -14008,8 +14179,8 @@ _... 65 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_MON/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -14065,7 +14236,7 @@ _... 65 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -14755,8 +14926,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORC/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -14812,7 +14983,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -15171,8 +15342,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_ORP/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -15228,7 +15399,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -16189,8 +16360,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_SB1/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -16246,7 +16417,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -17530,8 +17701,8 @@ _... 25 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/FZDM_WGT/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -17587,7 +17758,7 @@ _... 25 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -18654,8 +18825,8 @@ _... 249 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLB/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -18711,7 +18882,7 @@ _... 249 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -19188,8 +19359,8 @@ _... 97 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_NLI/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -19245,7 +19416,7 @@ _... 97 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -19542,8 +19713,8 @@ _... 24 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLB/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -19599,7 +19770,7 @@ _... 24 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -19890,8 +20061,8 @@ _... 249 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/IAR_WLI/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -19947,7 +20118,7 @@ _... 249 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -21390,8 +21561,8 @@ _... 54 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_FIN/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -21447,7 +21618,7 @@ _... 54 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### GPSEST_SIP.INP
 
@@ -22301,8 +22472,8 @@ _... 19 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GR2/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -22358,7 +22529,7 @@ _... 19 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -22566,8 +22737,8 @@ _... 248 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_GRS/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -22623,7 +22794,7 @@ _... 248 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -23743,8 +23914,8 @@ _... 99 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_KIN/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -23800,7 +23971,7 @@ _... 99 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -24277,8 +24448,8 @@ _... 99 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_MPG/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -24334,7 +24505,7 @@ _... 99 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -24749,8 +24920,8 @@ _... 337 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_RES/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -24806,7 +24977,7 @@ _... 337 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -25125,8 +25296,8 @@ _... 37 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1505
+- ... and 556 more sections
+- Fields: 1508
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/LPDR_WL/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -25182,7 +25353,7 @@ _... 37 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1455 more fields omitted in this summary._
+_... 1458 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -26515,8 +26686,8 @@ _... 66 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_FIN/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -26540,7 +26711,7 @@ _... 66 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -26572,7 +26743,7 @@ _... 66 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -26951,7 +27122,7 @@ _... 37 more fields omitted in this summary._
 | DESCR_SUBMOD | 1 | Subdaily ERP model | Subdaily ERP Model |
 | NUTMOD | 1 | $(NUTMOD) | Nutation Model |
 | DESCR_NUTMOD | 1 | Nutation model | Nutation Model |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna azimuth rotations | Antenna phase center corrections |
@@ -27071,7 +27242,7 @@ _... 11 more fields omitted in this summary._
 | DESCR_SUBMOD | 1 | Subdaily ERP model | Subdaily Pole Model |
 | NUTMOD | 1 | ${MODEL}/$(NUTMOD).NUT | Nutation Model |
 | DESCR_NUTMOD | 1 | Nutation model | Nutation Model |
-| PHASECC | 1 | ${CAMP}/GEN/$(PCVINF)_$(PCV).PCV | Antenna phase center corrections |
+| PHASECC | 1 | ${CAMP}/GEN/$(PCVINF)_$(PCV)_$(PCVM).PCV | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna correcions | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna azimuth rotations | Antenna phase center corrections |
@@ -27458,7 +27629,7 @@ _... 135 more fields omitted in this summary._
 | DESCR_SATCRUX | 1 | Satellite problems | Satellite Problems |
 | SATELL | 1 | $(SATINF)_$(PCV) | Satellite Information |
 | DESCR_SATELL | 1 | Satellite information | Satellite Information |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna phase center corrections | Antenna phase center corrections |
 | ABBREV | 1 | $(CRDINF) | Station Name Abbreviations |
 | DESCR_ABBREV | 1 | Abbreviation table | Station Name Abbreviations |
@@ -27596,7 +27767,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_PHASEXT | 1 | External phase center corrections | Input File: External Phase Center File (ANTEX file) |
 | ABS2REL | 1 | 0 | Conversion abs2rel |
 | MSG_ABS2REL | 1 | Conversion of absolute phase patterns | Conversion abs2rel |
-| PHASECC | 1 | ${CAMP}/GEN/$(PCVINF)_$(PCV).PCV | Input File: Bernese phase file |
+| PHASECC | 1 | ${CAMP}/GEN/$(PCVINF)_$(PCV)_$(PCVM).PCV | Input File: Bernese phase file |
 | DESCR_PHASECC | 1 | Input Bernese antenna correction file | Input File: Bernese phase file |
 | STAINFO | 1 | ./DUMMY/STA/$(STAINF).STA | Input File: Station information file |
 | DESCR_STAINFO | 1 | Station information | Input File: Station information file |
@@ -27912,7 +28083,7 @@ _... 181 more fields omitted in this summary._
 | DESCR_SUBMOD | 1 | Subdaily ERP model | Subdaily ERP Model |
 | NUTMOD | 1 | $(NUTMOD) | Nutation Model |
 | DESCR_NUTMOD | 1 | Nutation model | Nutation Model |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna azimuth rotations | Antenna phase center corrections |
@@ -28065,8 +28236,8 @@ _... 11 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_GEN/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -28090,7 +28261,7 @@ _... 11 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -28122,7 +28293,7 @@ _... 11 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -28769,7 +28940,7 @@ _... 135 more fields omitted in this summary._
 | DESCR_SATCRUX | 1 | Satellite problems | Satellite Problems |
 | SATELL | 1 | $(SATINF)_$(PCV) | Satellite Information |
 | DESCR_SATELL | 1 | Satellite information | Satellite Information |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna phase center corrections | Antenna phase center corrections |
 | ABBREV | 1 | $(CRDINF) | Station Name Abbreviations |
 | DESCR_ABBREV | 1 | Abbreviation table | Station Name Abbreviations |
@@ -28905,8 +29076,8 @@ _... 66 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_IAR/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -28930,7 +29101,7 @@ _... 66 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -28962,7 +29133,7 @@ _... 66 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -29633,8 +29804,8 @@ _... 249 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/PPP_KIN/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -29658,7 +29829,7 @@ _... 249 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -29690,7 +29861,7 @@ _... 249 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -30961,7 +31132,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -31439,7 +31610,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -31852,7 +32023,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -32203,7 +32374,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -32554,7 +32725,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -33009,7 +33180,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -33301,7 +33472,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -33462,8 +33633,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DP/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -33487,7 +33658,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -33519,7 +33690,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -33655,7 +33826,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -33878,8 +34049,8 @@ _... 128 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_1DR/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -33903,7 +34074,7 @@ _... 128 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -33935,7 +34106,7 @@ _... 128 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -34071,7 +34242,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -35133,7 +35304,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -35321,7 +35492,7 @@ _... 130 more fields omitted in this summary._
 | DESCR_OBSSEL | 1 | Observation selection | Observation selection |
 | SATCRUX | 1 | $(SATCRX) | Satellite Problems |
 | DESCR_SATCRUX | 1 | Satellite problems | Satellite Problems |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenne phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenne phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenne phase center corrections |
 | USE_ANTAZI | 1 | 0 | Antenne phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenne phase center corrections |
@@ -35487,7 +35658,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -35779,7 +35950,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -36232,8 +36403,8 @@ _... 129 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_COC/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -36257,7 +36428,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -36289,7 +36460,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -36425,7 +36596,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -36710,8 +36881,8 @@ _... 129 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -36735,7 +36906,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -36767,7 +36938,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -36944,7 +37115,7 @@ _... 602 more fields omitted in this summary._
 
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
-- Fields: 299
+- Fields: 298
 - Source: [MENU_PGM.INP](source_files/ck18y530-gpsuser/OPT/ZD_COD/MENU_PGM.INP)
 
 | Key | Type | Value | Section |
@@ -36965,7 +37136,6 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -36999,8 +37169,9 @@ _... 602 more fields omitted in this summary._
 | MSG_EDITVEL_INP | 1 | Program input file: Create/update station velocities | Station files |
 | EDITECC_INP | 1 | EDITECC | Station files |
 | MSG_EDITECC_INP | 1 | Program input file: Create/update station eccentricities | Station files |
+| EDSTACRX_INP | 1 | EDITSTA | Station files |
 
-_... 249 more fields omitted in this summary._
+_... 248 more fields omitted in this summary._
 
 ### MENU_VAR.INP
 
@@ -37374,8 +37545,8 @@ _... 129 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_EDT/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -37399,7 +37570,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -37431,7 +37602,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -37629,7 +37800,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -38667,7 +38838,7 @@ _... 129 more fields omitted in this summary._
 | DESCR_OBSSEL | 1 | Observation selection | Observation selection |
 | SATCRUX | 1 | $(SATCRX) | Satellite Problems |
 | DESCR_SATCRUX | 1 | Satellite problems | Satellite Problems |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenne phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenne phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenne phase center corrections |
 | USE_ANTAZI | 1 | 0 | Antenne phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenne phase center corrections |
@@ -38735,7 +38906,7 @@ _... 167 more fields omitted in this summary._
 | DESCR_SUBMOD | 1 | Subdaily ERP model | Subdaily ERP Model |
 | NUTMOD | 1 | $(NUTMOD) | Nutation Model |
 | DESCR_NUTMOD | 1 | Nutation model | Nutation Model |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 0 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna azimuth rotations | Antenna phase center corrections |
@@ -38855,7 +39026,7 @@ _... 9 more fields omitted in this summary._
 | DESCR_SUBMOD | 1 | Subdaily ERP model | Subdaily Pole Model |
 | NUTMOD | 1 | $(NUTMOD) | Nutation Model |
 | DESCR_NUTMOD | 1 | Nutation model | Nutation Model |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna correcions | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 0 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna azimuth rotations | Antenna phase center corrections |
@@ -39019,7 +39190,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -39497,7 +39668,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -39851,7 +40022,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -40012,8 +40183,8 @@ _... 46 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -40037,7 +40208,7 @@ _... 46 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -40069,7 +40240,7 @@ _... 46 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -40332,8 +40503,8 @@ _... 337 more fields omitted in this summary._
 
 ### PHACOR.INP
 
-- Sections: PHACOR input panel - private Bernese menu integration test, Environment variables, Menu and session information, General Bernese input files, PHACOR input files, The path and extension definitions follow the STDDIF.INP convention., Debugging
-- Fields: 62
+- Sections: PHACOR input panel - private Bernese menu integration test, Environment variables, Menu and session information, General Bernese input files, Use the same Bernese constants file as GPSEST; PHACOR maps each NLB, observable code to its constellation-specific carrier frequency from this file., PHACOR input files, The path and extension definitions follow the STDDIF.INP convention., GNSS system selection (same USE_* names as GPSEST.INP), Debugging
+- Fields: 66
 - Source: [PHACOR.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLB/PHACOR.INP)
 
 | Key | Type | Value | Section |
@@ -40344,14 +40515,8 @@ _... 337 more fields omitted in this summary._
 | YR4_INFO | 1 | $Y+0 | Menu and session information |
 | SES_INFO | 1 | $S+0 | Menu and session information |
 | USR_INFO | 1 | ${USER} | Menu and session information |
-| SHOWGEN | 1 | 1 | General Bernese input files |
-| MSG_SHOWGEN | 1 | Show all general files | General Bernese input files |
-| CONST | 1 | CONST | General Bernese input files |
-| DESCR_CONST | 1 | General constants | General Bernese input files |
-| SATELL | 1 | SATELLIT_I20 | General Bernese input files |
-| DESCR_SATELL | 1 | Satellite information | General Bernese input files |
-| SATCRUX | 1 | ZD_SAT_$Y+0 | General Bernese input files |
-| DESCR_SATCRUX | 1 | Satellite problems | General Bernese input files |
+| CONST | 1 | CONST | observable code to its constellation-specific carrier frequency from this file. |
+| DESCR_CONST | 1 | General constants and GNSS carrier frequencies | observable code to its constellation-specific carrier frequency from this file. |
 | LOGFILES | 1 | *$S+0_NLB | The path and extension definitions follow the STDDIF.INP convention. |
 | LOGFILES_TXT_COL_1 | 1 | Bernese NLB output files | The path and extension definitions follow the STDDIF.INP convention. |
 | ORBITFILE | 1 | $(APR)_$YSS+0 | The path and extension definitions follow the STDDIF.INP convention. |
@@ -40380,16 +40545,22 @@ _... 337 more fields omitted in this summary._
 | MSG_ERRMRG | 1 | Merge error messages into program output | The path and extension definitions follow the STDDIF.INP convention. |
 | SYSERR | 0 |  | The path and extension definitions follow the STDDIF.INP convention. |
 | DESCR_SYSERR | 1 | Error message | The path and extension definitions follow the STDDIF.INP convention. |
-| DEBUG_PHACOR | 1 | 0 | Debugging |
-| MSG_DEBUG_PHACOR | 1 | Write detailed PHACOR debug trace to program output | Debugging |
+| USE_G | 1 | 1 | GNSS system selection (same USE_* names as GPSEST.INP) |
+| MSG_USE_G | 1 | Use GPS | GNSS system selection (same USE_* names as GPSEST.INP) |
+| USE_E | 1 | 1 | GNSS system selection (same USE_* names as GPSEST.INP) |
+| MSG_USE_E | 1 | Use Galileo | GNSS system selection (same USE_* names as GPSEST.INP) |
+| USE_C | 1 | 1 | GNSS system selection (same USE_* names as GPSEST.INP) |
+| MSG_USE_C | 1 | Use BeiDou | GNSS system selection (same USE_* names as GPSEST.INP) |
+| USE_J | 1 | 0 | GNSS system selection (same USE_* names as GPSEST.INP) |
+| MSG_USE_J | 1 | Use QZSS | GNSS system selection (same USE_* names as GPSEST.INP) |
+| DEBUG_PHACOR | 1 | 1 | Debugging |
+| MSG_DEBUG_PHACOR | 1 | Write detailed PHACOR trace to a separate output file | Debugging |
+| DEBUG_OUT | 1 | PHACOR_DEBUG$YSS+0 | Debugging |
+| DESCR_DEBUG_OUT | 1 | Separate output file for the detailed trace | Debugging |
 | CHECK_PHASE_JUMPS | 1 | 1 | Debugging |
 | INTEGER_CLOCK | 1 | 1 | Debugging |
-| PROCESSING_SAMPLING | 1 | 300 | Debugging |
-| OBSERVATION_SAMPLING | 1 | 30 | Debugging |
-| MINIMUM_REDUNDANCY | 1 | 4 | Debugging |
-| MINIMUM_LENGTH | 1 | 12 | Debugging |
 
-_... 12 more fields omitted in this summary._
+_... 16 more fields omitted in this summary._
 
 ### SATMRK.INP
 
@@ -40551,8 +40722,8 @@ _... 97 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_NLI/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -40576,7 +40747,7 @@ _... 97 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -40608,7 +40779,7 @@ _... 97 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -40744,7 +40915,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -40905,8 +41076,8 @@ _... 25 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLB/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -40930,7 +41101,7 @@ _... 25 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -40962,7 +41133,7 @@ _... 25 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -41098,7 +41269,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -41253,8 +41424,8 @@ _... 249 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_IAR_WLI/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -41278,7 +41449,7 @@ _... 249 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -41310,7 +41481,7 @@ _... 249 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -41446,7 +41617,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -41545,8 +41716,8 @@ _... 249 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1506
+- ... and 556 more sections
+- Fields: 1509
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_LEONEQ/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -41602,7 +41773,7 @@ _... 249 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1456 more fields omitted in this summary._
+_... 1459 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -41893,8 +42064,8 @@ _... 337 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_MON/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -41918,7 +42089,7 @@ _... 337 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -41950,7 +42121,7 @@ _... 337 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -42086,7 +42257,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -42378,7 +42549,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -42445,7 +42616,7 @@ _... 249 more fields omitted in this summary._
 
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Satellite Information, Epoch Window, List of Input Files, Output files
 - ... and 23 more sections
-- Fields: 214
+- Fields: 221
 - Source: [RXN2PRE.INP](source_files/ck18y530-gpsuser/OPT/ZD_NAV/RXN2PRE.INP)
 
 | Key | Type | Value | Section |
@@ -42501,7 +42672,7 @@ _... 249 more fields omitted in this summary._
 | OSBFIL | 1 |  | Output files |
 | MSG_OSBFIL | 1 | OSB file | Output files |
 
-_... 164 more fields omitted in this summary._
+_... 171 more fields omitted in this summary._
 
 ### SATCLK2.INP
 
@@ -42640,8 +42811,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORC/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -42665,7 +42836,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -42697,7 +42868,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -42833,7 +43004,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -43056,8 +43227,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_ORP/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -43081,7 +43252,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -43113,7 +43284,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -43249,7 +43420,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -43603,7 +43774,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -43878,7 +44049,7 @@ _... 135 more fields omitted in this summary._
 | DESCR_SATCRUX | 1 | Satellite problems | Satellite Problems |
 | SATELL | 1 | $(SATINF)_$(PCV) | Satellite Information |
 | DESCR_SATELL | 1 | Satellite information | Satellite Information |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna phase center corrections | Antenna phase center corrections |
 | ABBREV | 1 | CODE | Station Name Abbreviations |
 | DESCR_ABBREV | 1 | Abbreviation table | Station Name Abbreviations |
@@ -44074,8 +44245,8 @@ _... 1217 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_SB1/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -44099,7 +44270,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -44131,7 +44302,7 @@ _... 1217 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### MENU.INP
 
@@ -44267,7 +44438,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -44683,7 +44854,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -44975,7 +45146,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |
@@ -45415,8 +45586,8 @@ _... 25 more fields omitted in this summary._
 ### GPSEST.INP
 
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
-- ... and 555 more sections
-- Fields: 1496
+- ... and 556 more sections
+- Fields: 1499
 - Source: [GPSEST.INP](source_files/ck18y530-gpsuser/OPT/ZD_WGT/GPSEST.INP)
 
 | Key | Type | Value | Section |
@@ -45440,7 +45611,7 @@ _... 25 more fields omitted in this summary._
 | DESCR_CONST | 1 | General constants | General Constants |
 | DATUM | 1 | DATUM | Local Geodetic Datum |
 | DESCR_DATUM | 1 | Geodetic datum | Local Geodetic Datum |
-| PHASECC | 1 | $(PCVINF)_$(PCV) | Antenna phase center corrections |
+| PHASECC | 1 | $(PCVINF)_$(PCV)_$(PCVM) | Antenna phase center corrections |
 | DESCR_PHASECC | 1 | Antenna corrections | Antenna phase center corrections |
 | USE_ANTAZI | 1 | 1 | Antenna phase center corrections |
 | MSG_USE_ANTAZI | 1 | Consider antenna rotations | Antenna phase center corrections |
@@ -45472,7 +45643,7 @@ _... 25 more fields omitted in this summary._
 | DESCR_AUXFIL | 1 | Scratch file | Scratch Files |
 | AUXFIL1 | 1 | GPSEST$J | Scratch Files |
 
-_... 1446 more fields omitted in this summary._
+_... 1449 more fields omitted in this summary._
 
 ### GPSXTR.INP
 
@@ -45670,7 +45841,7 @@ _... 602 more fields omitted in this summary._
 | MSG_CMD_LOGFILE | 1 | Log File | CPU File |
 | MAXJOBNUM | 1 | 99 | CPU File |
 | MSG_MAXJOBNUM | 1 | Maximum program output file number | CPU File |
-| SPECIAL_PATH | 1 | " "/storage/homefs/ec20f882/MyZDMProject//EXE_GNU" " | List of Programs with special path to the executable |
+| SPECIAL_PATH | 1 | " "" " | List of Programs with special path to the executable |
 | MSG_SPECIAL_PATH | 1 | Programs executed from special paths | List of Programs with special path to the executable |
 | USER1_INP | 1 | PHABIA | Names of Programs/Input Files |
 | MSG_USER1_INP | 1 | USER1 | Names of Programs/Input Files |

@@ -229,7 +229,7 @@ V_SATINF = SATELLIT;      DESCRIPTION=Satellite information
 V_PCV    = I20;           DESCRIPTION=GNSS PCV model (absolute)
 V_SUBMOD = DESAI2016;     DESCRIPTION=Subdaily pole model
 V_NUTMOD = IAU2000R06;    DESCRIPTION=Nutation model
-V_POTCOE = COSTG_FSM_2509;DESCRIPTION=Gravity field model
+V_POTCOE = COSTG_FSM_2603;DESCRIPTION=Gravity field model
 V_NCLU   = 14;            DESCRIPTION=Number of clusters to be used
 V_OBSSEL = OBSERV_COD;    DESCRIPTION=Observation selection file
 V_STAINF = CODE;          DESCRIPTION=Station information

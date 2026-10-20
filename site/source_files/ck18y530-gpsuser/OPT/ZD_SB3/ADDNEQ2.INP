@@ -219,7 +219,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 

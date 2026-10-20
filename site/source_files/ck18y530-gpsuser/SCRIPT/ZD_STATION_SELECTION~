@@ -1,0 +1,183 @@
+package STATION_SELECTION;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  STATION_SELECTION
+#
+# Purpose :  Select GNSS stations and remove unused observations
+#
+# Author  :  C. Kobel
+# Created :  21-Apr-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use warnings;
+use File::Basename;
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $dirOut,
+      $ssss,
+      $yyddd,
+      $V_NSTA,
+      $V_STAINF,
+      $extCRD,
+      $dirFix,
+      $extFix
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$S+0',
+      '$YD+0',
+      'V_NSTA',
+      'V_STAINF',
+      'EXT_CRD',
+      'DIR_FIX',
+      'EXT_FIX'
+  );
+
+
+# ---------- Generate plots (Matlab script) ------------
+  my $makePlots = 0;
+  
+# ---------- Define paths ------------
+  my $python_dir = "$ENV{HOME}/ZDGNSS_RUN/python";
+  my $matlab_dir = "$ENV{HOME}/ZDGNSS_RUN/matlab";
+
+  my $yy     = substr($yyddd, 0, 2);
+  my $dirRaw = "${dirOut}../RAW";
+  my $dirSta = "${dirOut}../STA";
+  my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+# ---------- Initialize logging ------------
+  my $logfile = "$mscDir/PROCESSING_${yyddd}";
+  open(my $LOG, '>>', $logfile) or die "Cannot open log file $logfile: $!";
+  print $LOG "\n=== STATION_SELECTION started ===\n";
+
+# ---------- Skip if ALL stations ------------
+  if ($V_NSTA eq 'ALL') {
+    print $LOG "V_NSTA = ALL, skipping station selection\n";
+    print "Station selection skipped (V_NSTA = ALL)\n";
+    print $LOG "=== STATION_SELECTION finished ===\n";
+    close($LOG);
+    return;
+  }
+
+# ---------- Define output files ------------
+  my $matlab_selected = "$mscDir/selected_stations_${yyddd}.txt";
+
+# ---------- FINAL mode ------------
+  if ($V_NSTA eq 'FINAL') {
+
+    my $crdfile = "/storage/research/aiub_code/IGSFINAL/STA/F1_${yyddd}.CRD";
+    my $script  = "$python_dir/get_final_stations.py";
+
+    if (-e $crdfile) {
+
+      my $cmd = "python3 $script $crdfile $matlab_selected";
+      print $LOG "Running FINAL station extraction\n";
+      system($cmd) == 0 or die "Python get_final_stations.py failed: $!\n";
+
+      print $LOG "FINAL mode: station list written\n";
+
+    } else {
+
+      print $LOG "WARNING: CRD file not found → fallback to ALL\n";
+      print "Station selection skipped (V_NSTA = ALL)\n";
+      print $LOG "=== STATION_SELECTION finished ===\n";
+      close($LOG);
+      return;
+    }
+
+# ---------- Numeric selection mode ------------
+  } else {
+
+    unless ($V_NSTA =~ /^\d+$/) {
+      die "ERROR: V_NSTA invalid: $V_NSTA\n";
+    }
+
+    # ---------- Extract available stations ------------
+    my $py_script = "$python_dir/extract_geos_letters.py";
+    my $py_out    = "$mscDir/available_stations_${yyddd}.txt";
+    my $obsfile   = "$ssss.${yy}O";
+
+    my $cmd = "python3 $py_script $dirRaw $obsfile $py_out";
+    system($cmd) == 0 or die "Python extraction failed: $!\n";
+
+    # ---------- Run MATLAB selection ------------
+    my $crdfile = "$dirSta/$V_STAINF.$extCRD";
+    my $timlab_file = "${dirFix}TIMLAB.${extFix}";
+    my $gif     = "$mscDir/gnss_selection.gif";
+    my $hist    = "$mscDir/baseline_histogram.png";
+    my $LOGfileM= "$mscDir/Station_selection.log";
+
+    my $matlab_cmd = qq{matlab -batch "addpath('$matlab_dir'); gnss_station_selection($V_NSTA, '$crdfile', '$py_out', '$timlab_file', $makePlots, '$gif', '$hist', '$matlab_selected')" >> $LOGfileM };
+    # ---------- system($matlab_cmd) == 0 or die "MATLAB selection failed: $!\n"; ------------
+    my $ret = system($matlab_cmd);
+
+    print "system() returned $ret\n";
+    print "exit code = " . ($ret >> 8) . "\n";
+    print "signal    = " . ($ret & 127) . "\n";
+    print "errno     = $!\n\n\n";
+    print "Are there observation files in the campaign?\n\n\n";
+  }
+
+# ---------- Compare and remove unused stations ------------
+  my $avail_file = "$mscDir/available_stations_${yyddd}.txt";
+  $avail_file = $matlab_selected if ($V_NSTA eq 'FINAL');
+
+  open(my $AVAIL,    '<', $avail_file)     or die "Cannot open $avail_file: $!";
+  open(my $SELECTED, '<', $matlab_selected) or die "Cannot open $matlab_selected: $!";
+
+  my %selected;
+  while (my $line = <$SELECTED>) {
+    chomp $line;
+    $line =~ s/^\s+|\s+$//g;
+    $selected{$line} = 1 if $line ne '';
+  }
+  close($SELECTED);
+
+  my $deleted = 0;
+  my %deleted_stations;
+
+  while (my $line = <$AVAIL>) {
+    chomp $line;
+    $line =~ s/^\s+|\s+$//g;
+    next if $line eq '';
+
+    my $station = substr($line, 0, 4);
+
+    unless ($selected{$station}) {
+
+      my $file = sprintf("%s%s.%sO", $station, $ssss, $yy);
+      my $path = "$dirRaw/$file";
+
+      if (-e $path) {
+        unlink($path) or warn "Could not delete $path: $!";
+        $deleted++;
+        $deleted_stations{$station} = 1;
+      } else {
+        print $LOG "DEBUG: File not found: $path\n";
+      }
+    }
+  }
+  close($AVAIL);
+
+# ---------- Logging summary ------------
+  print $LOG "Deleted observation files from " . scalar(keys %deleted_stations) . " stations\n";
+  print $LOG "=== STATION_SELECTION finished ===\n";
+  close($LOG);
+
+  print "STATION_SELECTION done. Log: $logfile\n";
+}
