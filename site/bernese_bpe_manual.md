@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-10-20 14:06:24
+Generated: 2026-10-20 14:15:03
 
 ## Overview
 
@@ -10,11 +10,11 @@ This manual is generated from one or more configured source directories containi
 
 - PCF files: 21
 - PCF process rows: 523
-- Script files: 328
-- Bernese program references: 207
-- Script file reads: 225
-- Script file writes: 151
-- Script file deletes: 133
+- Script files: 300
+- Bernese program references: 191
+- Script file reads: 211
+- Script file writes: 138
+- Script file deletes: 126
 - File references: 877
 - INP files: 852
 - INP directories: 93
@@ -43,6 +43,8 @@ The following notes are imported from the configured handbook source and mirror 
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
+- 2026-10-20T14:11:26+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-10-20T14:11:25+02:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
 - 2026-10-20T14:03:38+02:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
 - 2026-10-20T14:03:38+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-10-05T16:17:56+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
@@ -61,8 +63,6 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 - 2026-10-05T15:28:09+02:00 | Cyril Kobel | Menu action | d1 | Selected option d1: Add handbook entry
 - 2026-10-05T15:21:30+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-10-05T15:21:29+02:00 | Cyril Kobel | Menu action | d1 | Selected option d1: Add handbook entry
-- 2026-10-05T15:07:49+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-10-05T15:07:48+02:00 | Cyril Kobel | Menu action | d3 | Selected option d3: Edit handbook entry
 
 ## Quick Cross-Reference
 
@@ -2082,28 +2082,6 @@ Variables:
 
 ## Script Catalog
 
-### #CLEAN_FILES#
-
-- Package: `CLEAN_FILES`
-- Purpose: Delete specific files, only if V_CLEAN=Y.
-- Read keys:
-  - V_ variables: `V_A`, `V_B`, `V_C`, `V_CLEAN`, `V_E`, `V_H`, `V_I`, `V_K`, `V_L`, `V_U`, `V_W`, `V_Z`
-  - Other keys: `$D+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
-- File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- File deletes: `$dir/$file`
-- Source: [#CLEAN_FILES#](source_files/ck18y530-gpsuser/SCRIPT/#CLEAN_FILES#)
-### #MANMRK#
-
-- Package: `MANMRK`
-- Purpose: Mark observations for satellites with manoeuvres
-- Bernese programs: `SATMRK`
-- INP files: `SATMRK.INP`, `SATMRK.INP`
-- Read keys:
-  - V_ variables: `V_MGEINI`, `V_SATCRX`
-  - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
-- File reads: `DIR_STAV_SATCRX.EXT_CRX`, `$ENV{CONFIG}/V_SATCRX.EXT_CRX`
-- File writes: `DIR_STAV_SATCRX.EXT_CRX`
-- Source: [#MANMRK#](source_files/ck18y530-gpsuser/SCRIPT/#MANMRK#)
 ### ADDNEQ2
 
 - Purpose: Combine NQ0-files Programs:  ADDNEQ2, GPSXTR
@@ -2176,14 +2154,6 @@ Variables:
   - V_ variables: `V_ESTOSB`, `V_OSB`
   - Other keys: `$YSS+0`, `DIR_OSB`
 - Source: [APPOSB](source_files/ck18y530-gpsuser/SCRIPT/APPOSB)
-### APPOSB_15092026
-
-- Package: `APPOSB`
-- Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB empty.
-- Read keys:
-  - V_ variables: `V_ESTOSB`, `V_OSB`
-  - Other keys: `$YSS+0`, `DIR_OSB`
-- Source: [APPOSB_15092026](source_files/ck18y530-gpsuser/SCRIPT/APPOSB_15092026)
 ### ATTXTR
 
 - Purpose: Excecute ATTXTR Programs:  ATTXTR
@@ -2280,17 +2250,6 @@ Variables:
 - File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - Source: [CHECK_SAT_RMS](source_files/ck18y530-gpsuser/SCRIPT/CHECK_SAT_RMS)
-### CHECK_SAT_RMS~
-
-- Package: `CHECK_SAT_RMS`
-- Purpose: Prüft im ORBGEN_APR-File die RMS (M) jedes Satelliten. Wenn RMS > 5.0 m oder RMS ungültig (Sternchen / kaputte Zahl), wird SATMRK ausgeführt. Jeder betroffene Satellit wird ins Processing-Log geschrieben.
-- Bernese programs: `SATMRK`
-- INP files: `SATMRK.INP`, `SATMRK.INP`
-- Read keys:
-  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
-- File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
-- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [CHECK_SAT_RMS~](source_files/ck18y530-gpsuser/SCRIPT/CHECK_SAT_RMS~)
 ### CHECK_VAPL_ENTRIES
 
 - Purpose: Checks OBS files (????$ssss.*) against station entries in STA/VAPL.ATL. If a station is missing in VAPL.ATL, all corresponding OBS files are removed.
@@ -2690,16 +2649,6 @@ Variables:
   - V_ variables: `V_ESTOSB`, `V_IGNERR`, `V_OFFS`, `V_OSB`
   - Other keys: `DIR_OSB`
 - Source: [GPSESTRB](source_files/ck18y530-gpsuser/SCRIPT/GPSESTRB)
-### GPSESTRB_15092026
-
-- Package: `GPSESTRB`
-- Purpose: Execute GPSEST, estmate receiver code biases if V_ESTOSB non-empty.
-- Bernese programs: `GPSEST`
-- INP files: `GPSEST.INP`, `GPSEST.INP`
-- Read keys:
-  - V_ variables: `V_ESTOSB`, `V_IGNERR`, `V_OFFS`, `V_OSB`
-  - Other keys: `DIR_OSB`
-- Source: [GPSESTRB_15092026](source_files/ck18y530-gpsuser/SCRIPT/GPSESTRB_15092026)
 ### GPSXTR
 
 - Purpose: Generate summary of the paralel GPSEST runs Programs:  GPSXTR
@@ -2854,14 +2803,6 @@ Variables:
   - V_ variables: `V_LFILE`, `V_MAXS`, `V_MAX_ALL`, `V_MAX_R`, `V_MAX_S`, `V_MAX_W`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
 - Source: [LEO_CHECK](source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK)
-### LEO_CHECK_16092026
-
-- Package: `LEO_CHECK`
-- Purpose: Check the LEO configuration and print its contents.
-- Read keys:
-  - V_ variables: `V_LFILE`
-  - Other keys: `$YSS+0`, `DIR_OUT`
-- Source: [LEO_CHECK_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_CHECK_16092026)
 ### LEO_COP
 
 - Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF
@@ -2908,15 +2849,6 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
 - Source: [LEO_NEQ_E](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E)
-### LEO_NEQ_E_14092026
-
-- Package: `LEO_NEQ_E`
-- Purpose: Execute GPSEST for one LEO.
-- Bernese programs: `GPSEST`
-- INP files: `GPSEST.INP`
-- Read keys:
-  - PARAM parameters: `PARAM1`, `PARAM2`
-- Source: [LEO_NEQ_E_14092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_E_14092026)
 ### LEO_NEQ_P
 
 - Purpose: Prepare one parallel GPSEST job per selected LEO.
@@ -2925,22 +2857,6 @@ Variables:
   - V_ variables: `V_LFILE`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
 - Source: [LEO_NEQ_P](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P)
-### LEO_NEQ_P_14092026
-
-- Package: `LEO_NEQ_P`
-- Purpose: Prepare one parallel GPSEST job per selected LEO.
-- Read keys:
-  - V_ variables: `V_LFILE`
-  - Other keys: `$YD+0`, `DIR_OUT`
-- Source: [LEO_NEQ_P_14092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P_14092026)
-### LEO_NEQ_P_16092026
-
-- Package: `LEO_NEQ_P`
-- Purpose: Prepare one parallel GPSEST job per selected LEO.
-- Read keys:
-  - V_ variables: `V_LFILE`
-  - Other keys: `$YD+0`, `DIR_OUT`
-- Source: [LEO_NEQ_P_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_NEQ_P_16092026)
 ### LEO_ORB_E
 
 - Package: `LEO_ORB_P`
@@ -2960,14 +2876,6 @@ Variables:
   - V_ variables: `V_LFILE`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
 - Source: [LEO_ORB_P](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P)
-### LEO_ORB_P_16092026
-
-- Package: `LEO_ORB_P`
-- Purpose: Prepare one parallel ORBGEN job per selected LEO.
-- Read keys:
-  - V_ variables: `V_LFILE`
-  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`
-- Source: [LEO_ORB_P_16092026](source_files/ck18y530-gpsuser/SCRIPT/LEO_ORB_P_16092026)
 ### LEO_RNX
 
 - Purpose: Copy the observation files for LEOPOD.PCF
@@ -3036,18 +2944,6 @@ Variables:
 - File reads: `DIR_STAV_SATCRX.EXT_CRX`, `$ENV{CONFIG}/V_SATCRX.EXT_CRX`
 - File writes: `DIR_STAV_SATCRX.EXT_CRX`
 - Source: [MANMRK](source_files/ck18y530-gpsuser/SCRIPT/MANMRK)
-### MANMRK~
-
-- Package: `MANMRK`
-- Purpose: Mark observations for satellites with manoeuvres
-- Bernese programs: `SATMRK`
-- INP files: `SATMRK.INP`, `SATMRK.INP`
-- Read keys:
-  - V_ variables: `V_MGEINI`, `V_SATCRX`
-  - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
-- File reads: `DIR_STAV_SATCRX.EXT_CRX`, `$ENV{CONFIG}/V_SATCRX.EXT_CRX`
-- File writes: `DIR_STAV_SATCRX.EXT_CRX`
-- Source: [MANMRK~](source_files/ck18y530-gpsuser/SCRIPT/MANMRK~)
 ### MAUPRP_P
 
 - Purpose: Parallel run for automatic cleaning of double difference phase observations Programs:  MAUPRP
@@ -4010,15 +3906,6 @@ Variables:
 - File reads: `DIR_OUT/MPR$YSS+0.DEL`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - Source: [ZD_CHECK_MAUPRP_DEL](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_MAUPRP_DEL)
-### ZD_CHECK_MAUPRP_DEL~
-
-- Package: `CHECK_MAUPRP_DEL`
-- Purpose: Checks the MAUPRP deletion file for excluded stations.
-- Read keys:
-  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
-- File reads: `DIR_OUT/MPR$YSS+0.DEL`
-- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_CHECK_MAUPRP_DEL~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_MAUPRP_DEL~)
 ### ZD_CHECK_OBSENTRIES
 
 - Package: `CHECK_OBSENTRIES`
@@ -4052,17 +3939,6 @@ Variables:
 - File reads: `DIR_OUT/SMT${yy}$S+0.SMC`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - Source: [ZD_CHECK_SAT_GAPS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_GAPS)
-### ZD_CHECK_SAT_GAPS~
-
-- Package: `CHECK_SAT_GAPS`
-- Purpose: Checks the SMC file (PHASE OBSERVATIONS) for satellite data gaps.
-- Bernese programs: `SATMRK`
-- INP files: `SATMRK.INP`, `SATMRK.INP`
-- Read keys:
-  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
-- File reads: `DIR_OUT/SMT${yy}$S+0.SMC`
-- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_CHECK_SAT_GAPS~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_GAPS~)
 ### ZD_CHECK_SAT_RMS
 
 - Package: `CHECK_SAT_RMS`
@@ -4075,17 +3951,6 @@ Variables:
 - File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
 - File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - Source: [ZD_CHECK_SAT_RMS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_RMS)
-### ZD_CHECK_SAT_RMS_05102026
-
-- Package: `CHECK_SAT_RMS`
-- Purpose: Checks the ORBGEN_APR file for the RMS (in meters) of each satellite.
-- Bernese programs: `SATMRK`
-- INP files: `SATMRK.INP`, `SATMRK.INP`
-- Read keys:
-  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
-- File reads: `DIR_OUT/ORBGEN_APR$S+0.OUT`
-- File writes: `DIR_OUT/../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- Source: [ZD_CHECK_SAT_RMS_05102026](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHECK_SAT_RMS_05102026)
 ### ZD_CHECK_VAPL_ENTRIES
 
 - Package: `CHECK_VAPL_ENTRIES`
@@ -4116,16 +3981,6 @@ Variables:
 - File writes: `$logfile`, `$report`
 - File patterns: `$pattern`
 - Source: [ZD_CHKPRC_PS](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_PS)
-### ZD_CHKPRC_PS~
-
-- Package: `ZD_CHKPRC_PS`
-- Purpose: Run observation quality checks
-- Read keys:
-  - Other keys: `$S+0`, `$YD+0`, `DIR_OUT`
-- File reads: `$file`
-- File writes: `$logfile`, `$report`
-- File patterns: `$pattern`
-- Source: [ZD_CHKPRC_PS~](source_files/ck18y530-gpsuser/SCRIPT/ZD_CHKPRC_PS~)
 ### ZD_CHKPRC_SOL
 
 - Purpose: Run solution processing checks
@@ -4308,18 +4163,6 @@ Variables:
 - File reads: `DIR_ERPAPR${yyssss}.EXT_ERP`, `$YSS+0`
 - File writes: `DIR_ERPREF${yyssss}.EXT_ERP`, `$target`
 - Source: [ZD_COPY_REF](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_REF)
-### ZD_COPY_REF~
-
-- Package: `COPY_REF`
-- Purpose: Copy required files for processing
-- Bernese programs: `POLUPD`
-- INP files: `POLUPD.INP`
-- Read keys:
-  - V_ variables: `V_BIAINF`, `V_CRDINF`, `V_PSDINF`, `V_SATCRX`
-  - Other keys: `$+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_OSB`, `DIR_STA`, `EXT_CRX`, `EXT_ERP`, `EXT_FIX`, `EXT_OSB`, `EXT_SINEXIN`, `PTH_SINEXIN`
-- File reads: `DIR_ERPAPR${yyssss}.EXT_ERP`, `$YSS+0`
-- File writes: `DIR_ERPREF${yyssss}.EXT_ERP`, `$target`
-- Source: [ZD_COPY_REF~](source_files/ck18y530-gpsuser/SCRIPT/ZD_COPY_REF~)
 ### ZD_CRDMERGE
 
 - Package: `CRDMERGE`
@@ -4650,14 +4493,6 @@ Variables:
   - Other keys: `$+0`, `$Y+0`, `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`
 - File deletes: `DIR_GRDVMF$YD+0.EXT_GRD`
 - Source: [ZD_INIT_VMF](source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_VMF)
-### ZD_INIT_VMF~
-
-- Package: `INIT_VMF`
-- Purpose: Initialize VMF grid files
-- Read keys:
-  - Other keys: `$+0`, `$Y+0`, `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`
-- File deletes: `DIR_GRDVMF$YD+0.EXT_GRD`
-- Source: [ZD_INIT_VMF~](source_files/ck18y530-gpsuser/SCRIPT/ZD_INIT_VMF~)
 ### ZD_ITE_PHASE_THR
 
 - Package: `ITE_PHASE_THR`
@@ -4702,17 +4537,6 @@ Variables:
   - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
 - File reads: `DIR_STAV_SATCRX.EXT_CRX`
 - Source: [ZD_MANMRK](source_files/ck18y530-gpsuser/SCRIPT/ZD_MANMRK)
-### ZD_MANMRK~
-
-- Package: `MANMRK`
-- Purpose: Marks observations for satellites affected by manoeuvres. Copies SAT-CRX into campaign first
-- Bernese programs: `SATMRK`
-- INP files: `SATMRK.INP`, `SATMRK.INP`
-- Read keys:
-  - V_ variables: `V_SATCRX`
-  - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `DIR_STA`, `EXT_CRX`
-- File reads: `DIR_STAV_SATCRX.EXT_CRX`
-- Source: [ZD_MANMRK~](source_files/ck18y530-gpsuser/SCRIPT/ZD_MANMRK~)
 ### ZD_MAUPRP_E
 
 - Package: `MAUPRP_E`
@@ -4850,26 +4674,6 @@ Variables:
   - V_ variables: `V_SATCRX`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPELOG`, `DIR_CRX`, `DIR_OUT`, `EXT_BPELOG`, `EXT_CRX`, `PID`, `TASKID`
 - Source: [ZD_ORBGEN_APR](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR)
-### ZD_ORBGEN_APR_20102026
-
-- Package: `ZD_ORBGEN_APR`
-- Purpose: Run ORBGEN, check for bad satellites and create entry in SATCRX file for these.
-- Bernese programs: `ORBGEN`
-- INP files: `ORBGEN.INP`
-- Read keys:
-  - V_ variables: `V_SATCRX`
-  - Other keys: `$S+0`, `$YD+0`, `DIR_CRX`, `DIR_OUT`, `EXT_CRX`
-- Source: [ZD_ORBGEN_APR_20102026](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR_20102026)
-### ZD_ORBGEN_APR~
-
-- Package: `ZD_ORBGEN_APR`
-- Purpose: Run ORBGEN, check for bad satellites, and add exclusions to the SATCRX file.
-- Bernese programs: `ORBGEN`
-- INP files: `ORBGEN.INP`
-- Read keys:
-  - V_ variables: `V_SATCRX`
-  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPELOG`, `DIR_CRX`, `DIR_OUT`, `EXT_BPELOG`, `EXT_CRX`, `PID`, `TASKID`
-- Source: [ZD_ORBGEN_APR~](source_files/ck18y530-gpsuser/SCRIPT/ZD_ORBGEN_APR~)
 ### ZD_ORBGENA
 
 - Package: `ORBGENA`
@@ -4926,28 +4730,6 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
 - Source: [ZD_PHABIA](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA)
-### ZD_PHABIA_19102026
-
-- Package: `PHABIA`
-- Purpose: Execute PHABIA, Create a combined OSB file
-- Bernese programs: `PHABIA`
-- INP files: `PHABIA.INP`
-- Read keys:
-  - V_ variables: `V_APR`, `V_CBIA`
-  - PARAM parameters: `PARAM2`
-  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
-- Source: [ZD_PHABIA_19102026](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA_19102026)
-### ZD_PHABIA~
-
-- Package: `PHABIA`
-- Purpose: Execute PHABIA, Create a combined OSB file
-- Bernese programs: `PHABIA`
-- INP files: `PHABIA.INP`
-- Read keys:
-  - V_ variables: `V_APR`, `V_CBIA`
-  - PARAM parameters: `PARAM2`
-  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
-- Source: [ZD_PHABIA~](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHABIA~)
 ### ZD_PHACMB
 
 - Package: `PHACMB`
@@ -4983,17 +4765,6 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
 - Source: [ZD_PHACOR](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHACOR)
-### ZD_PHACOR~
-
-- Package: `PHACOR`
-- Purpose: Execute PHACOR, special case for ZD-processing NL
-- Bernese programs: `PHACOR`
-- INP files: `PHACOR.INP`
-- Read keys:
-  - V_ variables: `V_APR`, `V_CBIA`
-  - PARAM parameters: `PARAM2`
-  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_OSB`, `EXT_PRE`
-- Source: [ZD_PHACOR~](source_files/ck18y530-gpsuser/SCRIPT/ZD_PHACOR~)
 ### ZD_POLUPD
 
 - Package: `POLUPD`
@@ -5132,14 +4903,6 @@ Variables:
 - File deletes: `DIR_OUT/../MSC/MSC_$YD+0/$name)`
 - File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
 - Source: [ZD_PRE_ELIM_CLK_P](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P)
-### ZD_PRE_ELIM_CLK_P_14092026
-
-- Package: `PRE_ELIM_CLK_P`
-- Purpose: Prepare parallel ADDNEQ2 run using time intervals
-- Read keys:
-  - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
-- File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
-- Source: [ZD_PRE_ELIM_CLK_P_14092026](source_files/ck18y530-gpsuser/SCRIPT/ZD_PRE_ELIM_CLK_P_14092026)
 ### ZD_RES_CHK
 
 - Package: `RES_CHK`
@@ -5269,32 +5032,6 @@ Variables:
 - File deletes: `$del`, `$lst`
 - File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT"`, `"DIR_OUTOBS$+0????.EXT_OUT"`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO` and 2 more
 - Source: [ZD_RXOBV3GP](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP)
-### ZD_RXOBV3GP_07102026
-
-- Package: `RXOBV3GP`
-- Purpose: A priori script to prepare parallel running of RXOBV3
-- Bernese programs: `RNXGRA`
-- INP files: `RNXGRA.INP`
-- Read keys:
-  - V_ variables: `V_CLU`, `V_NCLU`
-  - PARAM parameters: `PARAM1`, `PARAM2`
-  - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
-- File deletes: `$del`, `$lst`
-- File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT"`, `"DIR_OUTOBS$+0????.EXT_OUT"`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO` and 2 more
-- Source: [ZD_RXOBV3GP_07102026](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP_07102026)
-### ZD_RXOBV3GP~
-
-- Package: `RXOBV3GP`
-- Purpose: A priori script to prepare parallel running of RXOBV3
-- Bernese programs: `RNXGRA`
-- INP files: `RNXGRA.INP`
-- Read keys:
-  - V_ variables: `V_CLU`, `V_NCLU`
-  - PARAM parameters: `PARAM1`, `PARAM2`
-  - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
-- File deletes: `$del`, `$lst`
-- File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT"`, `"DIR_OUTOBS$+0????.EXT_OUT"`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO` and 2 more
-- Source: [ZD_RXOBV3GP~](source_files/ck18y530-gpsuser/SCRIPT/ZD_RXOBV3GP~)
 ### ZD_SATMON_P
 
 - Package: `SATMON_P`
@@ -5372,17 +5109,6 @@ Variables:
 - File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
 - File deletes: `DIR_OUT../RAW/$file)`
 - Source: [ZD_STATION_SELECTION](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATION_SELECTION)
-### ZD_STATION_SELECTION~
-
-- Package: `STATION_SELECTION`
-- Purpose: Select GNSS stations and remove unused observations
-- Read keys:
-  - V_ variables: `V_NSTA`, `V_STAINF`
-  - Other keys: `$S+0`, `$YD+0`, `DIR_FIX`, `DIR_OUT`, `EXT_CRD`, `EXT_FIX`
-- File reads: `DIR_OUT../MSC/MSC_$YD+0/available_stations_$YD+0.txt`, `DIR_OUT../MSC/MSC_$YD+0/selected_stations_$YD+0.txt`
-- File writes: `DIR_OUT../MSC/MSC_$YD+0/PROCESSING_$YD+0`
-- File deletes: `DIR_OUT../RAW/$file)`
-- Source: [ZD_STATION_SELECTION~](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATION_SELECTION~)
 ### ZD_STATUS
 
 - Package: `STATUS`
@@ -5393,15 +5119,6 @@ Variables:
   - Other keys: `$YSS+0`, `DIR_OUT`
 - File writes: `$marker`
 - Source: [ZD_STATUS](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATUS)
-### ZD_STATUS~
-
-- Package: `STATUS`
-- Purpose: Create or wait for a status file
-- Read keys:
-  - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
-  - Other keys: `$YSS+0`, `DIR_OUT`
-- File writes: `$marker`
-- Source: [ZD_STATUS~](source_files/ck18y530-gpsuser/SCRIPT/ZD_STATUS~)
 ### ZD_STDDIF
 
 - Package: `STDDIF`
@@ -5477,8 +5194,8 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ???_??_??.COV" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
-| TIMINTITE_??" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
+| ???_??_??.COV" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| TIMINTITE_??" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
 
 ### "DIR_RXO/../*
 
@@ -5494,7 +5211,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| $file | - | - | #CLEAN_FILES#, CLEAN_FILES, ZD_DEL_RES_1D | - |
+| $file | - | - | CLEAN_FILES, ZD_DEL_RES_1D | - |
 
 ### $ENV{AIUB}/SKL
 
@@ -5507,7 +5224,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_SATCRX.EXT_CRX | #MANMRK#, MANMRK, MANMRK~ | - | - | - |
+| V_SATCRX.EXT_CRX | MANMRK | - | - | - |
 
 ### $ENV{HOME}/perl
 
@@ -5676,7 +5393,7 @@ Variables:
 | "DIR_BPEPRTMPR$S+0???.BPE" | - | - | - | MAUPRPAP, ZD_MAUPRP_P |
 | "DIR_BPEPRTMRK$S+0???.BPE" | - | - | - | MRKOB_AP, ZD_MRKOB__P |
 | "DIR_BPEPRTMRK$YSS+0???.BPE" | - | - | - | MRKOBSAP |
-| "DIR_BPEPRTOBS$S+0???.BPE" | - | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| "DIR_BPEPRTOBS$S+0???.BPE" | - | - | - | RXOBV3GP, ZD_RXOBV3GP |
 | "DIR_BPEPRTSPP$S+0???.BPE" | - | - | - | CODSPPAP, ZD_CODSPP_P |
 | "DIR_CLB$YSS+0*.EXT_CLB" | - | - | - | TIMESTAP, TIMORBAP |
 | "DIR_CLB${clbnam}*.EXT_CLB" | - | - | - | ZD_GPSEST_DELOLD_P |
@@ -5696,11 +5413,11 @@ Variables:
 | "DIR_CRDV_PPP_$YYYSS-5.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_PPP_$YYYSS-5_????.EXT_CRD" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CRDV_TRP_$YYYSS-5_????.EXT_CRD") if "V_TRP" ne "" | - | - | - | ZD_DEL_RES_PPP |
-| "DIR_CZH????$S+0.EXT_CZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| "DIR_CZH????$S+0.EXT_CZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
 | "DIR_CZH????$S-5.EXT_CZH" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CZHV_LEO$S-5.EXT_CZH" | - | - | - | LEO_DEL |
 | "DIR_CZHV_LEO$S-5.EXT_CZH_V_F" | - | - | - | LEO_DEL |
-| "DIR_CZO????$S+0.EXT_CZO" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| "DIR_CZO????$S+0.EXT_CZO" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
 | "DIR_CZO????$S-5.EXT_CZO" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_CZOV_LEO$S-5.EXT_CZO" | - | - | - | LEO_DEL |
 | "DIR_CZOV_LEO$S-5.EXT_CZO_V_F" | - | - | - | LEO_DEL |
@@ -5728,7 +5445,7 @@ Variables:
 | "DIR_NEQ$$bpe{PARAM1}_$S+0????.EXT_NEQ" | - | - | - | ADDNEQZD |
 | "DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ" | - | - | - | ADDNEQZD |
 | "DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ" | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
-| "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
+| "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
 | "DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ" | - | - | - | TIMZDMAP |
 | "DIR_NEQV_FIN?$S+0*.EXT_NEQ" | - | - | - | ZD_GEN_NEQ_P |
 | "DIR_NEQV_FIN_$S+0????.EXT_NEQ" | - | - | - | ZD_ADDNEQ2_DELNEQ |
@@ -5780,8 +5497,8 @@ Variables:
 | "DIR_OUTNLI_$YYYSS-5_????.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTNUV_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTO?V_A$YSS-5.EXT_OUT" | - | - | - | LEO_DEL |
-| "DIR_OUTOBS$+0????.EXT_OUT" | - | - | - | ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
-| "DIR_OUTOBS$S+0???.EXT_OUT" | - | - | - | ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| "DIR_OUTOBS$+0????.EXT_OUT" | - | - | - | ZD_RXOBV3GP |
+| "DIR_OUTOBS$S+0???.EXT_OUT" | - | - | - | ZD_RXOBV3GP |
 | "DIR_OUTOBS$S+0???.EXT_OUT") } else { unlink glob("DIR_OUTOBS$+0????.EXT_OUT") } | - | - | - | RXOBV3GP |
 | "DIR_OUTOBS_$YYYSS-5.EXT_OUT" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_OUTORB$YSS-5.EXT_OUT" | - | - | - | LEO_DEL |
@@ -5832,11 +5549,11 @@ Variables:
 | "DIR_PREV_B$YSS-5.EXT_PRE" | - | - | - | LEO_DEL |
 | "DIR_PREV_ORB_$YYYD-5.EXT_PRE" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_PREV_ORB_$YYYSS-5.EXT_PRE" | - | - | - | ZD_DEL_RES_PPP |
-| "DIR_PZH????$S+0.EXT_PZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| "DIR_PZH????$S+0.EXT_PZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
 | "DIR_PZH????$S-5.EXT_PZH" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_PZHV_LEO$S-5.EXT_PZH" | - | - | - | LEO_DEL |
 | "DIR_PZHV_LEO$S-5.EXT_PZH_V_F" | - | - | - | LEO_DEL |
-| "DIR_PZO????$S+0.EXT_PZO" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| "DIR_PZO????$S+0.EXT_PZO" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
 | "DIR_PZO????$S-5.EXT_PZO" | - | - | - | ZD_DEL_RES_PPP |
 | "DIR_PZOV_LEO$S-5.EXT_PZO" | - | - | - | LEO_DEL |
 | "DIR_PZOV_LEO$S-5.EXT_PZO_V_F" | - | - | - | LEO_DEL |
@@ -5914,11 +5631,11 @@ Variables:
 | $auxfl[$#auxfl] | ZD_SAVE_RES | - | - | - |
 | $auxfl[@auxfl - 1] | SAVERES | - | - | - |
 | $czfile | - | - | ZD_MPR_XTR | - |
-| $del | - | - | RXOBV3GP, TIMESTAP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ | - |
+| $del | - | - | RXOBV3GP, TIMESTAP, ZD_RXOBV3GP | - |
 | $dst | - | ZD_COPY_PPP | - | - |
 | $f | - | - | CHECK_AR_SAT, CLEANUP, ZD_CHECK_AR_SAT | - |
 | $fil | - | - | - | LEOITER |
-| $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_CHKPRC_PS, ZD_CHKPRC_PS~, ZD_INIT_BRD, ZD_OSBMERGE, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD | - |
+| $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_CHKPRC_PS, ZD_INIT_BRD, ZD_OSBMERGE, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD | - |
 | $file) | - | - | ZD_ADD_LEO | - |
 | $file) if -e $file | - | - | ZD_CODSPP_E | - |
 | $file)) { $deleted++ | - | - | ZD_CHKPRC_SOL | - |
@@ -5927,20 +5644,20 @@ Variables:
 | $inpFil | CODXTR, ZD_CODXTR | - | - | - |
 | $line | - | - | ZD_RES_CHK | - |
 | $loc | - | INIT_BRD, ZD_INIT_BRD | - | - |
-| $logfile | - | ZD_CHKPRC_AR, ZD_CHKPRC_PS, ZD_CHKPRC_PS~, ZD_CHKPRC_SOL | - | - |
-| $lst | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ | - |
-| $marker | - | STATUS, ZD_STATUS, ZD_STATUS~ | - | - |
+| $logfile | - | ZD_CHKPRC_AR, ZD_CHKPRC_PS, ZD_CHKPRC_SOL | - | - |
+| $lst | - | - | RXOBV3GP, ZD_RXOBV3GP | - |
+| $marker | - | STATUS, ZD_STATUS | - | - |
 | $OSB_R_file | OSBMERGE | - | - | - |
-| $pattern | - | - | - | ZD_CHKPRC_PS, ZD_CHKPRC_PS~, ZD_CHKPRC_SOL |
+| $pattern | - | - | - | ZD_CHKPRC_PS, ZD_CHKPRC_SOL |
 | $phacorFile | ZD_CHKPRC_AR | - | - | - |
-| $report | - | ZD_CHKPRC_PS, ZD_CHKPRC_PS~ | - | - |
+| $report | - | ZD_CHKPRC_PS | - | - |
 | $rxo) | - | - | ZD_DEL_RXO | - |
 | $src | ZD_COPY_PPP | - | - | - |
-| $target | - | ZD_COPY_REF, ZD_COPY_REF~ | - | - |
+| $target | - | ZD_COPY_REF | - | - |
 | $troFiles[0] | TRPMERZD | - | - | - |
 | $troOutFl | - | TRPMERZD | - | - |
 | $trpFil | TRPMERZD, ZD_TRPMERGE | - | - | - |
-| $YSS+0 | ZD_COPY_REF, ZD_COPY_REF~ | - | - | - |
+| $YSS+0 | ZD_COPY_REF | - | - | - |
 | ${file}.gz | INIT_BRD, ZD_INIT_BRD | - | - | - |
 | ${file}.Z | INIT_BRD, ZD_INIT_BRD | - | - | - |
 | ${loc}.gz | - | INIT_BRD, ZD_INIT_BRD | - | - |
@@ -5955,7 +5672,7 @@ Variables:
 | DIR_BPEPRTMPR$S+0???.BPE | - | - | - | MAUPRPAP, ZD_MAUPRP_P |
 | DIR_BPEPRTMRK$S+0???.BPE | - | - | - | MRKOB_AP, ZD_MRKOB__P |
 | DIR_BPEPRTMRK$YSS+0???.BPE | - | - | - | MRKOBSAP |
-| DIR_BPEPRTOBS$S+0???.BPE | - | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| DIR_BPEPRTOBS$S+0???.BPE | - | - | - | RXOBV3GP, ZD_RXOBV3GP |
 | DIR_BPEPRTSPP$S+0???.BPE | - | - | - | CODSPPAP, ZD_CODSPP_P |
 | DIR_CLB$YD+0RNX.EXT_CLB | ZD_GPSEST_DELOLD_P | - | - | - |
 | DIR_CLB$YSS+0*.EXT_CLB | - | - | - | TIMESTAP, TIMORBAP |
@@ -5989,12 +5706,12 @@ Variables:
 | DIR_CRDV_PPP_$YYYSS-5_????.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CRDV_TRP_$YYYSS-5_????.EXT_CRD | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CZH$sta$S+0.??? | - | - | SATMONAP | - |
-| DIR_CZH????$S+0.EXT_CZH | - | - | - | CODSPP, CODSPPAP, FILESTAP, MRKOB_AP, RXOBV3GP, ZD_CODSPP_P, ZD_CODXTRP, ZD_GPSEST_P, ZD_MRKOB__P, ZD_PPPIARAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~, ZD_TIMESTAP |
+| DIR_CZH????$S+0.EXT_CZH | - | - | - | CODSPP, CODSPPAP, FILESTAP, MRKOB_AP, RXOBV3GP, ZD_CODSPP_P, ZD_CODXTRP, ZD_GPSEST_P, ZD_MRKOB__P, ZD_PPPIARAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_TIMESTAP |
 | DIR_CZH????$S-5.EXT_CZH | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CZHCLKSCREEN$sta$S+0.EXT_CZH | - | - | ZD_SATMONAP | - |
 | DIR_CZHV_LEO$S-5.EXT_CZH | - | - | - | LEO_DEL |
 | DIR_CZHV_LEO$S-5.EXT_CZH_V_F | - | - | - | LEO_DEL |
-| DIR_CZO????$S+0.EXT_CZO | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| DIR_CZO????$S+0.EXT_CZO | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
 | DIR_CZO????$S-5.EXT_CZO | - | - | - | ZD_DEL_RES_PPP |
 | DIR_CZOV_LEO$S-5.EXT_CZO | - | - | - | LEO_DEL |
 | DIR_CZOV_LEO$S-5.EXT_CZO_V_F | - | - | - | LEO_DEL |
@@ -6015,13 +5732,13 @@ Variables:
 | DIR_ERP$(SAVE)_$YSS+0.EXT_ERP | ZD_SAVE_RES | - | - | - |
 | DIR_ERP$(SAVE)S$YSS+0.EXT_ERP | SAVERES3D | - | - | - |
 | DIR_ERP_$YSS+0.EXT_ERP | FZDM_UPD | - | - | - |
-| DIR_ERPAPR${yyssss}.EXT_ERP | ZD_COPY_REF, ZD_COPY_REF~ | - | - | - |
+| DIR_ERPAPR${yyssss}.EXT_ERP | ZD_COPY_REF | - | - | - |
 | DIR_ERPBULLET_A.ERP | FZDM_COP | - | - | - |
 | DIR_ERPDIR_CLKS$YSS+0.EXT_ERP | SAVERES | - | - | - |
 | DIR_ERPDIR_CRD_$YSS+0.EXT_ERP | - | FZDM_UPD | - | - |
 | DIR_ERPDIR_RXCS$YSS+0.EXT_ERP | SAVERES | - | - | - |
 | DIR_ERPDIR_STD_$YSS+0.EXT_ERP | ZD_SAVE_RES | - | - | - |
-| DIR_ERPREF${yyssss}.EXT_ERP | - | ZD_COPY_REF, ZD_COPY_REF~ | - | - |
+| DIR_ERPREF${yyssss}.EXT_ERP | - | ZD_COPY_REF | - | - |
 | DIR_ERPTMP_$YSS+0.EXT_ERP | - | FZDM_COP | - | - |
 | DIR_ERPV_A$YSS+0.DIR_ERP | - | - | ORBAPR, ORBAPRS | - |
 | DIR_ERPV_ACOP$YSS+0.DIR_ERP | - | - | ORBAPF | - |
@@ -6040,7 +5757,7 @@ Variables:
 | DIR_FIXREFCLK.EXT_FIX | - | FZDM_COP, ZD_COPY_FIL_3D | - | - |
 | DIR_GCCV_GCC_$YYYSS-5.EXT_GCC | - | - | - | ZD_DEL_RES_PPP |
 | DIR_GRD${file} | CHECK_GRD_FILES, ZD_CHECK_GRD_FILES | - | - | - |
-| DIR_GRDVMF$YD+0.EXT_GRD | - | - | INIT_VMF, ZD_INIT_VMF, ZD_INIT_VMF~ | - |
+| DIR_GRDVMF$YD+0.EXT_GRD | - | - | INIT_VMF, ZD_INIT_VMF | - |
 | DIR_IEPV_B$W-57.EXT_IEP | - | - | - | LEO_DEL |
 | DIR_IEPV_ORB_$YYYD-5.EXT_IEP | - | - | - | ZD_DEL_RES_PPP |
 | DIR_IONV_HOIFIL.EXT_ION | - | - | - | ZD_DEL_RES_PPP |
@@ -6057,8 +5774,8 @@ Variables:
 | DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ | - | - | - | ADDNEQZD |
 | DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ | - | - | - | TIMESTAP, TIMORBAP, ZD_GPSEST_DELOLD_P |
 | DIR_NEQ$$bpe{PARAM2}$S+0[0-9][0-9][0-9]_.EXT_NEQ | - | - | - | TIMNEQAP, ZD_ADDNEQ2_P |
-| DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
-| DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
+| DIR_NEQ$$bpe{PARAM2}${ite}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
 | DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ | - | - | - | TIMZDMAP |
 | DIR_NEQ$$bpe{PARAM2}??$YSS+0???.EXT_NEQ | - | - | - | SOLCLKAP, SOLLONAP |
 | DIR_NEQ$(SAVE)_$YSS+0.EXT_FIX | ZD_SAVE_RES | - | - | - |
@@ -6136,8 +5853,8 @@ Variables:
 | DIR_OUTNLI_$YYYSS-5_????.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTNUV_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTO?V_A$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
-| DIR_OUTOBS$+0????.EXT_OUT | - | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
-| DIR_OUTOBS$S+0???.EXT_OUT | - | - | - | RXOBV3GP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| DIR_OUTOBS$+0????.EXT_OUT | - | - | - | RXOBV3GP, ZD_RXOBV3GP |
+| DIR_OUTOBS$S+0???.EXT_OUT | - | - | - | RXOBV3GP, ZD_RXOBV3GP |
 | DIR_OUTOBS_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
 | DIR_OUTORB$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
 | DIR_OUTORB_$YYYSS-5.EXT_OUT | - | - | - | ZD_DEL_RES_PPP |
@@ -6206,13 +5923,13 @@ Variables:
 | DIR_PZH | - | ZD_COPY_FIL_CLKD, ZDDE_COP | - | - |
 | DIR_PZH$(SAVE)99$YSS+0.EXT_PRE | ZD_SAVE_RES | - | - | - |
 | DIR_PZH$(SAVE)??$YSS+0???.EXT_PRE | ZD_SAVE_RES | - | - | - |
-| DIR_PZH????$S+0.EXT_PZH | - | - | - | FILESTAP, MAUPRPAP, MPRXTR, MRKOB_AP, RXOBV3GP, TIMZDMAP, ZD_GEN_NEQ_P, ZD_GPSEST_P, ZD_MAUPRP_P, ZD_MPR_XTR, ZD_MRKOB__P, ZD_PPPEDTAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~, ZD_TIMESTAP |
+| DIR_PZH????$S+0.EXT_PZH | - | - | - | FILESTAP, MAUPRPAP, MPRXTR, MRKOB_AP, RXOBV3GP, TIMZDMAP, ZD_GEN_NEQ_P, ZD_GPSEST_P, ZD_MAUPRP_P, ZD_MPR_XTR, ZD_MRKOB__P, ZD_PPPEDTAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_TIMESTAP |
 | DIR_PZH????$S-5.EXT_PZH | - | - | - | ZD_DEL_RES_PPP |
 | DIR_PZHDIR_RXC_$YD+0.EXT_PRE | SAVERES | - | - | - |
 | DIR_PZHV_LEO$S-5.EXT_PZH | - | - | - | LEO_DEL |
 | DIR_PZHV_LEO$S-5.EXT_PZH_V_F | - | - | - | LEO_DEL |
 | DIR_PZHV_PSDINF_$YSS+0.EXT_FIX | - | REP_COP | - | - |
-| DIR_PZO????$S+0.EXT_PZO | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_RXOBV3GP_07102026, ZD_RXOBV3GP~ |
+| DIR_PZO????$S+0.EXT_PZO | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
 | DIR_PZO????$S-5.EXT_PZO | - | - | - | ZD_DEL_RES_PPP |
 | DIR_PZOV_LEO$S-5.EXT_PZO | - | - | - | LEO_DEL |
 | DIR_PZOV_LEO$S-5.EXT_PZO_V_F | - | - | - | LEO_DEL |
@@ -6272,7 +5989,7 @@ Variables:
 | DIR_SOSFIN$YD+0.EXT_SOS | - | ZD3D_COP | - | - |
 | DIR_SOSREFCLK.EXT_SOS | - | ZD3D_COP | - | - |
 | DIR_SOSV_PSDINF_$YSS+0.EXT_SOS | - | REP_COP | - | - |
-| DIR_STAV_SATCRX.EXT_CRX | #MANMRK#, MANMRK, MANMRK~, ZD_MANMRK, ZD_MANMRK~ | #MANMRK#, MANMRK, MANMRK~ | - | - |
+| DIR_STAV_SATCRX.EXT_CRX | MANMRK, ZD_MANMRK | MANMRK | - | - |
 | DIR_STD | - | ZD_COPY_FIL_3D | - | - |
 | DIR_STD$(SAVE)_$YSS+0.EXT_STD | SAVERES3D | - | - | - |
 | DIR_STD_$YSS+0.EXT_STD | FZDM_UPD | - | - | - |
@@ -6489,13 +6206,13 @@ Variables:
 | --- | --- | --- | --- | --- |
 | *$S+0_NLB.OUT | - | - | - | CHECK_AR_SAT, ZD_CHECK_AR_SAT |
 | IAR$YSS+0.PRC | AMB_EXTRACT | - | - | - |
-| MPR$YSS+0.DEL | ZD_CHECK_MAUPRP_DEL, ZD_CHECK_MAUPRP_DEL~ | - | - | - |
+| MPR$YSS+0.DEL | ZD_CHECK_MAUPRP_DEL | - | - | - |
 | MPRXTR.$Y_$S+0 | ZD_MPR_XTR | - | - | - |
 | OBSXTRV_FIN$YSS+0.OUT | ZD_OBSXTR_EXTRACT | - | - | - |
 | OBSXTRV_Z$YSS+0.OUT | OBSXTR_EXTRACT | - | - | - |
-| ORBGEN_APR$S+0.OUT | CHECK_SAT_RMS, CHECK_SAT_RMS~, ZD_CHECK_SAT_RMS, ZD_CHECK_SAT_RMS_05102026 | - | - | - |
+| ORBGEN_APR$S+0.OUT | CHECK_SAT_RMS, ZD_CHECK_SAT_RMS | - | - | - |
 | PHACOR$YSS+0.OUT | ZD_CHECK_AR_SAT | - | - | - |
-| SMT${yy}$S+0.SMC | CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS~ | - | - | - |
+| SMT${yy}$S+0.SMC | CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS | - | - | - |
 | V1_*.LIS | - | - | - | CONCATOUT_VS |
 | V1_*.LST | - | - | - | CONCATOUT_VS |
 | V_FINV_LARGEXTR$YSS+0.SUM | ZD_GPSXTR_EXTRACT | - | - | - |
@@ -6537,11 +6254,11 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| available_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION, ZD_STATION_SELECTION~ | - | - | - |
+| available_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION | - | - | - |
 | GPSEST_ERROR.log | - | FILEST_P | - | - |
 | no_${type} | - | CHECK_GRD_FILES, ZD_CHECK_GRD_FILES | - | - |
-| PROCESSING_$YD+0 | - | #CLEAN_FILES#, CHECK_GRD_FILES, CLEAN_FILES, STATION_SELECTION, ZD_CHECK_GRD_FILES, ZD_CHECK_OBSENTRIES, ZD_DEL_RES_1D, ZD_STATION_SELECTION, ZD_STATION_SELECTION~ | - | - |
-| selected_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION, ZD_STATION_SELECTION~ | - | - | - |
+| PROCESSING_$YD+0 | - | CHECK_GRD_FILES, CLEAN_FILES, STATION_SELECTION, ZD_CHECK_GRD_FILES, ZD_CHECK_OBSENTRIES, ZD_DEL_RES_1D, ZD_STATION_SELECTION | - | - |
+| selected_stations_$YD+0.txt | STATION_SELECTION, ZD_STATION_SELECTION | - | - | - |
 | VAPL_entries | - | ZD_CHECK_VAPL_ENTRIES | - | - |
 
 ### DIR_OUT../MSC/MSC_$YD+0/no_${type} if (-e DIR_OUT../MSC/MSC_$YD+0
@@ -6573,7 +6290,7 @@ Variables:
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
 | $file") | - | - | CHECK_OBSENTRIES | - |
-| $file) | - | - | ZD_STATION_SELECTION, ZD_STATION_SELECTION~ | - |
+| $file) | - | - | ZD_STATION_SELECTION | - |
 | $pattern) | - | - | STATION_SELECTION | - |
 
 ### DIR_OUT../SOL
@@ -6594,11 +6311,11 @@ Variables:
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
 | $name) | - | - | ZD_PRE_ELIM_CLK_P | - |
-| ???_??_??.COV | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
+| ???_??_??.COV | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
 | affected_satellite_AR | CHECK_AR_SAT, ZD_CHECK_AR_SAT | - | CHECK_AR_SAT, ZD_CHECK_AR_SAT | - |
-| PROCESSING_$YD+0 | - | AMB_EXTRACT, CHECK_AR_SAT, CHECK_OBSENTRIES, CHECK_SAT_GAPS, CHECK_SAT_RMS, CHECK_SAT_RMS~, DEL_LOBS, GPSXTR_EXTRACT, NUM_OBSFIL, OBSXTR_EXTRACT, ZD_CHECK_AR_SAT, ZD_CHECK_MAUPRP_DEL, ZD_CHECK_MAUPRP_DEL~, ZD_CHECK_SAT_GAPS, ZD_CHECK_SAT_GAPS~, ZD_CHECK_SAT_RMS, ZD_CHECK_SAT_RMS_05102026, ZD_DEL_CDXT_OBS, ZD_GPSXTR_EXTRACT, ZD_NUM_OBSFIL, ZD_OBSXTR_EXTRACT | - | - |
-| TIMINT_?? | - | - | - | ITEPRECL, PRECLKAP, ZD_ITE_PRE_CLK, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
-| TIMINTITE_?? | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P_14092026 |
+| PROCESSING_$YD+0 | - | AMB_EXTRACT, CHECK_AR_SAT, CHECK_OBSENTRIES, CHECK_SAT_GAPS, CHECK_SAT_RMS, DEL_LOBS, GPSXTR_EXTRACT, NUM_OBSFIL, OBSXTR_EXTRACT, ZD_CHECK_AR_SAT, ZD_CHECK_MAUPRP_DEL, ZD_CHECK_SAT_GAPS, ZD_CHECK_SAT_RMS, ZD_DEL_CDXT_OBS, ZD_GPSXTR_EXTRACT, ZD_NUM_OBSFIL, ZD_OBSXTR_EXTRACT | - | - |
+| TIMINT_?? | - | - | - | ITEPRECL, PRECLKAP, ZD_ITE_PRE_CLK, ZD_PRE_ELIM_CLK_P |
+| TIMINTITE_?? | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
 | TIMOVER | - | - | ITEPRECL, ZD_ITE_PRE_CLK | - |
 | VAPL_entries | - | CHECK_VAPL_ENTRIES | - | - |
 
