@@ -1,0 +1,599 @@
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 1  "${P}/IGSFINAL"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${P}/IGSFINAL/GEN/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2025"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "1500"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! -------------------------------------------------------------------------
+! Environment Variables
+! ---------------------
+ENVIRONMENT 9
+  "P" "/storage/research/aiub_code"
+  "Q" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "X" "/storage/research/aiub_data/BSWsoftware/BERN/GPS"
+  "U" "/storage/homefs/l_code_fin/GPSUSER"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "l_code_fin"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! -------------------------------------------------------------------------
+! General Constants
+! -----------------
+SHOWGEN 1  "0"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+DATUM 1  "${CONFIG}/DATUM.BSW"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+  # DATUM
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! GPSEST/ADDNEQ Input Files
+! -------------------------
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = DUMMY; radiokeys = JOBGPS
+
+MSG_RADIO_1 1  "GPSEST/ADDNEQ2 output files"
+
+RADIO_3 1  "1"
+  ## widget = radiobutton; group = DUMMY; radiokeys = OUTPUT
+
+MSG_RADIO_3 1  "GPSEST/ADDNEQ2 output files"
+
+JOBGPS 0
+  ## widget = selwin; path = DIR_OUT; ext = NO_EXT; maxfiles = 999
+  ## emptyallowed = true
+
+MSG_JOBGPS 1  "GPSEST job output files"
+
+JOBGPS_TXT_COL_1 1  "GPSEST job output files"
+
+OUTPUT 287
+  "${P}/IGSFINAL/OUT/0AMT150W.OUT"
+  "${P}/IGSFINAL/OUT/0DTS150W.OUT"
+  "${P}/IGSFINAL/OUT/0LUD150W.OUT"
+  "${P}/IGSFINAL/OUT/0VNV150W.OUT"
+  "${P}/IGSFINAL/OUT/0XSg150W.OUT"
+  "${P}/IGSFINAL/OUT/0YI2150W.OUT"
+  "${P}/IGSFINAL/OUT/0YJO150W.OUT"
+  "${P}/IGSFINAL/OUT/0YP1150W.OUT"
+  "${P}/IGSFINAL/OUT/0YWS150W.OUT"
+  "${P}/IGSFINAL/OUT/1LWS150W.OUT"
+  "${P}/IGSFINAL/OUT/A2VO150W.OUT"
+  "${P}/IGSFINAL/OUT/A2YK150W.OUT"
+  "${P}/IGSFINAL/OUT/AASa150W.OUT"
+  "${P}/IGSFINAL/OUT/ABCP150W.OUT"
+  "${P}/IGSFINAL/OUT/ABNN150W.OUT"
+  "${P}/IGSFINAL/OUT/ACSA150W.OUT"
+  "${P}/IGSFINAL/OUT/ADM4150W.OUT"
+  "${P}/IGSFINAL/OUT/ADRR150W.OUT"
+  "${P}/IGSFINAL/OUT/AEAR150W.OUT"
+  "${P}/IGSFINAL/OUT/AEG4150W.OUT"
+  "${P}/IGSFINAL/OUT/AEPV150W.OUT"
+  "${P}/IGSFINAL/OUT/AFLF150W.OUT"
+  "${P}/IGSFINAL/OUT/AFR0150W.OUT"
+  "${P}/IGSFINAL/OUT/AFUD150W.OUT"
+  "${P}/IGSFINAL/OUT/AICD150W.OUT"
+  "${P}/IGSFINAL/OUT/AIDA150W.OUT"
+  "${P}/IGSFINAL/OUT/AJM0150W.OUT"
+  "${P}/IGSFINAL/OUT/AK0N150W.OUT"
+  "${P}/IGSFINAL/OUT/AKR1150W.OUT"
+  "${P}/IGSFINAL/OUT/ALNR150W.OUT"
+  "${P}/IGSFINAL/OUT/AUCT150W.OUT"
+  "${P}/IGSFINAL/OUT/AUP5150W.OUT"
+  "${P}/IGSFINAL/OUT/B0HM150W.OUT"
+  "${P}/IGSFINAL/OUT/B0PO150W.OUT"
+  "${P}/IGSFINAL/OUT/B0S2150W.OUT"
+  "${P}/IGSFINAL/OUT/B0Tl150W.OUT"
+  "${P}/IGSFINAL/OUT/B0WS150W.OUT"
+  "${P}/IGSFINAL/OUT/B20S150W.OUT"
+  "${P}/IGSFINAL/OUT/B2UL150W.OUT"
+  "${P}/IGSFINAL/OUT/BeK9150W.OUT"
+  "${P}/IGSFINAL/OUT/BEWI150W.OUT"
+  "${P}/IGSFINAL/OUT/BGK9150W.OUT"
+  "${P}/IGSFINAL/OUT/BJUL150W.OUT"
+  "${P}/IGSFINAL/OUT/BLHN150W.OUT"
+  "${P}/IGSFINAL/OUT/BLIT150W.OUT"
+  "${P}/IGSFINAL/OUT/BLWI150W.OUT"
+  "${P}/IGSFINAL/OUT/BO1L150W.OUT"
+  "${P}/IGSFINAL/OUT/BTB0150W.OUT"
+  "${P}/IGSFINAL/OUT/BU0Y150W.OUT"
+  "${P}/IGSFINAL/OUT/BUIs150W.OUT"
+  "${P}/IGSFINAL/OUT/BUOF150W.OUT"
+  "${P}/IGSFINAL/OUT/BVK9150W.OUT"
+  "${P}/IGSFINAL/OUT/BVPV150W.OUT"
+  "${P}/IGSFINAL/OUT/BW0Y150W.OUT"
+  "${P}/IGSFINAL/OUT/BYTN150W.OUT"
+  "${P}/IGSFINAL/OUT/BZT6150W.OUT"
+  "${P}/IGSFINAL/OUT/C4NR150W.OUT"
+  "${P}/IGSFINAL/OUT/CADV150W.OUT"
+  "${P}/IGSFINAL/OUT/CAMI150W.OUT"
+  "${P}/IGSFINAL/OUT/CCAK150W.OUT"
+  "${P}/IGSFINAL/OUT/CCDG150W.OUT"
+  "${P}/IGSFINAL/OUT/CCXM150W.OUT"
+  "${P}/IGSFINAL/OUT/CD0H150W.OUT"
+  "${P}/IGSFINAL/OUT/CDR1150W.OUT"
+  "${P}/IGSFINAL/OUT/CKSa150W.OUT"
+  "${P}/IGSFINAL/OUT/CKTh150W.OUT"
+  "${P}/IGSFINAL/OUT/CLZU150W.OUT"
+  "${P}/IGSFINAL/OUT/COK9150W.OUT"
+  "${P}/IGSFINAL/OUT/CpM1150W.OUT"
+  "${P}/IGSFINAL/OUT/CRG4150W.OUT"
+  "${P}/IGSFINAL/OUT/CRLP150W.OUT"
+  "${P}/IGSFINAL/OUT/CRUT150W.OUT"
+  "${P}/IGSFINAL/OUT/CTO5150W.OUT"
+  "${P}/IGSFINAL/OUT/CZ0X150W.OUT"
+  "${P}/IGSFINAL/OUT/CZKr150W.OUT"
+  "${P}/IGSFINAL/OUT/D1U8150W.OUT"
+  "${P}/IGSFINAL/OUT/D1UR150W.OUT"
+  "${P}/IGSFINAL/OUT/D9K0150W.OUT"
+  "${P}/IGSFINAL/OUT/D9L2150W.OUT"
+  "${P}/IGSFINAL/OUT/D9NI150W.OUT"
+  "${P}/IGSFINAL/OUT/DBFF150W.OUT"
+  "${P}/IGSFINAL/OUT/DGsG150W.OUT"
+  "${P}/IGSFINAL/OUT/DGSg150W.OUT"
+  "${P}/IGSFINAL/OUT/DID9150W.OUT"
+  "${P}/IGSFINAL/OUT/DJSU150W.OUT"
+  "${P}/IGSFINAL/OUT/DOES150W.OUT"
+  "${P}/IGSFINAL/OUT/DOp1150W.OUT"
+  "${P}/IGSFINAL/OUT/DOPI150W.OUT"
+  "${P}/IGSFINAL/OUT/DRWI150W.OUT"
+  "${P}/IGSFINAL/OUT/DVKr150W.OUT"
+  "${P}/IGSFINAL/OUT/DVM4150W.OUT"
+  "${P}/IGSFINAL/OUT/DVMW150W.OUT"
+  "${P}/IGSFINAL/OUT/DVR2150W.OUT"
+  "${P}/IGSFINAL/OUT/DVSM150W.OUT"
+  "${P}/IGSFINAL/OUT/DYNI150W.OUT"
+  "${P}/IGSFINAL/OUT/DYPO150W.OUT"
+  "${P}/IGSFINAL/OUT/F1G9150W.OUT"
+  "${P}/IGSFINAL/OUT/F1Th150W.OUT"
+  "${P}/IGSFINAL/OUT/FAUQ150W.OUT"
+  "${P}/IGSFINAL/OUT/FFp1150W.OUT"
+  "${P}/IGSFINAL/OUT/FKLW150W.OUT"
+  "${P}/IGSFINAL/OUT/FKR2150W.OUT"
+  "${P}/IGSFINAL/OUT/FRUD150W.OUT"
+  "${P}/IGSFINAL/OUT/FSPD150W.OUT"
+  "${P}/IGSFINAL/OUT/FTVO150W.OUT"
+  "${P}/IGSFINAL/OUT/FUM1150W.OUT"
+  "${P}/IGSFINAL/OUT/G4R2150W.OUT"
+  "${P}/IGSFINAL/OUT/G4SA150W.OUT"
+  "${P}/IGSFINAL/OUT/G5HP150W.OUT"
+  "${P}/IGSFINAL/OUT/G5P7150W.OUT"
+  "${P}/IGSFINAL/OUT/G5UD150W.OUT"
+  "${P}/IGSFINAL/OUT/G9GL150W.OUT"
+  "${P}/IGSFINAL/OUT/GAPC150W.OUT"
+  "${P}/IGSFINAL/OUT/GAPO150W.OUT"
+  "${P}/IGSFINAL/OUT/GBVP150W.OUT"
+  "${P}/IGSFINAL/OUT/GDG5150W.OUT"
+  "${P}/IGSFINAL/OUT/GDT2150W.OUT"
+  "${P}/IGSFINAL/OUT/GLIN150W.OUT"
+  "${P}/IGSFINAL/OUT/GLPV150W.OUT"
+  "${P}/IGSFINAL/OUT/GoGO150W.OUT"
+  "${P}/IGSFINAL/OUT/GOJP150W.OUT"
+  "${P}/IGSFINAL/OUT/GP0M150W.OUT"
+  "${P}/IGSFINAL/OUT/GSM0150W.OUT"
+  "${P}/IGSFINAL/OUT/GUCL150W.OUT"
+  "${P}/IGSFINAL/OUT/GUN3150W.OUT"
+  "${P}/IGSFINAL/OUT/GUUG150W.OUT"
+  "${P}/IGSFINAL/OUT/GV0Y150W.OUT"
+  "${P}/IGSFINAL/OUT/GZM0150W.OUT"
+  "${P}/IGSFINAL/OUT/GZWS150W.OUT"
+  "${P}/IGSFINAL/OUT/H0HL150W.OUT"
+  "${P}/IGSFINAL/OUT/H0K3150W.OUT"
+  "${P}/IGSFINAL/OUT/H0KK150W.OUT"
+  "${P}/IGSFINAL/OUT/H0MK150W.OUT"
+  "${P}/IGSFINAL/OUT/H4UF150W.OUT"
+  "${P}/IGSFINAL/OUT/HA0X150W.OUT"
+  "${P}/IGSFINAL/OUT/HAHR150W.OUT"
+  "${P}/IGSFINAL/OUT/HASM150W.OUT"
+  "${P}/IGSFINAL/OUT/HBM3150W.OUT"
+  "${P}/IGSFINAL/OUT/HBMI150W.OUT"
+  "${P}/IGSFINAL/OUT/HBS0150W.OUT"
+  "${P}/IGSFINAL/OUT/HLWI150W.OUT"
+  "${P}/IGSFINAL/OUT/HM07150W.OUT"
+  "${P}/IGSFINAL/OUT/HNIV150W.OUT"
+  "${P}/IGSFINAL/OUT/HNRE150W.OUT"
+  "${P}/IGSFINAL/OUT/HNWH150W.OUT"
+  "${P}/IGSFINAL/OUT/HNYE150W.OUT"
+  "${P}/IGSFINAL/OUT/HORY150W.OUT"
+  "${P}/IGSFINAL/OUT/HWUH150W.OUT"
+  "${P}/IGSFINAL/OUT/HXUD150W.OUT"
+  "${P}/IGSFINAL/OUT/HYIs150W.OUT"
+  "${P}/IGSFINAL/OUT/HYsG150W.OUT"
+  "${P}/IGSFINAL/OUT/IDp1150W.OUT"
+  "${P}/IGSFINAL/OUT/INDO150W.OUT"
+  "${P}/IGSFINAL/OUT/ISsG150W.OUT"
+  "${P}/IGSFINAL/OUT/ISUR150W.OUT"
+  "${P}/IGSFINAL/OUT/ITQA150W.OUT"
+  "${P}/IGSFINAL/OUT/ITSC150W.OUT"
+  "${P}/IGSFINAL/OUT/J2DA150W.OUT"
+  "${P}/IGSFINAL/OUT/J2ZU150W.OUT"
+  "${P}/IGSFINAL/OUT/JGKC150W.OUT"
+  "${P}/IGSFINAL/OUT/JGNT150W.OUT"
+  "${P}/IGSFINAL/OUT/JGPH150W.OUT"
+  "${P}/IGSFINAL/OUT/JGXM150W.OUT"
+  "${P}/IGSFINAL/OUT/JPPI150W.OUT"
+  "${P}/IGSFINAL/OUT/K0PL150W.OUT"
+  "${P}/IGSFINAL/OUT/K3N3150W.OUT"
+  "${P}/IGSFINAL/OUT/K9KU150W.OUT"
+  "${P}/IGSFINAL/OUT/K9LF150W.OUT"
+  "${P}/IGSFINAL/OUT/K9T6150W.OUT"
+  "${P}/IGSFINAL/OUT/KCP5150W.OUT"
+  "${P}/IGSFINAL/OUT/KEKr150W.OUT"
+  "${P}/IGSFINAL/OUT/KKK4150W.OUT"
+  "${P}/IGSFINAL/OUT/KlHW150W.OUT"
+  "${P}/IGSFINAL/OUT/KlPH150W.OUT"
+  "${P}/IGSFINAL/OUT/KlTT150W.OUT"
+  "${P}/IGSFINAL/OUT/Kr0N150W.OUT"
+  "${P}/IGSFINAL/OUT/KRD1150W.OUT"
+  "${P}/IGSFINAL/OUT/KRKI150W.OUT"
+  "${P}/IGSFINAL/OUT/KRSR150W.OUT"
+  "${P}/IGSFINAL/OUT/KRTR150W.OUT"
+  "${P}/IGSFINAL/OUT/KRVL150W.OUT"
+  "${P}/IGSFINAL/OUT/KTK0150W.OUT"
+  "${P}/IGSFINAL/OUT/L1P5150W.OUT"
+  "${P}/IGSFINAL/OUT/L1Sa150W.OUT"
+  "${P}/IGSFINAL/OUT/L2NG150W.OUT"
+  "${P}/IGSFINAL/OUT/L2Sg150W.OUT"
+  "${P}/IGSFINAL/OUT/LA0M150W.OUT"
+  "${P}/IGSFINAL/OUT/LLM1150W.OUT"
+  "${P}/IGSFINAL/OUT/LLPD150W.OUT"
+  "${P}/IGSFINAL/OUT/LLS7150W.OUT"
+  "${P}/IGSFINAL/OUT/LPUF150W.OUT"
+  "${P}/IGSFINAL/OUT/LSp1150W.OUT"
+  "${P}/IGSFINAL/OUT/LUT6150W.OUT"
+  "${P}/IGSFINAL/OUT/LWWD150W.OUT"
+  "${P}/IGSFINAL/OUT/M0ME150W.OUT"
+  "${P}/IGSFINAL/OUT/M0MT150W.OUT"
+  "${P}/IGSFINAL/OUT/M0OD150W.OUT"
+  "${P}/IGSFINAL/OUT/M1Me150W.OUT"
+  "${P}/IGSFINAL/OUT/M1YK150W.OUT"
+  "${P}/IGSFINAL/OUT/m3D1150W.OUT"
+  "${P}/IGSFINAL/OUT/m3PO150W.OUT"
+  "${P}/IGSFINAL/OUT/m3RI150W.OUT"
+  "${P}/IGSFINAL/OUT/m3SV150W.OUT"
+  "${P}/IGSFINAL/OUT/m3ZE150W.OUT"
+  "${P}/IGSFINAL/OUT/MeSF150W.OUT"
+  "${P}/IGSFINAL/OUT/MeTl150W.OUT"
+  "${P}/IGSFINAL/OUT/MHWS150W.OUT"
+  "${P}/IGSFINAL/OUT/MIO5150W.OUT"
+  "${P}/IGSFINAL/OUT/MOVP150W.OUT"
+  "${P}/IGSFINAL/OUT/N3P5150W.OUT"
+  "${P}/IGSFINAL/OUT/N3PN150W.OUT"
+  "${P}/IGSFINAL/OUT/N3TN150W.OUT"
+  "${P}/IGSFINAL/OUT/N50N150W.OUT"
+  "${P}/IGSFINAL/OUT/N5PE150W.OUT"
+  "${P}/IGSFINAL/OUT/N6p1150W.OUT"
+  "${P}/IGSFINAL/OUT/NA0J150W.OUT"
+  "${P}/IGSFINAL/OUT/NANX150W.OUT"
+  "${P}/IGSFINAL/OUT/NATR150W.OUT"
+  "${P}/IGSFINAL/OUT/NDP5150W.OUT"
+  "${P}/IGSFINAL/OUT/NGLW150W.OUT"
+  "${P}/IGSFINAL/OUT/NGYK150W.OUT"
+  "${P}/IGSFINAL/OUT/NIRA150W.OUT"
+  "${P}/IGSFINAL/OUT/NLp1150W.OUT"
+  "${P}/IGSFINAL/OUT/NNWI150W.OUT"
+  "${P}/IGSFINAL/OUT/NRUD150W.OUT"
+  "${P}/IGSFINAL/OUT/NVUR150W.OUT"
+  "${P}/IGSFINAL/OUT/ONWS150W.OUT"
+  "${P}/IGSFINAL/OUT/OPZI150W.OUT"
+  "${P}/IGSFINAL/OUT/P0R2150W.OUT"
+  "${P}/IGSFINAL/OUT/P0RR150W.OUT"
+  "${P}/IGSFINAL/OUT/p1VP150W.OUT"
+  "${P}/IGSFINAL/OUT/p1WI150W.OUT"
+  "${P}/IGSFINAL/OUT/PKS0150W.OUT"
+  "${P}/IGSFINAL/OUT/PLAH150W.OUT"
+  "${P}/IGSFINAL/OUT/PLUR150W.OUT"
+  "${P}/IGSFINAL/OUT/PMPH150W.OUT"
+  "${P}/IGSFINAL/OUT/PO0M150W.OUT"
+  "${P}/IGSFINAL/OUT/POTB150W.OUT"
+  "${P}/IGSFINAL/OUT/PUR2150W.OUT"
+  "${P}/IGSFINAL/OUT/QASR150W.OUT"
+  "${P}/IGSFINAL/OUT/QUVP150W.OUT"
+  "${P}/IGSFINAL/OUT/R0FC150W.OUT"
+  "${P}/IGSFINAL/OUT/RE0J150W.OUT"
+  "${P}/IGSFINAL/OUT/RGR2150W.OUT"
+  "${P}/IGSFINAL/OUT/RHUD150W.OUT"
+  "${P}/IGSFINAL/OUT/RYSR150W.OUT"
+  "${P}/IGSFINAL/OUT/S00H150W.OUT"
+  "${P}/IGSFINAL/OUT/S0SN150W.OUT"
+  "${P}/IGSFINAL/OUT/S0TD150W.OUT"
+  "${P}/IGSFINAL/OUT/S0TN150W.OUT"
+  "${P}/IGSFINAL/OUT/S2Z3150W.OUT"
+  "${P}/IGSFINAL/OUT/S7UD150W.OUT"
+  "${P}/IGSFINAL/OUT/SCUD150W.OUT"
+  "${P}/IGSFINAL/OUT/SJS7150W.OUT"
+  "${P}/IGSFINAL/OUT/SLSM150W.OUT"
+  "${P}/IGSFINAL/OUT/SMWD150W.OUT"
+  "${P}/IGSFINAL/OUT/T2ES150W.OUT"
+  "${P}/IGSFINAL/OUT/T6UF150W.OUT"
+  "${P}/IGSFINAL/OUT/TDCB150W.OUT"
+  "${P}/IGSFINAL/OUT/ThTI150W.OUT"
+  "${P}/IGSFINAL/OUT/TlYY150W.OUT"
+  "${P}/IGSFINAL/OUT/TSUS150W.OUT"
+  "${P}/IGSFINAL/OUT/U8UH150W.OUT"
+  "${P}/IGSFINAL/OUT/UD0K150W.OUT"
+  "${P}/IGSFINAL/OUT/UDOR150W.OUT"
+  "${P}/IGSFINAL/OUT/UDVT150W.OUT"
+  "${P}/IGSFINAL/OUT/UHWU150W.OUT"
+  "${P}/IGSFINAL/OUT/ULUQ150W.OUT"
+  "${P}/IGSFINAL/OUT/ULUR150W.OUT"
+  "${P}/IGSFINAL/OUT/UQWI150W.OUT"
+  "${P}/IGSFINAL/OUT/VIYY150W.OUT"
+  "${P}/IGSFINAL/OUT/VOT6150W.OUT"
+  "${P}/IGSFINAL/OUT/WR0M150W.OUT"
+  "${P}/IGSFINAL/OUT/XYDO150W.OUT"
+  "${P}/IGSFINAL/OUT/XYR0150W.OUT"
+  "${P}/IGSFINAL/OUT/XYSS150W.OUT"
+  "${P}/IGSFINAL/OUT/Y30N150W.OUT"
+  "${P}/IGSFINAL/OUT/YAY3150W.OUT"
+  "${P}/IGSFINAL/OUT/YCWS150W.OUT"
+  "${P}/IGSFINAL/OUT/Z3ZI150W.OUT"
+  "${P}/IGSFINAL/OUT/ZUsM150W.OUT"
+  "${P}/IGSFINAL/OUT/ZUSU150W.OUT"
+  "${P}/IGSFINAL/OUT/ZUTK150W.OUT"
+  "${P}/IGSFINAL/OUT/ZUTS150W.OUT"
+  "${P}/IGSFINAL/OUT/ZUTT150W.OUT"
+  "${P}/IGSFINAL/OUT/ZUUL150W.OUT"
+  "${P}/IGSFINAL/OUT/ZUWH150W.OUT"
+  ## widget = selwin; path = DIR_OUT; ext = EXT_OUT; maxfiles = 999
+  ## emptyallowed = true
+  # ????$+0W
+
+MSG_OUTPUT 1  "GPSEST/ADDNEQ output files"
+
+OUTPUT_TXT_COL_1 1  "GPSEST/ADDNEQ output files"
+
+! Title
+! -----
+TITLE 1  "GPSEST/ADDNEQ Extraction (ambiguity resolution step)"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Output Summary
+! --------------
+GPSOUT 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_GPSOUT 1  "Output summary"
+
+PARTAB 1  "0"
+  ## widget = checkbox; activeif = GPSOUT / _
+
+MSG_PARTAB 1  "Add table with parameters"
+
+! Coordinate Summary
+! ------------------
+CRDOUT 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_CRDOUT 1  "Coordinate summary"
+
+! Kinematic Summary
+! -----------------
+KINOUT 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_KINOUT 1  "Kinematic summary"
+
+! Ionosphere Summary
+! ------------------
+GIMOUT 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_GIMOUT 1  "GIM summary"
+
+! Clock Summary
+! -------------
+CLKOUT 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_CLKOUT 1  "Clock summary: clock differences"
+
+CLKBSL 0
+  ## widget = selwin; path = DIR_BSL; ext = EXT_BSL; maxfiles = 1
+  ## activeif = CLKOUT / _ OR CLKDEV / _
+  # 
+
+MSG_CLKBSL 1  "Pairs of clocks for clock summary"
+
+! Clock Summary: Allan deviation
+! -------------
+CLKDEV 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_CLKDEV 1  "Clock summary: Allan deviation"
+
+! QIF Summary
+! -----------
+QIFOUT 1  "${P}/IGSFINAL/OUT/MLWXTR.SUM"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+  # MLWXTR
+
+MSG_QIFOUT 1  "Ambiguity res. summary"
+
+! Ambiguity Summary
+! -----------------
+AMBOUT 1  "${P}/IGSFINAL/OUT/AMBXTR.SUM"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+  # AMBXTR
+
+MSG_AMBOUT 1  "Ambiguity fractionals"
+
+! Campaign Summary
+! ----------------
+CAMPFM 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_CAMPFM 1  "Campaign summary"
+
+! Weekly Summary
+! --------------
+WEEKFM 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_WEEKFM 1  "Weekly summary"
+
+! Pole Summary
+! ------------
+POLOUT 0
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
+
+MSG_POLOUT 1  "Pole output"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${P}/IGSFINAL/OUT/GPSXTR.L77"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # ${Q}/CLKFINAL/OUT/GPSXTR
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Which Pole Parameter Sets
+! -------------------------
+IMEAN 1  "ALL"
+  ## widget = combobox; editable = false; cards = ALL 1 2 3
+  ## activeif = POLOUT / _
+
+MSG_IMEAN 1  "Pole parameter sets"
+
+! Ambiguity resolution summary detail level
+! -----------------------------------------
+AMBLOD 1  "1"
+  ## widget = checkbox; activeif = QIFOUT / _
+
+MSG_AMBLOD 1  "GNSS-wise ambiguity output"
+
+! Ambiguity resolution characterization
+! -------------------------------------
+AMBID 0
+  ## widget = combobox; cards = WL NL NLR QIF L5 L3 L3R L12 L1 L2
+  ## activeif = QIFOUT / _; check_strlen = 3
+
+MSG_AMBID 1  "Ambiguity resolution: #AR_ID"
+
+! Long summary lines enforced
+! ---------------------------
+LONGLINE 1  "0"
+  ## widget = checkbox
+
+MSG_LONGLINE 1  "Long summary lines enforced"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# EXTRACT GPSEST/ADDNEQ2 PROGRAM OUTPUT - GPSXTR 1: Extractions                #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# INPUT FILENAMES                                                              #
+#   > % <                   > %%%%%%%%%%%% <      (GPSEST.Lxx/ADDNEQ2.Lxx)     # RADIO_1 JOBGPS
+#   > % <                   > %%%%%%%%%%%% <      (GPSEST/ADDNEQ2 output)      # RADIO_3 OUTPUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output        > % < use GPSXTR.Lnn            or  > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages        > % < merged to program output  or  > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1  #####################################################
+# GPSXTR 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Geodetic datum          > %%%%%%%%%%%% <                                   # DATUM
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# GPSXTR 2: Output Files                                                       #
+#                                                                              #
+# TITLE   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # TITLE
+#                                                                              #
+# OUTPUT FILES                                                                 #
+#   Output summary          > %%%%%%%%%%%% <    Add table with parameters > % <# GPSOUT PARTAB
+#   Coordinate summary      > %%%%%%%%%%%% <                                   # CRDOUT
+#   Kinematic summary       > %%%%%%%%%%%% <                                   # KINOUT
+#   GIM summary             > %%%%%%%%%%%% <                                   # GIMOUT
+#   Clock summary           > %%%%%%%%%%%% <    Baseline> %%%%%%%% <           # CLKOUT CLKBSL
+#   Clock Allan deviation   > %%%%%%%%%%%% <                                   # CLKDEV
+#   Ambiguity resolution    > %%%%%%%%%%%% <    GNSS-wise > % <   ID> %%% <    # QIFOUT AMBLOD AMBID
+#   Ambiguity fractionals   > %%%%%%%%%%%% <                                   # AMBOUT
+#   Campaign summary        > %%%%%%%%%%%% <                                   # CAMPFM
+#   Weekly summary          > %%%%%%%%%%%% <                                   # WEEKFM
+#   Pole output             > %%%%%%%%%%%% <    Pole parameter sets> %%%% <    # POLOUT IMEAN
+#                                                                              #
+# END_PANEL ####################################################################
