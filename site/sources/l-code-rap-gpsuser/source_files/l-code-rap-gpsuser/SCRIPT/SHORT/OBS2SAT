@@ -1,0 +1,228 @@
+package OBS2SAT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  OBS2SAT
+#
+# Purpose :  Create SAT_yyyyssss.LST on the basis of OBS_yyyyssss.LST and
+#            release SMS in case of GNSS (GRECJS) constellation change.
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  27-Jun-2023
+#
+# Changes :  28-Jun-2023/ss: Prepared @skpSat
+#            07-Dec-2023/ss: Decreased $min from 10000 to 9000 (for E14)
+#            02-May-2024/ss: Considered creation time of previous SAT.LST file
+#            08-May-2024/ss: Considered creation time of previous OBS.LST file
+#            17-Apr-2026/ss: Switched to L1/L5 for BeiDou-3 and QZSS and SBAS
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $mjd, $sav, $dis, $upd, $dirOut) =
+    $bpe->getKeys('$YD+0', '$JD+0', 'V_SAV', 'V_DIS', 'V_UPD', 'DIR_OUT');
+
+# Get list of all OBS_yyyyssss.LST
+# --------------------------------
+  my @fil = glob("${dirOut}OBS_???????0.LST");
+
+# Define all GNSS to be considered
+# --------------------------------
+  my @sys = ("G","R","E","C","J","S");
+
+# Define list of PRNs to be skipped
+# ---------------------------------
+  my $skpSat = ();
+
+# Perform loop over all OBS_yyyyssss.LST
+# --------------------------------------
+  my $mjd0 = gps_date("-doy 0 -o %IJ");
+  foreach my $fil (@fil) {
+    my $nam = basename($fil);
+    my $yyyyddd = substr($nam,4,7);
+    my ($yyyy,$ssss,$mjd) = gps_date("-yd $yyyyddd -o %Y %j0 %IJ");
+    my $out = "${dirOut}SAT_${yyyy}${ssss}.LST";
+
+    my $yyyyssssm1 = gps_date("-yd $yyyyddd -d -1 -o %Y%j0");
+    my $filLst = "${dirOut}SAT_${yyyyssssm1}.LST";
+    my $film1  = "${dirOut}OBS_${yyyyssssm1}.LST";
+
+# Skip file if SAT_yyyyssss.LST already created
+# ---------------------------------------------
+    if (-e $out) {
+##      next if (stat($fil))[9]<(stat($out))[9];
+##      next if ((stat($fil))[9]<(stat($out))[9] && (stat($filLst))[9]<(stat($out))[9]);
+      next if ((stat($fil))[9]<(stat($out))[9] && (stat($film1))[9]<(stat($out))[9]);
+    }
+##    next if -e $out && $mjd-$mjd0<-30;
+
+# Check SAT_yyyyssss.LST of previous day for DIFF line
+# ----------------------------------------------------
+    my @lstSat = ();
+    if (-e $filLst) {
+      my $line = `grep 'GNSS:' $filLst`;
+      chomp($line);
+      @lstSat = split(" ",$line);
+      shift(@lstSat);
+    }
+
+    my @allSat = ();
+    my @useSat = ();
+    my @txt = ("","","","","","");
+    my @ref = ();
+    foreach my $sys (@sys) {
+# Set frequencies required concerning dual-frequency observation data (C1/C2/L1/L2):
+      @ref = ("C1","C2","L1","L2") if $sys eq "G";
+##      @ref = ("C1","C5","L1","L5") if $sys eq "G";
+      @ref = ("C1","C2","L1","L2") if $sys eq "R";
+      @ref = ("C1","C5","L1","L5") if $sys eq "E";
+##      @ref = ("C2","C6","L2","L6") if $sys eq "C";
+      @ref = ("C1","C5","L1","L5") if $sys eq "C";
+##      @ref = ("C1","C2","L1","L2") if $sys eq "J";
+      @ref = ("C1","C5","L1","L5") if $sys eq "J";
+##      @ref = ("C1","C2","L1","L2") if $sys eq "S";
+      @ref = ("C1","C5","L1","L5") if $sys eq "S";
+      my @sat = `grep '^ $sys' $fil`;
+      chomp(@sat);
+# Set minimum number of observations required concerning any C or L signal:
+##      my $min = 10000;
+      my $min =  9000;
+      $min =   100 if $sys eq "J";
+      $min =   100 if $sys eq "S";
+      foreach my $lin (@sat) {
+        my $prn = substr($lin,1,3);
+        next if lindex($prn,@skpSat)!=-1;
+        my $dat = substr($lin,10,);
+        my @obs = split(",",$dat);
+        my @ok  = (0,0,0,0);
+        foreach my $obs (@obs) {
+          $obs =~ s/ //g;
+          my $typ = (split("=",$obs))[0];
+          my $num = (split("=",$obs))[1];
+          my $ind = lindex(substr($typ,0,2),@ref);
+          $ind = -1 if $num<$min;
+          $ok[$ind] = 1 if $ind!=-1;
+        }
+        my $add = "";
+        $add = lc($prn) if $ok[0] && $ok[2];
+        $add = $prn if $ok[0] && $ok[1] && $ok[2] && $ok[3];
+        push(@allSat,$add) if $add ne "";
+        push(@useSat,$add) if $add ne "" && $add =~ /^[A-Z]/;
+        $txt[lindex($sys,@sys)] = $txt[lindex($sys,@sys)]." $add" if $add ne "";
+      }
+      my @prn = split(" ", $txt[lindex($sys,@sys)]);
+      my $cnt = @prn;
+      $cnt = sprintf("%3i",$cnt);
+    }
+
+# Compile relevant constellation information
+# ------------------------------------------
+    my @lines = ();
+    my $lst = join(" ",@useSat);
+    push(@lines,"GNSS: $lst");
+    print "GNSS_${yyyy}${ssss}: $lst\n";
+
+    my @difSat = ();
+    foreach my $prn (@useSat) {
+      my $ind = lindex($prn,@lstSat);
+      push(@difSat,"\+$prn") if $ind==-1;
+    }
+    foreach my $prn (@lstSat) {
+      my $ind = lindex($prn,@useSat);
+      push(@difSat,"\-$prn") if $ind==-1;
+    }
+    $lst = join(" ",@difSat);
+    my $diff = $lst;
+    push(@lines,"DIFF: $lst") if @lstSat>0;
+    print "DIFF_${yyyy}${ssss}: $lst\n" if @lstSat>0;
+
+    my $satChg = "";
+    if ($lst ne "" && @lstSat>0) {
+      $satChg = "OBS2SAT: GNSS constellation changed from ${yyyyssssm1} to ${yyyy}${ssss}: $lst";
+    }
+
+    $lst = "INFO: ";
+    foreach $sys (@sys) {
+      my $num = 0;
+      foreach $prn (@useSat) {
+        $num++ if substr($prn,0,1) eq $sys;
+      }
+      $lst = $lst."/" if $sys ne "G";
+      $lst = $lst.sprintf("%3i",$num).$sys;
+    }
+    push(@lines,$lst);
+    print "INFO_${yyyy}${ssss}: $lst\n";
+
+    if ($satChg ne "") {
+      $lst = (split(":",$lst))[1];
+      $lst =~ s/ //g;
+      $satChg = $satChg." (".$lst.")";
+      print "$satChg\n";
+    }
+
+# Generate detailed GNSS status lines
+# -----------------------------------
+    foreach $sys (@sys) {
+      my $numUse = 0;
+      my $numRed = 0;
+      my @prn = split(" ", $txt[lindex($sys,@sys)]);
+      foreach my $prn (@prn) {
+        $numUse++ if substr($prn,0,1) eq uc($sys);
+        $numRed++ if substr($prn,0,1) eq lc($sys);
+      }
+      $lst = "INFO_${sys}: ".sprintf("%3i",$numUse).uc($sys)."/".sprintf("%3i",$numRed).lc($sys).":";
+      $lst = $lst.$txt[lindex($sys,@sys)];
+      push(@lines,$lst);
+      print "INFO_${sys}_${yyyy}${ssss}: $lst\n";
+    }
+
+# Release SMS in case of GNSS constellation change
+# ------------------------------------------------
+    if ($satChg ne "" && $mjd-$mjd0>=-3 && !-e $out) {
+      if (rindex($diff,"G")!=1 ||
+          rindex($diff,"R")!=1 ||
+          rindex($diff,"E")!=1 ||
+          rindex($diff,"J")!=1 ||
+          rindex($diff,"S")!=1) {
+        msg2key("NRT",$satChg);
+        msg2key("LPT",$satChg);
+      } else {
+        msg2key("NEW",$satChg);
+      }
+      prtMess($bpe,"SMS: $satChg");
+    }
+
+# Create SAT_yyyyssss.LST file
+# ----------------------------
+    open(OUT,"> $out");
+    map { print OUT "$_\n" } @lines;
+    close(OUT);
+    prtMess($bpe,"PROCESSED: $nam");
+    prtMess($bpe,"CREATED:   SAT_${yyyy}${ssss}.LST");
+
+# Save files created if requested
+# -------------------------------
+    if ($sav eq "Y") {
+      copy($out,"$PATH_SAV/IGS/$yyyy/OUT/");
+    }
+
+  }
+
+}

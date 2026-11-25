@@ -1,0 +1,263 @@
+#!/bin/sh
+# SCRIPT-NAME
+# sh script file written by bds
+# -----------------------------
+# functions used by shell
+do_rm( ) {
+    if [ "$1" ]
+    then
+        if [ -f `echo $1 | tr ' ' '\012' | head -1` ]
+        then
+            eval rm $1
+        fi
+    fi
+}
+#
+toupper( ) {
+    eval $1=`echo $2 | ${UPPERC}`
+    eval export $1
+}
+#
+seterr( ) {
+    if [ $? = 0 ]
+    then
+        ERRSTAT=OK
+    else
+        ERRSTAT=ERR
+    fi
+}
+#
+# -----------------------------
+# SHELL STARTS HERE
+# -----------------------------
+#
+# GIM_WAIT
+# ========
+#
+# 04-Jan-2003/hu: Pole files in ORB instead of X/GEN
+# 08-Jan-2003/ss: Bug fix
+# 24-Feb-2003/ss: Use best possible ERP/STD information
+# 06-Nov-2014/ss: Updated
+#
+# WAIT FOR ERP/STD INFORMATION
+# ----------------------------
+#
+# SHELL VARIABLES:
+# ----------------
+#
+# YEAR    :  Year of the session to be processed (2 digit)
+# SESSION :  Session number (4 characters)
+# CAMPAIGN:  Campaign name
+# CAMP_PTH:  Campaign path
+# CAMP_DRV:  Drive letter for campain (i.e. P)
+# OPT_DIR :  Directory for panels
+# PID     :  Process identification number (3 digits)
+# SUB_PID :  Subprocess id (3 digits)
+# PRT_FILE:  Protocol file name including path
+# SCRIPT  :  Name of script
+# TASKID  :  Task id of script, usually 00
+# PRIORITY:  Priority of the script
+# CPU     :  CPU the script is running on
+# DAYYEAR :  Julian day of the year
+# DAY     :  Day of the Month
+# MONTH   :  Month, 1=JAN, 12=DEC
+# GPSWEEK :  GPS week
+# DAYWEEK :  Day of the week, 0=SUN, 6=SAT
+# V_X     :  X Variable in DAT151__.PAN
+# V_O     :  O Variable in DAT151__.PAN
+# V_Z     :  Z Variable in DAT151__.PAN
+# V_PLUS  :  Plus variable in DAT151__.PAN
+# V_MINUS :  Minus variable in DAT151__.PAN
+# V_x     :  User variable
+# PARAMx  :  Script specific parameter, x is 1 thru 9
+# U       :  Directory path to U:
+#
+# See if this shell is being run from the PCS
+# script, or directly for testing.  If testing,
+# no the header script is not passed in as %1%
+#
+if [ "$1" = "" ]
+then
+#
+#   set variables for testing here
+#
+    TEST_START_DIR=`pwd`
+    cd $U/WORK
+    TESTING="YES"
+    export TESTING
+else
+    TESTING="NO"
+    export TESTING
+    . "$1"
+    seterr
+fi
+#
+# START THE MENU SYSTEM IN NON-INTERACTIVE MODE
+# ---------------------------------------------
+. $X/SCRIPT/BEG_MENU
+seterr
+#
+# SET VARIABLES IN DAT151__.PAN
+# -----------------------------
+. $X/SCRIPT/SET_SESS
+seterr
+#
+# SHELL BODY
+# ----------
+#
+# WAIT FOR ERP INFORMATION
+# ------------------------
+INPERP=""NO""
+export INPERP
+OUTERP=""$CAMP_PTH""$CAMPAIGN"/ORB/GIM"$YEAR""$DAYYEAR".ERP"
+export OUTERP
+#
+FILERP=""$PATH_RAP""$CAMP_RAP"/ORB/RA_"$YEAR""$DAYYEAR".ERP"
+export FILERP
+if [ -f `echo $FILERP | tr ' ' '\012' | head -1` ]
+then
+    INPERP=""$FILERP""
+    export INPERP
+fi
+#
+FILERP=""$PATH_RAP""$CAMP_RAP"/ORB/RM_"$YEAR""$DAYYEAR".ERP"
+export FILERP
+if [ -f `echo $FILERP | tr ' ' '\012' | head -1` ]
+then
+    INPERP=""$FILERP""
+    export INPERP
+fi
+#
+FILERP=""$PATH_FIN""$CAMP_FIN"/ORB/F1_"$YEAR""$DAYYEAR".ERP"
+export FILERP
+if [ -f `echo $FILERP | tr ' ' '\012' | head -1` ]
+then
+    INPERP=""$FILERP""
+    export INPERP
+fi
+#
+FILERP=""$PATH_FIN""$CAMP_FIN"/ORB/F3_"$YEAR""$DAYYEAR".ERP"
+export FILERP
+if [ -f `echo $FILERP | tr ' ' '\012' | head -1` ]
+then
+    INPERP=""$FILERP""
+    export INPERP
+fi
+#
+if [ "$INPERP" = "NO" ]
+then
+    iWAIT="1"
+    export iWAIT
+    while [ "$iWAIT" -eq 1 ]
+    do
+        INPERP=""$PATH_FIN""$CAMP_FIN"/ORB/F1_"$YEAR""$DAYYEAR".ERP"
+        export INPERP
+        if [ -f `echo $INPERP | tr ' ' '\012' | head -1` ]
+        then
+            iWAIT="0"
+            export iWAIT
+        fi
+        if [ "$iWAIT" = "1" ]
+        then
+            $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" WAITING_FOR_"$INPERP"
+            seterr
+            sleep 300
+        fi
+    done
+    $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" "$INPERP"_AVAILABLE
+    seterr
+else
+    $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" "$INPERP"_USED
+    seterr
+fi
+sleep 60
+cp "$INPERP" "$OUTERP"
+#
+# WAIT FOR STD INFORMATION
+# ------------------------
+INPSTD=""NO""
+export INPSTD
+OUTSTD=""$CAMP_PTH""$CAMPAIGN"/ORB/GIM"$YEAR""$DAYYEAR".STD"
+export OUTSTD
+#
+FILSTD=""$PATH_RAP""$CAMP_RAP"/ORB/RA_"$YEAR""$DAYYEAR".STD"
+export FILSTD
+if [ -f `echo $FILSTD | tr ' ' '\012' | head -1` ]
+then
+    INPSTD=""$FILSTD""
+    export INPSTD
+fi
+#
+FILSTD=""$PATH_RAP""$CAMP_RAP"/ORB/RM_"$YEAR""$DAYYEAR".STD"
+export FILSTD
+if [ -f `echo $FILSTD | tr ' ' '\012' | head -1` ]
+then
+    INPSTD=""$FILSTD""
+    export INPSTD
+fi
+#
+FILSTD=""$PATH_FIN""$CAMP_FIN"/ORB/F1_"$YEAR""$DAYYEAR".STD"
+export FILSTD
+if [ -f `echo $FILSTD | tr ' ' '\012' | head -1` ]
+then
+    INPSTD=""$FILSTD""
+    export INPSTD
+fi
+#
+FILSTD=""$PATH_FIN""$CAMP_FIN"/ORB/F3_"$YEAR""$DAYYEAR".STD"
+export FILSTD
+if [ -f `echo $FILSTD | tr ' ' '\012' | head -1` ]
+then
+    INPSTD=""$FILSTD""
+    export INPSTD
+fi
+#
+FILSTD=""$PATH_FIN""$CAMP_FIN"/ORB/F3_"$YEAR""$DAYYEAR".STD"
+export FILSTD
+if [ -f `echo $FILSTD | tr ' ' '\012' | head -1` ]
+then
+    INPSTD=""$FILSTD""
+    export INPSTD
+fi
+#
+if [ "$INPSTD" = "NO" ]
+then
+    iWAIT="1"
+    export iWAIT
+    while [ "$iWAIT" -eq 1 ]
+    do
+        INPSTD=""$PATH_FIN""$CAMP_FIN"/ORB/F1_"$YEAR""$DAYYEAR".STD"
+        export INPSTD
+        if [ -f `echo $INPSTD | tr ' ' '\012' | head -1` ]
+        then
+            iWAIT="0"
+            export iWAIT
+        fi
+        if [ "$iWAIT" = "1" ]
+        then
+            $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" WAITING_FOR_"$INPSTD"
+            seterr
+            sleep 300
+        fi
+    done
+    $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" "$INPSTD"_AVAILABLE
+    seterr
+else
+    $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" "$INPSTD"_USED
+    seterr
+fi
+sleep 60
+cp "$INPSTD" "$OUTSTD"
+#
+# --------------
+# end the script
+# --------------
+. $X/SCRIPT/END_MENU
+seterr
+if [ "$TESTING" = "YES" ]
+then
+    cd "$TEST_START_DIR"
+else
+    . $X/SCRIPT/DO_TAIL
+    seterr
+fi

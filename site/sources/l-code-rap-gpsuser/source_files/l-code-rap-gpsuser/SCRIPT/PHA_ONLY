@@ -1,0 +1,46 @@
+package PHA_ONLY;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  PHA_ONLY
+#
+# Purpose :  Copy phase-only RINEX observation files to SMT files
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  29-Apr-2004
+#
+# ============================================================================
+use lib "$ENV{AUTO}";
+use lib $ENV{BPE};
+use gpsutil;
+use bpe_util;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ssss, $dirOut,
+      $dirRxo, $extRxo,
+      $dirSmt, $extSmt) =
+    $bpe->getKeys('$S+0', 'DIR_OUT',
+                  'DIR_RXO', 'EXT_RXO',
+                  'DIR_SMT', 'EXT_SMT');
+
+  my $flgFil = "${dirOut}../MSC/SAT_INI.FLG";
+
+  my @filLst = ();
+##  my @filLst = ("DWH1", "UNB1");
+##  my @filLst = ("DWH1", "UNB1", "WTZZ", "ZIMJ");
+##  my @filLst = ("CONZ", "DWH1", "OHI3", "UNB1", "WTZZ", "ZIMJ");
+##  my @filLst = ("CRAR", "DWH1", "IRKJ", "KHAJ", "KOU1", "MDVJ", "NOVJ", "OHI3", "UNB1", "WTZZ", "ZIMJ");
+
+  unless (-e $flgFil) {
+    foreach (@filLst) {
+      copy ("${dirRxo}$_${ssss}.${extRxo}",
+            "${dirSmt}$_${ssss}.${extSmt}") } }
+
+}

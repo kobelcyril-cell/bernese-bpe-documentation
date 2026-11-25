@@ -1,0 +1,171 @@
+package SATWEEK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  SATWEEK
+#
+# Purpose :  Execute SATWEEK and check maneuver entries of current GPS week
+#            in SAT.CRX file.
+#
+# Programs:  SATWEEK
+#
+# Remark  :
+#
+# PARAMs  :  PARAM1 - Tolerance in sec for #MANEUVER checking (optional)
+#            PARAM2 - LST/CRX: MANEUVER.LST (optional)
+#
+# Author  :  S. Schaer
+#
+# Created :  17-Jan-2024
+#
+# Changes :  18-Jan-2024 SS: Generate MANEUVER.LST (and MANEUVER.CRX)
+#            22-Jan-2024 SS: Improved generation of MANEUVER.CRX
+#            26-Jan-2024 SS: Verification only up to the current day
+#            17-Apr-2024 SS: Do not advise specific time deviations (e.g. R07)
+#            04-Aug-2025 EB: message string shortend to fit to MSG2KEY_yyyy.TXT
+#
+# ============================================================================
+
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyssss,$yyyyssss,$yyyy,$wwwwd,$mjd,
+    $param1,$param2,
+    $pcfFil,
+    $dirOut,$extOut,
+  ) =
+  $bpe->getKeys(
+    '$YSS+0','$YYYSS+0','$Y+0','$WD+0','$JD+0',
+    'PARAM1','PARAM2',
+    'PCFFIL',
+    'DIR_OUT','EXT_OUT',
+  );
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $wwww = substr($wwwwd,0,4);
+  my $d    = substr($wwwwd,4,1);
+  if ($param1 ne "") {
+    die "PARAM1=$param1 not a number\n" unless $param1 =~ /^[+-]?\d+$/;
+
+##    ($wwww,$d) = gps_date("-mjd $mjd -d -1 -o %W %w") if $pcfFil eq "IGSFIN1D";
+    prtMess($bpe,"GPS week: $wwww");
+    $bpe->putKey("$ENV{U}/PAN/SATWEEK.INP","GPSWEEK","$wwww");
+    $bpe->putKey("$ENV{U}/PAN/SATWEEK.INP","SUMMARY","SATWEEK_${d}");
+    $bpe->putKey("$ENV{U}/PAN/SATWEEK.INP","SYSOUT" ,"SATWEEK_${d}");
+
+    $param1 = 12 if $pcfFil eq "IGSULTRA";
+    prtMess($bpe,"Tolerance for #MANEUVER checking: $param1 sec");
+    $param2 = "" if $pcfFil eq "IGSULTRA";
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "SATWEEK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  if ($param1 ne "") {
+    my $filOut = $bpe->getKey("$ENV{U}/INP/SATWEEK.INP","SYSOUT");
+    die "$filOut not found\n" if !-e $filOut;
+
+    my $msg = "";
+    my @lin = `grep '#MANEUVER_CONFIRMED' $filOut`;
+    foreach (@lin) {
+      print;
+      chomp;
+##      my $prn = (split(" ",$_))[1];
+##      my $sec = (split(" ",$_))[9];
+      my $prn = substr($_,10,3);
+      my $mjd0 = substr($_,14,5)+0;
+      my $sec = substr($_,79,6)+0;
+      my $str = join(" ",split(" ",$_));
+      $str =~ s/Maneuver: //;
+
+# Specify exceptional cases here:
+##      next if ($prn eq "R07" && $mjd0==60415);
+
+      if (abs($sec)>$param1) {
+        $msg = $msg.$str." (SAT_${yyyy}.CRX epoch off by $sec sec)\n";
+        prtMess($bpe,"#MANEUVER issue: $prn $sec sec");
+      }
+    }
+    @lin = `grep '#MANEUVER_NOT_FOUND' $filOut`;
+    foreach (@lin) {
+      print;
+      chomp;
+##      my $epo = (split(" ",$_))[2];
+      my $prn = substr($_,10,3);
+      my $mjd0 = substr($_,14,5)+0;
+      my $epo = substr($_,14,11)+0;
+
+# Specify exceptional cases here:
+##      next if ($prn eq "R07" && $mjd0==60415);
+      next if ($prn eq "R19" && $mjd0==60811);
+
+      $str = join(" ",split(" ",$_));
+      $msg = $msg.$str."\n" if $epo < $mjd+1;
+    }
+    if ($msg ne "") {
+      $msg = "${pcfFil}_${yyssss} SATWEEK:\n".$msg;
+      msg2key("BPE",$msg);
+      prtMess($bpe,$msg);
+      print "$msg\n";
+    } else {
+      prtMess($bpe,"No #MANEUVER issue found");
+    }
+  }
+
+##  if ($param2 eq "LST" || $param2 eq "CRX") {
+  if ($param2 ne "") {
+    my $nam = "MANEUVER";
+    if ($param2 eq "CRX") {
+      my @filCrx = glob("$ENV{CONFIG}/SAT_[12][90][0-9][0-9].CRX");
+      my $filMan = "$ENV{CONFIG}/${nam}.CRX";
+
+      my @linMan = `head -6 $filCrx[-1]`;
+      my @posCrx = (37,40,43,46,49);
+      foreach my $fil (@filCrx) {
+        print "$fil\n";
+        my @lin = `grep ' 0         0 ' $fil`;
+        foreach my $lin (@lin) {
+##          $lin =~ s/-/ /;
+          $lin =~ s/-/+/;
+          map { substr($lin,$_,1) = "0" if substr($lin,$_,1) eq " " } @posCrx;
+          push(@linMan,$lin) if lindex($lin,@linMan)==-1;
+        }
+      }
+      open(OUT,"> $filMan");
+      map { print OUT } @linMan;
+      close(OUT);
+      die "$filMan not found\n" if !-e $filMan;
+
+      prtMess($bpe,"Generated: ${nam}.CRX");
+    }
+
+    $bpe->putKey("$ENV{U}/PAN/SATWEEK.INP","TITLE","${pcfFil}_${yyssss}: Time series of GPS maneuver information by CODE");
+    $bpe->putKey("$ENV{U}/PAN/SATWEEK.INP","SATCRUX","${nam}");
+    $bpe->putKey("$ENV{U}/PAN/SATWEEK.INP","GPSWEEK","0000");
+    $bpe->putKey("$ENV{U}/PAN/SATWEEK.INP","SUMMARY","${nam}");
+    $bpe->putKey("$ENV{U}/PAN/SATWEEK.INP","SYSOUT" ,"${nam}");
+    $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_OUT","LST");
+
+    $bpe->RUN_PGMS($PGMNAM);
+
+    my $filSum = $bpe->getKey("$ENV{U}/INP/SATWEEK.INP","SUMMARY");
+    unlink($filSum);
+
+    prtMess($bpe,"Generated: ${nam}.LST");
+  }
+
+}

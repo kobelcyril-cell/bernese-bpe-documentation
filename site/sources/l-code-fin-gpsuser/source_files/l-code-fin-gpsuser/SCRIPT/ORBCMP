@@ -1,0 +1,40 @@
+package ORBCMP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ORBCMP
+#
+# Purpose :  Execute ORBCMP
+#
+# PARAMs  :
+#
+# Author  :  P. Steigenberger
+# Created :  17-Feb-2009
+# Last mod.: 17-Feb-2009
+#
+# Changes:   17-Feb-2009 SL: v_z added, unlink list expanded
+#
+# ============================================================================
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $dirPre,  $extPre,  $z) =
+    $bpe->getKeys(
+      '$YD+0','DIR_PRE','EXT_PRE','V_Z');
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBCMP";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Delete some orbit files
+# -----------------------
+  unlink glob("${dirPre}${z}_$yyddd.$extPre");
+  unlink glob("${dirPre}IGS$yyddd.$extPre");
+  unlink glob("${dirPre}COD$yyddd.$extPre");
+  unlink glob("${dirPre}PDR$yyddd.$extPre");
+
+}

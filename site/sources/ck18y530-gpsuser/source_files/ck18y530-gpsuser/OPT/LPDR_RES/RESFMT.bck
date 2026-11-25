@@ -1,0 +1,142 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 8
+  "P" "/gpfs/aiub_code"
+  "Q" "/gpfs/aiub_code"
+  "K" "/gpfs/aiub_u_camp"
+  "X" "/gpfs/homefs/aiub/aiub_datapool/software/BERN/GPS"
+  "U" "/gpfs/homefs/aiub/l_code/GPSUSER"
+  "S" "/gpfs/aiub_data/PRODUCTS"
+  "G" "/gpfs/aiub_u_camp"
+  "USER" "l_code"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some general header information
+! -------------------------------
+CAMPAIGN 1  "${P}/EPNFINAL"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+SESSION_TABLE 1  "${P}/EPNFINAL/STA/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2017"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "0410"
+  ## widget = comment
+  # $S+0
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${P}/EPNFINAL/OUT/RESFMT.L50"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # RESFMT
+
+MSG_SYSOUT 1  "Program Output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+MSG_SYSERR 1  "Error Message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path=PTH_DBG; ext=EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_STKLOG 1  "Subroutine/function debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path=PTH_DBG; ext=EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_SUMMARY 1  "Subroutine/function debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+DESCR_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Selection of Observation Files
+! ------------------------------
+RESFILE 1  "${P}/EPNFINAL/OUT/RDCJ170410.RES"
+  ## widget = selwin; path = DIR_RES; ext = EXT_RES; maxfiles = 999
+  # RDCJ$YD+00
+
+MSG_RESFILE 1  "Residual file(s)"
+
+RESFILE_TXT_COL_1 1  "Binary residual files"
+
+RESFILE_EXT_COL_2 1  "FRS"
+  ## widget = initmenu; pointer = EXT_FRS
+
+RESFILE_PTH_COL_2 1  "${P}/EPNFINAL/OUT/"
+  ## widget = initmenu; pointer = DIR_FRS
+
+RESFILE_TXT_COL_2 1  "ASCII residual files"
+
+! Title line
+! ----------
+TITLE 1  "RESFMT"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONVERT RESIDUAL FILES (BINARY TO ASCII) - RESFMT 1: Input/Output Files      #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Residual file(s)        > %%%%%%%% <                                       # RESFILE
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output          > % < use RESFMT.Lnn            or    > %%%%%%%% < # SYSODEF SYSOUT
+#   Error messages          > % < merged to program output  or    > %%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# RESFMT 1.1: General Files                                                    #
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################

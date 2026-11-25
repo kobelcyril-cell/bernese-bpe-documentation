@@ -1,0 +1,44 @@
+package ION_AUX;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ION_AUX
+#
+# Purpose :  Perform auxiliary tasks concerning DCBIONO
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  30-Aug-2012
+#
+# Changes :  10-Sep-2012/ss: Upload predicted IONEX
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yydddp1, $yydddp2,
+      $wwwwd, $wwwwdp1, $wwwwdp2,
+      $mjd, $e, $f, $sav, $dis, $upd,
+      $dirDcb, $dirIon, $dirOut) =
+    $bpe->getKeys('$YD+0', '$YD+1', '$YD+2',
+                  '$WD+0', '$WD+1', '$WD+2',
+                  '$JD+0', 'V_E', 'V_F', 'V_SAV', 'V_DIS', 'V_UPD',
+                  'DIR_DCB', 'DIR_ION', 'DIR_OUT');
+
+
+}

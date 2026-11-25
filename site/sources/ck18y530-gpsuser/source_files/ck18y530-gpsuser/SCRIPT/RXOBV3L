@@ -1,0 +1,73 @@
+package RXOBV3;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  RXOBV3
+#
+# Purpose :  Execute RXOBV3
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  17-Mar-2004
+#
+# Changes :  06-Jun-2016 DA: LEO-specific RNX ERR file
+#            24-Jun-2024 DA: Foresee multiple RINEX files
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,$yy,$ssss,$dirOut,$dirRnx,
+      $rnx3,$a,$POBS) =
+      $bpe->getKeys('$YSS+0','$Y','$S+0','DIR_OUT','DIR_RNX',
+                    'V_RNX3','V_A','V_POBS');
+
+  my $multiRNX = 0; # Allow for multiple RINEX files (with V_POBS)
+
+# Delete collecting file for RINEX error/warning messages
+# -------------------------------------------------------
+  unlink "${dirOut}RNX${a}${yyssss}.ERR";
+
+# Test
+  # my $tmpFil = "$ENV{U}/WORK/test.lst";
+  # open (OUT,">$tmpFil");
+  # print OUT "GRCA${ssss}\n";
+  # print OUT "GRCB${ssss}\n";
+  # close OUT;
+  # $bpe->putKey("$ENV{U}/PAN/RXOBV3.INP","RXOFILE","SELECTED","REPLACE",$tmpFil); 
+
+  if (${rnx3} eq "Y") {
+    $bpe->putKey("$ENV{U}/PAN/RXOBV3.INP","RADIO_O","0");
+    $bpe->putKey("$ENV{U}/PAN/RXOBV3.INP","RADIO_S","1");}
+
+# Reset RINEX files if V_POBS non-empty (and $multiRNX set)
+# ---------------------------------------------------------
+  if ($multiRNX && $POBS) {
+      # Resolve potential wildcards
+      my @rnxFil = glob("${dirRnx}/${POBS}.${yy}O");
+      print "Reset RINEX files to @rnxFil\n";
+      my $tmpFil = "$ENV{U}/WORK/rnxinpp.lst";
+      open TMP, '>', $tmpFil;
+      foreach my $o (@rnxFil) {
+          print TMP "$o\n";
+      }
+      close TMP;
+      $bpe->putKey("$ENV{U}/PAN/RXOBV3.INP","RXOFILE_SHORT","SELECTED","REPLACE",$tmpFil);
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "RXOBV3";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Extract warning/error messages from protocol file
+# -------------------------------------------------
+  getWarn($bpe,"${dirOut}RNX${a}${yyssss}.ERR");
+
+}

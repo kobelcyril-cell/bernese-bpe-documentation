@@ -1,0 +1,55 @@
+package SOLLON_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SOLLON_P
+#
+# Purpose :  Stack and solve 3-day NEQs to generate long-arc solution
+#
+# Programs:  ADDNEQ2
+#
+# Author  :  E. Calero
+# Created :  12-May-2021
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssssm1,$yyssss,$yyssssp1,
+      $param1,$sol,$subPid,
+      $dirNeq, $extNeq) =
+    $bpe->getKeys(
+      '$YSS-1','$YSS+0','$YSS+1',
+      'PARAM1','PARAM2','SUB_PID',
+      'DIR_NEQ','EXT_NEQ');
+
+# Initialize variables
+# --------------------
+  setUserVar($bpe,"D4",$subPid);
+
+# Run program
+# -----------
+  my @inNeq = ();
+  push @inNeq,"${dirNeq}${sol}99${yyssssm1}.${extNeq}";
+  push @inNeq, $param1;
+  push @inNeq,"${dirNeq}${sol}99${yyssssp1}.${extNeq}";
+  replaceSelLst($bpe,"ADDNEQ2","INPFILE",@inNeq);
+  if($subPid=~/001/){
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","COORDRS",'$T_$YSS+0');
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","ELEFILE",'$T??????');
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","POLERS",'$T_$YSS+0');
+  }
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

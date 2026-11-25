@@ -1,0 +1,63 @@
+package AMBVERAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  AMBVERAP
+#
+# Purpose :  Prepare parallel ambiguity verification process for a set of
+#            baselines selected by BASLST
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  20-Sep-2010
+#
+# Changes :  21-Sep-2010/ss: Remove VER PRC file
+#            22-Sep-2010/ss: Adapted from EPNFINAL to IGSFINAL/IGSRAPID
+#            24-Sep-2010/ss: Added ULTRA mode
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $bl, $dirBsl, $dirOut, $extOut) =
+  $bpe->getKeys
+     ('$YD+0', '$+0', 'V_BL_QIF', 'DIR_BSL', 'DIR_OUT', 'EXT_OUT');
+
+# Delete old files (OUT, SEL)
+# ---------------------------
+  my $basFil = "${dirBsl}VER${yyddd}.SEL";
+  unlink ($basFil);
+  unlink glob("${dirOut}????${ddd}V.${extOut}");
+  unlink ("${dirOut}VER${yyddd}.PRC");
+
+  my $ultFil = "${dirOut}../MSC/ULT${yyddd}.FLG";
+  $bl = "0" if -e $ultFil;
+
+# Set maximum baseline length if defined
+# --------------------------------------
+  $bpe->putKey("$ENV{U}/PAN/BASLST.INP","MAXLEN",$bl) unless $bl eq "";
+
+# Run program
+# -----------
+  my $PGMNAM = "BASLST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Get baselines to be processed
+# -----------------------------
+  my @basLin;
+  open (BAS,$basFil);
+  push (@basLin,<BAS>);
+  close BAS;
+  chomp(@basLin);
+
+# Initialize parallel run
+# -----------------------
+  initPar_Bl($bpe,@basLin);
+
+}

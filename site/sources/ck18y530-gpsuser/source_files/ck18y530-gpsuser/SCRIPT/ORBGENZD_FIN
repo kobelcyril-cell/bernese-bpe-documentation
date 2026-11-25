@@ -1,0 +1,48 @@
+package ORBGENZD_FIN;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ORBGENZD_FIN
+#
+# Purpose :  Execute ORBGEN according to the input argument
+#
+# PARAMs  :
+#
+# Author  :  E. Calero
+# Created :  20-Feb-2020
+#
+# Changes : C. Kobel: 12-Dec-2025: Added LARGE solution
+#
+# ============================================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($sol) = $bpe->getKeys("$$bpe{PARAM1}");
+  my ($yyssss, $V_Z, $V_L) = $bpe->getKeys('$YSS+0', 'V_Z', 'V_L');
+
+# Initialize $SOL variable
+  setUserVar($bpe,"SOL",$sol);
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Generate Orbit for LARGE solution
+# ---------------------------------
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","IMPORB","${V_Z}${V_L}${yyssss}");
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","POLE","${V_Z}${V_L}${yyssss}");
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","STDOUT","${V_Z}${V_L}${yyssss}");
+
+
+  my $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

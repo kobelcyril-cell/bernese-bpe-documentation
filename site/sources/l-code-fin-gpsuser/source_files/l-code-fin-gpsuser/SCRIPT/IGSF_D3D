@@ -1,0 +1,239 @@
+package IGSF_D3D;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  IGSF_D3D
+#
+# Purpose :  Deletion script for IGSFIN3D process
+#
+# PARAMs  :
+#
+# Author  :  S. Lutz
+#
+# Created :  10-Jun-2013
+#
+# Changes :  04-Jan-2003/HU: Pole files in ORB instead of X/GEN
+#            14-Jun-2003/SS: Remove (extra large) E3N NQ0
+#            28-Jul-2003/ss: Change from old to new BPE
+#            24-Jul-2008/ps: ddd -> yyddd for P1 and M1
+#            10-Jun-2013 SL: BDS to Perl
+#            11-Jun-2013 SL: V_DEL added
+#            17-Mar-2015 RD/SS: F3I considered
+#            18-Mar-2015 SS: _TRA files added
+#            14-Aug-2015 SS: Remove F3 M1/P1 IEP/ERP
+#            07-Apr-2022 ST: Remove DIR_AMB, EXT_AMB, DIR_BPE, EXT_BPE,
+#                            DIR_BRD, EXT_BRD, DIR_CMP, EXT_CMP, DIR_ERR, EXT_ERR,
+#                            DIR_LOG, EXT_LOG, DIR_ONQ, EXT_ONQ, DIR_ORB,
+#                            DIR_PRC, EXT_PRC, DIR_PRT, EXT_PRT, DIR_SEL, EXT_SEL,
+#                            DIR_TAB and EXT_TAB.
+#            30-Nov-2022 SS: Removed F3[PU]_yyddd.CLK
+#            09-Jul-2026 EB: delete istp/TRA files
+#
+# ============================================================================
+
+use strict;
+use warnings;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtMess);
+
+sub run {
+
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyssss,$yyyy,$yy,$yym1,$yym2,$yym8,$yym15,$yym30,$yym90,
+    $ssss,$ssssm1,$ssssm2,$ssssm3,$ssssm8,$ssssm15,$ssssm30,
+    $ddd,$dddm1,$dddm8,$dddm15,$dddm30,$dddm90,
+    $yydddm8,$yydddm15,$yydddm30,$yydddm90,$yymm,
+    $wwww,$wwwwm90,$wwwwdm30,
+    $yyssssm2,$yyssssm8,$yyssssm15,$yyssssm30,$yyssssm90,
+    $a,$b,$e,$h,$k,$o,$u,$v,$x,$z,$del,
+    $taskid,
+    $dirBsl,$extBsl,
+    $dirBpelog,$extBpelog,
+    $dirBpeprt,$extBpeprt,
+    $dirClb,$extClb,
+    $dirClk,$extClk,
+    $dirCrd,$extCrd,
+    $dirDcb,$extDcb,
+    $dirDel,$extDel,
+    $dirEdt,$extEdt,
+    $dirEle,$extEle,
+    $dirErp,$extErp,
+    $dirEst,$extEst,
+    $dirFix,$extFix,
+    $dirGcc,$extGcc,
+    $dirGrd,$extGrd,
+    $dirIep,$extIep,
+    $dirIon,$extIon,
+    $dirLst,$extLst,
+    $dirNeq,$extNeq,
+    $dirCzh,$extCzh,$dirCzo,$extCzo,
+    $dirPzh,$extPzh,$dirPzo,$extPzo,
+    $dirCsh,$extCsh,$dirCso,$extCso,
+    $dirPsh,$extPsh,$dirPso,$extPso,
+    $dirOxo,
+    $dirOut,$extOut,
+    $dirPlt,$extPlt,
+    $dirPre,$extPre,
+    $dirRxo,
+    $dirRes,$extRes,
+    $dirRpr,$extRpr,
+    $dirSmc,$extSmc,
+    $dirSme,$extSme,
+    $dirSmt,$extSmt,
+    $dirSnx,$extSnx,
+    $dirStd,$extStd,
+    $dirSum,$extSum,
+    $dirTro,$extTro,
+    $dirTrp,$extTrp,
+  ) =
+  $bpe->getKeys (
+    '$YSS+0','$Y+0','$Y','$Y-1','$Y-2','$Y-8','$Y-(15)','$Y-(30)','$Y-(90)',
+    '$S+0','$S-1','$S-2','$S-3','$S-8','$S-(15)','$S-(30)',
+    '$+0','$-1','$-8','$-(15)','$-(30)','$-(90)',
+    '$YD-8','$YD-(15)','$YD-(30)','$YD-(90)','$M+0',
+    '$W+0','$W-(90)','$WD-(30)',
+    '$YSS-2','$YSS-8','$YSS-(15)','$YSS-(30)','$YSS-(90)',
+    'V_A','V_B','V_E','V_H','V_K','V_O','V_U','V_V','V_X','V_Z','V_DEL',
+    'TASKID',
+    'DIR_BSL','EXT_BSL',
+    'DIR_BPELOG','EXT_BPELOG',
+    'DIR_BPEPRT','EXT_BPEPRT',
+    'DIR_CLB','EXT_CLB',
+    'DIR_CLK','EXT_CLK',
+    'DIR_CRD','EXT_CRD',
+    'DIR_DCB','EXT_DCB',
+    'DIR_DEL','EXT_DEL',
+    'DIR_EDT','EXT_EDT',
+    'DIR_ELE','EXT_ELE',
+    'DIR_ERP','EXT_ERP',
+    'DIR_EST','EXT_EST',
+    'DIR_FIX','EXT_FIX',
+    'DIR_GCC','EXT_GCC',
+    'DIR_GRD','EXT_GRD',
+    'DIR_IEP','EXT_IEP',
+    'DIR_ION','EXT_ION',
+    'DIR_LST','EXT_LST',
+    'DIR_NEQ','EXT_NEQ',
+    'DIR_CZH','EXT_CZH','DIR_CZO','EXT_CZO',
+    'DIR_PZH','EXT_PZH','DIR_PZO','EXT_PZO',
+    'DIR_CSH','EXT_CSH','DIR_CSO','EXT_CSO',
+    'DIR_PSH','EXT_PSH','DIR_PSO','EXT_PSO',
+    'DIR_OXO',
+    'DIR_OUT','EXT_OUT',
+    'DIR_PLT','EXT_PLT',
+    'DIR_PRE','EXT_PRE',
+    'DIR_RXO',
+    'DIR_RES','EXT_RES',
+    'DIR_RPR','EXT_RPR',
+    'DIR_SMC','EXT_SMC',
+    'DIR_SME','EXT_SME',
+    'DIR_SMT','EXT_SMT',
+    'DIR_SNX','EXT_SNX',
+    'DIR_STD','EXT_STD',
+    'DIR_SUM','EXT_SUM',
+    'DIR_TRO','EXT_TRO',
+    'DIR_TRP','EXT_TRP',
+  );
+
+# Reformat year string
+# --------------------
+  $yym1  = substr($yym1,2,2);
+  $yym2  = substr($yym2,2,2);
+  $yym8  = substr($yym8,2,2);
+  $yym15 = substr($yym15,2,2);
+  $yym30 = substr($yym30,2,2);
+  $yym90 = substr($yym90,2,2);
+
+# List of files to be deleted
+# ---------------------------
+  my @delLst = (
+# Protocol
+    "${dirOut}IGSFIN3D.${yym90}_${dddm90}",
+    "${dirOut}F3D${yydddm90}.PRC",
+
+# Normal equations
+    "${dirNeq}${z}N${yydddm30}.${extNeq}*",  # might be compressed
+
+# Final solutions
+    "${dirFix}${z}_${yydddm30}.${extFix}",
+    "${dirGcc}${z}_${yydddm30}.${extGcc}",
+    "${dirCrd}${z}?${yydddm30}.${extCrd}",
+    "${dirTrp}${z}?${yydddm30}.${extTrp}",
+    "${dirTrp}${z}?${yydddm30}.${extTro}",
+    "${dirErp}${z}?${yydddm30}.${extErp}",
+    "${dirIep}${z}?${yydddm30}.${extIep}",
+    "${dirEle}${z}?${yydddm30}.${extEle}",
+    "${dirStd}${z}?${yydddm30}.${extStd}",
+    "${dirPre}${z}?${yydddm30}.${extPre}",
+    "${dirSnx}${z}_${yydddm30}.${extSnx}",
+    "${dirEst}${z}?${yydddm30}.${extEst}",
+
+# Other orbit files
+    "${dirStd}PM_${yydddm30}.${extStd}",
+
+    "${dirEle}${z}M1${yydddm30}.${extEle}",
+    "${dirStd}${z}M1${yydddm30}.${extStd}",
+    "${dirPre}${z}M1${yydddm30}.${extPre}",
+    "${dirIep}${z}M1${yydddm30}.${extIep}",
+    "${dirErp}${z}M1${yydddm30}.${extErp}",
+    "${dirEle}${z}P1${yydddm30}.${extEle}",
+    "${dirStd}${z}P1${yydddm30}.${extStd}",
+    "${dirPre}${z}P1${yydddm30}.${extPre}",
+    "${dirIep}${z}P1${yydddm30}.${extIep}",
+    "${dirErp}${z}P1${yydddm30}.${extErp}",
+
+    "${dirClk}${z}?_${yydddm30}.${extClk}",
+
+# Output files
+    "${dirPlt}${z}1${yydddm30}.${extPlt}",
+    "${dirOut}${z}?${yydddm30}.${extOut}",
+    "${dirSum}${z}?${yydddm30}_TRA.${extSum}",
+    "${dirOut}${z}?${yydddm30}_TRA.${extOut}",
+    "${dirOut}${z}?${yydddm30}.TRA",
+    "${dirSum}${z}?${yydddm30}.${extSum}",
+    "${dirLst}${z}?${yydddm30}.${extLst}",
+
+    "${dirOut}${z}_${wwwwdm30}.${extOut}",
+    "${dirSum}${z}_${wwwwdm30}.${extSum}",
+    "${dirLst}${z}G${wwwwdm30}.${extLst}",
+    "${dirSum}DF?${yydddm30}.${extSum}",
+    "${dirLst}NULG${wwwwdm30}.${extLst}",
+    "${dirOut}NUL_${wwwwdm30}.CMP",  # not "${z}_" because of CONT_ERR
+    "${dirLst}V3?${wwwwdm30}.${extLst}",
+
+# BPE files
+    "${dirBpeprt}${taskid}${yyssssm8}_???_???.${extBpeprt}",
+    "${dirBpelog}${taskid}${yyssssm8}_???_???.${extBpelog}",
+  );
+
+# Delete the files
+# ----------------
+  if($del eq "Y") {
+    foreach(@delLst) {
+      my(@f) = glob("$_");
+      print "\n$_: ".scalar(@f)."\n";
+      foreach my $f(@f) {
+        next unless(-e $f);
+        unlink($f);
+        print "  $f removed\n";
+      }
+    }
+  }
+
+# Some messages
+# -------------
+  if($del ne "Y") {
+    &prtMess($bpe,"FILES NOT DELETED (V_DEL=$del)");
+    print       "\nFILES NOT DELETED (V_DEL=$del)\n";
+  }
+
+}
+
+# ============================================================================
+
+__END__

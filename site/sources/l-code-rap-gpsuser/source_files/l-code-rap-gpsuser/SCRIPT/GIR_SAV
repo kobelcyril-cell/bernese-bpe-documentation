@@ -1,0 +1,197 @@
+package GIR_SAV;
+@ISA = ("RUNBPE");
+# ==============================================================================
+#
+# Name:       GIR_SAV
+#
+# Purpose:    Save rapid GIM results
+#
+# Authors:    S. Schaer
+#
+# Created:    23-Oct-2014
+#
+# Changes:    23-Oct-2014 SS: Created based on GIR_DIS
+#             19-May-2016 SS/AV: Updated due to OSB implementation
+#             25-May-2016 SS: Save RZS, RZR bias NEQs and more bias results
+#             31-May-2016 SS/AV: Save RZG NEQ (non-GLONASS bias results)
+#             13-Sep-2016 SS: Save RZR NEQ (and RZG bias results)
+#             08-Mar-2022 AV: Save disk: yearly subdirectory
+#
+# ==============================================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $yy, $yyyy, $wwwwd, $yydddm1,
+      $V_I, $V_Z, $V_U,
+      $dirOut, $dirInx, $extInx, $dirIon, $extIon, $dirOsb, $extOsb, $dirBia, $extBia, $dirNeq, $extNeq) =
+    $bpe->getKeys('$YD+0', '$+0', '$Y', '$Y+0', '$WD+0', '$YD-1',
+                  'V_I', 'V_Z', 'V_U',
+                  'DIR_OUT', 'DIR_INX', 'EXT_INX', 'DIR_ION', 'EXT_ION', 'DIR_OSB', 'EXT_OSB', 'DIR_BIA', 'EXT_BIA', 'DIR_NEQ', 'EXT_NEQ');
+
+
+# Check whether this is an ULTRA
+# ------------------------------
+  my $ultFil = "$dirOut/../MSC/ULT$yyddd.FLG";
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+  $h_end = 24 unless -e $ultFil;
+
+
+# BPE not allowed to distribute files
+# -----------------------------------
+  if($$bpe{V_SAV} ne "Y") {
+    prtMess($bpe,"FILES NOT SAVED");
+    return;
+  }
+
+
+# Define data archive environment
+# -------------------------------
+  my $rapSav = "${PATH_SAV}${CAMP_SAVRAP}/${yyyy}";
+
+
+# Save rapid GIM results
+# ----------------------
+  my ($inp,$out);
+
+  $inp = "${dirInx}${V_U}_${yyddd}.${extInx}";
+  $out = "$rapSav/ATM/${V_U}_${yyddd}.${extInx}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out,"c");
+
+  $inp = "${dirIon}${V_U}_${yyddd}.${extIon}";
+  $out = "$rapSav/ATM/${V_U}_${yyddd}.${extIon}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+
+  $inp = "${dirOsb}${V_U}S${yyddd}.${extOsb}";
+  $out = "$rapSav/ORB/${V_U}S${yyddd}.${extOsb}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+#DCB:
+  $out = "$rapSav/ORB/${V_U}S${yyddd}.DCB";
+  unlink(glob("${out}*"));
+  system("$ENV{AUTO}/osb2dcb.com $inp $out P1-P2");
+  die "$out not created" unless -s $out;
+
+  $inp = "${dirOsb}${V_U}I${yyddd}.${extOsb}";
+  $out = "$rapSav/ORB/${V_U}I${yyddd}.${extOsb}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+#DCB:
+  $out = "$rapSav/ORB/${V_U}I${yyddd}.DCB";
+  unlink(glob("${out}*"));
+  system("$ENV{AUTO}/osb2dcb.com $inp $out P1-P2");
+  die "$out not created" unless -s $out;
+
+  $inp = "${dirBia}${V_U}S${yyddd}.${extBia}";
+  $out = "$rapSav/ORB/${V_U}S${yyddd}.${extBia}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+
+  $inp = "${dirOsb}${V_U}F${yyddd}.${extOsb}";
+  $out = "$rapSav/ORB/${V_U}F${yyddd}.${extOsb}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+#DCB:
+  $out = "$rapSav/ORB/${V_U}F${yyddd}.DCB";
+  unlink(glob("${out}*"));
+  system("$ENV{AUTO}/osb2dcb.com $inp $out P1-P2");
+  die "$out not created" unless -s $out;
+
+  $inp = "${dirBia}${V_U}F${yyddd}.${extBia}";
+  $out = "$rapSav/ORB/${V_U}F${yyddd}.${extBia}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+
+  $inp = "${dirOsb}${V_U}R${yyddd}.${extOsb}";
+  $out = "$rapSav/ORB/${V_U}R${yyddd}.${extOsb}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+#DCB:
+  $out = "$rapSav/ORB/${V_U}R${yyddd}.DCB";
+  unlink(glob("${out}*"));
+  system("$ENV{AUTO}/osb2dcb.com $inp $out P1-P2");
+  die "$out not created" unless -s $out;
+
+  $inp = "${dirBia}${V_U}R${yyddd}.${extBia}";
+  $out = "$rapSav/ORB/${V_U}R${yyddd}.${extBia}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+
+  $inp = "${dirOsb}${V_U}G${yyddd}.${extOsb}";
+  $out = "$rapSav/ORB/${V_U}G${yyddd}.${extOsb}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+#DCB:
+  $out = "$rapSav/ORB/${V_U}G${yyddd}.DCB";
+  unlink(glob("${out}*"));
+  system("$ENV{AUTO}/osb2dcb.com $inp $out P1-P2");
+  die "$out not created" unless -s $out;
+
+  $inp = "${dirBia}${V_U}G${yyddd}.${extBia}";
+  $out = "$rapSav/ORB/${V_U}G${yyddd}.${extBia}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+
+  $inp = "${dirInx}${V_I}_${yyddd}.${extInx}";
+  $out = "$rapSav/ATM/${V_I}_${yyddd}.${extInx}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out,"c");
+
+  $inp = "${dirIon}${V_I}_${yyddd}.${extIon}";
+  $out = "$rapSav/ATM/${V_I}_${yyddd}.${extIon}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+
+  $inp = "${dirInx}${V_Z}_${yydddm1}.${extInx}";
+  $out = "$rapSav/ATM/${V_Z}_${yydddm1}.${extInx}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out,"c");
+
+  $inp = "${dirIon}${V_Z}_${yydddm1}.${extIon}";
+  $out = "$rapSav/ATM/${V_Z}_${yydddm1}.${extIon}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out);
+
+  $inp = "${dirNeq}${V_U}G${yyddd}.${extNeq}";
+  $out = "$rapSav/SOL/${V_U}G${yyddd}.${extNeq}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out,"z");
+
+  $inp = "${dirNeq}${V_U}R${yyddd}.${extNeq}";
+  $out = "$rapSav/SOL/${V_U}R${yyddd}.${extNeq}";
+  die "$inp not found\n" unless -s $inp;
+  unlink(glob("${out}*"));
+  copy2archive($inp,$out,"z");
+
+}

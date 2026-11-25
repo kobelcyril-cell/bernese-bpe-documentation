@@ -1,0 +1,63 @@
+package PRED_ION;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  PRED_ION
+#
+# Purpose :  Execute IONANA and IONINX
+#
+# PARAMs  :  PARAM1 - Optional minus parameter
+#
+# Author  :  S. Schaer
+# Created :  22-Dec-2011
+#
+# Changes :  23-Dec-2011/ss: Make use of setMinusPlus
+#            16-Apr-2012/ss: Add INXFIT-BIMINX sequence
+#            17-Apr-2012/ss: Set RINEX nav file extenstion
+#            18-Sep-2012/ss: Handle turn of the year
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1, $yy) = $bpe->getKeys('PARAM1', '$Y');
+
+# Set input data range
+# --------------------
+  setMinusPlus($bpe,$param1,0) if $param1 ne "";
+
+# Run programs
+# ------------
+  my $PGMNAM = "IONANA";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $fil = $bpe->getKey("$ENV{U}/INP/IONANA.INP","IONOUT");
+  my $yyp0 = substr(basename($fil),3,2);
+
+  $PGMNAM = "IONINX";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_RXN","${yyp0}N");
+  $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_OXN","${yyp0}N");
+
+  $PGMNAM = "INXFIT";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $PGMNAM = "BIMINX";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

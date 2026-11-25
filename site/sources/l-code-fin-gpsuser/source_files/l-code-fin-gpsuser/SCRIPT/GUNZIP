@@ -1,0 +1,77 @@
+package GUNZIP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GUNZIP
+#
+# Purpose :  gunzip extra large NQ0 files
+#
+# Programs:
+#
+# PARAMs  :  PARAM1 - 3-digit solution identifier
+#            PARAM2 - Minus paramater (default: -1)
+#            PARAM3 - Plus parameter  (default: +1)
+#            PARAM4 - Optional solution identifier
+#            PARAM5 - Optional solution identifier
+#            PARAM6 - Optional solution identifier
+#
+# Author  :  S. Schaer
+# Created :  01-Oct-2012
+#
+# Changes :  01-Oct-2012/ss: Further developed on the basis pf GUNZIP.BDS
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $CAMP_PTH, $CAMPAIGN,
+      $param1, $param2, $param3, $param4, $param5, $param6,
+      $dirNeq, $extNeq) =
+    $bpe->getKeys('$YD+0', 'CAMP_PTH', 'CAMPAIGN',
+                 'PARAM1', 'PARAM2', 'PARAM3', 'PARAM4', 'PARAM5', 'PARAM6',
+                 'DIR_NEQ', 'EXT_NEQ');
+
+# Skip the script in case of reprocessing
+# ---------------------------------------
+  my $repro = (-e "$CAMP_PTH$CAMPAIGN/MSC/REPROCESSING.FLG");
+  unless ($repro) {
+
+    die "PARAM1 undefined\n" if $param1 eq "";
+    $param2 = -1 if $param2 eq "";
+    $param3 = +1 if $param3 eq "";
+
+    my @sol = ($param1);
+    push (@sol,$param4) if $param4 ne "";
+    push (@sol,$param5) if $param5 ne "";
+    push (@sol,$param6) if $param6 ne "";
+
+    my ($i,$yyddd0,$sol,$neqFil,$zipFil);
+    for ($i=$param2;$i<=$param3;$i++) {
+      $yyddd0 = gps_date("-yd $yyddd -d $i -o %y%j");
+      foreach $sol (@sol) {
+        $neqFil = "${dirNeq}${sol}${yyddd0}.${extNeq}";
+        $zipFil = $neqFil.".gz";
+        if (-s $neqFil) { unlink($zipFil) }
+        else            { system("gunzip $zipFil") }
+      }
+    }
+
+  }
+
+}

@@ -1,0 +1,257 @@
+# ============================================================================
+# DCBIONO.PCF
+# ============================================================================
+#
+# Description:  - Perform daily P1-C1 and P2-C2 DCB estimation
+# - Compute monthly DCB combinations for all regularly
+# generated DCB products
+# - Perform 1-day and 2-day ionosphere prediction
+# - Create mean TEC plots
+# - Create various ionosphere map plots
+# - Generate CKMG IONEX product
+# - Generate GPSG IONEX product
+#
+# DCBIONO BPE processing summary file name: DNIyyssss.PRC
+#
+# Comments   :
+#
+# Author     :  S. Schaer
+# Created    :  21-Dec-2011
+#
+# Changes    :  22-Dec-2011/ss: PRED_ION implemented
+#               04-Jan-2012/ss: DUMMY jobs added
+#               06-Jan-2012/ss: Reordered DCB jobs
+#               24-Aug-2012/ss: MAKE_UIF implemented
+#               28-Aug-2012/ss: DIST_ION implemented
+#               30-Aug-2012/ss: DNI_AUX implemented
+#               09-Oct-2012/ss: Switch from IGS08 to IGb08
+#               27-Nov-2012/ss: DNI_EXE skipped
+#               04-Mar-2013/ss: FRQ_LST implemented
+#               19-Jul-2013/rd,hb: V_OBSSEL added
+#               01-Nov-2013/rd,eo: SAT_1452 -> SAT_NONE for V_SATINF
+#               18-Jul-2014/lp: CPU of MEANTEC changed to LONG
+#               05-Nov-2014/ss: Changed from Z3N to Z1N
+#               02-Jul-2015/lp: CPU of RNX2DCB changed to LONG
+#               24-Aug-2016/ss: COMB_OSB added
+#               15-Sep-2016/ss: COMB_BIA added
+#               30-Jan-2017 RD: V_PSDINF introduced
+#               30-Jan-2017 RD: Switch from IGB08 to IGS14
+#               03-May-2017 SS: V_BIACRX used for COMB_BIA
+#               15-Jun-2017 SS: REALIG sequence added
+#               16-Jun-2017 SS: MGEX_BIA added
+#               22-Jun-2017 SS: ION_LSTR and MEANTEC2 added (for REPRO_ION)
+#               29-Jun-2017 SS: JUMP_BIA added
+#               17-Aug-2017 SS: PLOT_BIA added
+#               04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced
+#               07-Feb-2018 SS: Start of MGEX_BIA after completion of BPE_BYE
+#               03-Oct-2018 SS: DIST_BIA added
+#               09-Oct-2018 SS: COMB_DCB running on LOCAL (to get DCB.Z)
+#               03-Jul-2019 SS: MAKERCKM added (for reprocessed results)
+#               21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD
+#               26-Sep-2019 SS: Modified COMB_BIA for inclusion of GRE rapid
+#                               results as of wk 2072
+#               01-Oct-2019 SS: WAIT_BIA added
+#               03-Feb-2020 RD: Switch from FES2004 to FES2014b
+#               18-May-2020 SS: Switched to IGb14
+#               24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna
+#               02-Dec-2020 AV: Run CDDIS-HTTPS on local (DIST_ION, MAKE_CKM,
+#                               MAKERCKM, MAKE_BIM)
+#               28-Jan-2021 SS: VERI_BIA added
+#               11-Apr-2021 ST: Switched CPU of PID 802 from LONG to EVER
+#               09-Sep-2021 ST/LP: Transform into the new PCF format
+#               09-Sep-2021 ST/LP: Reorder BPE server variables for reporting
+#               04-Nov-2021 SS: Added RNX2BIA
+#               28-Nov-2021 LP: Remove V_MACMOD
+#               27-Jan-2022 SS: Introduced RNX2DSB, RNX2FRQ, RXO_DEL, and
+#                               V_H = D1_
+#               31-Jan-2022 SS: Prepared for transition to new D1_yyssss.OSB
+#                               (relying on D11yyssss.DCB and D12yyssss.DCB)
+#               17-Mar-2022 SS: Removed RNX2DCB processes
+#               28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+#               29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF
+#               30-Mar-2022 SS: Changed SATCRX, SYSCRX
+#               27-Oct-2022 SS: Introduced V_PCC4MWGF
+#               06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+#               16-Jun-2023 RD: REALIIG_P and REALIX_P run on LONG (old LOCAL)
+#               27-Jun-2023 SS: Implemented OBS2SAT
+#               28-Jun-2023 SS: Implemented DSB_CHK
+#               02-Jul-2023 RD: REALIIG_P and REALIX_P run on EVER (old LONG)
+#               14-Jun-2024 SS: Added V_OBSSEL_C1C
+#               02-Feb-2025 EB: Change from IGS20 to IGB20
+#               26-Nov-2025 SS: Added V_DOI
+#               12-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20
+#               28-Jan-2026 SS: Added BPE_INI with V_INI=Y (PARAM1=-nopcv)
+#               19-May-2026 RD: Update V_DOIs
+#               21-May-2026 SS: Reactivated REALIGAP and start PLOT_BIA earlier
+#
+# ============================================================================
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+000  BPE_INI   NO_OPT    CPU=LOCAL; PARAM1=-nopcv; SCR_PATH=${AIUB}/BPE_SCR
+#
+# Copy required files and create a priori CRD file
+# ------------------------------------------------
+001  DNI_COP   NO_OPT    CPU=LOCAL; WAIT=000
+002  DNI_EXE   NO_OPT    CPU=LOCAL; SKIP
+099  DUMMY     NO_OPT    CPU=LOCAL; WAIT=001 002
+#
+# DCB estimation and combination
+# ------------------------------
+# 111  RNX2DSB   DCB_EST   CPU=LOCAL; WAIT=099; PARAM1=+0
+# 112  RNX2FRQ   DCB_EST   CPU=LONG; WAIT=111; PARAM1=+0
+# 113  RNX2DSB   DCB_EST   CPU=LOCAL; WAIT=099; PARAM1=-2
+# 114  RNX2DSB   DCB_EST   CPU=LOCAL; WAIT=099; PARAM1=-7
+111  RNX2DSB   DCB_EST   CPU=LOCAL; WAIT=099; PARAM1=+0
+112  RNX2FRQ   DCB_EST   CPU=LOCAL; WAIT=111; PARAM1=+0
+113  RNX2DSB   DCB_EST   CPU=LOCAL; WAIT=099; PARAM1=-2
+114  RNX2DSB   DCB_EST   CPU=LOCAL; WAIT=099; PARAM1=-7
+115  DSB_CHK   NO_OPT    CPU=LOCAL; WAIT=111
+116  OBS2SAT   NO_OPT    CPU=LOCAL; WAIT=111 113 114
+118  FRQ_LST   NO_OPT    CPU=LOCAL; WAIT=112
+119  RXO_DEL   NO_OPT    CPU=LOCAL; WAIT=111 112 113 114; PARAM1=-7
+121  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=Z3_; PARAM2=-365
+122  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=Z1N; PARAM2=-365
+123  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=C1_; PARAM2=-365
+124  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=W1_; PARAM2=-365
+125  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=F3P_; PARAM2=-365
+126  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=B1_; PARAM2=-365
+127  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=111 113 114; PARAM1=D11; PARAM2=-365
+128  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=111 113 114; PARAM1=D12; PARAM2=-365
+131  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=A10; PARAM2=-32
+132  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=A11; PARAM2=-32
+133  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=A12; PARAM2=-32
+134  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=Z31; PARAM2=-32
+135  COMB_DCB  DCB_GEN   CPU=LOCAL; WAIT=099; PARAM1=Z32; PARAM2=-32
+181  JUMP_BIA  NO_OPT    CPU=LOCAL; WAIT=099
+182  WAIT_BIA  NO_OPT    CPU=LOCAL; WAIT=181 201
+191  COMB_BIA  DCB_BIA   CPU=LONG; WAIT=182; PARAM1=A1G
+192  COMB_BIA  DCB_BIA   CPU=LONG; WAIT=182; PARAM1=A1R
+193  MGEX_BIA  DCB_BIA   CPU=SHORT; WAIT=181 191 999; PARAM1=CBG
+194  MGEX_BIA  DCB_BIA   CPU=SHORT; WAIT=181 192 999; PARAM1=CBR
+195  DIST_BIA  NO_OPT    CPU=LOCAL; WAIT=191 192
+196  VERI_BIA  NO_OPT    CPU=LOCAL; WAIT=195
+199  DCB_AUX   NO_OPT    CPU=LOCAL; WAIT=121 122 123 124 125 126 127 128
+#
+# IONO prediction and monitoring
+# ------------------------------
+201  WAIT_ION  NO_OPT    CPU=LOCAL; WAIT=099
+202  ION_LST   NO_OPT    CPU=LOCAL; WAIT=201; PARAM1=-365
+203  ION_LSTR  NO_OPT    CPU=LOCAL; WAIT=202
+211  PRED_ION  IONO_P1   CPU=SHORT; WAIT=202; PARAM1=-365
+212  PRED_ION  IONO_P2   CPU=SHORT; WAIT=202; PARAM1=-365
+213  PRED_ION  IONO_P5   CPU=SHORT; WAIT=202; PARAM1=-365
+221  MAKE_UIF  NO_OPT    CPU=LOCAL; WAIT=211 212 213
+222  DIST_ION  NO_OPT    CPU=LOCAL; WAIT=221
+231  MAKE_CKM  IONO_CKM  CPU=LOCAL; WAIT=201; PARAM1=-365
+232  MAKERCKM  IONO_CKM  CPU=LOCAL; WAIT=231; SKIP
+241  MAKE_BIM  IONO_BIM  CPU=LOCAL; WAIT=201; PARAM1=-365
+242  MAKE_BIM  IONO_BIM  CPU=LOCAL; WAIT=241; SKIP
+# 291 IONANA   IONO_GEN          SHORT    1 202
+291  MEANTEC   IONO_GEN  CPU=LONG; WAIT=202
+292  MEANTECR  IONO_REP  CPU=LONG; WAIT=203
+299  ION_AUX   NO_OPT    CPU=LOCAL; WAIT=222 231 241 291
+#
+301  DNI_AUX   NO_OPT    CPU=LOCAL; WAIT=199 299
+#
+801  REALIGAP  DCB_REA   CPU=LOCAL; WAIT=191 192
+802  REALIG_P  DCB_REA   CPU=EVER; WAIT=801; PARALLEL=801
+803  REALIGAP  DCB_REA   CPU=LOCAL; WAIT=193 194 802
+804  REALIX_P  DCB_REA   CPU=EVER; WAIT=803; PARALLEL=803
+805  PLOT_BIA  NO_OPT    CPU=LOCAL; WAIT=802
+#
+# Create summary file, save results, and delete files
+# ---------------------------------------------------
+# 901 DNI_SUM  DNI_GEN           LOCAL    1
+# 902 DNI_SAV  DNI_GEN           LOCAL    1
+# 903 DNI_DEL  DNI_GEN           LOCAL    1
+904  BPE_CLN   NO_OPT    CPU=LOCAL; WAIT=199 299
+#
+# Distribute results
+# ------------------
+# 905 ION_DIS  IONO_GEN          LOCAL    1
+#
+# End of BPE
+# ----------
+999  BPE_BYE   NO_OPT    CPU=LOCAL; WAIT=904
+#
+#
+
+VARIABLE       DEFAULT        PARAMETERS
+V_DOI_F    = 10.48620/97773; DESCRIPTION=Product DOI (FINAL)
+V_DOI_R    = 10.48620/97772; DESCRIPTION=Product DOI (RAPID)
+V_DOI_U    = 10.48620/97774; DESCRIPTION=Product DOI (ULTRA)
+V_DOI_M    = 10.48620/97775; DESCRIPTION=Product DOI (MGEX)
+#
+# Solution IDs used in the BPE:
+# ----------------------------
+V_A          = APR;           DESCRIPTION=A priori information
+V_B          = COD;           DESCRIPTION=ION file time series
+V_C          = COP;           DESCRIPTION=Predicted IONEX
+V_E          = Z11;           DESCRIPTION=One-day ionosphere prediction
+V_F          = Z12;           DESCRIPTION=Two-day ionosphere prediction
+V_G          = Z15;           DESCRIPTION=Five-day ionosphere prediction
+V_H          = D1_;           DESCRIPTION=Direct GNSS DCB results
+V_I          = D11;           DESCRIPTION=Direct P1-C1 DCB results
+V_K          = D12;           DESCRIPTION=Direct P2-C2 DCB results
+# V_L        = ;
+# V_N        = ;
+V_O          = CKM;           DESCRIPTION=CODE Klobuchar model information
+V_P          = GPS;           DESCRIPTION=Broadcast ionosphere model information
+# V_Q        = ;
+# V_R        = ;
+# V_S        = ;
+# V_T        = ;
+# V_U        = ;
+# V_V        = ;
+# V_W        = ;
+# V_X        = ;
+V_Z          = TMP;           DESCRIPTION=Temporary results
+#
+# Reference frame and station related files:
+# -----------------------------------------
+V_CRDINF     = IGC20;         DESCRIPTION=CRD/VEL/FIX master file name
+V_PSDINF     = IGC20;         DESCRIPTION=PSD corrections
+#
+V_STAINF     = CODE;          DESCRIPTION=Station information file
+#
+# General and model files:
+# -----------------------
+V_OBSSEL     = OBSERV_COD;    DESCRIPTION=Observation selection file
+V_OBSSEL_C1C = OBSERV_COD_C1C; DESCRIPTION=Observation selection file (C1C)
+V_SATINF     = SATELLIT;      DESCRIPTION=Satellite information file
+V_PCVINF     = ANT_COD;       DESCRIPTION=PCV information file
+V_PCV        = I20;           DESCRIPTION=GNSS PCV model (IGS)
+V_PCC4MWGF   = 2022 11 27;    DESCRIPTION=PCC applied for MW/GF LC
+#
+V_SATCRX     = SAT_$Y+0;      DESCRIPTION=Satellite problem file
+V_SYSCRX     = SAT_GNSS;      DESCRIPTION=Satellite problem file for data import
+V_BIACRX     = SAT_BIA;       DESCRIPTION=Satellite problem file (bias jumps)
+#
+V_SUBMOD     = DESAI2016;     DESCRIPTION=Subdaily pole model
+V_NUTMOD     = IAU2000R06;    DESCRIPTION=Nutation model
+#
+V_BLQINF     = FES2014b;      DESCRIPTION=BLQ file name, CMC corrections
+#
+# Processing options used in the BPE:
+# ----------------------------------
+V_GNSS       = GR;            DESCRIPTION=GNSS selection (RINEX system char.)
+#
+V_BOXWNG     = BOXWING_I20;   DESCRIPTION=Boxwing model file
+#
+V_CLU        = 6;             DESCRIPTION=Maximum number of files per cluster
+#
+V_REQ_CAMP   = DCBIONO;       DESCRIPTION=Campaign to be used
+V_RERUN      = 1;             DESCRIPTION=Number of reruns in case of failure
+V_PLUS       = +0;            DESCRIPTION=Session range end
+V_MINUS      = -365;          DESCRIPTION=Session range begin (for IONANA)
+#
+V_BIAINF     = SINEX_BIA_COD; DESCRIPTION=BIAS SINEX information skeleton
+#
+# Other variables:
+# ---------------
+V_INI        = Y;             DESCRIPTION=BPE initalization mode (Y/N/Verified)
+V_XTR        = Y;             DESCRIPTION=Automatic program extraction (GPSXTR)
+V_UPD        = Y;             DESCRIPTION=Update general files?
+V_SAV        = Y;             DESCRIPTION=Save results?
+V_DEL        = Y;             DESCRIPTION=Delete results?
+V_DIS        = Y;             DESCRIPTION=Distribute results?

@@ -1,0 +1,43 @@
+package TIMNEQAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMNEQAP
+#
+# Purpose :  Prepare parallel ADDNEQ2
+#
+# Programs:  MKCLUS
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx
+#
+# Changes :  
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yy,$ddd,$ssss,$yyssss,$yyddd,
+      $sol            ,$param2 ,$param3,$param4,
+      $dirNeq,  $dirOut,  $dirRes,  $dirClk,  $dirClb, $dirDel, $dirPzh,
+      $extNeq,  $extOut,  $extRes,  $extClk,  $extClb, $extDel, $extPzh ) =
+     $bpe->getKeys(
+      '$Y','$+0','$S+0','$YSS+0','$YD+0',
+      "$$bpe{PARAM2}",'PARAM2','PARAM3','PARAM4',
+      'DIR_NEQ','DIR_OUT','DIR_RES','DIR_RXC','DIR_CLB','DIR_DEL','DIR_PZH',
+      'EXT_NEQ','EXT_OUT','EXT_RES','EXT_RXC','EXT_CLB','EXT_DEL','EXT_PZH');
+
+# Run ADDNEQ in parallel according to the NEQs
+  initPar_Fl($bpe,glob("${dirNeq}${sol}${ssss}[0-9][0-9][0-9]_.${extNeq}"));
+
+}

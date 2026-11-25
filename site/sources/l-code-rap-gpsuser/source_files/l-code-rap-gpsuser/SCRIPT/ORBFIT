@@ -1,0 +1,63 @@
+package ORBFIT;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORBFIT
+#
+# Purpose :  Verify whether PRE orbit positions can be fitted adequately.
+#
+# Programs:  ORBGEN, DEFXTR
+#
+# Author  :  S. Schaer
+# Created :  06-Nov-2019
+#
+# Changes :  06-Nov-2019 SS: Added $ultFil and $tolRms
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyddd,$wwwwd,$param1,$dirOut) =
+    $bpe->getKeys('$YD+0','$WD+0','PARAM1','DIR_OUT');
+
+  my $d = substr($wwwwd,4,1);
+  my $sol = $param1 eq "" ? "" : $param1;
+  my $ext = "_${sol}${d}";
+
+  my $ultFil = "${dirOut}../MSC/ULT${yyddd}.FLG";
+##  my $tolRms = -e $ultFil ? 0.01 : 0.001;
+  my $tolRms = -e $ultFil ? 0.1 : 0.001;
+
+
+# Run program
+# -----------
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","STDOUT","ORBFIT${ext}");
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMACC","ORBFIT${ext}");
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","RESPLOT","ORBFIT${ext}");
+  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SYSOUT","ORBFIT${ext}");
+  my $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $SYSOUT = $$bpe{SYSOUT};
+  prtMess($bpe,"ORBFIT VERIFICATION OF ${sol} SOLUTION USING TOLERANCE OF ${tolRms} M");
+  prtMess($bpe,"SEE: ${dirOut}ORBFIT${ext} FILES");
+
+
+# Check program run
+# -----------------
+  $bpe->putKey("$ENV{U}/PAN/DEFXTR.INP","TOL_RMS",$tolRms);
+  $bpe->putKey("$ENV{U}/PAN/DEFXTR.INP","JOBOUT",$SYSOUT);
+  $bpe->putKey("$ENV{U}/PAN/DEFXTR.INP","OUTFIL","ORBFIT${ext}");
+  $bpe->putKey("$ENV{U}/PAN/DEFXTR.INP","SYSOUT","ORBFIT${ext}_");
+  $PGMNAM = "DEFXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

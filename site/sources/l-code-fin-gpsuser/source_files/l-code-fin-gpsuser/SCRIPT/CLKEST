@@ -1,0 +1,50 @@
+package HCLKEST;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      HCLKEST
+#
+# Purpose:   CLKEST for High-rate clocks, RAPID and FINAL
+#
+# Programs:  HCLKEST
+#
+# Authors:   H. Bock
+#
+# Created:   07-July-2003
+#
+# Changes:   08-Feb-2005 mm: $s replaced by $bpe
+#
+# ----------------------------------------------------------------------------
+use File::Copy;
+
+
+sub run
+{
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my ($YEAR,  $DAYYEAR, $SESSION, $U ,$CAMP_PTH, $CAMPAIGN,
+      $yyddd, $pid) = $bpe->getKeys(
+      '$Y',   '$+0',    '$S+0'   , 'U','CAMP_PTH','CAMPAIGN',
+      '$YD+0','PID');
+
+#  my $tmpfil = "${CAMP_PTH}${CAMPAIGN}/STA/${YEAR}${DAYYEAR}01.CLB";
+#
+#  if (-f $tmpfil)
+#    {
+#     $bpe->putKey("${U}/PAN/CLKEST.INP","OBSFIL","????${SESSION}","REPLACE",$tmpfil);
+#    }
+
+
+  # eo131113: temporarly write clock differences files
+  # --------------------------------------------------
+  $bpe->putKey("$ENV{U}/PAN/CLKEST.INP", "CLKDIFF", "CLKDIFF.$pid");
+
+
+# Run program CLKEST
+# --------------------
+  my $PGMNAM = "CLKEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

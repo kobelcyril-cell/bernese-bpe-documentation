@@ -1,0 +1,229 @@
+package IGSR_PRC;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name:       IGSR_PRC
+#
+# Purpose:    MAKE A "PROTOCOL" OF THE RAPID SOLUTION
+#
+# PARAMs:
+#
+# Authors:    S. Lutz
+#
+# Created:    04-Dec-2013
+#
+# Changes:    18-Sep-2000/SS: Change extension of ASPLIT file from DDD to YY_DDD
+#             18-Sep-2000/SS: Change extension of ORBCHK1/2 file from DDD to YY_DDD
+#             18-Sep-2000/SS: Change extension of MPRXTR file from DDD to YY_DDD
+#             18-Sep-2000/SS: Change extension of CODXTR file from DDD to YY_DDD
+#             29-Aug-2001/SS: Consider "reduced" RS solution
+#             28-Nov-2001/MM: Warning in case of missing files
+#             06-Jan-2003/HU: Pole files in ORB instead of X/GEN
+#             20-May-2003/SS: Consider RMGwwwwd.LST file
+#             20-Jan-2005/RD: Add SATGRA-repositioning summary
+#             29-Jul-2005/SS: Consider IGSULTRA.LOG file
+#             26-May-2009/rd: Extractions: YY_DDD -> YY_SSSS
+#             04-Dec-2013 SL: BDS to Perl
+#             17-Mar-2014 SL: Show message w.r.t. satellite exclusions
+#             25-Mar-2015 AS: MPRXTR-satellite statistics added
+#             20-Nov-2016 AV: Skip LIMXTR if SKIP_QIF.FLG active
+#             19-Apr-2018 AV: Add RINEX statistics for IGSRAPID
+#             23-Apr-2018 AV: Add RINEX statistics for IGSULTRA
+#             31-Aug-2019 RD: Add OBSXTR program
+#             11-Nov-2019 AV: User V_RELAX for appFile (annoying for reprocessing ...)
+#             15-Jun-2020 AV: Skip 3-day solutions if indicated (V_SKIP3D)
+#             04-Dec-2020 AV: Add OBSXTR (satellite statistic)
+#             02-Sep-2021 RD/ST: Add printing of BPE server variables
+#             07-Apr-2022 ST: Remove DIR_BRD, EXT_BRD, DIR_TAB and EXT_TAB.
+#             08-Aug-2023 EB: Daily repeatability plots and outlier suggestions
+#             02-Oct-2023 EB: No outlier if extrapolated (ultra too weak)
+#             26-Oct-2023 EB: Copy repeatability files to www
+#             19-Aug-2025 EB: monthly RQ repeatability plots from ADDNEQ added
+#             17-Dec-2025 EB: crd_rep.pl reports to log
+#             19-Aug-2026 EB: start update plots for 3months process comparisons
+#
+# =============================================================================
+
+use strict;
+use warnings;
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util qw(appFile prtMess timprt reportBPEvariables);
+use lib "$ENV{AUTO}";
+use igs_device;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yy,$ddd,$ssss,$yyddd,$wwwwd,
+    $yydddm1,$wwwwdm1,
+    $v_a,$v_b,$v_e,$v_k,$v_h,$v_i,$v_o,$v_x,$v_z,$rel,$skip_sol,
+    $CAMP_PTH,$CAMPAIGN,$pthPcf, $pcfNam, $script,
+    $dirLst,$extLst,
+    $dirRpr,$extRpr,
+    $dirSmt,$extSmt,
+    $dirStd,$extStd,
+    $dirSum,$extSum,
+    $dirOut,$extOut,
+  ) =
+  $bpe->getKeys (
+    '$Y','$+0','$S+0','$YD+0','$WD+0',
+    '$YD-1','$WD-1',
+    'V_A','V_B','V_E','V_K','V_H','V_I','V_O','V_X','V_Z','V_RELAX','V_SKIP3D',
+    'CAMP_PTH','CAMPAIGN','PTH_PCF', 'PCFFIL','SCRIPT',
+    'DIR_LST','EXT_LST',
+    'DIR_RPR','EXT_RPR',
+    'DIR_SMT','EXT_SMT',
+    'DIR_STD','EXT_STD',
+    'DIR_SUM','EXT_SUM',
+    'DIR_OUT','EXT_OUT',
+  );
+
+# Set the variables
+# -----------------
+  my $ultFil = "${CAMP_PTH}${CAMPAIGN}/MSC/ULT${yyddd}.FLG";
+  my $prcFil = "${dirOut}RAP${yyddd}.PRC";
+  my $logFil = "$ENV{HOME}/LOG/IGSRAPID.LOG";
+  my $skpQif = "${dirOut}/../MSC/SKIP_QIF.FLG";
+  my $rnxFil = "${dirOut}/RNXSTAT.${yy}_${ddd}";
+  $logFil = "$ENV{HOME}/LOG/IGSULTRA.LOG" if(-s $ultFil);
+  my $relax = $rel      eq "Y"? 0: 1;
+
+# Start generating protocol file
+# ------------------------------
+  unlink($prcFil);
+  my $log = "";
+  if(-s $logFil) {
+    open(LOG,"<$logFil");
+    while(<LOG>) {
+      $log .= $_ if($_ =~ /^IGSRAPID/);
+    }
+    close(LOG);
+  }
+  $log .= "IGSRAPID finished at: ".gmtime(time)." UT";
+  appFile($log,0,"",$prcFil,0);
+  appFile("IGSRAPID BPE PROCESSING SUMMARY FOR YEAR-SESSION $yy-$ssss",
+    0,"",$prcFil,0);
+
+# Report the BPE settings
+# -----------------------
+  open(PRC,">> $prcFil");
+  print PRC "Summary file generated at ",timprt()," by $script\n\n";
+
+  $pthPcf =~ s/$$bpe{U}/$$bpe{U_OLD}/;
+  print "${pthPcf}/${pcfNam}\n";
+  print PRC reportBPEvariables($bpe,"${pthPcf}/${pcfNam}");
+  print PRC "\n\n";
+
+  close PRC;
+
+# Append RINEX statistics
+# -----------------------
+  if(-s $rnxFil){
+      appFile("",1,$rnxFil,$prcFil,1);
+  }
+
+# Append summary files
+# --------------------
+  my $sumFil;
+  $sumFil = "${dirOut}MP2${yy}${ssss}.${extSum}";
+  appFile("MAUPRP - satellite statistics",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirOut}RESCHK.${yy}_${ssss}";
+  appFile("RESCHK - satellite statistics",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}OBX_EDT_${yyddd}.${extSum}";
+  appFile("OBSXTR - satellite statistics",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirOut}DEFXTR.${ddd}";
+  appFile("Diverse ORBGENs",1,$sumFil,$prcFil,0);  # ???
+  $sumFil = "${dirOut}CODXTR.${yy}_${ssss}";
+  appFile("CODSPP - code-based single point positioning",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirOut}MPRXTR.${yy}_${ssss}";
+  appFile("MAUPRP - baseline-wise statistics",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirOut}MPRDEL.${ddd}";
+  appFile("",1,$sumFil,$prcFil,0);
+#  $sumFil = "${dirSum}OBX_MPR_${yyddd}.${extSum}";
+#  appFile("",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}MANGRA3.${extSum}";
+  appFile("",1,$sumFil,$prcFil,0);
+  $sumFil = "${dirOut}LIMXTR.${yy}_${ssss}";
+  appFile("Ionosphere model generation",1,$sumFil,$prcFil,0) unless -e $skpQif;
+  $sumFil = "${dirOut}GIMXTR.${yy}_${ssss}";
+  appFile("",1,$sumFil,$prcFil,0);
+  $sumFil = "${dirSum}MWW${yyddd}.${extSum}";
+  appFile("Ambiguity resolution",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}MWN${yyddd}.${extSum}";
+  appFile("",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}QIF${yyddd}.${extSum}";
+  appFile("",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirOut}OBX_AMB_${yyddd}.${extOut}";
+  appFile("",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirOut}OBX_AMB_${yyddd}.${extSum}";
+  appFile("",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}${v_b}_${yyddd}.${extSum}";
+  appFile("ADDNEQ2 - RF-solution: first orbit improvement",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}${v_e}_${yyddd}.${extSum}";
+  appFile("ADDNEQ2 - RG-solution: second orbit improvement",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}${v_k}_${yyddd}.${extSum}";
+  appFile("ADDNEQ2 - RH-solution: after residual screening",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}${v_h}_${yyddd}.${extSum}";
+  appFile("ADDNEQ2 - RQ-solution: after ambiguity resolution",1,$sumFil,$prcFil,$relax);
+  $sumFil = "${dirSum}${v_i}_${yyddd}.${extSum}";
+  if($skip_sol ne "Y"){
+    appFile("ADDNEQ2 - RA-solution: three-day solution",1,$sumFil,$prcFil,$relax);
+##  $sumFil = "${dirSum}${v_x}_${yyddd}.${extSum}";
+    $sumFil = "${dirSum}${v_i}S${yyddd}.${extSum}";
+    appFile("ADDNEQ2 - RA-solution: for SINEX generation",1,$sumFil,$prcFil,0);  # ???
+    $sumFil = "${dirLst}${v_k}G${wwwwd}.${extLst}";
+    appFile("Long-arc orbit verifications",1,$sumFil,$prcFil,0);  # ???
+    $sumFil = "${dirLst}${v_i}G${wwwwd}.${extLst}";
+    appFile("",1,$sumFil,$prcFil,$relax);
+    $sumFil = "${dirLst}${v_z}G${wwwwdm1}.${extLst}";
+    appFile("",1,$sumFil,$prcFil,0);  # ???
+    $sumFil = "${dirOut}ORBCHK1.${yy}_${ssss}";
+    appFile("",1,$sumFil,$prcFil,$relax) if -e $sumFil;
+    $sumFil = "${dirOut}ORBCHK2.${yy}_${ssss}";
+    appFile("",1,$sumFil,$prcFil,$relax) if -e $sumFil;
+    $sumFil = "${dirOut}ASPLIT.${yy}_${ssss}";
+    appFile(
+        "ARC SPLIT INFORMATION: $sumFil",1,$sumFil,$prcFil,0);
+  }
+
+# Satellites excluded due to arc-split
+  if(-e $ultFil) {
+    appFile("SATELLITES EXCLUDED DUE TO ARC-SPLIT",1,"",$prcFil,0);
+    print `grep -H -A1 "Satellites with" ${dirOut}U??${yy}${ddd}.OUT|sed "s+$dirOut++g"`."\n\n";
+  }
+
+# Generate daily repeatability plots und suggest outliers (accessible with rap_mon)
+# ---------------------------------------------------------------------------------
+  print "daily: crd_rep.pl reporting to ${dirOut}../MSC/restxt/crd_rep_daily.log\n";
+  system("$ENV{AUTO}/crd_rep.pl -f ${dirOut}RQ_DAILY.PLT  -c 4  -yrange \"30/30\"  -urange \"60/60\"  -timetyp DOY -rms -m -d ${dirOut}../MSC/restxt/daily -dirout ${dirOut}../MSC/resplt/daily -errorbar 4 -outlier 4 -ignore 7 -noextrapol 0.05 -max_outlier_hor 12 -max_outlier_ver 30 -min_outlier_num 1 -stafac_rms_hor 2.5 -stafac_rms_ver 5.0 -stafac_outlier 0.1 -o eps 2>/dev/null > ${dirOut}../MSC/restxt/crd_rep_daily.log");
+  print "daily: generate png files...\n";
+  system("$ENV{AUTO}/img2img.pl -source ${dirOut}../MSC/resplt/daily -target ${PATH_WWW}code/mon -add _rap -resolution 90");
+
+# Generate repeatability plots covering 90 day from ADDNEQ2
+# ---------------------------------------------------------
+  print "daily: crd_rep.pl reporting to ${dirOut}../MSC/restxt/crd_rep_monthly.log\n";
+  system("$ENV{AUTO}/crd_rep.pl -f ${dirOut}RQ_MONTHLY.PLT  -c 4  -yrange \"30/30\"  -urange \"60/60\"  -timetyp DOY -rms -m -d ${dirOut}../MSC/restxt/monthly -dirout ${dirOut}../MSC/resplt/monthly -errorbar 4 -outlier 4 -ignore 7 -noextrapol 0.7 -max_outlier_hor 12 -max_outlier_ver 30 -min_outlier_num 1 -stafac_rms_hor 2.5 -stafac_rms_ver 5.0 -stafac_outlier 0.1 -o eps 2>/dev/null > ${dirOut}../MSC/restxt/crd_rep_monthly.log");
+  print "monthly: generate png files...\n";
+  system("$ENV{AUTO}/img2img.pl -source ${dirOut}../MSC/resplt/monthly -target ${PATH_WWW}code/mon -add _rapm -resolution 90");
+
+# Update 3 months inter-process comparisons plots
+# -----------------------------------------------
+  system("$ENV{AUTO}/make_oper_comp.bash -sol RAP >~/LOG/make_oper_comp_rap.log 2>&1 &");
+
+# Run rapid_chk.com
+# -----------------
+  my $chk = system("$ENV{AUTO}/rapid_chk.com $ddd");
+  if($chk) {
+    &prtMess($bpe,"rapid_chk.com failed!");
+    die("rapid_chk.com failed!\n");
+  }
+}
+
+# =============================================================================
+
+__END__

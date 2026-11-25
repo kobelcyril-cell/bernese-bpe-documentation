@@ -1,0 +1,110 @@
+package IAR_DEL;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  IAR_DEL
+#
+# Purpose :  Delete files for PPPAR.PCF
+#
+# PARAMs  :  
+#
+# Author  :  S. Schaer
+# Created :  30-May-2018
+#
+# Changes :  04-Jun-2018 SS: Replaced $S10 to $S+0
+#            22-Aug-2018 SS: Deleted BIA files
+#            23-Apr-2020 AV: Use V_MODE to identify special deletions
+#
+# ============================================================================
+use strict;
+use lib "$ENV{AUTO}";
+use gpsutil qw(copyfile);
+use igs_device;
+use lib "$ENV{BPE}";
+use bpe_util qw(check_dir copy2archive prtMess);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,$ssss,
+      $ssssm30,$yyssssm30,$yyssssm90,
+      $camp_pth,$campaign,$mode,
+      $v_del,$v_a,$v_b,$v_c,
+      $dirOut,$extOut,
+      $dirCrd,$extCrd,
+      $dirStd,$extStd,
+      $dirErp,$extErp,
+      $dirClk,$extClk,
+      $dirOsb,$extOsb,
+      $dirBia,$extBia,
+      $dirFix,$extFix,
+      ) =
+    $bpe->getKeys(
+      '$YSS+0','$S+0',
+      '$S-(30)','$YSS-(30)','$YSS-(90)',
+      'CAMP_PTH','CAMPAIGN','V_MODE',
+      'V_DEL','V_A','V_B','V_C',
+      'DIR_OUT','EXT_OUT',
+      'DIR_CRD','EXT_CRD',
+      'DIR_STD','EXT_STD',
+      'DIR_ERP','EXT_ERP',
+      'DIR_CLK','EXT_CLK',
+      'DIR_OSB','EXT_OSB',
+      'DIR_BIA','EXT_BIA',
+      'DIR_FIX','EXT_FIX',
+      );
+
+  my $repro = (-e "$camp_pth/$campaign/MSC/REPROCESSING.FLG");
+
+# Delete files if requested
+# -------------------------
+  if ($v_del ne "Y") {
+    prtMess($bpe,"FILES NOT DELETED");
+
+# Delete files from previous run
+# ------------------------------
+  } else {
+    unlink glob "${dirOut}*.J_lk";
+
+# - Main input files
+    unlink glob "${dirCrd}${v_a}${yyssss}.${extCrd}";
+    unlink glob "${dirStd}${v_b}${yyssss}.${extStd}";
+    unlink glob "${dirErp}${v_b}${yyssss}.${extErp}";
+    unlink glob "${dirClk}${v_b}${yyssss}.${extClk}";
+    unlink glob "${dirOsb}${v_c}${yyssss}.${extOsb}";
+    unlink glob "${dirBia}${v_c}${yyssss}.${extBia}";
+
+# - Station-specific files
+    if ($mode ne "PPPFIN") {
+      unlink glob "${dirOut}????${ssss}_[WN]L?.${extOut}";
+      unlink glob "${dirOut}????${ssss}_FIX.${extOut}";
+      unlink glob "${dirCrd}????${ssss}_[WN]L?.${extCrd}";
+      unlink glob "${dirCrd}????${ssss}_FIX.${extCrd}";
+      unlink glob "${dirBia}[WN]L?${yyssss}.${extBia}";
+    }
+
+# - Result files
+    unlink glob "${dirOut}????${ssssm30}_???.${extOut}";
+    unlink glob "${dirOut}[WN]L?${yyssssm30}.${extOut}";
+    unlink glob "${dirOsb}[WN]L?${yyssssm30}.${extOsb}";
+    unlink glob "${dirBia}[WN]L?${yyssssm30}.${extBia}";
+    unlink glob "${dirCrd}NL?${yyssssm30}.${extCrd}";
+    unlink glob "${dirCrd}FIX${yyssssm30}.${extCrd}";
+    unlink glob "${dirFix}IAR${yyssssm30}.${extFix}";
+    unlink glob "${dirFix}BAD${yyssssm30}.${extFix}";
+    unlink glob "${dirOut}IAR${yyssssm30}.FPZ";
+
+    unlink glob "${dirOsb}IAR${yyssssm90}.${extOsb}";
+    unlink glob "${dirOsb}PHA${yyssssm90}.${extOsb}";
+    unlink glob "${dirBia}IAR${yyssssm90}.${extBia}";
+##    unlink glob "${dirBia}PHA${yyssssm90}.${extBia}";
+
+    unlink glob "${dirOut}IAR${yyssssm90}.PRC";
+
+  }
+
+}
+
+

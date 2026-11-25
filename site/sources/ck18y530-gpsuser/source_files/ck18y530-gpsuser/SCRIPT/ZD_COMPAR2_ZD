@@ -1,0 +1,59 @@
+package COMPAR2_ZD;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  COMPAR2_ZD
+#
+# Purpose :  Prepare and execute COMPAR2 for comparison of ZD solutions
+#
+# Author  :  C. Kobel
+# Created :  15-Dec-2025
+#
+# Changes :  30-Apr-2026 CK: Reformatted,
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $V_fin,
+      $V_large
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      'V_FIN',
+      'V_LARGE'
+  );
+
+  # ---------- Prepare input file ------------
+  my $tmpFil = "$ENV{U}/WORK/CRDCMP.lst";
+
+  open(my $OUT, '>', $tmpFil)
+    or die "Cannot create $tmpFil: $!";
+
+  print $OUT "${V_fin}_${yyssss}\n";
+  print $OUT "${V_fin}${V_large}${yyssss}\n";
+
+  close($OUT);
+
+  # ---------- Set COMPAR2 input list ------------
+  $bpe->putKey(
+    "$ENV{U}/PAN/COMPAR2.INP",
+    "COOFIL",
+    "SELECTED",
+    "REPLACE",
+    $tmpFil
+  );
+
+  # ---------- Run program ------------
+  my $PGMNAM = "COMPAR2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Clean up ------------
+  unlink($tmpFil);
+}

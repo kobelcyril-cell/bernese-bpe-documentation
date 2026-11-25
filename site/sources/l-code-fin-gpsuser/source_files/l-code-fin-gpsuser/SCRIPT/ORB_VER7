@@ -1,0 +1,93 @@
+package ORB_VER;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORB_VER
+#
+# Purpose :  ORBIT QUALITY CHECKS:
+#            3-DAY ORBIT OVERLAPS (ORBGEN)
+#
+# Programs:  ORBGEN
+#
+# Author  :  S. Schaer
+# Created :  22-Feb-2011
+#
+# Changes :  22-Feb-2011/ss: Execute orb_ver.com
+#            24-Feb-2011/ss: Make use of new options concerning orb_ver.com
+#            25-Sep-2012/ss: Extract LST file identifier
+#            27-Feb-2013/ss: Use special SAT info file
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+
+use File::Copy;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$ddd,$wwww,$wd,$wd0,$CAMP_PTH,$CAMPAIGN,$param2) =
+    $bpe->getKeys('$YD+0','$+0','$W-1','$WD-1','$WD+0','CAMP_PTH','CAMPAIGN','PARAM2');
+
+
+  my $fil = $bpe->getKey("$ENV{U}/PAN/ORBGEN.INP","SUMFIL");
+  my $strFIL = substr(basename($fil),0,3);
+  my $fil = $bpe->getKey("$ENV{U}/PAN/ORBGEN.INP","SUMACC");
+  my $strACC = substr(basename($fil),0,3);
+
+  if ( $param2 eq "V_L" ) {
+    $bpe->putKey("$ENV{U}/PAN/STDELE.INP","STDFIL",'$L$YD+-');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","PREFIL",'$L$YD+-');
+  } elsif ( $param2 eq "V_N" ) {
+    $bpe->putKey("$ENV{U}/PAN/STDELE.INP","STDFIL",'$N$YD+-');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","PREFIL",'$N$YD+-');
+  }
+
+# Loop the days of a week
+# -----------------------
+  my ($yyddd,$wwwwd,$nam);
+  for (my $p=0;$p<7;$p++) {
+    ($yyddd,$wwwwd) = gps_date("-wd $wwww 0 -d $p -o %y%j %W%w");
+
+# PlusMinus-Variable
+# ------------------
+    setMinusPlus($bpe,-7+$p,-5+$p);
+    print "Running on ",-7+$p,' to ',-5+$p," ($wwwwd - $yyddd)\n";
+
+# Run program
+# -----------
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMFIL","$strFIL$wwwwd");
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMACC","$strACC$wwwwd");
+
+    my $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    setMinusPlus($bpe,-6+$p,-5+$p);
+    print "Running on ",-7+$p,' to ',-5+$p," ($wwwwd - $yyddd)\n";
+
+  if ( $param2 eq "V_L" ) {
+    $bpe->putKey("$ENV{U}/PAN/STDELE.INP","SYSOUT",'ELE$L'."$yyddd");
+  } elsif ( $param2 eq "V_N" ) {
+    $bpe->putKey("$ENV{U}/PAN/STDELE.INP","SYSOUT",'ELE$N'."$yyddd");
+  }
+
+    my $PGMNAM = "STDELE";
+    $bpe->RUN_PGMS($PGMNAM);
+
+  }
+
+# Create LST file
+# ---------------
+  system("$ENV{AUTO}/orb_ver.com $wd $CAMP_PTH${CAMPAIGN} $strACC 7 $wwww");
+  system("$ENV{AUTO}/orb_ver.com $wd0 $CAMP_PTH${CAMPAIGN} $strACC 7 $wwww");
+
+}

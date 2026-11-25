@@ -1,0 +1,249 @@
+package IAR_XTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  IAR_XTR
+#
+# Purpose :  Generate summary of ZERO_AR ambiguity fixing
+#
+# Programs:  GPSXTR, CRDMERGE, HELMR1
+#
+# Author  :  S. Schaer
+# Created :  12-Jun-2018
+#
+# Changes :  14-Jun-2018 SS: PHABIA verification not mandatory
+#            27-Jun-2018 SS: Checked PHABIA RMS for NLI
+#            28-Jun-2018 SS: Adjusted IAR FPZ file generation
+#            21-Aug-2018 SS: Saved NLI CRD file
+#            23-Aug-2019 SS: Corrected SAVMGEX
+#            19-Mar-2020 LP: Changed message type BPE=>BIA
+#            30-Jul-2020 ST: Added use igs_device.
+#            09-Mar-2023 SS: Adjusted $rmsMax for PPPFIN
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$yyssss,$ssss,$yyyy,
+      $pcfFil,$camp_pth,$campaign,$v_sav,
+      $dirCrd,$extCrd,
+      $dirSum,$extSum,
+      $dirOut,$extOut,
+      $dirOsb,$extOsb,
+      $dirBia,$extBia,
+      $dirPzh,$extPzh)
+      = $bpe->getKeys(
+      '$YD+0','$YSS+0','$S+0','$Y+0',
+      'PCFFIL','CAMP_PTH','CAMPAIGN','V_SAV',
+      'DIR_CRD','EXT_CRD',
+      'DIR_SUM','EXT_SUM',
+      'DIR_OUT','EXT_OUT',
+      'DIR_OSB','EXT_OSB',
+      'DIR_BIA','EXT_BIA',
+      'DIR_PZH','EXT_PZH');
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $repro = (-e "$camp_pth/$campaign/MSC/REPROCESSING.FLG");
+
+  my $iarFlg = "$camp_pth/$campaign/MSC/IAR${yyssss}.FLG";
+
+  my $iarFil = "${dirOut}IAR${yyssss}.FPZ";
+  my $fpzFil = "${dirOut}../OBS/????${ssss}.FPZ";
+  if ($campaign ne "PPPFIN") {
+    system("grep '1/1' $fpzFil > $iarFil");
+  } else {
+    system("grep '1/1' $fpzFil >> $iarFil");
+  }
+  replace($iarFil,"${dirOut}../OBS/","");
+  unlink(glob("$fpzFil"));
+
+  my $iarPrc = "${dirSum}IAR${yyssss}.PRC";
+  unlink($iarPrc);
+  unlink(glob("${dirOut}???${yyssss}.AMB"));
+
+  my $PGMNAM = "GPSXTR";
+
+  my $fixNam = "FIX${yyssss}";
+  my $ambNam = "AMB${yyssss}";
+  my $fixFil = "${dirSum}${fixNam}.${extSum}";
+  my $ambFil = "${dirSum}${ambNam}.${extSum}";
+  unlink($fixFil,$ambFil);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$S+0_WLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$fixNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBOUT",$ambNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","WL");
+  $bpe->RUN_PGMS($PGMNAM);
+  appFile("WIDELANE AMBIGUITY RESOLUTION",0,$fixFil,$iarPrc,0);
+  unlink($fixFil,$ambFil);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$fixNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBOUT",$ambNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","NL");
+  $bpe->RUN_PGMS($PGMNAM);
+  appFile("NARROWLANE AMBIGUITY RESOLUTION (COUNTING ALL AMBIGUITIES)",0,$fixFil,$iarPrc,0);
+  unlink($fixFil,$ambFil);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$fixNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBOUT",$ambNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","NLR");
+  $bpe->RUN_PGMS($PGMNAM);
+  appFile("NARROWLANE AMBIGUITY RESOLUTION (COUNTING ONLY WIDELANE-RESOLVED AMBIGUITIES)",0,$fixFil,$iarPrc,0);
+  unlink($fixFil,$ambFil);
+
+# PHABIA verification
+# -------------------
+  $fixFil = "${dirOut}WLI${yyssss}.${extOut}";
+  appFile("WIDELANE FRACTIONAL BIAS BIAS VERIFICATION",0,$fixFil,$iarPrc,0) if -e $fixFil;
+
+  my $rms = `grep 'RMS of unit weight' $fixFil | cut -c33-51`+0;
+  my $rmsMax = 0.10;
+  $rmsMax = 0.13 if $campaign eq "PPPFIN";
+  if ($rms > $rmsMax) {
+    my $str = "${pcfFil}:${campaign}:${yyssss}: PHABIA WLI RMS: $rms cyc\n";
+    prtMess($bpe,$str);
+    msg2key("BIA",$str);
+  }
+
+  $fixFil = "${dirOut}NLI${yyssss}.${extOut}";
+  appFile("NARROWLANE FRACTIONAL BIAS BIAS VERIFICATION",0,$fixFil,$iarPrc,0) if -e $fixFil;
+
+  my $rms = `grep 'RMS of unit weight' $fixFil | cut -c33-51`+0;
+  $rmsMax = 0.03;
+  $rmsMax = 0.05 if $campaign eq "PPPFIN";
+  $rmsMax = 0.10 if $campaign eq "MCLKGNSS";
+  if ($rms > $rmsMax) {
+    my $str = "${pcfFil}:${campaign}:${yyssss}: PHABIA NLI RMS: $rms cyc\n";
+    prtMess($bpe,$str);
+    msg2key("BIA",$str);
+  }
+
+  $PGMNAM = "CRDMERGE";
+  my ($fil1,$fil2);
+
+  $fil1 = "${dirCrd}NLI${yyssss}.${extCrd}";
+  $fil2 = "${dirCrd}____${ssss}_NLI.${extCrd}";
+  if (-e $fil1) {
+    copy($fil1,$fil2);
+    replace($fil2,"    PPP","    R");
+  }
+  $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","CRDMRG",'????$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","CRDRES",'NLI$YSS+0');
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $fil1 = "${dirCrd}FIX${yyssss}.${extCrd}";
+  $fil2 = "${dirCrd}____${ssss}_FIX.${extCrd}";
+  if (-e $fil1) {
+    copy($fil1,$fil2);
+    replace($fil2,"    PPP","    R");
+  }
+  $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","CRDMRG",'????$S+0_FIX');
+  $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","CRDRES",'FIX$YSS+0');
+  $bpe->RUN_PGMS($PGMNAM);
+
+##  unlink(glob("${dirCrd}????${ssss}_NLB.${extCrd}"));
+##  unlink(glob("${dirCrd}????${ssss}_NLI.${extCrd}"));
+##  unlink(glob("${dirCrd}????${ssss}_FIX.${extCrd}"));
+  unlink(glob("${dirCrd}????${ssss}_???.${extCrd}"));
+
+  $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Various FIX files
+# -----------------
+  $fixFil = "${dirCrd}IAR${yyssss}.FIX";
+  appFile("LIST OF STATIONS THAT FULFILLED L1&L2 INTEGER AMBIGUITY INTRODUCTION TEST",0,$fixFil,$iarPrc,0);
+
+  $fixFil = "${dirCrd}BAD${yyssss}.FIX";
+  appFile("LIST OF STATIONS THAT FAILED  L1&L2 INTEGER AMBIGUITY INTRODUCTION TEST",0,$fixFil,$iarPrc,0) if -e $fixFil;
+
+# Warning in case of BAD stations
+# -------------------------------
+  if (-e $fixFil) {
+    my @sta = `grep '^[A-Z]... ' $fixFil | cut -c1-4`;
+    my $sta = join(" ",@sta);
+    my $num = @sta;
+    my $msg = "${pcfFil}:${campaign}:${yyssss}: $num BAD stations: $sta\n";
+    prtMess($bpe,$msg);
+    msg2key("BIA",$msg);
+    warn($msg);
+##    die($msg);
+  }
+
+# Save relevant files
+# -------------------
+  my $dirSav = "";
+  $dirSav = "$PATH_SAV$CAMP_SAVPPP/$yyyy/"    if $campaign eq "PPPFIN";
+  $dirSav = "$PATH_SAV$CAMP_SAVIGS/$yyyy/"    if $campaign eq "FCLKGNSS";
+  $dirSav = "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/" if $campaign eq "RCLKGNSS";
+  $dirSav = "$PATH_SAV$CAMP_SAVMGEX/$yyyy/"   if $campaign eq "MCLKGNSS";
+  $dirSav = "$PATH_SAV/REPRO_IAR/$yyyy/"      if $repro;
+  my $outSav = "${dirSav}OUT/";
+  my $orbSav = "${dirSav}ORB/";
+  my $staSav = "${dirSav}STA/";
+
+  if ($v_sav eq "Y") {
+##    &check_dir($outSav,$orbSav,$staSav);
+    &check_dir($outSav,$staSav);
+  }
+
+  my @cpyLst = (
+    # Protocol
+    "${dirOut}IAR${yyssss}.PRC          ${outSav} _ ",
+    # OBS header information
+    "${dirOut}IAR${yyssss}.FPZ          ${outSav} z ",
+    # NLI station coordinate results
+    "${dirCrd}NLI${yyssss}.${extCrd}    ${staSav} _ ",
+  );
+
+  if ($v_sav ne "Y") {
+    prtMess($bpe,"FILES NOT SAVED");
+  } else {
+    my (@err) = ();
+    foreach (@cpyLst) {
+      if (/BAD.*FIX/) {
+        &copy2archive(split(" ",$_));
+      } else {
+        push(@err,"$_\n") if (&copy2archive(split(" ",$_)));
+      }
+    }
+    die "\n *** copy2archive failed for\n @err\n" if (@err);
+    prtMess($bpe,"FILES SAVED");
+
+  }
+
+# Save various files (for test purposes)
+# --------------------------------------
+  if ($v_sav eq "Y") {
+    system("tar -cf ${outSav}IAR${yyssss}_PZH.tar ${dirPzh}????${ssss}.${extPzh}");
+    system("gzip -f ${outSav}IAR${yyssss}_PZH.tar");
+  }
+
+# Remove IAR OSB file
+# -------------------
+##  my $filOsb = "${dirOsb}IAR${yyssss}.${extOsb}";
+##  unlink($filOsb);
+  unlink(glob("${dirOut}[WN]LI${yyssss}.${extOut}"));
+##  unlink(glob("${dirOsb}[WN]LI${yyssss}.${extOsb}"));
+
+# Create IAR FLG file (indicating successful ZERO_AR)
+# ---------------------------------------------------
+  system("echo ' ' > $iarFlg");
+
+}

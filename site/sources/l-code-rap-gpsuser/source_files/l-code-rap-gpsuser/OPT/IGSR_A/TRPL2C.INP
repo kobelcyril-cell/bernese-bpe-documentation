@@ -1,0 +1,118 @@
+
+! =========================================================================
+! Bernese GPS Software Version 5.0
+!
+! Input Panel: Convert a BERNESE troposphere file from piecewise linear
+!              to piecewise constant
+!
+! Program    : TRPL2C
+!
+! Created    : 07-May-2003
+! Author     : M. Meindl
+!
+! Copyright  : Astronomical Institute
+!              University of Berne
+!              Switzerland
+! =========================================================================
+! Environment variables
+! ---------------------
+ENVIRONMENT 12
+  "P" "/storage/research/aiub_code"
+  "Q" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "X" "/storage/research/aiub_data/BSWsoftware/BERN/GPS"
+  "U" "/storage/homefs/l_code/GPSUSER"
+  "S" "/storage/research/aiub_data/PRODUCTS"
+  "G" "/storage/research/aiub_u_camp"
+  "USER" "l_code"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 1  "${P}/EXAMPLE"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+USR_INFO 1  "none"
+
+! =========================================================================
+! INPUT FILES
+! =========================================================================
+! Original troposphere file
+! -------------------------
+TROPEST 1  "${P}/EXAMPLE/ATM/$I_22301.TRP"
+  ## widget = selwin; path = DIR_TRP; ext = EXT_TRP; emptyallowed = false
+  # $I_$YD+0
+
+DESCR_TROPEST 1  "Troposphere file"
+
+! =========================================================================
+! OUTPUT FILES
+! =========================================================================
+! Converted troposphere file
+! --------------------------
+TROPRS 1  "${P}/EXAMPLE/ATM/$IO22301.TRP"
+  ## widget = lineedit; path = DIR_TRP; ext = EXT_TRP; emptyallowed = false
+  # $IO$YD+0
+
+DESCR_TROPRS 1  "Converted troposphere file"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${P}/EXAMPLE/OUT/TRPL2C.L04"
+  ## widget = lineedit; activeif = SYSODEF == 0; path = DIR_OUT
+  ## ext = EXT_OUT
+  # ${K}/PPP_MM/OUT/TRPL2C
+
+MSG_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; activeif = ERRMRG == 0; path = PTH_ERR
+  ## ext = EXT_ERR
+  # 
+
+MSG_SYSERR 1  "Error message"
+
+! =========================================================================
+! OPTIONS
+! =========================================================================
+! Title
+! -----
+TITLE 1  "V4.2 TRP DATA DERIVED FROM V5.0 TRP DATA"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONVERT BERNESE TROPOSPHERE FILES (LINEAR TO CONSTANT) - TRPL2C 1            #
+#                                                                              #
+# INPUT FILE                                                                   #
+#   Troposphere estimates  > %%%%%%%% <      (piecewise linear)                # TROPEST
+#                                                                              #
+# OUTPUT FILE                                                                  #
+#   Troposphere estimates  > %%%%%%%% <      (piecewise constant)              # TROPRS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output         > % < use TRPL2C.Lnn             or > %%%%%%%% <    # SYSODEF SYSOUT
+#   Error message          > % < merged to program output   or > %%%%%%%% <    # ERRMRG SYSERR
+#                                                                              #
+# OPTIONS                                                                      #
+#   Title > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <    # TITLE
+#                                                                              #
+# END_PANEL ####################################################################

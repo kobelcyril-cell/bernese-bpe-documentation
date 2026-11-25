@@ -1,0 +1,53 @@
+package ITEPRECL;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ITEPRECL
+#
+# Purpose :  This script manages the iterative process in charge of the
+#            pre-elimination of the clocks
+#
+# Programs:  
+#
+# Author  :  E. Calero
+# Created :  25-Apr-2021            
+#
+# Changes :  31-Oct-2025: CK: Use day-specific MSC directory
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+use lib "$ENV{U}/SCRIPT";
+use JumpLogger qw(logJump);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($iRun,       $param3,
+      $dirOut, $yyddd) =
+      $bpe->getKeys(
+      'STARTCOUNT','PARAM3',
+      'DIR_OUT','$YD+0');
+
+# Use day-specific MSC directory
+# ------------------------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+
+  my $timIntFl = glob("${mscDir}/TIMINT_??");
+  my $timInt   = substr(basename($timIntFl),7,2);
+  my $nTotRun  = 24/$timInt;
+  my $overFile = "${mscDir}/TIMOVER";
+  prtMess($bpe,"Iteration $iRun out of $nTotRun");
+
+  if ( -e $overFile ) {
+    unlink "$overFile";
+  } else {
+    logJump($bpe, $param3);
+    prtGoto($bpe,$param3)
+  }
+}

@@ -1,0 +1,779 @@
+
+COORD 1  "This panel option has to be present because of a bug in the library"
+
+MSG_COORD 1  "Also a description needs to be present"
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Rinex input file
+! ----------------
+RNXFIL_BSW 1  "*_$YYYSS+0"
+  ## widget = selwin; path = DIR_RBO; ext = EXT_RBO; emptyallowed = true
+  ## maxfiles = 999
+
+RNXFIL_BSW_TXT_COL_1 1  "RINEX input files"
+
+MSG_RNXFIL_BSW 1  "RINEX files, Bernese internal naming"
+
+RNXFIL_LONG 1  ""
+  ## widget = selwin; path = DIR_RXO; ext = EXT_RNX; emptyallowed = true
+  ## maxfiles = 999
+
+RNXFIL_LONG_TXT_COL_1 1  "RINEX input files"
+
+MSG_RNXFIL_LONG 1  "RINEX files, RINEX-3-style naming"
+
+RNXFIL_SHORT 1  ""
+  ## widget = selwin; path = DIR_RXO; ext = EXT_RXO; emptyallowed = true
+  ## maxfiles = 999
+
+RNXFIL_SHORT_TXT_COL_1 1  "RINEX input files"
+
+MSG_RNXFIL_SHORT 1  "RINEX files, RINEX-2-style naming"
+
+RNXFIL 1  ""
+  ## widget = selwin; path = DIR_RXO; emptyallowed = true; maxfiles = 999
+
+RNXFIL_TXT_COL_1 1  "RINEX input files"
+
+MSG_RNXFIL 1  "RINEX files, any naming scheme"
+
+! -------------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! Observation selection by new RECEIVER file
+! ------------------------------------------
+OBSSEL 1  ""
+  ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_OBSSEL 1  "Observation selection"
+
+! Print RINEX observation statistics and selection results
+! --------------------------------------------------------
+PRTOSTAT 1  "0"
+  ## widget = checkbox; activeif = OBSSEL /= _
+
+MSG_PRTOSTAT 1  "Print observation statistics"
+
+! Normal equation output file
+! ---------------------------
+NEQOUT 1  "$H$YSS+0"
+  ## widget = lineedit; path = DIR_NEQ; ext = EXT_NEQ; emptyallowed = true
+
+DESCR_NEQOUT 1  "NEQ output file"
+
+! Observable-specific bias output file
+! ------------------------------------
+OSBOUT 1  "$H$YSS+0"
+  ## widget = lineedit; path = DIR_OSB; ext = EXT_OSB; emptyallowed = true
+
+DESCR_OSBOUT 1  "OSB output file"
+
+! Observable-specific bias SINEX output file
+! ------------------------------------------
+BIASSNX 1  "$H$YSS+0"
+  ## widget = lineedit; path = DIR_BIA; ext = EXT_BIA
+
+DESCR_BIASSNX 1  "OSB SINEX output file"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "RNX2OSB_$S+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+NOMSGDATE 0
+
+MSG_NOMSGDATE 1  "Suppress writing of message timestamp"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Print extended OBSSEL warnings (debugging)
+! --------------------------------------------------------
+EXTOUT 1  "0"
+  ## widget = checkbox; activeif = OBSSEL /= _
+
+MSG_EXTOUT 1  "Print extended OBSSEL warnings"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "$(SATINF)_$(PCV)"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "$(BIACRX)"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Sinex header file
+! -----------------
+SINEXIN 1  "$(BIAINF)"
+  ## widget = selwin; path = PTH_SINEXIN; ext = EXT_SINEXIN; maxfiles = 1
+
+DESCR_SINEXIN 1  "SINEX header file"
+
+! Title
+! -----
+TITLE 1  "RNX2OSB_$YSS+0: Direct GNSS bias estimation $YSS+0"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Satellite systems
+! -----------------
+USE_G 1  "1"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Use GPS observations"
+
+USE_R 1  "1"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Use GLONASS observations"
+
+USE_E 1  "1"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Use GALILEO observations"
+
+USE_S 1  "1"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Use SBAS observations"
+
+USE_C 1  "1"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Use BEIDOU observations"
+
+USE_J 1  "1"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Use QZSS observations"
+
+USE_I 1  "0"
+  ## widget = checkbox
+
+MSG_USE_I 1  "Use IRNSS observations"
+
+! Get station name
+! ----------------
+STANAM 1  "MARKER_DOMES"
+  ## widget = combobox; editable = false
+  ## cards = MARKER_NAME MARKER_NUMBER MARKER_DOMES FILE_NAME
+
+MSG_STANAM 1  "Gather station names from"
+
+! STAINFO with information for the Bernese files
+! ----------------------------------------------
+STAINFO 1  ""
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; emptyallowed = true
+  ## maxfiles = 1
+
+DESCR_STAINFO 1  "Station information"
+
+! Program Output Options
+! ----------------------
+SHW_OBSTYPE_STAT 1  "1"
+  ## widget = checkbox
+
+MSG_SHW_OBSTYPE_STAT 1  "Show obs. type stat. of each satellite"
+
+SHW_OBSDIFF_STAT 1  "1"
+  ## widget = checkbox
+
+MSG_SHW_OBSDIFF_STAT 1  "Show obs. diff. stat. of each sta/sat"
+
+SHW_PARAMS 1  "1"
+  ## widget = checkbox
+
+MSG_SHW_PARAMS 1  "Show parameters with local constraints"
+
+SHW_SAT_CLUS 1  "1"
+  ## widget = checkbox
+
+MSG_SHW_SAT_CLUS 1  "Show zero-mean condition clusters on satellites"
+
+SHW_NEQDIAG_LOCQ 1  "1"
+  ## widget = checkbox
+
+MSG_SHW_NEQDIAG_LOCQ 1  "Show NEQ diagonal and parameter LOCQs"
+
+SHW_RESIDUALS 1  "0"
+  ## widget = checkbox
+
+MSG_SHW_RESIDUALS 1  "Show residuals"
+
+! Remove sats not defined in sat info file
+! ----------------------------------------
+RM_UNDEF_SATS 1  "1"
+  ## widget = checkbox
+
+MSG_RM_UNDEF_SATS 1  "Remove sats not defined in sat info file"
+
+! Use Obs. Window
+! ---------------
+USEWIN 1  "1"
+  ## widget = checkbox
+
+MSG_USEWIN 1  "Use observation window"
+
+! Options
+! -------
+MINOBSNB 1  "100"
+  ## widget = spinbox; range = 1 9999 1
+
+MSG_MINOBSNB 1  "Minimum nb. of observations (per type)"
+
+MINSTNNB 1  "1"
+  ## widget = spinbox; range = 1 9999 1
+
+MSG_MINSTNNB 1  "Minimum nb. of stations (per type)"
+
+SIGMA_0 1  "0.001"
+  ## widget = lineedit
+
+MSG_SIGMA_0 1  "A priori sigma of unit weight [m]"
+
+OBS_DIFF_WGT 1  "MAX_APRIORI_EMPIRICAL"
+  ## widget = combobox; editable = false
+  ## cards = APRIORI_ERROR EMPIRICAL_ERROR MAX_APRIORI_EMPIRICAL
+
+MSG_OBS_DIFF_WGT 1  "Observation difference weighting"
+
+CONSTRAINING 1  "0.0001"
+  ## widget = lineedit
+
+MSG_CONSTRAINING 1  "Parameter constraining [ns]"
+
+MAXABSRELRES 1  "100"
+  ## widget = lineedit
+
+MSG_MAXABSRELRES 1  "Maximal absolute relative residual"
+
+NBOUTLREM 1  "1"
+  ## widget = lineedit
+
+MSG_NBOUTLREM 1  "Nb. outliers removed per iteration"
+
+NBRELRESIT 1  "1"
+  ## widget = lineedit
+
+MSG_NBRELRESIT 1  "Nb. rel. res. iterations per adj."
+
+! Observation Window
+! ------------------
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by year and session identifier"
+
+RADIO_2 1  "1"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_2 1  "Defined by start and end times"
+
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 == 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 == 1 AND STADAT /= _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 == 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "24 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 == 1 AND ENDDAT /= _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! Observation type handling
+! -------------------------
+IGNORE_TYPS 1  "GC1P GC2C JC1Z JC9x CC7x"
+  ## widget = lineedit
+
+MSG_IGNORE_TYPS 1  "Observation types to be ignored"
+
+ADD_IGNORED_STAT 1  "1"
+  ## widget = checkbox
+
+MSG_ADD_IGNORED_STAT 1  "Still add ignored types to obs. types statistics"
+
+WARN_CP_MISMATCH 1  "1"
+  ## widget = checkbox
+
+MSG_WARN_CP_MISMATCH 1  "Warn if code and phase obs. type appear. mismatch"
+
+! Parameter constraining
+! ----------------------
+RADIO_ZMC 1  "0"
+  ## widget = radiobutton; group = DATDEF
+
+MSG_RADIO_ZMC 1  "Use zero-mean conditions"
+
+RADIO_RTZ 1  "1"
+  ## widget = radiobutton; group = DATDEF
+
+MSG_RADIO_RTZ 1  "Constrain nominal reference obs. types to zero"
+
+NOM_REF_TYPS 1  "GCxW RCxP ECxC EC5Q SCxI CCxP JCxL JC5Q ICxA"
+  ## widget = lineedit
+
+MSG_NOM_REF_TYPS 1  "Nominal reference observation types"
+
+! Individual receiver or receiver group estimations
+! -------------------------------------------------
+EN_EST_RCG 1  "0"
+  ## widget = checkbox
+
+MSG_EN_EST_RCG 1  "Estimate individual receiver groups"
+
+CPSCR_RCG 1  "0"
+  ## widget = checkbox; activeif = EN_EST_RCG == 1
+
+MSG_CPSCR_RCG 1  "Reuse overall screening for receiver groups"
+
+EN_EST_RCV 1  "0"
+  ## widget = checkbox
+
+MSG_EN_EST_RCV 1  "Estimate individual receivers"
+
+CPSCR_RCV 1  "0"
+  ## widget = checkbox; activeif = EN_EST_RCV == 1
+
+MSG_CPSCR_RCV 1  "Reuse overall screening for receivers"
+
+EN_EST_STN 1  "0"
+  ## widget = checkbox
+
+MSG_EN_EST_STN 1  "Estimate individual stations"
+
+CPSCR_STN 1  "0"
+  ## widget = checkbox; activeif = EN_EST_STN == 1
+
+MSG_CPSCR_STN 1  "Reuse overall screening for stations"
+
+! RINEX options
+! -------------
+RDRXHDUC 1  "1"
+  ## widget = checkbox
+
+MSG_RDRXHDUC 1  "Change header strings to upper case on read"
+
+RX2_RESTR 1  "1"
+  ## widget = checkbox
+
+MSG_RX2_RESTR 1  "Only GPS/GLO and freq. 1 or 2 for RINEX 2"
+
+ERRFROMRXHDR 1  "0"
+  ## widget = checkbox
+
+MSG_ERRFROMRXHDR 1  "Write errs/warns from input RNX hdr comments"
+
+USEHDRSTAT 1  "0"
+  ## widget = checkbox
+
+MSG_USEHDRSTAT 1  "Consider trusted statistics header comment line"
+
+PHSCORRAPPL 1  "SUPPRESS"
+  ## widget = combobox; editable = false; cards = SUPPRESS AS_NEEDED FORCE
+
+MSG_PHSCORRAPPL 1  "Rule for applying phase shift corrections"
+
+! Sampling Interval (sec)    0: Take all observations
+! -----------------------
+SAMPLING 1  "30"
+  ## widget = lineedit
+
+MSG_SAMPLING 1  "Sampling interval (sec)"
+
+! Offset to full minute (sec)
+OFFSET 1  "0"
+  ## widget = lineedit
+
+MSG_OFFSET 1  "Offset to full minute (sec)"
+
+! Sampling tolerance (sec)
+SAMPLTOL 1  "0.5"
+  ## widget = lineedit
+
+MSG_SAMPLTOL 1  "Sampling tolerance (sec)"
+
+! Rejection of fake observations
+! ------------------------------
+REJFAKEOBSMAXFRQ 1  "2"
+  ## widget = spinbox; range = 0 9 1
+
+MSG_REJFAKEOBSMAXFRQ 1  "Maximal frequency for fake observation rejection"
+
+REJFAKEOBSTOL 1  "0.0001"
+  ## widget = lineedit
+
+MSG_REJFAKEOBSTOL 1  "Tolerance for fake observation rejection"
+
+! Use station information file flags
+! ----------------------------------
+STAFLG 1  "0"
+  ## widget = checkbox; activeif = STAINFO /= _
+
+MSG_STAFLG 1  "Consider flags from station information file"
+
+! Information for the Bernese files: flags to be used (TYPE 001)
+! --------------------------------------------------------------
+FLG001 1  "005 999"
+  ## widget = lineedit
+
+MSG_FLG001 1  "Type 001: Renaming of stations"
+
+! Information requested in the RINEX files: check STANAM
+! ------------------------------------------------------
+TSTANAM 1  "WARNING"
+  ## widget = combobox; editable = false
+  ## cards = NO_CHECK WARNING SKIP ERROR
+
+MSG_TSTANAM 1  "Station names"
+
+TRYFILE 1  "1"
+  ## widget = checkbox
+  ## activeif = TSTANAM /= NO_CHECK AND STANAM /= FILE_NAME
+
+MSG_TRYFILE 1  "Try also RINEX filename for station name"
+
+! Verfy station name/number
+! -------------------------
+DOSTAVER 1  "1"
+  ## widget = checkbox
+
+MSG_DOSTAVER 1  "Verify station name/number using"
+
+STAVER 1  "MARKER_DOMES"
+  ## widget = combobox; editable = false; activeif = DOSTAVER == 1
+  ## cards = MARKER_NAME MARKER_NUMBER MARKER_DOMES
+
+MSG_STAVER 1  "Verify station name/number"
+
+! Verify station name using RINEX filename
+! -----------------------------------------
+RNXVER 1  "1"
+  ## widget = checkbox
+
+MSG_RNXVER 1  "Verify station name using RINEX filename"
+
+! Actions in case of inconsistencies in RINEX headers
+! ---------------------------------------------------
+AOF_ANT_MRK_NAM 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOF_ANT_MRK_NAM 1  "Antenna marker name doesn't match file name"
+
+AOM_GLO_FRQ_NBR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GLO_FRQ_NBR 1  "Missing mand. record: GLONASS SLOT / FRQ #"
+
+AOM_GLO_PHS_BIS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GLO_PHS_BIS 1  "Missing mand. record: GLONASS COD/PHS/BIS"
+
+AOM_SYS_PHS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_SYS_PHS 1  "Missing mand. record: SYS / PHASE SHIFT"
+
+AOM_GENERAL 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GENERAL 1  "Other missing mandatory records"
+
+! What to do in case of event flag
+! --------------------------------
+EPOFLAG 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_EPOFLAG 1  "What to do in case of event flag"
+
+! Action in case of incons. hdr. modifications
+! --------------------------------------------
+AOI_HDRMOD 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_HDRMOD 1  "Action in case of incons. hdr. modifications"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CODE OBS SYSTEM BIASES FROM RINEX - RNX2OSB 1: Filenames                     #
+#                                                                              #
+# INPUT FILES                                                                  #
+#   RINEX observation files                                                    #
+#     Bernese internal naming          > %%%%%%%%%%%%%%%%%% <                  # RNXFIL_BSW
+#     RINEX-3-style naming             > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # RNXFIL_LONG
+#     RINEX-2-style naming             > %%%%%%%% <                            # RNXFIL_SHORT
+#     Any naming convention            > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # RNXFIL
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files             > % <                                   # SHOWGEN
+#   Observation selection              > %%%%%%%%%%%% <  Print selection > % < # OBSSEL PRTOSTAT
+#     Caution: - might be necessairy when processing RINEX 2,                  #
+#              - eliminates frequencies when processing RINEX 3                #
+#                                                                              #
+# OUTPUT FILES                                                                 #
+#   Normal equation                    > %%%%%%%%%%%% <                        # NEQOUT
+#   Observable-specific biases         > %%%%%%%%%%%% <                        # OSBOUT
+#   Observable-specific biases (SINEX) > %%%%%%%%%%%% <                        # BIASSNX
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output          > % < use RNX2OSB.Lnn          or > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages          > % < merged to program output or > %%%%%%%%%%%% < # ERRMRG SYSERR
+#   Print extended warnings > % <                                              # EXTOUT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# RNX2OSB 1.1: General Files                                                   #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants          > %%%%%%%%%%%% <                                # CONST
+#   Satellite information      > %%%%%%%%%%%% <                                # SATELL
+#   Satellite problems         > %%%%%%%%%%%% <                                # SATCRUX
+#   SINEX header file          > %%%%%%%%%%%% <                                # SINEXIN
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNX2OSB 2: Processing Options Part I                                         #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# SATELLITE SYSTEMS                                                            #
+#   GPS          > % <      GLONASS     > % <     Galileo      > % <           # USE_G USE_R USE_E
+#   SBAS         > % <      BeiDou      > % <     QZSS         > % <           # USE_S USE_C USE_J
+#                                                                              #
+# STATION NAME TRANSLATION                                                     #
+#   Gather station names from           > %%%%%%%%%%%%% <                      # STANAM
+#   Station information                 > %%%%%%%%%%%% <                       # STAINFO
+#                                                                              #
+# PROGRAM OUTPUT OPTIONS                                                       #
+#   Show observation type statistics of each satellite         > % <           # SHW_OBSTYPE_STAT
+#   Show obs. difference statistics of each station/satellite  > % <           # SHW_OBSDIFF_STAT
+#   Show parameters with local constraints                     > % <           # SHW_PARAMS
+#   Show zero-mean condition clusters on satellites            > % <           # SHW_SAT_CLUS
+#   Show NEQ diagonal and parameter LOCQs                      > % <           # SHW_NEQDIAG_LOCQ
+#   Show residuals                                             > % <           # SHW_RESIDUALS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNX2OSB 3: Processing Options Part II                                        #
+#                                                                              #
+# OPTIONS                                                                      #
+#   Use observation window                    > % <                            # USEWIN
+#   Remove sats not defined in sat info file  > % <                            # RM_UNDEF_SATS
+#   Minimum nb. of observations (per type)    > %%%%% <                        # MINOBSNB
+#   Minimum nb. of stations (per type)        > %%%%% <                        # MINSTNNB
+#   A priori sigma of unit weight             > %%%%%%%%% < m                  # SIGMA_0
+#   Observation difference weighting          > %%%%%%%%%%%%%%%%%%%%%% <       # OBS_DIFF_WGT
+#   Parameter constraining                    > %%%%%%%%% < ns                 # CONSTRAINING
+#   Maximal absolute relative residual        > %%%%%%%%% <                    # MAXABSRELRES
+#   Nb. outliers removed per iteration        > %%%%% <                        # NBOUTLREM
+#   Nb. rel. res. iterations per adj.         > %%%%% <                        # NBRELRESIT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL USEWIN = 1 #######################################################
+# RNX2OSB 3.1: Observation Window                                              #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <   Session > %%%% <                                    # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNX2OSB 4: Processing Options Part III                                       #
+#                                                                              #
+# OBSERVATION TYPE HANDLING                                                    #
+#   Observation types to be ignored ('x' defines any freq. or type attr.)      #
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # IGNORE_TYPS
+#   > % < Still add ignored types to observation type statistics               # ADD_IGNORED_STAT
+#   > % < Warn if code and phase observation type appearance mismatch          # WARN_CP_MISMATCH
+#                                                                              #
+# LOCAL PARAMETER CONSTRAINING (for OSB file only)                             #
+#   > % < Use zero-mean conditions                                             # RADIO_ZMC
+#   > % < Constrain nominal reference observation types to zero                # RADIO_RTZ
+#   Will be applied per system, per station or satellite, per frequency.       #
+#                                                                              #
+#   Nominal reference observation types ('x' defines any freq. or type attr.)  #
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # NOM_REF_TYPS
+#                                                                              #
+# INDIVIDUAL RECEIVER OR RECEIVER GROUP ESTIMATIONS                            #
+#   > % < Estimate individual receiver groups                                  # EN_EST_RCG
+#         > % < Reuse overall screening for receiver groups                    # CPSCR_RCG
+#   > % < Estimate individual receivers                                        # EN_EST_RCV
+#         > % < Reuse overall screening for receivers                          # CPSCR_RCV
+#   > % < Estimate individual stations                                         # EN_EST_STN
+#         > % < Reuse overall screening for stations                           # CPSCR_STN
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNX2OSB 5: RINEX options                                                     #
+#                                                                              #
+# GENERAL RINEX OPTIONS                                                        #
+#   Change hdr strings to upper case on read   > % <                           # RDRXHDUC
+#   Only GPS/GLO and freq. 1 or 2 for RINEX 2  > % <                           # RX2_RESTR
+#   Output errors from input headers           > % <                           # ERRFROMRXHDR
+#                                                                              #
+# SAMPLING                                                                     #
+#   Sampling interval           > %%%%%% < seconds   (0: use all observations) # SAMPLING
+#   Offset to full minute       > %%%%%% < seconds                             # OFFSET
+#   Sampling tolerance          > %%%%%% < seconds                             # SAMPLTOL
+#                                                                              #
+# REJECTION OF FAKE OBSERVATIONS                                               #
+#   Maximal freq. considered    > %%%%%% <           (0: no rejection)         # REJFAKEOBSMAXFRQ
+#   Tolerance                   > %%%%%% <                                     # REJFAKEOBSTOL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RNX2OSB 6: Check Content of RINEX Header                                     #
+#                                                                              #
+# ACTIONS IN CASE OF INCONSISTENCIES                                           #
+#   Station name             > %%%%%%%%% <     Try also filename      > % <    # TSTANAM TRYFILE
+#                                                                              #
+# ADDITIONAL VERIFICATION                                                      #
+#   Verify station name/number using             > % <  > %%%%%%%%%%%%%% <     # DOSTAVER STAVER
+#   Verify station name using RINEX filename     > % <                         # RNXVER
+#                                                                              #
+# Action if marker name doesn't match file name  > %%%%%%%%% <                 # AOF_ANT_MRK_NAM
+#                                                                              #
+# ACTIONS IN CASE OF MISSING MANDATORY HEADER RECORDS                          #
+#   Missing record: GLONASS SLOT / FRQ # > %%%%%%%%% <  (RINEX vers ge 3.01)   # AOM_GLO_FRQ_NBR
+#   Missing record: GLONASS COD/PHS/BIS  > %%%%%%%%% <  (RINEX vers ge 3.02)   # AOM_GLO_PHS_BIS
+#   Missing record: SYS / PHASE SHIFT    > %%%%%%%%% <  (RINEX vers ge 2.12)   # AOM_SYS_PHS
+#   Other missing mandatory records      > %%%%%%%%% <                         # AOM_GENERAL
+#                                                                              #
+# ACTIONS IN SPECIAL SITUATIONS BETWEEN OBSERVATIONS                           #
+#   On epoch events                      > %%%%%%%%% <                         # EPOFLAG
+#   On inconsistent header modifications > %%%%%%%%% <                         # AOI_HDRMOD
+#                                                                              #
+#     NONE@@@@: Just continue                                                  #
+#     WARNING@: Write warning and continue                                     #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################

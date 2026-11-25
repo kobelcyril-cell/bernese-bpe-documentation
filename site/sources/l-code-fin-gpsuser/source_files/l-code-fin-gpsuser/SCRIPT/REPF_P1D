@@ -1,0 +1,152 @@
+package REPF_P1D;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  REPF_P1D
+#
+# Purpose :  Make a "protocol" of the final 1-day solution
+#            (reprocessing mode)
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+#
+# Created :  24-Jul-2008
+#
+# Changes :  05-Aug-2008 PS: Added orbit comparison
+#            17-Jun-2013 SL: Some smaller modifications
+#            21-Jun-2013 PS: $b added, don't stop if W1 file missing
+#            15-Feb-2019 RD: Sort the RINEX messages (use of get_warn.pl)
+#            16-Sep-2019 IS: Change Orbit comparison summary (satellite-wise)
+#
+# ============================================================================
+
+use strict;
+use warnings;
+
+use lib "$ENV{BPE}";
+use bpe_util qw(appFile);
+
+sub run {
+
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyssss,   $yy,       $ssss,  $ddd, $yyddd,
+    $b,        $k,        $u,        $z,
+    $dirOut,   $extOut,
+    $dirSmc,   $extSmc,
+    $dirSum,   $extSum,
+    $dirLst,   $extLst,
+  ) =
+  $bpe->getKeys(
+    '$YSS+0',  '$Y',      '$S+0', '$+0', '$YD+0',
+    'V_B',     'V_K',     'V_U',     'V_Z',
+    'DIR_OUT', 'EXT_OUT',
+    'DIR_SMC', 'EXT_SMC',
+    'DIR_SUM', 'EXT_SUM',
+    'DIR_LST', 'EXT_LST',
+  );
+
+# Initialize processing summary file
+# ----------------------------------
+  my $prcFil = "${dirOut}IGSREP1D.${yy}_${ssss}";
+  unlink($prcFil);
+  my $sumFil;
+
+  my $log = "";
+  $log .= "IGSREP1D finished at: ".gmtime(time)." UT";
+  appFile($log,0,"",$prcFil,0);
+
+  appFile("REPRO 1D BPE PROCESSING SUMMARY FOR YEAR-SESSION $yy-$ssss",
+    0,"",$prcFil,0);
+
+  $sumFil = "${dirOut}RNXSTAT.${yy}_${ddd}";
+  appFile("",1,$sumFil,$prcFil,0);  # CONT_ERR
+
+# Reorder the RNX messages
+# ------------------------
+  system("perl $ENV{AUTO}/get_warn.pl ${dirOut}RNX${yyssss}.ERR ${dirOut}RNX${yyssss}.ERR");
+
+# Append processing summary files
+# -------------------------------
+  $sumFil = "${dirOut}RNX${yyssss}.ERR";
+  if(-s $sumFil) {
+    appFile("PART 0: RINEX INCONSISTENCIES",2,$sumFil,$prcFil,1);
+  }
+
+  $sumFil = "${dirSmc}RXO${yyssss}.${extSmc}";
+  appFile("PART 1: RINEX PSEUDO-GRAPHICS",2,$sumFil,$prcFil,1,"#RNXGRA");
+
+  $sumFil = "${dirLst}DEFXTR.${yy}_${ssss}";
+  appFile("PART 2: APRIORI ORBIT GENERATION SUMMARY",2,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirOut}CODXTR.${yy}_${ssss}";
+  appFile("PART 3: SINGLE-POINT-POSITIONING SUMMARY",2,$sumFil,$prcFil,1,"#CODXTR");
+
+  $sumFil = "${dirOut}MPRXTR.${yy}_${ssss}";
+  appFile("PART 4: DATA PREPROCESSING/SCREENING SUMMARY",2,$sumFil,$prcFil,1,"#MPRXTR");
+
+  $sumFil = "${dirSum}OBX_MPR_${yyddd}.${extSum}";
+  appFile("OBSXTR - satellite statistics",1,$sumFil,$prcFil,1,"#MPROBS");
+
+  $sumFil = "${dirOut}RESCHK.${yy}_${ssss}";
+  appFile("PART 5: POST-FIT RESIDUAL SCREENING SUMMARY",1,$sumFil,$prcFil,1,"#RESCHK");
+
+  $sumFil = "${dirOut}RESRMS.${yy}_${ssss}";
+  appFile("",2,$sumFil,$prcFil,1,"#RESRMS");
+
+  $sumFil = "${dirSum}OBX_EDT_${yyddd}.${extSum}";
+  appFile("OBSXTR - satellite statistics",1,$sumFil,$prcFil,1,"#RESOBS");
+
+  $sumFil = "${dirSum}AMB${yyssss}.${extSum}";
+  appFile("PART 6: AMBIGUITY RESOLUTION SUMMARY",2,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirOut}OBX_AMB_${yyddd}.${extOut}";
+  appFile("OBSXTR - satellite statistics",1,$sumFil,$prcFil,1,"#AMBOBS");
+
+  appFile("PART 7: GNSS COORDINATE/TROPOSPHERE SOLUTION STATISTICS",
+          0,"",$prcFil,0);
+  $sumFil = "${dirSum}${z}_${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+  $sumFil = "${dirSum}${u}_${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+  $sumFil = "${dirSum}${b}_${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,0,"#GPSXTR");
+  $sumFil = "${dirSum}${k}A${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+  $sumFil = "${dirSum}${k}O${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+  $sumFil = "${dirSum}${k}R${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+  $sumFil = "${dirSum}${k}C${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+  $sumFil = "${dirSum}${k}G${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+  $sumFil = "${dirSum}${k}S${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+  $sumFil = "${dirSum}${k}_${yyddd}.${extSum}";
+  appFile("",0,$sumFil,$prcFil,1,"#GPSXTR");
+
+  appFile("",2,"",$prcFil,0);
+
+  appFile("PART 8: GNSS COORDINATE VERIFICATION STATISTICS",
+          0,"",$prcFil,0,"       ");
+  $sumFil = "${dirLst}${k}_${yyddd}.${extLst}";
+  appFile("",2,$sumFil,$prcFil,1,"#HLMTRF");
+
+# Add comparison with last operation set of coordinates
+# $sumFil =
+# appFile
+
+#  $sumFil = "${dirSum}OC1_${yyssss}.${extSum}";
+  $sumFil = "${dirSum}OCMP${yyssss}.${extSum}";  
+  appFile("PART 9: GNSS ORBIT COMPARISON",2,"$sumFil",$prcFil,1);
+
+}
+
+# ============================================================================
+
+__END__

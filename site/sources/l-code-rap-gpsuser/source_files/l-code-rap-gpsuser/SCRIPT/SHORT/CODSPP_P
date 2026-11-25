@@ -1,0 +1,72 @@
+package CODSPP_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  CODSPP_P
+#
+# Purpose :  Parallel CODSPP run
+#
+# Programs:  CODSPP
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  17-Feb-2004/ss: Reduce ITRMAX in ULTRA mode
+#            19-May-2009 rd: Session dependent parallelization filenames
+#            21-May-2019 SS: Print warnings to RNX.ERR
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ssss , $ddd , $yy , $param1 , $subPid ,  $numFil, $numClu , $dirOut  ) =
+  $bpe->getKeys
+     ('$S+0', '$+0', '$Y', 'PARAM1', 'SUB_PID', 'V_CLU', 'V_NCLU', 'DIR_OUT');
+
+# Set cluster number and input files
+# ----------------------------------
+  my $cluster = $numFil eq "" && $numClu eq "" ? "$ddd$param1" : "$ssss$subPid";
+  my $ffff    = $numFil eq "" && $numClu eq "" ? $param1       : "____";
+
+  setUserVar($bpe,"CLUSTER",$cluster,"FFFF",$ffff,"CCC",$subPid);
+
+  if ($numClu eq "" && $numFil eq "") {
+    $bpe->putKey("$ENV{U}/PAN/CODSPP.INP","CODEFILE","$param1$ssss") }
+  else {
+    replaceSel($bpe,"CODSPP","CODEFILE",$param1) }
+
+# Short-cut for the ultra
+# -----------------------
+#  my $ultFlg = "${outDir}../MSC/ULT${yyddd}.FLG";
+#  if (-s $ultFlg) {
+#    $bpe->putKey("$ENV{U}/PAN/CODSPP.INP","ITRMAX",'1') }
+
+# Run program
+# -----------
+  my $PGMNAM = "CODSPP";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Extract warning/error messages
+# ------------------------------
+  &getWarn($bpe,"${dirOut}RNXERR.${yy}_${ssss}");
+
+# Delete BPE file
+# ---------------
+  open (BPE,$param1);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $param1\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+  unlink($param1);
+
+}

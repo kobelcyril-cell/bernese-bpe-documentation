@@ -1,0 +1,108 @@
+package LEO_RNX;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_RNX
+#
+# Purpose :  Copy the observation files for LEOPOD.PCF
+#
+# PARAMs  :
+#
+# Author  :  H. Bock
+# Created :  05-Mar-2012
+#
+# Changes :  09-Oct-2014 DA: Consider V_RNXDIR
+#            06-Jul-2019 DA: Consider V_ATT
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+use File::Copy;
+
+use lib $ENV{BPE};
+use bpe_util qw(crz2rnx);
+
+sub run{
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($leo   , $V_ATT, $leoDir,  $ssss,  $yy, $year4, $ddd,
+      $dirRxo,  $dirAtt,  $extRxo,  $extAtt,
+      $v_a, $v_f, $v_b, $v_clk, $v_sprd, $v_spkn, $v_offs, $v_minel, $v_rnx3,
+      $v_blqinf, $v_atlinf, $v_crdinf, $v_result, $v_pcv, $v_satinf,
+      $v_pcvinf, $v_satcrx, $v_refdir, $v_sav, $v_del, $v_rnxdir, $v_attdir ) =
+  $bpe->getKeys
+     ('V_LEO','V_ATT','V_LEODIR','$S+0', '$Y','$Y+0', '$+0',
+      'DIR_RXO','DIR_ATT','EXT_RXO','EXT_ATT',
+      'V_A', 'V_F', 'V_B', 'V_CLK', 'V_SPRD', 'V_SPKN', 'V_OFFS', 'V_MINEL', 'V_RNX3',
+      'V_BLQINF', 'V_ATLINF', 'V_CRDINF', 'V_RESULT', 'V_PCV', 'V_SATINF',
+      'V_PCVINF', 'V_SATCRX', 'V_REFDIR', 'V_SAV', 'V_DEL', 'V_RNXDIR', 'V_ATTDIR');
+
+# Copy the RINEX files into the RAW-directory of the campaign
+# -----------------------------------------------------------
+  die " *** Need V_RNXDIR\n" unless ($v_rnxdir);
+#  my $rnxDir = "$ENV{D}/$leoDir/RINEX/";
+#  my $rnxDir = "$ENV{HOME}/LEODP/$leoDir/RINEX/";
+#  my $rnxDir = "$ENV{D}/LEO/$leoDir/${year4}/RNX/";
+  my $rnxDir = "$ENV{D}/LEO/$leoDir/${year4}/${v_rnxdir}/";
+  print "RINEX directory: $rnxDir\n";
+  if (-e "${rnxDir}${leo}${ssss}.${yy}D.Z") {
+      if (crz2rnx("${rnxDir}${leo}${ssss}.${yy}D.Z",${dirRxo},"-u")) {
+          print "${rnxDir}${leo}${ssss}.${yy}D.Z --> ${dirRxo}/${leo}${ssss}.${yy}O\n";
+      } else {
+          die " *** CRZ2RNX failed for ${rnxDir}${leo}${ssss}.${yy}D.Z\n";
+      }
+  } elsif (-e "${rnxDir}${leo}${ssss}.${yy}O") {
+      if (copy("${rnxDir}${leo}${ssss}.${yy}O",$dirRxo)) {
+          print "${rnxDir}${leo}${ssss}.${yy}O --> ${dirRxo}/${leo}${ssss}.${yy}O\n";
+      } else {
+          die " *** Could not copy ${rnxDir}${leo}${ssss}.${yy}O\n";
+      }
+  } else {
+      die " *** No RINEX file ${leo}${ssss} found\n";
+  }
+
+# Copy the attitude files into the ORB-directory of the campaign (if V_ATTDIR is set)
+# --------------------------------------------------------------
+  if ($v_attdir) {
+#  my $attDir = "$ENV{D}/$leoDir/ATTIT/";
+#  my $attDir = "$ENV{HOME}/LEODP/$leoDir/ATTIT/";
+      my $attDir = "$ENV{D}/LEO/$leoDir/${year4}/${v_attdir}/";
+      print "Attitude directory: $attDir\n";
+      my $ext = '';
+      my $V_ATTE = eval "\"$V_ATT\""; # Resolve variables in V_ATT
+      # Resolve Bernese session variable in V_ATTE
+      my $V_ATTE_res = $V_ATTE;
+      if ($V_ATTE_res =~ /\$YD\+0/) {
+          $V_ATTE_res =~ s/\$YD\+0/${yy}${ddd}/;
+      } elsif ($V_ATTE_res =~ /\$YSS\+0/) {
+          $V_ATTE_res =~ s/\$YSS\+0/${yy}${ssss}/;
+      }
+
+      if (-e "${attDir}${V_ATTE_res}.${extAtt}.bz2") {
+          copy("${attDir}${V_ATTE_res}.${extAtt}.bz2",$dirAtt);
+          system("bunzip2 -f ${dirAtt}${V_ATTE_res}.${extAtt}.bz2");
+          $ext = "${extAtt}.bz2";
+      } elsif ("${attDir}${V_ATTE_res}.${extAtt}") {
+          copy("${attDir}${V_ATTE_res}.${extAtt}",$dirAtt);
+          $ext = "${extAtt}";
+      } else {
+          die " *** No attitude file ${V_ATTE_res} found\n";
+      }
+
+      if (-e "${dirAtt}${V_ATTE_res}.${extAtt}") {
+          my $age = time-(stat("${dirAtt}${V_ATTE_res}.${extAtt}"))[9];
+          if ($age > 30) {
+              die " *** ${dirAtt}${V_ATTE_res}.${extAtt} too old ($age)\n";
+          } else {
+              print "${attDir}${V_ATTE_res}.$ext --> ${dirAtt}/${V_ATTE_res}.${extAtt}\n";
+          }
+      } else {
+          die " *** Could not copy ${attDir}${V_ATTE_res}.$ext\n";
+      }
+  } else {
+      print "No attitude file required\n";
+  }
+}

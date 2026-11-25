@@ -1,0 +1,89 @@
+package GIMCLUAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GIMCLUAP
+#
+# Purpose :  Prepare parallel GPSEST run
+#
+# PARAMs  :  PARAM2 - output file identifier (default: GIM)
+#            PARAM3 - empty: stop if no CZH files are found
+#
+# Author  :  S. Schaer
+# Created :  22-Mar-2004
+#
+# Changes :  31-Jan-2005 mm: New initPar call (w/o tmpFil)
+#            11-Aug-2011 RD: Updated for version 5.2
+#            17-Oct-2014 SS: Updated for ionosphere analysis
+#            22-Apr-2016 SS: Delete extra NEQ files
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtErr initPar_Bl initPar_Cl);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ddd, $yyddd, $ssss,
+      $param2, $param3, $clu, $dirBpe,
+      $dirCzh, $dirOut, $dirRes, $dirCrd, $dirTrp, $dirIon, $dirNeq,
+      $extCzh, $extOut, $extRes, $extCrd, $extTrp, $extIon, $extNeq) =
+  $bpe->getKeys
+     ('$+0', '$YD+0', '$S+0',
+      'PARAM2', 'PARAM3', 'V_CLU', 'DIR_BPEPRT',
+      'DIR_CZH', 'DIR_OUT', 'DIR_RES', 'DIR_CRD', 'DIR_TRP', 'DIR_ION', 'DIR_NEQ',
+      'EXT_CZH', 'EXT_OUT', 'EXT_RES', 'EXT_CRD', 'EXT_TRP', 'EXT_ION', 'EXT_NEQ');
+
+# Delete old files (OUT, SMC)
+# ---------------------------
+  my $est = "GIM";
+  if ( $param2 ne "" ) {
+    $est = defined $$bpe{$param2} ? $$bpe{$param2} : $param2;
+  }
+  my $es_ = substr($est,0,2)."_";
+  if ($clu ne "") {
+    unlink glob("${dirOut}${est}${ddd}[0-9][0-9][0-9].${extOut}");
+    unlink glob("${dirRes}${est}${ddd}[0-9][0-9][0-9].${extRes}");
+    unlink glob("${dirCrd}${est}${ddd}[0-9][0-9][0-9].${extCrd}");
+    unlink glob("${dirTrp}${est}${ddd}[0-9][0-9][0-9].${extTrp}");
+    unlink glob("${dirIon}${est}${ddd}[0-9][0-9][0-9].${extIon}");
+    unlink glob("${dirNeq}${est}${ddd}[0-9][0-9][0-9].${extNeq}");
+    unlink glob("${dirOut}${es_}${ddd}[0-9][0-9][0-9].${extOut}");
+    unlink glob("${dirNeq}${es_}${ddd}[0-9][0-9][0-9].${extNeq}");
+  } else {
+    unlink glob("${dirOut}${est}${ddd}????.${extOut}");
+    unlink glob("${dirRes}${est}${ddd}????.${extRes}");
+    unlink glob("${dirCrd}${est}${ddd}????.${extCrd}");
+    unlink glob("${dirTrp}${est}${ddd}????.${extTrp}");
+    unlink glob("${dirIon}${est}${ddd}????.${extIon}");
+    unlink glob("${dirNeq}${est}${ddd}????.${extNeq}");
+    unlink glob("${dirOut}${es_}${ddd}????.${extOut}");
+    unlink glob("${dirNeq}${es_}${ddd}????.${extNeq}");
+  }
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}${est}${ddd}";
+  my @czhFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+  if ($clu ne "") {
+    initPar_Cl($bpe,$bpeFil,@czhFil,0,$clu,0);
+  } else {
+    @czhFil = map { substr(basename($_),0,4) } @czhFil;
+    initPar_Bl($bpe,@czhFil);
+  }
+
+# Stop if no CZH files found
+# --------------------------
+  if (@czhFil == 0 && $param3 eq "") {
+    prtErr($bpe,"No CZH files found") and
+      die "No CZH files found for session ${ssss}";
+  }
+
+}

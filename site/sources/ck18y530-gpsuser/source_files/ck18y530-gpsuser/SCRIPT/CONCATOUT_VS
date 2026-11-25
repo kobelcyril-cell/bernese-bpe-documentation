@@ -1,0 +1,68 @@
+package CONCATOUT_VS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CONCATOUT_VS
+#
+# Purpose :  Concatenate VALIDATE_SOLUTION.PCF output files
+#
+# PARAMs  :
+#
+# Author  :  C. Kobel
+# Created :  16-Mar-2026
+#
+# ============================================================================
+use strict;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($dirOut,$CRD,$STD,$OUT) = $bpe->getKeys('DIR_OUT','V_CRD','V_STD','V_OUT');
+
+# Set input/output files
+# ----------------------
+  my @files = (
+      "$dirOut/COMPAR2$CRD.OUT",
+      "$dirOut/HELMR1$CRD.OUT",
+      "$dirOut/STDELE$STD.OUT",
+      "$dirOut/V1_.LST"
+  );
+
+  my $outFile = "$dirOut/$OUT.VAL";
+
+# Concatenate files
+# -----------------
+  open my $OUT, '>', $outFile or die "Cannot open $outFile: $!";
+
+  foreach my $file (@files) {
+      open my $IN, '<', $file or die "Cannot open $file: $!";
+      while (my $line = <$IN>) {
+          print $OUT $line;
+      }
+      close $IN;
+  }
+
+  close $OUT;
+
+# ---------------------------------------------------------------------------
+# Rename V1 output files
+# ---------------------------------------------------------------------------
+foreach my $file (glob("$dirOut/V1_*.LST"), glob("$dirOut/V1_*.LIS")) {
+
+    my ($name) = $file =~ /([^\/]+)$/;   # basename extraction
+    my $newname = "$dirOut/$OUT$name";
+
+    if (-e $newname) {
+        print "$newname already exists\n";
+        next;
+    }
+
+    copyfile($file, $newname) or die "Cannot copy $file -> $newname : $!";
+    print "Copied $file -> $newname\n";
+}
+
+}

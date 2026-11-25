@@ -1,0 +1,309 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show general configuration"
+
+! Coordinate File Names (input)
+! -----------------------------
+STDELE 1  "ORBMISC_$(STD)*.OUT"
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+
+MSG_STDELE 1  "List of STDELE output files"
+
+STDELEKEY 1  "$(STD)"
+  ## widget = lineedit
+
+MSG_STDELEKEY 1  "Solution ID to be plotted"
+
+WHAT 1  "POS"
+  ## widget = combobox; cards = RAD ALO OUT POS BETA
+
+MSG_WHAT 1  "Select the content of the plot"
+
+STDELE_REF 1  "ORBMISC_F$(SOL)_*.OUT"
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+
+MSG_STDELE_REF 1  "List of reference STDELE output files"
+
+STDELEKEY_REF 1  "F$(SOL)"
+  ## widget = lineedit
+
+MSG_STDELEKEY_REF 1  "Solution ID reference to be plotted"
+
+SORT 1  "PRN"
+  ## widget = combobox; cards = PRN SVN Plane
+
+MSG_SORT 1  "Select the content of the plot"
+
+! Filename for resulting plotz (output)
+! -------------------------------------
+FIGSHOW 1  "1"
+  ## widget = checkbox
+
+MSG_FIGSHOW 1  "Show resulting figure on the screen"
+
+FIGOUT 1  "plotSTDELE.png"
+  ## widget = lineedit; path = DIR_FIG; ext = NO_EXT; maxfiles = 1
+
+DESCR_FIGOUT 1  "Output file for STDELE plot"
+
+FIGRES 1  "300"
+  ## widget = lineedit; check_type = integer; check_min = 50
+
+MSG_FIGRES 1  "Resolution of the figure"
+
+! Title: new entry
+! ----------------
+TITLE 1  "Orbit misclosures differences (ZD-DD)"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+TIT_FONTSIZE 1  "large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_TIT_FONTSIZE 1  "Font size in the title"
+
+BGCOLOR 1  "white"
+  ## widget = combobox; editable = true
+  ## cards = white red green blue yellow orange magenta cyan grey
+
+MSG_BGCOLOR 1  "Plot background color"
+
+! Size of the plot
+! ----------------
+SIZEX 1  "8"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEX 1  "Width of the plot"
+
+SIZEY 1  "16"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEY 1  "Height of the plot"
+
+! Define colormap
+! ---------------
+CMAP 1  "RdYlGn"
+  ## widget = combobox
+  ## cards = MANUAL Accent Blues BrBG BuGn BuPu CMRmap Dark2 GnBu Greens Greys OrRd Oranges PRGn Paired Pastel1 Pastel2 PiYG PuBu PuBuGn PuOr PuRd Purples RdBu RdGy RdPu RdYlBu RdYlGn Reds Set1 Set2 Set3 Spectral Vega10 Vega20 Vega20b V
+
+MSG_CMAP 1  "Select the colormap"
+
+CMAP_MANUAL 1  "" ""
+  ## widget = uniline; activeif = CMAP = MANUAL; numlines = 5
+  ## check_type.1 = real; check_min.1 = 0; check_max.1 = 1
+
+MSG_CMAP_MANUAL 1  "Create an user defined color map"
+
+CREVERSE 1  "0"
+  ## widget = checkbox
+
+MSG_CREVERSE 1  "Reverse the colormap"
+
+CMIN 1  ""
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_CMIN 1  "Minimum value for colormap"
+
+CMAX 1  ""
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_CMAX 1  "Maximum value for colormap"
+
+CLABEL 1  "mm"
+  ## widget = lineedit
+
+MSG_CLABEL 1  "Label for colormap"
+
+! Plotting options for GPS
+! ------------------------
+USE_GPS 1  "1"
+  ## widget = checkbox
+
+MSG_USE_GPS 1  "Include stations tracked GPS"
+
+! Plotting options for GLONASS
+! ----------------------------
+USE_GLO 1  "1"
+  ## widget = checkbox
+
+MSG_USE_GLO 1  "Include stations tracked GLONASS"
+
+! Plotting options for Galileo
+! ----------------------------
+USE_GAL 1  "1"
+  ## widget = checkbox
+
+MSG_USE_GAL 1  "Include stations tracked Galileo"
+
+! Plotting options for SBAS
+! -------------------------
+USE_SBS 1  "1"
+  ## widget = checkbox
+
+MSG_USE_SBS 1  "Include stations tracked SBAS"
+
+! Plotting options for BeiDou
+! ---------------------------
+USE_BDS 1  "1"
+  ## widget = checkbox
+
+MSG_USE_BDS 1  "Include stations tracked BeiDou"
+
+! Plotting options for QZSS
+! -------------------------
+USE_QZS 1  "1"
+  ## widget = checkbox
+
+MSG_USE_QZS 1  "Include stations tracked QZSS"
+
+! Labels for the time axis
+! ------------------------
+XLABEL 1  "YYYY-DOY"
+  ## widget = combobox; cards = YYYY-DOY YYYY-MM-DD DD-MM-YYYY
+
+MSG_XLABEL 1  "Layout of the labels in the time axis"
+
+XTICK_N 1  "0"
+  ## widget = radiobutton; group = XTICK; radiokeys = XTICK_NUM
+
+MSG_XTICK_N 1  "Number of labels in the time axis"
+
+XTICK_NUM 1  "15"
+  ## widget = spinbox; range = 1 100 1
+
+MSG_XTICK_NUM 1  "Number of labels in the time axis"
+
+XTICK_D 1  "1"
+  ## widget = radiobutton; group = XTICK; radiokeys = XTICK_DEL
+
+MSG_XTICK_D 1  "Delta of labels in the time axis"
+
+XTICK_DEL 1  "2"
+  ## widget = spinbox; range = 1 100 1
+
+MSG_XTICK_DEL 1  "Delta of labels in the time axis"
+
+! Specify the legend characteristics
+! ----------------------------------
+LEGEND 1  "0"
+  ## widget = checkbox
+
+MSG_LEGEND 1  "Plot a legend"
+
+XYAUTO 1  "1"
+  ## widget = checkbox
+
+MSG_XYAUTO 1  "Plot a legend"
+
+FONTSCALE 1  "1.2"
+  ## widget = lineedit; check_type = real
+
+MSG_FONTSCALE 1  "Font scale"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PLOT ORBIT MISCLOSURES FROM STDELE - plotSTDELE 1: Input/output files        #
+#                                                                              #
+# GENERAL CONFIGURATION                                                        #
+#   Show general configuration        > % <                                    # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Input STDELE program output files > %%%%%%%% <                             # STDELE
+#   Solution ID to be plotted         > %%%% <                                 # STDELEKEY
+#   Define the component to be plotted> %%%%%%%% <                             # WHAT
+#                                                                              #
+# REFERENCE IF DIFFERENCE SHALL BE PLOTTED (otherwise empty)                   #
+#   Input STDELE program output files > %%%%%%%% <                             # STDELE_REF
+#   Solution ID to be plotted         > %%%% <                                 # STDELEKEY_REF
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Show figure on the screen         > % <                                    # FIGSHOW
+#   Name of the output file           > %%%%%%%%%%%%%%%%%%%%%%%% <             # FIGOUT
+#                                       (extension defines the format)         #
+#   Resolution of the figure          > %%%% < dpi                             # FIGRES
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# plotSTDELE 1.1: General Configuration                                        #
+#                                                                              #
+# FONT DEFINITIONS                                                             #
+#   Title                       > %%%%%%%%%% <                                 # TIT_FONTSIZE
+#   Font scale                  > %%%%%%%%%%%% <                               # FONTSCALE
+#                                                                              #
+# COLOR DEFINITIONS                                                            #
+#   Background color of the plot> %%%%%%%%%% <                                 # BGCOLOR
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotSTDELE 2: Plot layout                                                    #
+#                                                                              #
+# CONTENT OF THE PLOT                                                          #
+#   Title > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+#   Include satellites from system                                             #
+#                > % < GPS      > % < GLONASS  > % < Galileo                   # USE_GPS USE_GLO USE_GAL
+#                > % < SBAS     > % < BeiDou   > % < QZSS                      # USE_SBS USE_BDS USE_QZS
+#                                                                              #
+# COLOR MAP LAYOUT                                                             #
+#   Define color map            > %%%%%%%%%%%%%%%%%%%% <   > % < reverse       # CMAP CREVERSE
+#      Range of values      min > %%%%% <  max > %%%%% <                       # CMIN CMAX
+#      Label for colormap       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # CLABEL
+#                                                                              #
+# PLOT LAYOUT                                                                  #
+#   Size of the plot:   width   > %%%%%%%%%% <    height  > %%%%%%%%%% <       # SIZEX SIZEY
+#   Sort order of the satellites> %%%%%%% <                                    # SORT
+#   Layout of the time axis     > %%%%%%% <                                    # XLABEL
+#      > % <  number of tickmarks/labels      > %%%% <                         # XTICK_N XTICK_NUM
+#      > % <  delta between tickmarks/labels  > %%%% <  days                   # XTICK_D XTICK_DEL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL CMAP = MANUAL ####################################################
+# plotSTDELE 2.1: User defined color map                                       #
+#                                                                              #
+# Create an user defined colormap                                              #
+# > value__ color_______ <         define colors for 0.0 and 1.0               # CMAP_MANUAL
+#                                  additional value/color combinations         #
+#                                    may be added inbetween                    #
+#                                                                              #
+# END_PANEL ####################################################################

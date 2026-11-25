@@ -1,0 +1,75 @@
+package GIM_NEQ;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GIM_NEQ
+#
+# Purpose :  Get old ION and NQ0 information from save disk (if necessary).
+#
+# Programs:
+#
+# PARAMs  :  PARAM1 - GIM (1-day) solution identifier
+#
+# Remark  :
+#
+# Author  :  S. Schaer
+# Created :  21-Oct-2014
+#
+# Changes :  25-May-2016 SS: Updated NEQ file identifier (from Z1_ to Z1I)
+#            03-Jun-2016 SS: Renamed script
+#            08-Jun-2016 SS: gunzip NEQ files
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yydddm1, $yydddm2, $yyyy, $yyyym1, $yyyym2,
+      $repro,
+      $pcfFil, $param1,
+      $dirIon ,$extIon, $dirNeq, $extNeq) =
+    $bpe->getKeys('$YD+0', '$YD-1', '$YD-2', '$Y+0', '$Y-1', '$Y-2',
+                  'V_REPRO',
+                  'PCFFIL', 'PARAM1',
+                  'DIR_ION', 'EXT_ION', 'DIR_NEQ', 'EXT_NEQ');
+
+  $param1 = $$bpe{"V_$param1"} if length($param1) == 1;
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+# Check whether necessary ION and NEQ files exist
+# -----------------------------------------------
+  unless($repro){
+    if ($pcfFil eq "IGSIONO") {
+      my $inp = "$PATH_SAV/$CAMP_SAVIGS/$yyyy/ATM/${param1}_${yyddd}.${extIon}";
+      my $out ="${dirIon}${param1}_${yyddd}.${extIon}";
+      unless (-s $out) { copy($inp,$out); prtMess($bpe,"$inp COPIED") }
+      $inp = "$PATH_SAV/$CAMP_SAVIGS/$yyyym1/ATM/${param1}_${yydddm1}.${extIon}";
+      $out ="${dirIon}${param1}_${yydddm1}.${extIon}";
+      unless (-s $out) { copy($inp,$out); prtMess($bpe,"$inp COPIED") }
+      $inp = "$PATH_SAV/$CAMP_SAVIGS/$yyyym2/ATM/${param1}_${yydddm2}.${extIon}";
+      $out ="${dirIon}${param1}_${yydddm2}.${extIon}";
+      unless (-s $out) { copy($inp,$out); prtMess($bpe,"$inp COPIED") }
+
+      $inp = "$PATH_SAV/$CAMP_SAVIGS/$yyyy/SOL/${param1}I${yyddd}.${extNeq}.gz";
+      $out ="${dirNeq}${param1}I${yyddd}.${extNeq}";
+      unless (-s $out || -s "${out}.gz") { copy($inp,"${out}.gz"); system("gunzip ${out}.gz"); prtMess($bpe,"$inp COPIED") }
+      $inp = "$PATH_SAV/$CAMP_SAVIGS/$yyyym1/SOL/${param1}I${yydddm1}.${extNeq}.gz";
+      $out ="${dirNeq}${param1}I${yydddm1}.${extNeq}";
+      unless (-s $out || -s "${out}.gz") { copy($inp,"${out}.gz"); system("gunzip ${out}.gz"); prtMess($bpe,"$inp COPIED") }
+      $inp = "$PATH_SAV/$CAMP_SAVIGS/$yyyym2/SOL/${param1}I${yydddm2}.${extNeq}.gz";
+      $out ="${dirNeq}${param1}I${yydddm2}.${extNeq}";
+      unless (-s $out || -s "${out}.gz") { copy($inp,"${out}.gz"); system("gunzip ${out}.gz"); prtMess($bpe,"$inp COPIED") }
+    }
+  }
+}
+

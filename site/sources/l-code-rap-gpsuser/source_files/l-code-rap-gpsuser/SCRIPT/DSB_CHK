@@ -1,0 +1,95 @@
+package DSB_CHK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  DSB_CHK
+#
+# Purpose :  Check whether list of DSB observation types unchanged and
+#            release SMS in case of any change.
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  28-Jun-2023
+#
+# Changes :  __-___-____/__:
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $mjd, $sav, $dis, $upd, $dirOut, $dirOsb, $extOsb) =
+    $bpe->getKeys('$YD+0', '$JD+0', 'V_SAV', 'V_DIS', 'V_UPD', 'DIR_OUT', 'DIR_OSB', 'EXT_OSB');
+
+  my $mjd0 = gps_date("-doy 0 -o %IJ");
+
+# Define yyssss dates to be compared with each other
+# --------------------------------------------------
+  my $yyssss   = gps_date("-yd $yyddd       -o %y%j0");
+  my $yyssssm1 = gps_date("-yd $yyddd -d -1 -o %y%j0");
+
+# Initialize DSB OBS lists
+# ------------------------
+  my @obsNow = ();
+  my @obsLst = ();
+
+# Define all GNSS to be considered/checked
+# ----------------------------------------
+  my @sys = ("G","R","E","C","J","S");
+  foreach $sys (@sys) {
+    my $fil = "${dirOsb}/D1${sys}${yyssss}.${extOsb}";
+    if (-e $fil) {
+      my @obs = `grep '^OSB' $fil | grep ' ${sys}[0-9][0-9] ' | cut -c39-41 | sort -u`;
+      chomp(@obs);
+      map { push(@obsNow,"${sys}:$_") } @obs;
+    }
+    $fil = "${dirOsb}/D1${sys}${yyssssm1}.${extOsb}";
+    if (-e $fil) {
+      @obs = `grep '^OSB' $fil | grep ' ${sys}[0-9][0-9] ' | cut -c39-41 | sort -u`;
+      chomp(@obs);
+      map { push(@obsLst,"${sys}:$_") } @obs;
+    }
+  }
+  my $obsNow = join(" ",@obsNow);
+  my $obsLst = join(" ",@obsLst);
+  prtMess($bpe,"LIST OF DSB OBS: $obsNow");
+
+  my @difObs = ();
+  foreach my $obs (@obsNow) {
+    push(@difObs,"\+$obs") if lindex($obs,@obsLst)==-1;
+  }
+  foreach my $obs (@obsLst) {
+    push(@difObs,"\-$obs") if lindex($obs,@obsNow)==-1;
+  }
+  my $diff = join(" ",@difObs);
+  prtMess($bpe,"DIFF: $diff");
+
+# Release SMS in case of changed GNSS DSB observation types
+# ---------------------------------------------------------
+  if ($diff ne "") {
+    $obsChg = "DSB_CHK: GNSS DSB observation types changed from ${yyssssm1} to ${yyssss}: $diff";
+    msg2key("NEW",$obsChg);
+    prtMess($bpe,"SMS: $obsChg");
+  }
+
+# Update most recent DSB OBS list
+# -------------------------------
+  if ($upd eq "Y") {
+    `echo '$obsNow' > ${dirOut}../MSC/DSB.LST`;
+  }
+
+}

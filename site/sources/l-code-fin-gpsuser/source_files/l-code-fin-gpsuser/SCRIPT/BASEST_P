@@ -1,0 +1,126 @@
+package BASEST_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  BASEST_P
+#
+# Purpose :  Execute GPSEST for baseline-wise analysis
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#
+# Author  :  R. Dach
+# Created :  26-mar-2010
+#
+# Changes :  12-Sep-2017 RD: Switch if APL files are missing, only to be
+#                            activated if APL files are missing too long for
+#                            week submission
+#            01-Nov-2017 SS: Added GMF/VMF model switch
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,   $ssss , $ddd , $param1 , $subPid,   $loading, 
+      $dirGrd, $dirOut,
+      $extGrd) =
+  $bpe->getKeys
+     ('$YD+0', '$S+0', '$+0', 'PARAM1', 'SUB_PID', 'V_LOADNG', 
+      'DIR_GRD', 'DIR_OUT',
+      'EXT_GRD');
+
+# Set cluster number and input files
+# ----------------------------------
+  my $cluster = "$ddd$param1";
+
+  setUserVar($bpe,"CLUSTER",$cluster,"CCC",$subPid);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PSFILES","$param1$ssss");
+
+# GMF/VMF troposphere model switch
+# --------------------------------
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+  my $flgLin = -e $flgFil ? `cat $flgFil` : "VMF";
+  chomp($flgLin);
+  prtMess($bpe,"GMF/VMF troposphere model switch: $flgLin");
+  if ($flgLin eq "GMF") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_GMF");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_GMF");
+  } elsif ($flgLin eq "VMF") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",'VMF$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_VMF");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_VMF");
+  } else {
+      exit 0;
+  }
+
+### -----------------------------------------------------------
+### only to be activated if APL-Files are missing too long for
+### week submission
+### -----------------------------------------------------------
+### APL model missing
+#  $flgFil = "${dirOut}../MSC/APL_${yyddd}.FLG";
+###  $flgFil = "${dirOut}../MSC/APL_13200.FLG";
+#
+#  if (-e $flgFil) {
+#    prtMess($bpe,"APL model missing: $flgFil");
+#    print "\n\nAPL model missing: ${flgFil}\n\n";
+#    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","ALOAD_FILES",' ');
+#  }
+### -----------------------------------------------------------
+
+## -----------------------------------------------------------
+## only to be activated if APL-Files are missing too long for
+## week submission
+## -----------------------------------------------------------
+  my %grdFilLst = $loading eq "VAPL" ? 
+                           ("ALOAD_FILES" => "APL${yyddd}",
+                            "ONTLD_FILES" => "",
+                            "HLOAD_FILES" => "") :
+                  $loading eq "GFZ" ?
+                           ("ALOAD_FILES" => "NTAL_${yyddd}",
+                            "ONTLD_FILES" => "NTOL_${yyddd}",
+                            "HLOAD_FILES" => "HYDL_${yyddd}") :
+                  $loading eq "NONE" ?
+                           ("ALOAD_FILES" => "",
+                            "ONTLD_FILES" => "",
+                            "HLOAD_FILES" => "") :
+                  # else case
+                           ("ALOAD_FILES" => "undef",
+                            "ONTLD_FILES" => "undef",
+                            "HLOAD_FILES" => "undef");
+
+  if ( $grdFilLst{"ALOAD_FILES"} eq "undef" ) {
+    die "\nUnsupported source of loading files!\n" .
+        "Currently supported values are: NONE, VAPL, GFZ\n\n";
+  }
+
+  foreach my $keyNam (keys %grdFilLst) {
+    print ": $keyNam : $grdFilLst{$keyNam} : ${dirGrd}$grdFilLst{$keyNam}.${extGrd} :\n";
+    if ( $grdFilLst{$keyNam} eq "" ) {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP",$keyNam,"");
+    } elsif ( -s "${dirGrd}$grdFilLst{$keyNam}.${extGrd}" ) {
+      prtMess($bpe,"Grid file for model ".substr($keyNam,0,5)." set to: $grdFilLst{$keyNam}");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP",$keyNam,$grdFilLst{$keyNam});
+    } else {
+      prtMess($bpe,"Grid file $grdFilLst{$keyNam} for model ".substr($keyNam,0,5)." is missing -- disabled");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP",$keyNam,"");
+    }
+  }
+
+## -----------------------------------------------------------
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

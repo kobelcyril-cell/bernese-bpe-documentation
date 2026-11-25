@@ -1,0 +1,69 @@
+package SAVERES;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  SAVERES
+#
+# Purpose :  Save results
+#
+# PARAMs  :  PARAM1 - A priori (FA) solution
+#            PARAM2 - Final (IA) 1-day-arc solution
+#            PARAM3 - Weights for code observations
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx
+#
+# Changes :  
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $yyddd, $ssss,
+      $fin, $save,
+      $dirRxc,  $dirCrd,  $dirStd,  $dirClk,  $dirErp,  $dirRpr,  $dirPre,
+      $dirFix,  $dirNeq,  $dirSos,  $dirOsb,  $dirPzh,  $dirBpe,
+      $extRxc,  $extCrd,  $extStd,  $extClk,  $extErp,  $extRpr,
+      $extFix,  $extNeq,  $extSos,  $extOsb,  $extPre
+      ) =
+    $bpe->getKeys(
+      '$YSS+0','$YD+0','$S+0',
+      $$bpe{PARAM1},'$(SAVE)',
+      'DIR_RXC','DIR_CRD','DIR_STD','DIR_CLK','DIR_ERP','DIR_RPR','DIR_PRE',
+      'DIR_FIX','DIR_NEQ','DIR_SOS','DIR_OSB','DIR_PZH','DIR_BPEOUT',
+      'EXT_RXC','EXT_CRD','EXT_STD','EXT_CLK','EXT_ERP','EXT_RPR',
+      'EXT_FIX','EXT_NEQ','EXT_SOS','EXT_OSB','EXT_PRE'
+      );
+
+  if ( $save eq "YES" ) {
+
+#   Create results folders
+#   ----------------------
+    my $resFol = "$ENV{K}/CK_ZDGNSS_ARCHIVE/${yyddd}/";
+    my $resOrb = "$resFol/ORB/";
+    my $resSta = "$resFol/STA/";
+    my $resOut = "$resFol/OUT/";
+    system("cd $ENV{K}/CK_ZDGNSS_ARCHIVE/; tar xvfz ${yyddd}.tgz");
+
+
+#   Copy files
+#   ----------
+    copyfile("${dirCrd}${fin}_$yyssss.${extCrd}","${resSta}");
+    copyfile("${dirPre}${fin}_$yyssss.${extPre}","${resOrb}");
+    copyfile("${dirStd}${fin}_$yyssss.${extStd}","${resOrb}");
+    copyfile("${dirErp}${fin}_$yyssss.${extErp}","${resOrb}");
+    copyfile("${dirClk}${fin}S$yyssss.${extClk}","${resOrb}");
+    copyfile("${dirRxc}${fin}S$yyssss.${extRxc}","${resOut}");
+    copyfile("${dirRxc}/${fin}_${yyssss}001.OUT","${resOut}");
+
+    system("cd $resFol/..; tar cvfz ${yyddd}_tmp.tgz ${yyddd}; rm -r ${yyddd}; mv ${yyddd}.tgz ${yyddd}_rmv.tgz; mv ${yyddd}_tmp.tgz ${yyddd}.tgz; rm ${yyddd}_rmv.tgz");
+    system("cd $ENV{K}/CK_ZDGNSS_ARCHIVE/; touch ${yyddd}_3D.SAVE");
+  }
+
+}

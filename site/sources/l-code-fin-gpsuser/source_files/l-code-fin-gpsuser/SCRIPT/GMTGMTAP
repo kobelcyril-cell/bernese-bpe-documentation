@@ -1,0 +1,152 @@
+package GMTGMTAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GMTGMTAP
+#
+# Purpose :  Prepare a station-wise GMT-based plotting
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  10-Jun-2013
+#
+# Changes :  06-Nov-2019 MK: add Galileo
+#            16-Apr-2020 AV: disable setVar (menu-bug)
+#            22-Sep-2025 EB: plots not only for sites with day of current session
+#                            (which might be only a few re-processed), but all in
+#                            various PLT files to update also the generated
+#                            station html page containing other than PPP results
+#            23-Sep-2025 EB: plot generation from FPPP_PRC moved to here
+#            17-Dec-2025 EB: crd_rep.pl reports to log
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtErr initPar_Bl initPar_Cl);
+use lib $ENV{AUTO};
+use igs_device;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($CAMP_PTH, $CAMPAIGN, $ssss    ,
+      $param2  , $param3  , $param4  , $param5  ,
+      $param6  , $param7  , $param8  , $param9  ,
+      $clu     , $dirBpe  ,
+      $dirPzh  , $dirOut  ,
+      $extPzh  ) =
+  $bpe->getKeys
+     ('CAMP_PTH','CAMPAIGN','$S+0'   ,
+      'PARAM2' , 'PARAM3' , 'PARAM4' , 'PARAM5' ,
+      'PARAM6' , 'PARAM7' , 'PARAM8' , 'PARAM9' ,
+      'V_PPPCLU','DIR_BPEPRT',
+      'DIR_PZH','DIR_OUT',
+      'EXT_PZH');
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}PLT${ssss}";
+
+  my @obsFil = glob("${dirPzh}????${ssss}.${extPzh}");
+
+# Collect potential PARAMx-arguements
+# -----------------------------------
+  my @argu = ();
+  if ( $param2 ne "" || $param3 ne "" || $param4 ne "" || $param5 ne "" || 
+       $param6 ne "" || $param7 ne "" || $param8 ne "" || $param9 ne "" ) {
+    foreach my $param ( $param2, $param3, $param4, $param5,
+                        $param6, $param7, $param8, $param9 ) {
+      my $arg = $param ne "" ? $param : "_";
+      push @argu,$arg;
+    }
+  }
+
+# Define the plot layout
+# ----------------------
+# blue = "0/0/200"
+#  my %GMT = ();
+#  $GMT{COLOR}{PPP} = "200/0/200";
+#  $GMT{COLOR}{GNS} = "200/0/0";
+#  $GMT{COLOR}{GPS} = "0/0/200";
+#  $GMT{COLOR}{GLO} = "0/180/0";
+#  $GMT{COLOR}{GAL} = "180/120/0";
+#  $GMT{COLOR}{KIN} = "200/0/0";
+#
+#  $GMT{SYMBOL}{PPP} = "c0.3";
+#  $GMT{SYMBOL}{GNS} = "c0.3";
+#  $GMT{SYMBOL}{GPS} = "c0.3";
+#  $GMT{SYMBOL}{GLO} = "c0.3";
+#  $GMT{SYMBOL}{GAL} = "c0.3";
+#  $GMT{SYMBOL}{KIN} = "c0.1";
+
+#  $GMT{TEXT}{PPP} = "GPS+GLO+GAL using code and phase data",
+#  $GMT{TEXT}{GNS} = "GPS+GLO+GAL using only phase data";
+#  $GMT{TEXT}{GPS} = "GPS-only using only phase data";
+#  $GMT{TEXT}{GLO} = "GLONASS-only using only phase data";
+#  $GMT{TEXT}{GAL} = "GALILEO-only using only phase data";
+#  $GMT{TEXT}{KIN} = "GPS+GLO+GAL using only phase data";
+
+#  foreach my $typ ( keys %GMT ) {
+#    foreach my $sol ( keys %{$GMT{$typ}} ) {
+#      $bpe->setVar("${typ}_${sol}",$GMT{$typ}{$sol});
+#    }
+#  }
+
+  if ($clu ne "") {
+    initPar_Cl($bpe,$bpeFil,@obsFil,0,$clu,0,@argu);
+  } else {
+
+# Generate daily repeatability plots und suggest outliers (accessible with ppp_mon and gns_mon)
+# --------------------------------------------------------------------------------------------
+    system("$ENV{AUTO}/crd_rep.pl -f ${CAMP_PTH}${CAMPAIGN}/OUT/PPP49series.PLT  -c 4  -yrange \"30/30\"  -urange \"60/60\"  -timetyp DOY -rms -m -d ${CAMP_PTH}${CAMPAIGN}/MSC/restxt/PPP -dirout ${CAMP_PTH}${CAMPAIGN}/MSC/resplt/PPP -errorbar 4 -outlier 5 -ignore 4 -max_outlier_hor 8 -max_outlier_ver 16 -min_outlier_num 1 -stafac_rms_hor 1.8 -stafac_rms_ver 5.5 -stafac_outlier 0.1 -o eps 2>/dev/null > ${CAMP_PTH}${CAMPAIGN}/MSC/restxt/crd_rep_ppp.log");
+    system("$ENV{AUTO}/img2img.pl -source ${CAMP_PTH}${CAMPAIGN}/MSC/resplt/PPP -target ${PATH_WWW}code/mon -add _ppp -resolution 90 -v");
+
+    system("$ENV{AUTO}/crd_rep.pl -f ${CAMP_PTH}${CAMPAIGN}/OUT/GNS49series.PLT  -c 4  -yrange \"30/30\"  -urange \"60/60\"  -timetyp DOY -rms -m -d ${CAMP_PTH}${CAMPAIGN}/MSC/restxt/GNS -dirout ${CAMP_PTH}${CAMPAIGN}/MSC/resplt/GNS -errorbar 4 -outlier 5 -ignore 4 -max_outlier_hor 8 -max_outlier_ver 16 -min_outlier_num 1 -stafac_rms_hor 1.8 -stafac_rms_ver 5.5 -stafac_outlier 0.1 -o eps 2>/dev/null > ${CAMP_PTH}${CAMPAIGN}/MSC/restxt/crd_rep_gns.log");
+    system("$ENV{AUTO}/img2img.pl -source ${CAMP_PTH}${CAMPAIGN}/MSC/resplt/GNS -target ${PATH_WWW}code/mon -add _gns -resolution 90 -v");
+
+# stations of current session
+    @obsFil = map { substr(basename($_),0,4) } @obsFil;
+##    initPar_Bl($bpe,@obsFil,@argu);
+    my @SITESALL=();
+    push(@SITESALL,@obsFil);
+
+# add stations available in multi-day PLT file (might be a previous session was re-processed and outliers are newly proposed)
+    my  @PLTSITES=`cat ${dirOut}GPS49series.PLT | cut -c 1-4 | sort -u`;
+    foreach my $entry (@PLTSITES) {
+      chomp($entry);
+# date of the web page
+      my $now=(stat("${PATH_WWW}PPP/${entry}/${entry}.html"))[9];
+# add only, if web page not yet updated
+      if ( -s "${PATH_WWW}code/mon/".lc(${entry})."_gns.png" && $now < (stat("${dirOut}GPS49series.PLT"))[9] ) {
+        push(@SITESALL,$entry);
+      }
+    }
+
+# add stations available in IGSFINAL multi-day PLT file
+    my @PLTSITES=`cat ${dirOut}../../IGSFINAL/OUT/F1N_REP.PLT | cut -c 1-4 | sort -u`;
+    foreach my $entry (@PLTSITES) {
+      chomp($entry);
+# date of the web page
+      my $now=(stat("${PATH_WWW}PPP/${entry}/${entry}.html"))[9];
+# add only, if web page not yet updated
+      if ( -s "${PATH_WWW}code/mon/".lc(${entry})."_finm.png" && $now < (stat("${PATH_WWW}code/mon/".lc${entry}."_finm.png"))[9] ) {
+        push(@SITESALL,$entry);
+      }
+    }
+
+# remove possible double entries
+    my %seen = ();
+    my @SITESUNIQUE = grep { ! $seen{ $_ }++ } sort(@SITESALL);
+
+# generate GMT plots / html page for sites available in any of the PLT files
+    initPar_Bl($bpe,@SITESUNIQUE,@argu);
+
+  }
+
+}

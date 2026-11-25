@@ -1,0 +1,135 @@
+package RCLK1SAV;
+@ISA = ("RUNBPE");
+# ==========================================================================
+#
+# Name    :  RCLK1SAV
+#
+# Purpose :  Copy result files into the archive
+#
+# Programs:
+#
+# Author  :  R. Dach
+# Created :  23-Jun-2009
+#
+# Changes :  30-Sep-2014 LP: $v_gnss removed
+#            06-Jul-2015 SS: Save .BIA results
+#            05-Aug-2015 SS: RAP_newClk replaced by RCLKGNSS
+#            05-Aug-2015 SS: Renamed processing summary file
+#            07-Aug-2015 SS: Save .CRD/.TRP/.STD/.ERP
+#            12-Aug-2015 SS: Use $CAMP_SAVRAPCLK/$yyyy/
+#            19-May-2016 AV/SS: Adapt to new OSB implementation
+#            31-May-2016 SS/AV: Save CBG NEQ (non-GLONASS bias results)
+#            07-Jun-2016 RD: Add version with compatible attitude modelling
+#            13-Sep-2016 SS: Save CBR NEQ
+#            10-Oct-2016 RD: Remove version with compatible attitude modelling
+#            03-Nov-2022 AV: Add RINEX3 clock file $Q_yyyyssss.CLK
+#
+# ==========================================================================
+
+use strict;
+
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+use lib "$ENV{BPE}";
+use bpe_util;
+
+use File::Copy;
+
+# --------------------------------------------------------------------------
+
+sub run {
+    my $bpe = shift;
+
+# Define variables
+# ----------------
+my  ($yyssss, $yyddd, $yy, $yyyy, $ssss,
+      $v_sav, $v_q, $v_u, $v_c, $v_k, $v_o, 
+      $camp_pth, $campaign,
+      $dirOut, $dirNeq, $dirClk, $dirRxc, $dirOsb, $dirBia, $dirCrd, $dirTrp, $dirStd, $dirErp, $dirClb,
+      $extOut, $extNeq, $extClk, $extRxc, $extOsb, $extBia, $extCrd, $extTrp, $extStd, $extErp, $extClb
+    ) = $bpe->getKeys
+    ('$YSS+0', '$YD+0', '$Y', '$Y+0', '$S+0',
+     'V_SAV','V_Q','V_U','V_C','V_K','V_O',
+     'CAMP_PTH','CAMPAIGN',
+     'DIR_OUT','DIR_NEQ','DIR_CLK','DIR_RXC','DIR_OSB','DIR_BIA','DIR_CRD','DIR_TRP','DIR_STD','DIR_ERP','DIR_CLB',
+     'EXT_OUT','EXT_NEQ','EXT_CLK','EXT_RXC','EXT_OSB','EXT_BIA','EXT_CRD','EXT_TRP','EXT_STD','EXT_ERP','EXT_CLB'
+    );
+
+
+# Some directories
+# ----------------
+##    my $dirSav = "$PATH_SAV/${CAMP_SAVRAP}_newClk/";
+##    my $dirSav = "$PATH_SAV/$CAMP_SAVRAP/";
+    my $dirSav = "$PATH_SAV/$CAMP_SAVRAPCLK/$yyyy/";
+    my $atmSav = "$dirSav/ATM/";
+    my $orbSav = "$dirSav/ORB/";
+    my $outSav = "$dirSav/OUT/";
+    my $solSav = "$dirSav/SOL/";
+    my $staSav = "$dirSav/STA/";
+
+    check_dir($dirSav,$atmSav,$orbSav,$outSav,$solSav,$staSav) if ( $v_sav eq "Y" );
+
+# Copy files to savedisk
+# ----------------------
+    my @cpyLst = (
+    "${dirCrd}${v_k}_${yyssss}.${extCrd} ${staSav}${v_u}_${yyssss}.${extCrd} _",
+    "${dirTrp}${v_k}_${yyssss}.${extTrp} ${atmSav}${v_u}_${yyssss}.${extTrp} _",
+    "${dirTrp}${v_o}_${yyssss}.${extTrp} ${atmSav}                           _",
+    "${dirStd}${v_k}_${yyssss}.${extStd} ${orbSav}${v_u}_${yyssss}.${extStd} _",
+    "${dirErp}${v_k}_${yyssss}.${extErp} ${orbSav}${v_u}_${yyssss}.${extErp} _",
+    "${dirOsb}${v_c}S${yyssss}.${extOsb} ${orbSav} _",
+    "${dirOsb}${v_c}F${yyssss}.${extOsb} ${orbSav} _",
+    "${dirOsb}${v_c}R${yyssss}.${extOsb} ${orbSav} _",
+    "${dirOsb}${v_c}G${yyssss}.${extOsb} ${orbSav} _",
+    "${dirBia}${v_c}S${yyssss}.${extBia} ${orbSav} _",
+    "${dirBia}${v_c}F${yyssss}.${extBia} ${orbSav} _",
+    "${dirBia}${v_c}R${yyssss}.${extBia} ${orbSav} _",
+    "${dirBia}${v_c}G${yyssss}.${extBia} ${orbSav} _",
+    "${dirClk}${v_q}_${yyssss}.${extClk} ${orbSav} c",
+    "${dirClk}${v_u}_${yyssss}.${extClk} ${orbSav} c",
+    "${dirOut}RCLKGNSS.${yy}_${ssss}     ${outSav} _",
+    "${dirRxc}${v_q}A${yyssss}.${extRxc} ${outSav} c",
+    "${dirRxc}${v_q}_${yyssss}.${extRxc} ${outSav} c",
+    "${dirRxc}${v_q}_${yyyy}${ssss}.${extRxc} ${outSav} c",
+    "${dirRxc}${v_u}_${yyssss}.${extRxc} ${outSav} c",
+#    "${dirNeq}TD_${yyssss}.${extNeq}     ${solSav} z",
+    "${dirNeq}${v_c}_${yyssss}.${extNeq} ${solSav} z",
+    "${dirNeq}${v_c}G${yyssss}.${extNeq} ${solSav} z",
+    "${dirNeq}${v_c}R${yyssss}.${extNeq} ${solSav} z",
+    "${dirClb}${v_u}${ssss}??.${extClb}  ${staSav} _",
+    );
+
+# Distribution not allowed
+# ------------------------
+    if ( $v_sav ne "Y" ) {
+      prtMess($bpe,"FILES NOT SAVED");
+
+# Do the distribution
+# -------------------
+    } else {
+
+      $Set_Verify=1;
+
+      map { copyarchive( split(" ",$_)," " ) } @cpyLst;
+
+      # Copy high-rate file into the rapid campaign
+      copyfile("${dirClk}${v_q}_${yyssss}.${extClk}",
+               "$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/${v_q}_${yyddd}.${extClk}");
+
+# Convert and copy OSB to DCB
+# ---------------------------
+      my $inp = "${dirOsb}${v_c}S${yyssss}.${extOsb}";
+      my $out = "$orbSav${v_c}S${yyssss}.DCB";
+      system("$ENV{AUTO}/osb2dcb.com $inp $out P1-C1");
+      die "$out not created" unless -s $out;
+
+      # Stop in case of errors
+      $On_Error_Cont = 1;
+      err_print() || die();
+    }
+
+}
+
+# ==========================================================================

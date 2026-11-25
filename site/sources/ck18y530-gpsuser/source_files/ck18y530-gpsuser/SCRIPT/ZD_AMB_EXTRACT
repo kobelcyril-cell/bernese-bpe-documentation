@@ -1,0 +1,103 @@
+package AMB_EXTRACT;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  AMB_EXTRACT
+#
+# Purpose :  Extract ambiguity resolution summary entries
+#
+# Author  :  C. Kobel
+# Created :  24-Nov-2025
+#
+# Changes :  30-Apr-2026 CK: Reformatted, improved parsing logic
+#===========================================================
+use strict;
+use warnings;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my ($bpe) = @_;
+
+  my $debug = 0;
+  my $dbg = sub {
+    my ($message) = @_;
+    print "[DEBUG] $message\n" if $debug;
+  };
+
+  my ($dirOut, $yyddd, $yyssss, $vFin, $extSum) = $bpe->getKeys(
+    'DIR_OUT',
+    '$YD+0',
+    '$YSS+0',
+    'V_FIN',
+    'EXT_SUM'
+  );
+
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  die "MSC directory does not exist: $mscDir" unless -d $mscDir;
+
+  my $outfile = "$mscDir/PROCESSING_$yyddd";
+  my $infile = "${dirOut}/OBSXTR_AMB_${vFin}${yyssss}.${extSum}";
+
+  print "Extract from: $infile\n";
+  print "Write into:   $outfile\n";
+
+  open(my $fh_in, "<", $infile)
+      or die "Cannot open $infile: $!";
+
+  my @rows;
+  my $table_found = 0;
+  my $separator_count = 0;
+
+  while (my $line = <$fh_in>) {
+    unless ($table_found) {
+      $table_found = $line =~ /^\s*PRN\s*\|\s*Amb\s*\|\s*L1\s*&\s*L2\s+ambiguities\s*\|/;
+      next;
+    }
+
+    # The system summary lies between the second and third separators.
+    if ($line =~ /^\s*-+(?:\+-+)+\s*$/) {
+      ++$separator_count;
+      last if $separator_count == 3;
+      next;
+    }
+
+    next unless $separator_count == 2;
+
+    # The L1 & L2 columns are solved, #/clu, and rel.
+    my ($sys, $total, $rel) = $line =~ /
+      ^\s*([^\s|][^|]*?)\s*\|
+      \s*([0-9]+)\s*\|
+      \s*[^\s|]+\s+[^\s|]+\s+([0-9]+(?:\.[0-9]+)?)\s*\|
+    /x;
+
+    next unless defined $sys;
+
+    push @rows, [$sys, $total, $rel];
+    $dbg->("Summary row: SYS=$sys, Amb total=$total, L1&L2 rel=$rel");
+  }
+
+  close($fh_in) or die "Cannot close $infile: $!";
+
+  open(my $fh, ">>", $outfile)
+      or die "Cannot write $outfile: $!";
+
+  print {$fh} "==== Ambiguity resolution statistics ====\n";
+
+  if (@rows) {
+    printf {$fh} "%-5s %10s %14s\n", "SYS", "Amb total", "L1&L2 rel (%)";
+    print {$fh} "-------------------------------------------------------------\n";
+
+    for my $row (@rows) {
+      printf {$fh} "%-5s %10s %14s\n", @$row;
+    }
+  } else {
+    print {$fh} "No ambiguity resolution summary rows found!\n";
+  }
+
+  print {$fh} "=============================================================\n";
+
+  close($fh) or die "Cannot close $outfile: $!";
+
+  print "AMB_EXTRACT done!\n";
+}

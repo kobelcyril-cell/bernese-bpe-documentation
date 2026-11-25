@@ -1,0 +1,24 @@
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+--------------------------------------------------------------------------------
+001      COPYSOL_VS           NO_OPT          CPU=SHORT
+100      COMPAR2_VS           VAL_SOL         CPU=SHORT; WAIT=001
+110      HELMR1_VS            VAL_SOL         CPU=SHORT; WAIT=001
+120      ORB_VER              VAL_SOL         CPU=SHORT; WAIT=001
+130      STDELE_VS            VAL_SOL         CPU=SHORT; WAIT=001
+900      CONCATOUT_VS         NO_OPT          CPU=SHORT; WAIT=100 110 120 130
+
+VARIABLE   DEFAULT        PARAMETERS
+V_OUT    = F1I_VAL$YSS+0;   DESCRIPTION=Summary file (output)
+V_SOLDIR = ${K}/CK_ZDGNSS;  DESCRIPTION=Campaign with results (to-be-copied)
+V_CRD    = F1I_$YSS+0;      DESCRIPTION=Station coordinates
+V_PRE    = F1I_;            DESCRIPTION=Precise orbit
+V_STD    = F1I_$YSS+0;      DESCRIPTION=Standard orbit
+V_REFCRD = IGC20;           DESCRIPTION=Reference coordinates (+VEL/PSD)
+V_SATINF = SATELLIT;        DESCRIPTION=Satellite information
+V_PCV    = I20;             DESCRIPTION=GNSS PCV model
+V_SATCRX = ZD_SAT;          DESCRIPTION=Satellite problems
+V_NUTMOD = IAU2000R06;      DESCRIPTION=Nutation model
+V_SUBMOD = DESAI2016;       DESCRIPTION=Subdaily pole model
+

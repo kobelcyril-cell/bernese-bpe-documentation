@@ -1,0 +1,42 @@
+package COMPAR2;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      COMPAR2
+# Purpose:   Run COMPAR2
+#
+# Authors:   C. Kobel
+#
+# Created:   17-Oct-2025
+#
+# Changes:   
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($CRD1, $CRD2) = $bpe->getKeys('V_CRDSOL1', 'V_CRDSOL2');
+
+# Set coordinate files
+# --------------------
+  my $tmpFil = "$ENV{U}/WORK/CRDCMP.lst";
+
+  open OUT, '>', $tmpFil;
+  print OUT "$CRD1\n";
+  print OUT "$CRD2\n";
+  close OUT;
+  
+  $bpe->putKey("$ENV{U}/PAN/COMPAR2.INP","COOFIL","SELECTED","REPLACE",$tmpFil);
+
+  system("rm $ENV{U}/WORK/CRDCMP.lst");
+
+# Run program COMPAR2
+# --------------------
+  my $PGMNAM = "COMPAR2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

@@ -1,0 +1,140 @@
+package IAR_VER;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  IAR_VER
+#
+# Purpose :  Add ZERO_AR verification summary to IARyyssss.PRC
+#
+# Programs:  GPSXTR
+#
+# Author  :  S. Schaer
+# Created :  21-Jun-2018
+#
+# Changes :  21-Jun-2018 SS: Derived from IAR_PRC
+#            22-Jun-2018 SS: Saved IARyyssss.PRC
+#            26-Jun-2018 SS: Created IARyyssss_OUT.tar.gz (for FCLKGNSS)
+#            27-Jun-2018 SS: Checked PHABIA RMS for NLI
+#            10-Jul-2018 SS/AV: Considered V_REPRO
+#            21-Aug-2018 SS: Saved IARyyssss.CRD
+#            23-Aug-2019 SS. Corrected SAVMGEX
+#            19-Mar-2020 LP. Changed message type BPE=>BIA
+#            22-Aug-2022 AV: Add FCLKI20 case
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$yyssss,$ssss,$yyyy,
+      $pcfFil,$camp_pth,$campaign,$v_sav,$v_repro,
+      $dirCrd,$extCrd,
+      $dirSum,$extSum,
+      $dirOut,$extOut,
+      $dirOsb,$extOsb,
+      $dirBia,$extBia,
+      $dirPzh,$extPzh)
+      = $bpe->getKeys(
+      '$YD+0','$YSS+0','$S+0','$Y+0',
+      'PCFFIL','CAMP_PTH','CAMPAIGN','V_SAV','V_REPRO',
+      'DIR_CRD','EXT_CRD',
+      'DIR_SUM','EXT_SUM',
+      'DIR_OUT','EXT_OUT',
+      'DIR_OSB','EXT_OSB',
+      'DIR_BIA','EXT_BIA',
+      'DIR_PZH','EXT_PZH');
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $repro = (-e "$camp_pth/$campaign/MSC/REPROCESSING.FLG");
+
+  my $iarFlg = "$camp_pth/$campaign/MSC/IAR${yyssss}.FLG";
+  my $iarRun = -e $iarFlg ? `cat $iarFlg`+1 : 0;
+
+  my $iarPrc = "${dirSum}IAR${yyssss}.PRC";
+
+  my $PGMNAM = "GPSXTR";
+
+  my $fixNam = "FIX${yyssss}";
+  my $ambNam = "AMB${yyssss}";
+  my $fixFil = "${dirSum}${fixNam}.${extSum}";
+  my $ambFil = "${dirSum}${ambNam}.${extSum}";
+  my $str    = "";
+  unlink($fixFil,$ambFil);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$fixNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBOUT",$ambNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","NL");
+  $str = $iarRun==0 ? "NL" : "N${iarRun}";
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID",$str);
+  $bpe->RUN_PGMS($PGMNAM);
+  $str = $iarRun==0 ? "" : " $iarRun";
+  appFile("NARROWLANE AMBIGUITY RESOLUTION$str (COUNTING ALL AMBIGUITIES)",0,$fixFil,$iarPrc,0);
+  unlink($fixFil,$ambFil);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$fixNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBOUT",$ambNam);
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","NLR");
+  $str = $iarRun==0 ? "NLR" : "N${iarRun}R";
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID",$str);
+  $bpe->RUN_PGMS($PGMNAM);
+  $str = $iarRun==0 ? "" : " $iarRun";
+  appFile("NARROWLANE AMBIGUITY RESOLUTION$str (COUNTING ONLY WIDELANE-RESOLVED AMBIGUITIES)",0,$fixFil,$iarPrc,0);
+  unlink($fixFil,$ambFil);
+
+# PHABIA results
+# --------------
+  $fixFil = "${dirOut}NLI${yyssss}.${extOut}";
+  $str = $iarRun==0 ? "" : " $iarRun";
+  appFile("NARROWLANE FRACTIONAL BIAS BIAS VERIFICATION$str (USING NLI RESULTS)",0,$fixFil,$iarPrc,0);
+
+  my $rms = `grep 'RMS of unit weight' $fixFil | cut -c33-51`+0;
+  my $rmsMax = 0.03;
+  if ($rms > $rmsMax) {
+    my $str = "${pcfFil}:${campaign}:${yyssss}: PHABIA NLI RMS: $rms cyc\n";
+    prtMess($bpe,$str);
+##    msg2key("BIA",$str);
+    msg2key("MSC",$str);
+  }
+
+# IAR CRD file
+# ------------
+  $PGMNAM = "CRDMERGE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $dirSav = "";
+  $dirSav = "$PATH_SAV$CAMP_SAVPPP/$yyyy/"    if $campaign eq "PPPFIN";
+  $dirSav = "$PATH_SAV$CAMP_SAVIGS/$yyyy/"    if $campaign eq "FCLKGNSS";
+  $dirSav = "$PATH_SAV/IGS_I20/$yyyy/"        if $campaign eq "FCLKI20";
+  $dirSav = "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/" if $campaign eq "RCLKGNSS";
+  $dirSav = "$PATH_SAV$CAMP_SAVMGEX/$yyyy/"   if $campaign eq "MCLKGNSS";
+  $dirSav = "$PATH_SAV/REPRO_IAR/$yyyy/"      if $repro;
+  $dirSav = "$PATH_SAV/$v_repro/$yyyy/"       if $v_repro ne "";
+  my $outSav = "${dirSav}OUT/";
+  my $staSav = "${dirSav}STA/";
+  if ($v_sav ne "N") {
+    copy($iarPrc,$outSav);
+    copy("${dirCrd}IAR${yyssss}.${extCrd}",$staSav);
+
+    if ($campaign eq "FCLKGNSS_" || $campaign eq "MCLKGNSS" || $campaign eq "FCLK_REP"|| $campaign eq "FCLKI20") {
+      system("tar -cf ${outSav}IAR${yyssss}_OUT.tar ${dirOut}????${ssss}_NLI.${extOut}");
+      system("gzip -f ${outSav}IAR${yyssss}_OUT.tar");
+    }
+  }
+
+  unlink(glob("${dirOut}????${ssss}_NLI.${extOut}"));
+  unlink(glob("${dirCrd}????${ssss}_NLI.${extCrd}"));
+
+}

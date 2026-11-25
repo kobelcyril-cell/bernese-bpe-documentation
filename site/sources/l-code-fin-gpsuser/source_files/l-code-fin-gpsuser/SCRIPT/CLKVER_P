@@ -1,0 +1,85 @@
+package FILEST_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FILEST_P
+#
+# Purpose :  Station-wise zero-difference data screening:
+#
+#            1. GPSEST to create a residual files
+#            2. RESRMS to screen residual files
+#            3. RESCHK To detect bad stations
+#            4. SATMRK to mark outliers
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#            PARAM2..PARAM5 - CODE PHASE BOTH
+#                     to select the observation files type for screening
+#
+# Author  :  R. Dach
+# Created :  11-Jan-2005
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1,  $param2,  $param3,  $param4,  $param5,  $subPid,   $clu,
+      $uvar,    $ssss,    $ddd,     $yy,
+      $dirOut,  $dirRes,  $dirCzh,  $dirPzh,  $dirCzo,  $dirPzo,  $dirDel,
+      $extOut,  $extRes,  $extCzh,  $extPzh,  $extCzo,  $extPzo,  $extDel) =
+  $bpe->getKeys(
+      'PARAM1', 'PARAM2', 'PARAM3', 'PARAM4', 'PARAM5', 'SUB_PID', 'V_CLU',
+      'U',    , 'SESSION','DAYYEAR','YEAR',
+      'DIR_OUT','DIR_RES','DIR_CZH','DIR_PZH','DIR_CZO','DIR_PZO','DIR_DEL',
+      'EXT_OUT','EXT_RES','EXT_CZH','EXT_PZH','EXT_CZO','EXT_PZO','EXT_DEL');
+
+
+# Set cluster number, input files, and loop variable
+# --------------------------------------------------
+  setUserVar($bpe,"D4",$subPid,"CD4",$param1);
+
+# Delete old output files for this station
+# ----------------------------------------
+##  unlink(glob("${dirOut}${param1}${ddd}?.*"));
+
+# Compute the observation file name
+# ---------------------------------
+  my $obsfil = "$param1$ssss";
+
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CONST","CONST.WGTCOD");
+
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $fil = "CVER_${ddd}${param1}";
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RADIO8_3","0");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RADIO8_1","1");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SITETROP","0");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","COORD",$fil);
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPEST",$fil);
+
+  my @sys = ("G","R","E","C","J");
+  my @sys = ("G","R");
+##  my @sys = ("G");
+  foreach my $sys (@sys) {
+    my $biafil = "${dirOut}/../ORB/CBS$}${yy}${ddd}0.OSB";
+    my $ok = `grep " $param1 " $biafil | grep ' $sys\[ 0\]' | wc -l`+0;
+    print "OK: $ok\n";
+    next if $ok==0;
+    &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$sys);
+    my $nam = "CVER_${ddd}${param1}_${sys}";
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT",$nam);
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CLKRNX",$nam);
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+  unlink("${dirOut}/../STA/${fil}.CRD");
+  unlink("${dirOut}/../ATM/${fil}.TRP");
+
+}

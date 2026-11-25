@@ -1,0 +1,211 @@
+package FCLK_COP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FCLK_COP
+#
+# Purpose :  Copy required files for CLKFINAL.PCF
+#
+# PARAMs  :  PARAM1: "FINAL" copy only final products
+#
+# Author  :  R. Dach
+# Created :  18-Dec-2009
+# Last mod.: 18-Dec-2009
+#
+# Changes :  11-Jan-2010 RD: Copy VMF-grids
+#            06-Jun-2013 RD: Copy only FINAL products if PARAM1 eq FINAL
+#            07-Aug-2015 AV: Change to new RAP naming (RGNSSCLK, $yyddd to $yyssss)
+#            12-Aug-2015 SS: Use $CAMP_SAVRAPCLK/$yyyy/
+#            18-Oct-2015 AV/AS: Dirty VMF workaround (copy onefile)
+#            20-May-2016 AV/SS: Create APRyyssss.OSB
+#            02-Oct-2016 AV: Use F3 for RAP (IGS14 test case)
+#            11-Oct-2016 AV/AS: change of the naming for FCLKGNSS ($yyddd to $yyssss)
+#            12-Oct-2016 AV: Add copyRef
+#            16-Jan-2017 AV: Copy from savedisk in FCLKGNSS
+#            16-Jul-2018 AV: Change REPRO B1 to F3P clocks
+#            31-Jul-2018 AV: Change a priori OSB and CLK values for REPRO
+#            22-Apr-2020 RD: Remove the 1-day part
+#            13-Jul-2020 RD/PF: $X/GEN->PTH_SATCRUX
+#            26-Jan-2021 SS: Corrected PTH_SATCRUX (from DIR_SATCRUX)
+#            10-Jul-2021 LP: Add $v_tropMod for VMF3
+#            29-Mar-2022 AV: Use copySkl
+#            11-Apr-2022 AV/ST: Correct CRDINF PSDINF (V_)
+#            20-Aug-2022 AV: Modify copy location for IGS20
+#            02-Dec-2022 AV: Undo temporary changes (IGS20 active)
+#
+# ============================================================================
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+
+
+# Get variables
+# -------------
+ my   ($yyddd, $ddd, $yyssss, $yyyy, $yymm, $V_K, $V_F, $V_A, $V_B,
+       $repro, $satcrx , $crdInf, $psdInf, $param1, $pcf, $v_tropMod,
+       $dirClk, $dirCrd, $dirPsd, $dirErp, $dirStd, $dirRxc,
+       $extClk, $extCrd, $extPsd, $extErp, $extStd, $extRxc,
+       $dirTrp,$dirCrx,$dirOsb,
+       $extTrp,$extCrx,$extOsb,
+       $pthSkl
+      ) =
+    $bpe->getKeys(
+      '$YD+0'  ,'$+0', '$YSS+0','$Y+0', '$M+0', 'V_K','V_F','V_A' ,'V_B',
+      'V_REPRO','V_SATCRX','V_CRDINF' ,'V_PSDINF' ,'PARAM1' ,'PCFFIL' ,'V_TRPMOD',
+      'DIR_CLK','DIR_CRD' ,'DIR_PSD','DIR_ERP','DIR_STD','DIR_RXC',
+      'EXT_CLK','EXT_CRD' ,'EXT_PSD','EXT_ERP','EXT_STD','EXT_RXC',
+      'DIR_TRP','PTH_SATCRUX','DIR_OSB',
+      'EXT_TRP','EXT_SATCRUX','EXT_OSB',
+      'PTH_SINEXIN'
+      );
+
+  # IGS14 FLAG
+  # ----------
+  my $igs14 = -e "$ENV{HOME}/MSC/IGS14.FLG";
+  my $igs20 = 0;
+  $igs20 = 1 if $crdInf =~ /IGSxx/;
+
+  # Define session defenition (yyddd/yyssss)
+  # ----------------------------------------
+  my $udate = $pcf =~/(FCLKGNSS|FCLKI20)/ ? "$yyssss" : "$yyddd" ;
+
+  # Prepare reference files
+  # -----------------------
+  my $psdFil = $psdInf eq ""? "":"$psdInf.$extPsd";
+  system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil");
+  copyfile("${dirOsb}CODE.${extOsb}","${dirOsb}APR${udate}.${extOsb}");
+
+  print "Execute $ENV{AUTO}/copySkl.pl FCLKGNSS $pthSkl\n";
+  system("$ENV{AUTO}/copySkl.pl FCLKGNSS $pthSkl");
+
+  # Special SAT.CRX for editing GLONASS satellites
+  # ----------------------------------------------
+   copyfile("${dirCrx}/${satcrx}_${yyyy}.${extCrx}","${dirCrx}/CLK${yyssss}.${extCrx}") if $pcf =~/(FCLKGNSS|FCLKI20)/;
+
+# Copy repro products
+# -------------------
+  if ( $repro ) {
+
+    my $dcb_arch = "$ENV{PATH_SAV}$ENV{CAMP_SAVIGS}/$yyyy/ORB/A1R_${yymm}.$extOsb";
+    copyfile($dcb_arch,"${dirOsb}APR${udate}.${extOsb}") if (-e $dcb_arch);
+
+
+    copyfile("$ENV{S}/REPRO_03/${yyyy}/ATM/F3_$yyddd.${extTrp}","${dirTrp}${V_K}_$udate.${extTrp}");
+    copyfile("$ENV{S}/REPRO_03/${yyyy}/ORB/F3_$yyddd.${extErp}","${dirErp}${V_K}_$udate.${extErp}");
+    copyfile("$ENV{S}/REPRO_03/${yyyy}/STA/F3_$yyddd.${extCrd}","${dirCrd}${V_K}_$udate.${extCrd}");
+    copyfile("$ENV{S}/REPRO_03/${yyyy}/ORB/F3_$yyddd.${extStd}","${dirStd}${V_K}_$udate.${extStd}");
+
+#    copyfile("$ENV{S}/REPRO_03/${yyyy}/OUT/B1_$yyddd.${extClk}","${dirClk}${V_A}_${udate}.${extClk}");
+#    copyfile("$ENV{S}/REPRO_03/${yyyy}/ORB/B1_$yyddd.${extClk}","${dirClk}${V_A}_${udate}.${extClk}");
+#    copyfile("$ENV{S}/REPRO_03/${yyyy}/ORB/B1_$yyddd.${extClk}","${dirClk}${V_A}C${udate}.${extClk}");
+
+    copyfile("$ENV{S}/REPRO_03/${yyyy}/OUT/B1_$yyddd.${extClk}","${dirClk}${V_A}_${udate}.${extClk}");
+    copyfile("$ENV{S}/REPRO_03/${yyyy}/ORB/B1_$yyddd.${extClk}","${dirClk}${V_A}_${udate}.${extClk}");
+    copyfile("$ENV{S}/REPRO_03/${yyyy}/ORB/B1_$yyddd.${extClk}","${dirClk}${V_A}C${udate}.${extClk}");
+
+#    copyfile("$ENV{S}/REPRO_03/${yyyy}/OUT/F3P_$yyddd.${extRxc}.Z","${dirRxc}${V_A}_${udate}.${extRxc}.Z");
+#    copyfile("$ENV{S}/REPRO_03/${yyyy}/ORB/F3P_$yyddd.${extClk}.Z","${dirClk}${V_A}_${udate}.${extClk}.Z");
+#    copyfile("$ENV{S}/REPRO_03/${yyyy}/ORB/F3P_$yyddd.${extClk}.Z","${dirClk}${V_A}C${udate}.${extClk}.Z");
+
+    uncompress("${dirRxc}${V_A}_$udate.${extRxc}.Z") if -e "${dirRxc}${V_A}_$udate.${extRxc}.Z";
+    uncompress("${dirClk}${V_A}_$udate.${extClk}.Z") if -e "${dirClk}${V_A}_$udate.${extClk}.Z";
+    uncompress("${dirClk}${V_A}C$udate.${extClk}.Z") if -e "${dirClk}${V_A}C$udate.${extClk}.Z";
+
+  } else {
+
+  # Copy pole, coordinate and orbit information from 3day_SOLUTION
+  # ------------------------------------------------------------
+    if($igs14 && $param1 ne "FINAL"){
+      copyfile("$PATH_SAV/../PRODUCTS/$CAMP_SAVRAPCLK/$yyyy/ATM/TP_$yyssss.${extTrp}","${dirTrp}${V_B}_$udate.${extTrp}" );
+      copyfile("$PATH_SAV/../PRODUCTS/$CAMP_SAVRAPCLK/$yyyy/ORB/TP_$yyssss.${extErp}","${dirErp}${V_B}_$udate.${extErp}" );
+      copyfile("$PATH_SAV/../PRODUCTS/$CAMP_SAVRAPCLK/$yyyy/STA/TP_$yyssss.${extCrd}","${dirCrd}${V_B}_$udate.${extCrd}" );
+      copyfile("$PATH_SAV/../PRODUCTS/$CAMP_SAVRAPCLK/$yyyy/ORB/TP_$yyssss.${extStd}","${dirStd}${V_B}_$udate.${extStd}" );
+      copyfile("$PATH_SAV/../PRODUCTS/$CAMP_SAVRAPCLK/$yyyy/OUT/TP_$yyssss.${extRxc}.Z","${dirRxc}${V_A}_$udate.${extRxc}.Z");
+      copyfile("$PATH_SAV/../PRODUCTS/$CAMP_SAVRAPCLK/$yyyy/ORB/TP_$yyssss.${extClk}.Z","${dirClk}${V_A}_$udate.${extClk}.Z");
+      copyfile("$PATH_SAV/../PRODUCTS/$CAMP_SAVRAPCLK/$yyyy/ORB/TP_$yyssss.${extClk}.Z","${dirClk}${V_A}C$udate.${extClk}.Z");
+
+      uncompress("${dirRxc}${V_A}_$udate.${extRxc}.Z");
+      uncompress("${dirClk}${V_A}_$udate.${extClk}.Z");
+      uncompress("${dirClk}${V_A}C$udate.${extClk}.Z");
+    }elsif ( $param1 ne "FINAL" ) {
+      copyfile("$PATH_SAV/$CAMP_SAVRAPCLK/$yyyy/ATM/TP_$yyssss.${extTrp}","${dirTrp}${V_B}_$udate.${extTrp}" );
+      copyfile("$PATH_SAV/$CAMP_SAVRAPCLK/$yyyy/ORB/TP_$yyssss.${extErp}","${dirErp}${V_B}_$udate.${extErp}" );
+      copyfile("$PATH_SAV/$CAMP_SAVRAPCLK/$yyyy/STA/TP_$yyssss.${extCrd}","${dirCrd}${V_B}_$udate.${extCrd}" );
+      copyfile("$PATH_SAV/$CAMP_SAVRAPCLK/$yyyy/ORB/TP_$yyssss.${extStd}","${dirStd}${V_B}_$udate.${extStd}" );
+      copyfile("$PATH_SAV/$CAMP_SAVRAPCLK/$yyyy/OUT/TP_$yyssss.${extRxc}.Z","${dirRxc}${V_A}_$udate.${extRxc}.Z");
+      copyfile("$PATH_SAV/$CAMP_SAVRAPCLK/$yyyy/ORB/TP_$yyssss.${extClk}.Z","${dirClk}${V_A}_$udate.${extClk}.Z");
+      copyfile("$PATH_SAV/$CAMP_SAVRAPCLK/$yyyy/ORB/TP_$yyssss.${extClk}.Z","${dirClk}${V_A}C$udate.${extClk}.Z");
+
+      uncompress("${dirRxc}${V_A}_$udate.${extRxc}.Z");
+      uncompress("${dirClk}${V_A}_$udate.${extClk}.Z");
+      uncompress("${dirClk}${V_A}C$udate.${extClk}.Z");
+    }
+
+    if($pcf =~/(FCLKGNSS|FCLKI20)/){
+      my $dirSav = "$PATH_SAV/$CAMP_SAVIGS/$yyyy/";
+      if($igs20 == 1){
+        $dirSav = "$PATH_SAV/IGS_I20/$yyyy/";
+      }
+      copyfile("${dirSav}/ATM/F3_$yyddd.${extTrp}","${dirTrp}${V_K}_$udate.${extTrp}");
+      copyfile("${dirSav}/ORB/F3_$yyddd.${extErp}","${dirErp}${V_K}_$udate.${extErp}");
+      copyfile("${dirSav}/STA/F3_$yyddd.${extCrd}","${dirCrd}${V_K}_$udate.${extCrd}");
+      copyfile("${dirSav}/ORB/F3_$yyddd.${extStd}","${dirStd}${V_K}_$udate.${extStd}");
+      copyfile("${dirCrd}F3D_$udate.${extCrd}","${dirCrd}X3D_$udate.${extCrd}");
+      print "copy ${dirSav}/STA/F3_$yyddd.${extCrd} -> ${dirCrd}F3D_$udate.${extCrd} -> ${dirCrd}X3D_$udate.${extCrd}";
+
+    }else{
+      my $dirSav = "$CDIR_FIN";
+      if($igs20 == 1){
+        $dirSav = "$PATH_SAV/IGS_I20/$yyyy/";
+      }
+      copyfile("${dirSav}/ATM/F3_$yyddd.${extTrp}","${dirTrp}${V_K}_$udate.${extTrp}");
+      copyfile("${dirSav}/ORB/F3_$yyddd.${extErp}","${dirErp}${V_K}_$udate.${extErp}");
+      copyfile("${dirSav}/STA/F3_$yyddd.${extCrd}","${dirCrd}${V_K}_$udate.${extCrd}");
+      copyfile("${dirSav}/ORB/F3_$yyddd.${extStd}","${dirStd}${V_K}_$udate.${extStd}");
+      copyfile("${dirCrd}F3D_$udate.${extCrd}","${dirCrd}X3D_$udate.${extCrd}");
+    }
+  }
+
+  my @crdFils = ();
+  push @crdFils,"${dirCrd}${V_B}_$udate.${extCrd}" if ( $param1 ne "FINAL" );
+  push @crdFils,"${dirCrd}${V_K}_$udate.${extCrd}";
+  push @crdFils,"${dirCrd}${V_F}_$udate.${extCrd}";
+
+# Remove flag for AMU2
+# --------------------
+  foreach my $filName (@crdFils) {
+
+    print "Remove solution flag for AMU2 in file $filName\n";
+
+    my $crdFil = "";
+    open (CRDFIL,"< $filName");
+    while (my $line = <CRDFIL>) {
+        if ( $line =~ /AMU2 / ) {
+            $line =~ s/    [A-Z]$//;
+        }
+        $crdFil = $crdFil . $line
+    }
+    close(CRDFIL);
+
+    open (CRDFIL,"> $filName");
+    print CRDFIL $crdFil;
+    close(CRDFIL);
+  }
+
+  # Copy Vienna grid files
+  # ----------------------
+  if ( $param1 ne "FINAL" || $repro ) {
+    system("$ENV{AUTO}/copyGrid.pl ${dirCrd}.. $ddd $yyyy $v_tropMod -d=7");
+    system("$ENV{AUTO}/copyGrid.pl ${dirCrd}.. $ddd $yyyy $v_tropMod -oneFile");
+  }
+}
+
+

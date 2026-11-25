@@ -1,0 +1,23 @@
+package ADDNEQ2;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ADDNEQ2
+#
+# Purpose :  Run ADDNEQ2
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use warnings;
+
+sub run {
+  my $bpe = shift;
+# ---------- Run program ------------
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+}

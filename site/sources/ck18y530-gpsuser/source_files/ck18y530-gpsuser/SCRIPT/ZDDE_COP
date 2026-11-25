@@ -1,0 +1,38 @@
+package ZDDE_COP;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ZDDE_COP
+#
+# Purpose :  Copy files requiered by ZDMCLKDEN.PCF
+#
+# Author  :  E. Calero
+# Created :  10-May-2021
+#
+# Changes :  15-Jun-2026: ck: Reformatted
+#===========================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+  my ($yyddd,$dirPzh) = $bpe->getKeys('$YD+0','DIR_PZH');
+
+# Copy observation files
+# ------------------------------
+  system("mkdir $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}");
+
+  my $resFol   = "$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/${yyddd}/";
+
+  system("cd $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/; cp ../${yyddd}.tgz . ;tar xvfz ${yyddd}.tgz");
+
+  my $resObs   = "$resFol/OBS/";
+  
+  copyfile("${resObs}/*","${dirPzh}");
+
+  system("rm -r $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/");
+
+}

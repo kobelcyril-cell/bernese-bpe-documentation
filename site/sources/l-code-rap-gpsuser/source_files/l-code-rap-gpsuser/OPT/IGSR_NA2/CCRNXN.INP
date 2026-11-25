@@ -1,0 +1,855 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some Keywords for Automatic Output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Leap Seconds
+! ------------
+GPSUTC 1  "GPSUTC"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! Title
+! -----
+TITLE 1  "Concatenate RINEX Navigation Files"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Agency Running Program
+! ----------------------
+AGENCY 1  "AIUB"
+  ## widget = lineedit
+
+MSG_AGENCY 1  "Agency running program"
+
+! Comment Lines
+! -------------
+COMMENTS 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_COMMENTS 1  "Comments lines"
+
+RX_DOI 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_RX_DOI 1  "Overwrite Digital Object Identifier (DOI)"
+
+RX_LICENSE 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_RX_LICENSE 1  "Overwrite license of use"
+
+RX_STAINF 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_RX_STAINF 1  "Overwrite station information"
+
+! Options
+! -------
+USEWIN 1  "1"
+  ## widget = checkbox
+
+MSG_USEWIN 1  "Use time window"
+
+RDRXHDUC 1  "0"
+  ## widget = checkbox
+
+MSG_RDRXHDUC 1  "Change header strings to upper case on read"
+
+! Epoch Window
+! ------------
+RADIO_1 1  "1"
+  ## widget = radiobutton; group = WINDOW
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by year and session identifier"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = WINDOW
+
+MSG_RADIO_2 1  "Defined by start and end time"
+
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 59"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! -------------------------------------------------------------------
+! Files
+! -------------------------------------------------------------------
+! List of Input Files
+! -------------------
+! BSW-internal RINEX Files
+! ------------------------
+FILELIST_BSW 1  ""
+  ## widget = selwin; path = DIR_OBN; ext = EXT_RBN; emptyallowed = true
+
+FILELIST_BSW_TXT_COL_1 1  "RINEX input files"
+
+MSG_FILELIST_BSW 1  "RINEX nav inp files, Bernese internal naming"
+
+! Short GPS RINEX Files
+! ---------------------
+FILELIST_GPS 1  ""
+  ## widget = selwin; path = DIR_OXN; ext = EXT_RXN; emptyallowed = true
+
+FILELIST_GPS_TXT_COL_1 1  "RINEX input files"
+
+MSG_FILELIST_GPS 1  "RINEX nav inp files, RINEX-2-style naming (GPS)"
+
+! Short GLONASS RINEX Files
+! -------------------------
+FILELIST_GLO 1  ""
+  ## widget = selwin; path = DIR_OXG; ext = EXT_RXG; emptyallowed = true
+
+FILELIST_GLO_TXT_COL_1 1  "RINEX input files"
+
+MSG_FILELIST_GLO 1  "RINEX nav inp files, RINEX-2-style name (GLONASS)"
+
+! Short Galileo RINEX Files
+! -------------------------
+FILELIST_GAL 1  ""
+  ## widget = selwin; path = DIR_OGA; ext = EXT_RGA; emptyallowed = true
+
+FILELIST_GAL_TXT_COL_1 1  "RINEX input files"
+
+MSG_FILELIST_GAL 1  "RINEX nav inp files, RINEX-2-style name (Galileo)"
+
+! Long RINEX navigation files
+! ---------------------------
+FILELIST_LONG 1  ""
+  ## widget = selwin; path = DIR_ORX; ext = EXT_RNX; emptyallowed = true
+
+FILELIST_LONG_TXT_COL_1 1  "RINEX input files"
+
+MSG_FILELIST_LONG 1  "RINEX nav inp files, RINEX-3-style naming"
+
+! List of RINEX nav inp filenames with mixed endings
+! --------------------------------------------------
+FILELIST 1  ""
+  ## widget = selwin; path = DIR_ORX; emptyallowed = true
+
+FILELIST_TXT_COL_1 1  "RINEX input files"
+
+MSG_FILELIST 1  "RINEX nav. inp files, any naming convention"
+
+! Output file directory and extensions
+! ------------------------------------
+DEVOUT_BSW 0
+  ## widget = initmenu; pointer = DIR_RBN
+
+EXTOUT_BSW 0
+  ## widget = initmenu; pointer = EXT_RBN
+
+DEVOUT_RX2 0
+  ## widget = initmenu; pointer = DIR_RXN
+
+EXTOUT_RX2 0
+  ## widget = initmenu; pointer = EXT_RXN
+
+DEVOUT_RX3 0
+  ## widget = initmenu; pointer = DIR_RNX
+
+EXTOUT_RX3 0
+  ## widget = initmenu; pointer = EXT_RNX
+
+! Collected output name
+! ---------------------
+BSWOUT 1  ""
+  ## widget = lineedit; path = DIR_RBN; ext = EXT_RBN; emptyallowed = true
+
+MSG_BSWOUT 1  "Bernese-style named out file"
+
+! Collected output name
+! ---------------------
+CHAR4 1  "CODE"
+  ## widget = lineedit; activeif = BSWOUT = _
+
+MSG_CHAR4 1  "First four characters of RINEX 2 out file"
+
+! Collected output name
+! ---------------------
+CHAR9 1  ""
+  ## widget = lineedit; activeif = BSWOUT = _
+
+MSG_CHAR9 1  "First nine characters of RINEX 3 out file"
+
+! Preferred RINEX output
+! ----------------------
+SPEC_RNX_OUT 1  "1"
+  ## widget = checkbox
+
+MSG_SPEC_RNX_OUT 1  "Others (Force RINEX 3 format, BSW-internal naming)"
+
+NRM_EPO_FN 1  "1"
+  ## widget = checkbox
+
+MSG_NRM_EPO_FN 1  "Norm. start epo. in out. file name to midn."
+
+RADIO_BSW_FN 1  "0"
+  ## widget = radiobutton; group = OUT_FN
+
+MSG_RADIO_BSW_FN 1  "BSW internal file naming"
+
+RADIO_RNX_FN 1  "1"
+  ## widget = radiobutton; group = OUT_FN
+
+MSG_RADIO_RNX_FN 1  "RINEX 2- or RINEX-3-style file name"
+
+RADIO_MRH 1  "0"
+  ## widget = radiobutton; group = OUT_VERS
+
+MSG_RADIO_MRH 1  "Take highest input RINEX version as output version"
+
+RADIO_MRL 1  "0"
+  ## widget = radiobutton; group = OUT_VERS
+
+MSG_RADIO_MRL 1  "On mixed RINEX main versions, choose lower one"
+
+RADIO_FR 1  "1"
+  ## widget = radiobutton; group = OUT_VERS
+
+MSG_RADIO_FR 1  "Force output RINEX version"
+
+RNXOUTVERS 1  "2.11"
+  ## widget = combobox; editable = false; activeif = RADIO_FR = 1
+  ## cards = 2.10 2.11 2.12 2.20 3.00 3.01 3.02 3.03 3.04 3.05 4.00 4.01
+
+MSG_RNXOUTVERS 1  "List of supported RINEX versions"
+
+! -------------------------------------------------------------------
+! Options
+! -------------------------------------------------------------------
+! Satellite systems
+! -----------------
+! Which GNSS to use
+USE_G 1  "1"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Use GPS navigation messages"
+
+USE_R 1  "0"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Use GLONASS navigation messages"
+
+USE_E 1  "0"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Use Galileo navigation messages"
+
+USE_S 1  "0"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Use SBAS navigation messages"
+
+USE_C 1  "0"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Use BeiDou navigation messages"
+
+USE_J 1  "0"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Use QZSS navigation messages"
+
+USE_I 1  "0"
+  ## widget = checkbox
+
+MSG_USE_I 1  "Use IRNSS navigation messages"
+
+! Minimal number of broadcast messages
+MINMSG_G 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_G == 1
+
+MSG_MINMSG_G 1  "Min number of broadcast messages (GPS)"
+
+MINMSG_R 1  "2"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_R == 1
+
+MSG_MINMSG_R 1  "Min number of broadcast messages (GLONASS)"
+
+MINMSG_E 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_E == 1
+
+MSG_MINMSG_E 1  "Min number of broadcast messages (Galileo)"
+
+MINMSG_S 1  "2"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_S == 1
+
+MSG_MINMSG_S 1  "Min number of broadcast messages (SBAS)"
+
+MINMSG_C 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_C == 1
+
+MSG_MINMSG_C 1  "Min number of broadcast messages (BeiDou)"
+
+MINMSG_J 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_J == 1
+
+MSG_MINMSG_J 1  "Min number of broadcast messages (QZSS)"
+
+MINMSG_I 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_I == 1
+
+MSG_MINMSG_I 1  "Min number of broadcast messages (IRNSS)"
+
+! Actions in case of inconsistencies in RINEX headers
+! ---------------------------------------------------
+AOM_GENERAL 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GENERAL 1  "Missing mandatory records"
+
+AOI_IONCORRPARS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_IONCORRPARS 1  "Ionospheric correction parameters"
+
+AOI_LEAP_SEC 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_LEAP_SEC 1  "Leap seconds"
+
+AOI_SERVICE_PROV 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_SERVICE_PROV 1  "Service provider"
+
+AOI_A0_A1 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_A0_A1 1  "Time system correction parameters"
+
+AOI_UTC_ID 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_UTC_ID 1  "UTC ID"
+
+! Navigation message tests
+! ------------------------
+EPOCHS_DEF 3
+  "" "" "100" "0" "0.5"
+  "S" "" "1" "0" "0.5"
+  "I" "" "1" "0" "0.5"
+  ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
+  ## check_type.4 = real; check_type.5 = real; numlines = 10
+
+MSG_EPOCHS_DEF 1  "Definition of valid epochs"
+
+LIM_VEL_NORM 1  "R" "" "3.9d3" "4d3"
+  ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
+  ## check_type.4 = real; check_min.4 = 0d0; numlines = 10
+
+MSG_LIM_VEL_NORM 1  "Norm of satellite velocity [m/s]"
+
+LIM_SEMI_MAJ_AXIS 9
+  "G" "" "26d6" "27d6"
+  "R" "" "25d6" "26d6"
+  "E" "" "29.5d6" "30.5d6"
+  "E" "Ext" "26d6" "28d6"
+  "S" "" "41d6" "43.1d6"
+  "C" "" "27.5d6" "28.5d6"
+  "C" "IGSO1" "41.5d6" "42.5d6"
+  "C" "IGSO2" "41.5d6" "42.5d6"
+  "J" "" "41.5d6" "42.5d6"
+  ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
+  ## check_type.4 = real; check_min.4 = 0d0; numlines = 10
+
+MSG_LIM_SEMI_MAJ_AXIS 1  "Semi major axis [m]"
+
+LIM_NODE 1  "" "" "-1d20" "1d20"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## numlines = 10
+
+MSG_LIM_NODE 1  "Node [deg]"
+
+LIM_NODE_DOT 1  "G" "" "-6d-7" "-2.5d-7"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## numlines = 10
+
+MSG_LIM_NODE_DOT 1  "Rate of node [deg/s]"
+
+LIM_MEAN_ANOMALY 1  "" "" "-1d20" "1d20"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## numlines = 10
+
+MSG_LIM_MEAN_ANOMALY 1  "Mean anomaly [deg]"
+
+LIM_ECCENTRICITY 4
+  "" "" "0d0" "0.1d0"
+  "E" "" "0d0" "0.1d0"
+  "E" "Ext" "0.1d0" "0.2d0"
+  "I" "" "0d0" "0.2d0"
+  ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
+  ## check_type.4 = real; check_min.4 = 0d0; numlines = 10
+
+MSG_LIM_ECCENTRICITY 1  "Eccentricity"
+
+LIM_INCLINATION 9
+  "G" "" "50d0" "58d0"
+  "G" "I" "60d0" "65d0"
+  "R" "" "63d0" "67d0"
+  "E" "" "50d0" "60d0"
+  "C" "" "50d0" "65d0"
+  "C" "IGSO1" "50d0" "65d0"
+  "C" "IGSO2" "-10d0" "10d0"
+  "J" "" "30d0" "60d0"
+  "J" "GEO" "-5d0" "5d0"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## numlines = 10
+
+MSG_LIM_INCLINATION 1  "Inclination [deg]"
+
+LIM_PERIGEE 2
+  "J" "" "265d0" "275d0"
+  "J" "GEO" "0d0" "361d0"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## numlines = 10
+
+MSG_LIM_PERIGEE 1  "Perigee [deg]"
+
+LIM_DELTA_N 1  "G" "" "5.7d-9" "401d-9"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## numlines = 10
+
+MSG_LIM_DELTA_N 1  "Corr to mean motion [deg/s]"
+
+GEN_BLK_CONF 1  "" "" ""
+  ## widget = uniline; numlines = 10
+
+MSG_GEN_BLK_CONF 1  "Further block configurations"
+
+GPS_DAT_SRC_PRIO 1  ""
+  ## widget = lineedit; activeif = USE_G == 1
+
+MSG_GPS_DAT_SRC_PRIO 1  "GPS L2 broadcast data source priority list"
+
+GAL_DAT_SRC_PRIO 1  ""
+  ## widget = lineedit; activeif = USE_E == 1
+
+MSG_GAL_DAT_SRC_PRIO 1  "Galileo broadcast data source priority list"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${P}/IGSRAPID/OUT/CCRNXN"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+NOMSGDATE 0
+
+MSG_NOMSGDATE 1  "Suppress writing of message timestamp"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONCATENATE RINEX NAVIGATION FILES - CCRNXN 1: Filenames                     #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# RINEX INPUT FILES                                                            #
+#   RINEX navigation files                                                     #
+#     Bernese internal naming       > %%%%%%%%%%%%%%%%%%%% <                   # FILELIST_BSW
+#     RINEX-3-style naming          > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # FILELIST_LONG
+#     RINEX-2-style naming  GPS@@@@ > %%%%%%%% <                               # FILELIST_GPS
+#     RINEX-2-style naming  GLONASS > %%%%%%%% <                               # FILELIST_GLO
+#     RINEX-2-style naming  Galileo > %%%%%%%% <                               # FILELIST_GAL
+#     Any naming convention         > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # FILELIST
+#                                                                              #
+# OUTPUT RINEX FILE                                                            #
+#   Bernese internal output name    > %%%%%%%%%%%%%%%%%%%% <                   # BSWOUT
+#   Others than default     > % < (RINEX 3 format, BSW-internal naming)        # SPEC_RNX_OUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output        > % < use CCRNXN.Lnn            or  > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages        > % < merged to program output  or  > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# CCRNXN 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   GPS-UTC time difference > %%%%%%%%%%%% <                                   # GPSUTC
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SPEC_RNX_OUT = 1 #################################################
+# CCRNXN 1.2: Output RINEX file                                                #
+#                                                                              #
+# AUTOMATED OUTPUT RINEX FILE NAMING (if result file is blank)                 #
+#   > % < BSW internal file naming                                             # RADIO_BSW_FN
+#   > % < RINEX-2- or RINEX-3-style file name (depending on output version)    # RADIO_RNX_FN
+#                                                                              #
+#   > % < Normalize start epoch in RINEX-3-style output file name to midnight  # NRM_EPO_FN
+#                                                                              #
+#     First nine characters   > %%%%%%%%% < (for BSW and RINEX 3 file naming)  # CHAR9
+#     First four characters   > %%%% <      (for RINEX 2-style file naming)    # CHAR4
+#                                                                              #
+# OUTPUT RINEX VERSION                                                         #
+#   > % < Take highest input RINEX version as output RINEX version             # RADIO_MRH
+#   > % < On mixed input RINEX main versions, choose lower one                 # RADIO_MRL
+#         On same input RINEX main versions, choose higher sub-version         #
+#   > % < Force output RINEX version to > %%%% <                               # RADIO_FR RNXOUTVERS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 2.1: Input Options                                                    #
+#                                                                              #
+# SATELLITE SYSTEMS                                                            #
+#            Use the GNSS    Minimal number of broadcast messages              #
+#   GPS      > % <           > %%% <                                           # USE_G MINMSG_G
+#   GLONASS  > % <           > %%% <                                           # USE_R MINMSG_R
+#   Galileo  > % <           > %%% <                                           # USE_E MINMSG_E
+#   SBAS     > % <           > %%% <                                           # USE_S MINMSG_S
+#   BeiDou   > % <           > %%% <                                           # USE_C MINMSG_C
+#   QZSS     > % <           > %%% <                                           # USE_J MINMSG_J
+#   IRNSS    > % <           > %%% <                                           # USE_I MINMSG_I
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 2.2: Options                                                          #
+#                                                                              #
+# OPTIONS                                                                      #
+#   Use time window                            > % <                           # USEWIN
+#   Change hdr strings to upper case on read   > % <                           # RDRXHDUC
+#                                                                              #
+# COMMENTS                                                                     #
+#   Agency running program      > %%%%%%%%%%%%%%%%%%% <                        # AGENCY
+#                                                                              #
+# > Comments____________________________________________________      <        # COMMENTS
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+# > Digital_Object_Identifier_(DOI)_____________________________      <        # RX_DOI
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+# > License_of_use______________________________________________      <        # RX_LICENSE
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+# > Station_information_________________________________________      <        # RX_STAINF
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL USEWIN = 1 #######################################################
+# CCRNXN 2.3: Observation Window                                               #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <   Session > %%%% <                                    # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End time                                        # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 3: Check Content of RINEX Header                                      #
+#                                                                              #
+# ACTIONS IN CASE OF MISSING MANDATORY HEADER RECORDS                          #
+#   Missing mandatory records            > %%%%%%%%% <                         # AOM_GENERAL
+#                                                                              #
+# ACTIONS IN CASE OF INCONSISTENCIES BETWEEN HEADERS                           #
+# (also between multiple headers in the same RINEX file)                       #
+#   Ionospheric correction parameters    > %%%%%%%%% <                         # AOI_IONCORRPARS
+#   Leap seconds                         > %%%%%%%%% <                         # AOI_LEAP_SEC
+#   Service provider                     > %%%%%%%%% < (RINEX vers ge 3.00)    # AOI_SERVICE_PROV
+#   Time system correction parameters    > %%%%%%%%% <                         # AOI_A0_A1
+#   UTC ID                               > %%%%%%%%% < (RINEX vers ge 3.00)    # AOI_UTC_ID
+#                                                                              #
+#     NONE@@@@: No check is done            (keep contents of the first one)   #
+#     WARNING@: Write warning and continue  (keep contents of the first one)   #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.1: Definition of valid epochs                                       #
+#                                                                              #
+# Definition of valid epochs                                                   #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Sampling interval [s], 0 means no sampling                       #
+#   Column 4: List of offsets to full minute [s], empty list means offset 0    #
+#   Column 5: Sampling tolerance [s]                                           #
+# > GNSS Block___ interval offsets_______________ tolerance      <             # EPOCHS_DEF
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.2: Limits for the norm of the satellite velocity                    #
+#                                                                              #
+# Satellite velocity [m/s] (Meaningful for GLONASS and SBAS only)              #
+#   Column 1: GNSS (1 character), use 'R' or 'S'                               #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal satellite velocity [m/s]                                 #
+#   Column 4: Maximal satellite velocity [m/s]                                 #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_VEL_NORM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.3: Limits for the semi major axis                                   #
+#                                                                              #
+# Semi major axis [m]                                                          #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal semi major axis [m]                                      #
+#   Column 4: Maximal semi major axis [m]                                      #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_SEMI_MAJ_AXIS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.4: Limits for the node                                              #
+#                                                                              #
+# Node [deg]                                                                   #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal node [deg]                                               #
+#   Column 4: Maximal node [deg]                                               #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_NODE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.5: Limits for the rate of the node                                  #
+#                                                                              #
+# Rate of node [deg/s] (Doesn't apply for GLONASS or SBAS)                     #
+#   Column 1: GNSS (1 character)                                               #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal rate of node [deg/s]                                     #
+#   Column 4: Maximal rate of node [deg/s]                                     #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_NODE_DOT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.6: Limits for the mean anomaly                                      #
+#                                                                              #
+# Mean anomaly [deg]                                                           #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal mean anomaly [deg]                                       #
+#   Column 4: Maximal mean anomaly [deg]                                       #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_MEAN_ANOMALY
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.7: Limits for the eccentricity                                      #
+#                                                                              #
+# Eccentricity                                                                 #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal eccentricity                                             #
+#   Column 4: Maximal eccentricity                                             #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_ECCENTRICITY
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.8: Limits for the inclination                                       #
+#                                                                              #
+# Inclination [deg]                                                            #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal inclination [deg]                                        #
+#   Column 4: Maximal inclination [deg]                                        #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_INCLINATION
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.9: Limits for the perigee                                           #
+#                                                                              #
+# Perigee [deg] (Meaningful for QZSS only)                                     #
+#   Column 1: GNSS (1 character), use 'J'                                      #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal perigee [deg]                                            #
+#   Column 4: Maximal perigee [deg]                                            #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_PERIGEE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.10: Limits for the correction to the mean motion                    #
+#                                                                              #
+# Correction to mean motion [deg/s] (Doesn't apply for GLONASS or SBAS)        #
+#   Column 1: GNSS (1 character)                                               #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal correction to mean motion [deg/s]                        #
+#   Column 4: Maximal correction to mean motion [deg/s]                        #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_DELTA_N
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 4.11: Additional configurations to detect bad navigation messages     #
+#                                                                              #
+# Column 1: GNSS (1 character), empty means all GNSS                           #
+# Column 2: Block name for one GNSS (one of the names has to be empty)         #
+# Column 3: Restrict block to given list of PRNs, no restrictions on empty list#
+# > GNSS Block___ Restr_to_PRNs______________      <                           # GEN_BLK_CONF
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXN 5: Broadcast data source priority list                                #
+#                                                                              #
+# Bit-wise priorization of GPS L2 broadcast data sources,                      #
+#  empty means no priorization at all                                          #
+#  > %%%%% <                                                                   # GPS_DAT_SRC_PRIO
+#                                                                              #
+# Bit-wise priorization of Galileo broadcast data sources,                     #
+#  empty means no priorization at all,                                         #
+#  e.g. '4 1 2' means I/NAV E5b-I (3) have highest prioriy,                    #
+#  '1' corresponds to I/NAV E1-B navigation messages                           #
+#  '2' corresponds to F/NAV E5a-I navigation messages                          #
+#  '4' corresponds to I/NAV E5b-I navigation messages                          #
+#  > %%%%% <                                                                   # GAL_DAT_SRC_PRIO
+#                                                                              #
+# END_PANEL ####################################################################

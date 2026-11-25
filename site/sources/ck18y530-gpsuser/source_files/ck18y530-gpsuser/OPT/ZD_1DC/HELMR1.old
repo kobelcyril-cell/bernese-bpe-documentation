@@ -1,0 +1,652 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 9
+  "U" "/storage/homefs/ec20f882/GPSUSER_ZDM"
+  "T" "/scratch/local/ec20f882"
+  "X" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GPS"
+  "P" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "ec20f882"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 1  "${R}/EC_FZDMGNSS"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${R}/EC_FZDMGNSS/STA/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2022"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "1000"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! -------------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! Constants
+! ---------
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+! Local Geodetic Datum
+! --------------------
+DATUM 1  "${CONFIG}/DATUM.BSW"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+  # DATUM
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! Coordinate and Velocity Files
+! -----------------------------
+COORD1 1  "${R}/EC_FZDMGNSS/STA/$A_221000.CRD"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+  # $A_$YSS+0
+
+DESCR_COORD1 1  "First coordinate file"
+
+VELAPR 0
+  ## widget = selwin; path = DIR_VEL; ext = EXT_VEL; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_VELAPR 1  "Velocities for first file"
+
+! PSD corrections for ITRF2014
+! ----------------------------
+PSDDAT 0
+  ## widget = selwin; path = DIR_PSD; ext = EXT_PSD; maxfiles = 1
+  ## emptyallowed = true; activeif = VELAPR / _
+  # 
+
+DESCR_PSDDAT 1  "PSD corrections"
+
+! Periodic corrections for ITRF2014
+! ---------------------------------
+PERDAT 0
+  ## widget = selwin; path = DIR_TVC; ext = EXT_TVC; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_PERDAT 1  "Annual/semiannual corrections (since ITRF14)"
+
+! Loading corrections for DTRF2014
+! --------------------------------
+LOADDAT 0
+  ## widget = selwin; path = DIR_TVC; ext = EXT_TVC; maxfiles = 1
+  ## emptyallowed = true
+
+MSG_LOADDAT 1  "Loading corrections (since DTRF14)"
+
+! What to do with the other stations
+! ----------------------------------
+PSDSTA 1  "USE"
+  ## widget = combobox; editable = false; cards = USE MARK EXCLUDE
+  ## activeif = PSDDAT / _ AND VELAPR / _
+
+MSG_PSDSTA 1  "Handling of stations with PSD corrections"
+
+COORD2 1  "${R}/EC_FZDMGNSS/STA/$(SOL)C1000.CRD"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+  # $(SOL)C$S+0
+
+DESCR_COORD2 1  "Second coordinate file"
+
+! Transformed Coordinates
+! -----------------------
+COORDRS 0
+  ## widget = lineedit; path = DIR_CRD; ext = EXT_CRD
+  # 
+
+DESCR_COORDRS 1  "Coordinates"
+
+! Output station fix file
+! -----------------------
+OKSTA 1  "${R}/EC_FZDMGNSS/STA/$(SOL)_22100.FIX"
+  ## widget = lineedit; path = DIR_FIX; ext = EXT_FIX
+  # $(SOL)_$YD+0
+
+DESCR_OKSTA 1  "List of accepted stations"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${R}/EC_FZDMGNSS/OUT/$(SOL)C22100.OUT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # $(SOL)C$YD+0
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # 
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Scratch File
+! ------------
+AUXFIL 1  "${U}/WORK/HELMR1.SCR"
+  ## widget = lineedit; path = PTH_SCR; ext = EXT_SCR; emptyallowed = false
+  # HELMR1
+
+DESCR_AUXFIL 1  "Scratch file"
+
+DELETE_FILES 1  "AUXFIL"
+
+! List of reference stations
+! ---------------------
+USESTA 1  "${R}/EC_FZDMGNSS/STA/$(SOL)_22100.FIX"
+  ## widget = selwin; path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
+  ## emptyallowed = true
+  # $(SOL)_$YD+0
+
+DESCR_USESTA 1  "List of reference stations"
+
+! Other stations
+! ----------------------------------
+OTHSTA 1  "VERIFIED"
+  ## widget = combobox; editable = false; cards = NONE VERIFIED
+
+MSG_OTHSTA 1  "Other stations"
+
+! Extra list of stations
+! ----------------------
+ADDSTA 1  "${R}/EC_FZDMGNSS/STA/$(CRDINF).FIX"
+  ## widget = selwin; path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
+  ## activeif = OTHSTA / NONE; emptyallowed = true
+  # $(CRDINF)
+
+DESCR_ADDSTA 1  "Extra list of stations"
+
+! Station selection
+! -----------------
+RADIO_1 1  "1"
+  ## widget = radiobutton; group = STASELECT
+
+MSG_RADIO_1 1  "Automatic station selection"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = STASELECT
+
+MSG_RADIO_2 1  "Manual station selection"
+
+STASELHLP 112
+  "GRAS 10002M006B" "W" "A" "E"
+  "TLSE 10003M009" "W" "A" "E"
+  "REYK 10202M001" "W" "W" ""
+  "HOFN 10204M002" "W" "A" "E"
+  "TRO1 10302M006" "W" "W" ""
+  "NYA1 10317M003" "W" "W" ""
+  "ONSA 10402M004" "W" "W" ""
+  "KIRU 10403M002B" "W" "A" "E"
+  "METS 10503S011" "W" "A" "E"
+  "HFLK 11006S003B" "W" "A" "E"
+  "PENC 11206M006" "W" "A" "E"
+  "GOPE 11502M002C" "W" "A" "E"
+  "JOZE 12204M001" "W" "A" "E"
+  "BOR1 12205M002B" "W" "A" "E"
+  "LAMA 12209M001B" "W" "A" "E"
+  "MDVO 12309M002" "W" "A" "E"
+  "IRKT 12313M001" "W" "W" ""
+  "POL2 12348M001" "W" "A" "E"
+  "NOT1 12717M004" "W" "A" "E"
+  "MATE 12734M008C" "W" "W" ""
+  "UPAD 12750M002B" "W" "A" "E"
+  "BRUS 13101M004B" "W" "A" "E"
+  "VILL 13406M001" "W" "W" ""
+  "MADR 13407S012C" "W" "A" "E"
+  "KOSG 13504M003" "W" "A" "E"
+  "WSRT 13506M005" "W" "W" ""
+  "ZIMM 14001M004" "W" "A" "E"
+  "POTS 14106M003" "W" "W" ""
+  "WTZR 14201M010" "W" "W" ""
+  "NICO 14302M001" "W" "A" "E"
+  "SELE 12352M001" "W" "A" "E"
+  "GLSV 12356M001" "W" "A" "E"
+  "SJDV 10090M001" "W" "A" "E"
+  "TIXI 12360M001" "W" "A" "E"
+  "ARTU 12362M001" "W" "A" "E"
+  "YSSK 12329M003" "W" "A" "E"
+  "BILI 12363M001" "W" "A" "E"
+  "ANKR 20805M002" "W" "A" "E"
+  "WUHN 21602M001" "W" "A" "E"
+  "SHAO 21605M002" "W" "W" ""
+  "LHAS 21613M001" "W" "W" ""
+  "USUD 21729S007" "W" "A" "E"
+  "TSKB 21730S005" "W" "W" ""
+  "NTUS 22601M001" "W" "A" "E"
+  "DAEJ 23902M002" "W" "A" "E"
+  "BAHR 24901M002" "W" "W" ""
+  "SUWN 23903M001" "W" "A" "E"
+  "RAMO 20703S001B" "W" "A" "E"
+  "URUM 21612M001" "W" "A" "E"
+  "HRAO 30302M004" "W" "A" "E"
+  "MAS1 31303M002" "W" "A" "E"
+  "MALI 33201M001B" "W" "A" "E"
+  "NKLG 32809M002" "W" "A" "E"
+  "STJO 40101M001B" "W" "A" "E"
+  "ALGO 40104M002" "W" "W" ""
+  "DRAO 40105M002" "W" "W" ""
+  "YELL 40127M003B" "W" "W" ""
+  "CHUR 40128M002B" "W" "A" "E"
+  "ALBH 40129M003" "W" "A" "E"
+  "FLIN 40135M001B" "W" "A" "E"
+  "WHIT 40136M001" "W" "A" "E"
+  "GOLD 40405S031" "W" "W" ""
+  "QUIN 40433M004" "W" "A" "E"
+  "MDO1 40442M012" "W" "W" ""
+  "GODE 40451M123" "W" "W" ""
+  "USNO 40451S003" "W" "A" "E"
+  "PIE1 40456M001" "W" "W" ""
+  "NLIB 40465M001" "W" "W" ""
+  "MKEA 40477M001" "W" "A" "E"
+  "MONP 40497M004B" "W" "A" "E"
+  "LPGS 41510M001" "W" "A" "E"
+  "FORT 41602M001" "W" "W" ""
+  "EISL 41703M003" "W" "A" "E"
+  "SANT 41705M003B" "W" "W" ""
+  "GALA 42005M001" "W" "A" "E"
+  "BRMU 42501S004" "W" "W" ""
+  "KELY 43005M001" "W" "A" "E"
+  "CRO1 43201M001" "W" "A" "E"
+  "NRC1 40114M001" "W" "A" "E"
+  "SCH2 40133M002" "W" "A" "E"
+  "DUBO 40137M001" "W" "A" "E"
+  "AMC2 40472S004" "W" "A" "E"
+  "WILL 40134M001" "W" "A" "E"
+  "AOML 49914S001" "W" "A" "E"
+  "RIOG 41507M004" "W" "A" "E"
+  "JAMA 42601S001" "W" "A" "E"
+  "INEG 40507M001B" "W" "A" "E"
+  "TIDB 50103M108C" "W" "W" ""
+  "HOB2 50116M004" "W" "W" ""
+  "COCO 50127M001" "W" "A" "E"
+  "PERT 50133M001" "W" "W" ""
+  "MAC1 50135M001" "W" "W" ""
+  "CHAT 50207M001" "W" "W" ""
+  "AUCK 50209M001" "W" "W" ""
+  "GUAM 50501M002" "W" "W" ""
+  "ALIC 50137M001" "W" "A" "E"
+  "KARR 50139M001" "W" "A" "E"
+  "TOW2 50140M001" "W" "A" "E"
+  "CEDU 50138M001" "W" "A" "E"
+  "JAB1 50136M001" "W" "A" "E"
+  "DARW 50134M001" "W" "A" "E"
+  "MCM4 66001M003" "W" "W" ""
+  "OHIG 66008M001" "W" "W" ""
+  "DAV1 66010M001" "W" "W" ""
+  "CAS1 66011M001" "W" "W" ""
+  "MAW1 66004M001" "W" "A" "E"
+  "SYOG 66006S002" "W" "A" "E"
+  "KERG 91201M002B" "W" "W" ""
+  "THTI 92201M009" "W" "A" "E"
+  "KOUR 97301M210B" "W" "W" ""
+  "NOUM 92701M003" "W" "A" "E"
+  "NPLD 13234M003" "W" "A" "E"
+  ## widget = uniline; menuaux = MENUAUX; action = HELMERT
+  ## menuauxkeys = DATUM COORD1 COORD2 USESTA OTHSTA
+  ## updateifsave = RADIO_2 = 1
+
+MSG_STASELHLP 1  "Station name / Flags / manual selection"
+
+STASELECT 110
+  "GRAS 10002M006B" "W" "A" "E"
+  "TLSE 10003M009" "W" "A" "E"
+  "HOFN 10204M002" "W" "A" "E"
+  "NYA1 10317M003" "W" "W" ""
+  "ONSA 10402M004" "W" "W" ""
+  "KIRU 10403M002B" "W" "A" "E"
+  "METS 10503S011" "W" "A" "E"
+  "HFLK 11006S003B" "W" "A" "E"
+  "PENC 11206M006" "W" "A" "E"
+  "GOPE 11502M002C" "W" "A" "E"
+  "JOZE 12204M001" "W" "A" "E"
+  "BOR1 12205M002B" "W" "A" "E"
+  "LAMA 12209M001B" "W" "A" "E"
+  "MDVO 12309M002" "W" "A" "E"
+  "IRKT 12313M001" "W" "W" ""
+  "POL2 12348M001" "W" "A" "E"
+  "NOT1 12717M004" "W" "A" "E"
+  "MATE 12734M008C" "W" "W" ""
+  "UPAD 12750M002B" "W" "A" "E"
+  "BRUS 13101M004B" "W" "A" "E"
+  "VILL 13406M001" "W" "W" ""
+  "MADR 13407S012C" "W" "A" "E"
+  "KOSG 13504M003" "W" "A" "E"
+  "WSRT 13506M005" "W" "W" ""
+  "ZIMM 14001M004" "W" "A" "E"
+  "POTS 14106M003" "W" "W" ""
+  "WTZR 14201M010" "W" "W" ""
+  "NICO 14302M001" "W" "A" "E"
+  "SELE 12352M001" "W" "A" "E"
+  "GLSV 12356M001" "W" "A" "E"
+  "SJDV 10090M001" "W" "A" "E"
+  "TIXI 12360M001" "W" "A" "E"
+  "ARTU 12362M001" "W" "A" "E"
+  "YSSK 12329M003" "W" "A" "E"
+  "BILI 12363M001" "W" "A" "E"
+  "ANKR 20805M002" "W" "A" "E"
+  "WUHN 21602M001" "W" "A" "E"
+  "SHAO 21605M002" "W" "W" ""
+  "LHAS 21613M001" "W" "W" ""
+  "USUD 21729S007" "W" "A" "E"
+  "TSKB 21730S005" "W" "W" ""
+  "NTUS 22601M001" "W" "A" "E"
+  "DAEJ 23902M002" "W" "A" "E"
+  "BAHR 24901M002" "W" "W" ""
+  "SUWN 23903M001" "W" "A" "E"
+  "RAMO 20703S001B" "W" "A" "E"
+  "URUM 21612M001" "W" "A" "E"
+  "HRAO 30302M004" "W" "A" "E"
+  "MAS1 31303M002" "W" "A" "E"
+  "MALI 33201M001B" "W" "A" "E"
+  "NKLG 32809M002" "W" "A" "E"
+  "STJO 40101M001B" "W" "A" "E"
+  "ALGO 40104M002" "W" "W" ""
+  "DRAO 40105M002" "W" "W" ""
+  "YELL 40127M003B" "W" "W" ""
+  "CHUR 40128M002B" "W" "A" "E"
+  "ALBH 40129M003" "W" "A" "E"
+  "FLIN 40135M001B" "W" "A" "E"
+  "WHIT 40136M001" "W" "A" "E"
+  "GOLD 40405S031" "W" "W" ""
+  "QUIN 40433M004" "W" "A" "E"
+  "MDO1 40442M012" "W" "W" ""
+  "GODE 40451M123" "W" "W" ""
+  "USNO 40451S003" "W" "A" "E"
+  "PIE1 40456M001" "W" "W" ""
+  "NLIB 40465M001" "W" "W" ""
+  "MKEA 40477M001" "W" "A" "E"
+  "MONP 40497M004B" "W" "A" "E"
+  "LPGS 41510M001" "W" "A" "E"
+  "FORT 41602M001" "W" "W" ""
+  "EISL 41703M003" "W" "A" "E"
+  "SANT 41705M003B" "W" "W" ""
+  "GALA 42005M001" "W" "A" "E"
+  "BRMU 42501S004" "W" "W" ""
+  "KELY 43005M001" "W" "A" "E"
+  "CRO1 43201M001" "W" "A" "E"
+  "NRC1 40114M001" "W" "A" "E"
+  "SCH2 40133M002" "W" "A" "E"
+  "DUBO 40137M001" "W" "A" "E"
+  "AMC2 40472S004" "W" "A" "E"
+  "WILL 40134M001" "W" "A" "E"
+  "AOML 49914S001" "W" "A" "E"
+  "RIOG 41507M004" "W" "A" "E"
+  "JAMA 42601S001" "W" "A" "E"
+  "INEG 40507M001B" "W" "A" "E"
+  "TIDB 50103M108C" "W" "W" ""
+  "HOB2 50116M004" "W" "W" ""
+  "COCO 50127M001" "W" "A" "E"
+  "PERT 50133M001" "W" "W" ""
+  "MAC1 50135M001" "W" "W" ""
+  "CHAT 50207M001" "W" "W" ""
+  "AUCK 50209M001" "W" "W" ""
+  "GUAM 50501M002" "W" "W" ""
+  "ALIC 50137M001" "W" "A" "E"
+  "KARR 50139M001" "W" "A" "E"
+  "TOW2 50140M001" "W" "A" "E"
+  "CEDU 50138M001" "W" "A" "E"
+  "JAB1 50136M001" "W" "A" "E"
+  "DARW 50134M001" "W" "A" "E"
+  "MCM4 66001M003" "W" "W" ""
+  "OHIG 66008M001" "W" "W" ""
+  "DAV1 66010M001" "W" "W" ""
+  "CAS1 66011M001" "W" "W" ""
+  "MAW1 66004M001" "W" "A" "E"
+  "SYOG 66006S002" "W" "A" "E"
+  "KERG 91201M002B" "W" "W" ""
+  "THTI 92201M009" "W" "A" "E"
+  "KOUR 97301M210B" "W" "W" ""
+  "NOUM 92701M003" "W" "A" "E"
+  "NPLD 13234M003" "W" "A" "E"
+  ## widget = uniline; menuaux = MENUAUX; action = HELMERT
+  ## menuauxkeys = DATUM COORD1 COORD2 USESTA OTHSTA
+  ## updateifsave = RADIO_2 = 1; updateifchanged = STASELHLP
+  ## editable.1 = false; editable.2 = false; editable.3 = false
+  ## editable = false; numlines = 25
+
+MSG_STASELECT 1  "Station name / Flags / selection"
+
+! Type of Residuals
+! -----------------
+RESIDTYPE 1  "XYZ"
+  ## widget = combobox; editable = false; cards = NEU XYZ
+
+MSG_RESIDTYPE 1  "System of transformation, local or geocentric"
+
+! Unit of Residuals
+RESIDUNIT 1  "MM"
+  ## widget = combobox; editable = false; cards = MM M
+
+MSG_RESIDUNIT 1  "Unit of residuals"
+
+! Computed Parameters
+! -------------------
+HLM_1 1  "1"
+  ## widget = checkbox
+
+MSG_HLM_1 1  "Parameters to be computed: shift 1"
+
+HLM_2 1  "1"
+  ## widget = checkbox
+
+MSG_HLM_2 1  "Parameters to be computed: shift 2"
+
+HLM_3 1  "1"
+  ## widget = checkbox
+
+MSG_HLM_3 1  "Parameters to be computed: shift 3"
+
+HLM_4 1  "1"
+  ## widget = checkbox
+
+MSG_HLM_4 1  "Parameters to be computed: rot 1"
+
+HLM_5 1  "1"
+  ## widget = checkbox
+
+MSG_HLM_5 1  "Parameters to be computed: rot 2"
+
+HLM_6 1  "1"
+  ## widget = checkbox
+
+MSG_HLM_6 1  "Parameters to be computed: rot 3"
+
+HLM_7 1  "1"
+  ## widget = checkbox
+
+MSG_HLM_7 1  "Parameters to be computed: scale"
+
+! Outlier rejection
+! -----------------
+REJECT 1  "1"
+  ## widget = checkbox
+
+MSG_REJECT 1  "Enable outlier rejection"
+
+! Maximal number of stations being rejected
+! -----------------------------------------
+MAXREJ 1  "1"
+  ## widget = spinbox; range = 0 99 1; activeif = REJECT = 1
+
+MSG_MAXREJ 1  "Maximal number of stations being rejected"
+
+NLIMIT 1  "10"
+  ## widget = lineedit; activeif = REJECT = 1; check_type = real
+  ## check_min = 0
+
+MSG_NLIMIT 1  "Outlier criteria north component"
+
+ELIMIT 1  "10"
+  ## widget = lineedit; activeif = REJECT = 1; check_type = real
+  ## check_min = 0
+
+MSG_ELIMIT 1  "Outlier criteria east component"
+
+ULIMIT 1  "30"
+  ## widget = lineedit; activeif = REJECT = 1; check_type = real
+  ## check_min = 0
+
+MSG_ULIMIT 1  "Outlier criteria up component"
+
+! List of outliers
+! ----------------
+LISTFIL 1  "${R}/EC_FZDMGNSS/STA/BAD22100.FIX"
+  ## widget = lineedit; path = DIR_FIX; ext = EXT_FIX; activeif = REJECT = 1
+  # BAD$YD+0
+
+DESCR_LISTFIL 1  "List of rejected stations"
+
+! Title: new entry
+! ----------------
+TITLE 1  "FZDMGNSS_22100: VERIFICATION OF DATUM DEFINITION"
+  ## widget = lineedit
+  # FZDMGNSS_$YD+0: VERIFICATION OF DATUM DEFINITION
+
+MSG_TITLE 1  "Title line"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# HELMERT TRANSFORMATION - HELMR1 1: Input/Output Files                        #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files     > % <                                           # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   First coordinate file        > %%%%%%%%%%%% <                              # COORD1
+#   Velocities for first file    > %%%%%%%%%%%% < (blank: no veloc. applied)   # VELAPR
+#   PSD corrections              > %%%%%%%%%%%% < Stations with PSD> %%%%%%%% <# PSDDAT PSDSTA
+#   Annual/semiannual corrections> %%%%%%%%%%%% <                              # PERDAT
+#   Second coordinate file       > %%%%%%%%%%%% <                              # COORD2
+#   List of reference stations   > %%%%%%%%%%%% <                              # USESTA
+#   Other stations               > %%%%%%%%% <    > %%%%%%%%%%%% <             # OTHSTA ADDSTA
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Coordinates                  > %%%%%%%%%%%% <                              # COORDRS
+#   List of accepted stations    > %%%%%%%%%%%% <                              # OKSTA
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output          > % < use HELMR1.Lnn           or > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages          > % < merged to program output or > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# HELMR1 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Geodetic datum          > %%%%%%%%%%%% <                                   # DATUM
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# TEMPORARY FILES                                                              #
+#   Scratch file            > %%%%%%%%%%%% <                                   # AUXFIL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# HELMR1 2: Options for Helmert Transformation                                 #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# STATION SELECTION                                                            #
+#    > % < Automatic station selection (all stations or selection from file)   # RADIO_1
+#    > % < Manual station selection                                            # RADIO_2
+#                                                                              #
+# HELMERT TRANSFORMATION                                                       #
+#   System of transformation, LOCAL (N,E,U) or GEOCENTRIC (X,Y,Z)  > %%%% <    # RESIDTYPE
+#   Unit of residuals (meter or millimeter)                        > %%%% <    # RESIDUNIT
+#                                                                              #
+#   Parameters to be computed  shift 1  > % <   rot 1   > % <                  # HLM_1  HLM_4
+#                              shift 2  > % <   rot 2   > % <                  # HLM_2  HLM_5
+#                              shift 3  > % <   rot 3   > % <                  # HLM_3  HLM_6
+#                              scale @  > % <                                  # HLM_7
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_2 = 1 ######################################################
+# HELMR1 2.1: Manual Station Selection                                         #
+#                                                                              #
+# MANUAL STATION SELECTION                                                     #
+#     Selection: blank = use for transformation                                #
+#     @@@@@@@@@@ @@@@M = residuals only                                        #
+#     @@@@@@@@@@ @@@@E = not used                                              #
+#   > Station_name____ Flg1 Flg2 Selection   <                                 # STASELECT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# HELMR1 3: Outlier Rejection                                                  #
+#                                                                              #
+# OUTLIER REJECTION                                                            #
+#   Enable outlier rejection                   > % <                           # REJECT
+#   Maximal number of stations being rejected  > % <                           # MAXREJ
+#   Outlier criteria    north component        > %%%%%%%% <  millimeters       # NLIMIT
+#                       east@ component        > %%%%%%%% <  millimeters       # ELIMIT
+#                       up@@@ component        > %%%%%%%% <  millimeters       # ULIMIT
+#   List of rejected stations                  > %%%%%%%% <                    # LISTFIL
+#                                                                              #
+# END_PANEL ####################################################################

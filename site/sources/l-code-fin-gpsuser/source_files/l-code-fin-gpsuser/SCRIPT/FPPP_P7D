@@ -1,0 +1,631 @@
+package FPPP_P7D;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FPPP_P7D
+#
+# Purpose :  Extract repeatability from the 07-day cumulative solution
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  10-Jun-2013
+#
+# Changes :  28-Jul-2013 SL: Report exclusions for 7 day range
+#            08-May-2014 RD: Add DOCTYPE to the html-file
+#            19-Mar-2015 AV: Add FLIN remark
+#            18-Aug-2016 AV: Remove FLIN remark
+#            06-Nov-2019 MK: add Galileo
+#            04-Jan 2024 EB: aiuws1 -> aiubgate (code.aiub.unibe.ch)
+#                            and usage of google api, and link in description added
+#            05-Jan 2024 EB: add site location link and compact format
+#            09-Jan 2024 EB: Table for outlier and zoom to kml
+#            24-Jan-2024 EB: some style optimizations
+#            26-Sep-2025 EB: html dashboard standards applied
+#            10-Oct-2025 EB: Outlier link in new window opened
+#            20-Aug-2026 EB: sorttable moved as well as style file
+#            27-Aug-2026 EB: google maps calls in iframe adapted to relative links to work on different web server
+#
+# ============================================================================
+
+use strict;
+use warnings;
+
+# External packages
+use File::Basename;
+
+# Local packages
+use lib "$ENV{AUTO}";
+use igs_device;
+use sta_util qw(initStaLst getNEU getREC getANT);
+use lib "$ENV{EXE}";
+use Gps_Date qw(gps_date);
+use lib "$ENV{BPE}";
+use bpe_util qw(prtMess check_dir appFile);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+ my(
+    $yy,$ssss,$yyssss,$mjdm6,$mjdm0,
+    $yyssm6,$yyssm5,$yyssm4,$yyssm3,$yyssm2,$yyssm1,$yyssm0,
+    $c,$i,$k,$l,$o,$plt,
+    $dirOut,$dirSta,$dirAbb,$dirCrd,
+    $extOut,$extSta,$extAbb,$extCrd
+  ) =
+  $bpe->getKeys(
+    '$Y','$S+0','$YSS+0','$JD-6','$JD+0',
+    '$YD-6','$YD-5','$YD-4','$YD-3','$YD-2','$YD-1','$YD+0',
+    'V_C','V_I','V_K','V_L','V_O', 'V_PLT',
+    'DIR_OUT','DIR_STA','DIR_ABB','DIR_CRD',
+    'EXT_OUT','EXT_STA','EXT_ABB','EXT_CRD'
+  );
+
+# Initialize processing summary file
+# ----------------------------------
+  my $prcFil = "${dirOut}STA${yyssss}.PRC";
+  unlink $prcFil;
+  appFile("STATION PROBLEM SUMMARY FROM PPP FOR SESSION $yy-$ssss",
+    0,"",$prcFil,0);
+  open(PRC,"> $prcFil");
+
+# Reference to the web-pages
+# --------------------------
+  print PRC "\n" . "=" x 75 . "\n" .
+            " RESULTS SUMMARIZED ON TWO WEB-PAGES:\n".
+            "=" x 75 . "\n\n";
+  print PRC "Results of the most recent PPP solution are available at:\n";
+  print PRC "   https://code.aiub.unibe.ch/PPP/ppp.html\n";
+  print PRC "Time series of the most recent PPP solutions are available at:\n";
+  print PRC "   https://code.aiub.unibe.ch/PPP/plt.html\n\n";
+  print PRC "(Note, that the results may be delayed due to synchronization)\n\n\n\n";
+
+# Init some arrays and variables
+# ------------------------------
+  my %repeat = ();
+  my %html   = ();
+  my @alarm  = ();
+
+# Extract repeatability from the 07-day cumulative solution
+# ---------------------------------------------------------
+  my @outFil = ( "${dirOut}${c}07series.${extOut}",
+                 "${dirOut}${i}07series.${extOut}",
+                 "${dirOut}${k}07series.${extOut}",
+                 "${dirOut}${l}07series.${extOut}",
+                 "${dirOut}${o}07series.${extOut}" );
+  foreach my $out ( @outFil ) {
+    my $sol = substr(basename($out),0,3);
+    my $iRead = 0;
+    open(OUT,$out);
+    while ( <OUT> ){
+      if ( $iRead == 1 && length($_) >= 20 && substr($_,17,3) =~ / [NEU] / ) {
+        my $sta = substr($_,1,4);
+        my $cmp = substr($_,18,1);
+        $repeat{$sol}{$sta}{$cmp} = $_;
+        $html{$sta}{$sol}{$cmp} = substr($_,19,8) + 0;
+      } elsif ( /^ Comparison of individual solutions/ ) {
+        $iRead = 1;
+
+      } elsif ( /^ Notification of detected outliers/ ) {
+        $iRead = $sol eq $i ? 2 : 0;
+      }
+
+      push @alarm,$_ if $iRead == 2;
+    }
+    close OUT;
+  }
+
+
+# Report known problems
+# ---------------------
+#  print PRC "\n ATTENTION: FLIN: Snow problem since 069 (const. 20mm offset)\n".
+#            "              --> Remove it in e_sta until an offset of -20mm is detected\n\n";
+
+# Report the detected problems in the station time series
+# -------------------------------------------------------
+  my %hlp = ();
+  foreach my $line ( @alarm ) {
+    print PRC $line;
+    if ( length($line) >= 30 && substr($line,29,3) =~ / [NEU] / ) {
+      my $sta = substr($line,1,4);
+      my $nam = substr($line,1,16);
+      $hlp{$nam}  = $repeat{$i}{$sta}{N} .
+                    $repeat{$i}{$sta}{E} .
+                    $repeat{$i}{$sta}{U};
+    }
+  }
+  print PRC "\n\n\n";
+  print PRC "\n" . "=" x 75 . "\n" .
+            " SERIES OF PROBLEMATIC STATIONS FROM $i-SOLUTION:\n".
+            "=" x 75 . "\n\n";
+  print PRC "                                $yyssm6   $yyssm5   ".
+            "$yyssm4   $yyssm3   $yyssm2   $yyssm1   $yyssm0\n\n";
+  foreach my $nam ( sort %hlp ) {
+    next if ( $hlp{$nam} =~ /^[ ]*$/ );
+    print PRC "$hlp{$nam}\n";
+  }
+
+# Report the current exclusion status in CODE.STA
+# -----------------------------------------------
+  my $staFil = "${dirSta}CODE.${extSta}";
+  print PRC "\n" . "=" x 75 . "\n" .
+            " CURRENTLY ACTIVE EXCLUSIONS IN " . basename($staFil) . ":\n".
+            "=" x 75 . "\n\n";
+  open(STA,"${staFil}");
+  while(<STA>) {
+    if ( /%RNX_CRX/ || /%IGS_CRX/ || /%EPN_CRX/) {
+      my $dat1 = substr($_,27,10);
+      my $tim1 = substr($_,38, 8);
+      my $mjd1 = ( $dat1 ne "          " && $tim1 ne "        " ) ?
+                 gps_date("-ymd $dat1 -hms $tim1","-o %J") : 0;
+      my $dat2 = substr($_,48,10);
+      my $tim2 = substr($_,59, 8);
+      my $mjd2 = ( $dat2 ne "          " && $tim2 ne "        " ) ?
+                 gps_date("-ymd $dat2 -hms $tim2","-o %J") : 999999;
+
+      print PRC "$_" if ( $mjd1 <= $mjdm0 && $mjdm6 <= $mjd2 &&
+                         (substr($_,4,1) eq " " || substr($_,4,1) eq "_"));
+    }
+  }
+  close STA;
+
+# Finish the preparation of the Station-related performance summary
+  close PRC;
+
+# Outliers in repeatabilties (GNS from crd_rep.pl from previous FPPP_PRC)
+# above number of stations with problems might be too long
+# -----------------------------------------------------------------------
+  my $SYS=();
+  my $sites_outlier="";
+  my @sites_outlier=();
+# collect GNS,RAP,FIN,EPN
+  $SYS="k=\$(cat $ENV{PATH_FPPP}$ENV{CAMP_FPPP}/MSC/restxt/GNS/MUL.STA $ENV{PATH_RAP}$ENV{CAMP_RAP}/MSC/restxt/daily/???.STA $ENV{PATH_FIN}$ENV{CAMP_FIN}/MSC/restxt/daily/???.STA $ENV{PATH_EPN}$ENV{CAMP_EPN}/MSC/restxt/daily/MUL.STA 2>/dev/null | awk \"{print toupper(substr(\\\$1,0,4))}\" | uniq | sort -u);echo \$k";
+  open(SYS,">sta.sh");
+  print SYS $SYS;
+  close SYS;
+  $sites_outlier=`. sta.sh`;
+  @sites_outlier=split(' ',$sites_outlier);
+  unlink "sta.sh";
+
+# Write the HTML-table reporting the RMS
+# --------------------------------------
+  if ( uc $plt ne "Y" ) {
+    prtMess($bpe,"No WWW-table with RMS is generated");
+  } else {
+
+    # Prepare some variables/filenames
+    my $abbFil = "${dirAbb}CODE.${extAbb}";
+    my $staFil = "${dirSta}CODE.${extSta}";
+    my $crdFil = "${dirCrd}${c}${yyssss}.${extCrd}";
+    initStaLst(abb=>${abbFil}, crd=>${crdFil}, sta=>${staFil});
+
+    my $html   = "${PATH_WWW}${CAMP_SAVPPP}/plt.html";
+    my $kml    = "${PATH_WWW}${CAMP_SAVPPP}/plt.kml";
+    my $title  = "Time series from the recent PPP solutions";
+    check_dir(dirname($html));
+
+    my $now    = gps_date("-t -o %U");
+
+    # Make the web-page
+    my @html_head= << "EOF";
+<!DOCTYPE html>
+<html>
+<head>
+<title>$title</title>
+<script src="../code/general/sorttable.js"></script>
+<meta http-equiv="refresh" content="60">
+<link rel="stylesheet" href="../code/general/dashboard_style.css">
+</head>
+
+<body><a name="top"></a>
+  <div>
+    <header>
+      <table width="1000px">
+        <tr>
+          <td>&nbsp;<a href="https://www.aiub.unibe.ch" title="Astronomical Institut of the University Bern" ><img  align=left class="site-logo" width="200px" src="../code/general/logo_unibern.png" alt="University Bern"></a></td>
+          <td align="right"><a href="https://www.aiub.unibe.ch/research/code___analysis_center/index_eng.html" title="Center for orbit determination in Europe" ><img align=right width="200px" class="site-logo" src="../code/general/logo_code.png" alt="CODE"></a></td>
+        </tr>
+      </table>
+    </header>
+EOF
+     my @html_seperator= << "EOF";
+<table bgcolor="#FFC300" width="1000">
+  <tr>
+    <td>
+      &#160;
+      <a href="#top"><img src="../../code/general/up.gif" width="14" height="10" border="0" alt="top"></a>
+      <a href="#bottom"><img src="../../code/general/down.gif" width="14" height="10" border="0" alt="down"></a>
+      &#160;
+    </td>
+  </tr>
+</table>
+EOF
+    open(WWW,">$html");
+    # write html header
+    print WWW @html_head;
+    close(WWW);
+
+    open(WWW,">> $html");
+#    print WWW "<!DOCTYPE html>\n";
+#    print WWW "<html>\n";
+#    print WWW "<head>\n";
+#    print WWW "<script src=\"sorttable.js\" type=\"text/javascript\"></script>\n";
+#    print WWW "</head>\n";
+#    print WWW "<body>\n";
+    print WWW "<h1>$title</h1>\n";
+    print WWW "<p>Go to: <a href=\"ppp.html\">most recent PPP solution</a>.</p>\n";
+    print WWW "<iframe width=\"1000\" height=\"700\" ".
+          "src=\"../code/general/api3_focus_google.html?f=plt.kml&n=0&e=0&z=2\"></iframe><br>\n";
+# keep full call
+    print WWW "<a href=\"https://code.aiub.unibe.ch/code/general/api3_focus_google.html?f=https://code.aiub.unibe.ch/PPP/plt.kml&n=0&e=0&z=2\" target=\"GoogleMaps\" alt=\"Map view of the network (GoogleMaps api3.0)\">Full window view</a>\n";
+    close WWW;
+
+    open(WWW,">> $html");
+    # write html_seperator
+    print WWW @html_seperator;
+    close(WWW);
+    open(WWW,">> $html");
+
+    print WWW "<p><tt><h3>List of solutions:</h3>\n";
+    print WWW "<table>\n";
+    print WWW "<tr><td align=left nowrap><strong>${i}:&nbsp;</strong></td><td nowrap>&nbsp;GPS+GLONASS+GALILEO&nbsp;</td><td nowrap>&nbsp;phase&nbsp;</td>     <td nowrap>&nbsp;static PPP</td>\n";
+    print WWW "<tr><td align=left nowrap><strong>${k}:&nbsp;</strong></td><td nowrap>&nbsp;GPS&nbsp;</td>        <td nowrap>&nbsp;phase&nbsp;</td>     <td nowrap>&nbsp;static PPP</td>\n";
+    print WWW "<tr><td align=left nowrap><strong>${l}:&nbsp;</strong></td><td nowrap>&nbsp;GLONASS&nbsp;</td>    <td nowrap>&nbsp;phase&nbsp;</td>     <td nowrap>&nbsp;static PPP</td>\n";
+    print WWW "<tr><td align=left nowrap><strong>${o}:&nbsp;</strong></td><td nowrap>&nbsp;GALILEO&nbsp;</td>    <td nowrap>&nbsp;phase&nbsp;</td>     <td nowrap>&nbsp;static PPP</td>\n";
+    print WWW "<tr><td align=left nowrap><strong>${c}:&nbsp;</strong></td><td nowrap>&nbsp;GPS+GLONASS+GALILEO&nbsp;</td><td nowrap>&nbsp;code+phase&nbsp;</td><td nowrap>&nbsp;static PPP</td>\n";
+    print WWW "</table>\n";
+    my $iSta=keys %html;
+    print WWW "<br>Number of stations: <strong>$iSta</strong> from session <strong>${yy}-${ssss}</strong></tt></p>\n";
+    close WWW;
+
+    open(WWW,">> $html");
+    # write html_seperator
+    print WWW @html_seperator;
+    close(WWW);
+    open(WWW,">> $html");
+
+# repetabilities of outliers, only
+    my $n_outlier=@sites_outlier;
+    if ($n_outlier>0) {
+      print WWW "<p><tt><h3><a name=\"OUTLIER\"></a>Possible outlier(s) in repeatabilities: $n_outlier</h3><pre>detected from <a href=\"../code/mon.html\" target=\"station_monitoring\" title=\"station monitoring\" >station monitoring</a><br>RMS in [mm] from comparing the most recent 7 PPP solutions.\n";
+      print WWW "(Click on the column heading to sort the table)<br>\n";
+      print WWW "<table class=\"sortable\">\n";
+      print WWW "<thead>\n";
+      print WWW "<tr>\n";
+      print WWW "<th align=left nowrap>Station&nbsp;</th>\n";
+      print WWW "<th align=left nowrap>Map&nbsp;KML&nbsp;</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${i}<br>&nbsp;&nbsp;&nbsp;N</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${i}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${i}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;&nbsp;&nbsp;${k}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${k}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${k}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;&nbsp;&nbsp;${l}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${l}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${l}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;&nbsp;&nbsp;${o}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${o}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${o}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;&nbsp;&nbsp;${c}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${c}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+      print WWW "<th align=left nowrap>&nbsp;&nbsp;${c}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+      print WWW "</tr>\n";
+      print WWW "</thead>\n";
+      print WWW "<tbody>\n";
+      my $val;
+      foreach my $sta (@sites_outlier) {
+        my @blh = getNEU($sta);
+        print WWW "<tr><td nowrap><a href=\"$sta/$sta.html\" target=\"sta_rep_outlier\">$sta</a></td>";
+        print WWW "<td nowrap><a href=\"https://www.google.com/maps?q=$blh[0],$blh[1]&ll=$blh[0],$blh[1]&z=4\" target=\"Map\" title=\"location of $sta\" >Map</a>&nbsp;<a href=\"https://code.aiub.unibe.ch/code/general/api3_focus_google.html?f=https://code.aiub.unibe.ch/PPP/plt.kml&n=$blh[0]&e=$blh[1]&z=7\" target=\"KML\" title=\"zoom to $sta\" >KML</a></td>";
+        foreach my $sol ( "$i", "$k", "$l", "$o", "$c" ) {
+          if ( defined $html{$sta}{$sol} ) {
+            my $tot = 0;
+            my $num = 0;
+            foreach my $cmp ( "N", "E", "U" ) {
+              my $val = " ";
+              if ( defined $html{$sta}{$sol}{$cmp} ) {
+                $val = $html{$sta}{$sol}{$cmp};
+                $tot += $val**2;
+                $num++;
+              }
+              print WWW cTab($cmp,$val);
+            }
+            $html{$sta}{$sol}{TOT} = sqrt($tot/3) if ( $num == 3 );
+          } else {
+            print WWW cTab("N"," ");
+            print WWW cTab("E"," ");
+            print WWW cTab("U"," ");
+          }
+        }
+        printf WWW "</tr>\n";
+      }
+      print WWW "</tbody>\n";
+      print WWW "</table>\n";
+      print WWW "</pre>\n";
+      print WWW "</tt>\n";
+      print WWW "</p>\n";
+    }
+    else {
+      print WWW "<p><tt><h3>No serious outliers in repeatabilities detected</h3><br></tt></p>\n";
+    }
+    close WWW;
+
+    open(WWW,">> $html");
+    # write html_seperator
+    print WWW @html_seperator;
+    close(WWW);
+    open(WWW,">> $html");
+
+# all repeatabilities
+    print WWW "<p><tt><h3>Repeatabilities:</h3><pre>RMS in [mm] from comparing the most recent 7 PPP solutions.\n";
+    print WWW "(Click on the column heading to sort the table)<br>\n";
+    print WWW "<table class=\"sortable\">\n";
+    print WWW "<thead>\n";
+    print WWW "<tr>\n";
+    print WWW "<th align=left nowrap>Station&nbsp;</th>\n";
+    print WWW "<th align=left nowrap>Map&nbsp;KML&nbsp;</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${i}<br>&nbsp;&nbsp;&nbsp;N</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${i}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${i}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;&nbsp;&nbsp;${k}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${k}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${k}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;&nbsp;&nbsp;${l}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${l}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${l}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;&nbsp;&nbsp;${o}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${o}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${o}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;&nbsp;&nbsp;${c}<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${c}<br>&nbsp;&nbsp;&nbsp;E</th>\n";
+    print WWW "<th align=left nowrap>&nbsp;&nbsp;${c}<br>&nbsp;&nbsp;&nbsp;U</th>\n";
+    print WWW "</tr>\n";
+    print WWW "</thead>\n";
+    print WWW "<tbody>\n";
+#    my $val;
+    foreach my $sta ( sort keys %html ) {
+      my @blh = getNEU($sta);
+      print WWW "<tr><td nowrap><a href=\"$sta/$sta.html\" target=\"REP_PLT\" title=\"PLT repeatabilities for $sta\">$sta</a></td>";
+      print WWW "<td nowrap><a href=\"https://www.google.com/maps?q=$blh[0],$blh[1]&ll=$blh[0],$blh[1]&z=4\" target=\"Map\" title=\"location of $sta\" >Map</a>&nbsp;<a href=\"https://code.aiub.unibe.ch/code/general/api3_focus_google.html?f=https://code.aiub.unibe.ch/PPP/plt.kml&n=$blh[0]&e=$blh[1]&z=7\" target=\"KML\" title=\"KML zoom to $sta\" >KML</a></td>";
+      foreach my $sol ( "$i", "$k", "$l", "$o", "$c" ) {
+        if ( defined $html{$sta}{$sol} ) {
+          my $tot = 0;
+          my $num = 0;
+          foreach my $cmp ( "N", "E", "U" ) {
+            my $val = " ";
+            if ( defined $html{$sta}{$sol}{$cmp} ) {
+              $val = $html{$sta}{$sol}{$cmp};
+              $tot += $val**2;
+              $num++;
+            }
+            print WWW cTab($cmp,$val);
+          }
+          $html{$sta}{$sol}{TOT} = sqrt($tot/3) if ( $num == 3 );
+        } else {
+          print WWW cTab("N"," ");
+          print WWW cTab("E"," ");
+          print WWW cTab("U"," ");
+        }
+      }
+      printf WWW "</tr>\n";
+    }
+    print WWW "</tbody>\n";
+    print WWW "</table>\n";
+    print WWW "</pre>\n";
+    print WWW "</tt>\n";
+    print WWW "</p>\n";
+
+    print WWW "<address>\n";
+    print WWW "Page last modified: ".&gps_date("-t -o %z")." UT\n";
+    print WWW "</address>\n";
+    close WWW;
+
+    open(WWW,">> $html");
+    # write html_seperator
+    print WWW @html_seperator;
+    close(WWW);
+
+    open(WWW,">> $html");
+    print WWW "<p><b>&copy; CODE - University of Bern<a name=\"bottom\"></b></a></p>\n";
+    print WWW "</div>\n";
+    print WWW "</body>\n";
+    print WWW "</html>\n";
+    close WWW;
+
+    # Make the overlay for the map
+    open(KML,"> $kml");
+    print KML "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+    print KML "<kml xmlns=\"http://www.opengis.net/kml/2.2\">\n";
+    print KML "<Document>\n";
+    print KML "<name>$title</name>\n";
+
+    print KML "   <Style id=\"GNSSgreen\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF216318</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GNSSyellow\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF087384</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GNSSorange\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF2163D6</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GNSSred\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF0000D6</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GNSSblack\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF000000</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_circle.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GPSgreen\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF216318</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GPSyellow\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF087384</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GPSorange\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF2163D6</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GPSred\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF0000D6</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    print KML "   <Style id=\"GPSblack\">\n";
+    print KML "      <IconStyle>\n";
+    print KML "         <color>FF000000</color>\n";
+    print KML "         <colorMode>random</colorMode>\n";
+    print KML "         <Icon>\n";
+    print KML "            <href>http://maps.google.com/mapfiles/kml/shapes/placemark_square.png</href>\n";
+    print KML "        </Icon>\n";
+    print KML "      </IconStyle>\n";
+    print KML "   </Style>\n";
+
+    # Loop the stations
+    foreach my $sta ( sort keys %html ) {
+
+      my @blh = getNEU($sta);
+      my $rec = getREC($sta);
+      my $ant = getANT($sta);
+
+      print KML "<Placemark>\n";
+      print KML "  <name>$sta</name>\n";
+
+      my $style = defined $html{$sta}{$i}{TOT} ?
+                  $html{$sta}{$i}{TOT} > 12 ? "#GNSSred" :
+                  $html{$sta}{$i}{TOT} >  8 ? "#GNSSorange" :
+                  $html{$sta}{$i}{TOT} >  6 ? "#GNSSyellow" : "#GNSSgreen" : "#GNSSblack";
+      $style =~ s/GNSS/GPS/ unless defined $html{$sta}{$l} || defined $html{$sta}{$o};
+
+      print KML "  <styleUrl>$style</styleUrl>\n";
+      print KML "  <description><![CDATA[\n";
+      print KML "    <p>$rec / $ant" . " " x 20 . "<br></p>\n";
+      foreach my $sol ( "$i", "$k", "$l", "$o", "$c" ) {
+        if ( defined $html{$sta}{$sol} ) {
+          print KML "    <p>RMS($sol) = (" .
+                                cTxt("N",$html{$sta}{$sol}{N}) .", " .
+                                cTxt("E",$html{$sta}{$sol}{E}) .", " .
+                                cTxt("U",$html{$sta}{$sol}{U}) ." ) mm</br></p>\n";
+        }
+      }
+      print KML "    <p>Location:&nbsp;<a href=\"https://www.google.com/maps?q=$blh[0],$blh[1]&ll=$blh[0],$blh[1]&z=4\" target=\"Map\" title=\"location of $sta\" >Map</a></p>\n";
+      print KML "    <p>Repeatabilities:&nbsp;<a href=\"https://code.aiub.unibe.ch/PPP/$sta/$sta.html\" target=\"repplot\">$sta</a></p>\n";
+      print KML "   ]]></description>\n";
+      print KML "  <Point>\n";
+      print KML "    <coordinates>$blh[1],$blh[0]</coordinates>\n";
+      print KML "  </Point>\n";
+      print KML "</Placemark>\n";
+    }
+    print KML "</Document>\n";
+    print KML "</kml>\n";
+    close KML;
+  }
+}
+
+# Define the colors for the values in the table
+sub cTab () {
+  my $cmp = shift;
+  my $val = shift;
+
+  my $color = '#000000';
+  if ( $val =~ m/^[\-\.\d]*$/ ) {
+    if ( $cmp eq "U" ) {
+      $color = '#186321';
+      $color = '#847308' if ( $val > 10 );
+      $color = '#D66321' if ( $val > 20 );
+      $color = '#D60000' if ( $val > 30 );
+    } else {
+      $color = '#186321';
+      $color = '#847308' if ( $val >  5 );
+      $color = '#D66321' if ( $val > 10 );
+      $color = '#D60000' if ( $val > 15 );
+    }
+    return sprintf "<td align=right nowrap><font color=\"${color}\">%8.1f</font></td>", $val;
+  } else {
+    return sprintf "<td align=right nowrap><font color=\"${color}\">%8s</font></td>", "-";
+  }
+}
+
+# Define the colors for the values in the text
+sub cTxt () {
+  my $cmp = shift;
+  my $val = shift;
+
+  my $color = '#000000';
+  if ( $val =~ m/^[\-\.\d]*$/ ) {
+    if ( $cmp eq "U" ) {
+      $color = '#186321';
+      $color = '#847308' if ( $val > 10 );
+      $color = '#D66321' if ( $val > 20 );
+      $color = '#D60000' if ( $val > 30 );
+    } else {
+      $color = '#186321';
+      $color = '#847308' if ( $val >  5 );
+      $color = '#D66321' if ( $val > 10 );
+      $color = '#D60000' if ( $val > 15 );
+    }
+    return sprintf "<font color=\"${color}\">%8.1f</font>", $val;
+  }
+}
+
+__END__

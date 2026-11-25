@@ -1,0 +1,442 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show general configuration"
+
+! Filename for resulting plots (output)
+! -------------------------------------
+FIGSHOW 1  "1"
+  ## widget = checkbox
+
+MSG_FIGSHOW 1  "Show resulting figure on the screen"
+
+FIGOUT 1  "Satnum.png"
+  ## widget = lineedit; path = DIR_FIG; ext = NO_EXT; maxfiles = 1
+
+DESCR_FIGOUT 1  "Output file for plot of number of epochs"
+
+FIGRES 1  "300"
+  ## widget = lineedit; check_type = integer; check_min = 50
+
+MSG_FIGRES 1  "Resolution of the figure"
+
+! Input data: list of precise files
+! ---------------------------------
+PREFIL 1  "F1I_*PRE"
+  ## widget = selwin; path = DIR_PRE; extList = EXT_PRE
+
+MSG_PREFIL 1  "Precise orbit files"
+
+! Options for all satellites
+! --------------------------
+NSAT 1  "0"
+  ## widget = checkbox
+
+MSG_NSAT 1  "Plot lines for all satellites"
+
+CSAT 1  ""
+  ## widget = combobox; editable = true; activeif = NSAT = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CSAT 1  "Color for all satellites line"
+
+WSAT 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NSAT = 1
+
+MSG_WSAT 1  "Line width for all satellites"
+
+LSAT 1  ""
+  ## widget = lineedit; activeif = NSAT = 1
+
+MSG_LSAT 1  "Legend entry for all satellites"
+
+! Options for GPS satellites
+! --------------------------
+NGPS 1  "1"
+  ## widget = checkbox
+
+MSG_NGPS 1  "Plot lines for GPS satellites"
+
+CGPS 1  "blue"
+  ## widget = combobox; editable = true; activeif = NGPS = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CGPS 1  "Color for GPS satellites line"
+
+WGPS 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NGPS = 1
+
+MSG_WGPS 1  "Line width for GPS satellites"
+
+LGPS 1  "GPS"
+  ## widget = lineedit; activeif = NGPS = 1
+
+MSG_LGPS 1  "Legend entry for GPS satellites"
+
+! Options for GLO satellites
+! --------------------------
+NGLO 1  "1"
+  ## widget = checkbox
+
+MSG_NGLO 1  "Plot lines for GLO satellites"
+
+CGLO 1  "green"
+  ## widget = combobox; editable = true; activeif = NGLO = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CGLO 1  "Color for GLO satellites line"
+
+WGLO 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NGLO = 1
+
+MSG_WGLO 1  "Line width for GLO satellites"
+
+LGLO 1  "GLONASS"
+  ## widget = lineedit; activeif = NGLO = 1
+
+MSG_LGLO 1  "Legend entry for GLO satellites"
+
+! Options for GAL satellites
+! --------------------------
+NGAL 1  "1"
+  ## widget = checkbox
+
+MSG_NGAL 1  "Plot lines for GAL satellites"
+
+CGAL 1  "red"
+  ## widget = combobox; editable = true; activeif = NGAL = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CGAL 1  "Color for GAL satellites line"
+
+WGAL 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NGAL = 1
+
+MSG_WGAL 1  "Line width for GAL satellites"
+
+LGAL 1  "Galileo"
+  ## widget = lineedit; activeif = NGAL = 1
+
+MSG_LGAL 1  "Legend entry for GAL satellites"
+
+! Options for SBS satellites
+! --------------------------
+NSBS 1  "0"
+  ## widget = checkbox
+
+MSG_NSBS 1  "Plot lines for SBS satellites"
+
+CSBS 1  ""
+  ## widget = combobox; editable = true; activeif = NSBS = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CSBS 1  "Color for SBS satellites line"
+
+WSBS 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NSBS = 1
+
+MSG_WSBS 1  "Line width for SBS satellites"
+
+LSBS 1  ""
+  ## widget = lineedit; activeif = NSBS = 1
+
+MSG_LSBS 1  "Legend entry for SBS satellites"
+
+! Options for BDS satellites
+! --------------------------
+NBDS 1  "0"
+  ## widget = checkbox
+
+MSG_NBDS 1  "Plot lines for BDS satellites"
+
+CBDS 1  ""
+  ## widget = combobox; editable = true; activeif = NBDS = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CBDS 1  "Color for BDS satellites line"
+
+WBDS 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NBDS = 1
+
+MSG_WBDS 1  "Line width for BDS satellites"
+
+LBDS 1  ""
+  ## widget = lineedit; activeif = NBDS = 1
+
+MSG_LBDS 1  "Legend entry for BDS satellites"
+
+! Options for QZS satellites
+! --------------------------
+NQZS 1  "0"
+  ## widget = checkbox
+
+MSG_NQZS 1  "Plot lines for QZS satellites"
+
+CQZS 1  ""
+  ## widget = combobox; editable = true; activeif = NQZS = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CQZS 1  "Color for QZS satellites line"
+
+WQZS 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NQZS = 1
+
+MSG_WQZS 1  "Line width for QZS satellites"
+
+LQZS 1  ""
+  ## widget = lineedit; activeif = NQZS = 1
+
+MSG_LQZS 1  "Legend entry for QZS satellites"
+
+! Options for LEO satellites
+! --------------------------
+NLEO 1  "0"
+  ## widget = checkbox
+
+MSG_NLEO 1  "Plot lines for LEO satellites"
+
+CLEO 1  ""
+  ## widget = combobox; editable = true; activeif = NLEO = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CLEO 1  "Color for LEO satellites line"
+
+WLEO 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NLEO = 1
+
+MSG_WLEO 1  "Line width for LEO satellites"
+
+LLEO 1  ""
+  ## widget = lineedit; activeif = NLEO = 1
+
+MSG_LLEO 1  "Legend entry for LEO satellites"
+
+! Title: new entry
+! ----------------
+TITLE 1  "Number of satellites"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+TIT_FONTSIZE 1  "large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_TIT_FONTSIZE 1  "Font size in the title"
+
+! Size of the plot
+! ----------------
+SIZEX 1  "12"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEX 1  "Width of the plot"
+
+SIZEY 1  "8"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEY 1  "Height of the plot"
+
+! Get boundaries of the plot
+! --------------------------
+XYAUTO 1  "0"
+  ## widget = checkbox
+
+MSG_XYAUTO 1  "Auto scale to a global map"
+
+TMIN 1  "$YMD_STR-(67)"
+  ## widget = lineedit; check_type = date; activeif = XYAUTO / 1
+
+MSG_TMIN 1  "Lower bound time axis"
+
+YMIN 1  ""
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_YMIN 1  "Lower bound data axis"
+
+TMAX 1  "$YMD_STR+1"
+  ## widget = lineedit; check_type = date; activeif = XYAUTO / 1
+
+MSG_TMAX 1  "Upper bound time axis"
+
+YMAX 1  ""
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_YMAX 1  "Upper bound data axis"
+
+LABEL_X 1  "Epoch"
+  ## widget = lineedit
+
+MSG_LABEL_X 1  "Label for the time axis"
+
+LABEL_Y 1  "#"
+  ## widget = lineedit
+
+MSG_LABEL_Y 1  "Label for the data axis"
+
+LABEL_FONTSIZE 1  "large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_LABEL_FONTSIZE 1  "Font size in the labels"
+
+BGCOLOR 1  "white"
+  ## widget = combobox; editable = true
+  ## cards = white red green blue yellow orange magenta cyan grey
+
+MSG_BGCOLOR 1  "Plot background color"
+
+! Specify the legend characteristics
+! ----------------------------------
+LEGEND 1  "1"
+  ## widget = checkbox
+
+MSG_LEGEND 1  "Plot a legend"
+
+LEG_POS 1  "best"
+  ## widget = combobox; activeif = LEGEND = 1
+  ## cards = right center/left upper/right lower/right best center lower/left center/right upper/left upper/center lower/center
+
+MSG_LEG_POS 1  "Position of the legend"
+
+LEG_ANCHOR_X 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1; check_type = real
+
+MSG_LEG_ANCHOR_X 1  "Anchor point for legend position"
+
+LEG_ANCHOR_Y 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1; check_type = real
+
+MSG_LEG_ANCHOR_Y 1  "Anchor point for legend position"
+
+LEG_NCOLS 1  "1"
+  ## widget = spinbox; activeif = LEGEND = 1; range = 1 10 1
+
+MSG_LEG_NCOLS 1  "Number of columns for legend"
+
+LEG_FRAME 1  "1"
+  ## widget = checkbox; activeif = LEGEND = 1
+
+MSG_LEG_FRAME 1  "Plot a legend with a frame"
+
+LEG_TITLE 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1
+
+MSG_LEG_TITLE 1  "Title of the legend"
+
+LEG_FONTSIZE 1  "x-large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_LEG_FONTSIZE 1  "Font size in the legend"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PLOT SATELLITE STATISTICS FROM PRE. FILES - plotSatnum 1: Input/output files #
+#                                                                              #
+# GENERAL CONFIGURATION                                                        #
+#   Show general configuration        > % <                                    # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Precise files to be evaluated     > %%%%%%%%%%%% <                         # PREFIL
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Show figure on the screen         > % <                                    # FIGSHOW
+#   Name of the output file           > %%%%%%%%%%%%%%%%%%%%%%%% <             # FIGOUT
+#                                       (extension defines the format)         #
+#   Resolution of the figure          > %%%% < dpi                             # FIGRES
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# plotSatnum 1.1: General Configuration                                        #
+#                                                                              #
+# FONT DEFINITIONS                                                             #
+#   Title                        > %%%%%%%%%%%% <                              # TIT_FONTSIZE
+#   Labels                       > %%%%%%%%%%%% <                              # LABEL_FONTSIZE
+#   Legend                       > %%%%%%%%%%%% <                              # LEG_FONTSIZE
+#                                                                              #
+# COLOR DEFINITIONS                                                            #
+#   Background color of the plot > %%%%%%%%%%%% <                              # BGCOLOR
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotSatnum 2: Plot layout                                                    #
+#                                                                              #
+# PLOT LAYOUT SPECIFICATION                                                    #
+#   Size of the plot:   width       > %%%%%%%%%% <  height  > %%%%%%%%%% <     # SIZEX SIZEY
+#                                                                              #
+#   Boundaries: > % < auto or         epoch axis              data axis        # XYAUTO
+#                     lower bound   > %%%%%%%%%% <          > %%%%%%%%%% <     # TMIN YMIN
+#                     upper bound   > %%%%%%%%%% <          > %%%%%%%%%% <     # TMAX YMAX
+#                                     (yyyy mm dd)                             #
+#                                                                              #
+#   Labels at  epoch axis > %%%%%%%%%%%%%%%%%%%%% <                            # LABEL_X
+#              data axis  > %%%%%%%%%%%%%%%%%%%%% <                            # LABEL_Y
+#                                                                              #
+# CONTENT OF THE PLOT                                                          #
+#   Title > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotSatnum 3: Time series for plotting                                       #
+#                                                                              #
+# Select what to plot     color          width      label                      #
+#     all:     > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <        # NSAT CSAT WSAT LSAT
+#     GPS:     > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <        # NGPS CGPS WGPS LGPS
+#     GLONASS: > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <        # NGLO CGLO WGLO LGLO
+#     Galileo: > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <        # NGAL CGAL WGAL LGAL
+#     BeiDou:  > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <        # NBDS CBDS WBDS LBDS
+#     QZSS:    > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <        # NQZS CQZS WQZS LQZS
+#     SBAS:    > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <        # NSBS CSBS WSBS LSBS
+#     LEO:     > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <        # NLEO CLEO WLEO LLEO
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotSatnum 4: Legend layout                                                  #
+#                                                                              #
+# LEGEND LAYOUT SPECIFICATION                                                  #
+# > % <  Legend:                                                               # LEGEND
+#        Position  > %%%%%%%%%%%% <  X-off > %%%%% <  Y-off > %%%%% <          # LEG_POS LEG_ANCHOR_X LEG_ANCHOR_Y
+#        Frame     > % <                       Num. Columns  > % <             # LEG_FRAME LEG_NCOLS
+#        Title     > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <       # LEG_TITLE
+#                                                                              #
+# END_PANEL ####################################################################

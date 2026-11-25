@@ -1,0 +1,757 @@
+package MGEX_BIA;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MGEX_BIA
+#
+# Purpose :  Perform monthly and accumulated bias combination runs using
+#            ADDNEQ2.
+#
+# Programs:  ADDNEQ2
+#
+# PARAMs  :  PARAM1 - solution identifier
+#
+# Remarks :
+#
+# Author  :  S. Schaer
+# Created :  15-Sep-2016
+#
+# Changes :  28-Sep-2016 ss: Adjust end times for 30-day solution (and 1605)
+#            29-Sep-2016 ss: Update CODE OSB files
+#            29-Sep-2016 ss: Verify solutions and check completeness of NEQs
+#            30-Sep-2016 ss: Activated update of (ADDNEQ2-based) CODE.OSB
+#            30-Sep-2016 ss: More detailed error messages
+#            30-Sep-2016 ss: More detailed title lines
+#            12-Oct-2016 ss: Send message in case of monthly solution update
+#            13-Oct-2016 ss: Use @badSet in case of errors with monthly NEQs
+#            17-Oct-2016 ss: Provide additional _STA last and rest solutions
+#            21-Oct-2016 ss: Prepare case with bad FIN daily NEQs (16289)
+#            28-Oct-2016 ss: Make use of OSBVAL option for LAST product
+#            16-Nov-2016 ss: Distribute CODE BIA files
+#            23-Nov-2016 ss: Changed $dirDis and bia2bia.com with -sat
+#            24-Jan-2017 ss: Replaced %y: by %Y:
+#            09-Jun-2017 ss: Consider REPRO_ION NQ0 results
+#            14-Jun-2017 ss: Create extra satellite information file
+#            29-Jun-2017 ss: Post CODE.BIA to ftp.aiub.unibe.ch/CODE
+#            21-Jul-2017 ss: Added list of problematic daily solutions
+#            25-Jul-2017 ss: Consider calibrated stations using STA_BIA.FIX
+#            23-Aug-2017 ss: Corrected time window extension
+#            06-Nov-2017 ss: Set $mjdL using $yyddd
+#            06-Nov-2017 ss: Check on NaN entries
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#            11-Apr-2018 ss: Make use of filter_code_bia.com
+#            01-Sep-2018 av: uncompress not working (changed to gzip -d -f)
+#            13-Sep-2019 SS: Check $HOST and skip procedure if indicated
+#            14-Jul-2020 RD/PF: change $X/GEN -> PTH_SATELL
+#            30-Jul-2020 ST: Add use igs_device.
+#            07-Apr-2021 SS: Tolerance temporarily increased for CBG results
+#                            now including BeiDou-3 (as of wk 2148)
+#            20-May-2021 SS: Changed unused EXE_G95 paths
+#            30-Mar-2022 AV: Modified SAT-CRX location
+#                            MOdified SINEX input files
+#            21-Feb-2024 SS: Making SAT_BIA_I20.SAT consistent to I14-based time series
+#            17-Apr-2026 ss: Used temporary ADDNEQ2 version after bugfixing
+#            22-Apr-2026 ss: Used regular ADDNEQ2 version (with bugfix)
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyssss, $yyyy, $mjd,
+      $satInf, $pcv,
+      $pcfFil, $upd, $sav, $dis, $param1,
+      $dirOut, $extOut, $dirNeq, $extNeq, $dirOsb, $extOsb, 
+      $dirBia, $extBia, $dirSatinf, $extSatinf) =
+    $bpe->getKeys('$YD+0', '$YSS+0', '$Y+0', '$JD+0',
+                  'V_SATINF', 'V_PCV',
+                  'PCFFIL', 'V_UPD', 'V_SAV', 'V_DIS', 'PARAM1',
+                  'DIR_OUT', 'EXT_OUT', 'DIR_NEQ', 'EXT_NEQ', 'DIR_OSB', 'EXT_OSB', 
+                  'DIR_BIA', 'EXT_BIA', 'PTH_SATELL','EXT_SATELL');
+
+# Set variables
+# -------------
+##  $upd = "N";
+##  $sav = "N";
+##  $dis = "N";
+
+  my $host = "$ENV{HOST}";
+  print "Host: $host\n";
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $aprFil = "${dirOsb}APR${yyddd}.${extOsb}";
+
+# Compute full solution using all 1-day NEQs?
+  my $allFlg = "${dirOut}../MSC/ALL.FLG";
+# Re-generate all monthly NEQs?
+  my $setFlg = "${dirOut}../MSC/RESET.FLG";
+
+  die "PARAM1 undefined" if $param1 eq "";
+  my $sol = $param1;
+  prtMess($bpe,"BIAS COMBINATION PROCEDURE FOR SOLUTION: $sol");
+
+# Create extra satellite information file
+# ---------------------------------------
+  my $satInf2 = "SAT_BIA_${pcv}.$extSatinf";
+  if ($sol eq "A1G") {
+    my $fil1 = "${dirSatinf}/${satInf}_${pcv}.$extSatinf";
+##    my $fil1 = "${dirSatinf}/${satInf}_I14.$extSatinf";
+    my $fil2 = "${dirSatinf}/$satInf2";
+    die "$fil1 not found" unless -s $fil1;
+    copy($fil1,$fil2);
+    replace($fil2,"23 59 5[89]  ","24 00 00  ");
+
+    replace($fil2,"2008 04 27","2008 04 30"); # R06
+    replace($fil2,"2010 07 18","2010 08 01"); # R11
+    replace($fil2,"2010 09 07","2010 09 08"); # R01
+    replace($fil2,"2011 11 0[56] 24 00 00","2011 11 01 00 00 00"); # R21
+    replace($fil2,"2018 03 18","2018 04 01"); # R01
+    replace($fil2,"2015 01 31","2015 02 01"); # R05
+    replace($fil2,"2013 12 08","2013 12 01"); # R09
+    replace($fil2,"2013 12 07","2013 12 01"); # R12
+    replace($fil2,"2015 03 08","2015 03 01"); # R09
+    replace($fil2,"2015 12 2[67]","2015 10 05"); # R12
+    replace($fil2,"2017 10 06","2017 10 10"); # R14 (SVN)
+  }
+
+# Are there unremoved bad monhtly NEQs?
+# ------------------------------------
+  my $errFlg = "${dirOut}../MSC/ERROR_${sol}.FLG";
+  my $fil;
+  if (-s $errFlg) {
+    open(INP,$errFlg);
+    while ($fil=<INP>) {
+      chomp($fil);
+      prtMess($bpe,"BAD NEQ FILE REMOVED: ".basename($fil));
+      unlink($fil);
+    }
+    close(INP);
+    unlink($errFlg);
+  }
+
+# First day 17029:
+  my $mjd0 = gps_date("-yd 17029 -o %IJ");
+# First day 94001:
+##  my $mjd0 = gps_date("-yd 94001 -o %IJ");
+##  my $mjd0 = gps_date("-yd 17001 -o %IJ");
+  my $nam0 = "_Y1994";
+  $nam0 = "_W1934" if $mjd0 eq "57782";
+# Last day 16366 (REPRO_ION)
+  my $mjdS = gps_date("-yd 16366 -o %IJ");
+##  $mjdS = gps_date("-yd 16135 -o %IJ") if $mjd0 eq "57523";
+  my $mjdF;
+  my $mjdR = $mjd0;
+  my $mjdM;
+  my $mjdL = gps_date("-yd $yyddd -o %IJ");
+
+  my $yyddd0  = gps_date("-mjd $mjd0 -o %y%j");
+  my $yyssss0 = gps_date("-mjd $mjd0 -o %y%j0");
+
+  my $msg = 0;
+  my $key = "NEW";
+
+  my @finDay = ();
+  my @rapDay = ();
+  my @allDay = ();
+
+  my @oldSet = ();
+  my @newSet = ();
+  my @allSet = ();
+  my @badSet = ();
+
+  my ($inp,$out,$set,$nam,$str);
+
+  my ($yymm,$yy,$mm,$ddp1,$yydddm1);
+  my $yydddF = "";
+  for ($mjd=$mjd0;$mjd<=$mjdL;$mjd++ ) {
+    ($yyddd,$yyssss,$yyyy,$yymm,$yy,$mm) = gps_date("-mjd $mjd -o %y%j %y%j0 %Y %y%m %y %m %d");
+    $ddp1 = gps_date("-mjd $mjd -d +1 -o %d");
+    $yydddm1 = gps_date("-mjd $mjd -d -1 -o %y%j");
+
+# FIN:
+    $inp = "$PATH_SAV$CAMP_SAVMGEX/$yyyy/SOL/${sol}${yyddd}.${extNeq}.Z";
+##    $inp = "$PATH_SAV/REPRO_ION/$yyyy/SOL/${sol}${yyddd}.${extNeq}.gz" if $mjd<=$mjdS;
+    $out = "${dirNeq}${sol}${yyddd}.${extNeq}";
+    $set = "${dirNeq}${sol}_${yymm}.${extNeq}";
+
+# Remove all monthly NEQs in case of reset
+    if (-s $set) {
+      unlink($set) if -e $setFlg }
+# Remove monthly NEQ if older than a daily NEQ
+    if (-s $set && -s $inp) {
+      unlink($set) if (stat($set))[9]<(stat($inp))[9] }
+
+    if (-s $inp) {
+      print "FIN: $yyddd $mjd $yymm $yy $mm $ddp1\n";
+      if ($yydddF ne "" && $yydddF ne $yydddm1) {
+        prtMess($bpe,"MISSING $sol FINAL BIAS NEQ INFORMATION FOR $yydddm1");
+##        die          "MISSING $sol FINAL BIAS NEQ INFORMATION FOR $yydddm1";
+        warn         "MISSING $sol FINAL BIAS NEQ INFORMATION FOR $yydddm1";
+        $msg++;
+        $key = $msg <= 2 ? "NEW" : "MSC";
+        msg2key($key,"$pcfFil MGEX_BIA $yyssss0: Missing $sol final bias NEQ for $yydddm1");
+      }
+      $yydddF = $yyddd;
+      $mjdF = $mjd;
+      push(@finDay,$yyddd);
+# Ignore bad solutions
+##      push(@finDay,$yyddd) unless $yyddd eq "16289";
+      if ($ddp1 eq "01") {
+        if (!-s $set) {
+          push(@newSet,$yymm);
+          $mjdM = $mjd;
+        } else {
+          push(@oldSet,$yymm);
+          $mjdM = $mjd;
+        }
+      }
+      if (!-s $set || -e $allFlg || $mjd-$mjdL > -60) {
+        copy($inp,$dirNeq);
+##        system("gzip -d -f $out.gz");
+        system("gzip -d -f $out.Z");
+##        uncompress("$out.Z");
+      }
+# Remove rapid 1-day NEQ
+      $out = "${dirNeq}${sol}${yyssss}.${extNeq}";
+      unlink($out) if -s $out;
+    } else {
+# RAP:
+      $inp = "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/SOL/${sol}${yyssss}.${extNeq}.gz_";
+      $out = "${dirNeq}${sol}${yyssss}.${extNeq}";
+      if (-s $inp) {
+        print "RAP: $yyddd $mjd $yymm $yy $mm $ddp1\n";
+        $mjdR = $mjd;
+        push(@rapDay,$yyssss);
+        copy($inp,$dirNeq);
+##        system("gzip -d -f $out.gz");
+##        uncompress("$out.Z");
+        system("gzip -d -f $out.Z");
+
+      }
+    }
+  }
+  if ($mjdL-$mjdF > 7) {
+    prtMess($bpe,"LATEST $sol FINAL BIAS NEQ INFORMATION NOT FOUND");
+##    die          "LATEST $sol FINAL BIAS NEQ INFORMATION NOT FOUND";
+    warn         "LATEST $sol FINAL BIAS NEQ INFORMATION NOT FOUND";
+    $msg++;
+    $key = $msg <= 2 ? "NEW" : "MSC";
+    msg2key($key,"$pcfFil MGEX_BIA $yyssss0: Latest $sol final bias NEQs not found");
+  }
+  if ($mjdF-$mjdM > 32) {
+    prtMess($bpe,"LATEST $sol FINAL BIAS NEQ INFORMATION NOT FOUND");
+##    die          "LATEST $sol FINAL BIAS NEQ INFORMATION NOT FOUND";
+    warn         "LATEST $sol FINAL BIAS NEQ INFORMATION NOT FOUND";
+    $msg++;
+    $key = $msg <= 2 ? "NEW" : "MSC";
+    msg2key($key,"$pcfFil MGEX_BIA $yyssss0: Latest $sol final bias NEQs not found");
+  }
+  $mjdL = $mjdR>$mjdF ? $mjdR : $mjdF;
+  my $yydddL = gps_date("-mjd $mjdL -o %y%j");
+  print "LAST: $mjdF $mjdR $mjdL $yydddL\n";
+  @allDay = (@finDay,@rapDay);
+  @allSet = (@oldSet,@newSet);
+  print "finDay: @finDay\n\n";
+  print "rapDay: @rapDay\n\n";
+  print "oldSet: @oldSet\n\n";
+  print "newSet: @newSet\n\n";
+# Ignore bad input NEQs
+  if ($sol eq "A1R") {
+##    copy("${dirNeq}A1R17281.NQ0","${dirNeq}A1R17282.NQ0");
+##    copy("${dirNeq}A1R17281.NQ0","${dirNeq}A1R17283.NQ0");
+  }
+
+  my @lst;
+  my $PGMNAM = "ADDNEQ2";
+  my ($str1,$str2);
+
+# Set special options for test purposes
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/homefs/villiger/ADDOSB/EXE_G95/");
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/homefs/villiger/DCBS/EXE_G95/");
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/research/aiub_data/BSWsoftware/BERN_BIA/SOURCE/PGM/EXE_GNU/");
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/homefs/l_code_rap/PRN2SVN/EXE_GNU/");
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/research/aiub_code/IGSFINAL/TXT/");
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SATELL","DCBIONO.I08");
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SATCRUX","DCBIONO");
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBSVN","1");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SATELL","$satInf2");
+
+# Define list of calibrated stations and station problems
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_EXST","1");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_EXFIL","STA_BIA");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","STAINFO","STA_BIA");
+
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_ELIM","BEFORE_STACKING");
+
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN",'$(BIAINF)');
+
+# Full solution based on final 1-day NEQs (for verification purposes)
+# -------------------------------------------------------------------
+  if (-e $allFlg) {
+    $str1 = gps_date("-yd $yyddd0 -o %Y-%j");
+    $str2 = gps_date("-yd $yydddL -o %Y-%j");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TITLE","CODE'S ACCUMULATED BIAS SOLUTION (FROM $str1 TO $str2)");
+    @lst = map { $sol.$_ } (@finDay);
+    replaceSelLst($bpe,"ADDNEQ2","INPFILE",@lst);
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}_ALL");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}_ALL");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","${sol}_ALL");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","${sol}_ALL");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN","SINEX_BIA_COD_FULL");
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+
+# Sliding 30-day solution based final (and rapid) on 1-day NEQs
+# -------------------------------------------------------------
+##  $str = substr($yydddL,0,2)."-".substr($yydddL,2,3);
+##  $str = gps_date("-yd $yydddL -o %Y-%j");
+  $str = gps_date("-yd $yydddL -d +1 -o %Y:%j:00000");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TITLE","CODE'S 30-DAY BIAS SOLUTION (OBSERVED UNTIL $str)");
+  @lst = @allDay;
+  @lst = splice(@lst,-30);
+  @lst = map { $sol.$_ } (@lst);
+  replaceSelLst($bpe,"ADDNEQ2","INPFILE",@lst);
+
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_ELIM","NO");
+
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}_LAST_STA");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}_LAST_STA");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","${sol}_LAST_STA");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","${sol}_LAST_STA");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN","SINEX_BIA_COD_30D");
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_ELIM","BEFORE_STACKING");
+
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBVAL","168 00 00");
+
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}_LAST");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}_LAST");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","${sol}_LAST");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","${sol}_LAST");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN","SINEX_BIA_COD_30D");
+  $bpe->RUN_PGMS($PGMNAM);
+
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBVAL","00 00 00");
+
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","${sol}_LAST_");
+##  $bpe->RUN_PGMS($PGMNAM);
+
+# Time window extension of +7 days
+  $fil  = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","DCBOUT");
+  $str1 = gps_date("-mjd $mjdL -d  +1 -o 00  %Y %m %d 00 00 00");
+  $str2 = gps_date("-mjd $mjdL -d  +8 -o 00  %Y %m %d 00 00 00");
+  print "-$str1-$str2-\n";
+  replace($fil,$str1,$str2);
+  $str1 = gps_date("-mjd $mjdF -d  +1 -o 00  %Y %m %d 00 00 00");
+  print "-$str1-$str2-\n";
+  replace($fil,$str1,$str2);
+##  $fil  = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","BIASSNX");
+##  $str1 = gps_date("-mjd $mjdL -d  +1 -o %Y:%j:00000");
+##  $str2 = gps_date("-mjd $mjdL -d  +8 -o %Y:%j:00000");
+##  replace($fil,$str1,$str2);
+##  $str1 = gps_date("-mjd $mjdF -d  +1 -o %Y:%j:00000");
+##  replace($fil,$str1,$str2);
+
+# Verify solution
+  my ($rms,$fac,$dev,$film1,$rmsm1,$namm1);
+  my $tol = 30;
+  $tol = 70 if $sol eq "CBG";
+  $tol = 50 if $sol eq "CBR";
+##  $tol = 1000;
+  $tol = sprintf("%4.1f",$tol) if $tol < 100;
+  my $err = 0;
+  $fil = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","SYSOUT");
+  $nam = basename($fil);
+  getstring("-a 40 -b 51",$fil,"A posteriori RMS of unit weight");
+  $rms = $StrList[0];
+  $str = "";
+  for (my $i=1;$i<=@oldSet;$i++) {
+    next unless $i<=12;
+    $film1 = "${dirOut}${sol}_$oldSet[-$i].${extOut}";
+    next unless -s $film1;
+    getstring("-a 40 -b 51",$film1,"A posteriori RMS of unit weight");
+    $rmsm1 = $StrList[0];
+    $fac = $rms/$rmsm1;
+    $fac = sprintf("%10.3f",$fac);
+    $dev = ($fac-1)*100;
+    $dev = sprintf("%8.1f",$dev);
+    $namm1 = basename($film1);
+    print "$nam/$namm1: RMS: $rms $rmsm1 $fac $dev\n";
+    if (abs($dev) > $tol) { $err++; $str = $str." $namm1" }
+  }
+  if ($err > 0) {
+    prtMess($bpe,"$sol 30-DAY BIAS COMBINATION NOT ACCEPTED ($err ERRORS:$str)");
+    $msg++;
+    $key = $msg <= 2 ? "NEW" : "MSC";
+    msg2key($key,"$pcfFil MGEX_BIA $yyssss0: $sol 30-day bias combination not accepted ($err errors:$str)");
+  }
+
+# Update CODE.OSB information
+  $nam = $sol eq "CBG" ? "CODE_MGEX_30D" : "CODE_MGEX_30D_EXT";
+  if ($upd eq "Y" && $err == 0) {
+##    $inp = "${dirOsb}${sol}_LAST.${extOsb}";
+    $inp = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","DCBOUT");
+    die " ERR NaN entries found in $inp!" if `grep NaN $inp | wc -l`+0>0;
+    $out = "$ENV{REF}/${nam}.${extOsb}";
+    copy($inp,$out);
+    die "$out not updated" unless -s $out;
+
+# Copy master bias file to be used for CODE analysis
+    if ($sol eq "CBR") {
+      $out = "$ENV{REF}/CODE_MGEX.OSB";
+      copy($inp,$out);
+      die "$out not updated" unless -s $out;
+    }
+
+# Create P1C1_WITH_TIME_WINDOW.DCB
+    if ($sol eq "A1G") {
+      $nam = "P1C1_WITH_TIME_WINDOW.DCB";
+      $out = "${dirOsb}$nam";
+      system("$ENV{AUTO}/osb2dcb.com $inp $out P1-C1");
+      replace($out,"G5","G0");
+      replace($out,"G6","G1");
+      replace($out,"G7","G2");
+      replace($out,"G8","G3");
+      $inp = $out;
+      $out = "$ENV{REF}/$nam";
+      copy($inp,$out);
+      die "$out not updated" unless -s $out;
+    }
+
+    prtMess($bpe,"${nam}.${extOsb} INFORMATION UPDATED");
+  } else {
+    prtMess($bpe,"${nam}.${extOsb} INFORMATION NOT UPDATED");
+  }
+
+# Distribute CODE.BIA information
+  $nam = $sol eq "CBG" ? "CODE_MGEX_30D" : "CODE_MGEX_30D_EXT";
+##  my $dirDis = "${PATH_AFTP}bcwg/format/examples/updated_bia/";
+##  check_dir($dirDis) if $sav eq "Y";
+  if ($sav eq "Y" && $err == 0) {
+##    $inp = "${dirBia}${sol}_LAST.${extBia}";
+    $inp = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","BIASSNX");
+    die " ERR NaN entries found in $inp!" if `grep NaN $inp | wc -l`+0>0;
+##    $out = "${dirDis}${nam}.${extBia}";
+####    copy($inp,$out);
+##    system("$ENV{AUTO}/filter_code_bia.com $inp $out");
+##    die "$out not distributed" unless -s $out;
+####    system("$ENV{AUTO}/bia2bia.com $out -sat");
+
+    $inp = "${PATH_GIM}${CAMP_GIM}/ORB/${sol}${yydddF}.${extBia}";
+    $inp = "${PATH_GIM}${CAMP_GIM}/ORB/A1S${yydddF}.${extBia}" if $sol eq "A1G";
+    die " ERR NaN entries found in $inp!" if `grep NaN $inp | wc -l`+0>0;
+##    $out = "${dirDis}CODE_EXAMPLE_1D.${extBia}";
+##    $out = "${dirDis}CODE_EXAMPLE_1D_EXT.${extBia}" if $sol eq "CBR";
+####    copy($inp,$out);
+##    system("$ENV{AUTO}/filter_code_bia.com $inp $out");
+##    die "$out not distributed" unless -s $out;
+##    system("$ENV{AUTO}/bia2bia.com $out");
+
+    prtMess($bpe,"${nam}.${extBia} INFORMATION DISTRIBUTED");
+  } else {
+    prtMess($bpe,"${nam}.${extBia} INFORMATION NOT DISTRIBUTED");
+  }
+
+# Monthly solution(s) based final on 1-day NEQs
+# ---------------------------------------------
+  if (@newSet > 0) {
+    open(OUT,"> $errFlg");
+    foreach $yymm (@newSet) {
+      @lst = ();
+      foreach $yyddd (@finDay) {
+# List of problematic daily solutions to be skipped:
+##        next if $sol.$yyddd eq "A1G12188";
+##        next if $sol.$yyddd eq "A1G12196";
+##        next if $sol.$yyddd eq "A1G12197";
+##        next if $sol.$yyddd eq "A1G12202";
+        push(@lst,$yyddd) if gps_date("-yd $yyddd -o %y%m") eq $yymm;
+      }
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TITLE","CODE'S BIAS SOLUTION FOR YEAR-MONTH $yymm");
+      @lst = map { $sol.$_ } (@lst);
+      replaceSelLst($bpe,"ADDNEQ2","INPFILE",@lst);
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}_${yymm}");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}_${yymm}");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","${sol}_${yymm}");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","${sol}_${yymm}");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN","SINEX_BIA_COD_MONTHLY");
+      $bpe->RUN_PGMS($PGMNAM);
+
+# Verify solution
+##      $tol = 30;
+      $tol = sprintf("%4.1f",$tol) if $tol < 100;
+      $err = 0;
+      $fil = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","SYSOUT");
+      $nam = basename($fil);
+      getstring("-a 40 -b 51",$fil,"A posteriori RMS of unit weight");
+      $rms = $StrList[0];
+      $str = "";
+      for (my $i=1;$i<=@allSet;$i++) {
+        next unless $i<=12;
+        $film1 = "${dirOut}${sol}_$allSet[-$i].${extOut}";
+        next unless -s $film1;
+        next if $film1 eq $fil;
+        getstring("-a 40 -b 51",$film1,"A posteriori RMS of unit weight");
+        $rmsm1 = $StrList[0];
+        $fac = $rms/$rmsm1;
+        $fac = sprintf("%10.3f",$fac);
+        $dev = ($fac-1)*100;
+        $dev = sprintf("%8.1f",$dev);
+        $namm1 = basename($film1);
+        print "$nam/$namm1: RMS: $rms $rmsm1 $fac $dev\n";
+# List of temporarily accepted exceptions:
+##        $dev = 0 if $nam eq "A1G_1207";
+        if (abs($dev) > $tol) { $err++; $str = $str." $namm1" }
+      }
+      if ($err > 0) {
+##        prtMess($bpe,"$sol MONTHLY BIAS COMBINATION NOT ACCEPTED ($err ERRORS:$str)");
+        prtMess($bpe,"$sol MONTHLY BIAS COMBINATION NOT ACCEPTED: $nam");
+        $msg++;
+        $key = $msg <= 2 ? "NEW" : "MSC";
+##        msg2key($key,"$pcfFil MGEX_BIA $yyssss0: $sol monthly bias combination not accepted ($err errors:$str)");
+        msg2key($key,"$pcfFil MGEX_BIA $yyssss0: $sol monthly bias combination not accepted: $nam");
+        $fil  = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","NEQOUT");
+        push(@badSet,$fil);
+        print OUT "$fil\n";
+      } else {
+##        if (@newSet == 1 && $sol eq "A1R") {
+        if (@newSet == 1) {
+          msg2key($key,"$pcfFil MGEX_BIA $yyssss0: $sol monthly bias combination created for $yymm (RMS:$rms)");
+        }
+      }
+
+# Save relevant results
+      if ($sav eq "Y" && $err == 0) {
+        $yy = substr($yymm,0,2);
+        $yyyy = gps_date("-ymd $yy 01 01 -o %Y");
+
+        my $dirSav = "${PATH_SAV}${CAMP_SAVMGEX}/${yyyy}/SOL/";
+        check_dir($dirSav);
+        $inp = "${dirNeq}${sol}_${yymm}.${extNeq}";
+        $out = "${dirSav}${sol}_${yymm}.${extNeq}";
+        copy($inp,$out);
+        system("gzip -f $out");
+        $out = $out.".gz";
+        die "$out not saved" unless -s $out;
+
+        $dirSav = "${PATH_SAV}${CAMP_SAVMGEX}/${yyyy}/ORB/";
+        check_dir($dirSav);
+        $inp = "${dirOsb}${sol}_${yymm}.${extOsb}";
+        die " ERR NaN entries found in $inp!" if `grep NaN $inp | wc -l`+0>0;
+        $out = "${dirSav}${sol}_${yymm}.${extOsb}";
+        copy($inp,$out);
+        die "$out not saved" unless -s $out;
+        $inp = "${dirBia}${sol}_${yymm}.${extBia}";
+        die " ERR NaN entries found in $inp!" if `grep NaN $inp | wc -l`+0>0;
+        $out = "${dirSav}${sol}_${yymm}.${extBia}";
+        copy($inp,$out);
+        die "$out not saved" unless -s $out;
+
+        prtMess($bpe,"BIAS RESULTS FOR YEAR-MONTH $yymm SAVED");
+      }
+    }
+    close(OUT);
+    unlink($errFlg) if @badSet == 0;
+  } else {
+    prtMess($bpe,"NO MONTHLY SOLUTION TO BE GENERATED");
+  }
+
+# Rest solution based final on 1-day NEQs
+# ---------------------------------------
+  @lst = ();
+  foreach $yyddd (@finDay) {
+    push(@lst,$sol.$yyddd) if gps_date("-yd $yyddd -o %IJ") > $mjdM;
+  }
+  my $neq = "${dirNeq}${sol}_REST.${extNeq}";
+  unlink($neq);
+  if (@lst > 0) {
+##    $str = substr($yydddF,0,2)."-".substr($yydddF,2,3);
+    $str = gps_date("-yd $yydddF -o %Y-%j");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TITLE","CODE'S BIAS SOLUTION FOR REST (UNTIL $str)");
+##    @lst = map { $sol.$_ } (@lst);
+    replaceSelLst($bpe,"ADDNEQ2","INPFILE",@lst);
+
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_ELIM","NO");
+
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}_REST_STA");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}_REST_STA");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","${sol}_REST_STA");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","${sol}_REST_STA");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+##    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN","SINEX_BIA_COD_MONTHLY");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN",'$(BIAINF)');
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_ELIM","BEFORE_STACKING");
+
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}_REST");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}_REST");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","${sol}_REST");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","${sol}_REST");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN","SINEX_BIA_COD_MONTHLY");
+##    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN",'$(BIAINF)');
+    $bpe->RUN_PGMS($PGMNAM);
+  } else {
+    prtMess($bpe,"NO REST SOLUTION TO BE GENERATED");
+  }
+
+# Full solution based on final monthly NEQs (plus rest NEQ)
+# ---------------------------------------------------------
+# To be activated if NO_JUMPS desired:
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SATCRUX","SAT_0000");
+# To be activated if SVN constraining desired:
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBSVN","1");
+
+  $str1 = gps_date("-yd $yyddd0 -o %Y-%j");
+  $str2 = gps_date("-yd $yydddF -o %Y-%j");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TITLE","CODE'S ACCUMULATED BIAS SOLUTION (FROM $str1 TO $str2)");
+  @lst = map { $sol."_".$_ } (@allSet);
+##  foreach $yyddd (@finDay) {
+##    push(@lst,$sol.$yyddd) if gps_date("-yd $yyddd -o %IJ") > $mjdM;
+##  }
+  push(@lst,$sol."_REST") if -s $neq;
+########################################
+# FORCE COMBINATION PERIOD TO 1994-2015!
+########################################
+#  print "BEFORE: @lst\n";
+#  @lst = map { $sol."_".$_ } (@allSet);
+#  my @tmp = ();
+#  foreach (@lst) {
+#    if (substr($_,4,2) ne "16" && substr($_,4,2) ne "17") { push(@tmp,$_) }
+#  }
+#  @lst = @tmp;
+#  print "AFTER: @lst\n";
+########################################
+  replaceSelLst($bpe,"ADDNEQ2","INPFILE",@lst);
+##  $yyddd = gps_date("-mjd $mjdF -o %y%j");
+##  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}${yyddd}");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}_FULL");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}_FULL");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","${sol}_FULL");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","${sol}_FULL");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SINEXIN","SINEX_BIA_COD_FULL");
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Copy OUT file
+  $inp = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","SYSOUT");
+  $yyddd = gps_date("-mjd $mjdF -o %y%j");
+  $out = "${dirOut}${sol}${yyddd}.${extOut}";
+  copy($inp,$out);
+  die "$out not copied" unless -s $out;
+# Delete old OUT files
+  $yyddd = gps_date("-mjd $mjdF -d -400 -o %y%j");
+  $out = "${dirOut}${sol}${yyddd}.${extOut}";
+  unlink($out);
+  $yyddd = gps_date("-mjd $mjdF -d -600 -o %y%j");
+  $out = "${dirOut}${sol}${yyddd}.${extOut}";
+  unlink($out);
+
+# Verify solution
+  $tol = 5;
+  $tol = 25;
+  $tol = 70 if $sol eq "CBG";
+##  $tol = 1000;
+  $tol = sprintf("%4.1f",$tol) if $tol < 100;
+  $err = 0;
+  $fil  = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","SYSOUT");
+  getstring("-a 40 -b 51",$fil,"A posteriori RMS of unit weight");
+  $rms = $StrList[0];
+  $str = "";
+  for (my $i=1;$i<=30;$i++) {
+    $yydddm1 = gps_date("-mjd $mjdF -d -$i -o %y%j");
+# Exceptions (corresponding OUT files should be removed manually)
+    next if $yydddm1 eq "00000";
+    $film1 = "${dirOut}${sol}${yydddm1}.${extOut}";
+    next unless -s $film1;
+    getstring("-a 40 -b 51",$film1,"A posteriori RMS of unit weight");
+    $rmsm1 = $StrList[0];
+    $fac = $rms/$rmsm1;
+    $fac = sprintf("%10.3f",$fac);
+    $dev = ($fac-1)*100;
+    $dev = sprintf("%8.1f",$dev);
+    $nam = basename($film1);
+    print "$nam: RMS: $rms $rmsm1 $fac $dev\n";
+    if (abs($dev) > $tol) { $err++; $str = $str." $nam" }
+  }
+  if ($err > 0) {
+    prtMess($bpe,"$sol FULL BIAS COMBINATION NOT ACCEPTED ($err ERRORS:$str)");
+    $msg++;
+    $key = $msg <= 2 ? "NEW" : "MSC";
+    msg2key($key,"$pcfFil MGEX_BIA $yyssss0: $sol full bias combination not accepted ($err errors:$str)");
+  }
+
+# Update CODE.OSB information
+  $nam = $sol eq "CBG" ? "CODE_MGEX${nam0}" : "CODE_MGEX${nam0}_EXT";
+  if ($upd eq "Y" && $err == 0) {
+##    $inp = "${dirOsb}${sol}_FULL.${extOsb}";
+    $inp = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","DCBOUT");
+    die " ERR NaN entries found in $inp!" if `grep NaN $inp | wc -l`+0>0;
+    $out = "$ENV{REF}/${nam}.${extOsb}";
+    copy($inp,$out);
+    die "$out not updated" unless -s $out;
+
+    prtMess($bpe,"${nam}.${extOsb} INFORMATION UPDATED");
+  } else {
+    prtMess($bpe,"${nam}.${extOsb} INFORMATION NOT UPDATED");
+  }
+
+# Distribute CODE.BIA information
+  $nam = $sol eq "CBG" ? "CODE_MGEX${nam0}" : "CODE_MGEX${nam0}_EXT";
+  if ($sav eq "Y" && $err == 0) {
+##    $inp = "${dirBia}${sol}_FULL.${extBia}";
+    $inp = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","BIASSNX");
+    die " ERR NaN entries found in $inp!" if `grep NaN $inp | wc -l`+0>0;
+##    $out = "${dirDis}${nam}.${extBia}";
+####    copy($inp,$out);
+##    system("$ENV{AUTO}/filter_code_bia.com $inp $out");
+##    die "$out not distributed" unless -s $out;
+####    system("$ENV{AUTO}/bia2bia.com $out -sat");
+
+    prtMess($bpe,"${nam}.${extBia} INFORMATION DISTRIBUTED");
+  } else {
+    prtMess($bpe,"${nam}.${extBia} INFORMATION NOT DISTRIBUTED");
+  }
+
+# Remove bad monthly NEQs
+# -----------------------
+  if (@badSet > 0) {
+    foreach $fil (@badSet) {
+      prtMess($bpe,"BAD NEQ FILE REMOVED: ".basename($fil));
+      unlink($fil);
+    }
+    unlink($errFlg);
+  }
+
+# Remove 1-day NEQs
+# -----------------
+  foreach $yyddd (@allDay) {
+    $fil = "${dirNeq}${sol}${yyddd}.${extNeq}";
+    unlink($fil) if -s $fil;
+  }
+
+# Remove flag files
+# -----------------
+  unlink($allFlg);
+  unlink($setFlg);
+
+}

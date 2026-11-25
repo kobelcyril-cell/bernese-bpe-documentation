@@ -1,0 +1,60 @@
+package RXO_DEL;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  RXO_DEL
+#
+# Purpose :  Delete ?????????_yyyyssss.RXO files (from current session and,
+#            if requested, back to PARAM1)
+#
+# PARAMs  :  PARAM1 - Optional minus parameter
+#
+# Author  :  S. Schaer
+# Created :  27-Jan-2022
+#
+# Changes :  __-___-____ __:
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $mjd, $del, $dirRxo, $param1) =
+    $bpe->getKeys('$YSS+0', '$JD+0', 'V_DEL', 'DIR_RXO', 'PARAM1');
+
+# Set variables
+# -------------
+  $param1 = 0 if $param1 eq "";
+  die "Positive PARAM1 value" if $param1>0;
+
+# Return if V_DEL = N
+# -------------------
+  if ($del eq "N") {
+    prtMess($bpe,"NO DELETION REQUESTED");
+    return;
+  }
+
+  for (my $i=0; $i>=$param1; $i--) {
+    my $yyyyssss = gps_date("-mjd $mjd -d $i -o %Y%j0");
+    my @filRxo = glob("${dirRxo}?????????_${yyyyssss}.RXO");
+    my $numRxo = @filRxo;
+    if ($numRxo>0) {
+      prtMess($bpe,"$numRxo RXO files deleted for session $yyyyssss");
+      unlink(@filRxo);
+    }
+
+  }
+
+}

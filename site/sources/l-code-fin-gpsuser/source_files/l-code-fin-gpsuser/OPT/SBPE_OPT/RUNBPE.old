@@ -1,0 +1,681 @@
+
+! Client Script
+! -------------
+BPE_CLIENT 1  "${BPE}/RUNBPE.sh"
+  ## widget = lineedit
+
+MSG_BPE_CLIENT 1  "Client script"
+
+! Environment File
+! ----------------
+CLIENT_ENV 1  "${C}/LOADGPS.setvar"
+  ## widget = lineedit
+
+MSG_CLIENT_ENV 1  "Client's environment file"
+
+! PCF File
+! --------
+PCF_FILE 1  "${U}/PCF/IGSFIN1D_GAL.PCF"
+  ## widget = selwin; path = PTH_PCF; ext = EXT_PCF; maxfiles = 1
+  # IGSFIN1D_GAL
+
+MSG_PCF_FILE 1  "Process control file"
+
+! CPU File
+! --------
+CPU_FILE 1  "${U}/PAN/LOCAL_SBPE.CPU"
+  ## widget = selwin; path = PTH_CPU; ext = EXT_CPU; maxfiles = 1
+  # LOCAL_SBPE
+
+MSG_CPU_FILE 1  "CPU control file"
+
+CPUUPDRATE 1  "10"
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_CPUUPDRATE 1  "Check for free CPU every"
+
+! Campaign
+! --------
+BPE_CAMPAIGN 1  "${P}/EXAMPLE"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+MSG_BPE_CAMPAIGN 1  "Campaign"
+
+SESSION_TABLE 1  "${P}/EXAMPLE/GEN/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+NEWCAMP_BPE 1  "${U}/PAN/NEWCAMP.INP"
+  ## widget = initmenu; pointer = NEWCAMP_INP
+
+MSG_NEWCAMP_BPE 1  "NEWCAMP input file"
+
+! Year, Session
+! -------------
+YEAR 1  "2022"
+  ## widget = comment
+  # $Y+0
+
+SESSION 1  "3010"
+  ## widget = comment
+  # $S+0
+
+NUM_SESS 1  "1"
+  ## widget = lineedit; check_type = integer
+
+MSG_NUM_SESS 1  "Number of sessions to be processed"
+
+MODULO_SESS 1  "1"
+  ## widget = lineedit; check_type = integer
+
+MSG_MODULO_SESS 1  "Session Modulo"
+
+NEXTSESS 1  "10"
+  ## widget = lineedit; check_type = integer; check_min = 0
+  ## activeif = NUM_SESS > 1 OR NUM_SESS < -1
+
+MSG_NEXTSESS 1  "Continue if number of errors lower or equal than specified"
+
+BPE_MAXTIME 0
+  ## widget = lineedit; check_type = integer
+
+MSG_BPE_MAXTIME 1  "Maximum Time (in Seconds) for BPE Run"
+
+SUPERBPE 1  "1"
+  ## widget = checkbox
+
+MSG_SUPERBPE 1  "Run sessions in parallel"
+
+SCRIPT_START 0
+  ## widget = selwin; maxfiles = 1; pointer = PIDLIST
+
+MSG_SCRIPT_START 1  "Start with script"
+
+SCRIPT_SKIP 0
+  ## widget = selwin; pointer = PIDLIST
+
+MSG_SCRIPT_SKIP 1  "Skip scripts"
+
+PIDLIST 1  "001  WAIT_BPE  NO_OPT"
+  ## widget = selwin; menuaux = MENUAUX; action = BPE_SCRIPT
+  ## menuauxkeys = PCF_FILE
+  # 001  WAIT_BPE  NO_OPT
+  # 010  REPF_D1D  NO_OPT
+  # 011  IGSF_COP  IGSF_A1
+  # 012  COOVEL    IGSF_A
+  # 013  GOTO_REP  NO_OPT
+  # 020  CRXNBV3   IGSF_A
+  # 040  BRDTST    IGSF_A
+  # 041  BRDTAB    IGSF_A
+  # 060  SATCLK    IGSF_A
+  # 080  DEFSTD_B  IGSF_A
+  # 100  WAIT_BPE  NO_OPT
+  # 101  RNXSMTAP  NO_OPT
+  # 102  RNXSMT_P  IGSF_A
+  # 103  PHA_ONLY  NO_OPT
+  # 120  RXOBV3GP  IGSF_A
+  # 121  RXOBV3_P  IGSF_A
+  # 140  WAIT_BPE  NO_OPT
+  # 141  CODCHK    IGSF_A
+  # 160  CODSPPAP  NO_OPT
+  # 161  CODSPP_P  IGSF_A
+  # 162  CODXTR    IGSF_A
+  # 200  RAP_DONE  IGSF_A
+  # 300  WAIT_BPE  NO_OPT
+  # 301  DEFSTD    IGSF_F0
+  # 310  SNGDIF    IGSF_G
+  # 311  SNGDIFC   IGSF_A
+  # 320  MAUPRPAP  IGSF_G
+  # 321  MAUPRP_P  IGSF_G
+  # 322  MPRXTR    IGSF_G
+  # 340  GPSESTAP  NO_OPT
+  # 341  GPSEST_P  IGSF_G
+  # 342  GPSXTR    IGSF_A
+  # 360  ADDNEQ2   IGSF_G
+  # 361  UPDSTD    IGSF_G
+  # 362  STDPRE    IGSF_G
+  # 380  GPSEDTAP  NO_OPT
+  # 381  GPSEDT_P  IGSF_EDT
+  # 382  EDTXTR    IGSF_A
+  # 400  IGSF_CHK  IGSF_A
+  # 500  WAIT_BPE  NO_OPT
+  # 510  GPSESTAP  NO_OPT
+  # 511  GPSEST_P  IGSF_H
+  # 512  GPSXTR    IGSF_A
+  # 520  ADDNEQ2   IGSF_H
+  # 521  UPDSTD    IGSF_H
+  # 522  STDPRE    IGSF_H
+  # 523  ORB_CHK   IGSF_ORH
+  # 545  INIT_AR   IGSF_ARX
+  # 550  GNSAMBAP  IGSF_AMB
+  # 551  GPSAMB_P  IGSF_AMB
+  # 555  GOTO_AR   NO_OPT
+  # 556  ADDNEQ2   IGSF_DCB
+  # 557  P1C1      IGSF_HPB
+  # 560  ION_WAIT  NO_OPT
+  # 570  GNSL53AP  IGSF_L53
+  # 571  GNSL53_P  IGSF_L53
+  # 580  GNSQIFAP  IGSF_QIF
+  # 581  GNSQIF_P  IGSF_QIF
+  # 590  GNSL12AP  IGSF_L12
+  # 591  GNSL12_P  IGSF_L12
+  # 595  AMBVERAP  IGSF_ARV
+  # 596  AMBVER_P  IGSF_ARV
+  # 600  AMBXTR    IGSF_ARX
+  # 601  RCVTST    IGSF_AMB
+  # 700  WAIT_BPE  NO_OPT
+  # 710  DEFSTD    IGSF_Q0
+  # 711  ION_WAIT  NO_OPT
+  # 712  INIT_VMF  NO_OPT
+  # 713  INIT_APL  NO_OPT
+  # 720  GPSCLUAP  NO_OPT
+  # 721  GPSCLU_P  IGSF_Q
+  # 722  GPSXTR    IGSF_A
+  # 800  WAIT_BPE  NO_OPT
+  # 801  WAIT_JOB  NO_OPT
+  # 810  ADDNEQ2   IGSF_F1A
+  # 811  ADDNEQ2   IGSF_F1O
+  # 812  ADDNEQ2   IGSF_F1R
+  # 821  INIT_FIX  NO_OPT
+  # 822  STA2STA   NO_OPT
+  # 823  STA2STA   NO_OPT
+  # 830  ADDNEQ2   IGSF_F1C
+  # 831  FIX_CHK   IGSF_F1C
+  # 840  ADDNEQ2   IGSF_F1P
+  # 841  UPDSTD    IGSF_F1P
+  # 842  STDPRE    IGSF_F1P
+  # 843  FIX_CHK   IGSF_F1P
+  # 844  COMPAR    IGSF_F1P
+  # 845  TROTRO    IGSF_F1P
+  # 846  COOVEL    IGSF_F1P
+  # 847  POLXTR    IGSF_F1P
+  # 850  ADDNEQ2   IGSF_F1S
+  # 851  ADDNEQ2   IGSF_F1G
+  # 852  SNX_LOOP  IGSF_F1L
+  # 860  ADDNEQ2   IGSF_F1H
+  # 861  UPDSTD    IGSF_F1H
+  # 862  STDPRE    IGSF_F1H
+  # 869  TRA_CHK   IGSF_I1T
+  # 870  ADDNEQ2   IGSF_F1T
+  # 871  UPDSTD    IGSF_F1T
+  # 872  STDPRE    IGSF_F1T
+  # 875  ADDNEQ2   IGSF_F1I
+  # 876  UPDSTD    IGSF_F1I
+  # 877  STDPRE    IGSF_F1I
+  # 880  CRD_CHK   IGSF_AUX
+  # 881  ORB_CHK   IGSF_F1O
+  # 882  ORB_VER   IGSF_V1P
+  # 883  ORB_VER   IGSF_V1H
+  # 884  ORB_VER   IGSF_V1T
+  # 890  FIX_CHK   IGSF_AUX
+  # 891  FIX_CHK   IGSF_F1N
+  # 892  FIX_CHK   IGSF_F1S
+  # 893  COOVEL    IGSF_AUX
+  # 894  CRDMERGE  IGSF_AUX
+  # 898  DUMMY     NO_OPT
+  # 899  DUMMY     NO_OPT
+  # 900  WAIT_BPE  NO_OPT
+  # 910  OBS_SAV   NO_OPT
+  # 911  GOTO_REP  NO_OPT
+  # 912  IGSF_P1D  NO_OPT
+  # 913  IGSF_S1D  NO_OPT
+  # 914  IGSF_D1D  NO_OPT
+  # 951  GOTO_REP  NO_OPT
+  # 952  ORBCMP    IGSF_Q
+  # 962  REPF_P1D  NO_OPT
+  # 963  REPF_S1D  NO_OPT
+  # 964  REPF_D1D  NO_OPT
+  # 999  BPE_BYE   NO_OPT
+
+! Output File
+! -----------
+TASKID 1  "RP"
+  ## widget = lineedit; emptyallowed = false
+
+MSG_TASKID 1  "Task ID"
+
+! Has to be unmarked!!!
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${P}/EXAMPLE/BPE/RP_2018.OUT"
+  ## widget = lineedit; activeif = SYSODEF == 0; path = DIR_BPEOUT
+  ## ext = EXT_BPEOUT; emptyallowed = false
+  # RP_2018
+
+DESCR_SYSOUT 1  "Program output"
+
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; activeif = ERRMRG == 0; path = PTH_ERR
+  ## ext = EXT_ERR; emptyallowed = false
+  # ERROR
+
+MSG_SYSERR 1  "Error messages"
+
+STATUS 1  "${P}/EXAMPLE/BPE/RP_2018.RUN"
+  ## widget = lineedit; path = DIR_BPERUN; ext = EXT_BPERUN
+  # RP_2018
+
+MSG_STATUS 1  "Status file"
+
+! Debug Options
+! -------------
+DEBUG 1  "0"
+  ## widget = checkbox
+
+MSG_DEBUG 1  "Report server/client communication"
+
+NOCLEAN 1  "0"
+  ## widget = checkbox
+
+MSG_NOCLEAN 1  "Do not remove temporary user environment"
+
+! Various Variables
+! -----------------
+SERVER_VARIABLES_0 45
+  "V_O"  "B1"  "A PRIORI ORBIT (BROADCAST/RAPID)"
+  "V_X"  "A1"  "1-DAY ORBIT FROM 1. ITERATION"
+  "V_Z"  "G1"  "1-DAY ORBIT FROM 2. ITERATION"
+  "V_U"  "H1"  "1-DAY ORBIT FROM 3. ITERATION"
+  "V_V"  "I1"  "A PRIORI 1-DAY ORBIT FOR NEQ-FILES"
+  "V_K"  "F1"  "FINAL"
+  "V_A"  "Z1"  "FINAL IONOSPHERE RESULTS"
+  "V_B"  "W1"  "WUEBB DCB RESULTS"
+  "V_E"  "R1"  "TEST NEQS"
+  "V_H"  "__"  ""
+  "V_ARITER"  "2"  "NUMBER OF ITERATIONS FOR WUEBB AR"
+  "V_BL_AMB"  "6000"  "MAX BASELINE LENGTH (KM) FOR WUEBB AR"
+  "V_BL_QIF"  "2000"  "MAX BASELINE LENGTH (KM) FOR QIF AR"
+  "V_BL_L53"  "200"  "MAX BASELINE LENGTH (KM) FOR L53 AR"
+  "V_BL_L12"  "20"  "MAX BASELINE LENGTH (KM) FOR L12 AR"
+  "V_GNSS"  "GRE"  "GNSS SELECTION (syschar)"
+  "V_GNSSAR"  "GRE"  "GNSS for ambiguity resolution (syschar)"
+  "V_DTSTC"  "08 00 00"  "Min. interval between pulse and maneuver"
+  "V_PLUS"  "+0"  "PLUS  DAYS"
+  "V_MINUS"  "-0"  "MINUS DAYS"
+  "V_CLU"  "20"  "Maximum number of files per cluster"
+  "V_CRDINF"  "IGS14"  "CRD/VEL/FIX MASTER FILE NAME"
+  "V_PSDINF"  "IGS14"  "PSD corrections for ITRF2014"
+  "V_CRDEPO"  "2010 01 01"  "CRD reference epoch"
+  "V_STAINF"  "CODE"  "STATION INFORMATION"
+  "V_SATINF"  "SAT_REP20"  "SATELLITE INFORMATION"
+  "V_BOXWNG"  "BOXWING.MAC"  "BOXWING MODEL"
+  "V_MACMOD"  "Macromodel"  "Non-conservative Forces"
+  "V_PCVINF"  "PCV_REP20"  "PCV INFORMATION"
+  "V_PCV"  "I20"  "GNSS PCV MODEL"
+  "V_SNXINF"  "SINEX.COF"  "SINEX INFORMATION"
+  "V_BIAINF"  "SINEX_BIA.COD"  "BIAS SINEX INFORMATION"
+  "V_SATCRX"  "SAT"  "SATELLITE PROBLEM FILE"
+  "V_SYSCRX"  "SAT_GNSS"  "SATELLITE PROBLEM FILE FOR DATA IMPORT"
+  "V_CAMP"  "RP"  "CAMPAIGN TO BE USED"
+  "V_OBSSEL"  "OBS_COD.SEL"  "OBSERVATION SELECTION FILE"
+  "V_LOADNG"  "$(ATLINF)"  "LOADING MODELS: NONE/$(ATLINF)/GFZ"
+  "V_REPERP"  "C04_$Y+0"  "APRIORI POLE FILE FOR REPROCESSING"
+  "V_OBSTAR"  "RP3"  "NAME OF THE ARCHIVE WITH OBSERV: FILES"
+  "V_RERUN"  "0"  "NUMBER OF RERUNS IN CASE OF FAILURE"
+  "V_XTR"  "Y"  "Automatic program extraction (GPSXTR)"
+  "V_UPD"  "N"  "Update general files?"
+  "V_SAV"  "Y"  "Save results?"
+  "V_DEL"  "Y"  "Delete results?"
+  "V_DIS"  "N"  "Distribute results?"
+  ## widget = uniline; menuaux = MENUAUX; action = BPE_VAR_0
+  ## updateifsave = true; keepvariables = true; menuauxkeys = PCF_FILE
+
+SERVER_VARIABLES 45
+  "V_O" "B1" "A PRIORI ORBIT (BROADCAST/RAPID)"
+  "V_X" "A1" "1-DAY ORBIT FROM 1. ITERATION"
+  "V_Z" "G1" "1-DAY ORBIT FROM 2. ITERATION"
+  "V_U" "H1" "1-DAY ORBIT FROM 3. ITERATION"
+  "V_V" "I1" "A PRIORI 1-DAY ORBIT FOR NEQ-FILES"
+  "V_K" "F1" "FINAL"
+  "V_A" "Z1" "FINAL IONOSPHERE RESULTS"
+  "V_B" "W1" "WUEBB DCB RESULTS"
+  "V_E" "R1" "TEST NEQS"
+  "V_H" "__" ""
+  "V_ARITER" "2" "NUMBER OF ITERATIONS FOR WUEBB AR"
+  "V_BL_AMB" "6000" "MAX BASELINE LENGTH (KM) FOR WUEBB AR"
+  "V_BL_QIF" "2000" "MAX BASELINE LENGTH (KM) FOR QIF AR"
+  "V_BL_L53" "200" "MAX BASELINE LENGTH (KM) FOR L53 AR"
+  "V_BL_L12" "20" "MAX BASELINE LENGTH (KM) FOR L12 AR"
+  "V_GNSS" "GRE" "GNSS SELECTION (syschar)"
+  "V_GNSSAR" "GRE" "GNSS for ambiguity resolution (syschar)"
+  "V_DTSTC" "08 00 00" "Min. interval between pulse and maneuver"
+  "V_PLUS" "+0" "PLUS  DAYS"
+  "V_MINUS" "-0" "MINUS DAYS"
+  "V_CLU" "20" "Maximum number of files per cluster"
+  "V_CRDINF" "IGS14" "CRD/VEL/FIX MASTER FILE NAME"
+  "V_PSDINF" "IGS14" "PSD corrections for ITRF2014"
+  "V_CRDEPO" "2010 01 01" "CRD reference epoch"
+  "V_STAINF" "CODE" "STATION INFORMATION"
+  "V_SATINF" "SAT_REP20" "SATELLITE INFORMATION"
+  "V_BOXWNG" "BOXWING.MAC" "BOXWING MODEL"
+  "V_MACMOD" "Macromodel" "Non-conservative Forces"
+  "V_PCVINF" "PCV_REP20" "PCV INFORMATION"
+  "V_PCV" "I20" "GNSS PCV MODEL"
+  "V_SNXINF" "SINEX.COF" "SINEX INFORMATION"
+  "V_BIAINF" "SINEX_BIA.COD" "BIAS SINEX INFORMATION"
+  "V_SATCRX" "SAT" "SATELLITE PROBLEM FILE"
+  "V_SYSCRX" "SAT_GNSS" "SATELLITE PROBLEM FILE FOR DATA IMPORT"
+  "V_CAMP" "RP" "CAMPAIGN TO BE USED"
+  "V_OBSSEL" "OBS_COD.SEL" "OBSERVATION SELECTION FILE"
+  "V_LOADNG" "$(ATLINF)" "LOADING MODELS: NONE/$(ATLINF)/GFZ"
+  "V_REPERP" "C04_$Y+0" "APRIORI POLE FILE FOR REPROCESSING"
+  "V_OBSTAR" "RP3" "NAME OF THE ARCHIVE WITH OBSERV: FILES"
+  "V_RERUN" "0" "NUMBER OF RERUNS IN CASE OF FAILURE"
+  "V_XTR" "Y" "Automatic program extraction (GPSXTR)"
+  "V_UPD" "N" "Update general files?"
+  "V_SAV" "Y" "Save results?"
+  "V_DEL" "Y" "Delete results?"
+  "V_DIS" "N" "Distribute results?"
+  ## widget = uniline; menuaux = MENUAUX; action = BPE_VAR
+  ## updateifsave = true; keepvariables = true
+  ## updateifchanged = SERVER_VARIABLES_0; menuauxkeys = PCF_FILE
+  ## numlines = 25
+
+MSG_SERVER_VARIABLES 1  "BPE server variables"
+
+! Simple SuperBPE
+! ---------------
+RADIO_P 1  "0"
+  ## widget = radiobutton; group = SBPE
+
+MSG_RADIO_P 1  "Simple parallel multi session run"
+
+REPR_MODE 1  "1"
+  ## widget = checkbox; activeif = RADIO_P == 1
+
+MSG_REPR_MODE 1  "Each session in separate campaign"
+
+REPR_MODE_PATH 1  "${P}/REPRO_2018"
+  ## widget = lineedit; activeif = RADIO_P == 1 AND REPR_MODE == 1
+
+MSG_REPR_MODE_PATH 1  "Path where to compute"
+
+REPR_MODE_CAMPAIGN 1  "RP"
+  ## widget = lineedit; activeif = RADIO_P == 1 AND REPR_MODE == 1
+
+MSG_REPR_MODE_CAMPAIGN 1  "Campaign ID"
+
+REPR_MODE_ON_SUCCESS 1  "remove"
+  ## widget = combobox; cards = remove keep move; editable = false
+  ## activeif = RADIO_P == 1 AND REPR_MODE == 1
+
+MSG_REPR_MODE_ON_SUCCESS 1  "Action to be done on success"
+
+REPR_MODE_ON_SUCCESS_PATH 0
+  ## widget = lineedit
+  ## activeif = RADIO_P == 1 AND REPR_MODE == 1 AND REPR_MODE_ON_SUCCESS == move
+
+MSG_REPR_MODE_ON_SUCCESS_PATH 1  "Target directory for action on success"
+
+REPR_MODE_ON_ERROR 1  "keep"
+  ## widget = combobox; cards = remove keep move; editable = false
+  ## activeif = RADIO_P == 1 AND REPR_MODE == 1
+
+MSG_REPR_MODE_ON_ERROR 1  "Action to be done on error"
+
+REPR_MODE_ON_ERROR_PATH 1  "${U}/WORK"
+  ## widget = lineedit
+  ## activeif = RADIO_P == 1 AND REPR_MODE == 1 AND REPR_MODE_ON_ERROR == move
+
+MSG_REPR_MODE_ON_ERROR_PATH 1  "Target directory for action on error"
+
+REPR_REUSE_CAMP 1  "0"
+  ## widget = checkbox; activeif = RADIO_P == 1 AND REPR_MODE == 1
+
+MSG_REPR_REUSE_CAMP 1  "Re-use the existing campaign"
+
+MAXSESS 1  "20"
+  ## widget = lineedit; activeif = RADIO_P = 1; check_type = integer
+  ## check_min = 0
+
+MSG_MAXSESS 1  "Maximum number of sessions run in parallel"
+
+! Real SuperBPE
+! -------------
+RADIO_S 1  "1"
+  ## widget = radiobutton; group = SBPE
+
+MSG_RADIO_S 1  "Special parallel multi session run (Super-BPE)"
+
+! PCF File (Super-BPE)
+! --------------------
+S_PCF_FILE 1  "SUPERBPE.PCF"
+  ## widget = selwin; path = PTH_PCF; ext = EXT_PCF; maxfiles = 1
+  # SUPERBPE
+
+MSG_S_PCF_FILE 1  "SUPERBPE: process control file"
+
+! CPU File (Super-BPE)
+! --------------------
+S_CPU_FILE 1  "REPRO_SBPE.CPU"
+  ## widget = selwin; path = PTH_CPU; ext = EXT_CPU; maxfiles = 1
+  # REPRO_SBPE
+
+MSG_S_CPU_FILE 1  "SUPERBPE: CPU control file"
+
+S_CPUUPDRATE 1  "60"
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_S_CPUUPDRATE 1  "SUPERBPE: check for free CPU rate"
+
+! Campaign (Super-BPE)
+! --------------------
+S_BPE_CAMPAIGN 1  "${K}/REPRO_2018"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+S_SCRIPT_START 0
+  ## widget = selwin; maxfiles = 1; pointer = S_PIDLIST
+
+MSG_S_SCRIPT_START 1  "SUPERBPE: start with script"
+
+S_SCRIPT_SKIP 0
+  ## widget = selwin; pointer = S_PIDLIST
+
+MSG_S_SCRIPT_SKIP 1  "SUPERBPE: skip scripts"
+
+S_PIDLIST 4
+  "001  DUMMY     NO_OPT"
+  "101  SBPEAP    NO_OPT"
+  "102  SBPE_P    SBPE_OPT"
+  "999  DUMMY     NO_OPT"
+  ## widget = selwin; menuaux = MENUAUX; action = BPE_SCRIPT
+  ## menuauxkeys = S_PCF_FILE
+  # 001  DUMMY     NO_OPT
+  # 101  SBPEAP    NO_OPT
+  # 102  SBPE_P    NO_OPT
+  # 999  DUMMY     NO_OPT
+
+! Output File (Super-BPE)
+! -----------------------
+S_TASKID 1  "SB"
+  ## widget = lineedit; emptyallowed = false
+
+MSG_S_TASKID 1  "SUPERBPE: Task ID"
+
+! Has to be unmarked!!!
+S_SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_S_SYSODEF 1  "SUPERBPE: program output"
+
+S_SYSOUT 1  "SUPERBPE.OUT"
+  ## widget = lineedit; activeif = S_SYSODEF == 0; path = DIR_BPEOUT
+  ## ext = EXT_BPEOUT; emptyallowed = false
+  # SUPERBPE
+
+MSG_S_SYSOUT 1  "SUPERBPE: program output"
+
+S_ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_S_ERRMRG 1  "SUPERBPE: error message"
+
+S_SYSERR 0
+  ## widget = lineedit; activeif = S_ERRMRG == 0; path = PTH_ERR
+  ## ext = EXT_ERR; emptyallowed = false
+  # ERROR
+
+MSG_S_SYSERR 1  "SUPERBPE: error message"
+
+S_STATUS 1  "SUPERBPE.RUN"
+  ## widget = lineedit; path = DIR_BPERUN; ext = EXT_BPERUN
+  # SUPERBPE
+
+MSG_S_STATUS 1  "SUPERBPE status file"
+
+! Debug Options (Super-BPE)
+! -------------------------
+S_DEBUG 1  "0"
+  ## widget = checkbox
+
+MSG_S_DEBUG 1  "SUPERBPE: Report server/client communication"
+
+S_NOCLEAN 1  "0"
+  ## widget = checkbox
+
+MSG_S_NOCLEAN 1  "SUPERBPE: Do not remove temp. user environment"
+
+! Various Variables (Super-BPE)
+! -----------------------------
+S_SERVER_VARIABLES_0 1  ""  ""  ""
+  ## widget = uniline; menuaux = MENUAUX; action = BPE_VAR_0
+  ## menuauxkeys = S_PCF_FILE; keepvariables = true
+  ## updateifsave = SUPERBPE = 1 AND RADIO_S = 1
+
+S_SERVER_VARIABLES 1  "" "" ""
+  ## widget = uniline; menuaux = MENUAUX; action = BPE_VAR
+  ## menuauxkeys = S_PCF_FILE; keepvariables = true
+  ## updateifsave = SUPERBPE = 1 AND RADIO_S = 1
+  ## updateifchanged = S_SERVER_VARIABLES_0; numlines = 25
+
+MSG_S_SERVER_VARIABLES 1  "SUPERBPE server variables"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# START BPE PROCESSING - RUNBPE 1: Client Environment/Session Selection        #
+#                                                                              #
+# CLIENT FILES/ENVIRONMENT                                                     #
+#   Client script               > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <           # BPE_CLIENT
+#   Client's environment file   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <           # CLIENT_ENV
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Campaign                    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# BPE_CAMPAIGN
+#   Session table               > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# SESSION_TABLE
+#                                                                              #
+# SESSION PROCESSING OPTIONS                                                   #
+#   Start processing                         Year > %%%% <   Session > %%%% <  # YEAR  SESSION
+#   Number of sessions to be processed            > %%%% <   Modulo  > %%%% <  # NUM_SESS MODULO_SESS
+#   Cont. with next sess. if not more errors than > %%%% <                     # NEXTSESS
+#   Run sessions in parallel                      > % <                        # SUPERBPE
+#   Stop BPE with an error after                  > %%%%%%%%% <seconds         # BPE_MAXTIME
+#                                                   (blank = unlimited)        #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SUPERBPE = 1 #####################################################
+# RUNBPE 1.1: Multi Session Processing Options                                 #
+#                                                                              #
+# > % <  Simple parallel multi session run                                     # RADIO_P
+#        Maximum number of sessions run in parallel          > %%% <           # MAXSESS
+#        > % <  Each session in separate campaign (reprocessing mode)          # REPR_MODE
+#               NEWCAMP input file        > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# NEWCAMP_BPE
+#               Path where to compute     > %%%%%%%%%%%%%%%%%%%%%% <           # REPR_MODE_PATH
+#               Campaign ID               > %%%%%%% < (yySSSS is added)        # REPR_MODE_CAMPAIGN
+#               if success > %%%%%% <  to > %%%%%%%%%%%%%%%%%%%%%% <           # REPR_MODE_ON_SUCCESS REPR_MODE_ON_SUCCESS_PATH
+#               if error   > %%%%%% <  to > %%%%%%%%%%%%%%%%%%%%%% <           # REPR_MODE_ON_ERROR   REPR_MODE_ON_ERROR_PATH
+#               Re-use existing campaign  > % <                                # REPR_REUSE_CAMP
+#                                                                              #
+# > % <  Special parallel multi session run (Super-BPE)                        # RADIO_S
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SUPERBPE = 1 AND RADIO_S = 1 #####################################
+# RUNBPE 1.2: Process Control Options for Special Super-BPE                    #
+#                                                                              #
+# CPU CONTROL                                                                  #
+#   CPU control file               > %%%%%%%%%%%% <                            # S_CPU_FILE
+#   Check for free CPU every       > %%% < seconds                             # S_CPUUPDRATE
+#                                                                              #
+# BPE TASK SELECTION                                                           #
+#   Process control file           > %%%%%%%%%%%% <                            # S_PCF_FILE
+#   Start with script              > %%%%%%%%%%%%%%%%%%%%%%% <                 # S_SCRIPT_START
+#   Skip scripts                   > %%%%%%%%%%%%%%%%%%%%%%% <                 # S_SCRIPT_SKIP
+#                                                                              #
+# OUTPUT OPTIONS                                                               #
+#   Report server/client communication         > % <                           # S_DEBUG
+#   Do not remove temporary user environment   > % <                           # S_NOCLEAN
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SUPERBPE = 1 AND RADIO_S = 1 #####################################
+# RUNBPE 1.3: Output Filenames for Special Super-BPE                           #
+#                                                                              #
+# OUTPUT FILES                                                                 #
+#   Task ID          > %% <                                                    # S_TASKID
+#   Status file      > %%%%%%%%%%%% <                                          # S_STATUS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output                                            > %%%%%%%%%%%% < # S_SYSOUT
+#   Error messages   > % < merged to program output     or    > %%%%%%%%%%%% < # S_ERRMRG S_SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SUPERBPE = 1 AND RADIO_S = 1 #####################################
+# RUNBPE 1.4: Server Variables Sent to Client for Special Super-BPE            #
+#                                                                              #
+# > Description_____________________________ Variable Default_value___   <     # S_SERVER_VARIABLES
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RUNBPE 2: Process Control Options                                            #
+#                                                                              #
+# CPU CONTROL                                                                  #
+#   CPU control file               > %%%%%%%%%%%% <                            # CPU_FILE
+#   Check for free CPU every       > %%% < seconds                             # CPUUPDRATE
+#                                                                              #
+# BPE TASK SELECTION                                                           #
+#   Process control file           > %%%%%%%%%%%% <                            # PCF_FILE
+#   Start with script              > %%%%%%%%%%%%%%%%%%%%%%% <                 # SCRIPT_START
+#   Skip scripts                   > %%%%%%%%%%%%%%%%%%%%%%% <                 # SCRIPT_SKIP
+#                                                                              #
+# OUTPUT OPTIONS                                                               #
+#   Report server/client communication         > % <                           # DEBUG
+#   Do not remove temporary user environment   > % <                           # NOCLEAN
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RUNBPE 3: Output Filenames                                                   #
+#                                                                              #
+# OUTPUT FILES                                                                 #
+#   Task ID          > %% <                                                    # TASKID
+#   Status file      > %%%%%%%%%%%% <                                          # STATUS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output                                            > %%%%%%%%%%%% < # SYSOUT
+#   Error messages   > % < merged to program output     or    > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RUNBPE 4: Server Variables Sent to Client                                    #
+#                                                                              #
+# > Description_____________________________ Variable Default_value___   <     # SERVER_VARIABLES
+#                                                                              #
+# END_PANEL ####################################################################

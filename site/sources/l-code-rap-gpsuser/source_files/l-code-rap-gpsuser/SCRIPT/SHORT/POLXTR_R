@@ -1,0 +1,41 @@
+package POLXTR_R;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  POLXTR_R
+#
+# Purpose :  Create offical code rapid ERP file
+#
+# Programs:  POLXTR
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  10-Feb-2005 mm: Old date variables removed
+#
+# ----------------------------------------------------------------------------
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($wwwwd,$iepDir) = $bpe->getKeys('$WD+0',"DIR_IEP");
+
+
+# Run program
+# -----------
+  my $PGMNAM = "POLXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Rename resulting ERP file
+# -------------------------
+  my $polFil = "${iepDir}COD$wwwwd";
+  move("${polFil}.IEP","${polFil}.ERP");
+
+
+}

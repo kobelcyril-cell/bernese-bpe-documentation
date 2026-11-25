@@ -1,0 +1,116 @@
+package ORBCMP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ORBCMP
+#
+# Purpose :  Execute ORBCMP
+#
+# PARAMs  :  PARAM1: yyssss/yyddd/_yyddd
+#            PARAM2-PARAM9: Comma seperated orbit pair, eg. V_Z,V_X
+#                           (PCF variables possible)
+#
+# Example:   PARAM1=_yyddd, PARAM2=V_Z,V_X
+#            -> compares $Z_$YD+0.PRE with $X_$YD+0.PRE
+#
+# Author  :  I. Selmke
+# Created :  03-Sep-2019
+# Last mod.: 11-Sep-2019
+#
+# Changes:   
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util qw(replaceSel appFile);
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyssss, $param1,
+      $dirOut, $extOut,
+      $dirPre, $extPre, 
+      $dirSum, $extSum) =
+    $bpe->getKeys(
+      '$YD+0', '$YSS+0', 'PARAM1',
+      'DIR_OUT', 'EXT_OUT',
+      'DIR_PRE', 'EXT_PRE',
+      'DIR_SUM', 'EXT_SUM');
+
+# Translate PARAM1
+# ----------------
+  $param1 =~ s/([\S]*)(yyssss)([\S]*)/$1${yyssss}$3/;
+  $param1 =~ s/([\S]*)(yyddd)([\S]*)/$1${yyddd}$3/;
+
+
+my (@Cmp1,@Cmp2,$maxi);
+# Translate PARAM2-PARAM9
+# -----------------------
+  for (my $i=2; $i<=9; $i++){
+    my ($param) = $bpe->getKeys("PARAM$i");
+     my @split = split /,/,$param;
+
+     if (@split == 2) {
+       print "param: $param, split: @split\n"; ###
+       $maxi = $i;
+
+       # Split PARAM
+       for (my $j=0; $j<=1; $j++) {
+         if ($split[$j] =~ /^V_/) {
+           ($split[$j]) = $bpe->getKeys($split[$j]);
+         }
+         if ($j == 0) {
+           $Cmp1[$i-2] = $split[$j];
+         } else {
+           $Cmp2[$i-2] = $split[$j];
+         }
+       }
+    }
+
+  } 
+
+  for (my $i=2; $i<=$maxi; $i++){
+    my $num = "".($i-1);
+
+    my $tmp = "$ENV{U}/WORK/var.tmp";
+    open (TMP,"> $tmp");
+      print "Cmp1[$i-2]: $Cmp1[$i-2]$param1\n"; ###
+      print TMP "\"$Cmp1[$i-2]$param1\"\n";
+    
+      print "Cmp2[$i-2]: $Cmp2[$i-2]$param1\n"; ###
+      print TMP "\"$Cmp2[$i-2]$param1\"\n";
+    close TMP;
+    
+    print "$i: PREINP: $tmp\n";###
+  
+    $bpe->replaceSel("ORBCMP","PREINP",$tmp);
+    print "output: ${dirSum}/OC${num}T_$yyssss.$extSum\n"; ###
+    $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP",'OUTPUT',"${dirSum}/OC${num}T_$yyssss.$extSum");
+
+# Run program
+# -----------
+    my $PGMNAM = "ORBCMP";
+    $bpe->RUN_PGMS($PGMNAM);
+
+
+# Create summary for protocol
+# ---------------------------
+    my $inp = "${dirSum}/OC${num}T_${yyssss}.${extSum}";
+    my $out = "$inp".".PLT";
+    system("perl $ENV{PROJECT}/perl/ocmpsum.pl $yyssss $inp $out");
+
+  }
+
+# Concat comparisons
+# -----------------
+  my $cmpAll = "${dirSum}OCMP${yyssss}.${extSum}";
+  unlink $cmpAll;
+  my @cmpList = glob("${dirSum}OC?T_${yyssss}.${extSum}.PLT");
+  my @cmpList = glob("${dirSum}OC?T_${yyssss}.${extSum}");
+  foreach my $cmp (@cmpList) {
+    appFile("$cmp",2,$cmp,$cmpAll,1);
+  }
+
+}

@@ -1,0 +1,81 @@
+package RNXSMTAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  RNXSMTAP
+#
+# Purpose :  Prepare parallel RNXSMT run
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  23-Jul-2003
+#
+# Changes :  26-Jan-2006 mm: New initPar call (w/o tmpFil)
+#            10-Feb-2005 mm: Old date variables removed
+#            19-May-2009 rd: Session dependent parallelization filenames
+#            11-Oct-2016 as/av: merge with l_code_rap script
+#            14-Feb-2020 av: Ommit files with small size
+#            13-Aug-2021 RD: Start using BSW-style filenaming in the campaign area
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ( $yyssss, $yyyy, $ssss, $ddd, $numFil, $numClu, $dirBpe,
+       $dirOut, $dirRxo, $dirSmt,
+       $extOut, $extRxo, $extSmt ) =
+  $bpe->getKeys
+     ( '$YSS+0', '$Y+0', '$S+0', '$+0', 'V_CLU','V_NCLU', 'DIR_BPEPRT',
+       'DIR_OUT','DIR_RXO', 'DIR_SMT',
+       'EXT_OUT','EXT_RXO', 'EXT_SMT' );
+
+# Set standard settings
+# ---------------------
+  $numClu = 14 unless $numClu;
+  my $numFil = 0;
+  my $minClu = 0;
+
+  my $bpeFil = "${dirBpe}SMT${ssss}";
+
+
+# Delete old files (SMT, BPE)
+# ------------------------------------------
+  unlink glob("${dirSmt}*${ssss}.${extSmt}");
+  unlink glob("${dirOut}SMT${ssss}???.${extOut}");
+  unlink glob("${bpeFil}???.BPE");
+
+
+# Delete collecting file for RINEX error/warning messages
+# -------------------------------------------------------
+  unlink "${dirOut}RNX${yyssss}.ERR";
+
+
+
+# Initialize parallel run
+# -----------------------
+  my @tmpFil = glob("${dirRxo}????${ssss}.${extRxo} ${dirRxo}?????????_${yyyy}${ssss}.RXO");
+  my @rxoFil = ();
+  foreach (@tmpFil){
+    my $size = -s $_;
+    if($size >= 100*1000){
+      push @rxoFil, $_;
+      print "$_ : $size\n";
+    }else{
+      print "$_ ommited: $size Byte\n";
+    }
+  }
+  initPar_Cl($bpe,$bpeFil,@rxoFil,$numClu,$numFil,$minClu);
+
+#  @rxoFil = map { substr(basename($_),0,4) } @rxoFil;
+#  initPar_Bl($bpe,@rxoFil) }
+
+}
+

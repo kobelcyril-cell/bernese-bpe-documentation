@@ -1,0 +1,70 @@
+package TIMCLK_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMCLK_P
+#
+# Purpose :  Parallel run of GPSEST using code and phase data
+#            Remove GLONASS biases
+#
+# Programs:  GPSEST
+#
+# Author  :  A. Villiger
+# Created :  21-Oct-2016
+#
+# Changes :  08-Jun-2018 ss: Enabled ZERO_AR if IARyyssss.FLG
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ( $yyddd, $ssss,
+       $camp_pth,$campaign,
+       $param1, $param2, $v_gnss,$v_iar,
+       $dirNeq, $extNeq) =
+    $bpe->getKeys(
+       '$YD+0'  ,'$S+0',
+       'CAMP_PTH','CAMPAIGN',
+       'PARAM1' ,'PARAM2' ,'V_GNSS','V_IAR',
+       'DIR_NEQ','EXT_NEQ');
+
+
+# Initialize $D4 and $CCC variable with subpid
+# --------------------------------------------
+  setUserVar($bpe,"D4",$param1,"SOL",$param2);
+
+# Enable ZERO_AR if indicated
+# ---------------------------
+  my $iarFlg = "$camp_pth$campaign/MSC/IAR${yyddd}0.FLG";
+  if (-e $iarFlg && $v_iar ne "N") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DIFLVL","ZERO_AR");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP",'IAR$YSS+0'); # Combined code & phase osb
+##      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP",'PHA$YSS+0'); # Phase only osb
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","1");
+      prtMess($bpe,"ZERO_AR ENABLED");
+  } else {
+      prtMess($bpe,"ZERO_AR DISABLED");
+  }
+
+# Remove GLONASS biases
+# ---------------------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Clean up NEQ files
+# ------------------
+  unlink "$dirNeq/${param2}R${ssss}${param1}.$extNeq";
+}
+

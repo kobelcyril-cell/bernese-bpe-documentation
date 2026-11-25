@@ -1,0 +1,95 @@
+package TIMSLVAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMSLVAP
+#
+# Purpose :  Prepare parallel ADDNEQ2 run
+#            using time intervals
+#
+# Programs:
+#
+# Author  :  A. Villiger
+# Created :  21-Oct-2016
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yy,$yyssss,$ddd,$ssss,
+      $sol,$param2,$param3,$param4,$param5,
+      $dirNeq, $dirOut, $dirClk,
+      $extNeq, $extOut, $extClk ) =
+     $bpe->getKeys(
+      '$Y','$YSS+0','$+0','$S+0',
+      "$$bpe{PARAM2}",'PARAM2','PARAM3','PARAM4','PARAM5',
+      'DIR_NEQ','DIR_OUT','DIR_CLK',
+      'EXT_NEQ','EXT_OUT','EXT_CLK');
+
+  my $timmod = $param3? $param3 : 0;
+  my $inv    = $param4;
+
+  print " $param2 $param3 $param4 $param5\n";
+
+  my $timprv = $timmod == 0? "_" : $timmod -1;
+
+# Remove old solution files
+# -------------------------
+  if ( $sol ne "" && $param2 =~ /^V_/ ) {
+    unlink glob("${dirOut}${sol}${timmod}${yyssss}???.${extOut}");
+    unlink glob("${dirClk}${sol}${timmod}${yyssss}???*.${extClk}");
+  }
+
+# Create time interval
+# -------------------
+  my @time;
+  my $ssol = "$sol$timmod";
+
+  if        ($timmod == 9){ # xx__ __xx
+      my $solution = "${sol}_${yyssss}";
+
+      push @time, sprintf "%s %4s %02i %02i %s",$solution,$ssol,00,12,$inv;
+      push @time, sprintf "%s %4s %02i %02i %s",$solution,$ssol,12,24,$inv;
+  }elsif    ($timmod == 8){ # xxxx
+      my $solution = "${sol}_${yyssss}";
+
+      push @time, sprintf "%s %4s %02i %02i %s",$solution,$ssol,00,24,$inv;
+  }elsif    ($timmod == 0){ # xxx_      _xxx
+      my $solution = "${sol}_${yyssss}";
+
+      push @time, sprintf "%s %4s %02i %02i %s",$solution,$ssol,00,18,$inv;
+      push @time, sprintf "%s %4s %02i %02i %s",$solution,$ssol,06,24,$inv;
+  }elsif    ($timmod == 1){ # xx__      __xx
+     my $file1 = "${sol}0${yyssss}001";
+     my $file2 = "${sol}0${yyssss}002";
+
+     push @time, sprintf "%s %4s %02i %02i %s",$file1,$ssol,00,12,$inv;
+     push @time, sprintf "%s %4s %02i %02i %s",$file2,$ssol,12,24,$inv;
+  }elsif    ($timmod == 2){ # x___ _x__ __x_ ___x
+     my $file1 = "${sol}1${yyssss}001";
+     my $file2 = "${sol}1${yyssss}002";
+
+     push @time, sprintf "%s %4s %02i %02i %s",$file1,$ssol,00,06,$inv;
+     push @time, sprintf "%s %4s %02i %02i %s",$file1,$ssol,06,12,$inv;
+
+     push @time, sprintf "%s %4s %02i %02i %s",$file2,$ssol,12,18,$inv;
+     push @time, sprintf "%s %4s %02i %02i %s",$file2,$ssol,18,24,$inv;
+  }
+
+# Put the BPE cluster files into the list
+# ---------------------------------------
+  initPar_Fl($bpe, @time);
+
+}

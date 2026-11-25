@@ -1,0 +1,149 @@
+package MERGECRDP;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  MERGECRDP
+#
+# Purpose :  Merge CRD files
+#
+# Author  :  C. Kobel
+# Created :  09-Jul-2026
+#
+# Changes :
+# ============================================================================
+
+use strict;
+use warnings;
+use File::Copy qw(move);
+
+sub run {
+    my $bpe = shift;
+
+    my (
+        $yyssss, 
+        $yyyyssss, 
+        $yyddd, 
+        $fin, 
+        $apr, 
+        $DirCrd, 
+        $extCrd)
+    = $bpe->getKeys(
+        '$YSS+0', 
+        '$YYYSS+0', 
+        '$YD+0',
+        'V_FIN', 
+        'V_APRFP', 
+        'DIR_CRD', 
+        'EXT_CRD'
+        );
+
+    my $file_new = "$DirCrd/${fin}_${yyyyssss}.${extCrd}";
+    my $file_ref = "$DirCrd/${apr}_${yyssss}.${extCrd}";
+
+    my $msc_dir  = "$DirCrd/../MSC/MSC_${yyddd}";
+    my $log_file = "$msc_dir/PPP_MERGECRD.log";
+
+    open(my $LOG, '>', $log_file)
+        or die "Cannot create log file $log_file: $!\n";
+
+    print $LOG "PPP_MERGECRD report\n";
+    print $LOG "===================\n\n";
+    print $LOG "FILE_NEW: $file_new\n";
+    print $LOG "FILE_REF: $file_ref\n\n";
+
+    print "\nPPP_MERGECRD started\n";
+
+    # ------------------------------------------------------------------
+    # Read NEW file
+    # ------------------------------------------------------------------
+    open(my $IN_NEW, '<', $file_new)
+        or die "Cannot open $file_new: $!\n";
+
+    my %new_station;
+    my @new_order;
+
+    while (my $l = <$IN_NEW>) {
+
+        # Match: index, station name, station code
+        next unless $l =~ /^\s*\d+\s+([A-Z0-9]{4})\s+([A-Z0-9]{9})\s+/i;
+
+        my $sta   = uc($1);
+        my $scode = uc($2);
+        my $key   = "${sta}:${scode}";
+
+        push @new_order, $key unless exists $new_station{$key};
+        $new_station{$key} = $l;
+    }
+
+    close($IN_NEW);
+
+    # ------------------------------------------------------------------
+    # Read REF file
+    # ------------------------------------------------------------------
+    open(my $IN_REF, '<', $file_ref)
+        or die "Cannot open $file_ref: $!\n";
+
+    my @ref_lines = <$IN_REF>;
+    close($IN_REF);
+
+    my $tmp_file = "$file_ref.tmp";
+
+    open(my $OUT, '>', $tmp_file)
+        or die "Cannot write $tmp_file: $!\n";
+
+    my %seen_ref;
+
+    foreach my $l (@ref_lines) {
+
+        unless ($l =~ /^\s*\d+\s+([A-Z0-9]{4})\s+([A-Z0-9]{9})\s+/i) {
+            print $OUT $l;
+            next;
+        }
+
+        my $sta   = uc($1);
+        my $scode = uc($2);
+        my $key   = "${sta}:${scode}";
+
+        # Remove exact duplicates in REF
+        if ($seen_ref{$key}++) {
+            print $LOG "Duplicate REF station skipped: $key\n";
+            next;
+        }
+
+        # Replace if same station+stationcode exists in NEW
+        if (exists $new_station{$key}) {
+            print $OUT $new_station{$key};
+            print $LOG "Station replaced from NEW: $key\n";
+            delete $new_station{$key};
+        }
+        else {
+            print $OUT $l;
+        }
+    }
+
+    # ------------------------------------------------------------------
+    # Append stations that only exist in NEW
+    # ------------------------------------------------------------------
+    foreach my $key (@new_order) {
+
+        next unless exists $new_station{$key};
+
+        print $OUT $new_station{$key};
+        print $LOG "New station appended: $key\n";
+
+        delete $new_station{$key};
+    }
+
+    close($OUT);
+
+    move($tmp_file, $file_ref)
+        or die "Cannot replace $file_ref: $!\n";
+
+    print $LOG "\nPPP_MERGECRD finished\n";
+    print $LOG "Output: $file_ref\n";
+
+    close($LOG);
+
+    print "\nPPP_MERGECRD finished\n";
+    print "Log: $log_file\n";
+}

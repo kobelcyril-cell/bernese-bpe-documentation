@@ -1,0 +1,72 @@
+package IGSF_C7D;
+@ISA = ("RUNBPE");
+# ==============================================================================
+#
+# Name    :  IGSF_C7D
+#
+# Purpose :  Copy required files for IGSFIN7D.PCF
+#
+# Remarks:   Transformed from BSD to perl
+#
+# PARAMs  :
+#
+# Author  :  A. Villiger
+#
+# Created :  31-Mar-2022
+#
+# Changes :  10-Jun-2022 SS: Corrected IGSFIN3D to IGSFIN7D (for copySkl.pl)
+#
+# ==============================================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my( $wwwwd,
+      $crdInf,$psdInf,
+      $dirOut, $dirPsd,
+      $extPsd,
+      $pthSkl
+  ) =
+  $bpe->getKeys(
+    '$WD+0',
+    'V_CRDINF','V_PSDINF',
+    'DIR_OUT', 'DIR_PSD',
+    'EXT_PSD',
+    'PTH_SINEXIN'
+  );
+
+# Check if last day of week
+# -------------------------
+  my $dayweek = $wwwwd%10;
+  if($dayweek != 6){
+    prtMess($bpe,"LAST_DAY_OF_WEEK_REQUIRED");
+    print "Last day of week required. Day of week: $dayweek\n";
+    die;
+  }
+
+# Prepare reference files
+# -----------------------
+  my $psdFil = $psdInf eq ""? "":"${psdInf}.${extPsd}";
+  system("$ENV{AUTO}/copyRef.pl ${dirOut}.. $crdInf $psdFil");
+
+  print "Execute $ENV{AUTO}/copySkl.pl IGSFIN7D $pthSkl\n";
+  system("$ENV{AUTO}/copySkl.pl IGSFIN7D $pthSkl");
+
+# Remove lock files
+# -----------------
+  my @lock = glob "$dirOut/*.J_lk";
+  unlink(@lock);
+}
+# ==============================================================================
+
+__END__

@@ -1,0 +1,38 @@
+package SNGDIFC;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SNGDIFC
+#
+# Purpose :  Create baselines from code observations  (no delete/clean-up)
+#
+# Programs:  SNGDIF
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 05-Dec-2003
+#
+# Changes :  05-Dec-2003 ss/mm: Save CS? files for SATINI process
+#
+# ----------------------------------------------------------------------------
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+  my $SESSION  = $$bpe {'SESSION'};
+  my ($dirObs) = $bpe->getKeys('DIR_CZH');
+  my $dirTmp = "$dirObs/../OBS_TMP/";
+
+# Run program
+# -----------
+  my $PGMNAM = "SNGDIF";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  if ($$bpe{STARTCOUNT} == 1) {
+    unlink (glob("$dirTmp/????????.???"));
+    my @filLst = glob("$dirObs/????$SESSION.CS?");
+    foreach (@filLst) { copy ($_,$dirTmp) }
+  }
+
+}

@@ -1,0 +1,44 @@
+package BIANEQ_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  BIANEQ_P
+#
+# Purpose :  Execute GPSEST and ADDNEQ2 for bias retrieval
+#
+# PARAMs  :  PARAM1 - processing filename (baseline)
+#
+# Author  :  S. Schaer
+# Created :  20-May-2016
+#
+# Changes :  __-___-____/__:
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1) =
+    $bpe->getKeys('PARAM1');
+
+  my $file = $param1;
+
+# Set variables
+# -------------
+  setUserVar($bpe,"FFFF","$file");
+
+  prtMess($bpe,"BASELINE: $file");
+
+# Run programs
+# ------------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

@@ -1,0 +1,86 @@
+package STATUS;
+@ISA = ("RUNBPE");
+
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Spec;
+use Time::HiRes qw(sleep);
+
+sub run {
+    my $bpe = shift;
+
+    # ------------------------------------------------------------------------
+    # Get variables from BPE
+    # ------------------------------------------------------------------------
+    my ($process, $mode, $dirOut, $day_offset) =
+        $bpe->getKeys('PARAM1','PARAM2','DIR_OUT','PARAM3');
+
+    die "PARAM1 (process) not set!\n" unless defined($process) && $process ne '';
+    die "PARAM2 (mode) not set!\n" unless defined($mode) && $mode ne '';
+    die "DIR_OUT not set!\n"     unless defined($dirOut) && $dirOut ne '';
+
+    $mode = uc($mode);
+
+    # Default day_offset = 0 falls nicht gesetzt
+    $day_offset = defined($day_offset) && $day_offset ne '' ? int($day_offset) : 0;
+
+    # ------------------------------------------------------------------------
+    # Bestimme yyssss über optionalen Offset
+    # ------------------------------------------------------------------------
+    my $yy_key = '$YSS+0';
+    $yy_key = '$YSS+' . $day_offset if $day_offset != 0;
+
+    my ($yyssss) = $bpe->getKeys($yy_key);
+    die "Could not determine epoch from $yy_key\n" unless defined($yyssss) && $yyssss ne '';
+
+    # ------------------------------------------------------------------------
+    # Define BPE directory and marker file
+    # ------------------------------------------------------------------------
+    my $bpeDir = File::Spec->catdir($dirOut, '..', 'BPE');
+    my $marker = File::Spec->catfile($bpeDir,"${process}${yyssss}.FINISHED");
+
+    # ------------------------------------------------------------------------
+    # CREATE mode
+    # ------------------------------------------------------------------------
+    if ($mode eq 'CREATE') {
+        open(my $fh, '>', $marker) or die "ERROR: Cannot create $marker\n";
+        print $fh "FINISHED $process $yyssss\n";
+        close($fh);
+        print "Created FINISHED marker: $marker\n";
+        return;
+    }
+
+    # ------------------------------------------------------------------------
+    # CHECK mode
+    # ------------------------------------------------------------------------
+    elsif ($mode eq 'CHECK') {
+        my $max_checks = 600;
+        my $interval   = 60;   # seconds
+
+        for (my $i = 1; $i <= $max_checks; $i++) {
+            if (-e $marker) {
+                print "FINISHED marker found after $i check(s): $marker\n";
+                return;
+            }
+            print "FINISHED marker not found for $process epoch $yyssss ($i/$max_checks)\n";
+            print "Waiting ${interval}s...\n";
+            sleep($interval);
+        }
+
+        print "ERROR: FINISHED marker not found after $max_checks minutes: $marker\n";
+        die "FINISHED marker timeout\n";
+    }
+
+    # ------------------------------------------------------------------------
+    # Invalid mode
+    # ------------------------------------------------------------------------
+    else {
+        die "ERROR: Invalid mode '$mode' (use CREATE or CHECK)\n";
+    }
+}
+
+1;

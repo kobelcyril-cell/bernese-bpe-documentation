@@ -1,0 +1,60 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 1  "" "${}"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Station Name Abbreviations
+! --------------------------
+ABBREV 1  "./DUMMY/STA/$(CRDINF).ABB"
+  ## widget = lineedit; path = DIR_ABB; ext = EXT_ABB
+  # $(CRDINF)
+
+! List of stations
+! ----------------
+STANAM 0
+
+! Program Output File for BPE
+! ---------------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+SYSOUT 1  "./DUMMY/OUT/STA2ID.L00"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # STA2ID
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File for BPE output
+! ---------------------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"

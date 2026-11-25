@@ -1,0 +1,74 @@
+package MRKOB_AP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MRKOB_AP
+#
+# Purpose :  Prepare parallel SATMRK runs
+#
+# Programs:
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005               Last modified: 19-May-2009
+#
+# Changes :  19-May-2009 rd: Session dependent parallelization filenames
+#            26-Jan-2021 ec: Modify package name to avoid conflict with a 
+#                            script with same name but different content in
+#                            final campaign
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ddd,$dm1,$dm2,$ssss,$numFil,$numClu,
+      $param2, $param3, $param4, $param5, $param6,
+      $dirPzh,  $dirCzh,  $bpeDir,     $dirOut,
+      $extPzh,  $extCzh,               $extOut) =
+     $bpe->getKeys(
+      '$+0','$-1','$-2','$S+0','V_CLU','V_NCLU',
+      'PARAM2','PARAM3','PARAM4','PARAM5','PARAM6',
+      "DIR_PZH","DIR_CZH","DIR_BPEPRT","DIR_OUT",
+      "EXT_PZH","EXT_CZH",             "EXT_OUT");
+
+
+# Define directories and file names
+# ---------------------------------
+  my $bpeFil = "${bpeDir}MRK${ssss}";
+  unlink(glob("${bpeFil}???.BPE"));
+  my @obsFil = ();
+  if ( "${param2}${param3}${param4}${param5}${param6}" eq "CODE" ) {
+    @obsFil = glob("${dirCzh}????${ssss}.${extCzh}");
+  } else {
+    @obsFil = glob("${dirPzh}????${ssss}.${extPzh}");
+  }
+
+
+# Put the arguments together
+# --------------------------
+  my @args = ();
+  push @args,$param2 unless ($param2 eq "");
+  push @args,$param3 unless ($param3 eq "");
+  push @args,$param4 unless ($param4 eq "");
+  push @args,$param5 unless ($param5 eq "");
+  push @args,$param6 unless ($param6 eq "");
+
+# Initialize parallel run
+# -----------------------
+  if ($numFil ne "") {
+    initPar_Cl($bpe,$bpeFil,@obsFil,0,$numFil,0,@args) }
+  elsif ($numClu ne "") {
+    initPar_Cl($bpe,$bpeFil,@obsFil,$numClu,0,0,@args) }
+  else {
+    @obsFil = map { substr(basename($_),0,4) } @obsFil;
+    initPar_Bl($bpe,@obsFil,@args) }
+
+}

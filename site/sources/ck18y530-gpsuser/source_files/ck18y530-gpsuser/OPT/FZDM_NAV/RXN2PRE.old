@@ -1,0 +1,1059 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 9
+  "U" "/storage/homefs/ec20f882/GPSUSER_ZDM"
+  "T" "/scratch/local/ec20f882"
+  "X" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GPS"
+  "P" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "ec20f882"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some Keywords for Automatic Output
+! ----------------------------------
+CAMPAIGN 1  "${R}/EC_FZDMGNSS"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${R}/EC_FZDMGNSS/STA/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2022"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "1000"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+! Local Geodetic Datum
+! --------------------
+DATUM 1  "${CONFIG}/DATUM.BSW"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+  # DATUM
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! Leap Seconds
+! ------------
+GPSUTC 1  "${CONFIG}/GPSUTC.BSW"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  # GPSUTC
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+  ## emptyallowed = true
+  # $(SATINF)_$(PCV)
+
+DESCR_SATELL 1  "Satellite information"
+
+! Epoch Window
+! ------------
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_STRG SESSION_YEAR
+
+MSG_RADIO_1 1  "Defined by start and end times"
+
+RADIO_2 1  "1"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = STADAT STATIM ENDDAT ENDTIM
+
+MSG_RADIO_2 1  "Defined by session ID, year"
+
+STADAT 1  "2022 04 10"
+  ## widget = lineedit; emptyallowed = false; check_type = date
+  # $YMD_STR+0
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "2022 04 10"
+  ## widget = lineedit; emptyallowed = false; check_type = date
+  # $YMD_STR+0
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 59"
+  ## widget = lineedit; emptyallowed = false; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+SESSION_STRG 1  "1000"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  # $S+0
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+SESSION_YEAR 1  "2022"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  # $Y+0
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+! List of Input Files
+! -------------------
+FILELIST_TXT_COL_1 1  "RINEX navigation input files"
+
+FILELIST_BSW 0
+  ## widget = selwin; path = DIR_RBN; ext = EXT_RBN; emptyallowed = true
+  # 
+
+MSG_FILELIST_BSW 1  "RINEX nav inp files, Bernese internal naming"
+
+FILELIST_GPS 1  "${R}/EC_FZDMGNSS/RAW/CODE1000.22N"
+  ## widget = selwin; path = DIR_RXN; ext = EXT_RXN; emptyallowed = true
+  # CODE$S+0
+
+MSG_FILELIST_GPS 1  "RINEX nav inp files, RINEX2-style naming (GPS)"
+
+FILELIST_GLO 0
+  ## widget = selwin; path = DIR_RXG; ext = EXT_RXG; emptyallowed = true
+  # 
+
+MSG_FILELIST_GLO 1  "RINEX nav inp files, RINEX2-style naming (GLONASS)"
+
+FILELIST_GAL 0
+  ## widget = selwin; path = DIR_RGA; ext = EXT_RGA; emptyallowed = true
+  # 
+
+MSG_FILELIST_GAL 1  "RINEX nav inp files, RINEX2-style naming (Galileo)"
+
+FILELIST_LONG 0
+  ## widget = selwin; path = DIR_RNX; ext = EXT_RNX; emptyallowed = true
+  # 
+
+MSG_FILELIST_LONG 1  "RINEX nav inp files, RINEX3-style naming"
+
+FILELIST 0
+  ## widget = selwin; path = DIR_RNX; emptyallowed = true
+  # 
+
+MSG_FILELIST 1  "RINEX nav. inp files, any naming convention"
+
+! Output files
+! ------------
+PREFIL 1  "${R}/EC_FZDMGNSS/ORB/$A_221000.PRE"
+  ## widget = lineedit; path = DIR_PRE; ext = EXT_PRE; emptyallowed = true
+  # $A_$YSS+0
+
+MSG_PREFIL 1  "Precise orbit file"
+
+OSBFIL 0
+  ## widget = lineedit; path = DIR_OSB; ext = EXT_OSB; emptyallowed = true
+  # 
+
+MSG_OSBFIL 1  "OSB file"
+
+! RINEX input options
+! -------------------
+RDRXHDUC 1  "0"
+  ## widget = checkbox
+
+MSG_RDRXHDUC 1  "Change header strings to upper case on read"
+
+! Format Type of Precise Ephemerides File
+! ---------------------------------------
+FORMAT 1  "SP3C/D"
+  ## widget = combobox; editable = false; cards = SP3 SP3C/D
+
+MSG_FORMAT 1  "Format type"
+
+! Tabular Interval
+! ----------------
+TABINT 1  "900"
+  ## widget = lineedit
+
+MSG_TABINT 1  "Tabular interval [s]"
+
+! Accuracy exponent for GLONASS
+! -----------------------------
+GLOACCEXP 1  "0"
+  ## widget = spinbox; range = 0 999 1
+
+MSG_GLOACCEXP 1  "Accuracy exponent for GLONASS"
+
+! Title
+! -----
+TITPRE 2
+  "Center for Orbit Determination in Europe (CODE)"
+  "Broadcast Orbit for Day 100, Year 2022"
+  ## widget = uniline; check_strlen.1 = 77; numlines = 6
+  # "Center for Orbit Determination in Europe (CODE)"
+  # "Broadcast Orbit for Day $+0, Year $Y+0"
+
+MSG_TITPRE 1  "Comment lines in precise orbit file"
+
+! Reference System
+! ----------------
+DATUM_OUT_H 1  "WGS84"
+  ## widget = combobox; editable = true
+  ## cards = ITR94 ITR96 ITR97 ITR00 ITR05 ITR08 ITR14 IGS00 IGb00 IGS05 IGS08 IGb08 IGS14 IGb14 WGS84
+
+MSG_DATUM_OUT_H 1  "Datum shortcut for writing prec orb file hdr"
+
+DATUM_OUT_D 1  "WGS - 84"
+  ## widget = lineedit
+
+MSG_DATUM_OUT_D 1  "Datum for writing prec orb file data"
+
+! Agency
+! ------
+AGENCY 0
+  ## widget = lineedit
+  # 
+
+MSG_AGENCY 1  "Agency"
+
+! Titles
+! ------
+TITLE 1  "Broadcast Orbit for Day 100, Year 2022"
+  ## widget = lineedit
+  # Broadcast Orbit for Day $+0, Year $Y+0
+
+MSG_TITLE 1  "Title line"
+
+OSBTITLE 1  "Broadcast Orbit for Day 100, Year 2022"
+  ## widget = lineedit
+  # Broadcast Orbit for Day $+0, Year $Y+0
+
+MSG_OSBTITLE 1  "Title for OSB file"
+
+! -------------------------------------------------------------------
+! Options
+! -------------------------------------------------------------------
+! Satellite systems
+! -----------------
+! Which GNSS to use
+USE_G 1  "1"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Use GPS navigation messages"
+
+USE_R 1  "1"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Use GLONASS navigation messages"
+
+USE_E 1  "1"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Use Galileo navigation messages"
+
+USE_S 1  "0"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Use SBAS navigation messages"
+
+USE_C 1  "0"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Use BEIDOU navigation messages"
+
+USE_J 1  "0"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Use QZSS navigation messages"
+
+USE_I 1  "0"
+  ## widget = checkbox
+
+MSG_USE_I 1  "Use IRNSS navigation messages"
+
+! Minimal number of broadcast messages
+MINMSG_G 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_G == 1
+
+MSG_MINMSG_G 1  "Min number of broadcast messages (GPS)"
+
+MINMSG_R 1  "2"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_R == 1
+
+MSG_MINMSG_R 1  "Min number of broadcast messages (GLONASS)"
+
+MINMSG_E 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_E == 1
+
+MSG_MINMSG_E 1  "Min number of broadcast messages (Galileo)"
+
+MINMSG_S 1  "2"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_S == 1
+
+MSG_MINMSG_S 1  "Min number of broadcast messages (SBAS)"
+
+MINMSG_C 1  "6"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_C == 1
+
+MSG_MINMSG_C 1  "Min number of broadcast messages (BeiDou)"
+
+MINMSG_J 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_J == 1
+
+MSG_MINMSG_J 1  "Min number of broadcast messages (QZSS)"
+
+MINMSG_I 1  "1"
+  ## widget = spinbox; range = 1 100 1; activeif = USE_I == 1
+
+MSG_MINMSG_I 1  "Min number of broadcast messages (IRNSS)"
+
+! Maximal number of bad epochs between two good epochs or epoch differences
+BE_G 1  "6"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_G == 1
+
+MSG_BE_G 1  "Max nb of bad epo or epo diffs btw good (GPS)"
+
+BE_R 1  "-1"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_R == 1
+
+MSG_BE_R 1  "Max nb of bad epo or epo diffs btw good (GLONASS)"
+
+BE_E 1  "6"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_E == 1
+
+MSG_BE_E 1  "Max nb of bad epo or epo diffs btw good (Galileo)"
+
+BE_S 1  "-1"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_S == 1
+
+MSG_BE_S 1  "Max nb of bad epo or epo diffs btw good (SBAS)"
+
+BE_C 1  "6"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_C == 1
+
+MSG_BE_C 1  "Max nb of bad epo or epo diffs btw good (BeiDou)"
+
+BE_J 1  "6"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_J == 1
+
+MSG_BE_J 1  "Max nb of bad epo or epo diffs btw good (QZSS)"
+
+BE_I 1  "6"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_I == 1
+
+MSG_BE_I 1  "Max nb of bad epo or epo diffs btw good (IRNSS)"
+
+! Maximal number of bad epoch differences between good epochs
+BED_G 1  "-1"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_G == 1
+
+MSG_BED_G 1  "Max nb of bad epo diffs btw good epos (GPS)"
+
+BED_R 1  "3"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_R == 1
+
+MSG_BED_R 1  "Max nb of bad epo diffs btw good epos (GLONASS)"
+
+BED_E 1  "-1"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_E == 1
+
+MSG_BED_E 1  "Max nb of bad epo diffs btw good epos (Galileo)"
+
+BED_S 1  "3"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_S == 1
+
+MSG_BED_S 1  "Max nb of bad epo diffs btw good epos (SBAS)"
+
+BED_C 1  "-1"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_C == 1
+
+MSG_BED_C 1  "Max nb of bad epo diffs btw good epos (BEIDOU)"
+
+BED_J 1  "-1"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_J == 1
+
+MSG_BED_J 1  "Max nb of bad epo diffs btw good epos (QZSS)"
+
+BED_I 1  "-1"
+  ## widget = spinbox; range = -1 99999 1; activeif = USE_I == 1
+
+MSG_BED_I 1  "Max nb of bad epo diffs btw good epos (IRNSS)"
+
+! Expected input interval [s]
+ININT_G 1  "7200"
+  ## widget = spinbox; range = 0 99999 1; activeif = USE_G == 1
+
+MSG_ININT_G 1  "Expected input interval [s] (GPS)"
+
+ININT_R 1  "1800"
+  ## widget = spinbox; range = 0 99999 1; activeif = USE_R == 1
+
+MSG_ININT_R 1  "Expected input interval [s] (GLONASS)"
+
+ININT_E 1  "600"
+  ## widget = spinbox; range = 0 99999 1; activeif = USE_E == 1
+
+MSG_ININT_E 1  "Expected input interval [s] (Galileo)"
+
+ININT_S 1  "60"
+  ## widget = spinbox; range = 0 99999 1; activeif = USE_S == 1
+
+MSG_ININT_S 1  "Expected input interval [s] (SBAS)"
+
+ININT_C 1  "3600"
+  ## widget = spinbox; range = 0 99999 1; activeif = USE_C == 1
+
+MSG_ININT_C 1  "Expected input interval [s] (BeiDou)"
+
+ININT_J 1  "3600"
+  ## widget = spinbox; range = 0 99999 1; activeif = USE_J == 1
+
+MSG_ININT_J 1  "Expected input interval [s] (QZSS)"
+
+ININT_I 1  "7200"
+  ## widget = spinbox; range = 0 99999 1; activeif = USE_I == 1
+
+MSG_ININT_I 1  "Expected input interval [s] (IRNSS)"
+
+DATUM_G 1  "WGS - 84"
+  ## widget = lineedit; activeif = USE_G == 1
+
+MSG_DATUM_G 1  "Datum for interpreting GPS brd msgs"
+
+DATUM_R 1  "PZ - 90.02"
+  ## widget = lineedit; activeif = USE_R == 1
+
+MSG_DATUM_R 1  "Datum for interpreting GLONASS brd msgs"
+
+DATUM_E 1  "WGS - 84"
+  ## widget = lineedit; activeif = USE_E == 1
+
+MSG_DATUM_E 1  "Datum for interpreting Galileo brd msgs"
+
+DATUM_S 1  "WGS - 84"
+  ## widget = lineedit; activeif = USE_S == 1
+
+MSG_DATUM_S 1  "Datum for interpreting SBAS brd msgs"
+
+DATUM_C 1  "WGS - 84"
+  ## widget = lineedit; activeif = USE_C == 1
+
+MSG_DATUM_C 1  "Datum for interpreting BeiDou brd msgs"
+
+DATUM_J 1  "WGS - 84"
+  ## widget = lineedit; activeif = USE_J == 1
+
+MSG_DATUM_J 1  "Datum for interpreting QZSS brd msgs"
+
+DATUM_I 1  "WGS - 84"
+  ## widget = lineedit; activeif = USE_I == 1
+
+MSG_DATUM_I 1  "Datum for interpreting IRNSS brd msgs"
+
+MSGT_PRIO_G 1  "LNAV CNAV CNV2"
+  ## widget = lineedit; activeif = USE_G == 1
+
+MSG_MSGT_PRIO_G 1  "GPS nav. msg. type priority list"
+
+MSGT_PRIO_E 1  "INAV FNAV"
+  ## widget = lineedit; activeif = USE_E == 1
+
+MSG_MSGT_PRIO_E 1  "Galileo nav. msg. type priority list"
+
+MSGT_PRIO_C 1  "D1D2 CNV1 CNV2 CNV3"
+  ## widget = lineedit; activeif = USE_C == 1
+
+MSG_MSGT_PRIO_C 1  "BeiDou nav. msg. type priority list"
+
+MSGT_PRIO_J 1  "LNAV CNAV CNV2"
+  ## widget = lineedit; activeif = USE_J == 1
+
+MSG_MSGT_PRIO_J 1  "QZSS nav. msg. type priority list"
+
+! Actions in case of inconsistencies in RINEX headers
+! ---------------------------------------------------
+AOM_GENERAL 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GENERAL 1  "Missing mandatory records"
+
+AOI_IONCORRPARS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_IONCORRPARS 1  "Ionospheric correction parameters"
+
+AOI_LEAP_SEC 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_LEAP_SEC 1  "Leap seconds"
+
+AOI_SERVICE_PROV 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_SERVICE_PROV 1  "Service provider"
+
+AOI_A0_A1 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_A0_A1 1  "Time system correction parameters"
+
+AOI_UTC_ID 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_UTC_ID 1  "UTC ID"
+
+! Navigation message tests
+! ------------------------
+! Remove epochs where satellite is unhealthy
+RM_UNHEALTHY 1  "0"
+  ## widget = checkbox
+
+MSG_RM_UNHEALTHY 1  "Remove epos where sat is unhealthy"
+
+! Remove epochs where satellite is unregistered
+RM_UNREGISTERED 1  "1"
+  ## widget = checkbox; activeif = SATELL /= _
+
+MSG_RM_UNREGISTERED 1  "Remove epos where sat is unregistered"
+
+! Remove epochs where GLONASS sat. has wrong frequency slot nbr
+RM_WRONG_FRQ_NBS 1  "1"
+  ## widget = checkbox; activeif = SATELL /= _ AND USE_R == 1
+
+MSG_RM_WRONG_FRQ_NBS 1  "Remove epos where GLO sat has wrong freq slot nbr"
+
+EPOCHS_DEF 4
+  "" "" "100" "0" "0.5"
+  "C" "" "100" "14" "0.5"
+  "S" "" "1" "0" "0.5"
+  "I" "" "1" "0" "0.5"
+  ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
+  ## check_type.4 = real; check_type.5 = real; numlines = 10
+
+MSG_EPOCHS_DEF 1  "Definition of valid epochs"
+
+LIM_VEL_NORM 1  "R" "" "3.9d3" "4d3"
+  ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
+  ## check_type.4 = real; check_min.4 = 0d0; numlines = 10
+
+MSG_LIM_VEL_NORM 1  "Norm of satellite velocity [m/s]"
+
+LIM_SEMI_MAJ_AXIS 9
+  "G" "" "26d6" "27d6" "100" "2.8d-3"
+  "R" "" "25d6" "26d6" "5000" "2.8d-2"
+  "E" "" "29.5d6" "30.5d6" "100" "2.8d-3"
+  "E" "Ext" "26d6" "28d6" "1d20" "1d40"
+  "S" "" "41d6" "43.1d6" "1d20" "1d40"
+  "C" "" "27.5d6" "28.5d6" "1d20" "1d40"
+  "C" "IGSO1" "41.5d6" "42.5d6" "1d20" "1d40"
+  "C" "IGSO2" "41.5d6" "42.5d6" "1d20" "1d40"
+  "J" "" "41.5d6" "42.5d6" "1d20" "1d40"
+  ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
+  ## check_type.4 = real; check_min.4 = 0d0; check_type.5 = real
+  ## check_min.5 = 0d0; check_type.6 = real; check_min.6 = 0d0
+  ## numlines = 10
+
+MSG_LIM_SEMI_MAJ_AXIS 1  "Semi major axis [m]"
+
+LIM_NODE 4
+  "G" "" "-1d20" "1d20" "2d-4" "1.4d-7"
+  "R" "" "-1d20" "1d20" "2d-3" "8.4d-7"
+  "E" "" "-1d20" "1d20" "2d-4" "1.4d-7"
+  "E" "Ext" "-1d20" "1d20" "2d-3" "1.4d-7"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## check_type.5 = real; check_min.5 = 0d0; check_type.6 = real
+  ## check_min.6 = 0d0; numlines = 10
+
+MSG_LIM_NODE 1  "Node [deg]"
+
+LIM_NODE_DOT 1  "G" "" "-6d-7" "-2.5d-7"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## numlines = 10
+
+MSG_LIM_NODE_DOT 1  "Rate of node [deg/s]"
+
+LIM_MEAN_ANOMALY 2
+  "G" "" "-1d20" "1d20" "2" "2.2d-5"
+  "G" "circ" "-1d20" "1d20" "10" "2.7d-6"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## check_type.5 = real; check_min.5 = 0d0; check_type.6 = real
+  ## check_min.6 = 0d0; numlines = 10
+
+MSG_LIM_MEAN_ANOMALY 1  "Mean anomaly [deg]"
+
+LIM_ECCENTRICITY 6
+  "" "" "0d0" "0.1d0" "1d20" "1d40"
+  "G" "" "0d0" "0.1d0" "5d-6" "1.4d-10"
+  "G" "circ" "0d0" "1d-3" "5d-6" "1.4d-10"
+  "R" "" "0d0" "0.1d0" "2d-4" "6.9e-9"
+  "E" "" "0d0" "0.1d0" "5d-6" "1.4d-10"
+  "E" "Ext" "0.1d0" "0.2d0" "2d-5" "1.4d-10"
+  ## widget = uniline; check_type.3 = real; check_min.3 = 0d0
+  ## check_type.4 = real; check_min.4 = 0d0; check_type.5 = real
+  ## check_min.5 = 0d0; check_type.6 = real; check_min.6 = 0d0
+  ## numlines = 10
+
+MSG_LIM_ECCENTRICITY 1  "Eccentricity"
+
+LIM_INCLINATION 10
+  "G" "" "50d0" "58d0" "5d-4" "8.3d-8"
+  "G" "I" "60d0" "65d0" "5d-4" "8.3d-8"
+  "R" "" "63d0" "67d0" "5d-3" "8.3d-7"
+  "E" "" "50d0" "60d0" "5d-4" "8.3d-8"
+  "E" "Ext" "50d0" "60d0" "2d-3" "8.3d-8"
+  "C" "" "50d0" "60d0" "1d20" "1d40"
+  "C" "IGSO1" "50d0" "60d0" "1d20" "1d40"
+  "C" "IGSO2" "-10d0" "10d0" "1d20" "1d40"
+  "J" "" "40d0" "45d0" "1d20" "1d40"
+  "J" "GEO" "-5d0" "5d0" "1d20" "1d40"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## check_type.5 = real; check_min.5 = 0d0; check_type.6 = real
+  ## check_min.6 = 0d0; numlines = 10
+
+MSG_LIM_INCLINATION 1  "Inclination [deg]"
+
+LIM_PERIGEE 4
+  "G" "" "-1d20" "1d20" "2" "2.8d-6"
+  "G" "circ" "-1d20" "1d20" "10" "2.8d-6"
+  "J" "" "265d0" "275d0" "1d20" "1d40"
+  "J" "GEO" "0d0" "361d0" "1d20" "1d40"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## check_type.5 = real; check_min.5 = 0d0; check_type.6 = real
+  ## check_min.6 = 0d0; numlines = 10
+
+MSG_LIM_PERIGEE 1  "Perigee [deg]"
+
+LIM_DELTA_N 1  "G" "" "5.7d-9" "401d-9"
+  ## widget = uniline; check_type.3 = real; check_type.4 = real
+  ## numlines = 10
+
+MSG_LIM_DELTA_N 1  "Corr to mean motion [deg/s]"
+
+GEN_BLK_CONF 1  "" "" ""
+  ## widget = uniline; numlines = 10
+
+MSG_GEN_BLK_CONF 1  "Further block configurations"
+
+GPS_DAT_SRC_PRIO 0
+  ## widget = lineedit; activeif = USE_G == 1
+  # 
+
+MSG_GPS_DAT_SRC_PRIO 1  "GPS L2 broadcast data source priority list"
+
+GAL_DAT_SRC_PRIO 0
+  ## widget = lineedit; activeif = USE_E == 1
+  # 
+
+MSG_GAL_DAT_SRC_PRIO 1  "Galileo broadcast data source priority list"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${R}/EC_FZDMGNSS/OUT/RXN2PRE.L01"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # ${P}/IGSRAPID/OUT/RXN2PRE
+
+DESCR_SYSOUT 1  "Program output"
+
+NOMSGDATE 0
+
+MSG_NOMSGDATE 1  "Suppress writing of message timestamp"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 00 10"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# TRANSFER RINEX NAVIGATION FILES TO PRECISE ORBITS - RXN2PRE 1: Filenames     #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files     > % <                                           # SHOWGEN
+#                                                                              #
+# RINEX INPUT FILES                                                            #
+#   RINEX navigation files                                                     #
+#     Bernese internal naming       > %%%%%%%%%%%%%%%%%%%% <                   # FILELIST_BSW
+#     RINEX3-style naming           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # FILELIST_LONG
+#     RINEX2-style naming   GPS@@@@ > %%%%%%%% <                               # FILELIST_GPS
+#     RINEX2-style naming   GLONASS > %%%%%%%% <                               # FILELIST_GLO
+#     RINEX2-style naming   Galileo > %%%%%%%% <                               # FILELIST_GAL
+#     Any naming convention         > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # FILELIST
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Precise orbit file              > %%%%%%%%%%%% <                           # PREFIL
+#   Observation-type specific biases> %%%%%%%%%%%% <  (not mandatory)          # OSBFIL
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output         > % < use RXN2PRE.Lnn           or > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages         > % < merged to program output  or > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# RXN2PRE 1.1: General Files                                                   #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Geodetic datum          > %%%%%%%%%%%% <                                   # DATUM
+#   GPS-UTC time difference > %%%%%%%%%%%% <                                   # GPSUTC
+#   Satellite information   > %%%%%%%%%%%% < (unregistered and wrong freq)     # SATELL
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 2.1: Input Options 1                                                 #
+#                                                                              #
+# TITLE FOR OUTPUT                                                             #
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <       # TITLE
+#                                                                              #
+# TITLE FOR OSB FILE                                                           #
+#   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <       # OSBTITLE
+#                                                                              #
+# RINEX INPUT                                                                  #
+#   Change hdr strings to upper case on read   > % <                           # RDRXHDUC
+#                                                                              #
+# PRECISE ORBIT FILE                                                           #
+#   Format type                       > %%%%% <    (SP3C/D: New format)        # FORMAT
+#   Tabular interval                  > %%%%% <    seconds                     # TABINT
+#   Accuracy exponent for GLONASS     > %%% <      = LOG_2(accuracy/mm)        # GLOACCEXP
+#                                                                              #
+# TIME WINDOW FOR PRECISE ORBIT AND/OR OSB FILE                                #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <     Session > %%%% <                                  # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 2.2: Input Options 2                                                 #
+#                                                                              #
+# SATELLITE SYSTEMS                                                            #
+#             (1)       (2)         (3)          (4)          (5)              #
+#   GPS      > % <    > %%% <    > %%%%% <    > %%%%% <    > %%%%% <           # USE_G MINMSG_G BE_G BED_G ININT_G
+#   GLONASS  > % <    > %%% <    > %%%%% <    > %%%%% <    > %%%%% <           # USE_R MINMSG_R BE_R BED_R ININT_R
+#   Galileo  > % <    > %%% <    > %%%%% <    > %%%%% <    > %%%%% <           # USE_E MINMSG_E BE_E BED_E ININT_E
+#   SBAS     > % <    > %%% <    > %%%%% <    > %%%%% <    > %%%%% <           # USE_S MINMSG_S BE_S BED_S ININT_S
+#   BeiDou   > % <    > %%% <    > %%%%% <    > %%%%% <    > %%%%% <           # USE_C MINMSG_C BE_C BED_C ININT_C
+#   QZSS     > % <    > %%% <    > %%%%% <    > %%%%% <    > %%%%% <           # USE_J MINMSG_J BE_J BED_J ININT_J
+#   IRNSS    > % <    > %%% <    > %%%%% <    > %%%%% <    > %%%%% <           # USE_I MINMSG_I BE_I BED_I ININT_I
+#                                                                              #
+#   (1) Use the GNSS                                                           #
+#   (2) Minimal number of broadcast messages                                   #
+#   (3) Betw. two good epos: Max nb of bad epos or epo diffs (-1: not tested)  #
+#   (4) Betw. two good epos: Max nb of bad epo diffs@@@@@@@@ (-1: not tested)  #
+#   (5) Expected input interval [s]                                            #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 2.3: Input Options 3                                                 #
+#                                                                              #
+# DATUM (e.g., GRS - 80, WGS - 84, PZ - 90.02, ITRFxx, ...)                    #
+#   For interpreting broadcast from GPS        > %%%%%%%%%%%%%%%% <            # DATUM_G
+#   For interpreting broadcast from GLONASS    > %%%%%%%%%%%%%%%% <            # DATUM_R
+#   For interpreting broadcast from Galileo    > %%%%%%%%%%%%%%%% <            # DATUM_E
+#   For interpreting broadcast from SBAS       > %%%%%%%%%%%%%%%% <            # DATUM_S
+#   For interpreting broadcast from BeiDou     > %%%%%%%%%%%%%%%% <            # DATUM_C
+#   For interpreting broadcast from QZSS       > %%%%%%%%%%%%%%%% <            # DATUM_J
+#   For interpreting broadcast from IRNSS      > %%%%%%%%%%%%%%%% <            # DATUM_I
+#                                                                              #
+#   For writing precise ephemeris file data    > %%%%%%%%%%%%%%%% <            # DATUM_OUT_D
+#                                                                              #
+# DATUM SHORTCUT                                                               #
+#   For writing precise ephemeris file header  > %%%%% <  (WGS84, ITRFxx, ...) # DATUM_OUT_H
+#                                                                              #
+# NAVIGATION MESSAGE TYPE PRIORITIES                                           #
+#   GPS@@@@  > %%%%%%%%%%%%%%%%%%%% < e.g. LNAV CNAV CNV2                      # MSGT_PRIO_G
+#   Galileo  > %%%%%%%%%%%%%%%%%%%% < e.g. INAV FNAV                           # MSGT_PRIO_E
+#   BeiDou@  > %%%%%%%%%%%%%%%%%%%% < e.g. D1D2 CNV1 CNV2 CNV3                 # MSGT_PRIO_C
+#   QZSS@@@  > %%%%%%%%%%%%%%%%%%%% < e.g. LNAV CNAV CNV2                      # MSGT_PRIO_J
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 2.4: Input Options 4                                                 #
+#                                                                              #
+# COMMENT LINES FOR PRECISE ORBIT FILE                                         #
+#                                                                              #
+# > Comment_lines_for_precise_orbit_file_______________________________   <    # TITPRE
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+# SATELLITE OPTIONS                                                            #
+#   Remove epochs where satellite is unhealthy                    > % <        # RM_UNHEALTHY
+#   Remove epochs where satellite is unregistered                 > % < (*)    # RM_UNREGISTERED
+#   Remove epochs where GLONASS sat. has wrong frequency slot nbr > % < (*)    # RM_WRONG_FRQ_NBS
+#                                                                              #
+#   (*) Needs satellite information file                                       #
+#                                                                              #
+# AUXILIARY INFORMATION                                                        #
+#   Agency                       > %%%% <                                      # AGENCY
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 3: Check Content of RINEX Header                                     #
+#                                                                              #
+# ACTIONS IN CASE OF MISSING MANDATORY HEADER RECORDS                          #
+#   Missing mandatory records            > %%%%%%%%% <                         # AOM_GENERAL
+#                                                                              #
+# ACTIONS IN CASE OF INCONSISTENCIES BETWEEN HEADERS                           #
+# (also between multiple headers in the same RINEX file)                       #
+#   Ionospheric correction parameters    > %%%%%%%%% <                         # AOI_IONCORRPARS
+#   Leap seconds                         > %%%%%%%%% <                         # AOI_LEAP_SEC
+#   Service provider                     > %%%%%%%%% < (RINEX vers ge 3.00)    # AOI_SERVICE_PROV
+#   Time system correction parameters    > %%%%%%%%% <                         # AOI_A0_A1
+#   UTC ID                               > %%%%%%%%% < (RINEX vers ge 3.00)    # AOI_UTC_ID
+#                                                                              #
+#     NONE@@@@: No check is done            (keep contents of the first one)   #
+#     WARNING@: Write warning and continue  (keep contents of the first one)   #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.1: Definition of valid epochs                                      #
+#                                                                              #
+# Definition of valid epochs                                                   #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Sampling interval [s], 0 means no sampling                       #
+#   Column 4: List of offsets to full minute [s], empty list means offset 0    #
+#   Column 5: Sampling tolerance [s]                                           #
+# > GNSS Block___ interval offsets_______________ tolerance      <             # EPOCHS_DEF
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.2: Limits for the norm of the satellite velocity                   #
+#                                                                              #
+# Satellite velocity [m/s] (Meaningful for GLONASS and SBAS only)              #
+#   Column 1: GNSS (1 character), use 'R' or 'S'                               #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal satellite velocity [m/s]                                 #
+#   Column 4: Maximal satellite velocity [m/s]                                 #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_VEL_NORM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.3: Limits for the semi major axis                                  #
+#                                                                              #
+# Semi major axis [m]                                                          #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal semi major axis [m]                                      #
+#   Column 4: Maximal semi major axis [m]                                      #
+#   Column 5: Maximal absolute change between two good epochs [m]              #
+#   Column 6: Additional maximal absolute change per second [m/s]              #
+# > GNSS Block___ from_____ to_______ maxChgEpo maxChg_s_      <               # LIM_SEMI_MAJ_AXIS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.4: Limits for the node                                             #
+#                                                                              #
+# Node [deg]                                                                   #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal node [deg]                                               #
+#   Column 4: Maximal node [deg]                                               #
+#   Column 5: Maximal absolute change between two good epochs [deg]            #
+#   Column 6: Additional maximal absolute change per second [deg/s]            #
+# > GNSS Block___ from_____ to_______ maxChgEpo maxChg_s_      <               # LIM_NODE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.5: Limits for the rate of the node                                 #
+#                                                                              #
+# Rate of node [deg/s] (Doesn't apply for GLONASS or SBAS)                     #
+#   Column 1: GNSS (1 character)                                               #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal rate of node [deg/s]                                     #
+#   Column 4: Maximal rate of node [deg/s]                                     #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_NODE_DOT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.6: Limits for the mean anomaly                                     #
+#                                                                              #
+# Mean anomaly [deg]                                                           #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal mean anomaly [deg]                                       #
+#   Column 4: Maximal mean anomaly [deg]                                       #
+#   Column 5: Maximal absolute change between two good epochs [deg]            #
+#   Column 6: Additional maximal absolute change per second [deg/s]            #
+# > GNSS Block___ from_____ to_______ maxChgEpo maxChg_s_      <               # LIM_MEAN_ANOMALY
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.7: Limits for the eccentricity                                     #
+#                                                                              #
+# Eccentricity                                                                 #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal eccentricity                                             #
+#   Column 4: Maximal eccentricity                                             #
+#   Column 5: Maximal absolute change between two good epochs                  #
+#   Column 6: Additional maximal absolute change per hour [1/h]                #
+# > GNSS Block___ from_____ to_______ maxChgEpo maxChg_s_      <               # LIM_ECCENTRICITY
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.8: Limits for the inclination                                      #
+#                                                                              #
+# Inclination [deg]                                                            #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal inclination [deg]                                        #
+#   Column 4: Maximal inclination [deg]                                        #
+#   Column 5: Maximal absolute change between two good epochs [deg]            #
+#   Column 6: Additional maximal absolute change per second [deg/s]            #
+# > GNSS Block___ from_____ to_______ maxChgEpo maxChg_s_      <               # LIM_INCLINATION
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.9: Limits for the perigee                                          #
+#                                                                              #
+# Perigee [deg] (Minimum and maximum meaningful for QZSS only)                 #
+#   Column 1: GNSS (1 character), empty means all GNSS                         #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal perigee [deg]                                            #
+#   Column 4: Maximal perigee [deg]                                            #
+#   Column 5: Maximal absolute change between two good epochs [deg]            #
+#   Column 6: Additional maximal absolute change per hour [deg/h]              #
+# > GNSS Block___ from_____ to_______ maxChgEpo maxChg_s_      <               # LIM_PERIGEE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.10: Limits for the correction to the mean motion                   #
+#                                                                              #
+# Correction to mean motion [deg/s] (Doesn't apply for GLONASS or SBAS)        #
+#   Column 1: GNSS (1 character)                                               #
+#   Column 2: Block name for one GNSS (one of the names has to be empty)       #
+#   Column 3: Minimal correction to mean motion [deg/s]                        #
+#   Column 4: Maximal correction to mean motion [deg/s]                        #
+# > GNSS Block___ from_____ to_______      <                                   # LIM_DELTA_N
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 4.11: Additional configurations to detect bad navigation messages    #
+#                                                                              #
+# Column 1: GNSS (1 character), empty means all GNSS                           #
+# Column 2: Block name for one GNSS (one of the names has to be empty)         #
+# Column 3: Restrict block to given list of PRNs, no restrictions on empty list#
+# > GNSS Block___ Restr_to_PRNs______________      <                           # GEN_BLK_CONF
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# RXN2PRE 5: Broadcast data source priority list                               #
+#                                                                              #
+# Bit-wise priorization of GPS L2 broadcast data sources,                      #
+#  empty means no priorization at all                                          #
+#  > %%%%% <                                                                   # GPS_DAT_SRC_PRIO
+#                                                                              #
+# Bit-wise priorization of Galileo broadcast data sources,                     #
+#  empty means no priorization at all,                                         #
+#  e.g. '4 1 2' means I/NAV E5b-I (3) have highest prioriy,                    #
+#  '1' corresponds to I/NAV E1-B navigation messages                           #
+#  '2' corresponds to F/NAV E5a-I navigation messages                          #
+#  '4' corresponds to I/NAV E5b-I navigation messages                          #
+#  > %%%%% <                                                                   # GAL_DAT_SRC_PRIO
+#                                                                              #
+# END_PANEL ####################################################################

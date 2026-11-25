@@ -1,0 +1,80 @@
+package ORB_VER;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORB_VER
+#
+# Purpose :  ORBIT QUALITY CHECKS:
+#            3-DAY ORBIT OVERLAPS (ORBGEN)
+#
+# Programs:  ORBGEN
+#
+# Author  :  S. Schaer
+# Created :  22-Feb-2011
+#
+# Changes :  22-Feb-2011/ss: Execute orb_ver.com
+#            24-Feb-2011/ss: Make use of new options concerning orb_ver.com
+#            25-Sep-2012/ss: Extract LST file identifier
+#            27-Feb-2013/ss: Use special SAT info file
+#            12-Dec-2023/da: Introduced day-specific satellite exclusion
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$ddd,$wwww,$wd,$wd0,$CAMP_PTH,$CAMPAIGN) =
+    $bpe->getKeys('$YD+0','$+0','$W-1','$WD-1','$WD+0','CAMP_PTH','CAMPAIGN');
+
+# Satellites to exclude in ORBGEN
+# -------------------------------
+  my %exclSat = ("23342" => "125 126",
+                 "23343" => "125 126");
+
+# Skip the script in case of reprocessing
+# ---------------------------------------
+  my $repro = (-e "$CAMP_PTH$CAMPAIGN/MSC/REPROCESSING.FLG");
+  unless ($repro) {
+
+# PlusMinus-Variable
+# ------------------
+    setMinusPlus($bpe,-2,0);
+
+# Exclude satellites for specific days
+# ------------------------------------
+    if (exists $exclSat{$yyddd}) {
+        print "Exclude following satellites in ORBGEN: $exclSat{$yyddd}\n";
+        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SATSELECT","SATELLITE_LIST");
+        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","USESAT","EXCLUDED");
+        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SATLST",$exclSat{$yyddd});
+    }
+
+# Run program
+# -----------
+##    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SATELL","SAT_1452.I08_R26");
+
+    my $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    my $fil = $bpe->getKey("$ENV{U}/INP/ORBGEN.INP","SUMACC");
+    my $str = substr(basename($fil),0,3);
+
+# Create LST file
+# ---------------
+    system("$ENV{AUTO}/orb_ver.com $wd $CAMP_PTH${CAMPAIGN} $str 7 $wwww") if substr($wd,4,1) eq "6";
+    system("$ENV{AUTO}/orb_ver.com $wd0 $CAMP_PTH${CAMPAIGN} $str 7 $wwww") if substr($wd0,4,1) eq "6";
+    system("$ENV{AUTO}/orb_ver.com $wd0 $CAMP_PTH${CAMPAIGN} $str -32");
+
+  }
+
+}

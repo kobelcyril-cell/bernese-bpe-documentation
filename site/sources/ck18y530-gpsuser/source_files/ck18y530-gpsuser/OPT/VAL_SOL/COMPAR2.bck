@@ -1,0 +1,379 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! -------------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Local Geodetic Datum
+! --------------------
+DATUM 1  "DATUM"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! Coordinate Input File Names
+! ---------------------------
+COOFIL 1  "SCRIPT"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 999
+
+MSG_COOFIL 1  "Coordinates"
+
+COOFIL_TXT_COL_1 1  "Coordinate files"
+
+! Station information file
+! ------------------------
+STAINFO 1  ""
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_STAINFO 1  "Station information"
+
+! A priori Coordinate File
+! ------------------------
+COORD 1  ""
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_COORD 1  "A priori coordinates"
+
+! A priori Velocity File
+! ----------------------
+VELAPR 1  "$(REFCRD)"
+  ## widget = selwin; path = DIR_VEL; ext = EXT_VEL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_VELAPR 1  "A priori velocities"
+
+! PSD corrections for ITRF2014
+! ----------------------------
+PSDDAT 1  "$(REFCRD)"
+  ## widget = selwin; path = DIR_PSD; ext = EXT_PSD; maxfiles = 1
+  ## emptyallowed = true; activeif = VELAPR / _
+
+DESCR_PSDDAT 1  "PSD corrections (ITRF14)"
+
+! Periodic corrections for ITRF2014
+! ---------------------------------
+PERDAT 1  ""
+  ## widget = selwin; path = DIR_TVC; ext = EXT_TVC; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_PERDAT 1  "Annual/semiannual corrections (since ITRF14)"
+
+! Loading corrections for DTRF2014
+! --------------------------------
+LOADDAT 0
+  ## widget = selwin; path = DIR_TVC; ext = EXT_TVC; maxfiles = 1
+  ## emptyallowed = true
+
+MSG_LOADDAT 1  "Loading corrections (since DTRF14)"
+
+! Baseline Definitions
+! --------------------
+BASDEF 1  ""
+  ## widget = selwin; path = DIR_BSL; ext = EXT_BSL; maxfiles = 1
+  ## emptyallowed = true
+
+MSG_BASDEF 1  "INPUT FILES: Baseline definitions"
+
+! Resulting Coordinate File
+! -------------------------
+COORDRS 1  ""
+  ## widget = lineedit; path = DIR_CRD; ext = EXT_CRD
+
+DESCR_COORDRS 1  "Coordinate results"
+
+! Velocities
+! ----------
+VELORS 1  ""
+  ## widget = lineedit; path = DIR_VEL; ext = EXT_VEL
+
+DESCR_VELORS 1  "Station velocity results"
+
+! Station list with accepted crd/vel
+! ----------------------------------
+STALISTRS 1  ""
+  ## widget = lineedit; path = DIR_FIX; ext = EXT_FIX
+
+DESCR_STALISTRS 1  "List of accepted mean crd/vel."
+
+! Plot File
+! ---------
+PLOTRS 1  "COMPAR2$(CRD)"
+  ## widget = lineedit; path = DIR_PLT; ext = EXT_PLT
+
+DESCR_PLOTRS 1  "Plot file of results"
+
+! Weekly Summary File
+! -------------------
+WEKSUM 1  "COMPAR2$(CRD)"
+  ## widget = lineedit; path = DIR_SUM; ext = EXT_SUM
+
+DESCR_WEKSUM 1  "Weekly summary file"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "$(CRD)"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title for Plot File
+! -------------------
+TITLE 1  "Ground station repeatability: $(CRD)"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Flags of Coordinates to be included
+! -----------------------------------
+FLAG 1  "SPECIAL"
+  ## widget = combobox; editable = false; cards = ALL NONBLANK SPECIAL
+
+MSG_FLAG 1  "Coordinate flags"
+
+! Use special Flags
+! -----------------
+FLAGSPEC 2
+  "I"
+  "W"
+  ## widget = uniline; activeif = FLAG = SPECIAL; numlines = 5
+
+MSG_FLAGSPEC 1  "Special flags"
+
+! Baseline Repeatability Options
+! ------------------------------
+BASREP 1  "NO"
+  ## widget = combobox; editable = false; cards = NO LOCAL GEOCENTRIC
+  ## activeif = BASDEF / _
+
+MSG_BASREP 1  "Repeatability option"
+
+! Epoch for comparison
+! --------------------
+REFEPO 1  "LAST"
+  ## widget = combobox; editable = false
+  ## activeif = VELAPR / _ OR VELORS / _
+  ## cards = AS_IT_IS FIRST LAST MEAN MANUAL
+
+MSG_REFEPO 1  "Reference epoch correction"
+
+EPOCH 1  ""
+  ## widget = lineedit
+  ## activeif = VELAPR / _ OR VELORS / _ AND REFEPO = MANUAL
+
+MSG_EPOCH 1  "Manually defined reference epoch"
+
+! Notify changes due to station information file
+! ----------------------------------------------
+CRXWARN 1  "1"
+  ## widget = checkbox; activeif = STAINFO / _
+
+MSG_CRXWARN 1  "Notify changes due to station info file"
+
+! Minimum number of solutions for each station
+! --------------------------------------------
+MINSOL 1  "1"
+  ## widget = spinbox; range = 0 9999 1
+
+MSG_MINSOL 1  "Minimum number of solutions for each station"
+
+! Maximum tolerated residual
+! --------------------------
+BADSOL_N 1  "15"
+  ## widget = lineedit; emptyallowed = true; check_type = real
+  ## check_min = 0
+
+MSG_BADSOL_N 1  "Maximum tolerated residual: North"
+
+BADSOL_E 1  "15"
+  ## widget = lineedit; emptyallowed = true; check_type = real
+  ## check_min = 0
+
+MSG_BADSOL_E 1  "Maximum tolerated residual: East"
+
+BADSOL_U 1  "30"
+  ## widget = lineedit; emptyallowed = true; check_type = real
+  ## check_min = 0
+
+MSG_BADSOL_U 1  "Maximum tolerated residual: Up"
+
+! Maximum tolerated root-mean-square error
+! ----------------------------------------
+BADSOLRN 1  "10"
+  ## widget = lineedit; emptyallowed = true; check_type = real
+  ## check_min = 0
+
+MSG_BADSOLRN 1  "Maximum tolerated RMS error: North"
+
+BADSOLRE 1  "10"
+  ## widget = lineedit; emptyallowed = true; check_type = real
+  ## check_min = 0
+
+MSG_BADSOLRE 1  "Maximum tolerated RMS error: East"
+
+BADSOLRU 1  "20"
+  ## widget = lineedit; emptyallowed = true; check_type = real
+  ## check_min = 0
+
+MSG_BADSOLRU 1  "Maximum tolerated RMS error: Up"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# COORDINATE COMPARISON - COMPAR2 1: Input Files                               #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files           > % <                                     # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Coordinates for comparison       > %%%%%%%%%%%% <                          # COOFIL
+#   Station information              > %%%%%%%%%%%% <    (for station renaming)# STAINFO
+#   A priori coordinates             > %%%%%%%%%%%% <                          # COORD
+#   A priori velocities              > %%%%%%%%%%%% <                          # VELAPR
+#   PSD correction (ITRF14)          > %%%%%%%%%%%% <                          # PSDDAT
+#   Annual/semiannual corrections    > %%%%%%%%%%%% <                          # PERDAT
+#   Baseline definitions             > %%%%%%%%%%%% <                          # BASDEF
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# COMPAR2 1.1: General Files                                                   #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants   > %%%%%%%%%%%% <                                       # CONST
+#   Geodetic datum      > %%%%%%%%%%%% <                                       # DATUM
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <       # CAMPAIGN
+#   Selected session      year> %%%% <  session> %%%% <                        # YR4_INFO SES_INFO
+#   Session table       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <       # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# COMPAR2 2: Output Files                                                      #
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Mean station coordinates    > %%%%%%%%%%%% <                               # COORDRS
+#   Linear station velocities   > %%%%%%%%%%%% <                               # VELORS
+#                                                                              #
+# OUTPUT FILES                                                                 #
+#   Weekly summary file         > %%%%%%%%%%%% <                               # WEKSUM
+#   Plot file of results        > %%%%%%%%%%%% <                               # PLOTRS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output       > % <  use COMPAR.Lnn            or  > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages       > % <  merged to program output  or  > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# COMPAR2 3: Processing Options                                                #
+#                                                                              #
+# TITLE    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# TITLE
+#                                                                              #
+# REPEATABILITY OPTION                       > %%%%%%%%%%%% <                  # BASREP
+#                                                                              #
+# REFERENCE EPOCH CORRECTION                 > %%%%%%%%%%%% <                  # REFEPO
+#                                              YYYY MM DD HH MM SS             #
+#   Special epoch                            > %%%%%%%%%%%%%%%%%%% <           # EPOCH
+#                                                                              #
+# OUTPUT OPTIONS                                                               #
+#   Notify changes due to station information file> % <                        # CRXWARN
+#                                                                              #
+# COORDINATE FLAGS                           > %%%%%%%%%%%% <                  # FLAG
+#   Special flags                            > Flag         <                  # FLAGSPEC
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# COMPAR2 4: Comparison of Individual Solutions                                #
+#                                                                              #
+# NOTIFICATION OF POSSIBLE OUTLIERS                                            #
+#   Maximum tolerated residual                North> %%%% < millimeters        # BADSOL_N
+#                                             East > %%%% < millimeters        # BADSOL_E
+#                                             Up   > %%%% < millimeters        # BADSOL_U
+#                                                                              #
+#   Maximum tolerated root-mean-square error  North> %%%% < millimeters        # BADSOLRN
+#                                             East > %%%% < millimeters        # BADSOLRE
+#                                             Up   > %%%% < millimeters        # BADSOLRU
+#                                                                              #
+#   Minimum number of solutions for each station   > %%%% <                    # MINSOL
+#                                                                              #
+# LIST OF ACCEPTED MEAN COORDINATES/VELOCITIES     > %%%%%%%% <                # STALISTRS
+# END_PANEL ####################################################################

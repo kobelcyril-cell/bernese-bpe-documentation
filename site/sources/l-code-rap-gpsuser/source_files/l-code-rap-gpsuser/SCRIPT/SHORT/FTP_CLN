@@ -1,0 +1,66 @@
+package FTP_CLN;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  FTP_CLN
+#
+# Purpose :  Clean $PATH_AFTP/CODE/ directory (if necessary)
+#
+# Programs:
+#
+# Author  :  S. Schaer
+# Created :  12-May-2026
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyssss, $v_del, $pcfFil, $dirOut) =
+    $bpe->getKeys('$YSS+0', 'V_DEL', 'PCFFIL', 'DIR_OUT');
+
+# Set variables
+# -------------
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $lstFil = "${dirOut}FTP_CLN.LST";
+
+  if ($pcfFil eq "IGSRAPID") {
+    my $dirFtp = "$PATH_AFTP/CODE";
+    my $dirTmp = "$ENV{T}/FTP_CLN";
+##    my $dirTmp = "${dirOut}../TMP";
+    check_dir($dirTmp);
+    my @fil  = glob("$dirFtp/*.*");
+    my $sec0 = gps_date("-t -o %U");
+    foreach my $fil (@fil) {
+      my $nam = basename($fil);
+      my $sec = (stat($fil))[9];
+      my $age = $sec0-$sec;
+      $age = sprintf("%7.1f",$age/3600);
+      if ($fil =~ /\d\d\d\d\d/ || $fil =~ /\d\d\d\d\.\d\d/) {
+        if ($age>=32*24 && $v_del eq "Y") { move($fil,$dirTmp); `echo '${yyssss}: $fil' >> $lstFil` }
+        print "FTP_CLN:${age}h 5d $fil\n" if $age<=0.25*24;
+      } else {
+        print "FTP_CLN:${age}h -- $fil\n";
+      }
+    }
+
+  }
+
+}

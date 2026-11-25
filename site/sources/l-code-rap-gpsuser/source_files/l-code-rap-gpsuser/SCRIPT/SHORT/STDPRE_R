@@ -1,0 +1,71 @@
+package STDPRE_R;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  STDPRE_R
+#
+# Purpose :  Generate PRE-files for all days of the n-day solution
+#            (currently only for +0 and -2 useable)
+#
+# Programs:  STDPRE
+#
+# Author  :  M. Meindl
+#
+# Created :  30-Jul-2003
+#
+# Changes :  10-Feb-2005 mm: Old date variables removed
+#            24-Nov-2022 SS: Supplied second midnight epoch
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my $PARAM1  = $$bpe{PARAM1};
+  my $SOL     = $$bpe{"V_$PARAM1"};
+  my ($ddd,$yy,$dm1,$ssm1,$yym1,$dm2,$ssm2,$yym2) = $bpe->getKeys(
+     '$+0','$Y','$-1','$S-1','$Y-1','$-2','$S-2','$Y-2');
+
+
+# Set correct pole file
+# ---------------------
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","POLE","${SOL}_$yy$ddd");
+
+
+# Run program (current day)
+# -------------------------
+  my $PGMNAM = "STDPRE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Run program (day -1)
+# --------------------
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SATCLK","");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","STDORB","${SOL}M1$dm1");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","IMPELE","${SOL}M1$dm1");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","PREOUT","${SOL}M1$dm1");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SESSION_STRG","$ssm1");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SESSION_YEAR","$yym1");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","STADAT",'$YMD_STR-1');
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","ENDDAT",'$YMD_STR-1');
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Run program (day -2)
+# --------------------
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SATCLK","");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","STDORB","${SOL}M2$dm2");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","IMPELE","${SOL}M2$dm2");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","PREOUT","${SOL}M2$dm2");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SESSION_STRG","$ssm2");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SESSION_YEAR","$yym2");
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","STADAT",'$YMD_STR-2');
+  $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","ENDDAT",'$YMD_STR-2');
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

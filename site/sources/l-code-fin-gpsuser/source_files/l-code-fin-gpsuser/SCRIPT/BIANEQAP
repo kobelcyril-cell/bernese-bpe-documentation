@@ -1,0 +1,61 @@
+package BIANEQAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  BIANEQAP
+#
+# Purpose :  Prepare parallel runs for bias retrieval
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  20-May-2016
+#
+# Changes :  __-___-____/__:
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtErr initPar_Bl);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ddd, $yyddd, $ssss,
+      $dirBpe,
+      $dirCsh, $dirOut, $dirRes, $dirCrd, $dirOsb, $dirNeq,
+      $extCsh, $extOut, $extRes, $extCrd, $extOsb, $extNeq) =
+  $bpe->getKeys
+     ('$+0', '$YD+0', '$S+0',
+      'DIR_BPEPRT',
+      'DIR_CSH', 'DIR_OUT', 'DIR_RES', 'DIR_CRD', 'DIR_OSB', 'DIR_NEQ',
+      'EXT_CSH', 'EXT_OUT', 'EXT_RES', 'EXT_CRD', 'EXT_OSB', 'EXT_NEQ');
+
+# Delete old files (OUT, SMC)
+# ---------------------------
+  unlink glob("${dirOut}????${ddd}W_*.${extOut}");
+  unlink glob("${dirNeq}????${ddd}W.${extNeq}");
+  unlink glob("${dirOsb}????${ddd}W.${extOsb}");
+
+# Initialize parallel run
+# -----------------------
+##  my $bpeFil = "${dirBpe}${est}${ddd}";
+#  my @prcFil = glob("${dirRes}????${ddd}C.${extRes}");
+  my @prcFil = glob("${dirOut}????${ddd}W.${extOut}");
+
+  @prcFil = map { substr(basename($_),0,4) } @prcFil;
+  initPar_Bl($bpe,@prcFil);
+
+# Stop if no NEQ files found
+# --------------------------
+  if (@prcFil == 0) {
+    prtErr($bpe,"No files to be processed found") and
+      die "No files to be processed found for session ${ssss}";
+  }
+
+}

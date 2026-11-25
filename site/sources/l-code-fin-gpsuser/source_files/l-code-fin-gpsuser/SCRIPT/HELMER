@@ -1,0 +1,39 @@
+package HELMER;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  HELMER
+#
+# Purpose :  Helmert transformation between different coordinate sets
+#
+# Programs:  HELMR1
+#
+# Author  :  M. Meindl
+# Created :  03-Aug-2003
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Set output extension to LST
+# ---------------------------
+  $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_OUT","LST");
+
+
+# Make mark and exclude field empty
+# ---------------------------------
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","RADIO_1","1");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","RADIO_2","0");
+
+
+# Run program
+# -----------
+  my $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

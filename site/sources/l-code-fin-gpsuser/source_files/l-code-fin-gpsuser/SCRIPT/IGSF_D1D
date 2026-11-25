@@ -1,0 +1,450 @@
+package IGSF_D1D;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  IGSF_D1D
+#
+# Purpose :  Deletion script for IGSFIN1D process
+#
+# PARAMs  :
+#
+# Author  :  S. Lutz
+#
+# Created :  10-Jun-2013
+#
+# Changes :  04-Jan-2003/HU: Pole files in ORB instead of X/GEN
+#            28-Jul-2003/ss: Change from old to new BPE
+#            23-Jul-2008 rd: RNXERR.yy_ddd -> RNXyyssss.ERR
+#            07-Jul-2008/ss: Delete ambiguity resolution verification (V) files
+#            23-Sep-2010/ss: Delete SEL files
+#            06-Oct-2010/ss: Deletion of ION file added
+#            01-Mar-2011/ss: Delete SDB DCB files
+#            23-Feb-2012/ss: Delete GRD files
+#            10-Jun-2013 SL: BDS to Perl
+#            11-Jun-2013 SL: V_DEL added
+#            26-Jul-2013 CB: keep F1_yydoy.CRD for 90 days instead of 30 days
+#            17-Mar-2015 RD/SS: F1I considered
+#            18-Mar-2015 SS: _TRA files added
+#            25-Mar-2015 AS: MPRXTR-satellite statistics added
+#            20-May-2016 AV: Updated due to OSB implementation
+#            27-Sep-2016 AV: Delete RNXSTAT.YY_DDD file (RINEX files input)
+#            02-May-2018 SS: Delete FIN VEL files
+#            07-May-2019 RD: Loading from GFZ added
+#            31-Aug-2019 RD: Add OBSXTR program
+#            14-Jan-2021 RD: Delete also results from ATTXTR
+#            13-Aug-2021 RD: Start using BSW-style filenaming in the campaign area
+#            07-Apr-2022 ST: Remove DIR_AMB, EXT_AMB, DIR_BPE, EXT_BPE,
+#                            DIR_BRD, EXT_BRD, DIR_CMP, EXT_CMP, DIR_ERR, EXT_ERR,
+#                            DIR_LOG, EXT_LOG, DIR_ONQ, EXT_ONQ, DIR_ORB,
+#                            DIR_PRC, EXT_PRC, DIR_PRT, EXT_PRT, DIR_SEL, EXT_SEL,
+#                            DIR_TAB and EXT_TAB.
+#            30-Nov-2022 SS: Removed F3[PU]_yyddd.CLK
+#            25-Jan-2023 SS: Removed RAW/?????????_yyyyssss_G.RXN
+#            25-Apr-2023 EB: remove OUT/${k}_${wwwwdm30}.${extPlt}
+#            21-Aug-2025 EB: keep longer ${dirNeq}${k}N${yydddm90}.${extNeq}*
+#            09-Jul-2026 EB: delete istp/TRA files
+#
+# ============================================================================
+
+use strict;
+use warnings;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtMess);
+
+sub run {
+
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyssss,$yyyy,$yy,$yym1,$yym2,$yym8,$yym15,$yym30,$yym90,
+    $ssss,$ssssm1,$ssssm2,$ssssm3,$ssssm8,$ssssm15,$ssssm30,$ssssm90,
+    $ddd,$dddm1,$dddm2,$dddm8,$dddm15,$dddm30,$dddm90,
+    $yydddm2,$yydddm8,$yydddm15,$yydddm30,$yydddm90,$yymm,
+    $wwww,$wwwwm90,$wwwwdm30,$wwwwdm90,
+    $yyssssm2,$yyssssm8,$yyssssm15,$yyssssm30,$yyssssm90,
+    $a,$b,$e,$h,$k,$o,$u,$v,$x,$z,$del,
+    $taskid,
+    $dirBsl,$extBsl,
+    $dirBpelog,$extBpelog,
+    $dirBpeprt,$extBpeprt,
+    $dirClb,$extClb,
+    $dirClk,$extClk,
+    $dirCrd,$extCrd,
+    $dirVel,$extVel,
+    $dirOsb,$extOsb,
+    $dirDel,$extDel,
+    $dirEdt,$extEdt,
+    $dirEle,$extEle,
+    $dirErp,$extErp,
+    $dirEst,$extEst,
+    $dirFix,$extFix,
+    $dirGcc,$extGcc,
+    $dirGrd,$extGrd,
+    $dirIep,$extIep,
+    $dirIon,$extIon,
+    $dirLst,$extLst,
+    $dirNeq,$extNeq,
+    $dirCzh,$extCzh,$dirCzo,$extCzo,
+    $dirPzh,$extPzh,$dirPzo,$extPzo,
+    $dirCsh,$extCsh,$dirCso,$extCso,
+    $dirPsh,$extPsh,$dirPso,$extPso,
+    $dirOxo,
+    $dirOut,$extOut,
+    $dirObx,$extObx,
+    $dirPre,$extPre,
+    $dirRxo,
+    $dirRes,$extRes,
+    $dirRpr,$extRpr,
+    $dirSmc,$extSmc,
+    $dirSme,$extSme,
+    $dirSmt,$extSmt,
+    $dirSnx,$extSnx,
+    $dirStd,$extStd,
+    $dirSum,$extSum,
+    $dirPlt,$extPlt,
+    $dirTro,$extTro,
+    $dirTrp,$extTrp,
+  ) =
+  $bpe->getKeys (
+    '$YSS+0','$Y+0','$Y','$Y-1','$Y-2','$Y-8','$Y-(15)','$Y-(30)','$Y-(90)',
+    '$S+0','$S-1','$S-2','$S-3','$S-8','$S-(15)','$S-(30)','$S-(90)',
+    '$+0','$-1','$-2','$-8','$-(15)','$-(30)','$-(90)',
+    '$YD-2','$YD-8','$YD-(15)','$YD-(30)','$YD-(90)','$M+0',
+    '$W+0','$W-(90)','$WD-(30)','$WD-(90)',
+    '$YSS-2','$YSS-8','$YSS-(15)','$YSS-(30)','$YSS-(90)',
+    'V_A','V_B','V_E','V_H','V_K','V_O','V_U','V_V','V_X','V_Z','V_DEL',
+    'TASKID',
+    'DIR_BSL','EXT_BSL',
+    'DIR_BPELOG','EXT_BPELOG',
+    'DIR_BPEPRT','EXT_BPEPRT',
+    'DIR_CLB','EXT_CLB',
+    'DIR_CLK','EXT_CLK',
+    'DIR_CRD','EXT_CRD',
+    'DIR_VEL','EXT_VEL',
+    'DIR_OSB','EXT_OSB',
+    'DIR_DEL','EXT_DEL',
+    'DIR_EDT','EXT_EDT',
+    'DIR_ELE','EXT_ELE',
+    'DIR_ERP','EXT_ERP',
+    'DIR_EST','EXT_EST',
+    'DIR_FIX','EXT_FIX',
+    'DIR_GCC','EXT_GCC',
+    'DIR_GRD','EXT_GRD',
+    'DIR_IEP','EXT_IEP',
+    'DIR_ION','EXT_ION',
+    'DIR_LST','EXT_LST',
+    'DIR_NEQ','EXT_NEQ',
+    'DIR_CZH','EXT_CZH','DIR_CZO','EXT_CZO',
+    'DIR_PZH','EXT_PZH','DIR_PZO','EXT_PZO',
+    'DIR_CSH','EXT_CSH','DIR_CSO','EXT_CSO',
+    'DIR_PSH','EXT_PSH','DIR_PSO','EXT_PSO',
+    'DIR_OXO',
+    'DIR_OUT','EXT_OUT',
+    'DIR_OBX','EXT_OBX',
+    'DIR_PRE','EXT_PRE',
+    'DIR_RXO',
+    'DIR_RES','EXT_RES',
+    'DIR_RPR','EXT_RPR',
+    'DIR_SMC','EXT_SMC',
+    'DIR_SME','EXT_SME',
+    'DIR_SMT','EXT_SMT',
+    'DIR_SNX','EXT_SNX',
+    'DIR_STD','EXT_STD',
+    'DIR_SUM','EXT_SUM',
+    'DIR_PLT','EXT_PLT',
+    'DIR_TRO','EXT_TRO',
+    'DIR_TRP','EXT_TRP',
+  );
+
+# Reformat year string
+# --------------------
+  $yym1  = substr($yym1,2,2);
+  $yym2  = substr($yym2,2,2);
+  $yym8  = substr($yym8,2,2);
+  $yym15 = substr($yym15,2,2);
+  $yym30 = substr($yym30,2,2);
+  $yym90 = substr($yym90,2,2);
+
+# List of files to be deleted
+# ---------------------------
+  my @delLst = (
+# Protocol
+    "${dirOut}IGSFIN1D.${yym90}_${dddm90}",
+    "${dirOut}F1D${yydddm90}.PRC",
+
+# A priori files
+    "${dirOsb}APR${yydddm90}.${extOsb}",
+
+    "${dirStd}${o}?${yydddm30}.${extStd}",
+    "${dirRpr}${o}?${yydddm30}.${extRpr}",
+    "${dirPre}${o}?${yydddm30}.${extPre}",
+    "${dirClk}${o}?${yydddm30}.${extClk}",
+
+# Observation files
+    "${dirOxo}????${ssss}.${yy}?",
+
+    "${dirOut}SMT${yydddm8}[0-9][0-9][0-9].${extOut}",
+    "${dirRxo}????${ssssm1}.${yym1}?",
+    "${dirRxo}????${ssssm2}.${yym2}?",
+    "${dirRxo}????${ssssm8}.${yym8}?",
+    "${dirRxo}????${ssssm15}.${yym15}?",
+    "${dirSmt}????${ssssm3}.${extSmt}",
+    "${dirSmt}*${ssssm3}.${extSmt}",
+    "${dirRxo}*${ssssm2}.RX?",
+    "${dirRxo}*${ssssm8}.RX?",
+    "${dirRxo}*${yyssssm30}_?.RX?",
+
+    "${dirOut}RXO${yydddm8}[0-9][0-9][0-9].${extOut}",
+    "${dirOut}RXO${yyssssm30}.${extOut}",
+    "${dirSmc}RXO${yyssssm30}.${extSmc}",
+    "${dirOut}RNX${yyssssm30}.ERR",
+    "${dirCzh}????${ssssm3}.${extCzh}",
+    "${dirCzo}????${ssssm3}.${extCzo}",
+    "${dirPzh}????${ssssm3}.${extPzh}",
+    "${dirPzo}????${ssssm3}.${extPzo}",
+    "${dirCsh}????${ssssm3}.${extCsh}",
+    "${dirCso}????${ssssm3}.${extCso}",
+    "${dirPsh}????${ssssm3}.${extPsh}",
+    "${dirPso}????${ssssm3}.${extPso}",
+    "${dirCzh}????${ssssm8}.${extCzh}",
+    "${dirCzo}????${ssssm8}.${extCzo}",
+    "${dirPzh}????${ssssm8}.${extPzh}",
+    "${dirPzo}????${ssssm8}.${extPzo}",
+    "${dirCsh}????${ssssm8}.${extCsh}",
+    "${dirCso}????${ssssm8}.${extCso}",
+    "${dirPsh}????${ssssm8}.${extPsh}",
+    "${dirPso}????${ssssm8}.${extPso}",
+    "${dirCzh}????${ssssm15}.${extCzh}",
+    "${dirCzo}????${ssssm15}.${extCzo}",
+    "${dirPzh}????${ssssm15}.${extPzh}",
+    "${dirPzo}????${ssssm15}.${extPzo}",
+    "${dirCsh}????${ssssm15}.${extCsh}",
+    "${dirCso}????${ssssm15}.${extCso}",
+    "${dirPsh}????${ssssm15}.${extPsh}",
+    "${dirPso}????${ssssm15}.${extPso}",
+
+# Preprocessing
+    "${dirOut}CD${yydddm2}[0-9][0-9][0-9].${extOut}",
+    "${dirOut}SPP${yyssssm30}.${extOut}",
+    "${dirEdt}SPP${yyssssm30}.${extEdt}",
+    "${dirSmc}${yydddm30}.${extSmc}",
+    "${dirSme}${yydddm30}.${extSme}",
+    "${dirOut}CODXTR.${yym90}_${ssssm90}",
+
+    "${dirErp}${x}?${yydddm30}.${extErp}",
+    "${dirStd}${x}?${yydddm30}.${extStd}",
+    "${dirRpr}${x}?${yydddm30}.${extRpr}",
+    "${dirPre}${x}?${yydddm30}.${extPre}",
+
+    "${dirOut}MP${yydddm2}[0-9][0-9][0-9].${extOut}",
+    "${dirOut}MPR${yyssssm30}.${extOut}",
+    "${dirDel}MPR${yyssssm30}.${extDel}",
+    "${dirSum}MPR${yyssssm30}.${extSum}",
+    "${dirSum}MPS${yyssssm30}.${extSum}",
+    "${dirOut}MPRXTR.${yym90}_${ssssm90}",
+
+# Intermediate solutions
+    "${dirBsl}${z}_${yydddm30}.${extBsl}",
+    "${dirCrd}${z}_${yydddm30}.${extCrd}",
+    "${dirTrp}${z}_${yydddm30}.${extTrp}",
+    "${dirErp}${z}_${yydddm30}.${extErp}",
+    "${dirIep}${z}_${yydddm30}.${extIep}",
+    "${dirEle}${z}_${yydddm30}.${extEle}",
+    "${dirStd}${z}_${yydddm30}.${extStd}",
+    "${dirRpr}${z}_${yydddm30}.${extRpr}",
+    "${dirPre}${z}_${yydddm30}.${extPre}",
+    "${dirOut}${z}_${yydddm30}.${extOut}",
+    "${dirSum}${z}?${yydddm30}.${extSum}",
+
+    "${dirOut}EF${yydddm2}[0-9][0-9][0-9].${extOut}",
+    "${dirRes}EF${yydddm2}[0-9][0-9][0-9].${extRes}",
+    "${dirEdt}ED${yydddm2}[0-9][0-9][0-9].${extEdt}",
+    "${dirSum}ED${yydddm2}[0-9][0-9][0-9].${extSum}",
+    "${dirOut}RMS${yydddm2}[0-9][0-9][0-9].${extOut}",
+    "${dirOut}MRK${yydddm2}[0-9][0-9][0-9].${extOut}",
+    "${dirOut}EL${yydddm2}[0-9][0-9][0-9].${extOut}",
+    "${dirRes}EL${yydddm2}[0-9][0-9][0-9].${extRes}",
+
+    "${dirOut}CHK${yyssssm30}.${extOut}",
+    "${dirSum}CHK${yyssssm30}.${extSum}",
+
+    "${dirOut}OBX_???_${yydddm30}.${extOut}",
+    "${dirSum}OBX_???_${yydddm30}.${extSum}",
+
+    "${dirOut}RESRMS.${yym90}_${ssssm90}",
+    "${dirOut}RESSUM.${yym90}_${ssssm90}",
+    "${dirOut}RESCHK.${yym90}_${ssssm90}",
+
+    "${dirOut}INI${yydddm30}.${extOut}",
+
+    "${dirCrd}${u}_${yydddm30}.${extCrd}",
+    "${dirTrp}${u}_${yydddm30}.${extTrp}",
+    "${dirErp}${u}_${yydddm30}.${extErp}",
+    "${dirIep}${u}_${yydddm30}.${extIep}",
+    "${dirEle}${u}_${yydddm30}.${extEle}",
+    "${dirStd}${u}_${yydddm30}.${extStd}",
+    "${dirRpr}${u}_${yydddm30}.${extRpr}",
+    "${dirPre}${u}_${yydddm30}.${extPre}",
+    "${dirOut}${u}_${yydddm30}.${extOut}",
+    "${dirSum}${u}?${yydddm30}.${extSum}",
+    "${dirLst}${u}G${wwwwdm30}.${extLst}",
+    "${dirOut}${u}_${wwwwdm30}.CMP",
+
+# OSB solution
+    "${dirNeq}${b}_${yydddm90}.${extNeq}",
+    "${dirOsb}${b}_${yydddm90}.${extOsb}",
+    "${dirOsb}???${yydddm90}.DCB",
+    "${dirOut}${b}_${yydddm90}.${extOut}",
+    "${dirSum}${b}_${wwwwdm90}.${extSum}",
+
+    "${dirBsl}???${yyssssm90}.SEL",
+    "${dirLst}SDB${yyssssm90}.${extLst}",
+    "${dirBsl}VER${yydddm90}.SEL",
+    "${dirOut}VER${yydddm90}.PRC",
+    "${dirSum}MLWX${yyssssm90}.${extSum}",
+    "${dirSum}AMBX${yyssssm90}.${extSum}",
+    "${dirOut}???${yyssssm90}.AMB",
+    "${dirSum}AMB${yyssssm90}.${extSum}",
+
+    "${dirOsb}????${dddm8}A.${extOsb}",
+    "${dirOsb}????${dddm8}P.${extOsb}",
+    "${dirOsb}????${dddm8}B.${extOsb}",
+    "${dirOsb}????${dddm8}W.${extOsb}",
+
+# A priori orbits for NEQ files
+    "${dirStd}${v}_${yydddm30}.???",
+
+    "${dirOut}DEFXTR.${yym30}_${ssssm30}",
+    "${dirOut}DEFWKS.${yym30}_${ssssm30}",
+
+# Ionosphere map
+    "${dirIon}${a}_${yydddm30}.${extIon}",
+
+# Grid files
+    "${dirGrd}VMF${yydddm90}.${extGrd}",
+    "${dirGrd}APL${yydddm90}.${extGrd}",
+    "${dirGrd}NTAL_${yydddm90}.${extGrd}",
+    "${dirGrd}NTOL_${yydddm90}.${extGrd}",
+    "${dirGrd}HYDL_${yydddm90}.${extGrd}",
+
+# Cluster assignment files
+    "${dirClb}${yydddm30}_[0-9][0-9].${extClb}",
+
+# Normal equations
+    "${dirNeq}${yydddm8}[0-9][0-9][0-9].${extNeq}",
+    "${dirNeq}${yydddm15}[0-9][0-9][0-9].${extNeq}",
+    "${dirOut}${yydddm15}[0-9][0-9][0-9].${extOut}",
+
+    "${dirSum}EST?${yyssssm15}.${extSum}",
+    "${dirOut}EST${yyssssm15}.${extOut}",
+
+    "${dirOut}GPSXTR.${yym90}_${ssssm90}",
+    "${dirOut}GPSCMP.${yym90}_${ssssm90}",
+    "${dirOut}GPSWKS.${yym90}_${ssssm90}",
+
+    "${dirNeq}${k}[_O]${yydddm30}.${extNeq}*",  # might be compressed
+    "${dirNeq}${k}N${yydddm90}.${extNeq}*",  # keep longer for ADDNEQ2 long-term
+
+# Final solutions
+    "${dirFix}${k}_${yydddm30}.${extFix}",
+    "${dirGcc}${k}_${yydddm30}.${extGcc}",
+    "${dirCrd}${k}?${yydddm90}.${extCrd}",   # keep longer for COMPAR long-term
+    "${dirTrp}${k}?${yydddm30}.${extTrp}",
+    "${dirTro}${k}?${yydddm30}.${extTro}",
+    "${dirErp}${k}?${yydddm30}.${extErp}",
+    "${dirIep}${k}?${yydddm30}.${extIep}",
+    "${dirEle}${k}?${yydddm30}.${extEle}",
+    "${dirStd}${k}?${yydddm30}.${extStd}",
+    "${dirObx}${k}?${yydddm30}.${extObx}",
+    "${dirRpr}${k}?${yydddm30}.${extRpr}",
+    "${dirPre}${k}?${yydddm30}.${extPre}",
+    "${dirSnx}${k}_${yydddm30}.${extSnx}",
+    "${dirEst}${k}?${yydddm30}.${extEst}",
+
+# Other orbit files
+    "${dirClk}${k}?_${yydddm30}.${extClk}",
+
+# Output files
+
+    "${dirOut}${k}?${yydddm30}.${extOut}",
+    "${dirSum}${k}?${yydddm30}.${extSum}",
+    "${dirOut}${k}?${yydddm30}_TRA.${extOut}",
+    "${dirSum}${k}?${yydddm30}_TRA.${extSum}",
+    "${dirOut}${k}?${yydddm30}.TRA",
+    "${dirLst}${k}?${yydddm30}.${extLst}",
+    "${dirOut}ATT_${yydddm30}.${extOut}",
+
+    "${dirOut}OCK${yyssssm30}.${extOut}",
+
+    "${dirOut}${k}_${wwwwdm30}.${extOut}",
+    "${dirSum}${k}_${wwwwdm30}.${extSum}",
+    "${dirPlt}${k}_${wwwwdm30}.${extPlt}",
+    "${dirLst}${k}G${wwwwdm30}.${extLst}",
+    "${dirOut}${k}_${wwwwdm30}.CMP",
+    "${dirLst}COD${wwwwdm30}.${extLst}",
+    "${dirLst}V1?${wwwwdm30}.${extLst}",
+
+    "${dirOut}POLXTR.${yym90}_${ssssm90}",
+    "${dirOut}ORBCHK.${yym90}_${ssssm90}",
+    "${dirOut}ASPLIT.${yym90}_${ssssm90}",
+
+# Other files
+    "${dirFix}REF${yyssssm90}.${extFix}",
+    "${dirCrd}FIN${yydddm90}.${extCrd}",
+    "${dirVel}FIN${yydddm90}.${extVel}",
+    "${dirErp}FIN${yydddm90}.${extErp}",
+    "${dirErp}COD${yydddm90}.${extErp}",
+
+    "${dirOut}????${ssssm2}V.${extOut}",
+
+    "${dirNeq}????${dddm2}W.${extNeq}",
+    "${dirOut}????${dddm2}[WRFNPAQB].${extOut}",
+    "${dirRes}????${dddm2}V[01].${extRes}",
+
+    "${dirRes}????${dddm1}C.${extRes}",
+    "${dirOut}????${dddm1}C.${extOut}",
+    "${dirSum}????${dddm1}C.${extSum}",
+    "${dirEdt}????${dddm1}C.${extEdt}",
+    "${dirSum}ALL_${dddm1}C.${extSum}",
+
+# Rinex files statistics
+    "${dirOut}RNXSTAT.${yym30}_${dddm30}",
+
+# BPE files
+    "${dirBpeprt}${taskid}${yyssssm8}_???_???.${extBpeprt}",
+    "${dirBpelog}${taskid}${yyssssm8}_???_???.${extBpelog}",
+    "${dirBpeprt}??${yyssssm30}_???_???.${extBpeprt}",
+    "${dirBpelog}??${yyssssm30}_???_???.${extBpelog}",
+    "${dirBpeprt}??${yyssssm90}_???_???.${extBpeprt}",
+    "${dirBpelog}??${yyssssm90}_???_???.${extBpelog}",
+  );
+
+# Delete the files
+# ----------------
+  if($del eq "Y") {
+    foreach(@delLst) {
+      my(@f) = glob("$_");
+      print "\n$_: ".scalar(@f)."\n";
+      foreach my $f(@f) {
+        next unless(-e $f);
+        unlink($f);
+        print "  $f removed\n";
+      }
+    }
+  }
+
+# Some messages
+# -------------
+  if($del ne "Y") {
+    &prtMess($bpe,"FILES NOT DELETED (V_DEL=$del)");
+    print       "\nFILES NOT DELETED (V_DEL=$del)\n";
+  }
+
+}
+
+# ============================================================================
+
+__END__

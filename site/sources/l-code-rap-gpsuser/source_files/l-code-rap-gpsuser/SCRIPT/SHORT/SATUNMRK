@@ -1,0 +1,85 @@
+package SATUNMRK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  SATUNMRK
+#
+# Purpose :  Execute SATMRK to unmark observation data for a particular
+#            satellite.
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  01-Jul-2021
+#
+# Changed :  02-Jul-2021 ss: Considered CODXTR.yy_ssss
+#                            (to make manual interaction unnecessary)
+#            05-Jul-2021 ss: Generalized for MCLKGNSS
+#            21-Feb-2022 ss: Commented msg2key
+#
+# ============================================================================
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $mjd, $pcfFil, $CAMP_PTH, $CAMPAIGN, $dirOut) =
+    $bpe->getKeys('$YSS+0','$JD+0','PCFFIL','CAMP_PTH','CAMPAIGN','DIR_OUT');
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $xtrFil = "${dirOut}CODXTR.".substr($yyssss,0,2)."_".substr($yyssss,2,4);
+  $xtrFil = "${dirOut}CODXTR.".substr($yyssss,0,2)."_".substr($yyssss,2,3) if $pcfFil eq "MCLKGNSS";
+  die "$xtrFil not found\n" unless -e $xtrFil;
+  my @satLst = `grep 'SATELLITE NUMBER:' $xtrFil | cut -c23-25`;
+  chomp(@satLst);
+  my $xtrMsg = `grep 'SATELLITE REPOSITIONING OR CLOCK RESET DETECTED' $xtrFil | wc -l`+0;
+  die "No satellite number(s) found in $xtrFil\n"        if @satLst==0 && $xtrMsg> 0;
+  die "No associated warning message found in $xtrFil\n" if @satLst> 0 && $xtrMsg==0;
+
+  my @manLst = ();
+# Unmark code observation data for new G11/G078 in RCLKGNSS analysis
+# (to get code bias estimates although fully marked by CODSPP)
+  if ($mjd >= 59393 && $mjd < 59396) { push(@manLst," 11") }
+
+# Merge @satLst (CODXTR) with @manLst (MANUAL)
+  foreach (@manLst) { push(@satLst,$_) if lindex($_,@satLst)==-1 }
+
+# Unmark code observation data for ALL satellites
+##  @satLst = ("ALL");
+
+  if (@satLst > 0) {
+    my $str = join(" ",@satLst);
+    prtMess($bpe,"Unmarked observation data for satellites: $str");
+##    msg2key("NEW","${pcfFil}_${yyssss}: SATUNMRK for satellites: $str");
+
+# Run program
+# -----------
+    my $PGMNAM = "SATMRK";
+    replaceSelLst($bpe,$PGMNAM,"SATNUM",@satLst);
+    $bpe->RUN_PGMS($PGMNAM);
+
+  } else {
+    prtMess($bpe,"Nothing done");
+  }
+
+}
+
+# $outmc/MCLKGNSS.21_170
+# ### SATELLITE REPOSITIONING OR CLOCK RESET DETECTED!                                                                                                                                         
+#     # SATELLITES    :  2                                                                                                                                                                     
+#     SATELLITE NUMBER:  8          2021-06-19 17:47:00                                                                                                                                        
+#     SATELLITE NUMBER: 28          2021-06-19 04:58:00                                                                                                                                        
+#                                                                                                                                                                                              
+#   2 SATELLITE(S) REMOVED FROM BROADCAST CLOCK FILE.                                                                                                                                          
+#     SATELLITE NUMBER(S):           8          28     
+
+
+

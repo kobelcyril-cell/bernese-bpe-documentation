@@ -1,0 +1,380 @@
+package CMP_SUM;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CMP_SUM
+#
+# Purpose :  Make summary of comparison
+#
+#
+# Author  :  C. Kobel
+# Created :  17-Oct-2025
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+# ----------------------------------------------------------------------------
+sub extract_helmert_lines {
+    my ($file) = @_;
+    return [] unless -e $file;
+
+    open my $fh, '<', $file or return [];
+    my @H;
+
+    while (<$fh>) {
+        if (/TRANSLATION IN/i or /ROTATION AROUND/i or /SCALE FACTOR/i) {
+            push @H, $_;
+        }
+    }
+
+    close $fh;
+    return \@H;
+}
+
+# ----------------------------------------------------------------------------
+sub extract_helmert_rms {
+    my ($file) = @_;
+    return "" unless -e $file;
+
+    open my $fh, '<', $file or return "";
+    while (<$fh>) {
+        if (/RMS OF TRANSFORMATION\s*:\s*([\d.Ee+-]+)/i) {
+            close $fh;
+            return $1;
+        }
+    }
+    close $fh;
+    return "";
+}
+
+# ----------------------------------------------------------------------------
+sub extract_orbmisc_table {
+    my ($file) = @_;
+    return [] unless -e $file;
+
+    open my $fh, '<', $file or return [];
+    my @lines;
+    my $in_table = 0;
+
+    while (<$fh>) {
+        # Beginn der Tabelle: Kopfzeile mit "EPOCH" etc.
+        if (!$in_table && /^\s*EPOCH\s+SAT\s+/i) {
+            $in_table = 1;
+            push @lines, $_;
+            next;
+        }
+
+        # Wenn wir in der Tabelle sind, sammeln wir bis REMARK: (oder EOF)
+        if ($in_table) {
+            # Wenn REMARK: auftaucht, beenden (die REMARK-Zeile nicht mehr mitkopieren)
+            last if /^\s*REMARK:/i;
+            push @lines, $_;
+        }
+    }
+
+    close $fh;
+    return \@lines;
+}
+# ----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
+sub extract_std_table {
+    my ($file) = @_;
+    return [] unless -e $file;
+
+    open my $fh, '<', $file or return [];
+    my @lines;
+    my $in_table = 0;
+
+    while (<$fh>) {
+        chomp;
+
+        # Beginn der Tabelle: Zeile mit "SVN" und "POSITION RMS"
+        if (!$in_table && /^\s*#\s*SVN\s+.*POSITION RMS/i) {
+            $in_table = 1;
+            push @lines, $_;
+            next;
+        }
+
+        # Wenn wir in der Tabelle sind, sammeln wir alles bis zum TOTAL oder Ende
+        if ($in_table) {
+            # Tabelle endet bei # TOTAL: oder leere Zeile mit Kommentar
+            last if /^\s*#\s*TOTAL:/i;
+
+            # Kommentarzeilen mit Spaltenbeschriftung oder Einheiten ebenfalls mitschreiben
+            push @lines, $_;
+        }
+    }
+
+    close $fh;
+    return \@lines;
+}
+
+
+# ----------------------------------------------------------------------------
+sub run {
+
+my $debug = 0;
+my $bpe = shift;
+
+my ($yyddd, $yyssss, $dirOut, $sol, $Stdname, $Erpname, $Clkname, $Prename, $Crdname) =
+  $bpe->getKeys('$YD+0', '$YSS+0', 'DIR_OUT', 'V_SOL', 'V_STD','V_ERP','V_CLK','V_PRE','V_CRD');
+
+my $summary_file = "${dirOut}../MSC/SUMMARY_${sol}_${Erpname}_${Stdname}_${Clkname}_${Prename}_${Crdname}_${yyddd}.DAT";
+my $fin_dest =  "${dirOut}../MSC/MSC_${yyddd}";
+my @files = (
+    { file => "${dirOut}../MSC/ERPDIFF_${Erpname}_${sol}_${yyddd}",     type => "ERP" },
+    { file => "${dirOut}STDDIFF_${Stdname}_${sol}_${yyddd}.PLT",      type => "STD" },
+    { file => "${dirOut}../MSC/CLKDIFF_${Clkname}_${sol}_${yyddd}",   type => "CLOCK" },
+    { file => "${dirOut}ORBDIFF_${Prename}_${sol}_${yyddd}.LST",  type => "ORBCMP" },
+    { file => "${dirOut}CRDDIFF_${Crdname}_${sol}_${yyddd}.PLT",  type => "COMPAR" },
+);
+
+my $hlmr_file1 = "${dirOut}HLMR_${Crdname}${yyddd}0.OUT";
+my $hlmr_file2 = "${dirOut}HLMR_F${sol}_${yyddd}0.OUT";
+
+my @orbmisc_files = (
+    "$dirOut/ORBMISC_${Stdname}${yyssss}.OUT",
+    "$dirOut/ORBMISC_F${sol}_${yyssss}.OUT",
+);
+
+open my $out, ">", $summary_file or die "Can not open $summary_file: $!";
+
+foreach my $f (@files) {
+    my $file = $f->{file};
+    my $type = $f->{type};
+
+# ------------------------------------------------------------------
+    # Check: file exists?
+    # ------------------------------------------------------------------
+    if ( ! -e $file ) {
+        print "WARNING: File not found: $file\n";
+        print $out "WARNING: File not found: $file\n\n";
+        next;   # skip this section
+    }
+
+    # Try open (should normally work now)
+    open my $fh, "<", $file or do {
+        print "WARNING: Could not open $file: $!\n";
+        print $out "WARNING: Could not open $file: $!\n\n";
+        next;
+    };
+
+    open my $fh, "<", $file or die "Can not open $file: $!";
+
+if ($type eq "ERP") {
+
+    my ($diff_xp, $diff_yp, $diff_ut1) = ("") x 3;
+
+    while (<$fh>) {
+        chomp;
+
+        if (/DIFF:\s*XP=\s*([-\d.Ee+]+)\s*YP=\s*([-\d.Ee+]+)\s*UT1=\s*([-\d.Ee+]+)/) {
+            ($diff_xp, $diff_yp, $diff_ut1) = ($1,$2,$3);
+        }
+    }
+
+    print $out "ERP Rate Differences:\n";
+    printf $out "%-12s %-12s %-12s\n", "dXP","dYP","dUT1";
+    printf $out "%-12s %-12s %-12s\n\n\n",
+        $diff_xp, $diff_yp, $diff_ut1;
+
+
+    } elsif ($type eq "STD") {
+        my $table = extract_std_table($file);
+        my (@mean_pos, @rms_pos);
+        while (<$fh>) {
+            chomp;
+            if (/MEAN ALL:\s*(\S+)\s*(\S+)\s*(\S+)/) {
+                @mean_pos = ($1,$2,$3);
+            }
+            if (/RMS  ALL:\s*(\S+)\s*(\S+)\s*(\S+)/) {
+                @rms_pos = ($1,$2,$3);
+            }
+        }
+        print $out "STD Comparison:\n";
+        printf $out "%-12s %-12s %-12s %-12s %-12s %-12s\n",
+            "Mean_Pos_R","Mean_Pos_A","Mean_Pos_C","RMS_Pos_R","RMS_Pos_A","RMS_Pos_C";
+        printf $out "%-12s %-12s %-12s %-12s %-12s %-12s\n\n\n",
+            @mean_pos,@rms_pos;
+
+        # --- ganze Tabelle ins Summary ---
+    	print $out "Detailed Table (STDDIF):\n";
+    	print $out "$_\n" for @$table;
+    	print $out "\n\n";
+
+#} elsif ($type eq "CLOCK") {
+#    my %system;
+#    while (<$fh>) {
+#        chomp;
+#        # Für jede Systemzeile: Mean, RMS, STD
+#        if (/ALL\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)/) { $system{ALL} = [$1,$2,$3]; }
+#        if (/GLONASS\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)/) { $system{GLONASS} = [$1,$2,$3]; }
+#        if (/GPS\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)/) { $system{GPS} = [$1,$2,$3]; }
+#    }
+#
+#    print $out "CLK Comparison:\n";
+#    printf $out "%-10s %-12s %-12s %-12s\n", "System","Mean[s]","RMS[s]","STD[s]";
+#    for my $s (qw/ALL GLONASS GPS/) {
+#        printf $out "%-10s %-12s %-12s %-12s\n", $s, @{$system{$s}};
+#    }
+#    print $out "\n\n";
+
+
+} elsif ($type eq "ORBCMP") {
+    my %sys;
+    while (<$fh>) {
+    chomp;
+
+    # Gesamt (ALL)
+    if (/^\s*OVERALL RMS\/IQR\/MAX\(3D\)\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)/) {
+        $sys{ALL} = [$1,$2,$3];
+    }
+
+    # System-spezifisch: GPS, GLO, GAL
+    if (/^\s*(GPS|GLO|GAL)\s+OVERALL RMS\/IQR\/MAX\(3D\)\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)\s+([\d.Ee+-]+)/) {
+        $sys{$1} = [$2,$3,$4];
+    }
+}
+
+
+    print $out "PRE Comparison:\n";
+    printf $out "%-8s %-12s %-12s %-12s\n", "System","RMS","IQR","MAX";
+    for my $s (qw/ALL GPS GLO GAL/) {
+        if (exists $sys{$s}) {
+            my ($rms,$iqr,$max) = @{$sys{$s}};
+            printf $out "%-8s %-12s %-12s %-12s\n", $s, $rms,$iqr,$max;
+        } else {
+            printf $out "%-8s %-12s %-12s %-12s\n", $s, "N/A","N/A","N/A";
+        }
+    }
+    print $out "\n\n";
+
+
+
+} elsif ($type eq "COMPAR") {
+    my ($total_n, $total_e, $total_u);
+    my (@vals_n, @vals_e, @vals_u);
+    my $line_count = 0;
+
+    while (<$fh>) {
+        chomp;
+        my @fields = split;
+        next unless @fields >= 5;  # sicherstellen, dass genug Spalten vorhanden sind
+
+        $line_count++;
+        if ($line_count % 6 <= 3 && $line_count % 6 != 0) {  
+            # nur die ersten 3 von 6 Zeilen jeder Station nehmen
+            my $comp_index = $fields[3];   # 1/2/3 = N/E/U
+            my $value = $fields[4]+0;
+
+            if ($comp_index == 1) {
+                push @vals_n, $value;
+		
+            } elsif ($comp_index == 2) {
+                push @vals_e, $value;
+		
+            } elsif ($comp_index == 3) {
+                push @vals_u, $value;
+		
+            }
+        }
+    }
+
+    # RMS berechnen
+sub rms {
+    my @a = @_;
+    my $sum_sq = 0;
+    $sum_sq += $_**2 for @a;
+    return sqrt($sum_sq / scalar(@a));
+}
+
+
+$total_n = rms(@vals_n) * 1000;   # in mm
+$total_e = rms(@vals_e) * 1000;   # in mm
+$total_u = rms(@vals_u) * 1000;   # in mm
+print $out "CRD Comparison:\n";
+printf $out "%-12s %-12s %-12s\n","Total_N","Total_E","Total_U";
+printf $out "%-12.2f %-12.2f %-12.2f\n\n\n",$total_n,$total_e,$total_u;
+
+}
+    close $fh;
+}
+
+
+#    # --- HLMR / Helmert Parameter -------------------------------------
+#    my $hlmr_file = "${dirOut}CRDDIFF_${Crdname}_${sol}_${yyddd}.HLMR";
+
+#    my $H = extract_helmert_lines($hlmr_file1);
+
+#    print $out "Helmert Parameters ${Crdname}, comparison to IGB20:\n";
+
+#    if (@$H) {
+#        print $out @$H;
+#        print $out "\n";
+#    } else {
+#        print $out "No Helmert parameters found in $hlmr_file1\n\n";
+#    }
+
+#    $H = extract_helmert_lines($hlmr_file2);
+
+#    print $out "Helmert Parameters F${sol}, comparison to IGB20:\n";
+
+#    if (@$H) {
+#        print $out @$H;
+#        print $out "\n";
+#    } else {
+#        print $out "No Helmert parameters found in $hlmr_file2\n\n";
+#    	 }
+# --- HLMR / Helmert Parameter -------------------------------------
+
+print $out "Helmert Parameters ${Crdname}, comparison to IGB20:\n";
+
+my $H1  = extract_helmert_lines($hlmr_file1);
+my $RMS1 = extract_helmert_rms($hlmr_file1);
+
+if (@$H1) {
+    print $out @$H1;
+} else {
+    print $out "No Helmert parameters found in $hlmr_file1\n";
+}
+
+print $out "RMS_OF_TRANSFORMATION = $RMS1\n\n";
+
+
+print $out "Helmert Parameters F${sol}, comparison to IGB20:\n";
+
+my $H2  = extract_helmert_lines($hlmr_file2);
+my $RMS2 = extract_helmert_rms($hlmr_file2);
+
+if (@$H2) {
+    print $out @$H2;
+} else {
+    print $out "No Helmert parameters found in $hlmr_file2\n";
+}
+
+print $out "RMS_OF_TRANSFORMATION = $RMS2\n\n";
+
+
+# --- ORBMISC Tables (kopiere die Orbit-Misclosure-Tabellen) --------------
+
+    if (@orbmisc_files) {
+        for my $orbf (sort @orbmisc_files) {
+            my $tbl = extract_orbmisc_table($orbf);
+            print $out "Oribt Misclosures from: $orbf\n";
+            if (@$tbl) {
+                print $out @$tbl;
+                print $out "\n";
+            } else {
+                print $out "  (No ORBMISC table found in file or 'EPOCH' header missing)\n\n";
+            }
+        }
+    } else {
+        print $out "ORBMISC: No ORBMISC_*.OUT files found in $dirOut\n\n";
+    }
+
+system("mv ${summary_file} ${fin_dest}");
+}

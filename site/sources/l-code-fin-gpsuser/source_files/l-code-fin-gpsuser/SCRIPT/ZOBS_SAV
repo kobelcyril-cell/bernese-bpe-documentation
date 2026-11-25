@@ -1,0 +1,148 @@
+package OBS_SAV;
+@ISA = ("RUNBPE");
+# ==========================================================================
+#
+# Name    :  OBS_SAV
+#
+# Purpose :  Save the observation file into an archive
+#
+# Programs:
+#
+# Author  :  R. Dach
+#
+# Created :  06-Dec-2007
+# Last mod.: 07-Feb-2011
+#
+# Changes :  22-Jul-2008 PS/RD: prepare for reprocesing
+#            25-Nov-2008 SL: $rnxTar = ""
+#            19-Jan-2011 PS: added obstar
+#            07-Feb-2011 RD: check completeness of the archive wrt. CLB
+#            30-Jul-2020 ST: Add use igs_device.
+#            11-Apr-2022 AV/ST: Correct SUBPID to SUB_PID
+#
+# ==========================================================================
+
+use strict;
+use File::Basename qw(dirname basename);
+use lib "$ENV{AUTO}";
+use gpsutil qw(msg2key);
+use igs_device;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+# --------------------------------------------------------------------------
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,  $ssss, $yyyy, $yy,
+      $camp_pth, $campaign, $obstar, $pcfnam, $v_sav,
+      ${PTH_BPELOG},${TASKID},${YEAR},${SESSION},${PID},${SUBPID},${EXT_BPELOG},
+      $dirCzh,  $dirCzo,  $dirPzh,  $dirPzo,  $dirRxo,
+      $extCzh,  $extCzo,  $extPzh,  $extPzo,  $extRxo) =
+     $bpe->getKeys(
+      '$YD+0','$S+0','$Y+0','$Y',
+      'CAMP_PTH','CAMPAIGN','V_OBSTAR','PCFFIL','V_SAV',
+      'PTH_BPELOG','TASKID','YEAR','SESSION','PID','SUB_PID','EXT_BPELOG',
+      'DIR_CZH','DIR_CZO','DIR_PZH','DIR_PZO','DIR_RXO',
+      'EXT_CZH','EXT_CZO','EXT_PZH','EXT_PZO','EXT_RXO');
+
+  my $repro = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+# Define the directories for final processing (default)
+  my $obsTar = "$CDIR_DATA/OBS/$obstar$yyddd.tar.gz";
+  my $rnxTar = "";
+
+# Change paths for a reprocessing
+# -------------------------------
+  if ($repro) {
+
+    $obsTar = "$PATH_SAV$CAMP_SAVREP/$yyyy/OBS/$obstar$yyddd.tar.gz";
+###    $rnxTar = "$PATH_SAV$CAMP_SAVREP/$yyyy/OBS/RNX$yyddd.tar.gz";
+    $rnxTar = "";
+  }
+
+# Saving not allowed
+# ------------------
+  if ( $v_sav ne "Y" ) {
+    prtMess($bpe,"FILES NOT SAVED");
+    $obsTar = "";
+    $rnxTar = "";
+  }
+
+# Archive observation files
+# -------------------------
+  if ($obsTar ne "") {
+    &check_dir(&dirname($obsTar));
+
+    # Create the archives
+    system ("tar -cvf - ${dirCzh}????$ssss.$extCzh " .
+                       "${dirCzo}????$ssss.$extCzo " .
+                       "${dirPzh}????$ssss.$extPzh " .
+                       "${dirPzo}????$ssss.$extPzo | gzip -c > $obsTar");
+
+    # Check the content of the archive (reference are the CLB-files)
+    my %bslLst = ();
+    open (TAR,"tar -tvzf $obsTar |");
+    while (<TAR>) {
+      my $name = &basename((split())[-1]);
+      if ($name =~ /$extCzh/ ) {
+        $bslLst{substr($name,0,8)}{CZH_TAR} = (split())[2];
+        $bslLst{substr($name,0,8)}{CZH_FIL} = (stat("${dirCzh}/$name"))[7];
+      } elsif ($name =~ /$extCzo/ ) {
+        $bslLst{substr($name,0,8)}{CZO_TAR} = (split())[2];
+        $bslLst{substr($name,0,8)}{CZO_FIL} = (stat("${dirCzo}/$name"))[7];
+      } elsif ($name =~ /$extPzh/ ) {
+        $bslLst{substr($name,0,8)}{PZH_TAR} = (split())[2];
+        $bslLst{substr($name,0,8)}{PZH_FIL} = (stat("${dirPzh}/$name"))[7];
+      } else {
+        $bslLst{substr($name,0,8)}{PZO_TAR} = (split())[2];
+        $bslLst{substr($name,0,8)}{PZO_FIL} = (stat("${dirPzo}/$name"))[7];
+      }
+    }
+    close TAR;
+
+    my $iErr = 0;
+    foreach my $bsl (keys %bslLst) {
+      unless ( defined $bslLst{$bsl}{CZH_TAR} &&
+               defined $bslLst{$bsl}{CZH_FIL} &&
+               defined $bslLst{$bsl}{CZO_TAR} &&
+               defined $bslLst{$bsl}{CZO_FIL} &&
+               defined $bslLst{$bsl}{PZH_TAR} &&
+               defined $bslLst{$bsl}{PZH_FIL} &&
+               defined $bslLst{$bsl}{PZO_TAR} &&
+               defined $bslLst{$bsl}{PZO_FIL} &&
+               $bslLst{$bsl}{CZH_TAR} == $bslLst{$bsl}{CZH_FIL} &&
+               $bslLst{$bsl}{CZO_TAR} == $bslLst{$bsl}{CZO_FIL} &&
+               $bslLst{$bsl}{PZH_TAR} == $bslLst{$bsl}{PZH_FIL} &&
+               $bslLst{$bsl}{PZO_TAR} == $bslLst{$bsl}{PZO_FIL} ) {
+        my $txt = "ZOBS_SAV ($pcfnam}: check consistency for $bsl\n";
+        $txt .= "size (file/tar) - ";
+        $txt .= "CZH ($bslLst{$bsl}{CZH_FIL}/$bslLst{$bsl}{CZH_TAR}) ";
+        $txt .= "CZO ($bslLst{$bsl}{CZO_FIL}/$bslLst{$bsl}{CZO_TAR}) ";
+        $txt .= "PZH ($bslLst{$bsl}{PZH_FIL}/$bslLst{$bsl}{PZH_TAR}) ";
+        $txt .= "PZO ($bslLst{$bsl}{PZO_FIL}/$bslLst{$bsl}{PZO_TAR})";
+        print "$txt\n";
+        $iErr++;
+        &msg2key("MSC",$txt,"OBS_SAV: check consistency for $bsl") if $iErr < 5;
+        if (${SUBPID} eq "") { ${SUBPID} = "000" }
+        my $logFil = "${PTH_BPELOG}/${TASKID}${YEAR}${SESSION}_${PID}_${SUBPID}.${EXT_BPELOG}";
+        &msg2key("MSC","more messages, see $logFil","OBS_SAV: check consistency") if $iErr == 5;
+      }
+    }
+  }
+
+# Archive RINEX files
+# -------------------
+  if ($rnxTar ne "") {
+    &check_dir(&dirname($rnxTar));
+    my @rnx = glob("$dirRxo/????$ssss.$extRxo");
+    map { docompress ($_) } @rnx;
+    system("tar -cvf - $dirRxo/????$ssss.${yy}D | gzip -c > $rnxTar");
+    unlink glob("$dirRxo/????$ssss.${yy}D");
+  }
+
+
+}

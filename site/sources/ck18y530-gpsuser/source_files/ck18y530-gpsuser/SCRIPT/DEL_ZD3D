@@ -1,0 +1,164 @@
+package DEL_ZD3D;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  DEL_ZD3D
+#
+# Purpose :  Delete ZD-related result files, only if V_DEL=Y.
+#
+# PARAMs  :  DEL
+#
+# Author  :  C. Kobel
+# Created :  08-Dec-2025
+# Updated :
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+use File::Basename;
+use POSIX qw(strftime);
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  # ---------------------- Parameter -----------------------------------------
+  my (
+    $dirOut, $yyyy, $ssss, $yyssss, $yyssssm1, $yyssssp1, $yyddd, $CLEAN, $V_T ,$V_Z, $V_K
+  ) = $bpe->getKeys('DIR_OUT', '$Y+0', '$S+0', '$YSS+0', '$YSS-1', '$YSS+1', '$YD+0', 'V_DEL','V_T', 'V_Z', 'V_K');
+
+  unless (defined $CLEAN && $CLEAN eq 'Y') {
+    print "CLEAN variable not set to 'Y'. Nothing will be deleted.\n";
+    return;
+  }
+
+  # ---------------------- Directories ---------------------------------------
+  my $dirSta = "${dirOut}../STA";
+  my $dirOrb = "${dirOut}../ORB";
+  my $dirSol = "${dirOut}../SOL";
+  my $tag    = $yyssss;
+
+  print "------------------------------------------------------------\n";
+  print "DEL_ZD3D started for $tag\n";
+  print "------------------------------------------------------------\n";
+
+  # ---------------------- Define files to delete ----------------------------
+
+  my @out_patterns = (
+     "COOVEL.L??",
+     "${V_T}${ssss}00?.CLK",
+     "${V_T}_${yyssss}00?.OUT",
+     "${V_T}S${yyssss}.OUT",
+     "ORBGEN.L??",
+     "POLUPD.L??",
+  );
+
+  my @sta_patterns = (
+    "FIN${yyddd}.CRD",
+    "FIN${yyddd}.FIX",
+    "FIN${yyddd}.VEL",
+  );
+
+  my @orb_patterns = (
+    "${V_K}_${yyssssm1}.STD",
+    "${V_K}_${yyssssp1}.STD",
+    "${V_K}_${yyssss}.STD",
+    "${V_K}_${yyssssm1}.RPR",
+    "${V_K}_${yyssssp1}.RPR",
+    "${V_K}_${yyssss}.RPR",
+    "002${tag}.ELE",
+    "003${tag}.ELE",
+    "004${tag}.ELE",
+    "005${tag}.ELE",
+    "006${tag}.ELE",
+    "007${tag}.ELE",
+    "008${tag}.ELE",
+    "002${yyssssm1}.ELE",
+    "003${yyssssm1}.ELE",
+    "004${yyssssm1}.ELE",
+    "005${yyssssm1}.ELE",
+    "006${yyssssm1}.ELE",
+    "007${yyssssm1}.ELE",
+    "008${yyssssm1}.ELE",
+    "002${yyssssp1}.ELE",
+    "003${yyssssp1}.ELE",
+    "004${yyssssp1}.ELE",
+    "005${yyssssp1}.ELE",
+    "006${yyssssp1}.ELE",
+    "007${yyssssp1}.ELE",
+    "008${yyssssp1}.ELE",
+    "FIN${yyddd}.CLK",
+    "FIN${yyddd}.ERP",
+    "${V_T}${ssss}???.CLK",
+  );
+
+  my @sol_patterns = (
+    "${V_Z}0?${yyssss}00?.NQ0",
+    "${V_Z}99${yyssssm1}.NQ0",
+    "${V_Z}99${yyssssp1}.NQ0",
+  );
+
+
+  # ---------------------- Delete Files --------------------------------------
+  my $deleted = 0;
+
+  foreach my $pattern (@out_patterns) {
+    foreach my $file (glob("${dirOut}${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@sta_patterns) {
+    foreach my $file (glob("${dirSta}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@orb_patterns) {
+    foreach my $file (glob("${dirOrb}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@sol_patterns) {
+    foreach my $file (glob("${dirSol}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  # ---------------------- Delete Files in BPE directory ----------------------
+  my $dirBpe = "${dirOut}../BPE";
+  my $bpe_pattern = "*ZD3D*${tag}*";
+
+  foreach my $file (glob("${dirBpe}/${bpe_pattern}")) {
+    # Überspringe die beiden Dateien, die behalten werden sollen
+    next if ($file =~ /ZD3D${tag}_030_000\.LOG$/);
+    next if ($file =~ /ZD3D${tag}_030_000\.PRT$/);
+    
+    next if ($file =~ /ZD3D${tag}${tag}_030_000\.LOG$/);
+    next if ($file =~ /ZD3D${tag}${tag}_030_000\.PRT$/);
+    
+    next if ($file =~ /ZD3D_R${tag}_030_000\.LOG$/);
+    next if ($file =~ /ZD3D_R${tag}_030_000\.PRT$/);
+    if (-e $file) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  # ---------------------- Summary -------------------------------------------
+  if ($deleted == 0) {
+    print "No files found for $tag.\n";
+  } else {
+    print "------------------------------------------------------------\n";
+    print "Deleted $deleted files for $tag.\n";
+    print "------------------------------------------------------------\n";
+  }
+
+  return;
+}
+
+1;
+# ============================================================================

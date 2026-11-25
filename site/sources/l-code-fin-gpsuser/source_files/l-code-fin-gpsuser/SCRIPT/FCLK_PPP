@@ -1,0 +1,222 @@
+package FCLK_PPP;
+@ISA = ("RUNBPE");
+# ==============================================================================
+#
+# Name    :  FCLK_PPP
+#
+# Purpose :  Copy required files from PPP
+#
+# PARAMs  :
+#
+# Author  :  A. Villiger
+#
+# Created :  12-Oct-2016
+#
+# Changes :  13-Feb-2017 AV: Copy BIA file from PPP-solution
+#            12-Oct-2017 LP: Exceptional deletion of bad observation files
+#            03-Aug-2018 AV: Change a priori clock from V_E to V_H
+#            12-Aug-2019 AV: Unlink bsw observation files
+#            29-Sep-2020 AV: Add unlink list from repro3
+#            07-Sep-2021 ST: Exclusions for ANKR
+#            07-Apr-2022 ST: Remove DIR_OXO and EXT_OXO.
+#            27-Mar-2023 EB: Apply OBSXTR to detect bad statsions
+#            06-Aug-2025 SS/CK: Added exclusion for ULAB2130
+#
+# ==============================================================================
+
+use strict;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my($yyssss,$yyddd,$ddd,$dddm2,$yyyy,$yy,$ssss,
+     $crdInf,$psdInf,$v_e,$v_h,$v_i,$v_v,$v_o,$v_u,$v_t,$v_a,
+     $repro,
+     $dirCrd  , $dirOut , $dirRxo , $dirClk , $dirPzh , $dirObs ,
+     $dirOsb  , $dirBia , $dirPsd,
+     $extCrd  , $extOut , $extRxo , $extClk , $extPzh , $extObs ,
+     $extOsb  , $extBia , $extPsd
+  ) =
+  $bpe->getKeys(
+     '$YSS+0','$YD+0','$+0','$-2','$Y+0','$Y','$S+0',
+     'V_CRDINF','V_PSDINF','V_E','V_H','V_I','V_V','V_O','V_U','V_T','V_A',
+     'V_REPRO',
+     'DIR_CRD','DIR_OUT','DIR_RXO','DIR_CLK','DIR_PZH','DIR_CLB',
+     'DIR_OSB','DIR_BIA','DIR_PSD',
+     'EXT_CRD','EXT_OUT','EXT_RXO','EXT_CLK','EXT_PZH','EXT_CLB',
+     'EXT_OSB','EXT_BIA','EXT_PSD'
+  );
+
+# Get PPP clean observation files
+# -------------------------------
+  unlink glob "$dirPzh/????${ssss}.???";
+  system("$ENV{AUTO}/put_pppdata.com $yy $ddd -o $dirPzh ALL");
+
+# Run OBSXTR to remove stations with few observations
+# ---------------------------------------------------
+  my $PGMNAM = "OBSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+  
+  my $delList = $bpe->getKey("$ENV{U}/INP/OBSXTR.INP",'DELFILE');
+  if (-s $delList) {
+    open (DEL,$delList);
+    while (<DEL>) {
+      chomp;
+      while ( /^ / ) { s/^ // }  # Remove leading blanks
+# delete also code header and obs files (not pnly phase)
+      $_=~s/\..../.*/; 
+      unlink (glob($_));
+      prtMess($bpe,"$_ deleted") }
+    close DEL;
+    appFile ("Files excluded from processing:",0,"$delList","$$bpe{SYSOUT}",1);
+    unlink $delList;
+  }
+
+
+
+
+# Get rid of bad stations
+# -----------------------
+  # Multi-year
+  unlink glob "${dirPzh}/BILI???0.???" if $yyyy <= 2007  ; # Missing antenna calibrations
+  # 2000
+  unlink glob "${dirPzh}/ANKR2820.???" if $yyyy eq "2000";
+  unlink glob "${dirPzh}/ANKR3070.???" if $yyyy eq "2000";
+  unlink glob "${dirPzh}/BRMU1480.???" if $yyyy eq "2000";
+  unlink glob "${dirPzh}/BRMU1500.???" if $yyyy eq "2000";
+  unlink glob "${dirPzh}/BZRG2380.???" if $yyyy eq "2000";
+  unlink glob "${dirPzh}/BZRG2770.???" if $yyyy eq "2000";
+  unlink glob "${dirPzh}/BZRG3230.???" if $yyyy eq "2000";
+  # 2001
+  unlink glob "${dirPzh}/KELY0270.???" if $yyyy eq "2001";
+  unlink glob "${dirPzh}/MDVO0800.???" if $yyyy eq "2001";
+  unlink glob "${dirPzh}/MDVO0820.???" if $yyyy eq "2001";
+  unlink glob "${dirPzh}/EISL2330.???" if $yyyy eq "2001";
+  unlink glob "${dirPzh}/POL22810.???" if $yyyy eq "2001";
+  unlink glob "${dirPzh}/EISL2720.???" if $yyyy eq "2001";
+  # 2002
+  unlink glob "${dirPzh}/EISL0110.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/EISL0140.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/MDVO0620.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/MDVO0640.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/MDVO1730.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/MDVO1750.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/TASH1970.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/MDVJ2250.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/MDVO2330.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/MDVO2350.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/GRAC2560.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/GRAC2600.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/GRAC2610.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/GRAC2620.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/GRAC2630.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/GRAC2640.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/GRAC2650.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/MDVO2970.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/HARB3240.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/HARB3250.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/HARB3260.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/HARB3330.???" if $yyyy eq "2002";
+  unlink glob "${dirPzh}/HARB3370.???" if $yyyy eq "2002";
+  # 2003
+  unlink glob "${dirPzh}/MDVO0190.???" if $yyyy eq "2003";
+  # 2004
+  unlink glob "${dirPzh}/AZGB0680.???" if $yyyy eq "2004";
+  unlink glob "${dirPzh}/LAUT2340.???" if $yyyy eq "2004";
+  unlink glob "${dirPzh}/LAUT2360.???" if $yyyy eq "2004";
+  # 2005
+  # 2006
+  unlink glob "${dirPzh}/PDEL2560.???" if $yyyy eq "2006";
+  unlink glob "${dirPzh}/TID13330.???" if $yyyy eq "2006";
+  # 2007
+  # 2008
+  unlink glob "${dirPzh}/BILI???0.???" if $yyyy eq "2008"; # Missing antenna calibrations
+  unlink glob "${dirPzh}/THTI0890.???" if $yyyy eq "2008"; # Missing antenna calibrations
+  # 2009
+  # 2010
+  # 2011
+  # 2012
+  unlink glob "${dirPzh}/TAH13600.???" if $yyyy eq "2012"; # Issue with PHABIA
+  # 2013
+  # 2014
+  # 2015
+  unlink glob "${dirPzh}/MAG00480.???" if $yyyy eq "2015"; # Missing antenna calibrations
+  unlink glob "${dirPzh}/WAB13560.???" if $yyyy eq "2015";
+  # 2016
+  unlink glob "${dirPzh}/PBRI1910.???" if $yyyy eq "2016";
+  unlink glob "${dirPzh}/NOVM2480.???" if $yyyy eq "2016";
+  # 2017
+  unlink glob "${dirPzh}/GMSD2490.???" if $yyyy eq "2017";
+  # 2018
+  # 2019
+  unlink glob "${dirPzh}/NIUM1150.???" if $yyyy eq "2019";
+  # 2020
+  # 2021
+  # 2022
+  unlink glob "${dirPzh}/ANKR${ddd}0.???" if $yyyy eq "2021" && $ddd >= 152 && $ddd <= 156;
+  unlink glob "${dirPzh}/ANKR0140.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/ANKR0190.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/ANKR0200.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/ANKR0240.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/ANKR0260.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/ANKR0270.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/ANKR0280.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/ANKR0290.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/ANKR0300.???" if $yyyy eq "2022";
+  unlink glob "${dirPzh}/RBAY3230.???" if $yyyy eq "2022";
+  # 2023
+  unlink glob "${dirPzh}/KOUR0890.???" if $yyyy eq "2023";
+  # 2025
+  unlink glob "${dirPzh}/ULAB2130.???" if $yyyy eq "2025";
+
+# Get PPP coordinates
+# -------------------
+  my $pppCrd;
+  $pppCrd = "$dirCrd/PPP${yyssss}.$extCrd";
+  copyfile("${PATH_SAV}${CAMP_SAVPPP}/${yyyy}/STA/PPP$yyssss.CRD",$pppCrd);
+
+# Delete bad observation files
+# ----------------------------
+  my @STALST = ();
+  if ($yy eq "17") {
+    if (($ddd >= 279)&&($ddd <= 285)) { push @STALST, qw(GMSD);}
+  }
+  if ($yy eq "18") {
+    if (($ddd >= 324)&&($ddd <= 324)) { push @STALST, qw(NOVM);}
+  }
+  if ($yy eq "19") {
+    if (($ddd >= 110)&&($ddd <= 120)) { push @STALST, qw(KIT3 TXES);}
+  }
+  foreach my $rnx (@STALST){
+    unlink glob "${dirPzh}${rnx}${ssss}.*";
+  }
+
+# Get PPP OSB
+# -----------
+  my $pppOsb = "$dirOsb/${v_t}S${yyssss}.$extOsb";
+  my $pppBia = "$dirBia/${v_t}S${yyssss}.$extBia";
+  my $osbFil = "${PATH_SAV}${CAMP_SAVPPP}/${yyyy}/ORB/CBS$yyssss.$extOsb";
+  if( -e $osbFil) {
+    copyfile("${PATH_SAV}${CAMP_SAVPPP}/${yyyy}/ORB/CBS$yyssss.$extOsb",$pppOsb);
+    copyfile("${PATH_SAV}${CAMP_SAVPPP}/${yyyy}/ORB/CBS$yyssss.$extBia",$pppBia);
+  }else{
+      die "IGS-Bias file not available";
+    copyfile("${PATH_SAV}${CAMP_SAVPPP}/${yyyy}/ORB/ISB$yyssss.$extOsb",$pppOsb);
+  }
+
+
+# Get RCLK clocks
+# ---------------
+  my $pppClk = "$dirClk/${v_e}_${yyssss}.$extClk";
+  copyfile("$dirClk/${v_a}_$yyssss.$extClk",$pppClk);
+  $pppClk = "$dirClk/${v_h}_${yyssss}.$extClk";
+  copyfile("$dirClk/${v_a}_$yyssss.$extClk",$pppClk);
+}

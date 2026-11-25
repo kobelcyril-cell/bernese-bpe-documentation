@@ -1,0 +1,63 @@
+package CODSPPAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  CODSPPAP
+#
+# Purpose :  Prepare parallel CODSPP run
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 23-Jul-2008
+#
+# Changes :  26-Jan-2005 mm: new initPar call (w/o tmpFil)
+#            09-Feb-2005 mm: Old date variables removed
+#            10-Jul-2008 rd: temp files contain session
+#            23-Jul-2008 rd: prepare for reprocessing
+#            11-Oct-2016 as/av: use v_clu,v_nclu if avalible
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyssss,$ssss,$ddd,$dm1,$dm2,
+      $numFil,$numClu,
+      $obsDir,$bpeDir,$outDir) = 
+      $bpe->getKeys(
+      '$YSS+0','$S+0','$+0','$-1','$-2',
+      'V_CLU','V_NCLU',
+      'DIR_CZH','DIR_BPEPRT','DIR_OUT');
+
+
+# Define directories and file names
+# ---------------------------------
+  my $bpeFil = "${bpeDir}SPP${yyssss}";
+  my @obsFil = glob("${obsDir}????${ssss}.CZH");
+
+
+# Remove output files, BPE files
+# ------------------------------
+  unlink(glob("${bpeFil}???.BPE"));
+  unlink(glob("${outDir}CD${dm2}???.OUT"));
+  unlink(glob("${outDir}CD${dm1}???.OUT"));
+  unlink(glob("${outDir}CD${ddd}???.OUT"));
+  unlink(glob("${outDir}CD${ssss}???.OUT"));
+
+
+# Initialize parallel run
+# -----------------------
+  $numFil = 10 unless $numFil;
+  $numClu = 0 unless $numClu;
+  my $minClu = 5;
+  initPar_Cl($bpe,$bpeFil,@obsFil,$numClu,$numFil,$minClu);
+
+
+}

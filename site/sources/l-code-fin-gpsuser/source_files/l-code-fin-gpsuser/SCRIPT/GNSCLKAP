@@ -1,0 +1,150 @@
+package GNSCLKAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GNSCLKAP
+#
+# Purpose :
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  05-Apr-2004
+#
+# Changes :  31-Jan-2005 mm: New initPar call (w/o tmpFil)
+#            23-Oct-2014 SS: Do no longer consider GLONASS.LST
+#            31-May-2016 SS: Updated due to OSB implementation
+#            12-Jul-2016 AV: Use PARAM2 and PARAM3 for clustering
+#
+# ============================================================================
+use lib "$ENV{AUTO}";
+use lib $ENV{BPE};
+use bpe_util;
+use gpsutil;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd   , $ssss    , $ddd     , $clu     , $v_c,
+      $dirRes  , $dirNeq  , $dirRxc  , $dirOut  , $dirOsb  , $dirCzh  , $dirBpe,
+      $extRes  , $extNeq  , $extRxc  , $extOut  , $extOsb  , $extCzh            ) =
+  $bpe->getKeys
+     ('$YD+0'  ,'$S+0'   , '$+0'    , 'V_CLU'  , 'V_E',
+      'DIR_RES', 'DIR_NEQ', 'DIR_RXC', 'DIR_OUT', 'DIR_OSB', 'DIR_CZH', 'DIR_BPEPRT',
+      'EXT_RES', 'EXT_NEQ', 'EXT_RXC', 'EXT_OUT', 'EXT_OSB', 'EXT_CZH'               );
+
+# Ger cluster priority
+# PARAM2 : System
+# PARAM3 : Obervable
+# --------------------
+  my $param2  = $$bpe{PARAM2};
+  my $param3  = $$bpe{PARAM3};
+
+  $param2="G";
+  $param3="C2C";
+
+# Delete old files (OUT, RES, NEQ, EDT)
+# -------------------------------------
+  unlink glob("${dirNeq}CLK0??.${extNeq}");
+  unlink glob("${dirOut}CLK0??.${extOut}");
+  unlink glob("${dirRes}CLK0??.${extRes}");
+  unlink glob("${dirRxc}CLK0??.${extRxc}");
+  unlink glob("${dirOsb}CLK0??.${extOsb}");
+  unlink glob("${dirNeq}CL_0??.${extNeq}");
+  unlink glob("${dirOut}CL_0??.${extOut}");
+  unlink glob("${dirOut}C__0??.${extOut}");
+
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}GNS${ddd}";
+  my @czhFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+
+# Write GLONASS files to cluster 000
+# ----------------------------------
+  my (@sta,@gloSta,@gpsSta);
+  my $gloFil = "${dirOut}../MSC/GLONASS.LST";
+  open (GLO,$gloFil);
+  push(@sta,<GLO>);
+  chomp(@sta);
+  close GLO;
+
+  foreach (@sta) {
+    print $_;
+    print "\n";
+  }
+
+  @sta = ();
+
+  foreach (@czhFil) {
+#  print substr(basename($_),0,4);
+    if (lindex(substr(basename($_),0,4),@sta)!=-1) {
+      push(@gloSta,$_) }
+    else {
+      push(@gpsSta,$_) }
+  }
+
+# Get station / observable list
+# -----------------------------
+  my $osbLst = "${dirOsb}${v_c}S${yyddd}.${extOsb}";
+  print "$osbLst\n";
+  my %staTyp;
+  if ( -f $osbLst && $param2 ne '') {
+    open INP, $osbLst;
+    foreach (<INP>){
+      chomp;
+      if($_=~/^OSB  (\w)...  (\w..)  (\w\w\w\w)................  (C..)/){
+        if($param3 ne ''){ $staTyp{$3}{$1}{$4} = 1}else{ $staTyp{$3}{$2} = 1 }
+      }
+    }
+    close INP;
+
+    my @priSta;
+    my @secSta;
+
+    foreach (@gpsSta){
+      my $sta = substr(basename($_),0,4);
+#     Search of a bad binary by bisection...
+#      next if ($sta =~ m/^[DEFGH]/); -> ok
+#      next if ($sta =~ m/^[GH]/); -> error
+#      next if ($sta =~ m/^[DEF]/); -> error, more than one erronous binary?
+#      next if ($sta =~ m/^[DEFG]/); -> error, at least one in H
+#      next if ($sta =~ m/^[DEFH]/); -> error, at least one also in G
+#      next if ($sta =~ m/^[DEGH]/); -> error, also in F ...?
+#      next if ($sta =~ m/^[HIJK]/); -> also ok ...?
+#      next if ($sta =~ m/^[HI]/); -> error
+#      next if ($sta =~ m/^[JK]/); -> ok
+#      next if ($sta =~ m/^[J]/); -> ok
+#      next if ($sta =~ m/^JOG2/);
+
+      my $pass=0;
+      if($param3 ne ''){
+        $pass = 1 if exists $staTyp{$sta}{$param2}{$param3} ;
+      }elsif($param2 ne ''){
+        $pass = 1 if exists $staTyp{$sta}{$param2};
+      }
+      if($pass == 1){
+        push @priSta, $_;
+        print  "PRIORITY: $_\n";
+      }else{
+        push @secSta, $_;
+      }
+    }
+
+    @gpsSta = @priSta;
+    map {push @gpsSta, $_} @secSta;
+  }
+
+
+  initPar_Cl($bpe,$bpeFil,@gpsSta,0,$clu,0);
+
+  open(GLO,">${bpeFil}000.BPE");
+  foreach (@gloSta) { print GLO "$_\n" }
+  close GLO;
+##  `echo ${bpeFil}000.BPE >> $$bpe{CONTROL_FILE}`;
+
+}

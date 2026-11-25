@@ -1,0 +1,112 @@
+package TIMCLK_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMCLK_P
+#
+# Purpose :  Parallel run of GPSEST using code and phase data
+#            $(SOL)_ : Deleted OSB parameters
+#            $(SOL)B : OSB parameters kept
+#
+# Programs:  GPSEST
+#
+# Author  :  A. Villiger
+# Created :  21-Oct-2016
+#
+# Changes :  04-Mar-2017 AV: Invert for debugging
+#            09-Nov-2017 RD: Add check for the TRP-flag
+#            23-May-2018 ss: Enabled ZERO_AR if IARyyssss.FLG
+#            04-Jun-2018 ss: Consider PHAyyssss.OSB
+#            07-Jun-2018 ss: Checked V_IAR
+#            10-Jul-2021 LP: Add $v_tropMod for VMF3
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($param1, $param2,
+      $v_gnss, $v_iar, $yyddd, $debug, $v_tropMod,
+      $dirOut) =
+  $bpe->getKeys('PARAM1','PARAM2',
+                'V_GNSS','V_IAR','$YD+0','V_DEBUG', 'V_TRPMOD',
+                'DIR_OUT');
+
+# Initialize $D4 and $CCC variable with subpid
+# --------------------------------------------
+  setUserVar($bpe,"D4",$param1,"SOL",$param2);
+
+# Select GNSS, if desired
+# -----------------------
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
+
+# GMF/VMF troposphere model switch
+# --------------------------------
+  my $tropMod = 'VMF'; # default
+  $v_tropMod  = $v_tropMod.'    ';
+  if (substr($v_tropMod,3,1) ne ' ') {$tropMod = substr($v_tropMod,0,4);}
+  else                               {$tropMod = substr($v_tropMod,0,3);}
+
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+  my $flgLin = -e $flgFil ? `cat $flgFil` : $tropMod;
+  chomp($flgLin);
+  prtMess($bpe,"GMF/VMF troposphere model switch: $flgLin");
+
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_".$flgLin);
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_".$flgLin);
+  if     ($flgLin =~ /VMF/) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",'VMF$YD+0');}
+  elsif (($flgLin =~ /GMF/)||($flgLin =~ /GPT/)) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');}
+  else                     {die "*** Invalid TROPO model: $flgLin \n";}
+
+
+# Enable ZERO_AR if indicated
+# ---------------------------
+  my $iarFlg = "${dirOut}../MSC/IAR${yyddd}0.FLG";
+  if (-e $iarFlg && $v_iar ne "N") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DIFLVL","ZERO_AR");
+##    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP",'IAR$YSS+0');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP",'PHA$YSS+0');
+##    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP","");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","1");
+    prtMess($bpe,"ZERO_AR ENABLED");
+  } else {
+    prtMess($bpe,"ZERO_AR DISABLED");
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Remove Receiver Clocks
+# ----------------------
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT",'$(SOL)B$S+0$(D4)');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT",'$(SOL)B$S+0$(D4)');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBINP","");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_ELIM","NO");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCBS_ELIM","NO");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Remove GLONASS biases
+# ---------------------
+# $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","INPFILE",'$(SOL)A$S+0$(D4)');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT",'$(SOL)_$S+0$(D4)');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT",'$(SOL)_$S+0$(D4)');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBINP",'$TS$YSS+0');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_ELIM","DELETE");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCBS_ELIM","DELETE");
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}
+

@@ -1,0 +1,28 @@
+package TROTRO;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TROTRO
+#
+# Purpose :  Remove non-IGS stations from code tro sinex file
+#
+# Programs:  TROTRO
+#
+# Author  :  R. Dach
+# Created :  06-Dec-2007
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Run program
+# -----------
+  my $PGMNAM = "TROTRO";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

@@ -1,0 +1,43 @@
+package CMP_LAPACK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CMP_LAPACK
+#
+# Purpose :  Compare solution computed using LAPACK
+#
+# PARAMs  :
+#
+# Author  :  C. Kobel
+# Created :  15-Dec-2025
+#
+# Changes :  
+#
+# ============================================================================
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my   ($yyssss,$yyddd ,$V_Z, $V_L,
+        $extErp,$dirErp,$extClk,$dirClk,$dirOut) =
+ $bpe->getKeys(
+      '$YSS+0','$YD+0','V_Z','V_L',
+      'EXT_ERP','DIR_ERP','EXT_CLK','DIR_CLK','DIR_OUT'
+      );
+
+    my $matlab_dir = "/storage/homefs/ck18y530/CMP_LAPACK";
+    my $stddif     = "${dirOut}/STDDIF_${V_Z}${V_L}${yyssss}.PLT";
+    my $compar     = "${dirOut}/COMPAR2_${V_Z}${V_L}${yyssss}.PLT";
+    my $erp1       = "${dirErp}/${V_Z}_${yyssss}.${extErp}";
+    my $erp2       = "${dirErp}/${V_Z}${V_L}${yyssss}.${extErp}";
+    my $clk1       = "${dirClk}/${V_Z}S${yyssss}.${extClk}";
+    my $clk2       = "${dirClk}/${V_Z}${V_L}${yyssss}.${extClk}";
+    my $outf       = "${dirOut}../MSC/MSC_${yyddd}/CMP_LAPACK_${yyddd}";
+    my $ml         = "${dirOut}../MSC/CMP_LAPACK_TMP";
+
+
+    system(qq{matlab -nodesktop -nojvm -r "cd $matlab_dir;try run_all_comparisons('$stddif','$compar','$erp1','$erp2','$clk1','$clk2','$outf');catch;end;quit;" >> $ml });
+
+}

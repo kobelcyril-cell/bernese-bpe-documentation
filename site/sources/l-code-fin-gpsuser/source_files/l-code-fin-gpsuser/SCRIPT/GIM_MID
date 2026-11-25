@@ -1,0 +1,287 @@
+package GIM_MID;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GIM_MID
+#
+# Purpose :  Compute middle-day GIM solutions based on REPRO_ION results
+#
+# Programs:
+#
+# PARAMs  :
+#
+# Remark  :
+#
+# Author  :  S. Schaer
+# Created :  20-Jul-2017
+#
+# Changes :  21-Jul-2017 SS: Considered skip file
+#            21-Jul-2017 SS: Added INXFIT and BIMINX
+#            23-Jul-2017 SS: Redefined $dirSav and $dirRep
+#            24-Jul-2017 SS: Move .BIA file into savedisk ORB subdirectory
+#            25-Jul-2017 SS: Considered $filNavY (and minus-plus year)
+#            25-Jul-2017 SS: Handle case with existing flag file
+#            26-Jul-2017 SS: Improved skip procedure
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yydddm1, $yydddp1, $yyyy, $yyyym1, $yyyyp1,
+      $ssss, $mjd, $mjdm1, $mjdp1, $yydddm2, $yydddp2,
+      $repro,
+      $pcfFil, $param1,
+      $dirOut, $extOut, $dirIon, $extIon, $dirNeq, $extNeq) =
+    $bpe->getKeys('$YD+0', '$YD-1', '$YD+1', '$Y+0', '$Y-1', '$Y+1',
+                  '$S+0', '$JD+0', '$JD-1', '$JD+1', '$YD-2', '$YD+2',
+                  'V_REPRO',
+                  'PCFFIL', 'PARAM1',
+                  'DIR_OUT', 'EXT_OUT', 'DIR_ION', 'EXT_ION', 'DIR_NEQ', 'EXT_NEQ');
+
+##  $param1 = $$bpe{"V_$param1"} if length($param1) == 1;
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $filFlg   = "${dirOut}../MSC/MID${yyddd}.FLG";
+  my $filFlgm1 = "${dirOut}../MSC/MID${yydddm1}.FLG";
+  my $filFlgp1 = "${dirOut}../MSC/MID${yydddp1}.FLG";
+  my $filFlgm2 = "${dirOut}../MSC/MID${yydddm2}.FLG";
+  my $filFlgp2 = "${dirOut}../MSC/MID${yydddp2}.FLG";
+
+  my $dirSav = "$PATH_SAV$CAMP_SAVIGS/";
+  my $dirRep = "${PATH_SAV}REPRO_ION/";
+
+  my $mjd0 = gps_date("-doy 0    -o %IJ");
+  my $mjdS = gps_date("-yd 16135 -o %IJ");
+
+  my $sol1d = "Z1";
+  my $sol3d = "Z3";
+
+  if (-e $filFlg) {
+    my $dif = (stat($filFlg))[9]-gps_date("-t -o %U");
+    print "DIF: $dif\n";
+    if ((stat($filFlg))[9]-gps_date("-t -o %U")<-7200) {
+      prtMess($bpe,"FLAG FILE REMOVED ($dif SEC AGE): $filFlg");
+      unlink($filFlg);
+    }
+  }
+  if (-e $filFlg) {
+    prtMess($bpe,"FLAG FILE FOUND AND WAITING 1 HOUR");
+    sleep (3600);
+  }
+  if (-e $filFlg) {
+    prtMess($bpe,"FLAG FILE FOUND AND WAITING 1 HOUR");
+    sleep (3600);
+    unlink($filFlg);
+  }
+
+  my $filSkp = "${dirRep}$yyyy/ATM/${sol3d}_${yyddd}.${extIon}";
+##  $filSkp = "${dirRep}$yyyy/ATM/${sol3d}_${yyddd}.${extIon}_";
+  prtMess($bpe,"SKIP FILE: $filSkp");
+  print "SKIP FILE: $filSkp\n";
+
+##  $filSkp = "${dirOut}../STA/SESSIONS.SES" if $yyddd eq "94143_";
+  $filSkp = "${dirOut}../STA/SESSIONS.SES" if $yyddd eq "02138_";
+##  $filSkp = "${dirOut}../STA/SESSIONS.SES" if $yyddd eq "09199_";
+  $filSkp = "${dirOut}../STA/SESSIONS.SES" if $yyddd eq "14198_";
+
+  unless (-s $filSkp) {
+    my ($inp,$out);
+    $inp = "${dirSav}$yyyy/ATM/${sol1d}_${yyddd}.${extIon}";
+    $inp = "${dirRep}$yyyy/ATM/${sol1d}_${yyddd}.${extIon}" if $mjd <= $mjdS;
+    $out = "${dirIon}${sol1d}_${yyddd}.${extIon}";
+    my $fil0 = $out;
+    if (-s $inp) {
+      copy($inp,$dirIon);
+      prtMess($bpe,"COPIED: $inp");
+    }
+    my ($inp,$out);
+    $inp = "${dirSav}$yyyy/ORB/${sol1d}S${yyddd}.OSB";
+    $inp = "${dirRep}$yyyy/ORB/${sol1d}S${yyddd}.OSB" if $mjd <= $mjdS;
+    $out = "${dirOut}../ORB/${sol1d}S${yyddd}.OSB";
+    my $fil4 = $out;
+    if (-s $inp) {
+      copy($inp,"${dirOut}../ORB/");
+      prtMess($bpe,"COPIED: $inp");
+    }
+    $inp = "${dirSav}$yyyym1/SOL/${sol1d}I${yydddm1}.${extNeq}.gz";
+    $inp = "${dirRep}$yyyym1/SOL/${sol1d}I${yydddm1}.${extNeq}.gz" if $mjdm1 <= $mjdS;
+    $out = "${dirNeq}${sol1d}I${yydddm1}.${extNeq}";
+    my $fil1 = $out;
+    sleep(10) if -e $out.".gz";
+    sleep(10) if -e $out;
+    if (-s $inp && !-e $filFlgm1 && !-e $filFlgm2) {
+      copy($inp,$dirNeq);
+      system("gunzip -d -f $out.gz");
+      prtMess($bpe,"COPIED: $inp");
+    }
+    $inp = "${dirSav}$yyyy/SOL/${sol1d}I${yyddd}.${extNeq}.gz";
+    $inp = "${dirRep}$yyyy/SOL/${sol1d}I${yyddd}.${extNeq}.gz" if $mjd <= $mjdS;
+    $out = "${dirNeq}${sol1d}I${yyddd}.${extNeq}";
+    my $fil2 = $out;
+    sleep(10) if -e $out.".gz";
+    sleep(10) if -e $out;
+    if (-s $inp && !-e $filFlgm1 && !-e $filFlgp1) {
+      copy($inp,$dirNeq);
+      system("gunzip -d -f $out.gz");
+      prtMess($bpe,"COPIED: $inp");
+    }
+    $inp = "${dirSav}$yyyyp1/SOL/${sol1d}I${yydddp1}.${extNeq}.gz";
+    $inp = "${dirRep}$yyyyp1/SOL/${sol1d}I${yydddp1}.${extNeq}.gz" if $mjdp1 <= $mjdS;
+    $out = "${dirNeq}${sol1d}I${yydddp1}.${extNeq}";
+    my $fil3 = $out;
+    sleep(10) if -e $out.".gz";
+    sleep(10) if -e $out;
+    if (-s $inp && !-e $filFlgp1 && !-e $filFlgp2) {
+      copy($inp,$dirNeq);
+      system("gunzip -d -f $out.gz");
+      prtMess($bpe,"COPIED: $inp");
+    }
+
+    `echo ' ' > $filFlg`;
+
+    setMinusPlus($bpe,-1,+1);
+    setMinusPlus($bpe,+0,+1) if $yyddd eq "94001";
+    $fil1 = $fil2            if $yyddd eq "94001";
+
+##    if (-s $fil0 && -s $fil1 && -s $fil2 && -s $fil3 && -s $fil4) {
+    if (-s $fil0 && -s $fil1 && -s $fil2 && -s $fil3) {
+      my $yy  = substr($yyddd,0,2);
+      my $ddd = substr($yyddd,2,3);
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TITLE","CODE'S GLOBAL IONOSPHERE MAPS FOR DAY $ddd, $yyyy");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SATELL","SAT_BIA_I20");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","COORD","CODE");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","IONOS",'$E_$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","IONOSRS",'$H_$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","IONEXRS",'$H_$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT",'$HI$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT",'$HI$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX",'$HI$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OCB_EXCP","1") if $yyddd eq "94001";
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","STADAT",'$YMD_STR-1');
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","ENDDAT",'$YMD_STR+1');
+
+# Run program
+# -----------
+      my $PGMNAM = "ADDNEQ2";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      $inp = "${dirIon}${sol3d}_${yyddd}.${extIon}";
+      system("$ENV{AUTO}/update_ion.com $inp $fil4") if -e $fil4;
+
+      $inp = "${dirIon}../ATM/${sol3d}_${yyddd}.INX";
+      system("$ENV{AUTO}/update_ion.com $inp $fil4") if -e $fil4;
+
+      my ($filIon,$val,$num,$fac,@val,$rms,@rms);
+      $filIon = "${dirIon}${sol3d}_${yyddd}.${extIon}";
+      @val = `grep '   0       0 ' $filIon | cut -c13-30`;
+      chomp(@val);
+      if (@val==25) {
+        $val = 0;
+        $num = 0;
+        foreach (@val) {
+          $num++;
+          $fac = 1;
+          $fac = 0.5 if $num==1 || $num==25;
+          $val = $val+$fac*$_;
+        }
+        $val = $val/$num;
+        $val3d = sprintf("%15.5f",$val);
+      }
+      @rms = `grep '   0       0 ' $filIon | cut -c31-41 | sort -n`;
+      chomp(@rms);
+      $rms3d = sprintf("%10.4f",$rms[12]);
+      $filIon = "${dirIon}${sol1d}_${yyddd}.${extIon}";
+      @val = `grep '   0       0 ' $filIon | cut -c13-30`;
+      chomp(@val);
+      if (@val==25) {
+        $val = 0;
+        $num = 0;
+        foreach (@val) {
+          $num++;
+          $fac = 1;
+          $fac = 0.5 if $num==1 || $num==25;
+          $val = $val+$fac*$_;
+        }
+        $val = $val/$num;
+        $val1d = sprintf("%15.5f",$val);
+      }
+      @rms = `grep '   0       0 ' $filIon | cut -c31-41 | sort -n`;
+      chomp(@rms);
+      $rms1d = sprintf("%10.4f",$rms[12]);
+      $dif = $val3d-$val1d;
+      $dif = sprintf("%15.5f",$dif);
+      $lin = "$mjd $yyddd $val1d $val3d $dif $rms1d $rms3d";
+      print "MEANTEC/DIFF: $lin\n";
+      prtMess($bpe,"MEANTEC/DIFF: $lin");
+      `echo '$lin' >> ${dirOut}MEANTEC_DIF.LST`;
+
+      my $filNav  = "${dirOut}../ORX/CGIM_MID.NAV";
+      my $filNavY = "${dirOut}../ORX/CGIM_MID_${yyyy}.NAV";
+      $filNav = $filNavY if -s $filNavY;
+      die "$filNav not found\n" unless -s $filNav;
+      $inp = $filNav;
+      $out = "${dirOut}../ORX/CGIM${ssss}_.${yy}N";
+      copy($inp,$out);
+
+      $PGMNAM = "INXFIT";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      unlink($out);
+      $inp = "${dirOut}../RAW/CGIM${ssss}.${yy}N";
+      $out = $filNav;
+##      $rms3d = 999.9 if $yyddd eq "09199";
+      copy($inp,$out) if $rms3d<1.0;
+      if (-s $filNavY && $rms3d<1.0) {
+        copy($inp,"${dirOut}../ORX/CGIM_MID_${yyyym1}.NAV") if $yyyym1 ne $yyyy;
+        copy($inp,"${dirOut}../ORX/CGIM_MID_${yyyyp1}.NAV") if $yyyyp1 ne $yyyy;
+      }
+
+      $PGMNAM = "BIMINX";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      move("${dirOut}${sol3d}I${yyddd}.${extOut}","$dirRep/$yyyy/OUT/");
+      move("${dirIon}${sol3d}_${yyddd}.${extIon}","$dirRep/$yyyy/ATM/");
+      move("${dirIon}${sol3d}_${yyddd}.INX","$dirRep/$yyyy/ATM/");
+      compress("$dirRep/$yyyy/ATM/${sol3d}_${yyddd}.INX");
+      move("${dirOut}../ORB/${sol3d}I${yyddd}.OSB","$dirRep/$yyyy/ORB/");
+      move("${dirOut}../ORB/${sol3d}I${yyddd}.BIA","$dirRep/$yyyy/ORB/");
+
+##      move("${dirOut}../RAW/CGIM${ssss}.${yy}N","$dirRep/$yyyy/RAW/");
+      move("${dirOut}../RAW/CGIM${ssss}.${yy}N","$dirRep/$yyyy/ATM/");
+##      move("${dirOut}../RAW/CGIM${ssss}.${yy}N","$dirRep/$yyyy/MSC/");
+      move("${dirIon}CKM${yyddd}.INX","$dirRep/$yyyy/ATM/");
+      compress("$dirRep/$yyyy/ATM/CKM${yyddd}.INX");
+    } else {
+      prtMess($bpe,"SKIPPED DUE TO MISSING INPUT FILE: $fil0") if !-e $fil0;
+      prtMess($bpe,"SKIPPED DUE TO MISSING INPUT FILE: $fil1") if !-e $fil1;
+      prtMess($bpe,"SKIPPED DUE TO MISSING INPUT FILE: $fil2") if !-e $fil2;
+      prtMess($bpe,"SKIPPED DUE TO MISSING INPUT FILE: $fil3") if !-e $fil3;
+      prtMess($bpe,"SKIPPED DUE TO MISSING INPUT FILE: $fil4") if !-e $fil4;
+    }
+
+    my $mjdD = gps_date("-doy -1 -d -32 -o %IJ");
+    if ($mjd <= $mjdD) {
+      unlink($fil0);
+      unlink($fil1) if (!-e $filFlgm1 && !-e $filFlgm2);
+      unlink($fil2) if (!-e $filFlgm1 && !-e $filFlgp1);
+      unlink($fil3) if (!-e $filFlgp1 && !-e $filFlgp2);
+      unlink($fil4);
+    }
+    unlink($filFlg);
+  } else {
+    prtMess($bpe,"SKIPPED: $filSkp");
+  }
+
+}
+

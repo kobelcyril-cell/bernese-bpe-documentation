@@ -1,0 +1,42 @@
+package GOTO_SOS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GOTO_SOS
+#
+# Purpose :  Skip SOS generation in case of avalable values
+#
+# PARAMs  :  PARAM2 PARAM3
+#
+# Author  :  A. Villiger
+# Created :  29-Nov-2016
+# Changes :  11-Apr-2022 ST: Bugfix 'YSS+0' to '$YSS+0'.
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,
+      $v_i,$mode,$param2,$param3,
+      $dirSos,$extSos);
+      $bpe->getKeys(
+      '$YSS+0',
+      'V_I','V_MODE','PARAM2','PARAM3',
+      'DIR_SOS','EXT_SOS'
+      );
+
+  my $sosFil = "$dirSos/${v_i}_$yyssss.$extSos";
+  print "$sosFil, $param2, $param3, $param4\n";
+# Write the "next jobs" statement
+# -------------------------------
+  if(-s $sosFil){
+     $bpe->PRT_GOTO($param3);
+  }else{
+    $bpe->PRT_GOTO($param2);
+  }
+}

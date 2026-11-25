@@ -1,0 +1,78 @@
+package CODXTR;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CODXTR
+#
+# Purpose :  Execute CODXTR; delete, if wished, rejected binary observation
+#            files
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  23-Jul-2008 rd: prepare for reprocessing
+#            19-Nov-2013 rd: jump if last file has been deleted
+#            23-Nov-2020 rd: copy satellite clock file if not updated by CODXTR
+#
+# ============================================================================
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $yy, $ssss, $yyddd,
+      $param1, $param2, $dirOut, $dirDel, $extDel, $dirCzh, $extCzh, $dirClk, $extClk) =
+    $bpe->getKeys('$YSS+0', '$Y', '$S+0', '$YD+0',
+    'PARAM1','PARAM2','DIR_OUT', 'DIR_DEL', 'EXT_DEL', 'DIR_CZH', 'EXT_CZH', 'DIR_CLK', 'EXT_CLK');
+
+# Delete old DEL file
+# -------------------
+  my $delFil = "${dirDel}SPP${yyssss}.${extDel}";
+  unlink ($delFil);
+  $bpe->putKey("$ENV{U}/PAN/CODXTR.INP","FILBAD",$delFil);
+
+# Copy satellite clock file
+# -------------------------
+  if (-s "${dirClk}/GIM${yyddd}.${extClk}") {
+    copy("${dirClk}/GIM${yyddd}.${extClk}","${dirClk}/GIM${yyddd}_edt.${extClk}");
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "CODXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Delete rejected binary observation files
+# ----------------------------------------
+  if (-s $delFil) {
+    open (DEL,$delFil);
+    while (<DEL>) {
+      chomp;
+      while ( /^ / ) { s/^ // }  # Remove leading blanks
+      unlink ($_);
+      prtMess($bpe,"$_ deleted") }
+    close DEL;
+    appFile ("Files excluded from processing:",0,"$delFil","$$bpe{SYSOUT}",1);
+    unlink $delFil;
+  }
+
+  appFile ("CODSPP: " . timstr(localtime(time)),
+           0,"$$bpe{SYSOUT}","${dirOut}CODXTR.${yy}_${ssss}",1);
+
+# If no files available, jump to the end
+# --------------------------------------
+  if ( $param1 eq "NEXTJOB" ) {
+    my @list = glob ("${dirCzh}????${ssss}.${extCzh}");
+    unless ( @list ) {
+      $bpe->prtGoto($param2);
+    }
+  }
+
+}

@@ -1,0 +1,128 @@
+package DIST_BIA;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  DIST_BIA
+#
+# Purpose :  Distribute bias information
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  03-Oct-2018
+#
+# Changes :  03-Oct-2018/ss: Derived from DIST_ION
+#            01-Oct-2019/ss: Do no longer consider CODE_2017_CONT.BIA
+#            03-Oct-2019/ss: Create/distribute/upload CODE_MONTHLY.BIA
+#            03-Mar-2022/ss: Create CODE_MONTHLY.OSB
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+use cddis_curl;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $wwwwd, $mjd,
+      $sav, $dis,
+      $dirBia, $dirOsb, $dirOut) =
+    $bpe->getKeys('$YD+0', '$WD+0', '$JD+0',
+                  'V_SAV', 'V_DIS',
+                  'DIR_BIA', 'DIR_OSB', 'DIR_OUT');
+
+# Set today's MJD
+# ---------------
+  my $mjd0 = gps_date("-doy 0 -o %IJ");
+
+# Check directories
+# -----------------
+  my $yyyy = gps_date("-yd $yyddd -o %Y");
+  my $dir  = "$PATH_AFTP/CODE/";
+  check_dir($dir);
+
+  my $ftpFil1 = "${dir}CODE.BIA";
+  my $refFil2 = "$ENV{REF}/CODE_MONTHLY.BIA";
+  my $ftpFil2 = "${dir}CODE_MONTHLY.BIA";
+#  my $ftpFil3 = "${dir}CODE_2017_CONT.BIA";
+#  my $ftpFil3 = "${dir}CODE_1994_CONT.BIA";
+
+# Create and distribute CODE_MONTHLY.BIA
+# --------------------------------------
+  system("$ENV{AUTO}/create_monthly_bia.com $refFil2");
+##  system("$ENV{AUTO}/create_monthly_bia.com $refFil2 GR -add");
+  die "$refFil2 not found\n" if !-e $refFil2;
+  if ($sav eq "Y") {
+##    copy($refFil2,$ftpFil2);
+    system("$ENV{AUTO}/filter_code_bia.com $refFil2 $ftpFil2");
+    die "$ftpFil2 not found\n" if !-e $ftpFil2;
+  }
+
+##  my $refFil2cut = "$ENV{REF}/CODE_MONTHLY_2014.BIA";
+##  my $ftpFil2cut = "${dir}CODE_MONTHLY_2014.BIA";
+##  system("$ENV{AUTO}/create_monthly_bia.com $refFil2cut GR -cut");
+##  die "$refFil2cut not found\n" if !-e $refFil2cut;
+##  if ($sav eq "Y") {
+####    copy($refFil2cut,$ftpFil2cut);
+##    system("$ENV{AUTO}/filter_code_bia.com $refFil2cut $ftpFil2cut");
+##    die "$ftpFil2cut not found\n" if !-e $ftpFil2cut;
+##  }
+
+# Create CODE_MONTHLY.OSB
+# -----------------------
+  $out = "${dirOsb}CODE_MONTHLY.OSB";
+  $tit = "CODE\'S MONTHLY BIAS SOLUTIONS                              ".gps_date("-t -o %z");
+  `echo "$tit" > $out`;
+  @inp = glob("$PATH_SAV$CAMP_SAVIGS/2???/ORB/A1R_????.OSB");
+  `head -11 $inp[-1] | tail -10 >> $out`;
+  foreach $fil (@inp) {
+    print "OSB: $fil\n";
+    `grep "^OSB " $fil >> $out`;
+    `echo "" >> $out`;
+  }
+  if ($sav eq "Y") {
+    copy($out,"$ENV{REF}/CODE_MONTHLY.OSB");
+  }
+
+# Upload Bias-SINEX to CDDIS
+# --------------------------
+  if ($dis eq "Y" && $sav eq "Y") {
+    $sec0 = gps_date("-t -o %U");
+    @fil = ($ftpFil1,$ftpFil2);
+    foreach $fil (@fil) {
+      $nam = basename($fil);
+      $new = lc($nam);
+
+      $dif = (stat($fil))[9]-$sec0;
+      print "$nam $new $dif\n";
+      next if $dif<-3600000;
+      print "$nam $new $dif UPLOADED\n";
+
+      $iRun = 0;
+      $nRun = 3;
+      $ftpSum = "${dirOut}CDDIS_BIA.FTP";
+      unlink $ftpSum;
+
+      for ($iRun=1;$iRun<=$nRun;$iRun++) {
+        $err = "OK";
+        my %cddis_upload = ("$fil" => "$new");
+        my $irc = upload_cddis_hash(\%cddis_upload);
+        $err = "ERR" if $irc!=0;
+        if ($err eq "OK") { last }
+        sleep (30);
+      }
+    }
+  }
+
+}

@@ -1,0 +1,205 @@
+package IAR_COP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  IAR_COP
+#
+# Purpose :  Copy files for PPPAR.PCF
+#
+# PARAMs  :  
+#
+# Author  :  S. Schaer
+# Created :  30-May-2018
+#
+# Changes :  31-May-2018 SS: Save CLK files from each repetition/iteration
+#            08-Jun-2018 SS: Prepared for MCLKGNSS
+#            10-Jul-2018 SS: Added FCLK_REP campaign
+#            07-Aug-2018 SS: Redefined V_HOIINF and V_VMFINF if indicated
+#            22-Aug-2018 SS: Copied BIA file
+#            22-Aug-2019 SS: Save initial CLK file for MCLKGNSS campaign
+#            23-Aug-2019 SS: Save initial CLK file for FCLKGNSS campaign
+#            27-Feb-2020 AV: Use mode instead of campaign
+#            29-Mar-2022 AV: Use copySkl
+#
+# ============================================================================
+use strict;
+use lib "$ENV{AUTO}";
+use gpsutil qw(copyfile);
+use igs_device;
+use lib "$ENV{BPE}";
+use bpe_util qw(check_dir copy2archive prtMess);
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,$ssss,$yyyy,$yyddd,
+      $camp_pth,$campaign,
+      $hoiInf,$vmfInf,$mode,
+      $v_a,$v_b,$v_c,
+      $dirOut,$extOut,
+      $dirCrd,$extCrd,
+      $dirStd,$extStd,
+      $dirErp,$extErp,
+      $dirClk,$extClk,
+      $dirOsb,$extOsb,
+      $dirBia,$extBia,
+      $dirFix,$extFix,
+      $dirIon,$extIon,
+      $dirGrd,$extGrd,
+      $pthSkl
+      ) =
+    $bpe->getKeys(
+      '$YSS+0','$S+0','$Y+0','$YD+0',
+      'CAMP_PTH','CAMPAIGN',
+      'V_HOIINF','V_VMFINF','V_MODE',
+      'V_A','V_B','V_C',
+      'DIR_OUT','EXT_OUT',
+      'DIR_CRD','EXT_CRD',
+      'DIR_STD','EXT_STD',
+      'DIR_ERP','EXT_ERP',
+      'DIR_CLK','EXT_CLK',
+      'DIR_OSB','EXT_OSB',
+      'DIR_BIA','EXT_BIA',
+      'DIR_FIX','EXT_FIX',
+      'DIR_ION','EXT_ION',
+      'DIR_GRD','EXT_GRD',
+      'PTH_SINEXIN'
+      );
+
+  my $repro = (-e "$camp_pth/$campaign/MSC/REPROCESSING.FLG");
+
+  my $iarFlg = "$camp_pth/$campaign/MSC/IAR${yyssss}.FLG";
+  my $iarRun = -e $iarFlg ? `cat $iarFlg`+1 : 0;
+
+  my ($namCrd,$namStd,$namErp,$namClk,$namOsb,$namBia);
+
+  print "Selected mode: $mode\n";
+  if ($mode eq "PPPFIN") {
+    $namCrd = "PPP${yyssss}";
+    $namStd = "RAP${yyssss}";
+    $namErp = "RAP${yyssss}";
+    $namClk = "RAP${yyssss}"; # CLK: 30S
+    $namOsb = "ISB${yyssss}"; # OSB: ISB
+  } elsif ($mode eq "FCLK") {
+    $namCrd = "PPP${yyssss}";
+    $namStd = "F3D_${yyssss}";
+    $namErp = "F3D_${yyssss}";
+    $namClk = "F3PS${yyssss}"; # CLK: 300S
+#    $namClk = "F3H_${yyssss}"; # CLK: 30S
+    $namOsb = "CBS${yyssss}"; # OSB: CBS
+  } elsif ($mode eq "RCLK") {
+    $namCrd = "RA_${yyssss}";
+    $namStd = "RA_${yyssss}";
+    $namErp = "RA_${yyssss}";
+    $namClk = "TP_${yyssss}"; # CLK: 300S
+#    $namClk = "HR_${yyssss}"; # CLK: 30S
+    $namOsb = "CBS${yyssss}"; # OSB: CBS
+  } elsif ($mode eq "MCLK") {
+    $namCrd = "RM_${yyddd}";
+    $namStd = "RM_${yyddd}";
+    $namErp = "RM_${yyddd}";
+    $namClk = "T3_${yyddd}"; # CLK: 300S
+#    $namClk = "T3H_${yyddd}"; # CLK: 30S
+    $namOsb = "CBS${yyddd}"; # OSB: CBS
+  } elsif ($mode eq "PPPTST") {
+    $namCrd = "RA_${yyssss}";
+    $namStd = "RA_${yyssss}";
+    $namErp = "RA_${yyssss}";
+#    $namClk = "TP_${yyssss}"; # CLK: 300S
+    $namClk = "HR_${yyssss}"; # CLK: 30S
+    $namOsb = "CBS${yyssss}"; # OSB: CBS
+  } else {
+    prtMess($bpe,"IAR_COP NOT PREPARED FOR CAMPAIGN: $mode");
+    die "IAR_COP not prepared for campaign: $mode\n";
+  }
+  $namBia = $namOsb;
+
+  my $inp = "${dirCrd}${namCrd}.${extCrd}";
+  my $out = "${dirCrd}${v_a}${yyssss}.${extCrd}";
+  die "Illegal naming:\n$inp\n$out\n" if $inp eq $out;
+  copy($inp,$out) or die "$inp not found\n";
+
+  $inp = "${dirStd}${namStd}.${extStd}";
+  $out = "${dirStd}${v_b}${yyssss}.${extStd}";
+  die "Illegal naming:\n$inp\n$out\n" if $inp eq $out;
+  copy($inp,$out) or die "$inp not found\n";
+
+  $inp = "${dirErp}${namErp}.${extErp}";
+  $out = "${dirErp}${v_b}${yyssss}.${extErp}";
+  die "Illegal naming:\n$inp\n$out\n" if $inp eq $out;
+  copy($inp,$out) or die "$inp not found\n";
+
+  $inp = "${dirClk}${namClk}.${extClk}";
+  $out = "${dirClk}${v_b}${yyssss}.${extClk}";
+  die "Illegal naming:\n$inp\n$out\n" if $inp eq $out;
+  copy($inp,$out) or die "$inp not found\n";
+
+  $inp = "${dirOsb}${namOsb}.${extOsb}";
+  $out = "${dirOsb}${v_c}${yyssss}.${extOsb}";
+  die "Illegal naming:\n$inp\n$out\n" if $inp eq $out;
+  copy($inp,$out) or die "$inp not found\n";
+
+  $inp = "${dirBia}${namBia}.${extBia}";
+  $out = "${dirBia}${v_c}${yyssss}.${extBia}";
+  die "Illegal naming:\n$inp\n$out\n" if $inp eq $out;
+  copy($inp,$out) or die "$inp not found\n";
+
+  $inp = "${dirIon}${hoiInf}.${extIon}";
+##  $bpe->setVar("HOIINF","") unless -e $inp;
+
+  $inp = "${dirGrd}${vmfInf}.${extGrd}";
+##  $bpe->setVar("VMFINF","") unless -e $inp;
+
+  if ($campaign ne "PPPFIN") {
+    $inp = "${dirStd}${namStd}.${extStd}";
+##    $out = "${dirStd}${v_b}${yyssss}.${extStd}_0";
+    $out = "${dirStd}${namStd}.${extStd}_0";
+##    copy($inp,$out) or die "$inp not found\n";
+
+    $inp = "${dirErp}${namErp}.${extErp}";
+##    $out = "${dirErp}${v_b}${yyssss}.${extErp}_0";
+    $out = "${dirErp}${namErp}.${extErp}_0";
+##    copy($inp,$out) or die "$inp not found\n";
+
+    $inp = "${dirClk}${namClk}.${extClk}";
+##    $out = "${dirClk}${v_b}${yyssss}.${extClk}_${iarRun}";
+    $out = "${dirClk}${namClk}.${extClk}_${iarRun}";
+    copy($inp,$out) or die "$inp not found\n";
+  }
+
+  if ($mode ne "PPPFIN") {
+    unlink glob "${dirOut}????${ssss}_[WN]L?.${extOut}";
+    unlink glob "${dirOut}????${ssss}_FIX.${extOut}";
+    unlink glob "${dirCrd}????${ssss}_[WN]L?.${extCrd}";
+    unlink glob "${dirCrd}????${ssss}_FIX.${extCrd}";
+  }
+
+# Store intermediate results to savedik. Bound to campaigns and not mode
+# ----------------------------------------------------------------------
+  if ($campaign eq "FCLK") {
+    $inp = "${dirClk}${namClk}.${extClk}";
+    $out = "$PATH_SAV$CAMP_SAVIGS/$yyyy/ORB/${namClk}_${iarRun}.${extClk}";
+    copy($inp,$out) or die "$inp not found\n";
+    system("compress -f $out");
+    $inp = "${dirOut}${namClk}.${extClk}";
+    $out = "$PATH_SAV$CAMP_SAVIGS/$yyyy/OUT/${namClk}_${iarRun}.${extClk}";
+    copy($inp,$out) or die "$inp not found\n";
+    system("compress -f $out");
+  }
+  if ($campaign eq "MCLKGNSS") {
+    $inp = "${dirClk}${namClk}.${extClk}";
+    $out = "$PATH_SAV$CAMP_SAVMGEX/$yyyy/ORB/${namClk}_${iarRun}.${extClk}";
+    copy($inp,$out) or die "$inp not found\n";
+    system("compress -f $out");
+    $inp = "${dirOut}${namClk}.${extClk}";
+    $out = "$PATH_SAV$CAMP_SAVMGEX/$yyyy/OUT/${namClk}_${iarRun}.${extClk}";
+    copy($inp,$out) or die "$inp not found\n";
+    system("compress -f $out");
+  }
+
+}
+
+

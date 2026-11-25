@@ -1,0 +1,76 @@
+package GPSCLUAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GPSCLUAP
+#
+# Purpose :  Prepare parallel GPSEST run (cluster solution)
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 10-Feb-2005
+#
+# Changes :  26-Jan-2006 mm: New initPar call (w/o tmpFil)
+#            10-Feb-2005 mm: Old date variables removed
+#            15-Feb-2011 rd/ps: remove title from clb files
+#            14-Feb-2020 av: modified getKeys
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyddd,$ssss,$sys,
+      $outDir,$solDir,$clbDir,$crdDir,$obsDir,
+      $obsExt,$crdExt) =
+        $bpe->getKeys('$YD+0','$S+0','V_GNSS',
+        "DIR_OUT","DIR_NEQ","DIR_CLB","DIR_CRD","DIR_PSH",
+        "EXT_PSH","EXT_CRD");
+
+
+
+
+  foreach my $clb (glob "${clbDir}/${yyddd}_0?.CLB") {
+    open(CLB,$clb);
+    my %fil = ();
+
+    while (<CLB>) {
+      last if ( /^[ ]*$/ );
+      chomp();
+      print "$clb: $_ - ${obsDir}/$_.${obsExt}\n";
+      $fil{$_} = "$_\n" if -e "${obsDir}/$_.${obsExt}";
+    }
+    close CLB;
+    open(CLB,"> $clb");
+    map { print CLB $fil{$_} } sort keys %fil;
+    close CLB;
+  }
+
+
+
+# Define directories and file names
+# ---------------------------------
+  my @cluFil = glob("${clbDir}${yyddd}_??.CLB");
+
+
+# Remove residual files, output files, NQ0's
+# ------------------------------------------
+  unlink(glob("${outDir}????$ssss.RES"));
+  unlink(glob("${outDir}${yyddd}*.OUT"));
+  unlink(glob("${solDir}${yyddd}*.NQ0"));
+  unlink(glob("${solDir}${yyddd}*.NEQ"));
+
+
+# Initialize parallel run
+# -----------------------
+  initPar_Fl($bpe,@cluFil);
+
+
+}

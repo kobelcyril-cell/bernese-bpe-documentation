@@ -1,0 +1,179 @@
+package IGS_STA;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  IGS_STA
+#
+# Purpose :  Download igs.snx and convert it into IGS.STA and IGS_RED.STA
+#
+# Programs:
+#
+# Author  :  S.Schaer
+#
+# Created :  __-___-____
+# Last mod.: 01-Dec-2010
+#
+# Changes :  04-Jul-2006/ss: Changed STA filenames
+#            18-Jul-2006/ss: Continue in case of ftp connection problem
+#            18-Oct-2006/ss: Download proposed.igs.snx
+#            25-Jul-2007/ss: Improved error handling
+#            02-Aug-2007/mm: V_DIS activated
+#            26-May-2008/rd: remove "proposed_igs.snx"
+#            15-Nov-2010 SL: program STA2STA added for V50
+#            01-Dec-2010 SL: copyaftp of IGS_FULL reactivated
+#            01-Nov-2012/lp: Update BSWUSER52, too
+#            07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER
+#            28-Jul-2015 ss: Remove dlft from IGS.SNX file (causing problems)
+#            11-Aug-2015 av: Switch from igscb to igs ftp server
+#            26-Aug-2015 ss: Check created .STA files for completeness
+#            28-Aug-2015 ss: Send SMS if indicated (in RAP mode only)
+#            25-Sep-2015 ss: Added "OK=/OK_FULL="
+#            01-Oct-2015 ss: Changed DLFT problem (DLFT now missing in .STA)
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#            15-Jan-2020 AV: Convert CODE.STA to CODE_V52.STA
+#            14-Sep-2020 AV: Change station used to check STA file (ZWE2->ZIMM)
+#            19-Dec-2020 RD: IGSCB has closed FTP (now its HTTPS)
+#            20-Dec-2021 RD: Detect automatically for the last station
+#
+# ---------------------------------------------------------------------------
+
+use lib "$ENV{AUTO}";
+use lib $ENV{BPE};
+use newFTP;
+use bpe_util;
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $dirSnx, $dirSta) =
+    $bpe->getKeys('$YD+0', 'DIR_SNX', 'DIR_STA');
+
+  my $ultFil = "$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/ULT${yyddd}.FLG";
+
+# Download igs.snx
+# ----------------
+  my $snxFil = "${dirSnx}IGS.SNX";
+  unlink $snxFil;
+
+  my $err = "OK";
+## @https ##  if ($ftp = newFTP->new("igscb.jpl.nasa.gov")) {
+## @https #  if ($ftp = newFTP->new("ftp.igs.org")) {
+## @https ####  if($ftp = newFTP->new("137.79.24.21")) {  # 26-Sep-2010 SL
+## @https #    $ftp->login();
+## @https #    $ftp->cwd("/pub/station/general/");
+## @https #    $ftp->ascii;
+## @https #    $ftp->qget("igs.snx","${snxFil}") or $err = "ERR";
+## @https #    $ftp->quit;
+## @https #  }
+  system("cd $dirSnx; wget -N https://files.igs.org/pub/station/general/igs.snx; mv igs.snx $snxFil");
+  if (-s $snxFil && $err eq "OK") {
+
+    copy($snxFil,"${snxFil}_BAK");
+# List of problem stations to be removed to get a complete .STA file
+##    `grep -v dlft $snxFil > ${snxFil}_TMP`;
+##    move("${snxFil}_TMP",$snxFil);
+#    replace($snxFil,"12:045:85980","12:107:36000");
+
+    my($staFil,$title,$PGMNAM,$chkFil,$ok1,$ok2);
+
+    $staFil = "IGS_FULL";
+    $title  = "STAINFO FROM igs.snx, BERNESE GNSS SOFTWARE 5.3";
+#              -----------------------------------------------
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","STAFILE",$staFil);
+
+    $PGMNAM = "SNX2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE1",$staFil);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE2","${staFil}V50");
+
+    $PGMNAM = "STA2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    # Extract the 4chr abbreviation of the last station in the input SINEX file
+    $snxFil = $bpe->getKey("$ENV{U}/INP/SNX2STA.INP","SNXFILE");
+    #grep -B1 '\-SITE/ID' $snxFil | head -n1 | awk '{ print toupper($1) }'
+    $lastSta = `grep -B1 \'\\-SITE/ID\' $snxFil | head -n1 | awk '{ printf \"\%s\", toupper(\$1) }'`;
+
+    $chkFil = $bpe->getKey("$ENV{U}/INP/STA2STA.INP","STAFILE1");
+#    $ok1 = `grep 'ZIMM' $chkFil | wc -l`+0;
+    $ok1 = `grep \'$lastSta\' $chkFil | wc -l`+0;
+
+### BPE allowed to distribute files?
+    if ( $ok1 > 0 ) {
+      if($$bpe{V_SAV} eq "Y") {
+        system("$ENV{AUTO}/gen2bswuser.com IGSR_STA ${dirSta} ${staFil}");
+      }
+      else { prtMess($bpe,"FILES NOT DISTRIBUTED"); }
+    }
+
+    $staFil = "IGS";
+    $title  = "REDUCED STAINFO FROM igs.snx, BERNESE GNSS SOFTWARE 5.3";
+#              ------------------------------------------------------
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","STAFILE",$staFil);
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","REDRSN","1");
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","REDASN","1");
+
+    $PGMNAM = "SNX2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE1",$staFil);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE2","${staFil}V50");
+
+    $PGMNAM = "STA2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $chkFil = $bpe->getKey("$ENV{U}/INP/STA2STA.INP","STAFILE1");
+#    $ok2 = `grep 'ZWE2' $chkFil | wc -l`+0;
+    $ok2 = `grep \'$lastSta\' $chkFil | wc -l`+0;
+
+    if ($ok1==0 || $ok2==0) {
+      msg2key("MSC","IGSRAPID: IGS_STA: Incomplete IGS_FULL.STA/IGS.STA created (OK=$ok1/OK_FULL=$ok2)") unless -e $ultFil;
+    }
+
+    # BPE allowed to distribute files?
+    if ( $ok2 > 0 ) {
+      if($$bpe{V_SAV} eq "Y") {
+        system("$ENV{AUTO}/gen2bswuser.com IGSR_STA ${dirSta} ${staFil}");
+      }
+      else { prtMess($bpe,"FILES NOT DISTRIBUTED"); }
+    }
+
+    # Convert CODE.STA to BSW52 compatible version CODE_V52.STA
+    # ---------------------------------------------------------
+    $title = "STATION INFORMATION FILE FOR BERNESE GNSS SOFTWARE 5.2";
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE1","CODE");
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE2","CODE_V52");
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","SYSOUT","STA2STA_V52");
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","OUTFORM","1.01");
+
+    $PGMNAM = "STA2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $chkFil = $bpe->getKey("$ENV{U}/INP/STA2STA.INP","STAFILE2");
+    my $ok_v52 = `grep 'ZWE2' $chkFil | wc -l`+0;
+
+    if ($ok_v52==0) {
+      msg2key("MSC","IGSRAPID: IGS_STA: Incomplete convertion CODE.STA -> CODE_V52.STA") unless -e $ultFil;
+    }else{
+        copyfile($chkFil,"$ENV{REF}/CODE_V52.STA");
+    }
+  }
+  else {
+    msg2key(
+      "MSC",
+      "IGS_STA: ftp connection problem wrt IGS. igs.snx not downloaded."
+    );
+    print "PANIC\n";
+  }
+
+}

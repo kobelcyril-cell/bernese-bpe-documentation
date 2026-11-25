@@ -1,0 +1,62 @@
+
+package WAIT_ION;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  WAIT_ION
+#
+# Purpose :  Wait for rapid ION file
+#
+# PARAMs  :  PARAM1 - Optional waiting time (default: 60 sec)
+#
+# Author  :  S. Schaer
+# Created :  22-Dec-2011
+#
+# Changes :  22-Dec-2011/ss: Abort waiting loop if indicated
+#            01-Oct-2019/ss: Corrected typo
+#            08-Mar-2022 AV: Save disk: yearly subdirectory
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyyy, $param1) = $bpe->getKeys('$YD+0', '$Y+0', 'PARAM1');
+
+# Set default waiting time
+# ------------------------
+  $param1 = 60 if $param1 eq "";
+
+# Perform waiting loop
+# --------------------
+##  my $ionFil = "$PATH_RAP$CAMP_RAP/ATM/RA_${yyddd}.ION";
+  my $ionFil = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/ATM/RA_${yyddd}.ION";
+
+  $wait = 0;
+  $cont = 0;
+  while ($cont==0) {
+    if (-s $ionFil) {
+      prtMess($bpe,"CONTINUING") unless $wait==0;
+      $cont++ }
+    else {
+      prtMess($bpe,"WAITING FOR ".basename($ionFil));
+      sleep($param1);
+      $wait++ }
+    if ($wait>=10800/$param1) {
+      prtMess($bpe,"WAITING LOOP ABORTED DUE TO UNAVAILABILITY OF ".basename($ionFil));
+      die "WAITING LOOP ABORTED DUE TO UNAVAILABILITY OF ".basename($ionFil)."\n";
+    }
+  }
+
+}

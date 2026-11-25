@@ -1,0 +1,62 @@
+package SKIP_SES;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  SKIP_SES
+#
+# Purpose :  The BPE variable V_SKIP is assumed as the filename of the
+#            sessions protocol file. If the related file:
+#               $(V_SKIP)
+#            already exist the processing of the session comtinues at PID
+#            given as PARAM2 what is typically the end of the BPE.
+#
+# PARAMs  :  PARAM2: PID where to jump when the session shall not be processed
+#
+# Author  :  R. Dach
+# Created :  10-Feb-2014
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtMess prtGoto);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,
+      $skip, $skip2,
+      $param2 ) =
+    $bpe->getKeys(
+      '$YSS+0',
+      'V_SKIP', $$bpe{V_SKIP},
+      'PARAM2');
+
+# V_SKIP may contain variables
+# ----------------------------
+  $skip = $skip2 if ($skip2 ne "");
+
+
+# V_SKIP must be defined and may not be empty
+# -------------------------------------------
+  if ( $skip ne "" ) {
+
+    # Reconstruct the name of the potenrial sessions protocol file
+    my $prcFil = "${skip}";
+    
+    # Skip session if the protocol file exists
+    if ( -e $prcFil ) {
+      prtMess($bpe,"Session skipped because the protocol file is available:");
+      prtMess($bpe,$prcFil);
+      prtGoto($bpe,$param2);
+    } else {
+      prtMess($bpe,"Continue processing session ${yyssss}");
+    }
+  
+  }
+
+}

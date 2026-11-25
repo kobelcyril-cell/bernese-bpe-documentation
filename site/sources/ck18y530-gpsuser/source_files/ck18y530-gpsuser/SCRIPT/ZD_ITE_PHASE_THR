@@ -1,0 +1,122 @@
+package ITE_PHASE_THR;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ITE_PHASE_THR
+#
+# Purpose :  Progressively modifies the residuals threshold for phase & code
+#
+# Author  :  C. Kobel
+# Created :  02-Jul-2026
+#
+# Changes :
+#===========================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyddd,
+      $yyssss,
+      $iRun,
+      $param3,
+      $param4,
+      $u,
+      $v_h,
+      $extEdt,
+      $dirEdt
+  ) = $bpe->getKeys(
+      '$YD+0',
+      '$YSS+0',
+      'STARTCOUNT',
+      'PARAM3',
+      'PARAM4',
+      'U',
+      'V_CPSC',
+      'EXT_EDT',
+      'DIR_EDT'
+  );
+
+  prtMess($bpe,"Iteration $iRun out of 4");
+
+  # ---------- Clean-up residual flag files ------------
+  my @resFil = glob("${dirEdt}../MSC/${v_h}${yyddd}_????.FLG");
+  unlink(@resFil);
+
+  # ---------- Read EDT file to count bad observations ------------
+  my $nEpo    = 0;
+  my $edtFile = "${dirEdt}${v_h}_${yyssss}.${extEdt}";
+  my $isEdt   = 0;
+  my $count   = 0;
+
+  open (EDT,"< $edtFile");
+  while(<EDT>) {
+    chomp;
+
+    if ($_ =~ /EDITING INFORMATION:/) {
+      $isEdt = 1;
+    }
+
+    if ($isEdt){
+      $count++;
+      next if $count <= 8;
+      last if $_ eq '';
+      $nEpo += substr($_, -6);
+    }
+  }
+  close(EDT);
+
+  # ---------- Screening decision logic ------------
+  my $FlagFile = '';
+
+  if ($iRun == 1 ) {
+    prtMess($bpe,"Screening threshold: 1000 mm ");
+    prtMess($bpe,"# bad epochs: $nEpo ");
+
+    $FlagFile = "${dirEdt}../MSC/${v_h}${yyddd}_0500.FLG";
+    system("touch $FlagFile");
+
+    if ($nEpo > 0) {
+       prtGoto($bpe,$param3);
+    } else {
+      prtGoto($bpe,$param4);
+    }
+
+  } elsif ($iRun == 2) {
+
+    prtMess($bpe,"Screening threshold: 500 mm ");
+    prtMess($bpe,"# bad epochs: $nEpo ");
+
+    $FlagFile = "${dirEdt}../MSC/${v_h}${yyddd}_0100.FLG";
+    system("touch $FlagFile");
+
+    if ($nEpo > 0) {
+      prtGoto($bpe,$param3);
+    } else {
+      prtGoto($bpe,$param4);
+    }
+
+  } elsif ($iRun == 3) {
+
+    prtMess($bpe,"Screening threshold: 100 mm ");
+    prtMess($bpe,"# bad epochs: $nEpo ");
+
+    $FlagFile = "${dirEdt}../MSC/${v_h}${yyddd}_0020.FLG";
+    system("touch $FlagFile");
+
+    if ($nEpo > 0) {
+      prtGoto($bpe,$param3);
+    } else {
+      prtGoto($bpe,$param4);
+    }
+
+  } else {
+
+    prtMess($bpe,"Screening threshold: 20 mm ");
+    prtMess($bpe,"# bad epochs: $nEpo ");
+  }
+}

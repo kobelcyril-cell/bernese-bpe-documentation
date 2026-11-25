@@ -1,0 +1,40 @@
+package ADDNEQ2_DELNEQ;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ADDNEQ2_DELNEQ
+#
+# Purpose :  Run ADDNEQ2 and remove station-wise NEQs
+#
+# Author  :  C. Kobel
+# Created :  26-Jun-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use warnings;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+# ---------- Get variables ------------
+  my (
+      $ssss,
+      $sol,
+      $dirNeq,
+      $extNeq
+  ) = $bpe->getKeys(
+      '$S+0',
+      'V_FIN',
+      'DIR_NEQ',
+      'EXT_NEQ'
+  );
+# ---------- Run program ------------
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+# ---------- Clean station-wise NEQs ------------
+  unlink glob("${dirNeq}${sol}A${ssss}????.${extNeq}");
+  unlink glob("${dirNeq}${sol}_${ssss}????.${extNeq}");
+}

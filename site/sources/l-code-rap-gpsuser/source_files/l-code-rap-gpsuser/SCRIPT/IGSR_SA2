@@ -1,0 +1,243 @@
+package IGSR_SA2;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  IGSR_SA2
+#
+# Purpose :  Save results produced by IGSRAPID.PCF
+#
+# Author  :  M. Meindl
+#
+# Created :  05-Dec-2007
+#
+# Changes :  07-May-2008/ss: Do not copy old info to COD.EPH and COD.ERP_U
+#            15-Nov-2013 SL: Save new ULTRA results (U$T or US?)
+#            06-Jun-2014 SS: Considered MIDyyddd.FLG
+#            26-Aug-2015 SS: Added quality check concerning GLONASS clocks
+#            07-Jun-2016 AV: Add compability solution for version 5.2
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#            14-Non-2019 AV: Skip if V_SAVDSK
+#            08-Mar-2022 AV: Save disk: yearly subdirectory
+#            02-Nov-2022 AV: Save long filname to aftp (CODE_TEST) COD0OPSULT.EPH
+#            28-Nov-2022 AV: Change upload from CODE_TEST to CODE
+#            08-Jul-2026 SS: Saved $S/RAP/COD0OPSULT.*
+#            15-Oct-2026 SS: Do no longer save $S/RAP/COD.*
+#
+# =============================================================================
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $ddd,$yyddd,$yydp1,$wwwwd,$wwwwdp1,$yyyy,
+    $v_sav,$v_dis,$savdsk,$pcffil,
+    $dirOut,
+    $dirPre,$extPre,
+    $dirIep,$extIep,
+  ) =
+  $bpe->getKeys(
+    '$+0','$YD+0','$YD+1','$WD+0','$WD+1','$Y+0',
+    'V_SAV','V_DIS','V_SAVDSK','PCFFIL',
+    'DIR_OUT',
+    'DIR_PRE','EXT_PRE',
+    'DIR_IEP','EXT_IEP',
+   );
+
+
+# Return if V_SAVDSK == Y
+# -----------------------
+  if($savdsk eq "Y" || $pcffil =~ /RCLKGNSS/){
+    print "SAVDSK activated, skipped\n";
+    return(1);
+  }
+
+# Define data archive environment
+# -------------------------------
+  $ftpCod = "${PATH_AFTP}${CAMP_CODE}";
+  $rapSav = "${PATH_SAV}${CAMP_SAVRAP}/${yyyy}/";
+  check_dir($rapSav);
+  $orbSav = "${rapSav}/ORB/";
+  check_dir($ftpCod,$orbSav);
+
+  my $midFil = "${dirOut}../MSC/MID${yyddd}.FLG";
+
+# Copy files
+# ----------
+  $src = "${dirPre}RAC${yyddd}.${extPre}";
+  $trg = "${orbSav}RAC${yyddd}.${extPre}";
+  if (-e $midFil) {
+    $src = "${dirPre}RAM${yyddd}.${extPre}";
+    $trg = "${orbSav}RAM${yyddd}.${extPre}";
+  }
+  die "$src does not exist\n" unless(-e $src);
+  if($v_sav eq "Y") {
+    unlink(glob("$trg*"));
+    &copy2archive($src,$trg,"c");
+  }
+
+  $src = "${dirIep}COD${wwwwd}.ERP";
+  $trg = "${orbSav}COD${wwwwd}.ERP";
+  if (-e $midFil) {
+    $src = "${dirIep}MID${wwwwd}.ERP";
+    $trg = "${orbSav}COM${wwwwd}.ERP";
+  }
+  die "$src does not exist\n" unless(-e $src);
+  if($v_sav eq "Y") {
+    unlink(glob("$trg*"));
+    &copy2archive($src,$trg,"c");
+  }
+
+# Copy files for version 5.2
+# --------------------------
+  $src = "${dirPre}RAY${yyddd}.${extPre}";
+  $trg = "${orbSav}RAC${yyddd}_V52.${extPre}";
+  if (-e $midFil) {
+    $src = "${dirPre}RAX${yyddd}.${extPre}";
+    $trg = "${orbSav}RAM${yyddd}_V52.${extPre}";
+  }
+#  die "$src does not exist\n" unless(-e $src);
+  if($v_sav eq "Y") {
+    unlink(glob("$trg*"));
+    &copy2archive($src,$trg,"c");
+  }
+
+# Save ultra rapid orbit solution
+# -------------------------------
+# Read ultra flag
+  $ultFil = "$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/ULT$yyddd.FLG";
+##  $newFil = "$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/ULT$yydp1.FLG";
+  $newFil = "$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/ORB/RA_$yydp1.PRE";
+  ($h_end,$h_tro,$h_rnx,$h_chr) = &rdUltFlg($ultFil);
+  my($T) = &gtUltVrs($h_end,$h_chr);
+
+  $sess_fin = "${ddd}${h_chr}";
+
+  if(-e $ultFil) {
+    $src = "";
+    if($T == 6) {
+      $src  = "${dirPre}US2${wwwwd}.${extPre}";
+      $trg  = "${orbSav}U06${wwwwd}.${extPre}";
+      $src2 = "${dirIep}US2${wwwwd}.${extIep}";
+      $trg2 = "${orbSav}U06${wwwwd}.${extIep}";
+      $src3 = "${dirOut}ULTRA_30.ACC";
+    } elsif($T == 12) {
+      $src  = "${dirPre}US1${wwwwd}.${extPre}";
+      $trg  = "${orbSav}U12${wwwwd}.${extPre}";
+      $src2 = "${dirIep}US1${wwwwd}.${extIep}";
+      $trg2 = "${orbSav}U12${wwwwd}.${extIep}";
+      $src3 = "${dirOut}ULTRA_12.ACC";
+    } elsif($T == 18) {
+      $src  = "${dirPre}US3${wwwwd}.${extPre}";
+      $trg  = "${orbSav}U18${wwwwd}.${extPre}";
+      $src2 = "${dirIep}US3${wwwwd}.${extIep}";
+      $trg2 = "${orbSav}U18${wwwwd}.${extIep}";
+      $src3 = "${dirOut}ULTRA_18.ACC";
+    } elsif($T == 24) {
+      $src  = "${dirPre}US0${wwwwdp1}.${extPre}";
+      $trg  = "${orbSav}U00${wwwwdp1}.${extPre}";
+      $src2 = "${dirIep}US0${wwwwdp1}.${extIep}";
+      $trg2 = "${orbSav}U00${wwwwdp1}.${extIep}";
+      $src3 = "${dirOut}ULTRA_24.ACC";
+    }
+    die "$src does not exist\n" unless(-s $src);
+
+    if($v_sav eq "Y") {
+      unlink(glob("$trg*"));
+      &copy2archive($src,$trg,"c");
+      &copy2archive($src2,$trg2);
+    }
+
+    if($v_sav eq "Y") {
+
+      &copy2archive($src,"${ftpCod}/COD.EPH_U");
+      &copy2archive($src2,"${ftpCod}/COD.ERP_U");
+      &copy2archive($src3,"${ftpCod}/COD.SUM_U");
+
+      my $ultnam = "COD0OPSULT";
+      &copy2archive($src,"${ftpCod}/${ultnam}.SP3");
+      &copy2archive($src2,"${ftpCod}/${ultnam}.ERP");
+      &copy2archive($src3,"${ftpCod}/${ultnam}.SUM");
+
+
+# Check whether) GLONASS clock corrections available in COD.EPH_U
+      my $nlin1 = `grep '^PR' ${ftpCod}/COD.EPH_U | wc -l`+0;
+      my $nlin2 = `grep '^PR' ${ftpCod}/COD.EPH_U | grep -v 999999.999999 | wc -l`+0;
+      if ($nlin2/$nlin1 < 0.50) {
+        prtMess($bpe,"TOO SMALL NUMBER OF GLONASS CLOCK CORRECTIONS AVAILABLE IN COD.EPH_U");
+        msg2key("BPE","COD.EPH_U: Less than 50\% GLONASS clock corrections available");
+##        die          ("COD.EPH_U: Less than 50\% GLONASS clock corrections available");
+      } elsif ($nlin2/$nlin1 < 0.85) {
+        prtMess($bpe,"SMALL NUMBER OF GLONASS CLOCK CORRECTIONS AVAILABLE IN COD.EPH_U");
+        msg2key("BPE","COD.EPH_U: Less than 85\% GLONASS clock corrections available");
+      } else {
+        prtMess($bpe,"ENOUGH GLONASS CLOCK CORRECTIONS AVAILABLE IN COD.EPH_U");
+##        msg2key("BPE","Just a test: COD.EPH_U: Enough GLONASS clock corrections available");
+      }
+
+      my $rapSav = "${PATH_SAV}${CAMP_SAVRAP}/";
+      copyfile($src, "${rapSav}${ultnam}.SP3");
+      copyfile($src2,"${rapSav}${ultnam}.ERP");
+      copyfile($src3,"${rapSav}${ultnam}.SUM");
+
+##           unlink(gob("${ftpCod}/DATA_USED_UP_TO_????"));
+##           $useFil = "${ftpCod}/DATA_USED_UP_TO_${sess_fin}";
+##           if ($h_chr ne "0") {
+##               copy("$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/DATA_USED_UP_TO_dddh",$useFil);
+##           } else {
+##               copy("$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/DATA_USED_UP_TO_ddd0",$useFil);
+##           }
+##           replace($useFil,'SSSS',$sess_fin);
+##           replace($useFil,'DDD',$ddd);
+##           replace($useFil,'YYYY' $yyyy");
+##           replace($useFil,'HH',$h_end);
+##           replace($useFil,'CHR',$h_chr);
+
+####          msg2key("MSC","IGSR_SA2: $src, $src2,  copied to COD.EPH/ERP_U");
+    }
+  } elsif(! -e $newFil && $v_sav eq "Y") {
+    $src1 = "${dirPre}US0${wwwwdp1}.${extPre}";
+    &copy2archive($src1,"${ftpCod}/COD.EPH_U");
+    $src2 = "${dirIep}US0${wwwwdp1}.${extIep}";
+    &copy2archive($src2,"${ftpCod}/COD.ERP_U");
+    $src3 = "${dirOut}RA_${yyddd}.ACC";
+    &copy2archive($src3,"${ftpCod}/COD.SUM_U");
+
+    my $ultnam = "COD0OPSULT";
+    &copy2archive($src1,"${ftpCod}/${ultnam}.SP3");
+    &copy2archive($src2,"${ftpCod}/${ultnam}.ERP");
+    &copy2archive($src3,"${ftpCod}/${ultnam}.SUM");
+
+##       unlink(gob("${ftpCod}/DATA_USED_UP_TO_????"));
+##       $useFil = "${ftpCod}/DATA_USED_UP_TO_${sess_fin}";
+##       if ($h_chr ne "0") {
+##           copy("$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/DATA_USED_UP_TO_dddh",$useFil);
+##       } else {
+##           copy("$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/DATA_USED_UP_TO_ddd0",$useFil);
+##       }
+##       replace($useFil,'SSSS',$sess_fin);
+##       replace($useFil,'DDD',$ddd);
+##       replace($useFil,'YYYY' $yyyy");
+##       replace($useFil,'HH',$h_end);
+##       replace($useFil,'CHR',$h_chr);
+
+####      msg2key("MSC","IGSR_SA2: $src1, $src2,  copied to COD.EPH/ERP_U");
+  }
+
+# Some messages
+# -------------
+  prtMess($bpe,"FILES_NOT_DISTRIBUTED") if($v_dis ne "Y");
+  prtMess($bpe,"FILES_NOT_SAVED")       if($v_sav ne "Y");
+}
+
+# =============================================================================
+
+__END__

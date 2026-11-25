@@ -1,0 +1,64 @@
+package CRDREPCH;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  CRDREPCH
+#
+# Purpose :  Compare coordinates
+#
+# Programs:
+#
+# Author  :  I. Selmke
+# Created :  22-Jul-2019               Last modified: __-___-____
+#
+# Changes :  26-May-2025 rd: adjust the datum of old CRD-files
+#
+# ----------------------------------------------------------------------------
+use File::Copy;
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyyy, $yyddd, $v_k, $camp_pth, $campaign,
+      $dirCrd, $extCrd) =
+    $bpe->getKeys('$Y+0', '$YD+0', 'V_K', 'CAMP_PTH', 'CAMPAIGN',
+                  'DIR_CRD', 'EXT_CRD');
+
+# Skip the script in case of non-reprocessing
+# -------------------------------------------
+  my $repro = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+  if ($repro) {
+    my $sol = 'OLD';
+    my $oldCrd =  "$ENV{S}/REPRO_03/${yyyy}/STA/${v_k}_${yyddd}.${extCrd}";
+#    my $oldCrd =  "$ENV{S}/$ENV{CAMP_SAVREPO}/${yyyy}/STA/${v_k}_${yyddd}.${extCrd}";
+    unless (-e $oldCrd) {
+      $oldCrd =  "$ENV{S}/IGS/${yyyy}/STA/${v_k}_${yyddd}.${extCrd}";
+    }
+    print "copied $oldCrd -> ${dirCrd}${sol}${yyddd}.${extCrd}\n";
+    copy("$oldCrd","${dirCrd}${sol}${yyddd}.${extCrd}");
+
+
+  # Set HELMR1 options
+  # ------------------
+    system("replace.com ${dirCrd}${sol}${yyddd}.${extCrd} IGS14 IGb20");
+    system("replace.com ${dirCrd}${sol}${yyddd}.${extCrd} IGb14 IGb20");
+    system("replace.com ${dirCrd}${sol}${yyddd}.${extCrd} IGS20 IGb20");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD1","${v_k}_${yyddd}");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD2","${sol}${yyddd}");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","SYSOUT","HLMR${yyddd}");
+
+  # Run program HELMR1
+  # ------------------
+    my $PGMNAM = "HELMR1";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    unlink "${dirCrd}${sol}${yyddd}.${extCrd}";
+
+  }
+
+
+}

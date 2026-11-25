@@ -1,0 +1,173 @@
+# ============================================================================
+# PPPAR.PCF
+# ============================================================================
+#
+# Purpose:      Determination of undifferenced widelane (WL) and narrowlane
+# (NL) phase biases and resolution of undifferenced WL and NL
+# phase ambiguities:
+# - determination of WL phase biases
+# - resolution of WL phase biases
+# - determination of NL phase biases (using WL integers)
+# - resolution of NL phase biases (using WL integers)
+# - verification of ambiguity-fixed PPP solution
+# - generation of a common WL/NL-combined bias file
+# (containing a consistent set of code and phase biases)
+#
+# PPPAR BPE processing summary file name: IAR_yyyyssss.PRC
+#
+# Remark:
+#
+# Author     :  S. Schaer
+# Created    :  14-May-2018
+#
+# Changes    :  15-May-2018/ss: Changed IZD to IAR
+# 22-May-2018/ss: Added SKIP_WL
+# 30-May-2018/ss: Redefined V_A, V_B, V_C
+# 05-Jun-2018/ss: Used V_SAMPLE for NL AR (and verification)
+# 08-Jun-2018/ss: Used V_MINEL
+# 04-Jul-2018/ss: Added WAIT (for manual interaction)
+# 07-Aug-2018/ss: Added V_HOIINF and V_VMFINF
+# 22-Aug-2018/ss: Added V_BIAINF
+# 21-Aug-2019 RD: Add V_BLQINF, V_ATLINF, V_MEANPL, V_SUBMOD, V_NUTMOD
+# 07-Feb-2020 RD: Switch from FES2004 to FES2014b
+# 07-Feb-2020 RD: V_MACMOD: Compatibility -> Macromodel
+# 21-Oct-2020 AV: Add V_REPRO for alternative savedisk
+# 22-Oct-2020 AV: V_MODE: Processing scheme identifier
+# 05-Jul-2021 LP: Add V_TRPMOD
+# 16-Sep-2021 ST: Transform into the new PCF format
+# Reorder BPE server variables for reporting
+# 28-Nov-2021 LP: Remove option V_MACMOD
+# 28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+# 29-Mar-2022 AV: Modified variables
+# 03-Nov-2022 SS: Introduced V_PCC4MWGF
+# 06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+# 08-Dec-2022 LP: Switch to IGS20; add V_STAINF
+# 28-Mar-2023 RD/EB: Put parallel jobs with CPU=SHORT to CPU=QUICK/FOX
+#
+# ============================================================================
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+001  IAR_COP   NO_OPT    CPU=LOCAL
+#
+# Skip WL AR sequence?
+# --------------------
+099  SKIP_WL   IAR_L12  CPU=LOCAL; WAIT=001; NEXTJOB=211
+#
+# Widelane (WL) phase bias determination and WL ambiguity resolution
+# ------------------------------------------------------------------
+101  SATMRK    IAR_AMB  CPU=LOCAL; WAIT=099
+111  FILESTAP  IAR_WLB  CPU=LOCAL; WAIT=101
+112  FILEST_P  IAR_WLB  CPU=LOCAL; WAIT=111; PARALLEL=111; CONT_ERR
+113  PHABIA    IAR_WLB  CPU=LOCAL; WAIT=112; PARAM1=C; PARAM2=WLB
+121  FILESTAP  IAR_WLI  CPU=LOCAL; WAIT=113
+122  FILEST_P  IAR_WLI  CPU=LOCAL; WAIT=121; PARALLEL=121; CONT_ERR
+123  PHABIA    IAR_WLI  CPU=LOCAL; WAIT=122
+#
+# Narrowlane (NL) phase bias determination and NL ambiguity resolution
+# --------------------------------------------------------------------
+211  FILESTAP  IAR_NLB  CPU=LOCAL; WAIT=122
+212  FILEST_P  IAR_NLB  CPU=LOCAL; WAIT=211; PARALLEL=211
+213  PHABIA    IAR_NLB  CPU=LOCAL; WAIT=212; PARAM1=C; PARAM2=NLB; CONT_ERR
+214  WAIT      NO_OPT    CPU=LOCAL; WAIT=213
+215  PHACMB    NO_OPT    CPU=LOCAL; WAIT=214; PARAM1=C; PARAM2=WL_; PARAM3=NL_; PARAM4=IAR
+221  FILESTAP  IAR_NLI  CPU=LOCAL; WAIT=215
+222  FILEST_P  IAR_NLI  CPU=LOCAL; WAIT=221; PARALLEL=221; CONT_ERR
+223  PHABIA    IAR_NLI  CPU=LOCAL; WAIT=222
+#
+# Verification and generation of processing summary files
+# -------------------------------------------------------
+301  FILESTAP  IAR_FIX  CPU=LOCAL; WAIT=222
+302  FILEST_P  IAR_FIX  CPU=LOCAL; WAIT=301; PARALLEL=301; CONT_ERR
+303  OBSFMT    IAR_AMB  CPU=LOCAL; WAIT=222
+#
+901  IAR_PRC   IAR_CHK  CPU=LOCAL; WAIT=123 223 302 303
+902  IAR_SAV   NO_OPT    CPU=LOCAL; WAIT=901; SKIP
+903  IAR_DEL   NO_OPT    CPU=LOCAL; WAIT=902; SKIP
+904  BPE_CLN   NO_OPT    CPU=LOCAL; WAIT=903
+#
+# End of BPE
+# ----------
+# 999 BPE_BYE   NO_OPT    CPU=LOCAL; WAIT=904
+999  DUMMY     NO_OPT    CPU=LOCAL; WAIT=904
+#
+
+VARIABLE   DEFAULT        PARAMETERS
+#
+# Solution IDs used in the BPE:
+# ----------------------------
+V_A        = TMP;           DESCRIPTION=CRD
+V_B        = IAR;           DESCRIPTION=STD/ERP/CLK
+V_C        = COD;           DESCRIPTION=OSB
+#
+# Reference frame and station related files:
+# -----------------------------------------
+V_CRDINF   = UNUSED;        DESCRIPTION=CRD/VEL/FIX master file name
+V_PSDINF   = UNUSED;        DESCRIPTION=PSD corrections for ITRF2014
+V_STAINF   = CODE;          DESCRIPTION=Station information file
+#
+# General and model files:
+# -----------------------
+V_OBSSEL   = OBSERV_COD;    DESCRIPTION=Observation selection file
+V_SATINF   = SATELLIT;      DESCRIPTION=Satellite information file
+V_PCVINF   = ANT_COD;       DESCRIPTION=PCV information file
+V_PCV      = I20;           DESCRIPTION=GNSS PCV model
+V_PCC4MWGF = 2022 11 27;    DESCRIPTION=PCC applied for MW/GF LC
+#
+V_SATCRX   = SAT_$Y+0;      DESCRIPTION=Satellite problem file
+V_SYSCRX   = SAT_GNSS;      DESCRIPTION=Satellite problem file for data import
+#
+V_MEANPL   = IERS2010_v1.2.0;  DESCRIPTION=Mean pole model
+V_SUBMOD   = DESAI2016;     DESCRIPTION=Subdaily pole model
+V_NUTMOD   = IAU2000R06;    DESCRIPTION=Nutation model
+#
+V_TRPMOD   = GPT3;          DESCRIPTION=Troposphere model in GPSCLU # Cards=GMF GPT3 VMF VMF31
+#
+V_BLQINF   = FES2014b;      DESCRIPTION=BLQ file name, CMC corrections
+V_ATLINF   = VAPL;          DESCRIPTION=ATL file name, CMC corrections ### to do?
+#
+# Processing options used in the BPE:
+# ----------------------------------
+V_GNSS     = GR;            DESCRIPTION=GNSS selection (RINEX system char.)
+#
+V_BOXWNG   = BOXWING_I20;   DESCRIPTION=Boxwing model file
+#
+V_CLU      = 20;            DESCRIPTION=Maximum number of files per cluster
+#
+# V_REQ_CAMP = GNR__CLK;    DESCRIPTION=Campaign to be used
+V_RERUN    = 1;             DESCRIPTION=Number of reruns in case of failure
+V_PLUS     = +0;            DESCRIPTION=Plus  days
+V_MINUS    = -0;            DESCRIPTION=Minus days
+#
+# Options relevant for output and formatting:
+# ------------------------------------------
+V_SKLSNX   = SINEX_GRSP;    DESCRIPTION=Name of SINEX SKL file
+V_SKLINX   = IONEX_GRSP_R;  DESCRIPTION=Name of IONEX SKL file
+V_SKLBIA   = SINEX_BIA_COD;  DESCRIPTION=Name of BIA SINEX SKL file
+V_BIAINF   = SINEX_BIA_COD;  DESCRIPTION=BIAS SINEX information skeleton
+#
+# Variables related to reprocessing:
+# ---------------------------------
+V_REPRO    = ;              DESCRIPTION=Reprocessing (alternative savedisk)
+#
+# Other variables:
+# ---------------
+# ###V_GIM    = GIM;            DESCRIPTION=GO_GIM products: preliminary GIM and bias results
+V_HOIINF   = HOI$YD+0;      DESCRIPTION=HOI filename
+V_VMFINF   = VMF$YD+0;      DESCRIPTION=VMF filename
+V_MINUS    = -0;            DESCRIPTION=Session range begin
+V_PLUS     = +0;            DESCRIPTION=Session range end
+V_MODE     = RCLK;          DESCRIPTION=; # Cards=FCLK MCLK RCLK GLCK
+V_SATSYS   = GPS/GLO;       DESCRIPTION=GNSS to be processed; # Cards=GPS GAL GLO ALL lasser; unused?
+V_SAMPLE   = 30;            DESCRIPTION=Sampling rate of input clocks for NL AR
+V_MINEL    = 3;             DESCRIPTION=Elevation cutoff angle
+V_OBSTAR   = PPP;           DESCRIPTION=Name of the archive with observ. files
+V_RESET    = N;             DESCRIPTION=Recompute all stations for this day
+#
+V_XTR      = Y;             DESCRIPTION=Automatic program extraction (GPSXTR)
+V_UPD      = Y;             DESCRIPTION=Update general files?
+V_SAV      = Y;             DESCRIPTION=Save results?
+V_PLT      = N;             DESCRIPTION=Plot results?
+V_DEL      = Y;             DESCRIPTION=Delete results?
+V_DIS      = Y;             DESCRIPTION=Distribute results?
+

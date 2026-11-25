@@ -1,0 +1,325 @@
+package ULT_CHK;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ULT_CHK
+#
+# Purpose :  Compare ultra-rapid precise orbit solution files with respect to
+#            most recent update(s) for acceptance control
+#
+#            Instructions: How to react in an emergency case?
+#            1. Find the cause of the problem why ULT_ERR.FLG was finally set.
+#               Some suggestions and ideas:
+#               a. grep posteriori $outf/RA_yy???.OUT (for long-arc issue)
+#               b. grep posteriori $outf/RQ_yy???.OUT (for AR issue)
+#               c. grep posteriori $outf/RH_yy???.OUT
+#               d. grep posteriori $outf/RG_yy???.OUT
+#               e. grep posteriori $outf/RF_yy???.OUT
+#               f. Study an affected ADDNEQ2 output in detail (especially
+#                  in terms of maximum parameter improvement/correction).
+#               g. Alternatively, the cause could be a recently activated
+#                  software or model change.
+#            2. Fix the identified cause.
+#            3. a. For unlocking, remove ULT_ERR.FLG by executing manually:
+#                     mv $mscr/ULT_ERR.FLG $mscr/ULT_ERR.FLG_yyyyddmm
+#               b. Add a command line below (in this script) to temporarily
+#                  increase $tol (in order to prevent another emergency stop).
+#            4. Restart the IGSULTRA/IGSRAPID BPE (or repeat the affected
+#               processing steps).
+#            5. Carefully check the latest analysis solutions. See also:
+#                  $outr/ULT_CHK.LST
+#
+# Programs:  ORBCMP
+#
+# Author  :  S. Schaer
+# Created :  14-Apr-2021
+#
+# Changes :  15-Apr-2021 SS: die instead of warn
+#            16-Apr-2021 SS: Shifted forward echo command lines;
+#                            considered ULT_CHK.FLG and STARTCOUNT;
+#                            provided extra output
+#            27-Apr-2021 SS: Excluded Galileo until further notice
+#            29-Apr-2021 SS: Simplified (using loop)
+#            20-May-2021 SS: Introduced emergency braking mechanism
+#                            (ULT_ERR.FLG must be deleted manually)
+#            20-May-2021 SS: Prepared IQR extraction
+#            20-Jul-2021 SS: Considered #SUM information (with IQR);
+#                            some extra checks for GPS, GLO, GAL
+#            21-Jul-2021 SS: Checked IQR with and w/o Helmert parameters
+#            20-May-2022 SS: Do no longer use $iqr_0 for checking
+#            07-Sep-2023 SS: Unlocking after PENC accident (session 232490)
+#            07-Sep-2023 SS: Instruction paragraph for unlocking drafted
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyddd, $mjd, $wwwwd, $wwwwdp1, $wwwwdm1,
+      $pcfFil, $taskId, $startCount,
+      $dirOut, $dirPre, $extPre) =
+    $bpe->getKeys('$YD+0', '$JD+0', '$WD+0', '$WD+1', '$WD-1',
+                  'PCFFIL', 'TASKID', 'STARTCOUNT',
+                  'DIR_OUT', 'DIR_PRE', 'EXT_PRE');
+
+# Set variables
+# -------------
+  my $d = substr($wwwwd,4,1);
+  my $dp1 = substr($wwwwdp1,4,1);
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+  my $ultFil = "${dirOut}../MSC/ULT${yyddd}.FLG";
+  $pcfFil = "IGSULTRA" if -e $ultFil;
+##  return if $pcfFil eq "IGSRAPID";
+
+  my($h_end,$h_tro,$h_rnx,$h_chr) = &rdUltFlg($ultFil);
+  my $T = &gtUltVrs($h_end,$h_chr);
+
+  my $ultLin   = -e $ultFil ? `cat $ultFil` : "24 23 23 0";
+  my $hour_end = substr($ultLin,0,2);
+
+##  my $tol = 0.3;
+##  my $tol = 0.05;
+  my $tol = 0.10;
+##  $tol = 0.15 if $mjd>=59319 && $mjd<59320;
+##  $tol = 1.50 if $mjd>=59330 && $mjd<59331;
+  $tol = 0.10 if $mjd>=59518 && $mjd<59519;
+  $tol = 1.50 if $mjd>=60193 && $mjd<60194;
+  $tol = 9.99 if $mjd>=61021 && $mjd<61023;
+  $tol = 1.50 if $mjd>=61064 && $mjd<61064;
+
+  my $errFil = "${dirOut}../MSC/ULT_ERR.FLG";
+  my $chkFil = "${dirOut}../MSC/ULT_CHK.FLG";
+  my $chkLin = -e $chkFil ? `cat $chkFil` : $tol;
+##  $tol = $chkLin+0;
+  my $stop = 1;
+  if (substr($chkLin,0,7) eq "NO_STOP") { $stop = 0 }
+  else                                  { $tol = $chkLin+0 }
+  prtMess($bpe,"TOL/STOP: $tol/$stop");
+
+# U00: US0$wwwwdm1
+# U06: US2$wwwwdm1
+# U12: US1$wwwwdm1
+# U18: US3$wwwwdm1
+# U00: US0$wwwwd
+# U06: US2$wwwwd
+# U12: US1$wwwwd
+# U18: US3$wwwwd
+# U00: US0$wwwwdp1
+# U06: US2$wwwwdp1
+
+  my @ultSol = (
+                "US0$wwwwdm1",
+                "US2$wwwwdm1",
+                "US1$wwwwdm1",
+                "US3$wwwwdm1",
+                "US0$wwwwd",
+                "US2$wwwwd",
+                "US1$wwwwd",
+                "US3$wwwwd",
+                "US0$wwwwdp1",
+                "US2$wwwwdp1",
+                );
+
+  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","USE_G","1");
+  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","USE_R","1");
+  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","USE_E","1");
+
+  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","PRTLEV","RESIDUALS");
+  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","DCOMAX"," ");
+# Activate here in case individual satellites are completely out of line
+##  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","DCOMAX","1.0") if $mjd>=59319 && $mjd<59319;
+
+# Exclude individual satellites if necessary
+##  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","SATLST","201 209 231") if $mjd>=59330 && $mjd<59331;
+##  $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","SATLST","218") if $mjd>=59331 && $mjd<59332;
+
+  my $numPre = 0;
+
+  my @runCmp = (
+                "U06_CHK_${dp1} $ultSol[-1] $ultSol[-2]",
+                "U00_CHK_${dp1} $ultSol[-2] $ultSol[-3]",
+                "U18_CHK_${d}   $ultSol[-3] $ultSol[-4]",
+                "U12_CHK_${d}   $ultSol[-4] $ultSol[-5]",
+                "U06_CHK_${d}   $ultSol[-5] $ultSol[-6]",
+                );
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBCMP";
+  my ($msg);
+
+  foreach (@runCmp) {
+      print "runCmp $_\n";
+    my @run = split(" ",$_);
+
+    my $nam  = $run[0];
+    my $chk  = substr($nam,0,7);
+    my $nam1 = $run[1];
+    my $nam2 = $run[2];
+    my $fil1 = "${dirPre}${nam1}.${extPre}";
+    my $fil2 = "${dirPre}${nam2}.${extPre}";
+      print "fil1 fil2 $fil1 $fil2\n";
+    replaceSelLst($bpe,"ORBCMP","PREINP",($nam1,$nam2));
+    $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","OUTPUT", "${nam}.PLT");
+    $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","SYSOUT", "${nam}");
+
+    if (-e $fil1 && -e $fil2) {
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","OFFSETX","1");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","OFFSETY","1");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","OFFSETZ","1");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","SCALE","1");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","ROTX","1");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","ROTY","1");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","ROTZ","1");
+      $bpe->RUN_PGMS($PGMNAM);
+
+      my $SYSOUT = $$bpe{SYSOUT};
+      my $rms_0 = `grep -A 1 ' RMS ' $SYSOUT | tail -1 | cut -c78-85`;
+      chomp($rms_0);
+      prtMess($bpe,"${nam}: RMS_0: $rms_0 m");
+      my $cmp_0 = `grep -A 1 ' RMS ' $SYSOUT | tail -1 | cut -c1-107`;
+      chomp($cmp_0);
+      prtMess($bpe,"${nam}: CMP_0:$cmp_0");
+      print "CMP:$cmp_0\n";
+      my $offX = substr($cmp_0,12, 8);
+      my $offY = substr($cmp_0,20, 8);
+      my $offZ = substr($cmp_0,28, 8);
+      my $rotX = substr($cmp_0,37,10);
+      my $rotY = substr($cmp_0,47,10);
+      my $rotZ = substr($cmp_0,57,10);
+      my $sca  = substr($cmp_0,68, 9);
+      print "CMP: /$offX/$offY/$offZ/$rotX/$rotY/$rotZ/$sca/\n";
+
+      my $OUTPUT = $bpe->getKey("$$bpe{U}/INP/ORBCMP.INP","OUTPUT");
+      my $sum_0 = `grep '#SUM  ' $OUTPUT | cut -c35-90`;
+      chomp($sum_0);
+      prtMess($bpe,"${nam}: SUM_0:$sum_0");
+      my $iqr_0 = substr($sum_0,10,10);
+      my $max_0 = substr($sum_0,20,10)." ".substr($sum_0,37,12);
+
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","OFFSETX","0");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","OFFSETY","0");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","OFFSETZ","0");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","SCALE","0");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","ROTX","0");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","ROTY","0");
+      $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","ROTZ","0");
+      $bpe->RUN_PGMS($PGMNAM);
+
+      my $sum = `grep '#SUM  ' $OUTPUT | cut -c35-90`;
+      chomp($sum);
+      prtMess($bpe,"${nam}: SUM:$sum");
+      my $iqr = substr($sum,10,10);
+      my $max = substr($sum,20,10)." ".substr($sum,37,12);
+      my $sum_g = `grep '#SUM_G' $OUTPUT | cut -c35-90`;
+      chomp($sum_g);
+      prtMess($bpe,"${nam}: SUM_G:$sum_g");
+      my $iqr_g = substr($sum_g,10,10);
+      my $max_g = substr($sum_g,20,10)." ".substr($sum_g,37,12);
+      my $sum_r = `grep '#SUM_R' $OUTPUT | cut -c35-90`;
+      chomp($sum_r);
+      prtMess($bpe,"${nam}: SUM_R:$sum_r");
+      my $iqr_r = substr($sum_r,10,10);
+      my $max_r = substr($sum_r,20,10)." ".substr($sum_r,37,12);
+      my $sum_e = `grep '#SUM_E' $OUTPUT | cut -c35-90`;
+      chomp($sum_e);
+      prtMess($bpe,"${nam}: SUM_E:$sum_e");
+      my $iqr_e = substr($sum_e,10,10);
+      my $max_e = substr($sum_e,20,10)." ".substr($sum_e,37,12);
+      if ($iqr > 0.0000) {
+        `echo '${pcfFil}_${yyddd}${h_chr} ${nam}: IQR:$iqr MAX(3D):$max IQR_G:$iqr_g IQR_R:$iqr_r IQR_E:$iqr_e IQR_0:$iqr_0 ORBCMP:$cmp_0' >> ${dirOut}ULT_CHK.LST` if $startCount==1;
+##        if ($iqr > $tol || $iqr_0 > $tol || $iqr_g > $tol) {
+        if ($iqr > $tol || $iqr_g > $tol) {
+          $msg = "${pcfFil}_${yyddd}${h_chr} ${nam} orbit acceptance control declined: IQR:$iqr m IQR_0:$iqr_0 m IQR_G:$iqr_g m ORBCMP:$cmp_0";
+          prtMess($bpe,$msg);
+          msg2key("BPE",$msg) if $startCount==1;
+          `echo '$msg' >> $errFil` if $stop;
+          die "$msg\n" if $stop;
+        }
+        my $iqr_0_g = sprintf("%6.2f",$iqr_0/$iqr_g);
+        my $iqr_g_g = sprintf("%6.2f",$iqr_g/$iqr_g);
+        my $iqr_r_g = sprintf("%6.2f",$iqr_r/$iqr_g);
+        my $iqr_e_g = sprintf("%6.2f",$iqr_e/$iqr_g);
+        print "IQR_GPS: 0:$iqr_0_g G:$iqr_g_g R:$iqr_r_g E:$iqr_e_g\n";
+
+# Perform some extra checks
+# -------------------------
+        my $txt;
+
+# Specific GNSS missing or degraded?
+        if ($sum_g eq "") {
+          $txt = $txt." GPS missing;";
+        } else {
+          $iqr_g = sprintf("%6.2f",$iqr_g/$iqr);
+          $txt = $txt." GPS degraded (${iqr_g}xIQR);" if $iqr_g > 1.5;
+          $txt = $txt." MAX(3D): $max_g;" if substr($max_g,0,10) > 1.0;
+        }
+        if ($sum_r eq "") {
+          $txt = $txt." GLO missing;";
+        } else {
+          $iqr_r = sprintf("%6.2f",$iqr_r/$iqr);
+          $txt = $txt." GLO degraded (${iqr_r}xIQR);" if $iqr_r > 2.0;
+          $txt = $txt." MAX(3D): $max_r;" if substr($max_r,0,10) > 2.0;
+        }
+        if ($sum_e eq "") {
+          $txt = $txt." GAL missing;";
+        } else {
+          $iqr_e = sprintf("%6.2f",$iqr_e/$iqr);
+          $txt = $txt." GAL degraded (${iqr_e}xIQR);" if $iqr_e > 1.5;
+          $txt = $txt." MAX(3D): $max_e;" if substr($max_e,0,10) > 2.0;
+        }
+
+# IQR with and w/o Helmert parameters strongly divergent?
+        $iqr_0 = sprintf("%6.2f",$iqr_0/$iqr);
+        $txt = $txt." IQR_0 (with Helmert parameters) higher than expected (${iqr_0}xIQR); ORBCMP:$cmp_0;" if $iqr_0 > 1.35;
+        $txt = $txt." IQR_0 (with Helmert parameters) lower than expected (${iqr_0}xIQR); ORBCMP:$cmp_0;"  if $iqr_0 < 0.95;
+        print "IQR_RED: 0:$iqr_0 G:$iqr_g R:$iqr_r E:$iqr_e\n";
+
+# Specific Helmert parameters significant?
+        if (abs($offX) > 0.05 || abs($offY) > 0.05 || abs($offZ) > 0.10) {
+          $txt = $txt." significant translation:$offX$offY$offZ;";
+        }
+        if (abs($rotX) > 0.001 || abs($rotY) > 0.001 || abs($rotZ) > 0.002) {
+          $txt = $txt." significant rotation:$rotX$rotY$rotZ;";
+        }
+        if (abs($sca) > 0.001) {
+          $txt = $txt." significant scale:$sca;";
+        }
+##        $txt = $txt." MAX(3D): $max;" if substr($max,0,10) > 1.0;
+        if ($txt ne "") {
+          $msg = "${pcfFil}_${yyddd}${h_chr} ${nam}:$txt";
+          prtMess($bpe,$msg);
+          msg2key("NEW",$msg);
+        }
+        return;
+      }
+    } else {
+      prtMess($bpe,"Missing PRE: $nam1 and/or $nam2");
+      $numPre++;
+    }
+
+  }
+
+  $msg = "${pcfFil}_${yyddd}${h_chr} ULT_CHK missing PRE ($numPre)";
+  msg2key("NEW",$msg);
+
+  if (-e $errFil) {
+    prtMess($bpe,"ULT_ERR.FLG found. Please verify and delete this file as soon as everything is ok again.");
+    die "ULT_ERR.FLG found. Please verify and delete/move this file as soon as everything is ok again.\n";
+  }
+
+}

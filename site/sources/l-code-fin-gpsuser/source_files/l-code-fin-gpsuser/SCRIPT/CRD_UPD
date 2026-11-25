@@ -1,0 +1,135 @@
+package CRD_UPD;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CRD_UPD
+#
+# Purpose :  Update the V_CRDINF coordinate file with the recent weekly
+#            solution if
+#              a) the difference is bigger than 5 cm
+#              b) the coordinates has not the "I"-flag in V_CRDINF
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+#
+# Created :  01-Nov-2007
+#
+# Changes :  03-Apr-2012 SL: $epoch string without "-"
+#
+# ============================================================================
+use strict;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+  my $limit = 50;
+
+# Get variables
+# -------------
+  my ($crdinf    , $dirOut,   $dirCrd  , $extCrd  ) =
+    $bpe->getKeys(
+      'V_CRDINF' , 'DIR_OUT', 'DIR_CRD', 'EXT_CRD');
+
+# Protocol file
+# -------------
+  my $prtFile = "${dirOut}${crdinf}upd.PRT";
+
+# Run the HELMR1 program
+# ----------------------
+  my $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Scan the program output for outliers
+# ------------------------------------
+  my %list = ();
+  my $iBad = 0;
+  my @prot = ();
+  open(OUT,"< $$bpe{SYSOUT}");
+  while (my $line = <OUT>) {
+    next unless ( $line =~ /\| V \|$/ );
+    next if ( $line =~ / \| [IL] [AW] \|  / );
+    my @rec = split(" ",substr($line,34,30));
+    my $sta = substr($line,9,16);
+    foreach my $val (@rec) {
+      if ( abs($val) > $limit ) {
+        $iBad++;
+        push @prot,$line;
+        $list{$sta} = $line;
+        print "$val: $line";
+        last;
+      }
+    }
+  }
+  close OUT;
+
+  if ($iBad > 0) {
+
+# Remove the bad a priori coordinates from CRDINF-file
+# ----------------------------------------------------
+    my @crd = ();
+    open(CRD,"< ${dirCrd}${crdinf}.${extCrd}");
+    while(<CRD>){
+      my $sta = length($_) > 22 ? substr($_,5,16) : " ";
+      push @crd, $_ unless defined $list{$sta};
+    }
+    close CRD;
+
+    open (CRD,"> ${dirCrd}${crdinf}_upd.${extCrd}");
+    print CRD @crd;
+    close CRD;
+
+# Get the epoch of the reference coordinate file
+# ----------------------------------------------
+    my $epoch = "";
+    open (CRD,"${dirCrd}${crdinf}_upd.${extCrd}");
+    while (<CRD>) {
+      if ( /EPOCH/ ) {
+        $epoch = substr($_,47,10);
+        $epoch =~ s/\-/ /g;
+        last;
+      }
+    }
+    close CRD;
+    if ($epoch ne "") {
+      chomp($epoch);
+      $bpe->putKey("$ENV{U}/PAN/COOVEL.INP","REFDAT","$epoch");
+    }
+
+# Run the COOVEL program
+# ----------------------
+    $PGMNAM = "COOVEL";
+    $bpe->RUN_PGMS($PGMNAM);
+
+# Run the CRDMERGE program
+# ------------------------
+    $PGMNAM = "CRDMERGE";
+    $bpe->RUN_PGMS($PGMNAM);
+
+  } # $iBad > 0
+
+# Write protocol file
+# ------------------
+  open(PRT,"> $prtFile");
+  if ($iBad == 0) {
+    print PRT "No stations suggested for an update of the a priori coordinate file\n";
+  } else {
+    print PRT "Updated a priori coordinate file contains $iBad new sites:\n\n";
+    print PRT @prot;
+    print PRT "\n";
+    print PRT "The new coordinate file is located at\n";
+    print PRT "$ENV{REF}/${crdinf}upd.${extCrd}\n";
+
+  }
+  close PRT;
+
+# Copy the new coordinate file back to the reference directory
+# ------------------------------------------------------------
+  if ($iBad > 0) {
+    copyfile("${dirCrd}${crdinf}_upd.${extCrd}","$ENV{REF}/${crdinf}upd.${extCrd}");
+    copyfile("$prtFile","$ENV{REF}/");
+  }
+
+}

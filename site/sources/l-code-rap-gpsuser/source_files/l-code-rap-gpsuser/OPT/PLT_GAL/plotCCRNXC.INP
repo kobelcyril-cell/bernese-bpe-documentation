@@ -1,0 +1,663 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 9
+  "P" "/storage/research/aiub_code"
+  "Q" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "X" "/storage/research/aiub_data/BSWsoftware/BERN/GPS"
+  "U" "/storage/homefs/l_code_rap/GPSUSER"
+  "S" "/storage/research/aiub_data/PRODUCTS"
+  "USER" "l_code_rap"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 1  "${P}/PLOTS_RAP"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2024"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "2670"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show general configuration"
+
+! Satellite information
+! ---------------------
+SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+  ## emptyallowed = true
+  # $(SATINF)_$(PCV)
+
+DESCR_SATELL 1  "Satellite information"
+
+! Select the content of the plot
+! ------------------------------
+WHAT 1  "LINFIT_matrix"
+  ## widget = combobox; editable = false
+  ## cards = NUMEPO_series NUMEPO_matrix LINFIT_matrix LINFIT_boxplot
+
+MSG_WHAT 1  "Select the content of the plot"
+
+! How to sort the satellites
+! --------------------------
+SORT 1  "Plane"
+  ## widget = combobox; editable = false; cards = PRN SVN Plane
+  ## activeif = WHAT == NUMEPO_matrix OR WHAT == LINFIT_matrix OR WHAT == LINFIT_boxplot
+
+MSG_SORT 1  "Select the content of the plot"
+
+! CCRNXC Program Output File Names (input)
+! --------------------------------
+CCRNXC 0
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+  ## activeif = WHAT == NUMEPO_matrix OR WHAT == LINFIT_matrix
+  # $(CCRNXC)_*
+
+DESCR_CCRNXC 1  "List of CCRNXC output files"
+
+NCCRNXC 1  "1"
+  ## widget = spinbox; range = 1 10 1
+  ## activeif = WHAT == NUMEPO_matrix OR WHAT == LINFIT_matrix
+
+MSG_NCCRNXC 1  "Number of sequence in the file"
+
+! CCRNXC Program Output File Names (reference)
+! --------------------------------
+CCRNXC_REF 0
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+  ## emptyallowed = true
+  ## activeif = WHAT == LINFIT_matrix OR WHAT == LINFIT_boxplot
+  # 
+
+DESCR_CCRNXC_REF 1  "List of CCRNXC output files"
+
+NCCRNXC_REF 1  "$(NCCRNXC_REF)"
+  ## widget = spinbox; range = 1 10 1
+  ## activeif = WHAT == LINFIT_matrix OR WHAT == LINFIT_boxplot AND CCRNXC_REF / _
+
+MSG_NCCRNXC_REF 1  "Number of sequence in the file"
+
+! Filename for resulting plotz (output)
+! -------------------------------------
+FIGSHOW 1  "0"
+  ## widget = checkbox
+
+MSG_FIGSHOW 1  "Show resulting firgure on the screen"
+
+FIGOUT 1  "${P}/PLOTS_RAP/FIG/$(FIG)linRMS_300s_gal.eps"
+  ## widget = lineedit; path = DIR_FIG; ext = NO_EXT; maxfiles = 1
+  # $(FIG)linRMS_300s_gal.eps
+
+DESCR_FIGOUT 1  "Output file for plot of number of epochs"
+
+FIGRES 1  "600"
+  ## widget = lineedit; check_type = integer; check_min = 50
+
+DESCR_FIGRES 1  "Resolution of the figure"
+
+! Title: new entry
+! ----------------
+TITLE 0
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+TIT_FONTSIZE 1  "large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_TIT_FONTSIZE 1  "Font size in the title"
+
+! Size of the plot
+! ----------------
+SIZEX 1  "8"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEX 1  "Width of the plot"
+
+SIZEY 1  "10"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEY 1  "Height of the plot"
+
+! Define colormap
+! ---------------
+CMAP 1  "RdYlBu"
+  ## widget = combobox; editable = false
+  ## cards = MANUAL Accent Blues BrBG BuGn BuPu CMRmap Dark2 GnBu Greens Greys OrRd Oranges PRGn Paired Pastel1 Pastel2 PiYG PuBu PuBuGn PuOr PuRd Purples RdBu RdGy RdPu RdYlBu RdYlGn Reds Set1 Set2 Set3 Spectral Vega10 Vega20 Vega20b V
+
+MSG_CMAP 1  "Select the colormap"
+
+CMAP_MANUAL 1  "" ""
+  ## widget = uniline; activeif = CMAP = MANUAL; numlines = 5
+  ## check_type.1 = real; check_min.1 = 0; check_max.1 = 1
+
+MSG_CMAP_MANUAL 1  "Create an user defined color map"
+
+CREVERSE 1  "1"
+  ## widget = checkbox
+
+MSG_CREVERSE 1  "Reverse the colormap"
+
+CMIN 1  "0"
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_CMIN 1  "Minimum value for colormap"
+
+CMAX 1  "1"
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_CMAX 1  "Maximum value for colormap"
+
+CLABEL 1  "RMS of linear fit per day in ns"
+  ## widget = lineedit
+
+MSG_CLABEL 1  "Label for colormap"
+
+! Plotting options for GPS
+! ------------------------
+USE_GPS 1  "0"
+  ## widget = checkbox
+
+MSG_USE_GPS 1  "Include stations tracked GPS"
+
+! Plotting options for GLONASS
+! ----------------------------
+USE_GLO 1  "0"
+  ## widget = checkbox
+
+MSG_USE_GLO 1  "Include stations tracked GLONASS"
+
+! Plotting options for Galileo
+! ----------------------------
+USE_GAL 1  "1"
+  ## widget = checkbox
+
+MSG_USE_GAL 1  "Include stations tracked Galileo"
+
+! Plotting options for SBAS
+! -------------------------
+USE_SBS 1  "0"
+  ## widget = checkbox
+
+MSG_USE_SBS 1  "Include stations tracked SBAS"
+
+! Plotting options for BeiDou
+! ---------------------------
+USE_BDS 1  "0"
+  ## widget = checkbox
+
+MSG_USE_BDS 1  "Include stations tracked BeiDou"
+
+! Plotting options for QZSS
+! -------------------------
+USE_QZS 1  "0"
+  ## widget = checkbox
+
+MSG_USE_QZS 1  "Include stations tracked QZSS"
+
+! Labels for the time axis
+! ------------------------
+XLABEL 1  "YYYY-MM-DD"
+  ## widget = combobox; editable = false
+  ## cards = YYYY-DOY YYYY-MM-DD DD-MM-YYYY
+
+MSG_XLABEL 1  "Layout of the labels in the time axis"
+
+XTICK_N 1  "1"
+  ## widget = radiobutton; group = XTICK; radiokeys = XTICK_NUM
+
+MSG_XTICK_N 1  "Number of labels in the time axis"
+
+XTICK_NUM 1  "13"
+  ## widget = spinbox; range = 1 100 1
+
+MSG_XTICK_NUM 1  "Number of labels in the time axis"
+
+XTICK_D 1  "0"
+  ## widget = radiobutton; group = XTICK; radiokeys = XTICK_DEL
+
+MSG_XTICK_D 1  "Delta of labels in the time axis"
+
+XTICK_DEL 1  "30"
+  ## widget = spinbox; range = 1 100 1
+
+MSG_XTICK_DEL 1  "Delta of labels in the time axis"
+
+! Specify the legend characteristics
+! ----------------------------------
+XYAUTO 1  "1"
+  ## widget = checkbox
+
+MSG_XYAUTO 1  "Plot a legend"
+
+XMIN 0
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND WHAT /= LINFIT_boxplot
+
+MSG_XMIN 1  "Latitude of the lower left corner"
+
+YMIN 0
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_YMIN 1  "Longitude of the lower left corner"
+
+XMAX 0
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND WHAT /= LINFIT_boxplot
+
+MSG_XMAX 1  "Latitude of the upper right corner"
+
+YMAX 0
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_YMAX 1  "Longitude of the upper right corner"
+
+LABEL_X 0
+  ## widget = lineedit; activeif = WHAT /= LINFIT_boxplot
+
+MSG_LABEL_X 1  "Label for the time axis"
+
+LABEL_Y 0
+  ## widget = lineedit
+
+MSG_LABEL_Y 1  "Label for the Y-component"
+
+LABEL_FONTSIZE 1  "large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_LABEL_FONTSIZE 1  "Font size in the labels"
+
+BGCOLOR 1  "grey"
+  ## widget = combobox; editable = true
+  ## cards = white red green blue yellow orange magenta cyan grey
+
+MSG_BGCOLOR 1  "Plot background color"
+
+! CCRNXC Program Output File Names (dataset 1)
+! --------------------------------
+CCRNXC_1 0
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+DESCR_CCRNXC_1 1  "List of CCRNXC output files, dataset 1"
+
+NCCRNXC_1 1  "1"
+  ## widget = spinbox; range = 1 10 1; activeif = CCRNXC_1 / _
+
+MSG_NCCRNXC_1 1  "Number of sequence in the file, dataset 1"
+
+USESYS_1 1  "GEN"
+  ## widget = combobox; editable = false
+  ## cards = GPS GLO GAL SBS BDS QZS GEN
+  ## activeif = WHAT == NUMEPO_series AND CCRNXC_1 / _
+
+MSG_USESYS_1 1  "GNSS selection for dataset 1"
+
+COLOR_1 0
+  ## widget = combobox; editable = true
+  ## cards = red green blue yellow orange magenta cyan grey
+  ## activeif = CCRNXC_1 / _
+
+MSG_COLOR_1 1  "Color for dataset 1"
+
+LABEL_1 0
+  ## widget = lineedit; activeif = CCRNXC_1 / _
+
+MSG_LABEL_1 1  "Legend entry for dataset 1"
+
+! CCRNXC Program Output File Names (dataset 2)
+! --------------------------------
+CCRNXC_2 0
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+DESCR_CCRNXC_2 1  "List of CCRNXC output files, dataset 2"
+
+NCCRNXC_2 1  "1"
+  ## widget = spinbox; range = 1 10 1; activeif = CCRNXC_2 / _
+
+MSG_NCCRNXC_2 1  "Number of sequence in the file, dataset 2"
+
+USESYS_2 1  "GEN"
+  ## widget = combobox; editable = false
+  ## cards = GPS GLO GAL SBS BDS QZS GEN
+  ## activeif = WHAT == NUMEPO_series AND CCRNXC_2 / _
+
+MSG_USESYS_2 1  "GNSS selection for dataset 2"
+
+COLOR_2 0
+  ## widget = combobox; editable = true
+  ## cards = red green blue yellow orange magenta cyan grey
+  ## activeif = CCRNXC_2 / _
+
+MSG_COLOR_2 1  "Color for dataset 2"
+
+LABEL_2 0
+  ## widget = lineedit; activeif = CCRNXC_2 / _
+
+MSG_LABEL_2 1  "Legend entry for dataset 2"
+
+! CCRNXC Program Output File Names (dataset 3)
+! --------------------------------
+CCRNXC_3 0
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+DESCR_CCRNXC_3 1  "List of CCRNXC output files, dataset 3"
+
+NCCRNXC_3 1  "1"
+  ## widget = spinbox; range = 1 10 1; activeif = CCRNXC_3 / _
+
+MSG_NCCRNXC_3 1  "Number of sequence in the file, dataset 3"
+
+USESYS_3 1  "GEN"
+  ## widget = combobox; editable = false
+  ## cards = GPS GLO GAL SBS BDS QZS GEN
+  ## activeif = WHAT == NUMEPO_series AND CCRNXC_3 / _
+
+MSG_USESYS_3 1  "GNSS selection for dataset 3"
+
+COLOR_3 0
+  ## widget = combobox; editable = true
+  ## cards = red green blue yellow orange magenta cyan grey
+  ## activeif = CCRNXC_3 / _
+
+MSG_COLOR_3 1  "Color for dataset 3"
+
+LABEL_3 0
+  ## widget = lineedit; activeif = CCRNXC_3 / _
+
+MSG_LABEL_3 1  "Legend entry for dataset 3"
+
+! CCRNXC Program Output File Names (dataset 4)
+! --------------------------------
+CCRNXC_4 0
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+DESCR_CCRNXC_4 1  "List of CCRNXC output files, dataset 4"
+
+NCCRNXC_4 1  "1"
+  ## widget = spinbox; range = 1 10 1; activeif = CCRNXC_4 / _
+
+MSG_NCCRNXC_4 1  "Number of sequence in the file, dataset 4"
+
+USESYS_4 1  "GEN"
+  ## widget = combobox; editable = false
+  ## cards = GPS GLO GAL SBS BDS QZS GEN
+  ## activeif = WHAT == NUMEPO_series AND CCRNXC_4 / _
+
+MSG_USESYS_4 1  "GNSS selection for dataset 4"
+
+COLOR_4 0
+  ## widget = combobox; editable = true
+  ## cards = red green blue yellow orange magenta cyan grey
+  ## activeif = CCRNXC_4 / _
+
+MSG_COLOR_4 1  "Color for dataset 4"
+
+LABEL_4 0
+  ## widget = lineedit; activeif = CCRNXC_4 / _
+
+MSG_LABEL_4 1  "Legend entry for dataset 4"
+
+! CCRNXC Program Output File Names (dataset 5)
+! --------------------------------
+CCRNXC_5 0
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+DESCR_CCRNXC_5 1  "List of CCRNXC output files, dataset 5"
+
+NCCRNXC_5 1  "1"
+  ## widget = spinbox; range = 1 10 1; activeif = CCRNXC_5 / _
+
+MSG_NCCRNXC_5 1  "Number of sequence in the file, dataset 5"
+
+USESYS_5 1  "GEN"
+  ## widget = combobox; editable = false
+  ## cards = GPS GLO GAL SBS BDS QZS GEN
+  ## activeif = WHAT == NUMEPO_series AND CCRNXC_5 / _
+
+MSG_USESYS_5 1  "GNSS selection for dataset 5"
+
+COLOR_5 0
+  ## widget = combobox; editable = true
+  ## cards = red green blue yellow orange magenta cyan grey
+  ## activeif = CCRNXC_5 / _
+
+MSG_COLOR_5 1  "Color for dataset 5"
+
+LABEL_5 0
+  ## widget = lineedit; activeif = CCRNXC_5 / _
+
+MSG_LABEL_5 1  "Legend entry for dataset 5"
+
+! CCRNXC Program Output File Names (dataset 6)
+! --------------------------------
+CCRNXC_6 0
+  ## widget = selwin; path = DIR_OUT; extList = EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+DESCR_CCRNXC_6 1  "List of CCRNXC output files, dataset 6"
+
+NCCRNXC_6 1  "1"
+  ## widget = spinbox; range = 1 10 1; activeif = CCRNXC_6 / _
+
+MSG_NCCRNXC_6 1  "Number of sequence in the file, dataset 6"
+
+USESYS_6 1  "GEN"
+  ## widget = combobox; editable = false
+  ## cards = GPS GLO GAL SBS BDS QZS GEN
+  ## activeif = WHAT == NUMEPO_series AND CCRNXC_6 / _
+
+MSG_USESYS_6 1  "GNSS selection for dataset 6"
+
+COLOR_6 0
+  ## widget = combobox; editable = true
+  ## cards = red green blue yellow orange magenta cyan grey
+  ## activeif = CCRNXC_6 / _
+
+MSG_COLOR_6 1  "Color for dataset 6"
+
+LABEL_6 0
+  ## widget = lineedit; activeif = CCRNXC_6 / _
+
+MSG_LABEL_6 1  "Legend entry for dataset 6"
+
+! Specify the legned characteristics
+! ----------------------------------
+LEGEND 1  "0"
+  ## widget = checkbox
+
+MSG_LEGEND 1  "Plot a legend"
+
+LEG_POS 1  "lower/right"
+  ## widget = combobox; editable = false; activeif = LEGEND = 1
+  ## cards = right center/left upper/right lower/right best center lower/left center/right upper/left upper/center lower/center
+
+MSG_LEG_POS 1  "Position of the legend"
+
+LEG_ANCHOR_X 0
+  ## widget = lineedit; activeif = LEGEND = 1; check_type = real
+
+MSG_LEG_ANCHOR_X 1  "Anchor point for legend position"
+
+LEG_ANCHOR_Y 0
+  ## widget = lineedit; activeif = LEGEND = 1; check_type = real
+
+MSG_LEG_ANCHOR_Y 1  "Anchor point for legend position"
+
+LEG_NCOLS 1  "1"
+  ## widget = spinbox; activeif = LEGEND = 1; range = 1 10 1
+
+MSG_LEG_NCOLS 1  "Position of the legend"
+
+LEG_FRAME 1  "1"
+  ## widget = checkbox; activeif = LEGEND = 1
+
+MSG_LEG_FRAME 1  "Plot a legend with a frame"
+
+LEG_TITLE 0
+  ## widget = lineedit; activeif = LEGEND = 1
+
+MSG_LEG_TITLE 1  "Title of the legend"
+
+LEG_FONTSIZE 1  "x-large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_LEG_FONTSIZE 1  "Font size in the legend"
+
+FONTSCALE 1  "1.2"
+  ## widget = lineedit; check_type = real
+  ## activeif = WHAT = NUMEPO_matrix OR WHAT = LINFIT_matrix
+
+MSG_FONTSCALE 1  "Font scale"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PLOT SAT-CLOCK STATISTICS FROM CCRNXC - plotCCRNXC 1: Input/output files     #
+#                                                                              #
+# GENERAL CONFIGURATION                                                        #
+#   Show general configuration        > % <                                    # SHOWGEN
+#                                                                              #
+# DEFINE THE CONTENT OF THE PLOT      > %%%%%%%%%%%%%%%%%%%%%%%% <             # WHAT
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Input CCRNXC program output files > %%%%%%%% <                             # CCRNXC
+#   Use the n-th sequence of CCRNXC   > %% <                                   # NCCRNXC
+#                                                                              #
+# REFERENCE FOR DIFFERENCES                                                    #
+#   Input CCRNXC program output files > %%%%%%%% <                             # CCRNXC_REF
+#   Use the n-th sequence of CCRNXC   > %% <                                   # NCCRNXC_REF
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Show figure on the screen         > % <                                    # FIGSHOW
+#   Name of the output file           > %%%%%%%%%%%%%%%%%%%%%%%% <             # FIGOUT
+#                                       (extension defines the format)         #
+#   Resolution of the figure          > %%%% < dpi                             # FIGRES
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# plotCCRNXC 1.1: General Configuration                                        #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   Satellite information       > %%%%%%%%%%%% <                               # SATELL
+#                                                                              #
+# FONT DEFITIONS                                                               #
+#   Title                       > %%%%%%%%%%%% <                               # TIT_FONTSIZE
+#   Labels                      > %%%%%%%%%%%% <                               # LABEL_FONTSIZE
+#   Legend                      > %%%%%%%%%%%% <                               # LEG_FONTSIZE
+#   Font scale                  > %%%%%%%%%%%% <                               # FONTSCALE
+#                                                                              #
+# COLOR DEFITIONS                                                              #
+#   Background color of the plot> %%%%%%%%%%%% <                               # BGCOLOR
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotCCNRXC 2: Plot layout                                                    #
+#                                                                              #
+# CONTENT OF THE PLOT                                                          #
+#   Title > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # TITLE
+#                                                                              #
+#   Include satellite clocks                                                   #
+#      > % <  GPS              > % <  GLONASS          > % <  Galileo          # USE_GPS USE_GLO USE_GAL
+#      > % <  SBAS             > % <  BeiDou           > % <  QZSS             # USE_SBS USE_BDS USE_QZS
+#   Sort satellites   > %%%%%% <                                               # SORT
+#                                                                              #
+# PLOT LAYOUT                                                                  #
+#   Size of the plot:   width   > %%%%%%%%%% <    height     > %%%%%%%%%% <    # SIZEX SIZEY
+#      > % < Axis boundaries are defined atuomatically                         # XYAUTO
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL WHAT = NUMEPO_matrix OR WHAT = LINFIT_matrix #####################
+# plotCCNRXC 3: Plot layout                                                    #
+#                                                                              #
+# COLOR MAP LAYOUT                                                             #
+#   Define color map         > %%%%%%%%%%%%%%%%%%% <   > % < reverse           # CMAP CREVERSE
+#      Range of values   min > %%%%%% <        max > %%%%%% <                  # CMIN CMAX
+#      Label for colormap    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <        # CLABEL
+#                                                                              #
+# PLOT LAYOUT                                                                  #
+#   Layout of the time axis     > %%%%%%%%%% <                                 # XLABEL
+#      > % <  number of tickmarks/labels      > %%%% <                         # XTICK_N XTICK_NUM
+#      > % <  delta between tickmarks/labels  > %%%% <  days                   # XTICK_D XTICK_DEL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL WHAT = NUMEPO_matrix OR WHAT = LINFIT_matrix AND CMAP = MANUAL ###
+# plotCCRNXC 3.1: User defined color map                                       #
+#                                                                              #
+# Create an user defined colormap                                              #
+# > value__ color_______ <         define colors for 0.0 and 1.0               # CMAP_MANUAL
+#                                  additional value/color combinations         #
+#                                    may be added inbetween                    #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL WHAT = LINFIT_boxplot OR WHAT = NUMEPO_series ####################
+# plotCCNRXC 4: Time series for plotting                                       #
+#                                                                              #
+# SELECT DATASET        n-th sequ.                                             #
+#     Filename          of CCRNXC      GNSS        color           label       #
+# 1.> %%%%%%%%%%%% <     > %%% <     > %%%% <    > %%%%%%%% <    > %%%%%%%% <  # CCRNXC_1 NCCRNXC_1 USESYS_1 COLOR_1 LABEL_1
+# 2.> %%%%%%%%%%%% <     > %%% <     > %%%% <    > %%%%%%%% <    > %%%%%%%% <  # CCRNXC_2 NCCRNXC_2 USESYS_2 COLOR_2 LABEL_2
+# 3.> %%%%%%%%%%%% <     > %%% <     > %%%% <    > %%%%%%%% <    > %%%%%%%% <  # CCRNXC_3 NCCRNXC_3 USESYS_3 COLOR_3 LABEL_3
+# 4.> %%%%%%%%%%%% <     > %%% <     > %%%% <    > %%%%%%%% <    > %%%%%%%% <  # CCRNXC_4 NCCRNXC_4 USESYS_4 COLOR_4 LABEL_4
+# 5.> %%%%%%%%%%%% <     > %%% <     > %%%% <    > %%%%%%%% <    > %%%%%%%% <  # CCRNXC_5 NCCRNXC_5 USESYS_5 COLOR_5 LABEL_5
+# 6.> %%%%%%%%%%%% <     > %%% <     > %%%% <    > %%%%%%%% <    > %%%%%%%% <  # CCRNXC_6 NCCRNXC_6 USESYS_6 COLOR_6 LABEL_6
+#                                                                              #
+# PLOT AXIS SPECIFICATION                  Boundaries: > % < auto or           # XYAUTO
+#     Labels at                                 Min         Max                #
+#     X-axis      > %%%%%%%%%%%%%%%%%%%%% <   > %%%%%%%% <> %%%%%%%% <         # LABEL_X XMIN XMAX
+#     Y-axis      > %%%%%%%%%%%%%%%%%%%%% <   > %%%%%%%% <> %%%%%%%% <         # LABEL_Y YMIN YMAX
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL WHAT = LINFIT_boxplot OR WHAT = NUMEPO_series ####################
+# plotCCNRXC 5: Legend layout                                                  #
+#                                                                              #
+# LEGEND LAYOUT SPECIFICATION                                                  #
+# > % <  Legend:                                                               # LEGEND
+#        Position  > %%%%%%%%%%%% <  X-off > %%%%% <  Y-off > %%%%% <          # LEG_POS LEG_ANCHOR_X LEG_ANCHOR_Y
+#        Frame     > % <             Num. Columns   > % <                      # LEG_FRAME LEG_NCOLS
+#        Title     > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <          # LEG_TITLE
+#                                                                              #
+# END_PANEL ####################################################################

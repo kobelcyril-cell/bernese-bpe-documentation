@@ -1,0 +1,69 @@
+# ============================================================================
+# ZDMCLKDEN.PCF
+# ============================================================================
+#
+# Description:  Clock densification for zero-difference solution
+#
+# Comments   :  PCF mainly based on legacy FCLKGNSS
+#
+# Variables  :
+#
+# Flags (MSC):
+#
+# Author     :  E. Calero
+# Created    :  02-Jun-2022
+#
+# Changes    :
+#
+# ============================================================================
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+555  STATUS     NO_OPT    CPU=LOCAL; PARAM1=ZD3D; PARAM2=CHECK
+#
+# Copy data and prepair input files
+# ---------------------------------
+001  ZDDE_COP   NO_OPT    CPU=LOCAL; WAIT=555; PARAM1=V_K
+002  INIT_HOI   NO_OPT    CPU=LOCAL; WAIT=001
+003  INIT_VMF   NO_OPT    CPU=LOCAL; WAIT=002
+#
+# Receiver clocks and troposphere
+# -------------------------------
+010  FILESTAP   NO_OPT    CPU=LOCAL; WAIT=003
+011  FILEST_P   FZDM_1DR  CPU=SHORT; WAIT=010; PARALLEL=010
+012  TRPMERZD   NO_OPT    CPU=LOCAL; WAIT=011
+013  CCRNXC     FZDM_1DR  CPU=LOCAL; WAIT=011
+# Combine satellite and receiver clocks
+020  CCRNXC     FZDM_1DX  CPU=SHORT; WAIT=013
+021  CCRNXC     FZDM_1DF  CPU=SHORT; WAIT=020
+#
+# High-rate clocks
+# ----------------
+030  CLKEST     FZDM_1H0  CPU=HUGE; WAIT=021
+031  CCRNXC     FZDM_1H0  CPU=LOCAL; WAIT=030
+032  CCRNXC     FZDM_1HN  CPU=LOCAL; WAIT=031
+#
+# Save results
+# ------------
+040  SAVECLKDE  NO_OPT    CPU=LOCAL; WAIT=032; PARAM1=V_K; PARAM2=V_Q
+050  DEL_CLKD   NO_OPT    CPU=LOCAL; WAIT=040
+999  STATUS     NO_OPT    CPU=LOCAL; WAIT=050; PARAM1=CLKDEN; PARAM2=CREATE
+
+VARIABLE   DEFAULT        PARAMETERS
+V_K      = F3I;           DESCRIPTION=Global solution to be fixed
+V_Q      = F3H;           DESCRIPTION=Final results, CLKEST 30s clocks      3d
+V_BLQINF = FES2014b;      DESCRIPTION=BLQ file name, CMC corrections
+V_PCV    = I20;           DESCRIPTION=GNSS PCV model (absolute)
+V_PCVINF = ANT_COD;       DESCRIPTION=PCV information
+V_OBSSEL = OBSERV_COD;    DESCRIPTION=Observation selection file
+V_SATINF = SATELLIT;      DESCRIPTION=Satellite information
+V_SATCRX = ZD_SAT_$Y+0;      DESCRIPTION=Satellite problem file for data import
+V_SUBMOD = DESAI2016;     DESCRIPTION=Subdaily pole model
+V_NUTMOD = IAU2000R06;    DESCRIPTION=Nutation model
+V_SAMPL  = 300;           DESCRIPTION=Sampling rate of the GPSEST solution
+V_PSDINF = IGC20;         DESCRIPTION=PSD corrections for ITRF2014
+V_CRDINF = IGC20;         DESCRIPTION=CRD/VEL/FIX master file name
+V_STAINF = CODE;          DESCRIPTION=Station information
+V_SAVE   = NO;            DESCRIPTION=Save results
+V_DEL    = Y;             DESCRIPTION=Delete intermediate products
+

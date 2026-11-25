@@ -1,0 +1,105 @@
+package ZD_ADD_LEO;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ZD_ADD_LEO
+#
+# Purpose :  Copy LEO NEQs into the campaign and record the included LEOs
+#            in the session's MSC directory.
+#
+# Author  :  C. Kobel
+# Created :  10-Sep-2026
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+use warnings;
+use File::Basename qw(dirname);
+use File::Copy qw(copy);
+use File::Path qw(make_path);
+use File::Spec;
+
+sub run {
+    my ($bpe) = @_;
+    # ---------- Get variables ------------
+    my ($ileo, $dirLeo, $fin, $dirNeq, $extNeq, $yyssss) =
+        $bpe->getKeys('V_ILEO', 'V_DIRLEO', 'V_FIN',
+                      'DIR_NEQ', 'EXT_NEQ', '$YSS+0');
+    print "\n[ZD_ADD_LEO] START\n";
+    for my $pair (['V_ILEO', $ileo], ['V_DIRLEO', $dirLeo],
+                  ['V_FIN', $fin], ['DIR_NEQ', $dirNeq],
+                  ['EXT_NEQ', $extNeq], ['$YSS+0', $yyssss]) {
+        print "[ZD_ADD_LEO] $pair->[0] = '" .
+              (defined $pair->[1] ? $pair->[1] : '<undefined>') . "'\n";
+    }
+    die "V_ILEO must be YES or NO\n" unless defined $ileo && $ileo =~ /^(YES|NO)$/;
+    die "Invalid V_FIN\n" unless defined $fin && $fin =~ /^[A-Za-z0-9_-]+$/;
+    die "DIR_NEQ is not set\n" unless defined $dirNeq && length $dirNeq;
+    die "Invalid session date\n" unless defined $yyssss && $yyssss =~ /^\d{5}[A-Za-z0-9]$/;
+    # $YSS+0 = YYDDDsession; $S+0 = DDDsession.
+    my $yyddd = substr($yyssss, 0, 5);
+    my $ssss  = substr($yyssss, 2);
+    print "[ZD_ADD_LEO] Derived YYDDD='$yyddd', session='$ssss'\n";
+    
+    my $neqPath = $dirNeq;
+    $neqPath =~ s{[\\/]+$}{};
+    my $mscDir = File::Spec->catdir(dirname($neqPath), 'MSC', "MSC_$yyddd");
+    make_path($mscDir) unless -d $mscDir;
+    my $included = File::Spec->catfile($mscDir, "${fin}_included_LEOs_$yyddd");
+    my $noLeos   = File::Spec->catfile($mscDir, "${fin}_no_LEOs_included");
+    print "[ZD_ADD_LEO] MSC directory: $mscDir\n";
+    # Remove previous status files for this solution and day.
+    for my $file ($included, $noLeos) {
+        if (-e $file) {
+            unlink($file) or die "Cannot remove old status file $file: $!\n";
+            print "[ZD_ADD_LEO] Removed old status file: $file\n";
+        }
+    }
+    # ---------- No LEOs requested ------------
+    if ($ileo eq 'NO') {
+        open my $fh, '>', $noLeos or die "Cannot write $noLeos: $!\n";
+        close $fh or die "Cannot close $noLeos: $!\n";
+        print "[ZD_ADD_LEO] V_ILEO=NO: created $noLeos\n";
+        print "[ZD_ADD_LEO] END: no files copied\n";
+        return;
+    }
+    # ---------- Find LEO NEQs ------------
+    die "V_DIRLEO is not set\n" unless defined $dirLeo && length $dirLeo;
+    die "Invalid EXT_NEQ\n" unless defined $extNeq && $extNeq =~ /^[A-Za-z0-9]+$/;
+    my $sourceDir = File::Spec->catdir($dirLeo, 'SOL');
+    print "[ZD_ADD_LEO] Search: $sourceDir/????$yyssss.$extNeq\n";
+    opendir my $dh, $sourceDir or die "Cannot read $sourceDir: $!\n";
+    my @files = sort grep {
+        /^.{4}\Q$yyssss.$extNeq\E$/ && -f File::Spec->catfile($sourceDir, $_)
+    } readdir $dh;
+    closedir $dh;
+    print "[ZD_ADD_LEO] Matching files: " . scalar(@files) . "\n";
+    unless (@files) {
+        open my $fh, '>', $noLeos or die "Cannot write $noLeos: $!\n";
+        close $fh or die "Cannot close $noLeos: $!\n";
+        print "[ZD_ADD_LEO] V_ILEO=YES but no matching NEQs: created $noLeos\n";
+        print "[ZD_ADD_LEO] END: no files copied\n";
+        return;
+    }
+    # ---------- Copy NEQs with station-compatible names ------------
+    die "Target NEQ directory does not exist: $dirNeq\n" unless -d $dirNeq;
+    my @leos;
+    for my $file (@files) {
+        my $leo = substr($file, 0, 4);
+        my $source = File::Spec->catfile($sourceDir, $file);
+        my $target = File::Spec->catfile($dirNeq, "${fin}_${ssss}${leo}.$extNeq");
+        print "[ZD_ADD_LEO] LEO='$leo': $source -> $target\n";
+        copy($source, $target) or die "Cannot copy $source to $target: $!\n";
+        push @leos, $leo;
+    }
+    # ---------- Write one four-character LEO ID per line ------------
+    open my $fh, '>', $included or die "Cannot write $included: $!\n";
+    for my $leo (@leos) {
+        print {$fh} "$leo\n" or die "Cannot write $included: $!\n";
+        print "[ZD_ADD_LEO] Inclusion list entry: $leo\n";
+    }
+    close $fh or die "Cannot close $included: $!\n";
+    print "[ZD_ADD_LEO] Created $included\n";
+    print "[ZD_ADD_LEO] END: " . scalar(@leos) . " LEO NEQs copied\n";
+}

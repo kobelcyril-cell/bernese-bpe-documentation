@@ -1,0 +1,93 @@
+package MAUPRP_P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  MAUPRP_P
+#
+# Purpose :  Prepare parallel MAUPRP run
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 19-May-2009
+#
+# Changes :  26-Jan-2006 mm: New initPar call (w/o tmpFil)
+#            02-Jul-2026 ck: Corrected handling of V_NCLU
+#===========================================================
+
+use strict;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $ssss,
+      $yyssss,
+      $ddd,
+      $numClu,
+      $dirPsh,
+      $dirPzh,
+      $dirOut,
+      $dirBpe,
+      $extPsh,
+      $extPzh,
+      $extOut
+  ) = $bpe->getKeys(
+      '$S+0',
+      '$YSS+0',
+      '$+0',
+      'V_NCLU',
+      'DIR_PSH',
+      'DIR_PZH',
+      'DIR_OUT',
+      'DIR_BPEPRT',
+      'EXT_PSH',
+      'EXT_PZH',
+      'EXT_OUT'
+  );
+
+  # ---------- Delete old output files ------------
+  my $mpr = "MP";
+
+  if ($numClu ne "" && $numClu != 0) {
+    unlink glob("${dirOut}${mpr}${yyssss}??.${extOut}");
+  } else {
+    unlink glob("${dirOut}${mpr}${ddd}????.${extOut}");
+  }
+
+  # ---------- Prepare BPE files ------------
+  my $bpeFil = "${dirBpe}MPR${ssss}";
+  unlink(glob("${bpeFil}???.BPE"));
+
+  # ---------- Collect observation files ------------
+  my @obsFil;
+
+  if (!-s "$ENV{U}/PAN/MAUPRP.INP" ||
+      $bpe->getKey("$ENV{U}/PAN/MAUPRP.INP", "RADIO_S")) {
+
+    @obsFil = glob("${dirPsh}????${ssss}.${extPsh}");
+
+  } else {
+
+    @obsFil = glob("${dirPzh}????${ssss}.${extPzh}");
+  }
+
+  # ---------- Initialize parallel run ------------
+  if ($numClu) {
+
+    initPar_Cl($bpe, $bpeFil, @obsFil, $numClu, 0, 0);
+
+  } else {
+
+    @obsFil = map { substr(basename($_), 0, 4) } @obsFil;
+    initPar_Bl($bpe, @obsFil);
+  }
+
+  # ---------- Safety check ------------
+  if (@obsFil == 0) {
+    prtErr($bpe, "No PSH/PZH files found");
+    die "No PSH/PZH files found for session ${ssss}";
+  }
+}

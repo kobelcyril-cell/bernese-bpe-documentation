@@ -1,0 +1,43 @@
+package ORBCMP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ORBPM
+#
+# Purpose :  Execute ORBPM
+#
+# PARAMs  :
+#
+# Author  :  I. Selmke
+# Created :  19-Sep-2019
+# Last mod.: 
+#
+# Changes:   
+#
+# ============================================================================
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yydddm1, $v_k,
+      $dirPre,  $extPre) =
+    $bpe->getKeys(
+      '$YD+0','$YD-1','V_K',
+      'DIR_PRE','EXT_PRE');
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBCMP";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Delete some orbit files
+# -----------------------
+  unlink glob("${dirPre}${v_k}_$yyddd.$extPre");
+  unlink glob("${dirPre}${v_k}_$yydddm1.$extPre");
+#  unlink glob("${dirPre}IGS$yyddd.$extPre");
+#  unlink glob("${dirPre}COD$yyddd.$extPre");
+#  unlink glob("${dirPre}PDR$yyddd.$extPre");
+
+}

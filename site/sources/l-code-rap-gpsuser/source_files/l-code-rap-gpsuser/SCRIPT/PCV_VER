@@ -1,0 +1,106 @@
+package PCV_VER;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  PCV_VER
+#
+# Purpose :  Verify whether SATELLIT.I08 and I08.ATX posted to BSWUSER52/GEN
+#            are consistent with each other.
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  15-Oct-2014
+#
+# Changes :  13-Jan-2017 AV: Add optional PCV version from param1
+#            05-Dec-2017 AV: Use ATX2PCV from BERN52
+#            23-Mar-2020 MK: Add STA2STA.pl to convert STA v1.02 to v1.01
+#            21-Apr-2020 ST: Add 'use igs_device;'
+#            29-Mar-2022 AV: Adjusted naming schemes
+#            24-Apr-2024 SS: Considered BSWUSER54 file pair
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($dirPhg, $extPhg, $dirOut, $dirSta,
+      $staInf, $satInf, $pcvInf, $pcv, $nadir, $param1) =
+    $bpe->getKeys('DIR_PHG', 'EXT_PHG', 'DIR_OUT', 'DIR_STA',
+                  'V_STAINF', 'V_SATINF', 'V_PCVINF', 'V_PCV', 'V_NADIR','PARAM1');
+
+# If PARAM1 defined switch version
+# --------------------------------
+  if($param1 ne ""){
+    $pcv = $param1;
+  }
+
+  print "PARAM: $param1\n";
+
+# Convert STA file to v1.01
+# -------------------------
+# convert STA file to v1.01
+#  system("$ENV{AUTO}/STA2STA.pl ${dirSta}/${staInf}.STA ${dirSta}/${staInf}_V52.STA -v1.01");
+#  system("$ENV{AUTO}/sta2sta.com -old=${dirSta}/${staInf}.STA -new=${dirSta}/${staInf}_V52.STA -v=1.01 -t");
+  my $PGMNAM = "STA2STA";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Use ATX2PCV from BERN52
+# -----------------------
+##  my $expath  = "$ENV{B}/BERN52/PGM/EXE_G95";
+##  my $atx2pcv = "ATX2PCV";
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH",$expath);
+
+
+
+# Copy ANTEX information
+# ----------------------
+##  copy("$ENV{REF}/${pcv}.ATX",$dirOut);
+##  copy("$ENV{REF}/${staInf}.STA",$dirSta);
+  copy("${PATH_AFTP}/BSWUSER54/REF/${pcv}.ATX","${dirOut}${pcv}_V54.ATX");
+  copy("${PATH_AFTP}/BSWUSER54/CONFIG/SATELLIT_${pcv}.SAT","$ENV{CONFIG}/SATELLIT_V54_${pcv}.SAT");
+
+# Run program
+# -----------
+# Change input options in case of param1
+# --------------------------------------
+  if($param1 ne ""){
+      print "PARAM2: $param1\n";
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","PHASEXT","${pcv}_V54.ATX");
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","PHASECC",'$(PCVINF)_$(PCV).'."$pcv");
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","PHASRSG","PCV_VER_$pcv");
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","SYSOUT","PCV_VER_$pcv");
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","SATELL",'SATELLIT_V54_${pcv}.'."SAT");
+  }
+  $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","MXFNAD","$nadir") unless $nadir eq "";
+
+  my $PGMNAM = "ATX2PCV";
+  $bpe->RUN_PGMS($PGMNAM);
+
+##  my $filNew = "${dirPhg}PCV_${pcv}.${extPhg}";
+##  my $filOld = "$ENV{X}/GEN/${pcvInf}.${pcv}";
+##  my $filnam = "${pcvInf}.${pcv}";
+##  my $diff = `diff $filNew $filOld | wc -l`;
+##  $diff = $diff + 0;
+##  if ($diff > 4) {
+##    `diff $filNew $filOld > ${filOld}_DIF`;
+##    copy($filOld,"${filOld}_BAK");
+##    copy($filNew,"${filOld}_TMP");
+##    move("${filOld}_TMP",$filOld);
+##
+##    system("$ENV{AUTO}/gen2bswuser.com ATX2PCV ${filnam}");
+##
+##    msg2key("BPE","${filnam} updated in GEN directory and BSWUSER52");
+##  }
+
+}

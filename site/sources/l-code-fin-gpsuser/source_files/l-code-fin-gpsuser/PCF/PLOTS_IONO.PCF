@@ -1,0 +1,89 @@
+# ============================================================================
+# FINALPLOTS.PCF
+# ============================================================================
+#
+# Description:  Generate a series of plots based on FINAL products using the
+#               pyPLT-tools
+#
+#               The results are located as eps and png in $P/PLOTS/FIG
+#
+# Author     :  R. Dach
+# Created    :  23-Jan-2024
+#
+# Changes    :
+#
+# ============================================================================
+
+PID  SCRIPT                OPT_DIR         PARAMETERS
+#
+# Delete specific files
+# ---------------------
+001  plot_copy_iono        PLT_GEN         CPU=LOCAL
+#
+# Plot the ionosphere maps (rapid/final)
+# --------------------------------------
+011  plotION               PLT_INXMAPDFIN   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+012  plotION               PLT_INXMAPDRAP   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+013  plotION               PLT_INXSIGDFIN   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+014  plotION               PLT_INXSIGDRAP   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+021  plotION               PLT_INXMAPSFIN   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+022  plotION               PLT_INXMAPSRAP   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+099  DUMMY                 PLT_GEN          CPU=LOCAL; WAIT=011 012 013 014 021 022
+#
+# Comparison final versus rapid maps
+# ----------------------------------
+101  plotION               PLT_INXMAPSDIF   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+102  plotION               PLT_INXSIGSDIF   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+111  plotION               PLT_INXMEDSDIF   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+112  plotION               PLT_INXAVGSDIF   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+113  plotION               PLT_INXIQRSDIF   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+114  plotION               PLT_INXSTDSDIF   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+199  DUMMY                 PLT_GEN          CPU=LOCAL; WAIT=101 102 111 112 113 114
+#
+# Plot monthly bias files
+# -----------------------
+801  plotBias              PLT_OSBMONTH_GPS CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+802  plotBias              PLT_OSBMONTH_GLO CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+803  plotBias              PLT_OSBMONTH_GAL CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+899  DUMMY                 PLT_GEN          CPU=LOCAL; WAIT=801 802 803
+#
+# Create processing summary file
+# ------------------------------
+990  plot_delete_iono      PLT_GEN   CPU=LOCAL; WAIT=099 199 899
+991  plot_save_iono        PLT_GEN   CPU=LOCAL; WAIT=990
+992  plot_save             PLT_GEN   CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR; WAIT=991
+998  BPE_CLN               PLT_GEN   CPU=LOCAL; WAIT=992
+999  BPE_BYE               PLT_GEN   CPU=LOCAL; WAIT=998
+#
+#
+
+VARIABLE     DEFAULT        PARAMETERS
+#
+# General and model files:
+# -----------------------
+V_SATCRX   = SAT;           DESCRIPTION=Satellite problem file
+V_SATINF   = SATELLIT;      DESCRIPTION=SATELLITE INFORMATION FILE
+V_PCV      = I20_2388;           DESCRIPTION=GNSS PCV MODEL (ABS)
+#
+# General settings
+# ----------------
+V_REQ_CAMP = PLOTS_ION;     DESCRIPTION=Campaign to be used
+V_FIG = iono_;              DESCRIPTION=Prepending ID for all output plots
+V_SAV = Y;                  DESCRIPTION=Publish plots on PATH_WWW/code/plots
+V_DATE = ;                  DESCRIPTION=blank process latest file or define date as yyddd or yysss as in the filename
+V_NUMDAYS = 5;              DESCRIPTION=Length of the plots (positive integer value) if nothing script specific is defined
+#
+# IONEX files for plotting maps
+# -----------------------------
+V_INXRAP = INXMAPRAP;       DESCRIPTION=Name of the INX rapid file in the plot campaign/blank no plot
+V_INXFIN = INXMAPFIN;       DESCRIPTION=Name of the INX final file in the plot campaign/blank no plot
+V_INXMAPDAYS = 3;           DESCRIPTION=Number of days in the animated plot (positive integer value) or use V_NUMDAYS
+#
+# IONEX files for plotting maps
+# -----------------------------
+V_INXDIF = INXDIFRAPFIN;    DESCRIPTION=Name of the INX rapid and final file in the plot campaign/blank no plot
+V_INXDIFDAYS = ;            DESCRIPTION=Number of days in the animated difference plot (positive integer value) or use V_NUMDAYS
+#
+# Plot monthly bias files
+# -----------------------
+V_OSB = OSBMONTH;           DESCRIPTION=Name of the monthly mean OSB files  in the plot campaign/blank no plot

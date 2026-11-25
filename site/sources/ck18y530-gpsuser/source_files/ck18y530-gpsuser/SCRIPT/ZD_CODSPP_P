@@ -1,0 +1,95 @@
+package CODSPP_P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CODSPP_P
+#
+# Purpose :  Prepares a parallel CODSPP run.
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  26-Jan-2005 mm: New initPar call (without tmp file)
+#            02-Jul-2026 ck: Revised and cleaned up
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $ssss,
+      $yyssss,
+      $ddd,
+      $param2,
+      $numClu,
+      $dirCzh,
+      $dirOut,
+      $dirSmc,
+      $dirSme,
+      $dirClk,
+      $dirBpe,
+      $extCzh,
+      $extOut,
+      $extSmc,
+      $extSme,
+      $extClk
+  ) = $bpe->getKeys(
+      '$S+0',
+      '$YSS+0',
+      '$+0',
+      'PARAM2',
+      'V_NCLU',
+      'DIR_CZH',
+      'DIR_OUT',
+      'DIR_SMC',
+      'DIR_SME',
+      'DIR_RXC',
+      'DIR_BPEPRT',
+      'EXT_CZH',
+      'EXT_OUT',
+      'EXT_SMC',
+      'EXT_SME',
+      'EXT_RXC'
+  );
+
+  # ---------- Cleanup old files ------------
+  my $spp = $param2 || "SPP";
+
+  unlink "${dirSmc}${spp}${yyssss}.${extSmc}";
+  unlink "${dirSme}${spp}${yyssss}.${extSme}";
+
+  if ($numClu ne "") {
+    unlink glob("${dirClk}${spp}${ssss}???.${extClk}");
+    unlink glob("${dirOut}${spp}${ssss}???.${extOut}");
+  }
+  else {
+    unlink glob("${dirClk}${spp}${ddd}????.${extClk}");
+    unlink glob("${dirOut}${spp}${ddd}????.${extOut}");
+  }
+
+  # ---------- Initialize parallel run ------------
+  my $bpeFil = "${dirBpe}SPP${ssss}";
+  unlink glob("${bpeFil}???.BPE");
+
+  my @czhFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+  if ($numClu ne "") {
+    initPar_Cl($bpe, $bpeFil, @czhFil, $numClu, 0, 0);
+  }
+  else {
+    @czhFil = map { substr(basename($_), 0, 4) } @czhFil;
+    initPar_Bl($bpe, @czhFil);
+  }
+
+  # ---------- Sanity check ------------
+  if (@czhFil == 0) {
+    prtErr($bpe, "No CZH files found");
+    die "No CZH files found for session ${ssss}";
+  }
+}

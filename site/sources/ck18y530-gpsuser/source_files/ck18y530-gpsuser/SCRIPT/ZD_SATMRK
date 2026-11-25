@@ -1,0 +1,24 @@
+package SATMRK;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  SATMRK
+#
+# Purpose :  Execute SATMRK
+#
+# Author  :  S. Schaer
+# Created :  
+#
+# Changes :  29-Apr-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Run program ------------
+  my $PGMNAM = "SATMRK";
+  $bpe->RUN_PGMS($PGMNAM);
+}

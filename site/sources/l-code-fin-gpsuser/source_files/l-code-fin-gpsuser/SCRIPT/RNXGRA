@@ -1,0 +1,64 @@
+package RNXGRA;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  RNXGRA
+#
+# Purpose :  Execute RNXGRA; delete, if wished, incomplete RINEX observation
+#            files
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  04-Aug-2005/ss: Consider V_SES
+#            23-Mar-2017/rd: Consider V_GNSS
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $ses, $dirDel, $extDel, $gnss) =
+    $bpe->getKeys('$YSS+0', 'V_SES', 'DIR_DEL', 'EXT_DEL', 'V_GNSS');
+
+# Remove old DEL file
+# -------------------
+  my $delFil = "${dirDel}GRA${yyssss}.${extDel}";
+  unlink ($delFil);
+
+# Adjust options for sliding multi-hour processing
+# ------------------------------------------------
+  unless ($ses eq "") {
+    my $minObs = $ses*2;
+    $bpe->putKey("$ENV{U}/PAN/RNXGRA.INP","MINOBS",$minObs);
+    my $maxBad = 72-$minObs;
+    $bpe->putKey("$ENV{U}/PAN/RNXGRA.INP","MAXBAD",$maxBad);
+  }
+
+# Select GNSS, if desired
+# -----------------------
+  &setGNSS($bpe,"$ENV{U}/PAN/RNXGRA.INP","USE_",$gnss);
+
+# Run program
+# -----------
+  my $PGMNAM = "RNXGRA";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Delete incomplete RINEX observation files
+# -----------------------------------------
+  if (-s $delFil) {
+    open (DEL,$delFil);
+    while (<DEL>) {
+      chomp;
+      while ( /^ / ) { s/^ // }  # Remove leading blanks
+      unlink ($_);
+      prtMess($bpe,"$_ deleted") }
+    close DEL }
+
+}

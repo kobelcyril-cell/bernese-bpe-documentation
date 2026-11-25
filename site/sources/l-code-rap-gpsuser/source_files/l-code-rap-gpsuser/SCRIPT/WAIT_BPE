@@ -1,0 +1,62 @@
+package WAIT_BPE;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  WAIT_BPE
+#
+# Purpose :  Waits until a BPE script (see PID IN PARAM1) of the previous day
+#            has been finished
+#
+# Programs:
+#
+# Author  :  R. Dach
+# Created :  06-Feb-2006               Last modified: 22-Jul-2008
+#
+# Changes :  22-Jul-2008 PS/RD: prepare for reprocesing
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my ($param1,   $yyssm1,   $taskID, $camp_pth, $campaign,
+      $dirBpe,   $extBpe) =
+      $bpe->getKeys
+     ('PARAM1',  '$YSS-1',  'TASKID','CAMP_PTH','CAMPAIGN',
+      'DIR_BPEPRT', 'EXT_BPEPRT' );
+
+  my $repro = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+  my $waiting =  60;
+  my $oldFile =  30;
+
+# Get the files to wait for
+# -------------------------
+  my $waitFile = "$dirBpe/${taskID}${yyssm1}_${param1}_000.${extBpe}";
+  my $lastFile = "$dirBpe/${taskID}${yyssm1}_999_000.${extBpe}";
+
+
+# Wait for the files
+# ------------------
+
+  until ( -e $waitFile && (stat($waitFile))[9]+$oldFile <= time ) {
+
+    last if $repro;
+    last if ( -e $lastFile && (stat($lastFile))[9]+$oldFile <= time );
+
+    print timstr(gmtime time) . ": Waiting for $waitFile\n";
+    sleep $waiting;
+  }
+
+}

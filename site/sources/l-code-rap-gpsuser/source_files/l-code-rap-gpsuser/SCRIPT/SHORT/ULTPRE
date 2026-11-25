@@ -1,0 +1,92 @@
+package ULTPRE;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  ULTPRE
+#
+# Purpose :  CREATE EXTRA ULTRA RAPID PRE FILE FOR PREDICTION PURPOSES
+#
+# Programs:
+#
+# Author  :  H. Bock
+#
+# Created :  06-Dec-2007
+#
+# Changes :  __-___-____ __:
+#
+# =============================================================================
+
+use strict;
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,$yydm1,$dm1,
+    $CAMP_PTH,$CAMPAIGN,
+    $dirPre,$extPre,
+    $dirErp,$extErp,
+    $dirIep,$extIep,
+    $v_i,
+  ) =
+  $bpe->getKeys(
+    '$YD+0','$YD-1','$-1',
+    'CAMP_PTH','CAMPAIGN',
+    'DIR_PRE','EXT_PRE',
+    'DIR_ERP','EXT_ERP',
+    'DIR_IEP','EXT_IEP',
+    'V_I',
+  );
+  my $PGMNAM;
+
+# Run program
+# -----------
+  my $endTim;
+  my $ultFil="${CAMP_PTH}${CAMPAIGN}/MSC/ULT$yyddd.FLG";
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = &rdUltFlg($ultFil);
+
+  $h_end = 24 unless(-e $ultFil);
+
+  if($h_end eq 24) {
+    $endTim = "24 00 00";
+  } else {
+    $endTim = sprintf("%02d%6s",$h_end,' 00 01');
+  }
+
+  $bpe->putKey("$$bpe{U}/PAN/STDPRE.INP","ENDTIM","$endTim");
+
+  $PGMNAM = "STDPRE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $rapOrb = "$dirPre/ULT${yyddd}.${extPre}";
+  my $rapErp = "$dirErp/${v_i}_${yyddd}.${extErp}";
+  my $rapIep = "$dirIep/${v_i}_${yyddd}.${extIep}";
+  my $prdOrb = "$dirPre/PRD${yyddd}.${extPre}";
+  my $prdErp = "$dirErp/PRD${yyddd}.${extErp}";
+  my $prdIep = "$dirIep/PRD${yyddd}.${extIep}";
+
+  &copyfile($rapOrb,$prdOrb);
+  &copyfile($rapErp,$prdErp);
+  &copyfile($rapIep,$prdIep);
+
+  my $ramOrb = "$dirPre/${v_i}M1${dm1}.${extPre}";
+  my $prmOrb = "$dirPre/PRD${yydm1}.${extPre}";
+  my $prmErp = "$dirErp/PRD${yydm1}.${extErp}";
+  my $prmIep = "$dirIep/PRD${yydm1}.${extIep}";
+
+  &copyfile($ramOrb,$prmOrb);
+  &copyfile($rapErp,$prmErp);
+  &copyfile($rapIep,$prmIep);
+}
+
+# =============================================================================
+
+__END__

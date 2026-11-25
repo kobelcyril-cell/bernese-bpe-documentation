@@ -1,0 +1,27 @@
+package POLUPD;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  POLUPD
+#
+# Purpose :  Execute POLUPD
+#
+# Programs:  POLUPD
+#
+# Author  :  E. Calero
+# Created :  11-May-2021
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "POLUPD";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

@@ -1,0 +1,46 @@
+package POLUPD;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  POLUPD
+#
+# Purpose :  Execute POLUPD, special treating for 3-day solution
+#
+# Author  :  E. Calero
+# Created :  11-May-2021
+#
+# Changes :  26-May-2026 CK: Revised and formatted
+#===========================================================
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+  my ($yyssssm2, $yyssssm1, $yyssss, $APR, $DAY) =
+    $bpe->getKeys('$YSS-2', '$YSS-1', '$YSS+0', 'V_APR', 'V_SOLDAY');
+
+  if ($DAY eq 'last') {
+    my $tmpFil = "$ENV{U}/WORK/POLUPD.lst";
+
+    open OUT, '>', $tmpFil or die "Cannot open $tmpFil: $!";
+    print OUT "${APR}_${yyssssm2}\n";
+    print OUT "${APR}_${yyssssm1}\n";
+    print OUT "${APR}_${yyssss}\n";
+    close OUT or die "Cannot close $tmpFil: $!";
+
+    $bpe->putKey(
+      "$ENV{U}/PAN/POLUPD.INP",
+      "ERPFIL", "SELECTED", "REPLACE", $tmpFil
+    );
+
+    system("rm $tmpFil") == 0 or die "Cannot remove $tmpFil: $!";
+  }
+  elsif ($DAY ne 'middle') {
+    die "Unexpected V_SOLDAY value: $DAY\n";
+  }
+
+  # ---------- Run program ------------
+  my $PGMNAM = "POLUPD";
+  $bpe->RUN_PGMS($PGMNAM);
+}

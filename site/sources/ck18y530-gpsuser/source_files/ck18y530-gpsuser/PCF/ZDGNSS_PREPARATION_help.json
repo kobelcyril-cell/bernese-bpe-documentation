@@ -1,0 +1,112 @@
+{
+    "100": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "101": {
+        "notes": "COP_STU prepares all required auxiliary files for processing.\nIt copies reference files, OSBs, ERP, and SINEX skeleton data.\nGLONASS OSBs are removed from the apriori bias file.\neference clock and loading models are initialized.\nAdditional preprocessing is performed via POLUPD.\n\nCopy BULLET_A.ERP first, then copy to TMP_$YSS+0.PRE and the via POLUPD to \"V_A\"_$YSS+0.ERP.\n\nCODE.OSB is copied to APR$YSS+0.OSB, then the GLONASS OSBs are removed, which results in the REF$YSS+0.OSB file.",
+        "input": "None",
+        "output": "\"V_A\"_$YSS+0.ERP\n\"V_BIAINF\".SKL\nHYDL_$YD+0.GRD\nNTAL_$YD+0.GRD\nNTOL_$YD+0\nAPR$YSS+0.OSB\nCODE.OSB\nC04_$Y+0.ERP (where is this used?->nowhere)\nREF$YSS+0.OSB\nBULLET_A.ERP\nRAP_$YSS+0.ERP (where is this used? ->nowhere)\nTMP_$YSS+0.ERP\nCODE.ABB/CLU/CRD/STA\nCODE_TRA.FIX (where is this used? ->nowhere)\nFES2004.BLQ (where is this used? ->nowhere)\nFES2014b.BLQ\n\"V_CRDINF\".CRD/FIX/PSD/SIG/VEL\nREFCLK.FIX\nRINEX.CRX (where is this used?)\nTIMLAB.FIX (used in MKCLUS)\nVAPL.ATL"
+    },
+    "102": {
+        "notes": "INIT_BRD initializes broadcast PRE and CLK files for processing.\nIt first attempts to copy products from the savedisk.\nIf unavailable, it falls back to RINEX navigation files.\nNavigation data is converted to PRE and CLK format if needed.\nProcessing stops if no valid input data is found.",
+        "input": "\"V_A\"",
+        "output": "\"V_A\"$YSS+0.CLK\n\"V_A\"$YSS+0.PRE"
+    },
+    "103": {
+        "notes": "INIT_HOI selects and copies the best available ionosphere product.\nIt searches predefined locations in priority order.\nThe selected file is copied into the campaign as HOI input.\nProcessing is skipped if HOI is disabled.\nAn error is raised if no valid ionosphere file is found.",
+        "input": "\"V_USEHOI\"",
+        "output": "HOI$YD+0.ION"
+    },
+    "104": {
+        "notes": "INIT_VMF initializes VMF grid files for the current processing day.\nIt retrieves the latest VMF data and copies it into the campaign directory.\nExisting VMF files are removed before processing.\nThe script verifies that the grid file was successfully created.\nStatus information is reported via BPE messaging.",
+        "input": "None",
+        "output": "VMF$YD+0.GRD"
+    },
+    "110": {
+        "notes": "STATION_SELECTION selects GNSS stations based on configuration parameter V_NSTA.\nIt supports ALL, FINAL, or numeric selection modes.\nAvailable stations are extracted via Python and processed with MATLAB.\nUnselected stations are removed from the observation directory.\nProcessing details are logged in the campaign MSC directory.\nIf \"V_NSTA\" = FINAL, the file \"storage/research/aiub_code/IGSFINAL/STA/F1_${yyddd}.CRD\" has to be available.",
+        "input": "\"V_NSTA\"",
+        "output": "Entry in LOG-file"
+    },
+    "120": {
+        "notes": "CHECK_OBSENTRIES verifies that all observation files have matching station entries.It reads station information from the CRD file.\nObservation files without a valid station entry are removed.\nThe script logs all actions and summary statistics.\nResults are written to the campaign processing log.",
+        "input": "????$S+0.$Y+0O\n\"V_CRDINF\".CRD",
+        "output": "Entry in LOG-file"
+    },
+    "121": {
+        "notes": "CHECK_VAPL_ENTRIES verifies OBS files against stations in VAPL.ATL.\nStations missing in VAPL.ATL are identified.\nAll corresponding OBS files are removed from the dataset.\nActions and statistics are written to a log file.\nProcessing continues even if deletions occur.",
+        "input": "RNX-Observations files (only filenames)\nVAPL.ATL",
+        "output": "VAPL_entries (MSC)"
+    },
+    "122": {
+        "notes": "NUM_OBSFIL counts observation files in the RAW directory.\nResults are written to the processing log file.\nA warning is issued if the count is below a configurable threshold.\nProcessing aborts if the number falls below a critical limit.\nThe minimum expected count can be set via V_MINCOUNT.",
+        "input": "RINEX observation files (only filenames)",
+        "output": "Entry in LOG-file"
+    },
+    "130": {
+        "notes": "",
+        "input": "\"V_CRDINF\".CRD/VEL",
+        "output": "\"V_A\"_$YSS+0.CRD"
+    },
+    "131": {
+        "notes": "",
+        "input": "\"V_A\"_$YSS+0.PRE\n\"V_A\"_$YSS+0.ERP (from POLUPD)",
+        "output": "\"V_A\"_$YSS+0.STD/RPR"
+    },
+    "140": {
+        "notes": "cleans up previous SMT and error files.",
+        "input": "\"V_NCLU\"",
+        "output": ""
+    },
+    "141": {
+        "notes": "",
+        "input": "RNX observation files (e.g. ????$S+0.$Y+0O)",
+        "output": "????$S+0.SMT file"
+    },
+    "142": {
+        "notes": "RXOBV3GP prepares parallel RXOBV3 processing using RNXGRA.\nIt selects suitable observation files and filters out bad stations.\nTemporary lists and summary information are evaluated and cleaned.\nOld output files are removed before processing initialization.\nParallel execution is configured depending on cluster settings.",
+        "input": "Smoothed RNX observation files (e.g. ????$S+0.SMT)",
+        "output": "SMT$YSS+0.SMC\n\nRNX$YSS+0.LST (selected RINEX files)\n\nDEL$YSS+0.DEL (unselected RINEX files)\n\n"
+    },
+    "143": {
+        "notes": "",
+        "input": "Smoothed RNX files (e.g. ????$S+0.SMT)",
+        "output": "Bernese observations files (e.g. ????$YSS+0.CZH/CZO/PZH/PZO)"
+    },
+    "150": {
+        "notes": "CHECK_SAT_GAPS analyzes SMC file for satellite data gaps.\nIt scans the PHASE OBSERVATIONS block for missing data.\nDetected gaps are processed using SATMRK (mark all observations for this satellite).\nResults are appended to processing log file.\nA summary of detected gaps is written at the end.",
+        "input": "SMT$YSS+0.SMC",
+        "output": "Entry in LOG-file"
+    },
+    "151": {
+        "notes": "CHECK_SAT_RMS scans the ORBGEN_APR output for satellite RMS values.\nSatellites with RMS > 5.0 m or invalid RMS entries are flagged.\nFor each affected satellite, SATMRK is executed.\nResults are appended to the processing log.",
+        "input": "ORBGEN_APR.OUT",
+        "output": "Entry in LOG-file"
+    },
+    "152": {
+        "notes": "MANMRK identifies satellites affected by manoeuvres using the CRX file.\nCopied CRX file from $CONFIG first and scans this copied CRX file.\nSatellites with valid manoeuvre flags are excluded from processing.\nAn additional manual exclusion list can be applied for specific days.\nEach excluded satellite triggers SATMRK.",
+        "input": "\"V_SATCRX\"",
+        "output": "None"
+    },
+    "160": {
+        "notes": "Delete stations according to predefined criteria",
+        "input": "????$S+0.PZH\nTIMLAB.FIX\n\"V_A\"_$YSS+0.CRD",
+        "output": "RNX$YSS+0.DEL: Rejected observation files list\n\n"
+    },
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "001": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "105": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

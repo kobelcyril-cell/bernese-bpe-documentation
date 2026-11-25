@@ -1,0 +1,217 @@
+package WEEKFIT;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  WEEKFIT
+#
+# Purpose :  Execute ORBGEN for 7-day fit (for verification purposes);
+#            compute various orbit comparisons using ORBCMP;
+#            create CHK_wwww.SUM file
+#
+# Programs:  ORBGEN, ORBCMP
+#
+# Author  :  S. Schaer
+# Created :  20-Jun-2005
+#
+# Changes :  21-Oct-2005/ss: Skip long-arc-fit computation if desired
+#            28-Oct-2005/ss: Stop, if IGR SP3 not found
+#            30-Mar-2006 mm: setPlusMinus replaced by setMinusPlus
+#            21-Oct-2010/ss: Append WEEKVER.LST file (with mm)
+#            23-Feb-2011/ss: Copy CHK LST file and execute orb_ver.com
+#            02-Oct-2012/ss: Upgraded
+#            28-Feb-2013/ss: Use special SAT info file
+#            26-Sep-2013/lp: Re-introduce NO_LONGARCFIT.FLG if necessary
+#            08-Mar-2022 AV: Rapid save disk: yearly subdirectory
+#
+# ----------------------------------------------------------------------------
+use lib "$ENV{AUTO}";
+use igs_device;
+
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{EXE}";
+use Gps_Date;
+
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my ($dayWeek, $wwww, $x, $z,
+      $dirPre, $dirErp, $dirOut, $yyyy,
+      $yydddm0, $yydddm1, $yydddm2, $yydddm3, $yydddm4, $yydddm5, $yydddm6) =
+    $bpe->getKeys('DAYWEEK', '$W+0', 'V_X', 'V_Z',
+                  'DIR_PRE', 'DIR_ERP', 'DIR_OUT', '$Y+0',
+                  '$YD-0', '$YD-1', '$YD-2', '$YD-3', '$YD-4', '$YD-5', '$YD-6');
+
+# Run programs
+# ------------
+##  $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SATELL","SAT_1452.I08_R26");
+
+  if ($dayWeek eq "6") {
+
+    my $skpFil = "${dirOut}../MSC/NO_LONGARCFIT.FLG";
+    if (-e $skpFil) {return;}
+
+##    setPlusMinus($bpe,+6,+0);
+    setMinusPlus($bpe,-6,+0);
+
+# F1 7-day orbit fit
+# ------------------
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","PREFIL",'F1_$YD+-');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","STDOUT",'WEEKFIT1');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMFIL",'WEEKFIT1');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMACC",'WEEKVER1');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SYSOUT",'WEEKFIT1');
+
+    my $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    copy("${dirOut}WEEKVER1.LST","${dirOut}CHK_${wwww}.LST");
+    system("$ENV{AUTO}/orb_ver.com ${wwww}6 ${dirOut}/../ V71");
+##    copy("${dirOut}V1W_${wwww}.LST","${dirOut}V1W0_${wwww}.LST");
+
+# F3 7-day orbit fit
+# ------------------
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","PREFIL",'F3_$YD+-');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","STDOUT",'WEEKFIT3');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMFIL",'WEEKFIT3');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMACC",'WEEKVER3');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SYSOUT",'WEEKFIT3');
+
+    $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    copy("${dirOut}WEEKVER3.LST","${dirOut}CHK_${wwww}.LST");
+    system("$ENV{AUTO}/orb_ver.com ${wwww}6 ${dirOut}/../ V73");
+
+##    my $filSum = "${dirOut}CHK_${wwww}.SUM";
+##    `echo 'CODE FINAL ORBIT VERIFICATION' >  $filSum`;
+##    `echo '-----------------------------' >> $filSum`;
+##    `echo ' ' >> $filSum`;
+##    `echo 'ORBCMP rms errors concerning GPS constellation:' >> $filSum`;
+##    `echo ' ' >> $filSum`;
+##
+##    unlink(glob("${dirPre}WEEK_FIT_*.PRE"));
+##
+##    my ($p,$yyddd,$wwwwd,$fil,$str,$nam);
+##    for ($p=0;$p<7;$p++) {
+##      ($yyddd,$wwwwd) = gps_date("-wd $wwww 0 -d $p -o %y%j %W%w");
+##      copy("${dirPre}${x}_${yyddd}.PRE","${dirPre}WEEK_FIT_1.PRE");
+##
+##      $fil = "${CDIR_DATA}/IGS_ORB/IGR${wwwwd}.SP3.Z";
+##      die "$fil not found\n" unless -s $fil;
+##      system("zcat $fil > ${dirPre}WEEK_FIT_2.PRE");
+##
+##      $PGMNAM = "ORBCMP";
+##      $bpe->RUN_PGMS($PGMNAM);
+##
+##      $nam = basename($fil);
+##      $str = `grep TRANSFORMATION ${dirOut}WEEKFIT.SUM | cut -c25-37`;
+##      chomp($str);
+##      `echo '$nam: $str' >> $filSum`;
+##    }
+##    `echo ' ' >> $filSum`;
+##
+##    for ($p=0;$p<7;$p++) {
+##      ($yyddd,$wwwwd) = gps_date("-wd $wwww 0 -d $p -o %y%j %W%w");
+##      copy("${dirPre}${x}_${yyddd}.PRE","${dirPre}WEEK_FIT_1.PRE");
+##
+##      $fil = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/ORB/RA_${yyddd}.PRE.Z";
+##      system("zcat $fil > ${dirPre}WEEK_FIT_2.PRE");
+##
+##      $PGMNAM = "ORBCMP";
+##      $bpe->RUN_PGMS($PGMNAM);
+##
+##      $nam = basename($fil);
+##      $str = `grep TRANSFORMATION ${dirOut}WEEKFIT.SUM | cut -c25-37`;
+##      chomp($str);
+##      `echo '$nam: $str' >> $filSum`;
+##    }
+##    `echo ' ' >> $filSum`;
+##
+##    for ($p=0;$p<7;$p++) {
+##      ($yyddd,$wwwwd) = gps_date("-wd $wwww 0 -d $p -o %y%j %W%w");
+##      copy("${dirPre}${x}_${yyddd}.PRE","${dirPre}WEEK_FIT_1.PRE");
+##
+##      $fil = "${CDIR_FIN}/ORB/G3_${yyddd}.PRE";
+##      system("cat $fil > ${dirPre}WEEK_FIT_2.PRE");
+##
+##      $PGMNAM = "ORBCMP";
+##      $bpe->RUN_PGMS($PGMNAM);
+##
+##      $nam = basename($fil);
+##      $str = `grep TRANSFORMATION ${dirOut}WEEKFIT.SUM | cut -c25-37`;
+##      chomp($str);
+##      `echo '$nam: $str' >> $filSum`;
+##    }
+##    `echo ' ' >> $filSum`;
+##
+##    $bpe->putKey("$ENV{U}/PAN/ORBCMP.INP","USESAT",'INCLUDED');
+##
+##    `echo 'ORBCMP rms errors concerning GLONASS constellation:' >> $filSum`;
+##    `echo ' ' >> $filSum`;
+##
+##    for ($p=0;$p<7;$p++) {
+##      ($yyddd,$wwwwd) = gps_date("-wd $wwww 0 -d $p -o %y%j %W%w");
+##      copy("${dirPre}${x}_${yyddd}.PRE","${dirPre}WEEK_FIT_1.PRE");
+##
+##      $fil = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/ORB/RA_${yyddd}.PRE.Z";
+##      system("zcat $fil > ${dirPre}WEEK_FIT_2.PRE");
+##
+##      $PGMNAM = "ORBCMP";
+##      $bpe->RUN_PGMS($PGMNAM);
+##
+##      $nam = basename($fil);
+##      $str = `grep TRANSFORMATION ${dirOut}WEEKFIT.SUM | cut -c25-37`;
+##      chomp($str);
+##      `echo '$nam: $str' >> $filSum`;
+##    }
+##    `echo ' ' >> $filSum`;
+##
+##    for ($p=0;$p<7;$p++) {
+##      ($yyddd,$wwwwd) = gps_date("-wd $wwww 0 -d $p -o %y%j %W%w");
+##      copy("${dirPre}${x}_${yyddd}.PRE","${dirPre}WEEK_FIT_1.PRE");
+##
+##      $fil = "${CDIR_FIN}/ORB/G3_${yyddd}.PRE";
+##      system("cat $fil > ${dirPre}WEEK_FIT_2.PRE");
+##
+##      $PGMNAM = "ORBCMP";
+##      $bpe->RUN_PGMS($PGMNAM);
+##
+##      $nam = basename($fil);
+##      $str = `grep TRANSFORMATION ${dirOut}WEEKFIT.SUM | cut -c25-37`;
+##      chomp($str);
+##      `echo '$nam: $str' >> $filSum`;
+##    }
+##    `echo ' ' >> $filSum`;
+##
+##    unless (-e $skpFil) {
+##      `echo ' ' >> $filSum`;
+##      `echo 'ORBGEN 7-day fit results:' >> $filSum`;
+##      `echo ' ' >> $filSum`;
+##      `cat ${dirOut}WEEKFIT.LST >> $filSum`;
+##      `echo ' ' >> $filSum`;
+##      `cat ${dirOut}WEEKVER.LST >> $filSum`;
+##      `echo ' ' >> $filSum`;
+##      `cat ${dirOut}WEEKVER0.LST >> $filSum`;
+##      `echo ' ' >> $filSum`;
+##    }
+##
+##    copy("${dirOut}WEEKVER0.LST","${dirOut}CHK_${wwww}.LST");
+##    system("$ENV{AUTO}/orb_ver.com ${wwww}6 ${dirOut}/../ V1W");
+##    copy("${dirOut}V1W_${wwww}.LST","${dirOut}V1W0_${wwww}.LST");
+##
+##    copy("${dirOut}WEEKVER.LST","${dirOut}CHK_${wwww}.LST");
+##    system("$ENV{AUTO}/orb_ver.com ${wwww}6 ${dirOut}/../ V1W");
+##
+##    unlink(glob("${dirPre}WEEK_FIT_*.PRE"));
+
+  }
+
+}
+

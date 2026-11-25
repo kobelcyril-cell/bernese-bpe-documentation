@@ -1,0 +1,154 @@
+package ADDNEQ2U;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  ADDNEQ2U
+#
+# Purpose :  Combine NQ0 files to generate a n-day solution (ultra-mode)
+#
+# Programs:  ADDNEQ2, GPSXTR
+#
+# PARAMs  :  PARAM1 - Solution variable name
+#            PARAM2 - Third character of solution name (optionally)
+#            PARAM3 - Minus day for TRP FLG check
+#            PARAM4 - Plus  day for TRP FLG check
+#
+# Author  :  S. Lutz
+#
+# Created :  11-Sep-2013
+#
+# Changes :  12-Sep-2013 SL: Use &gtUltVrs
+#            30-Jun-2015 SS: Activated leapsec_erp.com
+#            10-Jul-2015 SS: Deactivated leapsec_erp.com
+#            15-Nov-2016 SS: Acticated again leapsec_erp.com (for 2017-01-01)
+#            07-Dec-2020 RD: transition from VMF->GMF for IGSRAPID on 20-341
+#            07-Jul-2021 LP: transition from GMF->GPT3 for IGSRAPID on 21-192
+#
+# =============================================================================
+
+use strict;
+use warnings;
+
+# External packages
+use File::Copy qw(copy);
+use File::Basename;
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util qw(prtMess rdUltFlg gtUltVrs setUserVar);
+use lib "$ENV{AUTO}";
+use gpsutil qw(msg2key);
+use lib "$ENV{EXE}";
+use Gps_Date qw(gps_date);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,$mjd,
+    $xtr,$pcfFil,
+    $CAMP_PTH,$CAMPAIGN,
+    $param1,$param2,$param3,$param4,$param5,$param6,
+    $v_k,$v_h,
+    $dirErp,$extErp,
+    $dirNeq,$extNeq,
+    $dirRpr,$extRpr,
+    $dirStd,$extStd,
+  ) =
+  $bpe->getKeys(
+    '$YD+0','$JD+0',
+    'V_XTR','PCFFIL',
+    'CAMP_PTH','CAMPAIGN',
+    'PARAM1','PARAM2','PARAM3','PARAM4','PARAM5','PARAM6',
+    'V_K','V_H',
+    'DIR_ERP','EXT_ERP',
+    'DIR_NEQ','EXT_NEQ',
+    'DIR_RPR','EXT_RPR',
+    'DIR_STD','EXT_STD',
+  );
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  die "Undefined PARAM3\n" if($param3 eq "" && $param4 ne "");
+  die "Undefined PARAM4\n" if($param3 ne "" && $param4 eq "");
+
+# Set T
+# -----
+  my($ultFil) = "${CAMP_PTH}${CAMPAIGN}/MSC/ULT${yyddd}.FLG";
+  my($h_end,$h_tro,$h_rnx,$h_chr) = &rdUltFlg($ultFil);
+  my($T) = &gtUltVrs($h_end,$h_chr);
+  &setUserVar($bpe,"T",$T);
+  &setUserVar($bpe,"TT",$T+12);
+
+# Backup ultra input files
+# ------------------------
+  &copy("${dirErp}RAP${yyddd}.${extErp}"    ,"${dirErp}RAP${yyddd}_U$T.${extErp}");
+  &copy("${dirNeq}${v_h}0${yyddd}.${extNeq}","${dirNeq}${v_h}0${yyddd}_U$T.${extNeq}");
+  &copy("${dirRpr}${v_k}_${yyddd}.${extRpr}","${dirRpr}${v_k}_${yyddd}_U$T.${extRpr}");
+  &copy("${dirStd}${v_k}_${yyddd}.${extStd}","${dirStd}${v_k}_${yyddd}_U$T.${extStd}");
+
+##  $param3 = -1 if($param3 eq "");
+##  $param4 = +1 if($param4 eq "");
+  $param6 = $param5 if($param6 eq "");
+
+# Consider TRP FLG files
+# ----------------------
+  my($i,$yyddd0,$flgFil,$num,$str,$yyddd1);
+  my($numFlg) = 0;
+  if($param3 ne "") {
+    for($i=$param3;$i<=$param4;$i++) {
+      $yyddd0 = &gps_date("-yd $yyddd -d $i -o %y%j");
+      $flgFil = "${CAMP_PTH}${CAMPAIGN}/MSC/TRP_${yyddd0}.FLG";
+      if(-s $flgFil) {
+        &prtMess($bpe,"TRP FLG file found: $flgFil");
+        $numFlg++;
+      }
+    }
+    $num = $param4-$param3+1;
+    print "NUM: $num\n";
+    if($numFlg>0 && $numFlg<$num) {
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TRP_ELIM","BEFORE_STACKING");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","GRD_ELIM","BEFORE_STACKING");
+      &prtMess($bpe,"TRP model change detected: # of FLG: $numFlg");
+      &prtMess($bpe,"TRP parameter pre-elimination set to BEFORE_STACKING");
+##      &msg2key("BPE","${pcfFil}_${yyddd}: ADDNEQ2N: TRP parameter pre-elimination set to BEFORE_STACKING: # of FLG: $numFlg");
+      &msg2key("MSC","${pcfFil}_${yyddd}: ADDNEQ2N: TRP parameter pre-elimination set to BEFORE_STACKING: # of FLG: $numFlg");
+    }
+    else {
+      if (( $yyddd >= 20341 && $yyddd <= 20342 )||( $yyddd >= 21192 && $yyddd <= 21193 )) {
+        $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TRP_ELIM","BEFORE_STACKING");
+        $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","GRD_ELIM","BEFORE_STACKING");
+      } else {
+        $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TRP_ELIM","EXCEPT_FOR_BOUNDARIES");
+        $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","GRD_ELIM","EXCEPT_FOR_BOUNDARIES");
+        prtMess($bpe,"No TRP model change detected: # of FLG: $numFlg");
+      }
+    }
+  }
+
+# Run programs
+# ------------
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $erpFil = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","POLERS");
+  print "ERP: -$erpFil-\n";
+  system("$ENV{AUTO}/leapsec_erp.com $erpFil") if $mjd >= 57751 && $mjd <= 57761;
+  $erpFil = $bpe->getKey("$ENV{U}/INP/ADDNEQ2.INP","IERSPOL");
+  print "ERP: -$erpFil-\n";
+  system("$ENV{AUTO}/leapsec_erp.com $erpFil") if $mjd >= 57751 && $mjd <= 57761;
+
+  if($xtr ne "") {
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",$$bpe{SYSOUT});
+
+    $PGMNAM = "GPSXTR";
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+
+}
+
+# =============================================================================
+
+__END__

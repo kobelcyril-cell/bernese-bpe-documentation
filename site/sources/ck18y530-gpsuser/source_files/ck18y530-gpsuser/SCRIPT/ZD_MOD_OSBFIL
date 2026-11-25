@@ -1,0 +1,104 @@
+package MOD_OSBFIL;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  MOD_OSBFIL
+#
+# Purpose :  Extend validity period of OSB bias records
+#
+# Author  :  C. Kobel
+# Created :  22-Jun-2026
+#
+# ============================================================================
+
+use strict;
+use warnings;
+use File::Copy qw(copy move);
+use File::Basename;
+
+sub run {
+my $bpe = shift;
+
+# ----- Get campaign information ------------------------
+my (
+    $yyddd,
+    $yyssss,
+    $DirOsb,
+    $extOsb
+) = $bpe->getKeys(
+    '$YD+0',
+    '$YSS+0',
+    'DIR_OSB',
+    'EXT_OSB'
+);
+
+my $msc_dir  = "$DirOsb../MSC/MSC_${yyddd}";
+my $log_file = "$msc_dir/MOD_OSBFIL.log";
+my $bias_file = "$DirOsb/REF${yyssss}.${extOsb}";
+
+open(my $LOG, '>', $log_file)
+    or die "Cannot create $log_file: $!\n";
+
+print "\nMOD_OSBFIL\n";
+print "Input file : $bias_file\n";
+
+print $LOG "MOD_OSBFIL report\n";
+print $LOG "==================\n\n";
+print $LOG "Input file : $bias_file\n";
+
+unless (-f $bias_file) {
+    die "ERROR: File not found: $bias_file\n";
+}
+
+# ----- Create backup ------------------------------------
+my $backup_file = "$bias_file.bak";
+
+copy($bias_file, $backup_file)
+    or die "Cannot create backup $backup_file: $!\n";
+
+print $LOG "Backup created: $backup_file\n";
+
+# ----- Read and modify file -----------------------------
+my $tmp_file = "$bias_file.tmp";
+
+open(my $IN,  '<', $bias_file)
+    or die "Cannot open $bias_file: $!\n";
+
+open(my $OUT, '>', $tmp_file)
+    or die "Cannot create $tmp_file: $!\n";
+
+my $count = 0;
+
+while (my $line = <$IN>) {
+
+if ($line =~ /^OSB\s/) {
+
+    $line =~ s/
+        \d{4}\s+\d{2}\s+\d{2}\s+\d{2}\s+\d{2}\s+\d{2}\s+
+        \d{4}\s+\d{2}\s+\d{2}\s+\d{2}\s+\d{2}\s+\d{2}
+    /1993 12 30 00 00 00  2099 12 30 00 00 00/x;
+
+    $count++;
+}
+
+    print $OUT $line;
+}
+
+close($IN);
+close($OUT);
+
+move($tmp_file, $bias_file)
+    or die "Cannot replace $bias_file: $!\n";
+
+print "\nModified records: $count\n";
+
+print $LOG "\nModified records: $count\n";
+print $LOG "Output file     : $bias_file\n";
+
+close($LOG);
+
+print "\nReport written to $log_file\n";
+print "\nMOD_OSBFIL successfully finished\n";
+
+
+}

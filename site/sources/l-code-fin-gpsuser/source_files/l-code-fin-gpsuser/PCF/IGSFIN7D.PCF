@@ -1,0 +1,224 @@
+# Procedur control file
+# Comments:
+# Any line that starts with a # is a comment line
+#               08-Jun-2000/SS: Script IGSF_S7D added
+#               05-Sep-2000/SS: Script IGSF_D7D added
+#               12-Jul-2001/SS: Script POLXTR_F added
+#               30-Aug-2001/RD: Script ADDNEQ2 -> ADDNQ2_7
+#                               (the new menu is not able to perform a 7 week solution)
+#                               If the new menu is able to handle this, this change may
+#                               be removed...
+#               13-Sep-2001/SS: Follow a two-step procedure to generate SINEX file
+#               14-Sep-2001/SS: Script SNX_COP added
+#               17-Sep-2001/MM: Script HELMER added
+#               29-Sep-2001/SS: Monitor weekly geocenter coordinates (GCC)
+#               11-Oct-2001/SS: Compute and compare free solution
+#               17-Oct-2001/HU: POLXTR_F activated
+#               17-Dec-2001/SS: Generate F7 NQ0 (with HR EOPs) and F7N NQ0 (with daily ERPs,
+#                               but without nutation, geocenter, and satellite antenna offset  
+#                               parameters)                                                    
+#               06-Mar-2002/SS: V_CAMP added
+#               16-Mar-2002/SS: EXPRESS introduced
+#               11-Jul-2002/SS: Create weekly STA SUM file as part of F7 GCC computation
+#               02-Aug-2002/SS: Perform HELMER in order to check all a priori coordinates;
+#                               compute updated coordinates wrt epoch 2000.0
+#               03-Apr-2003/ss: FIX_CHK implemented
+#               31-Aug-2004/rd: Adapt to the new CPU file
+#               30-Nov-2004/ss: Make use of STA2STA
+#               09-Dec-2004/ss: Velocity estimation (for AMUN)
+#               04-Apr-2005/ss: BPE_BYE as last process added
+#               24-Apr-2007/ss: Second call of STA2STA
+#               03-Aug-2007/mm: V_UPD, V_SAV, V_DEL, V_DIS introduced
+#               06-Nov-2007/rd: Update a priori coordinate file ($xr/${V_CRDINF}upd.CRD)
+#               24-Jul-2008/rd,ps: V_SATCRX for satellite problem file, prepared for repro
+#               25-Jul-2008/ps: Removed SNX_COP
+#               08-Jan-2009/rd,ps: V_STAINF for satellite problem file
+#               26-Mar-2009/dt: Set CPU to BIG for all ADDNEQ2
+#               27-Jan-2011/ss: IGSF_TRA sequence added
+#               21-Apr-2011/ss: Switch from IGS05 to IGS08
+#               07-Feb-2012/ps: added V_REPERP, V_REPSNX, V_REP7D
+#               26-Sep-2012/ss: Renamed FIX_CHK to FIX_CHK7
+#               02-Oct-2012/ss: Completely redesigned
+#               18-Oct-2012/ss: Switch from IGS08 to IGb08
+#               19-Oct-2012/ss: Additional solutions (e.g. H71, H73)
+#               24-Oct-2012/ss: SNX_LOOP added
+#               20-Jun-2013 SL: S7D and D7D reactivated
+#               28-Jun-2013 SL: IEPMERGE added
+#               18-Jul-2013/rd,hb: V_SATINF: SAT_1452->SAT_NONE
+#               18-Jul-2013/rd,lp: V_OBSSEL added
+#               13-Sep-2013/rd: WEEKPRE and CLK_WAIT added
+#               21-Sep-2016/av: V_PSDINF introduced
+#               02-Feb-2017 AV/RD: Switch to IGS14
+#               04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced
+#               22-Feb-2018 SS: Merged F3M IEP files (for verification purposes)
+#               29-Mar-2018 ss/rd: Added WEEKPRE for SP3d
+#               02-May-2018 ss: Added COOVEL for day -3 (mid of week)
+#               21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD
+#               07-Feb-2020 RD: Switch from FES2004 to FES2014b
+#               16-Apr-2020 RD: V_SP3INT added (sampling in STDPRE)
+#               22-May-2020 MK: Switched to IGb14
+#               09-Jul-2020 RD/AV: Remove the one-day solution steps
+#               05-May-2021 AV: Change from Compatibility to Macromodel
+#               01-Sep-2021 RD: Transform into the new PCF format
+#               01-Sep-2021 RD/ST/LP: Reorder BPE server variables for reporting
+#               08-Sep-2021 LP: Add V_GNSS: GNSS to be processed (for WEEKSUM/SATWEEK)
+#               28-Nov-2021 LP: Remove V_MACMOD
+#               28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+#               29-Mar-2022 AV: Modified keywords
+#               17-Nov-2022 SS: Changed V_SP3INT from 900 to 300
+#               30-Nov-2022 SS: Changed V_T from F3P_ to F3U_
+#               02-Dec-2022 AV: Switch from IGb14 to IGS20
+#               06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+#               11-May-2023 LP: Add V_GRAVMOD
+#               21-Sep-2023 SS: Updated V_GRAVMOD to COSTG_FSM_2303
+#               18-Oct-2023 SS: Moved CRD_UPD process to PPPFINAL
+#               22-Dec-2023 RD: Update V_DOI
+#               12-Jan-2024 LP: Updated V_GRAVMOD to COSTG_FSM_2309
+#               03-Sep-2024 SS: Updated V_GRAVMOD to COSTG_FSM_2312
+#               22-Oct-2024 MK: Updated V_GRAVMOD to COSTG_FSM_2406
+#               02-Feb-2025 EB: Change from IGS20 to IGB20
+#               03-Sep-2025 SS: Updated V_GRAVMOD to COSTG_FSM_2412
+#               14-Jan-2026 SS: Updated V_GRAVMOD to COSTG_FSM_2503
+#               15-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20
+#               28-Jan-2026 SS: Added BPE_INI with V_INI=Y
+#               13-Feb-2026 SS: Changed from from I20_2401 to I20_2405=I20
+#               26-Feb-2026 EB: Updated V_GRAVMOD to COSTG_FSM_2509
+#               19-May-2026 RD: Update V_DOI
+#               09-Jul-2026 SS: Updated V_GRAVMOD to COSTG_FSM_2603
+#
+# ============================================================================
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+000  BPE_INI   NO_OPT    CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR
+#
+# Copy data and prepair input files
+# ---------------------------------
+001  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=000; NEXTJOB=_ 100
+002  REPF_C7D  NO_OPT    CPU=LOCAL; WAIT=001
+004  ORB_VER7  IGSF_V3P  CPU=LOCAL; WAIT=002; CONT_ERR; PARAM2=V_N
+#
+099  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=004; NEXTJOB=101
+100  IGSF_C7D  NO_OPT    CPU=LOCAL; WAIT=099
+101  STA2STA   NO_OPT    CPU=LOCAL; WAIT=100; PARAM1=C03_CRX
+102  STA2STA   NO_OPT    CPU=LOCAL; WAIT=100; PARAM1=IGS_SNX; PARAM2=RNX_CRX
+111  INIT_FIX  NO_OPT    CPU=LOCAL; WAIT=100; PARAM1=C; PARAM4=WEEK
+112  INIT_FIX  NO_OPT    CPU=LOCAL; WAIT=100; PARAM1=G; PARAM4=WEEK
+121  COOVEL    IGSF_F7M  CPU=LOCAL; WAIT=100
+199  DUMMY     NO_OPT    CPU=LOCAL; WAIT=101 102 111 112 121
+#
+# Generate weekly solution based on 3-day NEQs
+# --------------------------------------------
+300  ADDNEQ2   IGSF_F73  CPU=LOCAL; WAIT=199
+301  DUMMY     IGSF_F73  CPU=LOCAL; WAIT=300
+302  FIX_CHK   IGSF_F73  CPU=LOCAL; WAIT=301; NEXTJOB=300
+310  ADDNEQ2   IGSF_N73  CPU=SHORT; WAIT=302
+311  ADDNEQ2   IGSF_S73  CPU=SHORT; WAIT=310
+312  ADDNEQ2   IGSF_G73  CPU=SHORT; WAIT=310
+313  SNX_LOOP  IGSF_L73  CPU=SHORT; WAIT=311; PARAM1=G; PARAM3=WEEK
+319  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=310; NEXTJOB=800
+320  ADDNEQ2   IGSF_H73  CPU=SHORT; WAIT=319
+321  ADDNEQ2   IGSF_T73  CPU=SHORT; WAIT=319
+322  HELMER    IGSF_T73  CPU=LOCAL; WAIT=321
+323  MAKE_TRA  IGSF_T73  CPU=LOCAL; WAIT=322; PARAM1=T73; PARAM2=T73
+#
+# Generating summary files
+# ------------------------
+800  DUMMY     NO_OPT    CPU=LOCAL; WAIT=311 312 313 320 323
+801  ORB_LST   NO_OPT    CPU=LOCAL; WAIT=800
+802  WEEKFIT   IGSF_WKS  CPU=SHORT; WAIT=801; CONT_ERR
+810  CLK_WAIT  NO_OPT    CPU=LOCAL; WAIT=802
+# Clean from cof (WKd is SP3d test, can be deleted as well)
+811  WEEKSUM   IGSF_WKS  CPU=LOCAL; WAIT=810; PARAM1=STOP
+812  WEEKPRE   IGSF_WK3  CPU=SHORT; WAIT=811
+822  POLXTR    IGSF_F73  CPU=LOCAL; WAIT=811
+829  IEPMERGE  NO_OPT    CPU=LOCAL; WAIT=822; PARAM1=-6
+#
+# Finish the story (operational)
+# ------------------------------
+900  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=812 829; NEXTJOB=950
+901  IGSF_S7D  NO_OPT    CPU=LOCAL; WAIT=900
+902  IGSF_D7D  NO_OPT    CPU=LOCAL; WAIT=901
+#
+# Finish the story (reprocessing)
+# -------------------------------
+950  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=902; NEXTJOB=_ 999
+951  BPE_LOG   NO_OPT    CPU=LOCAL; WAIT=950
+952  REPF_S7D  NO_OPT    CPU=LOCAL; WAIT=951
+953  IGSF_D7D  NO_OPT    CPU=LOCAL; WAIT=952; SKIP
+#
+999  BPE_BYE   NO_OPT    CPU=LOCAL; WAIT=812 953; PARAM1=168
+
+VARIABLE     DEFAULT        PARAMETERS
+V_DOI      = 10.48620/97773; DESCRIPTION=Product DOI
+#
+# Solution IDs used in the BPE:
+# ----------------------------
+V_F        = F3N;           DESCRIPTION=
+V_G        = F73;           DESCRIPTION=
+V_H        = S73;           DESCRIPTION=
+V_I        = F7_;           DESCRIPTION=
+V_K        = F7N;           DESCRIPTION=
+V_N        = F3_;           DESCRIPTION=
+V_P        = H73;           DESCRIPTION=
+V_R        = T73;           DESCRIPTION=
+V_FIX      = F7;            DESCRIPTION=Identifier for datum definition check
+V_T        = F3U_;          DESCRIPTION=
+V_X        = W7_;           DESCRIPTION=7-week check
+V_Z        = TMP;           DESCRIPTION=Temporary results
+#
+# Reference frame and station related files:
+# -----------------------------------------
+V_CRDINF   = IGC20;         DESCRIPTION=CRD/VEL/FIX master file name
+V_PSDINF   = IGC20;         DESCRIPTION=PSD corrections
+#
+V_STAINF   = CODE;          DESCRIPTION=Station information file
+V_STACRX   = IGS_CRX;       DESCRIPTION=Station problem file
+#
+# General and model files:
+# -----------------------
+V_OBSSEL   = OBSERV_COD;    DESCRIPTION=Observation selection file
+V_SATINF   = SATELLIT;      DESCRIPTION=Satellite information file
+V_PCVINF   = ANT_COD;       DESCRIPTION=PCV information file
+V_PCV      = I20_2444;      DESCRIPTION=GNSS PCV model
+#
+V_SATCRX   = SAT;           DESCRIPTION=Satellite problem file
+V_SYSCRX   = SAT_GNSS;      DESCRIPTION=Satellite problem file for data import
+#
+V_MEANPL   = IERS2010_v1.2.0; DESCRIPTION=Mean pole model
+V_SUBMOD   = DESAI2016;       DESCRIPTION=Subdaily pole model
+V_NUTMOD   = IAU2000R06;      DESCRIPTION=Nutation model
+V_GRAVMOD  = COSTG_FSM_2603; DESCRIPTION=Gravity field model
+#
+V_BLQINF   = FES2014b;      DESCRIPTION=BLQ file name, CMC corrections
+#
+# Processing options used in the BPE:
+# ----------------------------------
+V_PRECLK   = EST;           DESCRIPTION=Clocks for the precise file (BRD/EST)
+#
+V_GNSS     = GRE;           DESCRIPTION=GNSS selection (RINEX system char.)
+#
+V_BOXWNG   = BOXWING_I20;   DESCRIPTION=Boxwing model file
+V_SP3INT   = 300;           DESCRIPTION=Sampling in archived precise files
+#
+V_REQ_CAMP = IGSFINAL;      DESCRIPTION=Campaign to be used
+V_RERUN    = 1;             DESCRIPTION=Number of reruns in case of failure
+V_PLUS     = +0;            DESCRIPTION=Plus  days
+V_MINUS    = -6;            DESCRIPTION=Minus days
+#
+V_SNXINF   = SINEX_IGS;     DESCRIPTION=SINEX information skeleton
+#
+# Variables related to reprocessing:
+# ---------------------------------
+V_REPERP   = C04_$Y+0;      DESCRIPTION=A priori pole file for reprocessing
+V_REPSNX   = C1A_SNX;       DESCRIPTION=Station exclusion weekly SINEX for reprocessing
+V_REP7D    = C1A_7D;        DESCRIPTION=Station exclusion weekly solution for reprocessing
+V_PRC      = F7_;           DESCRIPTION=Summary of BPE log files
+#
+# Other variables:
+# ---------------
+V_INI      = Y;             DESCRIPTION=BPE initalization mode (Y/N/Verified)
+V_XTR      = Y;             DESCRIPTION=Automatic program extraction (GPSXTR)
+V_UPD      = Y;             DESCRIPTION=Update general files?
+V_SAV      = Y;             DESCRIPTION=Save results?
+V_DEL      = Y;             DESCRIPTION=Delete results?
+V_DIS      = N;             DESCRIPTION=Distribute results?

@@ -1,0 +1,213 @@
+#!/bin/sh
+# SCRIPT-NAME
+# sh script file written by bds
+# -----------------------------
+# functions used by shell
+do_rm( ) {
+    if [ "$1" ]
+    then
+        if [ -f `echo $1 | tr ' ' '\012' | head -1` ]
+        then
+            eval rm $1
+        fi
+    fi
+}
+#
+toupper( ) {
+    eval $1=`echo $2 | ${UPPERC}`
+    eval export $1
+}
+#
+seterr( ) {
+    if [ $? = 0 ]
+    then
+        ERRSTAT=OK
+    else
+        ERRSTAT=ERR
+    fi
+}
+#
+# -----------------------------
+# SHELL STARTS HERE
+# -----------------------------
+#
+# RXOBVSAP
+# ========
+#
+# A PRIORI SCRIPT TO PREPARE PARALLEL RUNNING OF RXOBV3 (USING SMOOTHED RINEX-SMT)
+#
+# Changes:
+# 28-Jul-2003 rd: Adapt to the new BPE (no links anymore, remove CLEAN_UP)
+# 29-Jul-2003 rd: Replace "{]}" by "]" in path names
+# 23-Jul-2008 rd: RNXERR.yy_ddd -> RNXyyssss.ERR
+# 13-Aug-2021 RD: Start using BSW-style filenaming in the campaign area
+#
+# SHELL VARIABLES:
+# ----------------
+#
+# YEAR    :  Year of the session to be processed (2 digit)
+# SESSION :  Session number (4 characters)
+# CAMPAIGN:  Campaign name
+# CAMP_PTH:  Campaign path
+# CAMP_DRV:  Drive letter for campain (i.e. P)
+# OPT_DIR :  Directory for panels
+# PID     :  Process identification number (3 digits)
+# SUB_PID :  Subprocess id (3 digits)
+# PRT_FILE:  Protocol file name including path
+# SCRIPT  :  Name of script
+# TASKID  :  Task id of script, usually 00
+# PRIORITY:  Priority of the script
+# CPU     :  CPU the script is running on
+# DAYYEAR :  Julian day of the year
+# DAY     :  Day of the Month
+# MONTH   :  Month, 1=JAN, 12=DEC
+# GPSWEEK :  GPS week
+# DAYWEEK :  Day of the week, 0=SUN, 6=SAT
+# V_X     :  X Variable in DAT151__.PAN
+# V_O     :  O Variable in DAT151__.PAN
+# V_Z     :  Z Variable in DAT151__.PAN
+# V_PLUS  :  Plus variable in DAT151__.PAN
+# V_MINUS :  Minus variable in DAT151__.PAN
+# V_x     :  User variable
+# PARAMx  :  Script specific parameter, x is 1 thru 9
+# U       :  Directory path to U:
+#
+# See if this shell is being run from the PCS
+# script, or directly for testing.  If testing,
+# no the header script is not passed in as %1%
+#
+if [ "$1" = "" ]
+then
+#
+#   set variables for testing here
+#
+    TEST_START_DIR=`pwd`
+    cd $U/WORK
+    TESTING="YES"
+    export TESTING
+else
+    TESTING="NO"
+    export TESTING
+    . "$1"
+    seterr
+fi
+#
+# START THE MENU SYSTEM IN NON-INTERACTIVE MODE
+# ---------------------------------------------
+. $X/SCRIPT/BEG_MENU
+seterr
+#
+# SET VARIABLES IN DAT151__.PAN
+# -----------------------------
+. $X/SCRIPT/SET_SESS
+seterr
+#
+# SHELL BODY
+# ----------
+#
+# RXOBV3 - remove all zero difference files for session
+# -----------------------------------------------------
+rm -f "$CAMP_PTH""$CAMPAIGN"/OBS/????"$SESSION".?Z?
+#
+# Delete old output files
+# -----------------------
+PGMNAM="RXOBV3"
+export PGMNAM
+rm -f "$CAMP_PTH""$CAMPAIGN"/OUT/"$PGMNAM".L*
+rm -f "$CAMP_PTH""$CAMPAIGN"/OUT/"$YEAR""$DAYYEAR"*.BPE
+# rm %CAMP_PTH%%CAMPAIGN%{.}OUT{]}RNX%YEAR%%SESSION%.ERR
+#
+# Define some temporary files
+# ---------------------------
+tmp_id=$$
+export tmp_id
+TMPFIL1="B_"$tmp_id".TM1"
+export TMPFIL1
+TMPFIL2="B_"$tmp_id".TM2"
+export TMPFIL2
+rm -f "$TMPFIL1"
+rm -f "$TMPFIL2"
+#
+# Set the parallel file
+# ---------------------
+FILE="$T/AUTO_TMP/"$PARAM1""
+export FILE
+rm -f "$FILE"
+#
+# MAXFIL = maximum number of files per cluster
+# NUMCLU = number of clusters which is used in minimum
+# -----------------------------------------------------
+MAXFIL="20"
+export MAXFIL
+NUMCLU="4"
+export NUMCLU
+COUNT="0"
+export COUNT
+RXOFIL=""$CAMP_PTH""$CAMPAIGN"/RAW/*"$DAYYEAR"?.SMT"
+export RXOFIL
+#
+# Count the number of files
+# -------------------------
+for F in  $RXOFIL
+do
+    COUNT=`expr "$COUNT" + 1`
+    export COUNT
+done
+#
+# Number of files per cluster using NUMCLU
+# ----------------------------------------
+CLUFIL=`expr "$COUNT" \/ "$NUMCLU"`
+export CLUFIL
+CLUFIL=`expr "$CLUFIL" + 1`
+export CLUFIL
+if [ "$CLUFIL" -lt "$MAXFIL" ]
+then
+    MAXFIL=""$CLUFIL""
+    export MAXFIL
+fi
+#
+# Loop over all Baselines
+# -----------------------
+COUNT="1"
+export COUNT
+CLUST="1"
+export CLUST
+for F in  $RXOFIL
+do
+    if [ "$COUNT" -eq 1 ]
+    then
+        echo "$CAMP_PTH""$CAMPAIGN"/OUT/"$YEAR""$DAYYEAR""$CLUST".BPE >> "$FILE"
+    fi
+#
+#   Get the filename without path for "SEL" file
+#   --------------------------------------------
+    echo "$F" > "$TMPFIL1"
+    ${EXE}/RBPE PRSLIN "$TMPFIL1" "$TMPFIL2"
+    seterr
+    FILNAM=`cat "$TMPFIL2"`
+    export FILNAM
+    echo "$FILNAM".SMT >> "$CAMP_PTH""$CAMPAIGN"/OUT/"$YEAR""$DAYYEAR""$CLUST".BPE
+    if [ "$COUNT" -ge "$MAXFIL" ]
+    then
+        CLUST=`expr "$CLUST" + 1`
+        export CLUST
+        COUNT="1"
+        export COUNT
+    else
+        COUNT=`expr "$COUNT" + 1`
+        export COUNT
+    fi
+done
+#
+# --------------
+# end the script
+# --------------
+. $X/SCRIPT/END_MENU
+seterr
+if [ "$TESTING" = "YES" ]
+then
+    cd "$TEST_START_DIR"
+else
+    . $X/SCRIPT/DO_TAIL
+    seterr
+fi

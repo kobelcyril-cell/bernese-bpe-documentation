@@ -1,0 +1,313 @@
+package SNX_LOOP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SNX_LOOP
+#
+# Purpose :  Import exported SNX file and verify re-computed CRD results
+#
+# Programs:  SNX2NQ0, ADDNEQ2, HELMR1
+#
+# PARAMs  :  PARAM1 - Solution variable name
+#            PARAM2 - Third character of solution name (optionally)
+#            PARAM3 - WEEK option for file naming
+#
+# Remark  :
+#
+# Author  :  S. Schaer
+# Created :  24-Oct-2012
+#
+# Changes :  24-Oct-2012/ss: WEEK option for file naming
+#            29-May-2013/cb: Exceptions for doy 13144 and 13145 added
+#            30-May-2013/cb: Exceptions for doy 13146 and 17417 (F7D) added
+#            31-May-2013/cb: Exception for doy 13147
+#            01-Jun-2013/cb: Exception for doy 13148
+#            03-Jun-2013/ss: Most recent exceptions removed
+#            04-Jun-2014/ss: Considered ULTyyddd.FLG
+#            10-Sep-2014/ss: Increased tolerances also in case of RAP
+#            16-Dec-2014/ss/av: Updated for new HELMR1 (with ADDSTA/MAXREJ)
+#            09-Jan-2015 eo: workaround, to be removed once AV fixes HELMR1
+#            02-Feb-2015 av: workaroung removed, HELMR1 problem solved
+#            11-Mar-2015 av: Exception for doy 15070
+#            16-SEP-2015 rd: Relax HELMR1 check if singular elements are detected
+#            28-Jul-2016 av: Add IGSULTRA pcf name
+#            16-Sep-2019 av: Use regex for PCFFIL check (IGSRAPID)
+#            19-Sep-2019 av: Use regex for PCFFIL check (IGSULTRA)
+#            18-May-2020 ss: Handled IGb14
+#            03-Feb-2025 eb/ml: Handled IGb20
+#            03-Aug-2025 eb: limit extension 25224, AIUB retreat ;-)
+#            24-Oct-2025 EB: Handle IGc20
+#            29-Oct-2026 ML: Exception for doy 26301
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $wwww, $dayWeek, $pcfFil,
+      $crdInf, $param1 ,$param2, $param3,
+      $dirOut, $extOut, $dirSnx, $extSnx, $dirFix, $extFix) =
+    $bpe->getKeys('$YD+0', '$W+0', 'DAYWEEK', 'PCFFIL',
+                  'V_CRDINF', 'PARAM1', 'PARAM2', 'PARAM3',
+                  'DIR_OUT', 'EXT_OUT', 'DIR_SNX', 'EXT_SNX', 'DIR_FIX', 'EXT_FIX');
+
+  $param1 = $$bpe{"V_$param1"};
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+##  die "Unexpected length of PARAM1 ($param1)\n" unless length($param1) == 2;
+  die "Unexpected length of PARAM2 ($param2)\n" if     length($param2) >  1;
+
+  $yyddd = $wwww."7" if $param3 eq "WEEK";
+
+  my $sol = $param1;
+  $sol = $param1."_" if length($param1) == 2;
+  $sol = $param1.$param2 if $param2 ne "";
+  my $nam = "${sol}${dayWeek}";
+##  $nam = "${sol}7" if $param3 eq "WEEK";
+  $nam = "${sol}" if $param3 eq "WEEK";
+
+  my $fixFil = "${dirFix}${nam}_BAD.${extFix}";
+  my $outFil = "${dirOut}${nam}.LST";
+
+# Check whether this is an ULTRA
+# ------------------------------
+  my $ultFil = "$dirOut/../MSC/ULT$yyddd.FLG";
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+  $h_end = 24 unless -e $ultFil;
+
+# Set ULTRA limits
+# ----------------
+  if ($pcfFil =~ /IGSRAPID/ || $pcfFil =~ /IGSULTRA/) {
+    if (-e $ultFil) {
+###########
+      return;
+###########
+      my $nlimit = 0.03*24/$h_end;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","$nlimit");
+      my $elimit = 0.03*24/$h_end;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","$elimit");
+      my $ulimit = 0.10*24/$h_end;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","$ulimit");
+    } else {
+      my $nlimit = 0.03;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","$nlimit");
+      my $elimit = 0.03;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","$elimit");
+      my $ulimit = 0.10;
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","$ulimit");
+    }
+  }
+
+# Copy exported SNX file to temporary SNX file
+# --------------------------------------------
+  copy("${dirSnx}${sol}${yyddd}.${extSnx}",
+       "${dirSnx}${nam}.${extSnx}") or die "SNX file not found\n";
+
+# Run programs
+# ------------
+  $bpe->putKey("$ENV{U}/PAN/SNX2NQ0.INP","INPFIL","$nam");
+  $bpe->putKey("$ENV{U}/PAN/SNX2NQ0.INP","DATUMSTR","IGb14") if $crdInf eq "IGB14";
+  $bpe->putKey("$ENV{U}/PAN/SNX2NQ0.INP","DATUMSTR","IGb20") if $crdInf eq "IGB20";
+  $bpe->putKey("$ENV{U}/PAN/SNX2NQ0.INP","DATUMSTR","IGc20") if $crdInf eq "IGC20";
+
+  my $PGMNAM = "SNX2NQ0";
+  $bpe->RUN_PGMS($PGMNAM);
+
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD1","${sol}${yyddd}");
+
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD1","${param1}S${yyddd}") if length($param1) == 2 && $param2 eq "";
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD2","$nam");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","SYSOUT","$nam");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","LISTFIL","${nam}_BAD");
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.001");
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.001");
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.001");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.01");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.01");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.01");
+
+# Exception for doy 14193
+  print"Day is $yyddd\n";
+  if ($yyddd eq "18007") {
+    print"Set limit to 0.02 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+
+  $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_OUT","LST");
+
+# Check extracted CRD results
+# ---------------------------
+  unlink($fixFil);
+
+  $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  if (-s $fixFil) {
+    prtMess($bpe,"STOPPED DUE PROBLEM WITH EXTRACTED SINEX (CRD) RESULTS. SEE: $outFil");
+    die          "STOPPED DUE PROBLEM WITH EXTRACTED SINEX (CRD) RESULTS. SEE: $outFil\n";
+  }
+
+  $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_OUT","OUT");
+
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","INPFILE","$nam");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","$nam");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","COORDRS","$nam");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","FREESTA_F","$nam");
+
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD1","${sol}${yyddd}");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","COORD2","$nam");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","SYSOUT","$nam");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","LISTFIL","${nam}_BAD");
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.01");
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.01");
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.01");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.015");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.015");
+  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.015");
+
+# Exception if a parameter was singular in the solution
+  open(OUT,"${dirOut}${sol}${yyddd}.${extOut}");
+  while(<OUT>){
+    if ( / singular / ) {
+      prtMess($bpe,"Singularity in ${dirOut}${sol}${yyddd}.${extOut} detected:");
+      prtMess($bpe,"$_");
+      prtMess($bpe,"HELMR1 limits increased to 0.5, 0.5, 1.0 mm");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.50");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.50");
+      $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","1.00");
+      last;
+    }
+  }
+  close OUT;
+
+# Exception for doy 13102
+  if ($yyddd eq "13102") {
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+##  $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.05");
+  }
+# Exception for doy 14093
+  if ($yyddd eq "14093" || $yyddd eq "14092") {
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.08");
+  }
+# Exception for doy 14193
+  if ($yyddd eq "18007") {
+    print"Set limit to 0.02 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+# Exception for doy 15031
+  if ($yyddd eq "15031" || $yyddd eq "15037"  || $yyddd eq "15039")  {
+    print"Set limit to 0.25 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.25");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.25");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.25");
+  }
+
+# Exception for doy 15070
+  if ($yyddd eq "15070")  {
+    print"Set limit to 0.03 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.03");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.03");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.03");
+  }
+
+# Exception for doy 15121
+  if ($yyddd eq "15121")  {
+    print"Set limit to 0.03 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.03");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.03");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.03");
+  }
+
+# Exception for doy 15348
+  if ($yyddd eq "15348")  {
+    print"Set limit to 0.02 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+
+# Exception for doy 20019
+  if ($yyddd eq "20019")  {
+    print"Set limit to 0.02 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+
+# Exception for doy 25086
+  if ($yyddd eq "25086")  {
+    print"Set limit to 0.02 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.02");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.02");
+  }
+
+# Exception for doy 25146
+  if ($yyddd eq "25146")  {
+    print"Set limit to 0.1 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.1");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.1");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.1");
+  }
+
+# Exception for doy 25224
+  if ($yyddd eq "25224")  {
+    print"Set limit to 0.1 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.1");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.1");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.1");
+  }
+
+# Exception for doy 25277
+  if ($yyddd eq "25277")  {
+    print"Set limit to 0.1 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.1");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.1");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.1");
+  }
+
+# Exception for doy 26301
+  if ($yyddd eq "26301")  {
+    print"Set limit to 0.1 mm.\n";
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","NLIMIT","0.1");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ELIMIT","0.1");
+    $bpe->putKey("$ENV{U}/PAN/HELMR1.INP","ULIMIT","0.1");
+  }
+
+  $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_OUT","LST");
+
+# Check rec-computed CRD results (based on extracted FIX file)
+# ------------------------------------------------------------
+  unlink($fixFil);
+
+  $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  system("cp -v $outFil ${outFil}.2nd_run");
+
+  if (-s $fixFil) {
+      prtMess($bpe,"STOPPED DUE PROBLEM WITH RE-COMPUTED SINEX (CRD) RESULTS. SEE: ${outFil}.2nd_run");
+      die          "STOPPED DUE PROBLEM WITH RE-COMPUTED SINEX (CRD) RESULTS. SEE: ${outFil}.2nd_run\n";
+  }
+}
+

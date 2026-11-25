@@ -1,0 +1,51 @@
+package BAS_SUM;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  BAS_SUM
+#
+# Purpose :  Create BASTST BPE processing summary file
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  21-Apr-2004
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $yy, $ssss, $c,
+      $dirOut, $extOut,
+      $dirSum, $extSum) =
+    $bpe->getKeys('$YSS+0', '$Y' , '$S+0', 'V_C',
+                  'DIR_OUT', 'EXT_OUT',
+                  'DIR_SUM', 'EXT_SUM');
+
+# Run GPSXTR on the output files
+# ------------------------------
+  my $PGMNAM = "GPSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Initialize processing summary file
+# ----------------------------------
+  my $prcFil = "${dirOut}BAS${yyssss}.PRC";
+  unlink $prcFil;
+  appFile("BASTST BPE PROCESSING SUMMARY FOR YEAR-SESSION $yy-$ssss",
+    1,"",$prcFil,0);
+
+  my $sumFil = "${dirSum}${c}${yyssss}.${extSum}";
+  appFile("",1,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirOut}RMS${yyssss}.${extOut}";
+  appFile("",1,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirSum}RMS${yyssss}.${extSum}";
+  appFile("",1,$sumFil,$prcFil,1);
+
+}

@@ -1,0 +1,45 @@
+package SP3CPF;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  SP3CPF
+#
+# Purpose :  Execute SP3CPF
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003               Last modified: 18-May-2008
+#
+# Changes :  18-May-2008 DT: Use file V_WARN for collecting warnings
+#            03-Feb-2020 UM: Use V_VCPF to set version of CPF files
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Define variables                                                              
+# ----------------                                                              
+  my $CAMP_PTH = $$bpe{CAMP_PTH};                                               
+  my $CAMPAIGN = $$bpe{CAMPAIGN}; 
+  my $warning  = $$bpe{V_WARN};                                              
+  my ($VCPF) = $bpe->getKeys ('V_VCPF');
+
+# Run program
+# -----------
+  my $PGMNAM = "SP3CPF";
+
+  my $panel  = "$ENV{U}/PAN/${PGMNAM}.INP";
+  $bpe->putKey("${panel}","VCPF",$VCPF);
+
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Extract warnings from protocol files
+# ------------------------------------
+#  getWarn($bpe,"$CAMP_PTH$CAMPAIGN/OUT/SLRPRED.ERR");
+  getWarn($bpe,"$CAMP_PTH$CAMPAIGN/OUT/${warning}");
+
+}

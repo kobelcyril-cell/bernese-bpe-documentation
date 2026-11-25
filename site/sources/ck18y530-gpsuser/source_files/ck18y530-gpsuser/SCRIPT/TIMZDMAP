@@ -1,0 +1,62 @@
+package TIMCLKAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMCLKAP
+#
+# Purpose :  Prepare parallel GPSEST and ADDNEQ2
+#
+# Programs:
+#
+# Author  :  E. Calero
+# Created :  21-Feb-2020
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ssss,$sol,$param2,$param3,$param4,
+      $dirPzh, $dirNeq, $dirOut, $dirRes,$dirClk,
+      $extPzh, $extNeq, $extOut, $extRes,$extClk ) =
+     $bpe->getKeys(
+      '$S+0',"$$bpe{PARAM2}",'PARAM2','PARAM3','PARAM4',
+      'DIR_PZH','DIR_NEQ','DIR_OUT','DIR_RES','DIR_CLK',
+      'EXT_PZH','EXT_NEQ','EXT_OUT','EXT_RES','EXT_CLK');
+
+
+# Remove old solution files
+# -------------------------
+  if ( $sol ne "" && $param2 =~ /^V_/ ) {
+    unlink glob("${dirNeq}${sol}?${ssss}*.${extNeq}");
+    unlink glob("${dirOut}${sol}?${ssss}*.${extOut}");
+    unlink glob("${dirRes}${sol}?${ssss}*.${extRes}");
+    unlink glob("${dirClk}${sol}?${ssss}*.${extClk}");
+  }
+
+# Get list of stations to be processed
+# ------------------------------------
+  my @station;
+  foreach (glob("${dirPzh}????${ssss}.${extPzh}")){
+    my $sta = basename($_);
+    $sta = substr($sta,0,4);
+    print "$sta\n";
+    push @station, "$sta $sol $param3 $param4";
+  }
+
+# Put the BPE cluster files into the list
+# ---------------------------------------
+  initPar_Fl($bpe, @station);
+
+}

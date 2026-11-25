@@ -1,0 +1,97 @@
+package MPRXTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MPRXTR
+#
+# Purpose :  GENERATE SUMMARY OF THE PARALEL MAUPRP RUNS
+#            IN CASE OF BAD FILES DELETE ZERO AND SINGLE FILES
+#            AND UPDATE TABLES
+#
+# Programs:
+#
+# Author  :  H. Bock
+# Created :  06-Dec-2007               Last modified: 26-May-2009
+#
+# Changes :  26-May-2009 rd: MPRXTR: YY_DDD -> YY_SSSS
+#            15-Sep-2017 rd: remove also CZ[HO] files
+#            22-Apr-2020 av: Add goto message
+#            06-Nov-2025 EB: delete also code single-diff files
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yy, $ddd, $ssss, $yyssss, $CAMP_PTH, $CAMPAIGN, $param2, $dirOut) =
+    $bpe->getKeys('$Y','$+0','$S+0','$YSS+0','CAMP_PTH','CAMPAIGN','PARAM2','DIR_OUT');
+
+# Make sure that the extensions are correct
+# -----------------------------------------
+  $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_DEL","OUT");
+  $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","EXT_DEL","DEL");
+  $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_SUM","OUT");
+  $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","EXT_SUM","SUM");
+  $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_BSL","OUT");
+  $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","EXT_BSL","BSL");
+
+# Run the program
+# ---------------
+  unlink("$dirOut/MPR${yyssss}.SUM");
+  unlink("$dirOut/MPR${yyssss}.DEL");
+  unlink("$dirOut/MPR${yyssss}.BSL");
+
+  my $PGMNAM = "MPRXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Summary of program run for Protocol
+# -----------------------------------
+  my $xtrSum="$dirOut/MPRXTR.${yy}_${ssss}";
+  if (-e $xtrSum){
+      appFile ("",0,"$dirOut/MPR${yyssss}.SUM","$xtrSum"); }
+  else {
+      copyfile("$dirOut/MPR${yyssss}.SUM","$xtrSum"); }
+
+  my $delFil="$dirOut/MPR${yyssss}.DEL";
+  if (-e $delFil){
+      appFile("Files excluded from processing:",0,$delFil,$xtrSum,0);
+
+# Delete the files listed in "DELFIL"
+# -----------------------------------
+      my $ndel = 0;
+      open(FIL,"<$delFil");
+      while (<FIL>) {
+          chomp;
+          while ( /^ / ) { s/^ // }  # Remove leading blanks
+          while ( / $/ ) { s/ $// }  # Remove leading blanks
+
+          if (-e $_){
+              prtMess($bpe,"File to be deleted: $_");
+              unlink("$_");
+          }
+          $_ =~ s/\.PS/.CS/;         # Remove also code single-diff file
+          if (-e $_){
+              prtMess($bpe,"File to be deleted: $_");
+              unlink("$_");
+              $ndel++;
+          }
+          $_ =~ s/\.PZ/.CZ/;         # Remove also code zero-diff file
+          if (-e $_){
+              prtMess($bpe,"File to be deleted: $_");
+              unlink("$_");
+              $ndel++;
+          }
+      }
+      close FIL;
+      if($ndel > 0 && $param2){
+          $bpe->prtGoto($param2);
+      }
+  }
+}

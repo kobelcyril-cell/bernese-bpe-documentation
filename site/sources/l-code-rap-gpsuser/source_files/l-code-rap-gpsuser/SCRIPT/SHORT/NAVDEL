@@ -1,0 +1,52 @@
+package NAVDEL;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  NAVDEL
+#
+# Purpose :  Remove the source navigation RINEX files which were used for the merges
+#
+# Programs:
+#
+# Author  :  P. Stebler
+# Created :  23-Jun-2022
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use warnings;
+use lib "$ENV{AUTO}";
+use igs_device;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my ($bpe) = @_;
+
+  # Get variables
+  # -------------
+  my ($ddd, $yyyy, $yy, $dir_orx, $dir_rnx) =
+    $bpe->getKeys('$+0', '$Y+0', '$Y', 'DIR_ORX', 'DIR_RNX');
+
+  my $navExt2 = "${ddd}?.${yy}[NG]";
+  my $navExt3 = "?????_?_${yyyy}${ddd}????_???_*?N.[Rr][Nn][Xx]";
+  my $navExt  = "?????_${yyyy}${ddd}?_*?.[Rr][Xx][Nn]";
+
+  my $mrgStaPath = "${dir_rnx}CODE";
+  my $renMrgStaPath = "${dir_rnx}OLD_";
+
+  # Get the list of source files of the given day
+  # ---------------------------------------------
+  my @fileList = glob("${dir_orx}????$navExt2 ${dir_orx}????$navExt3 ${dir_orx}????$navExt");
+
+  # Remove any merged files from the list
+  # (needed if $dir_orx is the same as $dir_rnx)
+  # --------------------------------------------
+  @fileList = grep(!/^(${mrgStaPath}|${renMrgStaPath})/, @fileList);
+
+  # Remove the source files of the given day
+  # ----------------------------------------
+  unlink(@fileList);
+}

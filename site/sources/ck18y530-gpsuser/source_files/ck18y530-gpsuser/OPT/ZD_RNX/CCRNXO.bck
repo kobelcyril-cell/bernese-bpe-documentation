@@ -1,0 +1,950 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some Keywords for Automatic Output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! Title
+! -----
+TITLE 1  "gfdg"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Agency Running Program
+! ----------------------
+AGENCY 1  ""
+  ## widget = lineedit
+
+MSG_AGENCY 1  "Agency running program"
+
+! Comment Lines
+! -------------
+COMMENTS 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_COMMENTS 1  "Comments lines"
+
+RX_DOI 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_RX_DOI 1  "Overwrite Digital Object Identifier (DOI)"
+
+RX_LICENSE 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_RX_LICENSE 1  "Overwrite license of use"
+
+RX_STAINF 1  ""
+  ## widget = uniline; numlines = 5
+
+MSG_RX_STAINF 1  "Overwrite station information"
+
+! -------------------------------------------------------------------
+! Options
+! -------------------------------------------------------------------
+RDRXHDUC 1  "0"
+  ## widget = checkbox
+
+MSG_RDRXHDUC 1  "Change header strings to upper case on read"
+
+RX2_RESTR 1  "0"
+  ## widget = checkbox
+
+MSG_RX2_RESTR 1  "Only GPS/GLO and freq. 1 or 2 for RINEX 2"
+
+REJFAKEOBSMAXFRQ 1  "9"
+  ## widget = spinbox; range = 0 9 1
+
+MSG_REJFAKEOBSMAXFRQ 1  "Maximal frequency for fake observation rejection"
+
+REJFAKEOBSTOL 1  "1d-4"
+  ## widget = lineedit
+
+MSG_REJFAKEOBSTOL 1  "Tolerance for fake observation rejection"
+
+ERRFROMRXHDR 1  "0"
+  ## widget = checkbox
+
+MSG_ERRFROMRXHDR 1  "Write errs/warns from input RNX hdr comments"
+
+WRTTRUSTSTAT 1  "1"
+  ## widget = checkbox
+
+MSG_WRTTRUSTSTAT 1  "Write trusted statistics header comment line"
+
+ERRTORXHDR 1  "0"
+  ## widget = checkbox
+
+MSG_ERRTORXHDR 1  "Write errs/warns into output RNX hdr comments"
+
+WRTRECLDZERO 1  "0"
+  ## widget = checkbox
+
+MSG_WRTRECLDZERO 1  "Write leading zeros to timestamp of RNX records"
+
+WRTRXRECALPH 1  "0"
+  ## widget = checkbox
+
+MSG_WRTRXRECALPH 1  "Write RNX recs with GNSS char in alph. order"
+
+PHSCORRAPPL 1  "AS_NEEDED"
+  ## widget = combobox; editable = false; cards = SUPPRESS AS_NEEDED FORCE
+
+MSG_PHSCORRAPPL 1  "Rule for applying phase shift corrections"
+
+! Sampling Interval (sec)    0: Take all observations
+! -----------------------
+SAMPLING 1  "0"
+  ## widget = lineedit
+
+MSG_SAMPLING 1  "Sampling interval (sec)"
+
+! Offset to full minute (sec)
+OFFSET 1  "0"
+  ## widget = lineedit
+
+MSG_OFFSET 1  "Offset to full minute (sec)"
+
+! Sampling tolerance (sec)
+SAMPLTOL 1  "0.5"
+  ## widget = lineedit
+
+MSG_SAMPLTOL 1  "Sampling tolerance (sec)"
+
+! Satellite systems
+USE_G 1  "1"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Use GPS"
+
+USE_R 1  "1"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Use GLONASS"
+
+USE_E 1  "1"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Use Galileo"
+
+USE_S 1  "1"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Use SBAS"
+
+USE_C 1  "1"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Use BeiDou"
+
+USE_J 1  "1"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Use QZSS"
+
+USE_I 1  "1"
+  ## widget = checkbox
+
+MSG_USE_I 1  "Use IRNSS"
+
+! Gather station names from
+! -------------------------
+STANAM 1  "MARKER_NAME"
+  ## widget = combobox; editable = false
+  ## cards = MARKER_NAME MARKER_NUMBER MARKER_DOMES FILE_NAME
+
+MSG_STANAM 1  "Gather station names from"
+
+! Station Name Translation Table
+! ------------------------------
+STAINFO 1  "CODE"
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_STAINFO 1  "Station information"
+
+! Use window
+USEWIN 1  "0"
+  ## widget = checkbox
+
+MSG_USEWIN 1  "Use observation window"
+
+! Epoch Window
+! ------------
+RADIO_1 1  "1"
+  ## widget = radiobutton; group = WINDOW
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Defined by year and session identifier"
+
+RADIO_2 1  "0"
+  ## widget = radiobutton; group = WINDOW
+
+MSG_RADIO_2 1  "Defined by start and end time"
+
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  ## activeif = RADIO_1 == 1
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  ## activeif = RADIO_1 == 1
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "00 00 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "23 59 59"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! -------------------------------------------------------------------
+! Files
+! -------------------------------------------------------------------
+! List of Input Files
+! -------------------
+RADIO_C 1  "0"
+  ## widget = radiobutton; group = INPUT
+  ## radiokeys = CONCAT_BSW CONCAT_SHORT CONCAT_LONG
+
+MSG_RADIO_C 1  "Concatenate files, IGS and BSW internal"
+
+! BSW-named RINEX observation files
+! ---------------------------------
+CONCAT_BSW 0
+  ## widget = selwin; path = DIR_OBO; ext = EXT_RBO; emptyallowed = true
+  ## activeif = RADIO_C = 1
+  # 
+
+CONCAT_BSW_TXT_COL_1 1  "RINEX input files"
+
+MSG_CONCAT_BSW 1  "RINEX inp files (Bernese internal naming)"
+
+! Short RINEX observation files
+! -----------------------------
+CONCAT_SHORT 0
+  ## widget = selwin; path = DIR_OXO; ext = EXT_RXO; emptyallowed = true
+  ## activeif = RADIO_C = 1
+  # TEST0010
+
+CONCAT_SHORT_TXT_COL_1 1  "RINEX input files"
+
+MSG_CONCAT_SHORT 1  "RINEX inp files (RINEX-2-style naming)"
+
+! Long RINEX observation files
+! ----------------------------
+CONCAT_LONG 0
+  ## widget = selwin; path = DIR_ORX; ext = EXT_RNX; emptyallowed = true
+  ## activeif = RADIO_C = 1
+  # 
+
+CONCAT_LONG_TXT_COL_1 1  "RINEX input files"
+
+MSG_CONCAT_LONG 1  "RINEX inp files (RINEX-3-style naming)"
+
+! List of RINEX obs inp filenames with mixed endings
+! --------------------------------------------------
+CONCAT 0
+  ## widget = selwin; path = DIR_ORX; emptyallowed = true
+  ## activeif = RADIO_C = 1
+  # 
+
+CONCAT_TXT_COL_1 1  "RINEX input files"
+
+MSG_CONCAT 1  "RINEX inp files (mixed endings)"
+
+RADIO_A 1  "1"
+  ## widget = radiobutton; group = INPUT; radiokeys = CONCAT_ANY BSWOUT
+
+MSG_RADIO_A 1  "Concatenate files, any naming convention"
+
+! List of RINEX obs inp filenames with any naming convention
+! ----------------------------------------------------------
+CONCAT_ANY 1  "SYOG00ATA_R_20260140?00_01H_30S_MO.rnx"
+  ## widget = selwin; path = DIR_ORX; emptyallowed = true
+  ## activeif = RADIO_A = 1
+
+CONCAT_ANY_TXT_COL_1 1  "RINEX input files"
+
+MSG_CONCAT_ANY 1  "RINEX inp files (any naming convention)"
+
+BSWOUT 1  "TEST"
+  ## widget = lineedit; path = DIR_RBO; ext = EXT_RBO
+  ## activeif = RADIO_A = 1; emptyallowed = true
+
+MSG_BSWOUT 1  "Bernese-style named out file"
+
+RADIO_M 1  "0"
+  ## widget = radiobutton; group = INPUT; radiokeys = MERGE1 MERGE2
+
+MSG_RADIO_M 1  "Merge files, any naming convention"
+
+MERGE1 0
+  ## widget = selwin; path = DIR_ORX; emptyallowed = false; maxfiles = 1
+  ## activeif = RADIO_M = 1
+  # 
+
+DESCR_MERGE1 1  "RINEX master inp file (any naming convention)"
+
+MERGE2 0
+  ## widget = selwin; path = DIR_ORX; emptyallowed = false; maxfiles = 1
+  ## activeif = RADIO_M = 1
+  # 
+
+DESCR_MERGE2 1  "RINEX second inp file (any naming convention)"
+
+RADIO_B 1  "0"
+  ## widget = radiobutton; group = INPUT; radiokeys = MERGE1_BSW MERGE2_BSW
+
+MSG_RADIO_B 1  "Merge files, Bernese internal naming"
+
+MERGE1_BSW 0
+  ## widget = selwin; path = DIR_OBO; ext = EXT_RBO; emptyallowed = false
+  ## maxfiles = 1; activeif = RADIO_B = 1
+  # 
+
+DESCR_MERGE1_BSW 1  "RINEX master inp file (Bernese naming convention)"
+
+MERGE2_BSW 0
+  ## widget = selwin; path = DIR_OBO; ext = EXT_RBO; emptyallowed = false
+  ## maxfiles = 1; activeif = RADIO_B = 1
+  # 
+
+DESCR_MERGE2_BSW 1  "RINEX second inp file (Bernese naming convention)"
+
+! RINEX data source priority list
+! -------------------------------
+RX_SRC_PRIO 1  "R r S s U u short rx2"
+  ## widget = comment
+
+MSG_RX_SRC_PRIO 1  "RINEX data source priority list"
+
+! Output file directory and extensions
+! ------------------------------------
+DEVOUT_BSW 0
+  ## widget = initmenu; pointer = DIR_RBO
+
+EXTOUT_BSW 0
+  ## widget = initmenu; pointer = EXT_RBO
+
+DEVOUT_RX2 0
+  ## widget = initmenu; pointer = DIR_RXO
+
+EXTOUT_RX2 0
+  ## widget = initmenu; pointer = EXT_RXO
+
+DEVOUT_RX3 0
+  ## widget = initmenu; pointer = DIR_RNX
+
+EXTOUT_RX3 0
+  ## widget = initmenu; pointer = EXT_RNX
+
+! Observation selection by new RECEIVER file
+! ------------------------------------------
+OBSSEL 1  "OBSERV_COD"
+  ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
+
+DESCR_OBSSEL 1  "Observation selection"
+
+! Print RINEX observation statistics and selection results
+! --------------------------------------------------------
+PRTOSTAT 1  "0"
+  ## widget = checkbox; activeif = OBSSEL / _
+
+MSG_PRTOSTAT 1  "Print RINEX observation statistisc"
+
+! Print extended OBSSEL warnings (debugging)
+! ------------------------------------------
+EXTOUT 1  "0"
+
+MSG_EXTOUT 1  "Print extended OBSSEL warnings"
+
+! Preferred RINEX output
+! ----------------------
+SPEC_RNX_OUT 1  "1"
+  ## widget = checkbox
+
+MSG_SPEC_RNX_OUT 1  "Others (Force RINEX 3 format, BSW-internal naming)"
+
+NRM_EPO_FN 1  "1"
+  ## widget = checkbox
+
+MSG_NRM_EPO_FN 1  "Norm. start epo. in out. file name to midn."
+
+RADIO_BSW_FN 1  "0"
+  ## widget = radiobutton; group = OUT_FN
+
+MSG_RADIO_BSW_FN 1  "BSW internal file naming"
+
+RADIO_RNX_FN 1  "1"
+  ## widget = radiobutton; group = OUT_FN
+
+MSG_RADIO_RNX_FN 1  "RINEX 2- or RINEX-3-style file name"
+
+RADIO_MRH 1  "0"
+  ## widget = radiobutton; group = OUT_VERS
+
+MSG_RADIO_MRH 1  "Take highest input RINEX version as output version"
+
+RADIO_MRL 1  "0"
+  ## widget = radiobutton; group = OUT_VERS
+
+MSG_RADIO_MRL 1  "On mixed RINEX main versions, choose lower one"
+
+RADIO_FR 1  "1"
+  ## widget = radiobutton; group = OUT_VERS
+
+MSG_RADIO_FR 1  "Force output RINEX version"
+
+RNXOUTVERS 1  "3.00"
+  ## widget = combobox; editable = false; activeif = RADIO_FR = 1
+  ## cards = 2.10 2.11 2.12 2.20 3.00 3.01 3.02 3.03 3.04 3.05 4.00 4.01
+
+MSG_RNXOUTVERS 1  "List of supported RINEX versions"
+
+! Actions in case of inconsistencies in RINEX headers
+! ---------------------------------------------------
+AOF_ANT_MRK_NAM 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOF_ANT_MRK_NAM 1  "Antenna marker name doesn't match file name"
+
+AOM_GLO_FRQ_NBR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GLO_FRQ_NBR 1  "Missing mand. record: GLONASS SLOT / FRQ #"
+
+AOM_GLO_PHS_BIS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GLO_PHS_BIS 1  "Missing mand. record: GLONASS COD/PHS/BIS"
+
+AOM_SYS_PHS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_SYS_PHS 1  "Missing mand. record: SYS / PHASE SHIFT"
+
+AOM_GENERAL 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOM_GENERAL 1  "Other missing mandatory records"
+
+AOI_AGENCY 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_AGENCY 1  "Observing agency"
+
+AOI_ANT_BS_XYZ 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_BS_XYZ 1  "Antenna sight"
+
+AOI_ANT_MRK_NAM 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_MRK_NAM 1  "Inconsistent antenna marker name"
+
+AOI_ANT_MRK_NBR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_MRK_NBR 1  "Inconsistent antenna marker number"
+
+AOI_ANT_MRK_TYP 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_MRK_TYP 1  "Inconsistent antenna marker type"
+
+AOI_ANT_NBR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_NBR 1  "Inconsistent antenna number"
+
+AOI_ANT_PHA_CTR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_PHA_CTR 1  "Inconsistent antenna phase center"
+
+AOI_ANT_TYP 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_TYP 1  "Inconsistent antenna type"
+
+AOI_ANT_ZD_AZI 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_ZD_AZI 1  "Antenna zero-direction azimuth"
+
+AOI_ANT_ZD_XYZ 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_ANT_ZD_XYZ 1  "Antenna zero-direction xyz"
+
+AOI_APR_ANT_MRK_POS 1  "NONE"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_APR_ANT_MRK_POS 1  "Inconsistent geocentric approx. ant. marker pos."
+
+AOI_COM_XYZ 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_COM_XYZ 1  "Center of mass xyz"
+
+AOI_DEF_WLFS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_DEF_WLFS 1  "Inconsistent default wavelength factors"
+
+AOI_GLO_FRQ_NBR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_GLO_FRQ_NBR 1  "Inconsistent GLONASS frequency number"
+
+AOI_GLO_PHS_BIS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_GLO_PHS_BIS 1  "Inconsistent GLONASS phase bias correction"
+
+AOI_INTERVAL 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_INTERVAL 1  "Interval"
+
+AOI_LEAP_SEC 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_LEAP_SEC 1  "Leap seconds"
+
+AOI_OBS_NAME 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_OBS_NAME 1  "Observer name"
+
+AOI_RCV_NBR 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_RCV_NBR 1  "Inconsistent receiver number"
+
+AOI_RCV_TYP 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_RCV_TYP 1  "Inconsistent receiver type"
+
+AOI_RCV_VERS 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_RCV_VERS 1  "Receiver version"
+
+AOI_REL_ARP_HEN 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_REL_ARP_HEN 1  "Inconsistent relative ARP height/eccentricity"
+
+AOI_REL_ARP_XYZ 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_REL_ARP_XYZ 1  "Ant. ref. point xyz"
+
+AOI_SAT_WLFS 1  "ERROR"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_SAT_WLFS 1  "Inconsistent wavelength factors of satellite"
+
+AOI_SNR_UNIT 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOI_SNR_UNIT 1  "Signal strength unit"
+
+! Actions in case of events in RINEX records
+! ------------------------------------------
+AOE_POW_FAIL 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOE_POW_FAIL 1  "Power failure between epochs event"
+
+AOE_MOV_ANT 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOE_MOV_ANT 1  "Start moving antenna event"
+
+AOE_NEW_SITE 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOE_NEW_SITE 1  "New site occupation event"
+
+AOE_EXT_EVT 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOE_EXT_EVT 1  "External event"
+
+AOE_CYCL_SLIP 1  "WARNING"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOE_CYCL_SLIP 1  "Cycle slip record"
+
+AOE_FLAG_7 1  "SKIP"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOE_FLAG_7 1  "Action on epoch event flag 7"
+
+AOE_FLAG_8 1  "SKIP"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOE_FLAG_8 1  "Action on epoch event flag 8"
+
+AOE_FLAG_9 1  "SKIP"
+  ## widget = combobox; editable = false; cards = NONE WARNING SKIP ERROR
+
+MSG_AOE_FLAG_9 1  "Action on epoch event flag 9"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "CCRNXO$YSS+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+NOMSGDATE 0
+
+MSG_NOMSGDATE 1  "Suppress writing of message timestamp"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 00 10"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONCATENATE RINEX OBSERVATION FILES - CCRNXO 1: Filenames                    #
+#                                                                              #
+# RINEX INPUT FILES                                                            #
+#   > % < Concatenate files, IGS and Bernese internal naming                   # RADIO_C
+#         Bernese internal naming  > %%%%%%%%%%%%%%%%%% <                      # CONCAT_BSW
+#         RINEX-3-style naming     > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # CONCAT_LONG
+#         RINEX-2-style naming     > %%%%%%%% <                                # CONCAT_SHORT
+#         RINEX-style, any ending  > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # CONCAT
+#         RINEX src priority list  > %%%%%%%%%%%%%%%%%%%%% <                   # RX_SRC_PRIO
+#                                                                              #
+#   > % < Concatenate files, any naming convention                             # RADIO_A
+#         Any naming convention    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # CONCAT_ANY
+#         Bernese-style named out  > %%%%%%%%%%%%%%%%%%%% <                    # BSWOUT
+#                                                                              #
+#   > % < Merge files, Bernese internal naming                                 # RADIO_B
+#         RINEX master file        > %%%%%%%%%%%%%%%%%% <                      # MERGE1_BSW
+#         RINEX second file        > %%%%%%%%%%%%%%%%%% <                      # MERGE2_BSW
+#                                                                              #
+#   > % < Merge files, any naming convention                                   # RADIO_M
+#         RINEX master file        > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # MERGE1
+#         RINEX second file        > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # MERGE2
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files         > % <                                       # SHOWGEN
+#   Observation selection          > %%%%%%%%%%%% <                            # OBSSEL
+#   Print observation statistics   > % <                                       # PRTOSTAT
+#                                                                              #
+# OUTPUT RINEX FILES                                                           #
+#   Others than default   > % < (RINEX 3 format, BSW-internal naming)          # SPEC_RNX_OUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output        > % < use CCRNXO.Lnn            or  > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages        > % < merged to program output  or  > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# CCRNXO 1.1: General Files                                                    #
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SPEC_RNX_OUT = 1 #################################################
+# CCRNXO 1.2: Output RINEX files                                               #
+#                                                                              #
+# OUTPUT RINEX FILE NAMES                                                      #
+#   > % < BSW internal file naming                                             # RADIO_BSW_FN
+#   > % < RINEX-2- or RINEX-3-style file name (depending on output version)    # RADIO_RNX_FN
+#                                                                              #
+#   > % < Normalize start epoch in RINEX-3-style output file name to midnight  # NRM_EPO_FN
+#                                                                              #
+# OUTPUT RINEX VERSIONS                                                        #
+#   > % < Take highest input RINEX version as output RINEX version             # RADIO_MRH
+#   > % < On mixed input RINEX main versions, choose lower one                 # RADIO_MRL
+#         On same input RINEX main versions, choose higher sub-version         #
+#   > % < Force output RINEX version to > %%%% <                               # RADIO_FR RNXOUTVERS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXO 2: Options part I                                                     #
+#                                                                              #
+# SATELLITE SYSTEMS                                                            #
+#   GPS          > % <      GLONASS     > % <     Galileo      > % <           # USE_G USE_R USE_E
+#   SBAS         > % <      BeiDou      > % <     QZSS         > % <           # USE_S USE_C USE_J
+#   IRNSS        > % <                                                         # USE_I
+#                                                                              #
+# STATION NAME TRANSLATION                                                     #
+#   Gather station names from                  > %%%%%%%%%%%%% <               # STANAM
+#   Station information                        > %%%%%%%%%%%% <                # STAINFO
+#                                                                              #
+# GENERAL RINEX OPTIONS                                                        #
+#   Change hdr strings to upper case on read   > % <                           # RDRXHDUC
+#   Only GPS/GLO and freq. 1 or 2 for RINEX 2  > % <                           # RX2_RESTR
+#   Output errors from input headers           > % <                           # ERRFROMRXHDR
+#   Write errors into output header            > % <                           # ERRTORXHDR
+#   Write leading zeros to timestamp of recs   > % <                           # WRTRECLDZERO
+#   Write GNSS in obs. recs in alph. order     > % <                           # WRTRXRECALPH
+#   Use observation window                     > % <                           # USEWIN
+#                                                                              #
+# SAMPLING                                                                     #
+#   Sampling interval           > %%%%%% < seconds   (0: use all observations) # SAMPLING
+#   Offset to full minute       > %%%%%% < seconds                             # OFFSET
+#   Sampling tolerance          > %%%%%% < seconds                             # SAMPLTOL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL USEWIN = 1 #######################################################
+# CCRNXO 2.1: Observation Window                                               #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <   Session > %%%% <                                    # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End time                                        # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXO 3: Options part II                                                    #
+#                                                                              #
+# RULE FOR APPLYING PHASE SHIFT CORRECTIONS FROM HDR ON READING OBS            #
+#   Phase shift corrections appeared with RINEX version 2.12                   #
+#   Rule                        > %%%%%%%%%%%% <                               # PHSCORRAPPL
+#                                                                              #
+# REJECTION OF FAKE OBSERVATIONS                                               #
+#   Maximal freq. considered    > %%%%%% <           (0: no rejection)         # REJFAKEOBSMAXFRQ
+#   Tolerance                   > %%%%%% <                                     # REJFAKEOBSTOL
+#                                                                              #
+# COMMENTS                                                                     #
+#   Agency running program      > %%%%%%%%%%%%%%%%%%% <                        # AGENCY
+#                                                                              #
+# > Comments____________________________________________________      <        # COMMENTS
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+# > Digital_Object_Identifier_(DOI)_____________________________      <        # RX_DOI
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+# > License_of_use______________________________________________      <        # RX_LICENSE
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+# > Station_information_________________________________________      <        # RX_STAINF
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXO 4.1: Check Content of RINEX Header I                                  #
+#                                                                              #
+# Action if marker name doesn't match file name  > %%%%%%%%% <                 # AOF_ANT_MRK_NAM
+#                                                                              #
+# ACTIONS IN CASE OF MISSING MANDATORY HEADER RECORDS                          #
+#   Missing record: GLONASS SLOT / FRQ # > %%%%%%%%% <  (RINEX vers ge 3.01)   # AOM_GLO_FRQ_NBR
+#   Missing record: GLONASS COD/PHS/BIS  > %%%%%%%%% <  (RINEX vers ge 3.02)   # AOM_GLO_PHS_BIS
+#   Missing record: SYS / PHASE SHIFT    > %%%%%%%%% <  (RINEX vers ge 2.12)   # AOM_SYS_PHS
+#   Other missing mandatory records      > %%%%%%%%% <                         # AOM_GENERAL
+#                                                                              #
+#     NONE@@@@: Just continue                                                  #
+#     WARNING@: Write warning and continue                                     #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXO 4.2: Check Content of RINEX Header II                                 #
+#                                                                              #
+# ACTIONS IN CASE OF INCONSISTENCIES BETWEEN HEADERS (1/3)                     #
+# (also between multiple headers in the same RINEX file)                       #
+#   Observer name                        > %%%%%%%%% <                         # AOI_OBS_NAME
+#   Observing agency                     > %%%%%%%%% <                         # AOI_AGENCY
+#   Marker name                          > %%%%%%%%% <                         # AOI_ANT_MRK_NAM
+#   Marker number                        > %%%%%%%%% <                         # AOI_ANT_MRK_NBR
+#   Marker type                          > %%%%%%%%% <  (RINEX vers ge 2.20)   # AOI_ANT_MRK_TYP
+#   Geocentric approx. ant. marker pos.  > %%%%%%%%% <                         # AOI_APR_ANT_MRK_POS
+#   Center of mass XYZ                   > %%%%%%%%% <  (RINEX vers ge 2.20)   # AOI_COM_XYZ
+#   Interval                             > %%%%%%%%% <                         # AOI_INTERVAL
+#   Leap seconds                         > %%%%%%%%% <                         # AOI_LEAP_SEC
+#                                                                              #
+#     NONE@@@@: No check is done            (keep contents of the first one)   #
+#     WARNING@: Write warning and continue  (keep contents of the first one)   #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXO 4.3: Check Content of RINEX Header III                                #
+#                                                                              #
+# ACTIONS IN CASE OF INCONSISTENCIES BETWEEN HEADERS (2/3)                     #
+# (also between multiple headers in the same RINEX file)                       #
+#   Antenna number                       > %%%%%%%%% <                         # AOI_ANT_NBR
+#   Antenna type                         > %%%%%%%%% <                         # AOI_ANT_TYP
+#   Relative ARP height/eccentricity     > %%%%%%%%% <                         # AOI_REL_ARP_HEN
+#   Antenna reference point XYZ          > %%%%%%%%% <  (RINEX vers ge 2.20)   # AOI_REL_ARP_XYZ
+#   Antenna phase center                 > %%%%%%%%% <  (RINEX vers ge 3.00)   # AOI_ANT_PHA_CTR
+#   Antenna sight                        > %%%%%%%%% <  (RINEX vers ge 2.20)   # AOI_ANT_BS_XYZ
+#   Antenna zero-direction azimuth       > %%%%%%%%% <  (RINEX vers ge 3.00)   # AOI_ANT_ZD_AZI
+#   Antenna zero-direction XYZ           > %%%%%%%%% <  (RINEX vers ge 3.00)   # AOI_ANT_ZD_XYZ
+#                                                                              #
+#     NONE@@@@: No check is done            (keep contents of the first one)   #
+#     WARNING@: Write warning and continue  (keep contents of the first one)   #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXO 4.4: Check Content of RINEX Header IV                                 #
+#                                                                              #
+# ACTIONS IN CASE OF INCONSISTENCIES BETWEEN HEADERS (3/3)                     #
+# (also between multiple headers in the same RINEX file)                       #
+#   Receiver number                      > %%%%%%%%% <                         # AOI_RCV_NBR
+#   Receiver type                        > %%%%%%%%% <                         # AOI_RCV_TYP
+#   Receiver version                     > %%%%%%%%% <                         # AOI_RCV_VERS
+#   Signal strength unit                 > %%%%%%%%% <  (RINEX vers ge 3.00)   # AOI_SNR_UNIT
+#   GLONASS frequency number             > %%%%%%%%% <  (RINEX vers ge 3.01)   # AOI_GLO_FRQ_NBR
+#   GLONASS phase bias correction        > %%%%%%%%% <  (RINEX vers ge 3.02)   # AOI_GLO_PHS_BIS
+#   Default wavelength factors           > %%%%%%%%% <  (RINEX vers lt 3.00)   # AOI_DEF_WLFS
+#   Wavelength factors of satellite      > %%%%%%%%% <  (RINEX vers lt 3.00)   # AOI_SAT_WLFS
+#                                                                              #
+#     NONE@@@@: No check is done            (keep contents of the first one)   #
+#     WARNING@: Write warning and continue  (keep contents of the first one)   #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CCRNXO 5: Check Content of RINEX Data Records                                #
+#                                                                              #
+# ACTIONS IN CASE OF EPOCH EVENTS                                              #
+#   Flag 1: Power failure between epochs  > %%%%%%%%% <                        # AOE_POW_FAIL
+#   Flag 2: Start moving antenna          > %%%%%%%%% <                        # AOE_MOV_ANT
+#   Flag 3: New site occupation           > %%%%%%%%% <                        # AOE_NEW_SITE
+#   Flag 5: External event                > %%%%%%%%% <                        # AOE_EXT_EVT
+#   Flag 6: Cycle slip record             > %%%%%%%%% <                        # AOE_CYCL_SLIP
+#   Flag 7                                > %%%%%%%%% <                        # AOE_FLAG_7
+#   Flag 8                                > %%%%%%%%% <                        # AOE_FLAG_8
+#   Flag 9                                > %%%%%%%%% <                        # AOE_FLAG_9
+#                                                                              #
+#     NONE@@@@: Just continue                                                  #
+#     WARNING@: Write warning and continue                                     #
+#     SKIP@@@@: Skip file and continue with next file                          #
+#     ERROR@@@: Write error message and stop processing                        #
+#                                                                              #
+# END_PANEL ####################################################################

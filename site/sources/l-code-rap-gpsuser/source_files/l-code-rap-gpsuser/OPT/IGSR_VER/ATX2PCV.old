@@ -1,0 +1,513 @@
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! General Constants
+! -----------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "SATELLIT_V54_$(PCV)"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Observation selection
+! --------------------
+OBSSEL 1  "OBSERV_COD"
+  ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_OBSSEL 1  "Observation selection"
+
+! Title
+! -----
+TITLE 1  "Conversion from ANTEX to Bernese PCV"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Input File: External Phase Center File (ANTEX file)
+! --------------------------------------
+PHASEXT 1  "$(PCV)_V54.ATX"
+  ## widget = selwin; path = DIR_OUT; ext = NO_EXT
+
+DESCR_PHASEXT 1  "External phase center corrections"
+
+! Check SINEX code wrt SAT info file
+! -------------------------------------
+CHKSNX 1  "0"
+  ## widget = checkbox
+
+MSG_CHKSNX 1  "Check SINEX code wrt SAT info file"
+
+! Conversion abs2rel
+! ------------------
+ABS2REL 1  "0"
+  ## widget = checkbox
+
+MSG_ABS2REL 1  "Conversion of absolute phase patterns"
+
+! Input File: Bernese phase file
+! ------------------------------
+PHASECC 1  "$(PCVINF)_$(PCV)"
+  ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC
+  ## emptyallowed = true
+
+DESCR_PHASECC 1  "Input Bernese antenna correction file"
+
+! Antenna model check mask
+! -----------------------------
+ANTCHKMOD 1  "NAME"
+  ## widget = combobox; cards = FULL NAME IGS* NO; activeif = PHASECC /= _
+
+MSG_ANTCHKMOD 1  "Antenna model check mask"
+
+! Input File: Station information file
+! ------------------------------------
+STAINFO 1  "$(STAINF)_V54"
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; emptyallowed = true
+  ## maxfiles = 1
+
+DESCR_STAINFO 1  "Station information"
+
+! Conversion
+! ----------
+CONVERT 1  "0"
+  ## widget = checkbox; activeif = PHASECC /= _ AND ABS2REL /= 1
+
+MSG_CONVERT 1  "Conversion of relative phase pattern"
+
+! Bernese Phase Center File
+! -------------------------
+PHASRSG 1  "PCV_VER"
+  ## widget = lineedit; path = DIR_PHG; ext = EXT_PHG
+
+DESCR_PHASRSG 1  "Bernese antenna correction file"
+
+! Bernese Phase Center File version
+! -----------------------------
+PHASVER 1  "1.00"
+  ## widget = combobox; editable = false; cards = 1.00 1.01
+
+MSG_PHASVER 1  "Output format version"
+
+WILDMOD 1  "MANUAL"
+  ## widget = combobox; editable = false; cards = MANUAL LIST
+
+MSG_WILDMOD 1  "Output format version"
+
+! List of antennas to be stored with high resolution (if available)
+! -----------------------------
+WILDMAN 1  ""
+  ## widget = uniline; numlines = 5; activeif = WILDMOD == MANUAL
+
+MSG_WILDMAN 1  "List of high-resolution ant. to process"
+
+! Manual selection of the antennas to be converted with original resolution
+! -------------------------------------------------------------------------
+WILDLST 0
+  ## widget = selwin; activeif = WILDMOD == LIST; pointer = ANTLST
+
+MSG_WILDLST 1  "Manual antenna selection"
+
+ANTLST 0
+  ## widget = selwin; menuaux = MENUAUX; action = ANTALST
+  ## menuauxkeys = PHASEXT; updateifactive = WILDLST
+
+MSG_ANTLST 1  "List antennas from (ANTEX file) with non-integer grid resolution"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "PCV_VER"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! -------------------------------------------------------------------------
+! Debugging mode
+! --------------
+DEBUG 1  "0"
+
+MSG_DEBUG 1  "Debugging mode"
+
+! Do not write zero patterns
+! --------------------------
+NOZERO 1  "1"
+  ## widget = checkbox
+
+MSG_NOZERO 1  "Do not write zero patterns"
+
+! Consider antennas without radome code
+! -------------------------------------
+RADCOD 1  "1"
+  ## widget = checkbox; activeif = PHASECC /= _
+
+MSG_RADCOD 1  "Consider antennas without radome code"
+
+! ANTEX Conversion
+! ================
+!
+! Fill Pattern
+! ------------
+ATXFIL 1  "1"
+  ## widget = checkbox
+
+MSG_ATXFIL 1  "Special handling of missing values"
+
+! Maximum zenith angle
+! --------------------
+MXFZEN 1  "90"
+  ## widget = spinbox; range = 0 90 5; activeif = ATXFIL = 1
+
+MSG_MXFZEN 1  "Fill missing values up to a MAXIMUM ZENITH ANGLE of"
+
+! Fill missing values for receiver antennas
+! -----------------------------------------
+FILREC 1  "LAST_VALUE"
+  ## widget = combobox; editable = false; cards = ZEROS LAST_VALUE AOAD/M_T
+  ## activeif = ATXFIL = 1
+
+MSG_FILREC 1  "Fill missing values for receiver antennas"
+
+! Maximum nadir angle
+! -------------------
+MXFNAD 1  "17"
+  ## widget = spinbox; range = 0 30 1; activeif = ATXFIL = 1
+
+MSG_MXFNAD 1  "Fill missing values up to a MAXIMUM NADIR ANGLE of"
+
+! Fill missing values for satellite antennas
+! ------------------------------------------
+FILSAT 1  "LAST_VALUE"
+  ## widget = combobox; editable = false; cards = ZEROS LAST_VALUE
+  ## activeif = ATXFIL = 1
+
+MSG_FILSAT 1  "Fill missing values for satellite antennas"
+
+! Fill missing values for indiv. receiver antennas
+! ------------------------------------------------
+FILINDV 1  "GROUP_DIFF"
+  ## widget = combobox; editable = false
+  ## cards = GPS_VALUES GROUP_VALUES GROUP_DIFF
+  ## activeif = ATXFIL = 1 AND OBSSEL /= _
+
+MSG_FILINDV 1  "Fill missing values for individual antennas"
+
+! Priority on calibration methods
+! -------------------------------
+ATXPRIOR 1  "CHAMBER"
+  ## widget = combobox; editable = false; cards = CHAMBER ROBOT LATEST
+
+MSG_ATXPRIOR 1  "Choose the calibration method with the highest priority"
+
+! ONLY ELEVATION DEPENDENT PATTERNS
+! ---------------------------------
+ONLYELE 1  "0"
+  ## widget = checkbox
+
+MSG_ONLYELE 1  "Only elevation dependent patterns required"
+
+! CONSIDER GPS VALUES ONLY
+! ------------------------
+ONLYGPS 1  "0"
+  ## widget = checkbox
+
+MSG_ONLYGPS 1  "Consider GPS values only"
+
+! SET ANTENNA NUMBER TO 999999
+! ----------------------------
+ANTNUM 1  "0"
+  ## widget = checkbox
+
+MSG_ANTNUM 1  "Set number of generic antennas to 999999"
+
+! Satellite System Selection
+! --------------------------
+! GPS
+USE_G 1  "1"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Write antenna corrections for GPS"
+
+! GLONASS
+USE_R 1  "1"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Write antenna corrections for GLONASS"
+
+! Galileo
+USE_E 1  "1"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Write antenna corrections for Galileo"
+
+! SBAS
+USE_S 1  "1"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Write antenna corrections for SBAS"
+
+! BeiDou
+USE_C 1  "1"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Write antenna corrections for BeiDou"
+
+! QZSS
+USE_J 1  "1"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Write antenna corrections for QZSS"
+
+! CHECK ANTENNA OFFSETS IN SAT INFO FILE
+! --------------------------------------
+CHKPCO 1  "NO"
+  ## widget = combobox; editable = false; cards = NO WARNING ERROR
+
+MSG_CHKPCO 1  "Check IF LC convention of PCO"
+
+! SELECT SOURCE FOR THE FREQUENCIES IN USE
+! ----------------------------------------
+CHKPCOSRC 1  "OBSSEL"
+  ## widget = combobox; editable = false; cards = OBSSEL MANUAL
+
+MSG_CHKPCOSRC 1  "Source for the frequency selection"
+
+! Check antenna offsets
+! ---------------------
+! GPS
+FR1_G 1  "1"
+  ## widget = lineedit; activeif = USE_G = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR1_G 1  "Frequency 1 for GPS"
+
+FR2_G 1  "2"
+  ## widget = lineedit; activeif = USE_G = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR2_G 1  "Frequency 2 for GPS"
+
+! GLONASS
+FR1_R 1  "1"
+  ## widget = lineedit; activeif = USE_R = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR1_R 1  "Frequency 1 for GLONASS"
+
+FR2_R 1  "2"
+  ## widget = lineedit; activeif = USE_R = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR2_R 1  "Frequency 2 for GLONASS"
+
+! Galileo
+FR1_E 1  "1"
+  ## widget = lineedit; activeif = USE_E = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR1_E 1  "Frequency 1 for Galileo"
+
+FR2_E 1  "5"
+  ## widget = lineedit; activeif = USE_E = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR2_E 1  "Frequency 2 for Galileo"
+
+! BeiDou
+FR1_C 1  "1"
+  ## widget = lineedit; activeif = USE_C = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR1_C 1  "Frequency 1 for BeiDou"
+
+FR2_C 1  "5"
+  ## widget = lineedit; activeif = USE_C = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR2_C 1  "Frequency 2 for BeiDou"
+
+! QZSS
+FR1_J 1  "1"
+  ## widget = lineedit; activeif = USE_J = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR1_J 1  "Frequency 1 for QZSS"
+
+FR2_J 1  "5"
+  ## widget = lineedit; activeif = USE_J = 1 AND CHKPCOSRC = MANUAL
+  ## check_type = integer; check_min = 1; check_max = 9
+
+MSG_FR2_J 1  "Frequency 2 for QZSS"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONVERT ANTEX TO BERNESE FORMAT - ATX2PCV 1: Input                           #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files          > % <                                      # SHOWGEN
+#                                                                              #
+# INPUT FILENAMES                                                              #
+#   External antenna corrections    > %%%%%%%%%%%% <                           # PHASEXT
+#     Check SINEX code              > % <                                      # CHKSNX
+#   Bernese antenna correction file > %%%%%%%%%%%% <                           # PHASECC
+#     Check consistency of PCV model> %%%%%%% <                                # ANTCHKMOD
+#   Station information             > %%%%%%%%%%%% <                           # STAINFO
+#                                                                              #
+# OPTIONS FOR BERNESE INPUT FILE                                               #
+#   Consider antennas without radome code     > % <                            # RADCOD
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Bernese antenna corrections file> %%%%%%%% <       Format:> %%%%% <        # PHASRSG PHASVER
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output       > % < use ATX2PCV.Lnn           or   > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages       > % < merged to program output  or   > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL PHASEXT / _ AND PHASVER = 1.01  ##################################
+# ATX2PCV 1.1: Non-integer grid resolution (format: v1.01)                     #
+#                                                                              #
+#   Antennas to be converted with the original non-integer grid resolution     #
+#                                                                              #
+#   wildcard mode:> %%%%%%%%%%%% <                                             # WILDMOD
+#                                                                              #
+#    Manual:                             List:                                 #
+#  > Antenna_name______________      < > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # WILDMAN WILDLST
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1  #####################################################
+# ATX2PCV 1.2: General Files                                                   #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Satellite information   > %%%%%%%%%%%% <                                   # SATELL
+#   Observation selection   > %%%%%%%%%%%% <                                   # OBSSEL
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ATX2PCV 2: ANTEX Conversion                                                  #
+#                                                                              #
+# GNSS SELECTION FOR THE OUTPUT FILE                                           #
+#          > % < GPS            > % < GLONASS        > % < Galileo             # USE_G USE_R USE_E
+#          > % < SBAS           > % < BeiDou         > % < QZSS                # USE_S USE_C USE_J
+#                                                                              #
+# MISSING RECEIVER AND SATELLITE ANTENNA PATTERNS                              #
+#   Special handling of missing values                 > % <                   # ATXFIL
+#                                                                              #
+#   Fill missing values up to a MAXIMUM ZENITH ANGLE of> %% <  degrees         # MXFZEN
+#   with > %%%%%%%%%%%% <                                                      # FILREC
+#                                                                              #
+#   Fill missing values up to a MAXIMUM NADIR ANGLE of > %% <  degrees         # MXFNAD
+#   with > %%%%%%%%%%%% <                                                      # FILSAT
+#                                                                              #
+#   Fill missing system values for individually calibrated receiver antennas   #
+#   with > %%%%%%%%%%%% <                                                      # FILINDV
+#                                                                              #
+# OPTIONS                                                                      #
+#   Choose the calibration method with the highest priority > %%%%%%%% <       # ATXPRIOR
+#   Do not write zero patterns                              > % <              # NOZERO
+#   Set number of generic receiver antennas to 999999       > % <              # ANTNUM
+#     (to be used for individual antenna calibrations)                         #
+#   Elevation dependent receiver patterns only              > % <              # ONLYELE
+#   Consider GPS values only                                > % <              # ONLYGPS
+#   Verify IF LC convention of PCO values in sat. info. file> %%%%%%%% <       # CHKPCO
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL CHKPCO /= NO #####################################################
+# ATX2PCV 2.1: Verification of IF LC convention of PCO values                  #
+#                                                                              #
+#   Selection of GNSS frequencies:> %%%%%%% <                                  # CHKPCOSRC  
+#                                                                              #
+#     L1    L2                                                                 #
+#   > %% <> %% < GPS                                                           # FR1_G FR2_G
+#   > %% <> %% < GLONASS                                                       # FR1_R FR2_R
+#   > %% <> %% < Galileo                                                       # FR1_E FR2_E
+#   > %% <> %% < BeiDou                                                        # FR1_C FR2_C
+#   > %% <> %% < QZSS                                                          # FR1_J FR2_J
+#                                                                              #
+# END_PANEL ####################################################################

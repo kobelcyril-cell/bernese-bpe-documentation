@@ -1,0 +1,73 @@
+package PPPEDTAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  PPPREDAP
+#
+# Purpose :  Prepare parallel precise-point-positioning (PPP) analysis
+#            Reducing NEQ
+#
+# PARAMs  :  PARAM2 - output file identifier (default: V_C)
+#            PARAM3 - empty: stop if no PZH files are found
+#
+# Author  :  M. Meindl
+# Created :  23-Jul-2003
+#
+# Changes :  31-Jan-2005 MM: New initPar call (w/o tmpFil)
+#            11-Aug-2011 RD: Updated for version 5.2
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtErr initPar_Bl initPar_Cl);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ssss,
+      $clu, $dirBpe, $c, $f, $param2, $param3,
+      $dirPzh,   $dirOut,   $dirEdt,   $dirCrd,   $dirSum,
+      $extPzh,   $extOut,   $extEdt,   $extCrd,   $extSum) =
+      
+      
+  $bpe->getKeys
+     ('$S+0',
+      'V_PPPCLU', 'DIR_BPEPRT', 'V_C', 'V_F', 'PARAM2', 'PARAM3',
+      'DIR_PZH', 'DIR_OUT', 'DIR_EDT', 'DIR_CRD','DIR_SUM',
+      'EXT_PZH', 'EXT_OUT', 'EXT_EDT', 'EXT_CRD','EXT_SUM');
+
+
+# Delete old files (OUT, RES, NEQ, EDT)
+# -------------------------------------
+  my $cluster = $clu ne "" ? "${ssss}???" : "${ssss}????";
+
+  my $edt = "EDT";
+  if ( $param2 ne "" ) {
+    $edt = defined $$bpe{$param2} ? $$bpe{$param2} : $param2;
+  }
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}EDT${ssss}";
+  my @pzhFil = glob("${dirPzh}????${ssss}.${extPzh}");
+
+  if ($clu ne "") {
+    initPar_Cl($bpe,$bpeFil,@pzhFil,0,$clu,0);
+  } else {
+    @pzhFil = map { substr(basename($_),0,4) } @pzhFil;
+    initPar_Bl($bpe,@pzhFil);
+  }
+
+# Stop if no CZH files found
+# --------------------------
+  if (@pzhFil == 0 && $param3 eq "") {
+    prtErr($bpe,"No PZH files found") and
+      die "No PZH files found for session ${ssss}";
+  }
+
+}

@@ -1,0 +1,23 @@
+package MKCLUS;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  MKCLUS
+#
+# Purpose :  Run MKCLUS
+#
+# Author  :  C. Kobel
+# Created :  22-Apr-2026
+#
+# Changes :  
+#===========================================================
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Run program ------------
+  my $PGMNAM = "MKCLUS";
+  $bpe->RUN_PGMS($PGMNAM);
+}

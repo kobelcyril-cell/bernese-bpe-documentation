@@ -1,0 +1,42 @@
+package CODSPP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CODSPP
+#
+# Purpose :  Execute CODSPP
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+#            15-Oct-2013 SS: Stop if no CZH files found
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ssss, $dirCzh, $extCzh) = $bpe->getKeys('$S+0', 'DIR_CZH', 'EXT_CZH');
+
+# Stop if no CZH files found
+# --------------------------
+  my @czhFil = glob("${dirCzh}????${ssss}.${extCzh}");
+  if (@czhFil == 0) {
+    prtErr($bpe,"No CZH files found") and
+      die "No CZH files found for session ${ssss}" }
+
+# Run program
+# -----------
+  my $PGMNAM = "CODSPP";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

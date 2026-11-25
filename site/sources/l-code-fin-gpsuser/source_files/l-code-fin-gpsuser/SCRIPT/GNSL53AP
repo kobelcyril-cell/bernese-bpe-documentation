@@ -1,0 +1,67 @@
+package GNSL53AP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GNSL53AP
+#
+# Purpose :  Prepare parallel L5/L3 ambiguity resolution process for a set of
+#            baselines selected by BASLST
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  30-Mar-2005/ss: Derived from GPSQIFAP
+#            03-Mar-2006/ss: New initPar call (w/o tmpFil)
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $bl, $bl0, $dirBsl, $dirOut, $extOut) =
+  $bpe->getKeys
+     ('$YD+0', '$+0', 'V_BL_L53', 'V_BL_L12', 'DIR_BSL', 'DIR_OUT', 'EXT_OUT');
+
+# Delete old SATMRK outputs
+# -------------------------
+unlink glob("${dirOut}MRK????.${extOut}");
+
+# Delete old files (OUT, SEL)
+# ---------------------------
+##  my $basFil = "${dirBsl}L53${yyssss}.SEL";
+##  unlink ($basFil);
+##  unlink glob("${dirOut}????${ssss}_5.${extOut}");
+##  unlink glob("${dirOut}????${ssss}_3.${extOut}");
+  unlink glob("${dirOut}????${ddd}P.${extOut}");
+  unlink glob("${dirOut}????${ddd}A.${extOut}");
+
+# Set maximum baseline length if defined
+# --------------------------------------
+  $bpe->putKey("$ENV{U}/PAN/BASLST.INP","MAXLEN",$bl) unless $bl eq "";
+##  $bpe->putKey("$ENV{U}/PAN/BASLST.INP","MINLEN",$bl0) unless $bl0 eq "";
+
+# Run program
+# -----------
+  my $PGMNAM = "BASLST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Get baselines to be processed
+# -----------------------------
+  my $basFil=$bpe->getKey("$ENV{U}/INP/BASLST.INP","SELBSL");
+  my @basLin;
+  open (BAS,$basFil);
+  push (@basLin,<BAS>);
+  close BAS;
+  chomp(@basLin);
+
+# Initialize parallel run
+# -----------------------
+  initPar_Bl($bpe,@basLin);
+
+}

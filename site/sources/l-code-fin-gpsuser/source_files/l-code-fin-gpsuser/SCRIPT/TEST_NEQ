@@ -1,0 +1,119 @@
+package TEST_NEQ;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TEST_NEQ
+#
+# Purpose :  Perform monthly and accumulated bias combination runs using
+#            ADDNEQ2.
+#
+# Programs:  ADDNEQ2
+#
+# PARAMs  :  PARAM1 - solution identifier
+#
+# Remarks :
+#
+# Author  :  S. Schaer
+# Created :  15-Sep-2016
+#
+# Changes :  28-Sep-2016 ss: Adjust end times for 30-day solution (and 1605)
+#            29-Sep-2016 ss: Update CODE OSB files
+#            29-Sep-2016 ss: Verify solutions and check completeness of NEQs
+#            30-Sep-2016 ss: Activated update of (ADDNEQ2-based) CODE.OSB
+#            30-Sep-2016 ss: More detailed error messages
+#            30-Sep-2016 ss: More detailed title lines
+#            12-Oct-2016 ss: Send message in case of monthly solution update
+#            13-Oct-2016 ss: Use @badSet in case of errors with monthly NEQs
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $yyssss, $yyyy, $mjd,
+      $pcfFil, $upd, $sav, $dis, $param1,
+      $dirOut, $extOut, $dirNeq, $extNeq, $dirOsb, $extOsb, $dirBia, $extBia) =
+    $bpe->getKeys('$YD+0', '$+0', '$YSS+0', '$Y+0', '$YD+0',
+                  'PCFFIL', 'V_UPD', 'V_SAV', 'V_DIS', 'PARAM1',
+                  'DIR_OUT', 'EXT_OUT', 'DIR_NEQ', 'EXT_NEQ', 'DIR_OSB', 'EXT_OSB', 'DIR_BIA', 'EXT_BIA');
+
+# Set variables
+# -------------
+##  $upd = "N";
+##  $sav = "N";
+##  $dis = "N";
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  die "PARAM1 undefined" if $param1 eq "";
+  my $sol = $param1;
+  prtMess($bpe,"BIAS COMBINATION PROCEDURE FOR SOLUTION: $sol");
+
+  my @neq = glob("${dirNeq}????${ddd}0_G.${extNeq}");
+  @neq = map { (split('\.',basename($_)))[0] } (@neq);
+
+  my $PGMNAM = "ADDNEQ2";
+  my $fil;
+
+  my $num = @neq;
+  my $nu2 = int($num/2);
+  my @lst;
+
+  $fil = "HALF1";
+  @lst = @neq[0..$nu2-1];
+  replaceSelLst($bpe,"ADDNEQ2","INPFILE",@lst);
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}${fil}");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}${fil}");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+  prtMess($bpe,"START: $fil");
+  $bpe->RUN_PGMS($PGMNAM);
+  prtMess($bpe,"END: $fil");
+
+  $fil = "HALF2";
+  @lst = @neq[$nu2-1..$num-1];
+  replaceSelLst($bpe,"ADDNEQ2","INPFILE",@lst);
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}${fil}");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}${fil}");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","");
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+  prtMess($bpe,"START: $fil");
+  $bpe->RUN_PGMS($PGMNAM);
+  prtMess($bpe,"END: $fil");
+
+  foreach $fil (@neq) {
+    @lst = ();
+    foreach (@neq) { push(@lst,$_) if $_ ne $fil }
+    replaceSelLst($bpe,"ADDNEQ2","INPFILE",@lst);
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT","${sol}${fil}");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT","${sol}${fil}");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT","");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","BIASSNX","");
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","OSBREC_R","AS_IS");
+    prtMess($bpe,"START: $fil");
+    $bpe->RUN_PGMS($PGMNAM);
+    prtMess($bpe,"END: $fil");
+  }
+
+# Remove 1-day NEQs
+# -----------------
+##  foreach $yyddd (@allDay) {
+##    $fil = "${dirNeq}${sol}${yyddd}.${extNeq}";
+##    unlink($fil) if -s $fil;
+##  }
+
+}

@@ -1,0 +1,45 @@
+# ============================================================================
+# SUPERBPE.PCF
+# ============================================================================
+#
+# Description:  This is a skeleton for the SUPERBPE. The SUPERBPE runs a
+#               process control file (PCF) for several sessions in parallel
+#               (PID 101 and 102). The scripts to start the corresponding
+#               BPE-servers are SBPEAP resp. SBPE_P.
+#               The advantage to use a SUPERBPE in contrast to the 'Simple
+#               parallel multi session run' is that you can add other scripts
+#               before (e.g., PID 001) and/or after (e.g., PID 999) the
+#               parallel processing part.
+#
+#
+# Author     :  R. Dach
+# Created    :  17-Oct-2003
+#
+# Changes    :  23-Feb-2004: Prepared for release V5.0
+#               09-Sep-2021 ST/LP: Transform into the new PCF format
+#               09-Sep-2021 ST/LP: Reorder BPE server variables for reporting
+#
+# ============================================================================
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Insert here script(s) to be executed before the SUPERBPE
+# --------------------------------------------------------
+001  DUMMY     NO_OPT    CPU=LOCAL
+#
+# SUPERBPE: Runs a PCF for several sessions in parallel
+# -----------------------------------------------------
+101  SBPEAP    NO_OPT    CPU=LOCAL; WAIT=001
+102  SBPE_P    SBPE_OPT  CPU=SBPE; WAIT=101; PARALLEL=101
+#
+# Insert here script(s) to be executed after the SUPERBPE
+# -------------------------------------------------------
+999  DUMMY     NO_OPT    CPU=LOCAL; WAIT=102
+#
+#
+
+VARIABLE   DEFAULT        PARAMETERS
+#
+# Processing options used in the BPE:
+# ----------------------------------
+V_SUBDIR = YES;           DESCRIPTION=YES means ACTIVATE

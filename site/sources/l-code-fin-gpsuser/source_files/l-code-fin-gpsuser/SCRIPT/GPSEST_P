@@ -1,0 +1,68 @@
+package GPSEST_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GPSEST_P
+#
+# Purpose :  Parallel run for parameter estimation and NEQ-file generation
+#
+# Programs:  GPSEST
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 28-Jul-2008
+#
+# Changes :  10-Feb-2005 mm: Old date variables removed
+#            28-Jul-2008 ps: Removed unused varables
+#            26-May-2025 rd: add V_GNSS to manage USE_x
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Define variables
+# ----------------
+  my $PARAM1   = $$bpe{PARAM1};
+  my $SUB_PID  = $$bpe{SUB_PID};
+  my ($yyddd, $outDir, $v_gnss) = $bpe->getKeys('$YD+0',"DIR_OUT",'V_GNSS');
+
+
+# Initialize $D4 variable with subpid
+# -----------------------------------
+  setUserVar($bpe,"D4",$SUB_PID);
+
+
+# Replace selected with station list
+# ----------------------------------
+  replaceSel($bpe,"GPSEST","PSFILES",$PARAM1);
+
+
+# Select GNSS, if desired
+# -----------------------
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
+
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Delete BPE file
+# ---------------
+  open (BPE,$PARAM1);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $PARAM1\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+  unlink($PARAM1);
+
+}

@@ -1,0 +1,38 @@
+package STDELE_VS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    : STDELE_VS
+# Purpose : Execute STDELE
+# Author  : C. Kobel
+# Created : 16-Mar-2026
+#
+# ============================================================================
+use strict;
+
+sub run {
+    my $bpe = shift;
+
+    # V_STD is the prefix without a date; all local STD files use yyssss.
+    my ($yyssss, $yyssssm1, $STD) = $bpe->getKeys(
+        '$YSS+0', '$YSS-1', 'V_STD');
+
+    # Select current-day and previous-day files without their extension.
+    my $tmpFil = "$ENV{U}/WORK/STDELE.lst";
+
+    open my $OUT, '>', $tmpFil or die "Cannot open $tmpFil: $!\n";
+    for my $date ($yyssss, $yyssssm1) {
+        my $name = "$STD$date";
+        print "$name\n";
+        print {$OUT} "$name\n" or die "Cannot write $tmpFil: $!\n";
+    }
+    close $OUT or die "Cannot close $tmpFil: $!\n";
+
+    $bpe->putKey("$ENV{U}/PAN/STDELE.INP", "STDFIL", "SELECTED", "REPLACE", $tmpFil);
+
+    unlink $tmpFil or die "Cannot remove $tmpFil: $!\n";
+
+    my $PGMNAM = "STDELE";
+    $bpe->RUN_PGMS($PGMNAM);
+
+}

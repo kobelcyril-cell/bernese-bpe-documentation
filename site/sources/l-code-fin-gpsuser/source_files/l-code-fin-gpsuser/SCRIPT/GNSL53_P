@@ -1,0 +1,97 @@
+package GNSL53_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GNSL53_P
+#
+# Purpose :  Execute GPSEST for L5/L3 ambiguity resolution
+#
+# PARAMs  :  PARAM1 - 4-character baseline name
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  30-Mar-2005/ss: Derived from GPSQIF_P
+#            26-Feb-2007/eb: new keyword V_GNSSAR for GNSS Amb. fixing
+#            28-Feb-2011/ss: Simplification and SD bias handling
+#            01-Mar-2011/ss: Do not introduce L5 integers
+#            08-Mar-2011/ss: Run SATMRK
+#            29-Sep-2014 lp: New GNSS selection using setGNSS
+#            20-May-2016/ss/av: Updated due to OSB implementation
+#            14-Mar-2018/ss: Updated (from PNAC)
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1, $v_gnssar, $ssss, $ddd, $dirOsb, $extOsb) =
+   $bpe->getKeys('PARAM1', 'V_GNSSAR', '$S+0', '$+0', 'DIR_OSB', 'EXT_OSB');
+
+  setMinusPlus($bpe,0,0);
+
+# Set filename variable
+# ---------------------
+  setUserVar($bpe,"FFFF",$param1);
+
+# Select specific processing options, if desired
+# ----------------------------------------------
+# (all GNSS for processing and selected GNSS for AR)
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_","ALL");
+  unless ($v_gnssar eq "") {
+    &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USEAR_",$v_gnssar);
+  }
+
+  my $PGMNAM = "SATMRK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# DO NOT INTRODUCE L5 INTEGERS:
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","0");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP"," ");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GLORES","ALWAYS");
+
+  $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  system("$ENV{AUTO}/get_sdbias2.com $$bpe{SYSOUT}");
+
+  my $gloRes = $bpe->getKey("$ENV{U}/INP/GPSEST.INP","GLORES");
+  print "GLORES: $gloRes\n";
+
+# DO NOT INTRODUCE L1/L2 INTEGERS:
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","0");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT","\$(FFFF)\$S+0_3");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT","\$(FFFF)\$+0A");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS","");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","FREQUENCY","L3");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","1");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","LEAST","4.5");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","LEAST","3.5");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MOST","0.06");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SIGMAMIN","0.06");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP","\$(FFFF)\$~~P");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GLORES","NEVER");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GLORES","SAME_RCVR_TYPE");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GLORES","SAME_RCVR_MODEL");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GLORES","SAME_RCVR_GROUP");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GLORES","ALWAYS");
+
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","FIXSTA","FIRST");
+
+  my $filOsb = "${dirOsb}${param1}${ddd}P.${extOsb}";
+  if (!-e $filOsb && $gloRes eq "ALWAYS") {
+    prtMess($bpe,"GLORES SWITCHED TO: SAME_RCVR_MODEL");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GLORES","SAME_RCVR_MODEL");
+  } else {
+    prtMess($bpe,"GLORES: $gloRes");
+  }
+
+  $bpe->RUN_PGMS($PGMNAM);
+
+  system("$ENV{AUTO}/get_sdbias2.com $$bpe{SYSOUT}");
+
+}

@@ -1,0 +1,265 @@
+package GMT_KIN;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GMT_KIN
+#
+# Purpose :  Save result files for PPPFIN.PCF
+#
+# PARAMs  :  
+#
+# Author  :  R. Dach
+# Created :  10-Jun-2013
+#
+# Changes :  
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+
+use lib "$ENV{AUTO}";
+use igs_device;
+
+use lib "$ENV{EXE}";
+use Gps_Date;
+
+use lib "$ENV{BPE}";
+use bpe_util qw(prtMess check_dir);
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+ my   ($yyssss, $ssss, $mjdB, $sta, $plt,
+      $n,
+      $dirOut, 
+      $extOut
+      ) =
+    $bpe->getKeys(
+      '$YSS+0','$S+0','$JD+0','PARAM1','V_PLT',
+      'V_N',
+      'DIR_OUT',
+      'EXT_OUT'
+      );
+
+
+# Define the plot layout
+# ----------------------
+  my $color = $$bpe{V_COLOR_KIN};# || "200/0/0";
+  my $symbol = $$bpe{V_SYMBOL_KIN};# || "c0.1";
+  my $text = $$bpe{V_TEXT_KIN};# || "GPS+GLONASS using only phase data";
+
+# Is plotting requested?
+# ----------------------
+  if ( uc $plt ne "Y" ) {
+    prtMess($bpe,"NO RESULTS ARE PLOTTED");
+
+# Do the distribution
+# -------------------
+  } else {
+
+
+# Read the PLT files:
+# ------------------
+    my %plt = ();
+    my %sta = ();
+
+    # read through the file
+    open(PLT,"${dirOut}${n}${ssss}${sta}.${extOut}");
+    while(<PLT>) {
+
+      unless ( defined $sta{$sta} ) {
+        my $ii = index($_,"$sta ");
+        $sta{$sta}{NAM} = substr($_,$ii,16) unless $ii == -1;
+      }
+
+      # Extract information from one line
+      next unless / \+\- /;
+
+      my @rec = split();
+      my $mjd = $rec[1];
+
+      # Fill in the main record
+      $plt{$sta}{$mjd}{Nval} = $rec[-12] * 1000;
+      $plt{$sta}{$mjd}{Nrms} = $rec[-10] * 1000;
+      $plt{$sta}{$mjd}{Eval} = $rec[-9] * 1000;
+      $plt{$sta}{$mjd}{Erms} = $rec[-7] * 1000;
+      $plt{$sta}{$mjd}{Uval} = $rec[-6] * 1000;
+      $plt{$sta}{$mjd}{Urms} = $rec[-4] * 1000;
+    }
+    close PLT;
+
+
+# Create the plots for each station
+# ---------------------------------
+    my $frmt = "--PLOT_DATE_FORMAT=\"jjj\" ". 
+               "--PLOT_CLOCK_FORMAT=\"hh:mm\" ".
+               "--TIME_FORMAT_SECONDARY=\"Chararacter\" ".
+               "--TIME_INTERVAL_FRACTION=\"0.05\" ";
+    my $xBox = "-JX20/5";     # Size of the diagrams
+    my $Ymax = 30;            # Default scale for the horizontal components
+    my $Vmax = 50;            # Default scale for the vertical component
+    my $Ylab = 20;            # Default label for the horizontal components
+    my $Vlab = 50;            # Default label for the vertical component
+    my $Ytik = 10;            # Default thickmarks for the horizontal components
+    my $Vtik = 10;            # Default thickmarks for the vertical component
+
+    # Define start and end time
+    my $datB = mjd2dat($mjdB);
+    my $datE = mjd2dat($mjdB+1);
+    my $stdB = 0;
+    my $stdE = 24;
+
+    # Prepare the station
+    my $pltDir = "${PATH_WWW}${CAMP_SAVPPP}/$sta/";
+    check_dir($pltDir);
+
+
+    my ( $myNmin, $myNmax, $Nmin, $Nmax, $Nlab, $Ntik,
+         $myEmin, $myEmax, $Emin, $Emax, $Elab, $Etik,
+         $myUmin, $myUmax, $Umin, $Umax, $Ulab, $Utik );
+
+    # Make two plots
+    for ( my $iPlot = 1; $iPlot <= 2; $iPlot++ ) {
+
+      my $eps = $iPlot == 1 ? "${pltDir}KIN_${sta}_${yyssss}.ps" :
+                "${pltDir}KIN_${sta}_${yyssss}_0.ps";
+
+
+      # First plot with the default settings:
+      if ( $iPlot == 1 ) {
+        $myNmin = -$Ymax;    $myNmax =  $Ymax;
+        $myEmin = -$Ymax;    $myEmax =  $Ymax;
+        $myUmin = -$Vmax;    $myUmax =  $Vmax;
+
+        $Nmin = -$Ymax;   $Nmax = $Ymax;    $Nlab = $Ylab;    $Ntik = $Ytik;
+        $Emin = -$Ymax;   $Emax = $Ymax;    $Elab = $Ylab;    $Etik = $Ytik;
+        $Umin = -$Vmax;   $Umax = $Vmax;    $Ulab = $Vlab;    $Utik = $Vtik;
+      }
+
+      # Second plot with possibly adapted diagram boundaries
+      if ( $iPlot == 2 ) {
+
+        # north component
+        if ( $myNmax - $myNmin > $Nmax - $Nmin ) {
+          $Nmin = $myNmin;    $Nmax =  $myNmax;
+          while ( ($Nmax - $Nmin) / $Nlab > 5 ) { 
+            $Nlab = $Nlab * 2; $Ntik = $Nlab/4; }
+        }
+
+        # East component
+        if ( $myEmax - $myEmin > $Emax - $Emin ) {
+          $Emin = $myEmin;    $Emax =  $myEmax;
+          while ( ($Emax - $Emin) / $Elab > 5 ) { 
+            $Elab = $Elab * 2; $Etik = $Elab/4;  }
+        }
+
+        # Vertical component
+        if ( $myUmax - $myUmin > $Umax - $Umin ) {
+          $Umin = $myUmin;    $Umax =  $myUmax;
+          while ( ($Umax - $Umin) / $Ulab > 5 ) { 
+            $Ulab = $Ulab * 2; $Utik = $Ulab/4;  }
+        }
+      }      
+
+
+      # North Component:
+      # ---------------
+      # define frames
+      my $rBoxX = "-R$datB/$datE/$Nmin/$Nmax";
+      my $rBoxY = "-R$stdB/$stdE/$Nmin/$Nmax";
+
+      my $randX = "-Bpa6Hf1hSn -Bsa1DSn ";
+      my $randY = "-Ba${Nlab}g10000000f${Ntik}:north:We";
+
+      # make the diagram
+      system("psbasemap $xBox $rBoxX $randX $frmt -X5 -K > $eps");
+      open(GMT,"| psxy $xBox $rBoxY $randY ".
+               "-S${symbol} -G${color} -N -K -O >> $eps");
+      foreach my $mjd ( sort keys %{$plt{$sta}} ) {
+        my $val = $plt{$sta}{$mjd}{Nval};
+        if ( $iPlot == 1 ) {
+          $myNmin = $val if ( $myNmin > $val );
+          $myNmax = $val if ( $myNmax < $val );
+          $val = $Nmin if ( $val < $Nmin );
+          $val = $Nmax if ( $val > $Nmax );
+        }
+        print GMT ($mjd-$mjdB)*24," ${val}\n";
+      }
+      close GMT;
+
+      # add the legend
+      open(GMT,"| pslegend -JX -R -Dx0/-1.5/20/2.0/tl -K -O >> $eps");
+      print GMT "S 0 ${symbol} - ${color} - 0.5 ${text}, kinematic solution\n";
+      close GMT;
+
+
+      # East Component:
+      # --------------
+      # define frames
+      my $rBoxX = "-R$datB/$datE/$Emin/$Emax";
+      my $rBoxY = "-R$stdB/$stdE/$Emin/$Emax";
+      my $randX = "-Bpa6Hf1hsn";
+      my $randY = "-Ba${Elab}g10000000f${Etik}:east:We";
+
+      # make the diagram
+      system("psbasemap $xBox $rBoxX $randX $frmt -Y5.5 -K -O >> $eps");
+      open(GMT,"| psxy $xBox $rBoxY $randY ".
+               "-S${symbol} -G${color} -N -K -O >> $eps");
+      foreach my $mjd ( sort keys %{$plt{$sta}} ) {
+        my $val = $plt{$sta}{$mjd}{Eval};
+        if ( $iPlot == 1 ) {
+          $myEmin = $val if ( $myEmin > $val );
+          $myEmax = $val if ( $myEmax < $val );
+          $val = $Emin if ( $val < $Emin );
+          $val = $Emax if ( $val > $Emax );
+        }
+        print GMT ($mjd-$mjdB)*24," ${val}\n";
+      }
+      close GMT;
+
+
+      # Vertical Component:
+      # ------------------
+      # define frames
+      my $rBoxX = "-R$datB/$datE/$Umin/$Umax";
+      my $rBoxY = "-R$stdB/$stdE/$Umin/$Umax";
+      my $randX = "-Bpa6Hf1hsN";
+      my $randY = "-Ba${Ulab}g10000000f${Utik}:up::.\"Station $sta{$sta}{NAM}\":We " .
+                  "--HEADER_FONT_SIZE=\"18\" --HEADER_OFFSET=\"1.2c\"";
+
+      # make the diagram
+      system("psbasemap $xBox $rBoxX $randX $frmt -Y5.5 -K -O >> $eps");
+      open(GMT,"| psxy $xBox $rBoxY $randY ".
+               "-S${symbol} -G${color} -N -O >> $eps");
+      foreach my $mjd ( sort keys %{$plt{$sta}} ) {
+        my $val = $plt{$sta}{$mjd}{Uval};
+        if ( $iPlot == 1 ) {
+          $myUmin = $val if ( $myUmin > $val );
+          $myUmax = $val if ( $myUmax < $val );
+          $val = $Umin if ( $val < $Umin );
+          $val = $Umax if ( $val > $Umax );
+        }
+        print GMT ($mjd-$mjdB)*24," ${val}\n";
+      }
+      close GMT;
+
+
+      # Set the bounding box
+      system("ps2raster -A -P -Teg $eps");
+      unlink($eps);
+    }
+  }
+
+}
+
+  sub mjd2dat() {
+      my $mjd = shift;
+      my $dat = gps_date("-mjd $mjd","-o %XT");
+      return $dat;
+  }
+

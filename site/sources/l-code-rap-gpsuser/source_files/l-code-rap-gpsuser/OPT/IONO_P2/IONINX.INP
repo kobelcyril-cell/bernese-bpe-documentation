@@ -1,0 +1,161 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  ## emptyallowed = false
+
+DESCR_CONST 1  "General constants"
+
+! IONEX Control File
+! ------------------
+IONEXCF 1  "IONEX_COD_P"
+  ## widget = selwin; path = PTH_IONEXCF; ext = EXT_IONEXCF; maxfiles = 1
+  ## emptyallowed = false
+
+DESCR_IONEXCF 1  "IONEX control file"
+
+! ION input file
+! --------------
+IONINP 1  "$F$YD+2"
+  ## widget = selwin; path = DIR_ION; ext = EXT_ION; emptyallowed = false
+
+MSG_IONINP 1  "Ionosphere input file(s)"
+
+IONINP_TXT_COL_1 1  "Ionosphere files"
+
+IONINP_PTH_COL_2 0
+  ## widget = initmenu; pointer = DIR_DCB
+
+IONINP_EXT_COL_2 0
+  ## widget = initmenu; pointer = EXT_DCB
+
+IONINP_TXT_COL_2 1  "DCB files"
+
+IONINP_PTH_COL_3 0
+  ## widget = initmenu; pointer = DIR_INX
+
+IONINP_EXT_COL_3 0
+  ## widget = initmenu; pointer = EXT_INX
+
+IONINP_TXT_COL_3 1  "IONEX files"
+
+! DCB input
+! ---------
+DCBINP 0
+  ## widget = selwin; path = DIR_DCB; ext = EXT_DCB; activeif = USEDCB = 1
+  ## emptyallowed = true
+  # 
+
+MSG_DCBINP 1  "Differential code biases"
+
+! IONEX output
+! ------------
+INXOUT 1  "$F$YD+2"
+  ## widget = lineedit; path = DIR_INX; ext = EXT_INX; emptyallowed = true
+
+MSG_INXOUT 1  "IONEX output"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "IONINX_P2"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title
+! -----
+TITLE 1  "?"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Include DCB information
+! -----------------------
+USEDCB 1  "0"
+  ## widget = checkbox
+
+MSG_USEDCB 1  "Include DCB information"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONVERT BERNESE IONOSPHERE FILES TO IONEX FORMAT - IONINX 1                  #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants        > %%%%%%%%%%%% <                                  # CONST
+#   IONEX control file       > %%%%%%%%%%%% <                                  # IONEXCF
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Ionosphere files         > %%%%%%%%%%%% <                                  # IONINP
+#                                                                              #
+# RESULT FILES                                                                 #
+#   IONEX files              > %%%%%%%%%%%% <                                  # INXOUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output       > % < use IONINX.Lnn            or > %%%%%%%%%%%% <   # SYSODEF SYSOUT
+#   Error message        > % < merged to program output  or > %%%%%%%%%%%% <   # ERRMRG SYSERR
+# END_PANEL ####################################################################

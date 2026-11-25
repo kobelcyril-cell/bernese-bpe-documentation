@@ -1,0 +1,386 @@
+package IGSR_SAV;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  IGSR_SAV
+#
+# Purpose :  Save results produced by IGSRAPID.PCF
+
+# Author  :  M. Meindl
+#
+# Created :  05-Dec-2007
+#
+# Changes :  27-Aug-2008/rd,ss: Stop supporting BSWUSER/BSWUSER42
+#            26-May-2009/rd: RESRMS/RNXERR: YY_DDD -> YY_SSSS
+#            08-Oct-2010/ss: Save VMF GRD file
+#            24-Feb-2011/ss: Save VER/V3D/V3M LST/LIS files
+#            04-Jun-2014/ss: Major revision (full sets of RQ/RA/RM products)
+#            04-Jun-2014/ss: Gzipped NQ0 files
+#            07-Jan-2015/av: orxDp path changed
+#            21-Nov-2015/rd: Stop saving AFIT (process deactivated since Jan 15)
+#            05-Jul-2016/rd: introduce "use strict"
+#            22-Sep-2016/av/rd: Use REF$YYDDD.CRD instead of IGSRAPID.CRD
+#            07-Feb-2018 SS: Use V_UPD (not V_DIS) for WWW updates
+#            15-Feb-2019 RD: Sort the RINEX messages (use of get_warn.pl)
+#            31-Aug-2019 RD: Add OBSXTR program
+#            18-Nov-2019 AV: Adapt CODE-Nav file path on savedisk
+#            05-Mar-2020 av/st: Save RINEX3 CODE-Nav
+#            26-Mar-2020 SS: Save RATyyddd.SNX (VLBI_TROPO)
+#            06-Apr-2020 ST: Save BRD and $A files: PRE, OSB, CLK
+#                            (all derived from broadcast)
+#            07-Apr-2020 AV: Change DCB to OSB
+#            22-Apr-2020 ST: Remove duplicated save of OSB file.
+#                            Unify 'BRD' and '${v_a}_'.
+#            15-Jun-2020 AV: Skip 3-day products if indicated (V_SKIP3D)
+#            18-Jun-2020 AV: Fix PATH_WWW path
+#            30-Sep-2021 RD: Ignore merged RINEX2-nav files
+#            28-Feb-2022 SS: Save additional files for IERS experiment
+#            08-Mar-2022 AV: Save disk: yearly subdirectory
+#            09-Jun-2022 SS: Saving for IERS experiment in RAP mode only
+#            23-Jun-2022 ST: Save RINEX2 GPS CODE-Nav again.
+#                            Save the additional broadcast precise file
+#                            which also contains the unregistered satellites.
+#            24-Nov-2022 SS: Saved OBX file
+#            20-Oct-2023 EB: Short protocol generation
+#            04-Dec-2023 EB: Adopt PATH_WWW for protocol+short protocol
+#            08-Dec-2023 EB: RINEX summary for code web added
+#            08-Dec-2023 EB: SAT summary for code web added
+#            27-Feb-2024 EB: save RP3 predictions
+#            04-Apr-2025 EB: protocol call -q modified
+#            17-Apr-2025 EB: typ_rap call different for rpaid and ultra
+#            29-Jan-2026 SS: Backup $CONFIG/SAT_yyyy.CRX (to _ssss)
+#
+# =============================================================================
+
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+use lib "$ENV{EXE}";
+use Gps_Date;
+
+use File::Copy;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+  print "PRINT: $PATH_WWW $ENV{S} $PATH_RAP\n";
+# Get variables
+# -------------
+  my(
+    $yyyyssss, $yyyyddd,$yy,$ddd,$dm1,$dm2,$ssss,$yyddd,$yydp1,$yydp2,
+    $yydm1,$wwwwd,$yyyy,$mm,$dd,$wwww,
+    $v_i,$v_h,$v_x,$v_o,$v_a,$v_z,$v_k,$v_sav,$v_dis,$v_upd,$skipsol,
+    $dirOut,$extOut,
+    $dirSum,$extSum,
+    $dirRxn,$extRxn,
+    $dirRxn3,$extRxn3,
+    $dirOsb,$extOsb,
+    $dirPre,$extPre,
+    $dirObx,$extObx,
+    $dirClk,$extClk,
+    $dirTrp,$extTrp,
+    $dirTro,$extTro,
+    $dirEle,$extEle,
+    $dirGcc,$extGcc,
+    $dirCrd,$extCrd,
+    $dirErp,$extErp,
+    $dirIep,$extIep,
+    $dirNeq,$extNeq,
+    $dirSnx,$extSnx,
+    $dirGrd,$extGrd,
+    $dirFix,$extFix,
+  ) =
+  $bpe->getKeys(
+    '$YYYSS+0', '$YYYD+0', '$Y','$+0','$-1','$-2','$S+0','$YD+0','$YD+1','$YD+2',
+    '$YD-1','$WD+0','$Y+0','$M','$D','$W-7',
+    'V_I','V_H','V_X','V_O','V_A','V_Z','V_K','V_SAV','V_DIS','V_UPD','V_SKIP3D',
+    'DIR_OUT','EXT_OUT',
+    'DIR_SUM','EXT_SUM',
+    'DIR_RXN','EXT_RXN',
+    'DIR_RBN','EXT_RBN',
+    'DIR_OSB','EXT_OSB',
+    'DIR_PRE','EXT_PRE',
+    'DIR_OBX','EXT_OBX',
+    'DIR_CLK','EXT_CLK',
+    'DIR_TRP','EXT_TRP',
+    'DIR_TRO','EXT_TRO',
+    'DIR_ELE','EXT_ELE',
+    'DIR_GCC','EXT_GCC',
+    'DIR_CRD','EXT_CRD',
+    'DIR_ERP','EXT_ERP',
+    'DIR_IEP','EXT_IEP',
+    'DIR_NEQ','EXT_NEQ',
+    'DIR_SNX','EXT_SNX',
+    'DIR_GRD','EXT_GRD',
+    'DIR_FIX','EXT_FIX',
+  );
+
+# Read ultra flag
+# ---------------
+  my $ultFil = "$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/ULT${yyddd}.FLG";
+  my @ultLst = &rdUltFlg($ultFil);
+  my $T  = &gtUltVrs($ultLst[0],$ultLst[3]);
+
+# Define data archive environment
+# -------------------------------
+  my $orxDp  = "${CDIR_DATA}/ORX/daily/INP/";
+  my $rapSav = "${PATH_SAV}${CAMP_SAVRAP}/${yyyy}/";
+  check_dir($rapSav);
+  my $outSav = "${rapSav}OUT/"; check_dir($outSav);
+  my $atmSav = "${rapSav}ATM/"; check_dir($atmSav);
+  my $orbSav = "${rapSav}ORB/"; check_dir($orbSav);
+  my $rawSav = "${rapSav}RAW/"; check_dir($rawSav);
+  my $solSav = "${rapSav}SOL/"; check_dir($solSav);
+  my $crdSav = "${rapSav}STA/"; check_dir($crdSav);
+  my $grdSav = "${rapSav}GRD/"; check_dir($grdSav);
+  my $tmpSav = "${rapSav}TMP/"; check_dir($tmpSav);
+  my $orx2Dp = "${CDIR_DATA}/ORX/daily/RINEX2/${yyyy}/${ddd}/";
+  my $orx3Dp = "${CDIR_DATA}/ORX/daily/RINEX3/${yyyy}/${ddd}/";
+
+  check_dir(
+    $orxDp,$outSav,$atmSav,$orbSav,$rawSav,$solSav,$crdSav,$grdSav,$tmpSav,$orx2Dp,$orx3Dp);
+
+# Reorder the RNX messages
+# ------------------------
+  system("perl $ENV{AUTO}/get_warn.pl ${dirOut}RNXERR.${yy}_${ssss} ${dirOut}RNXERR.${yy}_${ssss}");
+
+# Create merged protocol file
+# ---------------------------
+  my $prcFil = "${dirOut}IGSRAPID.${yy}_${ddd}";
+  unlink $prcFil;
+  my @prcLst = ();
+  push @prcLst,"${dirOut}RNXERR.${yy}_${ssss} 0";
+  push @prcLst,"${dirOut}RAP${yyddd}.PRC 1";
+  push @prcLst,"${dirOut}RXGR${ddd}0.SMC 1";
+  push @prcLst,"${dirOut}COD${wwwwd}.LST 1" if $skipsol ne "Y";
+#  push @prcLst,"${dirOut}AFIT${ssss}.LST 1";
+  push @prcLst,"${dirOut}${v_i}_${wwwwd}.CMP 0";
+  push @prcLst,"${dirOut}RESRMS.${yy}_${ssss} 1";
+  push @prcLst,"${dirOut}OBX_MPR_${yyddd}.${extOut} 1";
+  push @prcLst,"${dirSum}OBX_MPR_${yyddd}.${extSum} 1";
+  push @prcLst,"${dirOut}OBX_EDT_${yyddd}.${extOut} 1";
+  push @prcLst,"${dirSum}OBX_EDT_${yyddd}.${extSum} 1";
+  push @prcLst,"${dirOut}${v_h}_${wwwwd}.SUM 1" if $skipsol ne "Y";
+  push @prcLst,"${dirOut}${v_h}_${wwwwd}.OUT 1" if $skipsol ne "Y";
+##  push @prcLst,"${dirOut}${v_x}_${yyddd}.LST 0";
+  push @prcLst,"${dirOut}${v_i}_${yyddd}.LST 0";
+  foreach (@prcLst) {
+      my ($fil,$stop) = split;
+      appFile("",0,$fil,$prcFil,$stop);
+  }
+
+# Create short protocol file
+# --------------------------
+  my $prcFilshort = "${dirOut}IGSRAPID_SHORT.TXT";
+  my $prcFilsat = "${dirOut}IGSRAPID_SAT.TXT";
+  my $call_ultra = "";
+  if (-e $ultFil) {
+    $prcFilshort = "${dirOut}IGSULTRA_SHORT.TXT";
+    $prcFilsat = "${dirOut}IGSULTRA_SAT.TXT";
+    $call_ultra = "-u";
+  }
+  system("perl $ENV{AUTO}/typ_rap.pl ${ddd} ${call_ultra} -q > $prcFilshort");
+  system("perl $ENV{AUTO}/comp_obs_pre.pl -d ${ddd} -t RAP -p PRE -s GRE -v -oh 7 > $prcFilsat");
+
+# Copy/distribute protocol
+  my $wwwpwd = "$PATH_WWW";
+  print "PATH: $PATH_WWW EMV: $ENV{PATH_WWW} $wwwpwd\n";
+  check_dir("$wwwpwd");
+  my $rnxFil="${dirOut}RXGR${ddd}0.SMC";
+  if (-e $ultFil) {
+    my $sumFil = "${dirOut}IGSULTRA_$ultLst[0].${yy}_${ddd}";
+    copy($prcFil,$sumFil);
+    copy($sumFil,$outSav) if $v_sav eq "Y";
+    copy($sumFil,"${wwwpwd}code/igsultra.txt") if $v_upd eq "Y";
+    copy($prcFilshort,"${wwwpwd}code/igsultra_short.txt") if $v_upd eq "Y";
+    copy($rnxFil,"${wwwpwd}code/igsultra_rnx.txt") if $v_upd eq "Y";
+    copy($prcFilsat,"${wwwpwd}code/igsultra_sat.txt") if $v_upd eq "Y";
+  } else {
+    copy($prcFil,$outSav) if $v_sav eq "Y";
+    copy($prcFil,"${wwwpwd}code/igsrapid.txt") if $v_upd eq "Y";
+    copy($prcFilshort,"${wwwpwd}code/igsrapid_short.txt") if $v_upd eq "Y";
+    copy($rnxFil,"${wwwpwd}code/igsrapid_rnx.txt") if $v_upd eq "Y";
+    copy($prcFilsat,"${wwwpwd}code/igsrapid_sat.txt") if $v_upd eq "Y";
+  }
+
+# Backup $CONFIG/SAT_yyyy.CRX (to _ssss)
+  my $satCrx = "$ENV{CONFIG}/SAT_${yyyy}.CRX";
+  copy($satCrx,"${satCrx}_${ssss}") if $v_sav eq "Y";
+# Remove old saved SAT CRX files
+  my ($yyyym,$ssssm) = gps_date("-yd $yyddd -d -32 -o %Y %j0");
+  $satCrx = "$ENV{CONFIG}/SAT_${yyyym}.CRX_${ssssm}";
+  unlink($satCrx) if $v_sav eq "Y";
+
+# Backup last protocol file
+  my $tmpFil = "${dirOut}IGSRAPID.PRC";
+  copy($tmpFil,"${tmpFil}_OLD");
+  copy($prcFil,$tmpFil);
+
+
+# Update APR PRE file (if available)
+# ----------------------------------
+  my $src = "${dirPre}${v_i}_${yyddd}.${extPre}";
+  my $trg = "${dirPre}APR${yyddd}.${extPre}";
+  copy($src,$trg) if -s $src;
+
+
+# Copy files to savedisk
+# ----------------------
+# RQ (1-day):
+  my @copy = ();
+  push @copy,"${dirTrp}${v_h}_${yyddd}.${extTrp} ${atmSav}";
+  push @copy,"${dirTro}${v_h}_${yyddd}.${extTro} ${atmSav}";
+  push @copy,"${dirPre}${v_h}_${yyddd}.${extPre} ${orbSav}${v_h}_${yyddd}.${extPre} c";
+  push @copy,"${dirObx}${v_h}_${yyddd}.${extObx} ${orbSav}${v_h}_${yyddd}.${extObx} c";
+  push @copy,"${dirEle}${v_h}_${yyddd}.${extEle} ${orbSav}";
+  push @copy,"${dirGcc}${v_h}_${yyddd}.${extGcc} ${orbSav}";
+  push @copy,"${dirCrd}${v_h}_${yyddd}.${extCrd} ${crdSav}";
+  push @copy,"${dirErp}${v_h}_${yyddd}.${extErp} ${orbSav}";
+  push @copy,"${dirIep}${v_h}_${yyddd}.${extIep} ${orbSav}";
+  push @copy,"${dirSnx}${v_h}_${yyddd}.${extSnx} ${solSav}${v_h}_${yyddd}.${extSnx} c";
+  push @copy,"${dirNeq}${v_h}N${yyddd}.${extNeq} ${solSav}${v_h}N${yyddd}.${extNeq} g";
+  push @copy,"${dirCrd}${v_h}S${yyddd}.${extCrd} ${crdSav}";
+  push @copy,"${dirIep}${v_h}S${yyddd}.${extIep} ${orbSav}";
+  push @copy,"${dirFix}${v_h}_${yyddd}.${extFix} ${crdSav}";
+  push @copy,"${dirCrd}REF${yyddd}.${extCrd}     ${tmpSav}" if !-e $ultFil;
+  push @copy,"${dirCrd}REF${yyddd}.VEL           ${tmpSav}" if !-e $ultFil;
+  push @copy,"${dirErp}RAP${yyddd}.${extErp}     ${tmpSav}" if !-e $ultFil;
+  push @copy,"${dirPre}${v_k}_${yyddd}.STD       ${tmpSav}" if !-e $ultFil;
+  push @copy,"${dirPre}${v_k}_${yyddd}.RPR       ${tmpSav}" if !-e $ultFil;
+  push @copy,"${dirNeq}${v_h}_${yyddd}.${extNeq} ${tmpSav}${v_h}_${yyddd}.${extNeq} g" if !-e $ultFil;
+  push @copy,"${dirNeq}${v_h}O${yyddd}.${extNeq} ${tmpSav}${v_h}O${yyddd}.${extNeq} g" if !-e $ultFil;
+  push @copy,"${dirOut}${v_h}_${yyddd}.${extOut} ${tmpSav}" if !-e $ultFil;
+  push @copy,"${dirPre}${v_h}_${yyddd}.STD       ${tmpSav}" if !-e $ultFil;
+
+# Save 3-day products
+  if($skipsol ne "Y"){
+# RA (3-day):
+    push @copy,"${dirTrp}${v_i}_${yyddd}.${extTrp} ${atmSav}";
+    push @copy,"${dirTro}${v_i}_${yyddd}.${extTro} ${atmSav}";
+    push @copy,"${dirPre}${v_i}_${yyddd}.${extPre} ${orbSav}${v_i}_${yyddd}.${extPre} c";
+    push @copy,"${dirEle}${v_i}_${yyddd}.${extEle} ${orbSav}";
+##    push @copy,"${dirGcc}${v_i}_${yyddd}.${extGcc} ${orbSav} u";
+    push @copy,"${dirGcc}${v_i}_${yyddd}.${extGcc} ${orbSav}";
+    push @copy,"${dirEle}${v_i}M1${dm1}.${extEle} ${orbSav}";
+    push @copy,"${dirEle}${v_i}M2${dm2}.${extEle} ${orbSav}";
+    push @copy,"${dirPre}${v_o}_${yydp1}.${extPre} ${orbSav}${v_o}_${yydp1}.${extPre} c";
+    push @copy,"${dirPre}${v_o}2${yydp2}.${extPre} ${orbSav}${v_o}2${yydp2}.${extPre} c";
+    push @copy,"${dirPre}${v_o}3${yydp1}.${extPre} ${orbSav}${v_o}3${yydp1}.${extPre} c";
+    push @copy,"${dirCrd}${v_i}_${yyddd}.${extCrd} ${crdSav}";
+    push @copy,"${dirErp}${v_i}_${yyddd}.${extErp} ${orbSav}";
+    push @copy,"${dirIep}${v_i}_${yyddd}.${extIep} ${orbSav}";
+    push @copy,"${dirErp}COD${wwwwd}.${extErp} ${orbSav}";
+    push @copy,"${dirErp}U$T${wwwwd}.${extErp} ${orbSav}";
+    push @copy,"${dirSnx}${v_i}_${yyddd}.${extSnx} ${solSav}${v_i}_${yyddd}.${extSnx} c";
+    push @copy,"${dirSnx}${v_i}T${yyddd}.${extSnx} ${solSav}${v_i}T${yyddd}.${extSnx} c";
+    push @copy,"${dirNeq}${v_i}N${yyddd}.${extNeq} ${solSav}${v_i}N${yyddd}.${extNeq} g";
+##   push @copy,"${dirSnx}${v_x}_${yyddd}.${extSnx} ${solSav}${v_x}_${yyddd}.${extSnx} c" unless -e $ultFil;
+##    push @copy,"${dirNeq}${v_x}_${yyddd}.${extNeq} ${solSav} u";
+##    push @copy,"${dirCrd}${v_x}_${yyddd}.${extCrd} ${crdSav} u";
+##    push @copy,"${dirErp}${v_x}_${yyddd}.${extErp} ${orbSav} u";
+##    push @copy,"${dirIep}${v_x}_${yyddd}.${extIep} ${orbSav} u";
+    push @copy,"${dirCrd}${v_i}S${yyddd}.${extCrd} ${crdSav}";
+    push @copy,"${dirErp}${v_i}S${yyddd}.${extErp} ${orbSav}";
+    push @copy,"${dirIep}${v_i}S${yyddd}.${extIep} ${orbSav}";
+    push @copy,"${dirOut}${v_i}_${yyddd}.${extOut} ${tmpSav}" if !-e $ultFil;
+    push @copy,"${dirPre}${v_i}_${yyddd}.STD       ${tmpSav}" if !-e $ultFil;
+  }
+
+  # NAV-RINEX3
+  # This is the main merged navigation messages product.
+  my $navRx3_inp = "${dirRxn3}CODE00MRG_${yyyyssss}_M.${extRxn3}";
+  my $navRx3_out = "CODE00MRG_3_${yyyyddd}0000_01D_01H_MN.RNX";
+  if(-s "$navRx3_inp" ) {
+    push @copy,"$navRx3_inp ${orx3Dp}${navRx3_out} g";
+    push @copy,"$navRx3_inp ${rawSav}${navRx3_out} g";
+  } else {
+    unless(-s "${orx3Dp}${navRx3_out}.gz" &&
+           -s "${rawSav}${navRx3_out}.gz") {
+      die ("$navRx3_inp not found\n");
+    }
+  }
+
+  # NAV-RINEX2
+  # These are RINEX2 GPS only merged navigation messages.
+  # NAV-RINEX2 processing would collide with NAV-RINEX3 processing
+  # if both would be in RAW (backup of CODE to OLD_).
+  my $dirRxn2 = "${dirRxn}../RAW2/";
+  my $navRx2_inp = "${dirRxn2}CODE${ssss}.${extRxn}";
+  my $navRx2_out = "CODE${ssss}.${extRxn}";
+  if(-s "$navRx2_inp" ) {
+    push @copy,"$navRx2_inp ${orx2Dp}${navRx2_out} g";
+    push @copy,"$navRx2_inp ${rawSav}${navRx2_out} g";
+  } else {
+    unless(-s "${orx2Dp}${navRx2_out}.gz" &&
+           -s "${rawSav}${navRx2_out}.gz") {
+      die ("$navRx2_inp not found\n");
+    }
+  }
+
+  push @copy,"${dirPre}${v_a}_${yyddd}.${extPre} ${orbSav}${v_a}_${yyddd}.${extPre} c";
+  push @copy,"${dirClk}${v_a}_${yyddd}.${extClk} ${orbSav}${v_a}_${yyddd}.${extClk} c";
+  push @copy,"${dirOsb}${v_a}_${yyddd}.${extOsb} ${orbSav}${v_a}_${yyddd}.${extOsb} c";
+  push @copy,"${dirOsb}${v_a}ALL_${yyddd}.${extPre} ${orbSav}${v_a}ALL_${yyddd}.${extPre} c";
+# Save 3-day products
+  if($skipsol ne "Y"){
+    push @copy,"${dirPre}${v_z}_${yydm1}.${extPre} ${orbSav}${v_z}_${yydm1}.${extPre} c";
+    push @copy,"${dirErp}${v_z}_${yydm1}.${extErp} ${orbSav}";
+    push @copy,"${dirIep}${v_z}_${yydm1}.${extIep} ${orbSav}";
+    push @copy,"${dirTrp}${v_z}_${yydm1}.${extTrp} ${atmSav}";
+    push @copy,"${dirTro}${v_z}_${yydm1}.${extTro} ${atmSav}";
+    push @copy,"${dirCrd}${v_i}_${yydm1}.${extCrd} ${crdSav}";
+    push @copy,"${dirOut}${v_z}_${yydm1}.${extOut} ${tmpSav}" if !-e $ultFil;
+    push @copy,"${dirPre}${v_z}_${yydm1}.STD       ${tmpSav}" if !-e $ultFil;
+  }
+# Save 3-day products
+  if($skipsol ne "Y"){
+    push @copy,"${dirOut}VER_${wwww}.LST ${outSav}";
+    push @copy,"${dirOut}VER_${wwww}.LIS ${outSav}";
+    push @copy,"${dirOut}V3D_${wwww}.LST ${outSav}";
+    push @copy,"${dirOut}V3D_${wwww}.LIS ${outSav}";
+    push @copy,"${dirOut}V3M_${wwww}.LST ${outSav}";
+    push @copy,"${dirOut}V3M_${wwww}.LIS ${outSav}";
+  }
+  push @copy,"${dirOut}REPOSITIONING.LST ${outSav}";
+
+  if($v_sav eq "Y") {
+    foreach (@copy) {
+      my ($src,$trg,$uc) = split;
+      $uc = " " unless defined($uc);
+      if($uc eq "u" && -e $ultFil) {
+        copy($src,$trg);
+      } else {
+        unlink(glob("$trg*")) if ($uc eq "c" && ! -d $trg);
+        unlink(glob("$trg*")) if ($uc eq "g" && ! -d $trg);
+        copy($src,$trg) or die "Cannot copy $src to $trg\n";
+        system("compress $trg") if $uc eq "c";
+        system("gzip     $trg") if $uc eq "g";
+      }
+    }
+    copy("${dirGrd}VMF${yyddd}.${extGrd}",$grdSav);
+  }
+
+# Create new CODE.CRD file
+# ------------------------
+#  $src = "${dirCrd}IGSRAPID.${extCrd}";
+  $src = "${dirCrd}REF${yyddd}.${extCrd}";
+  $trg = "$ENV{REF}/CODE.${extCrd}";
+  copy($src,"${trg}_OLD") or die "Cannot copy $src to ${trg}_OLD\n";
+  move("${trg}_OLD",$trg);
+
+# Some messages
+# -------------
+  prtMess($bpe,"FILES_NOT_SAVED")       if $v_sav ne "Y";
+  prtMess($bpe,"FILES_NOT_DISTRIBUTED") if $v_dis ne "Y";
+  prtMess($bpe,"FILES_NOT_UPDATED")     if $v_upd ne "Y";
+}
+
+# =============================================================================
+
+__END__

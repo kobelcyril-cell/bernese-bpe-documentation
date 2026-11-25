@@ -1,0 +1,88 @@
+package COPYSOL_VS;
+@ISA = ("RUNBPE");
+# ============================================================================
+# Name    : COPYSOL_VS
+# Purpose : Copy solution files from V_SOLDIR
+# Author  : C. Kobel
+# Created : 16-Mar-2026
+# ============================================================================
+use strict;
+use File::Copy;
+use lib "$ENV{AUTO}";
+
+sub copy_if_needed {
+  my ($src, $dst) = @_;
+
+  if (-e $dst) {
+    print "$dst already exists\n";
+    return;
+  }
+
+  die "Source file missing: $src\n" unless -f $src;
+  copy($src, $dst) or die "Cannot copy $src -> $dst : $!\n";
+  print "Copied $src -> $dst\n";
+}
+
+sub copy_solution {
+  my ($src_dir, $dst_dir, $prefix, $ext, $yyddd, $yyssss) = @_;
+
+  for my $date ($yyddd, $yyssss) {
+    my $src = "$src_dir/$prefix$date.$ext";
+    next unless -f $src;
+
+    copy_if_needed($src, "$dst_dir/$prefix$yyssss.$ext");
+    return $date;
+  }
+
+  die "No source file found: $src_dir/$prefix$yyddd.$ext or " .
+      "$src_dir/$prefix$yyssss.$ext\n";
+}
+
+sub run {
+  my $bpe = shift;
+
+  my ($solDir, $dirORB, $dirCRD,$dirOut,
+      $yyddd, $yydddm1, $yydddm2,
+      $yyssss, $yyssssm1, $yyssssm2, $yy,
+      $CRD, $PRE, $STD,$CLKOUT,$AMBOUT,$XTROUT,
+      $extCrd, $extPre, $extStd, $extErp,$extOut,$extSum,
+      $crdInf, $satcrx, $dirCrx, $extCrx, $extPsd) =
+      $bpe->getKeys('V_SOLDIR', 'DIR_ORB', 'DIR_CRD','DIR_OUT',
+                    '$YD+0', '$YD-1', '$YD-2',
+                    '$YSS+0', '$YSS-1', '$YSS-2', '$Y+0',
+                    'V_CRD', 'V_PRE', 'V_STD','V_CLKOUT','V_AMBOUT','V_XTROUT',
+                    'EXT_CRD', 'EXT_PRE', 'EXT_STD', 'EXT_ERP','EXT_OUT','EXT_SUM',
+                    'V_CRDINF', 'V_SATCRX', 'DIR_CRX', 'EXT_CRX', 'EXT_PSD');
+
+  # Copy required model files.
+  my $ret = system("$ENV{AUTO}/copyRef.pl ${dirCRD}.. $crdInf $crdInf.$extPsd");
+  die "ERROR: copyRef.pl failed (return code: $ret)\n" if $ret != 0;
+
+  my $staDir = "$solDir/STA";
+  my $orbDir = "$solDir/ORB";
+  my $outDir = "$solDir/OUT";
+
+  # CRD, STD, and CCRNX: current day, using the same source/destination date rules.
+  # Also the previous day's STD for STDELE
+  copy_solution($staDir, $dirCRD, $CRD, $extCrd, $yyddd, $yyssss);
+  copy_solution($orbDir, $dirORB, $STD, $extStd, $yyddd, $yyssss);
+  copy_solution($orbDir, $dirORB, $STD, $extStd, $yydddm1, $yyssssm1);
+  copy_solution($outDir, $dirOut, $CLKOUT, $extOut, $yyddd, $yyssss);
+  copy_solution($outDir, $dirOut, $AMBOUT, $extOut, $yyddd, $yyssss);
+  copy_solution($outDir, $dirOut, "${XTROUT}XTR", $extSum, $yyddd, $yyssss);
+  # PRE: current day and the two previous days.
+  # Determine the available source naming format separately for each day.
+  for my $dates ([$yyddd,   $yyssss],
+                 [$yydddm1, $yyssssm1],
+                 [$yydddm2, $yyssssm2]) {
+    my ($day_yd, $day_yss) = @$dates;
+    copy_solution(
+      $orbDir, $dirORB, $PRE, $extPre, $day_yd, $day_yss
+    );
+
+    # ERP uses the same search and destination rules, independently of PRE.
+    copy_solution(
+      $orbDir, $dirORB, $PRE, $extErp, $day_yd, $day_yss
+    );
+  }
+}

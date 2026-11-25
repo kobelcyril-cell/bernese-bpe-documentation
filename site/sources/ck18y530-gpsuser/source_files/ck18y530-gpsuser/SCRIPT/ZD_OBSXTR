@@ -1,0 +1,30 @@
+package OBSXTR;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  OBSXTR
+#
+# Purpose :  Execute OBSXTR
+#
+# Author  :  C. Kobel
+# Created :  02-Jul-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/OBSXTR.INP","USE_",$v_gnss);
+  # ---------- Run program ------------
+  my $PGMNAM = "OBSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+}

@@ -1,0 +1,90 @@
+package LEO_SAV;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_SAV
+#
+# Purpose :  Store LEOPOD BPE processing result files in the archive
+#
+# PARAMs  :
+#
+# Author  :  H. Bock
+# Created :  16-Mar-2012
+#
+# Changes :  28-Nov-2019 DA: Commented out setvar (stopps BPE server)
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+use File::Copy;
+
+use lib $ENV{BPE};
+use bpe_util qw(check_dir copy2archive prtMess);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $yyyy, $ssss,
+      $a, $f, $result, $leo, $sav,
+      $dirOut, $dirPre, $dirEle, $dirStd, $dirRpr, $dirKin,
+      $extOut, $extPre, $extEle, $extStd, $extRpr, $extKin,
+      $dirRxc, $dirRes,
+      $extRxc, $extRes ) =
+    $bpe->getKeys(
+      '$YSS+0','$Y+0','$S+0',
+      'V_A', 'V_F', 'V_RESULT', 'V_LEO', 'V_SAV',
+      'DIR_OUT','DIR_PRE','DIR_ELE','DIR_STD','DIR_RPR','DIR_KIN',
+      'EXT_OUT','EXT_PRE','EXT_ELE','EXT_STD','EXT_RPR','EXT_KIN',
+      'DIR_RXC','DIR_RES',
+      'EXT_RXC','EXT_RES' );
+
+# Some directories
+# ----------------
+#    my $dirSav = "$ENV{S}/" . $result . "/$yyyy/";
+    my $dirSav = "$ENV{HOME}/LEOSD/" . $result . "/$yyyy/";
+#    $bpe->setVar('DIRSAV',$dirSav);
+    my $outSav = "$dirSav/OUT/";
+    my $orbSav = "$dirSav/ORB/";
+    my $staSav = "$dirSav/STA/";
+
+    check_dir($outSav,$orbSav,$staSav) if ( $sav eq "Y" );
+
+# Title of processing
+# -------------------
+  my $tit = "LEOPOD running for ${leo}- solution ${f}";
+
+# Copy files to savedisk
+# ----------------------
+  my @cpyLst = (
+    "${dirOut}${leo}${f}${yyssss}.PRC    ${outSav} f ",
+    "${dirPre}RD${f}${yyssss}.${extPre} ${orbSav} f ",
+    "${dirStd}RD${f}${yyssss}.${extStd} ${orbSav} f ",
+    "${dirEle}RD${f}${yyssss}.${extEle} ${orbSav} f ",
+    "${dirRes}RD${f}${yyssss}.${extRes} ${outSav} f ",
+    "${dirKin}KN${f}${yyssss}.${extKin} ${staSav} f ",
+    "${dirPre}KN${f}${yyssss}.${extPre} ${orbSav} f ",
+    "${dirRes}KN${f}${yyssss}.${extRes} ${outSav} f ",
+    "${dirRxc}KN${f}${yyssss}.${extRxc} ${outSav} fz ",
+    );
+
+# Distribution not allowed
+# ------------------------
+    if ( uc $sav ne "Y" ) {
+      prtMess($bpe,"FILES NOT SAVED");
+
+# Do the distribution
+# -------------------
+    } else {
+
+      my $iErr = 0;
+
+      map { $iErr += copy2archive( split(" ",$_),$tit ) } @cpyLst;
+
+      # Stop in case of errors
+      die() if $iErr;
+    }
+
+}

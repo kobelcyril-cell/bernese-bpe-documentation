@@ -1,0 +1,85 @@
+package RXOBVSAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  RXOBVSAP
+#
+# Purpose :  Prepare parallel RXOBV3 run (for SMT files)
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 19-May-2009
+#
+# Changes :  26-Jan-2005 mm: New initPar call (w/o tmpFil)
+#            10-Feb-2005 mm: Old date variables removed
+#            19-May-2009 rd: Session dependent parallelization filenames
+#            13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ( $yyddd, $ssss, $ddd,
+       $param1, $param2, $numFil, $numClu, $dirBpe, $dirTmp,
+       $dirOut, $dirSmt, $dirCzh, $dirPzh, $dirCzo, $dirPzo,
+       $extOut, $extSmt, $extCzh, $extPzh, $extCzo, $extPzo ) =
+  $bpe->getKeys
+     ( '$YD+0', '$S+0', '$+0',
+       'PARAM1', 'PARAM2', 'V_CLU', 'V_NCLU', ,'DIR_BPEPRT', 'T',
+       'DIR_OUT', 'DIR_SMT', 'DIR_CZH', 'DIR_PZH', 'DIR_CZO', 'DIR_PZO',
+       'EXT_OUT', 'EXT_SMT', 'EXT_CZH', 'EXT_PZH', 'EXT_CZO', 'EXT_PZO' );
+
+  my $numFil = $param2 if ($param2 ne "");
+
+# Delete old files (CZH, PZH, CZO, PZO)
+# -------------------------------------
+  unlink glob("${dirCzh}????${ssss}.${extCzh}");
+  unlink glob("${dirPzh}????${ssss}.${extPzh}");
+  unlink glob("${dirCzo}????${ssss}.${extCzo}");
+  unlink glob("${dirPzo}????${ssss}.${extPzo}");
+
+# Delete collecting file for RINEX error/warning messages
+# -------------------------------------------------------
+  if ($numFil ne "" || $numClu ne "") {
+    unlink glob("${dirOut}OBS${ssss}???.${extOut}") }
+  else {
+    unlink glob("${dirOut}OBS${ddd}????.${extOut}") }
+
+# Define directories and file names
+# ---------------------------------
+  my @smtFil = glob("${dirSmt}*${ssss}.{$extSmt}");
+
+  my $bpeFil = "${dirBpe}OBS${ssss}";
+  unlink(glob("${bpeFil}???.BPE"));
+
+
+# Disable parallel processing when ABBREV.ABB may be updated
+# ----------------------------------------------------------
+  my $abbUpd = $bpe->getKey("$ENV{U}/PAN/RXOBV3.INP","ABBUPD");
+
+  if ($abbUpd ne "ERROR" and ($numFil eq "" || $numClu eq "")) {
+    prtErr($bpe,"PARALLEL PROCESSING NOT POSSIBLE") and
+      die "PROCESSING STOPPED" }
+
+  if ($abbUpd ne "ERROR") {
+    initPar_Cl($bpe,$bpeFil,@smtFil,1,0,0)
+     }
+  elsif ($numFil ne "") {
+    initPar_Cl($bpe,$bpeFil,@smtFil,0,$numFil,0) }
+  elsif ($numClu ne "") {
+    initPar_Cl($bpe,$bpeFil,@smtFil,$numClu,0,0) }
+  else {
+    @smtFil = map { substr(basename($_),0,4) } @smtFil;
+    initPar_Bl($bpe,@smtFil)
+       }
+
+}

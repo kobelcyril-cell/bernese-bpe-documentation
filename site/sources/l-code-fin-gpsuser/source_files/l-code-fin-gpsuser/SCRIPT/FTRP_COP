@@ -1,0 +1,76 @@
+package FTRP_COP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  FTRP_COP
+#
+# Purpose :  Copy required files for PPPTROPO.PCF
+#
+# Programs:  COOVEL
+#
+# Author  :  R. Dach
+# Created :  01-Jan-2021
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+use lib "$ENV{AUTO}";
+use gpsutil qw(copyfile uncompress replace err_print);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+ my  ($yyssss, $yyyy,
+      $crdInf, $psdInf,
+      $v_clkdir, $v_crdfil, $v_satclk, $v_osbfil,
+      $v_orbdir, $v_stdfil, $v_erpfil,
+      $orb, $crd,
+      $dirPsd, $dirCrd, $dirClk, $dirOsb, $dirStd, $dirErp,
+      $extPsd, $extCrd, $extClk, $extOsb, $extStd, $extErp) =
+
+    $bpe->getKeys(
+      '$YSS+0', '$Y+0',
+      'V_CRDINF', 'V_PSDINF',
+      'V_CLKDIR', 'V_CRDFIL', 'V_SATCLK', 'V_OSBFIL',
+      'V_ORBDIR', 'V_STDFIL', 'V_ERPFIL',
+      'V_ORB', 'V_CRD',
+      'DIR_PSD', 'DIR_CRD', 'DIR_CLK', 'DIR_OSB', 'DIR_STD', 'DIR_ERP',
+      'EXT_PSD', 'EXT_CRD', 'EXT_CLK', 'EXT_OSB', 'EXT_STD', 'EXT_ERP');
+
+
+  my $psdFil = $psdInf eq ""? "":"$psdInf.$extPsd";
+  system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil REF$yyssss");
+
+  # CRD-file is expected
+  if ( "${v_crdfil}" ne "" ) {
+    $v_crdfil =~ s/F3U/F3P/ unless ( -e "${v_clkdir}/../STA/${v_crdfil}" );
+    copyfile("${v_clkdir}/../STA/${v_crdfil}","${dirCrd}${crd}_${yyssss}.${extCrd}");
+
+  # Otherwise construct one from the reference frame file
+  } else {
+
+    # Run program
+    my $PGMNAM = "COOVEL";
+    $bpe->RUN_PGMS($PGMNAM);
+
+  }
+
+  # Copy the OSB and CLK files
+  copyfile("${v_clkdir}/${v_osbfil}","${dirOsb}${orb}${yyssss}.${extOsb}");
+  copyfile("${v_clkdir}/${v_satclk}.gz","${dirClk}${orb}${yyssss}.${extClk}.gz");
+  uncompress("-z gunzip","${dirClk}${orb}${yyssss}.${extClk}.gz");
+
+  # Copy the orbit and ERP files
+  copyfile("${v_orbdir}/${v_stdfil}","${dirStd}${orb}${yyssss}.${extStd}");
+  replace("${dirStd}${orb}${yyssss}.${extStd}","placement","FES2014b ");
+  copyfile("${v_orbdir}/${v_erpfil}","${dirErp}${orb}${yyssss}.${extErp}");
+
+  # Error handling
+  our $On_Error_Cont = 1;
+  err_print() || die();
+
+}

@@ -1,0 +1,374 @@
+PIO# ============================================================================
+# RCLKGNSS.PCF
+# ============================================================================
+#
+# Description:  - Computes the receiver and satellite clock corrections
+#                 based on the observation data from a global GNSS network.
+#               - The orbits, ERPs, and (as far as available) station
+#                 coordinates are taken from the IGSRAPID campaign.
+#               - The results are provided in clock RINEX format.
+#                 In addition, the SP3 file in the IGSRAPID campaign is
+#                 completed by the satellite clock corrections.
+#
+#               RCLKGNSS BPE processing summary file name: CLKyyssss.PRC
+#
+# Comments   :  - BPEs may run in parallel for several sessions
+#                 (WAIT_BPE makes sure that the BPEs keep the order of
+#                 the sessions where it is necessary)
+#
+# Flag files :  REPROCESSING.FLG
+#               - runs a single day independent from all other days
+#               - the input data are taken from $CAMP_SAVREP
+#               - the results are put there too, and labelled with the
+#                    second line of the REPROCESSING.FLG file
+#               GLO_ONE_CLUST.FLG
+#               - if this file exists, all GLONASS stations are processed
+#                    together in one cluster (the other clusters are
+#                    analyzed in the GPS-only mode).
+#
+# Author     :  R. Dach
+# Created    :  13-May-2009
+#
+# Changes    :  09-Oct-2012/ss: Switch from IGS08 to IGb08
+#               19-Jul-2013/rd,hb: V_OBSSEL added
+#               01-Nov-2013/rd,eo: SAT_1452 -> SAT_NONE for V_SATINF
+#               06-Jun-2014 SS: Use of middle day (if available)?
+#               18-Sep-2014 LP: Change V_GNSS
+#               06-Jul-2015 SS: Save .BIA results (CBS, CBF, TP_)
+#               03-Aug-2015 SS: RCLKGNSS activated as operational CLKRAPID
+#               16-Sep-2015 SS: Execute INIT_HOI/INIT_VMF after each RCLKWAIT
+#               20-Oct-2015 LP: Take extra manual SATMRK from CLKRAPID
+#               31-May-2016 SS/AV: Updated due to OSB implementation
+#               13-Sep-2016 SS: Create CBR bias results
+#               15-Sep-2016 SS: Added RAP_BIA for clock/iono bias combination
+#               21-Sep-2016 AV: V_PSDINF introduced
+#               28-Sep-2016 SS: Added second call of RAP_BIA
+#               10-Oct-2016 RD/AV: Remove Section with compatible attitude modelling
+#               30-Jan-2017 RD: Switch from IGB08 to IGS14
+#               04-Mar-2017 AV: FILEST amd SATMON added
+#               04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced
+#               30-May-2018 SS: Added V_IAR
+#               04-Jun-2018 SS: Added INIT_IAR and DO_PPPAR
+#               21-Jun-2018 SS: Added ZERO_AR verification sequence
+#               22-Jun-2018 SS: Simplified params $tmpnnn to $nnn
+#               05-Jul-2018 SS: Moved INIT_IAR step
+#               09-Jul-2018 SS: Changed DO_PPPAR PARAM4 from 1 to 0
+#               10-Jul-2018 SS: Changed DO_PPPAR PARAM4 from 0 to 1
+#                               (temporary $mscrc/IAR.FLG with 0)
+#               16-Jan-2019 SS: Added WAIT
+#               21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD
+#               14-Nov-2019 AV: Add V_SAVDSK
+#               03-Feb-2020 RD: Switch from FES2004 to FES2014b
+#               18-May-2020 SS: Switched to IGb14
+#               02-Oct-2020 SS: Added CCRNXC verification step (SAT_CHK)
+#               21-Oct-2020 AV: Add V_ARMODE
+#               24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna
+#               02-Dec-2020 AV: Run CDDIS-HTTPS on local (IGSR_FTP)
+#               07-Dec-2020 RD: Add PCF variable V_TRPMOD
+#               18-Mar-2021 AV: Replace IGSR_FTP with IGSR_DIS
+#               30-Jun-2021 SS: Added extra SATMRK to cope with new G11
+#               11-Jul-2021 LP: Switch TRPMOD GMF->GPT3
+#               02-Sep-2021 RD: Transform into the new PCF format
+#               02-Sep-2021 RD/ST: Reorder BPE server variables for reporting
+#               27-Sep-2021 RD/AV: V_SP3INT added (sampling in STDPRE)
+#               28-Sep-2021 RD: Switch V_SP3INT from 900 to 300 (for Galileo)
+#               28-Nov-2021 LP: Remove V_MACMOD
+#               28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+#               29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF, BOXWING
+#               27-Oct-2022 SS: Introduced V_PCC4MWGF
+#               03-Nov-2022 AV: Add RINEX3 clock
+#               28-Nov-2022 AV: Switch from IGb14 to IGS20
+#                               Change IGSR_DIS to IGSR_DI2
+#               06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+#               20-Mar-2023 ST: Put CPU=LOCAL for CODSPPAP, CODSPPCP, FILESTAP,
+#                               GLOESTAP, MAUPRPAP, MRKOBSAP, RNXSMTAP, TIMESTAP.
+#                               Put parallel jobs with CPU=SHORT to CPU=QUICK.
+#               08-May-2023 LP: Add V_GRAVMOD; replace EGM2008_SMALL -> COSTG_FSM_2212
+#               20-Sep-2023 SS: Updated V_GRAVMOD to COSTG_FSM_2303
+#               11-Dec-2023 RD: Add script DELALL to clean old files from the campaign
+#               09-Jan-2024 LP: Updated V_GRAVMOD to COSTG_FSM_2309
+#               03-Sep-2024 LP: Updated V_GRAVMOD to COSTG_FSM_2312
+#               25-Sep-2024 RD: Add OBSXTR for edit and ambres
+#               22-Oct-2024 MK: Updated V_GRAVMOD to COSTG_FSM_2406
+#               02-Feb-2025 EB: Change from IGS20 to IGB20
+#               28-Aug-2025 ML/CK: Updated V_GRAVMOD to COSTG_FSM_2412
+#               28-Aug-2025 SS: PID 191 should also wait for PID 152 (CBF)
+#               19-Sep-2025 EB: Updated V_GRAVMOD to COSTG_FSM_2503
+#               26-Nov-2025 SS: Added V_DOI
+#               12-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20
+#               17-Jan-2026 SS: Added BPE_INI with PARAM1=-nopcv
+#               28-Jan-2026 SS: Added V_INI=Y
+#               23-Feb-2026 EB: Updated V_GRAVMOD to COSTG_FSM_2509
+#               19-May-2026 RD: Update V_DOIs
+#               06-Jul-2026 SS: Updated V_GRAVMOD to COSTG_FSM_2603
+#               25-Aug-2026 RD: Correct syntax for CARDS ("/"->" " between elements)
+#
+# ============================================================================
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+000  BPE_INI   NO_OPT    CPU=LOCAL; PARAM1=-nopcv; SCR_PATH=${AIUB}/BPE_SCR
+001  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=000; PARAM1=051
+002  WAIT      NO_OPT    CPU=LOCAL; WAIT=001
+#
+# Copy required files and create a priori CRD file
+# ------------------------------------------------
+011  RCLK_COP  NO_OPT    CPU=LOCAL; WAIT=002; PARAM1=DENSIFY
+012  COOVEL    RCLK_GEN  CPU=SHORT; WAIT=011
+#
+# Preparing the RINEX files
+# -------------------------
+020  RNXSMTAP  RCLK_RNX  CPU=LOCAL; WAIT=011
+021  RNXSMT_P  RCLK_RNX  CPU=QUICK; WAIT=020; PARALLEL=020
+040  RXOBV3GP  RCLK_RNX  CPU=SHORT; WAIT=021
+041  RXOBV3_P  RCLK_RNX  CPU=QUICK; WAIT=040; PARALLEL=040
+042  SATMRK    RCLK_9    CPU=SHORT; WAIT=041
+043  MKCLUS    RCLK_RNX  CPU=SHORT; WAIT=042
+#
+# Start preprocessing
+# -------------------
+050  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=012 043; PARAM1=121
+051  RCLKWAIT  RCLK_GEN  CPU=LOCAL; WAIT=050; PARAM1=RF_ORBIT; PARAM2=RF_ORBIT
+052  NAV2CLK   RCLK_GEN  CPU=LOCAL; WAIT=051
+053  INIT_HOI  NO_OPT    CPU=LOCAL; WAIT=052
+054  INIT_VMF  NO_OPT    CPU=LOCAL; WAIT=053
+055  LSC_INI   NO_OPT    CPU=LOCAL; WAIT=054
+060  CODSPPAP  RCLK_GEN  CPU=LOCAL; WAIT=055
+061  CODSPP_P  RCLK_GEN  CPU=QUICK; WAIT=060; PARALLEL=060
+062  CODXTR    RCLK_GEN  CPU=SHORT; WAIT=061; NEXTJOB=060
+063  CCRNXC    RCLK_GEN  CPU=SHORT; WAIT=062
+064  SATUNMRK  RCLK_NEW  CPU=LOCAL; WAIT=062
+#
+# Compute weights for the code
+# ----------------------------
+080  TIMESTAP  RCLK_WGT  CPU=LOCAL; WAIT=062 064; PARAM2=V_I
+081  TIMEST_C  RCLK_WGT  CPU=QUICK; WAIT=080; PARALLEL=080
+082  GPSXTR    RCLK_WGT  CPU=SHORT; WAIT=081
+083  RCLK_CHK  RCLK_WGT  CPU=SHORT; WAIT=082; NEXTJOB=084 080
+084  RESRMS    RCLK_WGT  CPU=SHORT; WAIT=083
+#
+091  FILESTAP  RCLK_MON  CPU=LOCAL; WAIT=084
+092  FILEST_P  RCLK_MON  CPU=FOX; WAIT=091; PARALLEL=091
+093  SATMONAP  RCLK_MON  CPU=MEGA; WAIT=092; PARAM3=RCLK; PARAM4=30
+094  SATMON_P  RCLK_MON  CPU=FOX; WAIT=093; PARALLEL=093
+#
+# Preprocessing: generate satellite clocks
+# ----------------------------------------
+099  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=063 084 094; PARAM1=300
+#
+# Delete old files from the campaign
+# Run in parallel to the code bias computation
+# ----------------------------------
+100  DELALL    NO_OPT    CPU=LOCAL; WAIT=099; SCR_PATH=${AIUB}/BPE_SCR
+# ----------------------------------
+#
+# Clean code residuals
+# --------------------
+121  TIMESTAP  RCLK_COD  CPU=LOCAL; WAIT=099; PARAM2=V_B
+122  TIMEST_A  RCLK_COD  CPU=BIG; WAIT=121; PARALLEL=121
+123  GPSXTR    RCLK_COD  CPU=SHORT; WAIT=122
+124  RCLK_CHK  RCLK_COD  CPU=SHORT; WAIT=123; NEXTJOB=125 121
+125  RESRMS    RCLK_COD  CPU=SHORT; WAIT=124
+126  ADDNEQ2   RCLK_SB1  CPU=BIG; WAIT=122
+131  MRKOBSAP  RCLK_COD  CPU=LOCAL; WAIT=125
+132  MRKOBS_P  RCLK_COD  CPU=QUICK; WAIT=131; PARALLEL=131
+#
+# Unifyed inter-system/inter-frequency code biases
+# ------------------------------------------------
+141  TIMESTAP  RCLK_SB2  CPU=LOCAL; WAIT=132; PARAM2=V_C
+142  TIMEST_C  RCLK_SB2  CPU=BIG; WAIT=141; PARALLEL=141
+143  ADDNEQ2   RCLK_SB2  CPU=BIG; WAIT=142
+#
+# OSB-Extraction
+# --------------
+151  IFBNEQ    RCLK_SBS  CPU=BIG; WAIT=143; NEXTJOB=141
+152  ADDNEQ2   RCLK_SBF  CPU=BIG; WAIT=151
+153  ADDNEQ2   RCLK_SBR  CPU=BIG; WAIT=151
+154  ADDNEQ2   RCLK_SBG  CPU=BIG; WAIT=151
+191  RAP_BIA   RCLK_BIA  CPU=BIG; WAIT=151 152 153 154
+#
+# Preprocessing: phase
+# --------------------
+270  RCLKWAIT  RCLK_GEN  CPU=LOCAL; WAIT=100 142; PARAM1=RA_ORBIT; PARAM2=RH_ORBIT
+271  INIT_HOI  NO_OPT    CPU=LOCAL; WAIT=270
+272  INIT_VMF  NO_OPT    CPU=LOCAL; WAIT=271
+280  MKCLUS    RCLK_GEN  CPU=SHORT; WAIT=272; PARAM1=V_K
+281  LSC_INI   NO_OPT    CPU=LOCAL; WAIT=151 280
+282  CLKESTCB  RCLK_GEN  CPU=BIG; WAIT=281; PARAM1=V_E
+283  LSC_CHK   RCLK_CHK  CPU=SHORT; WAIT=282; NEXTJOB=282
+290  MAUPRPAP  RCLK_GEN  CPU=LOCAL; WAIT=283
+291  MAUPRP_P  RCLK_GEN  CPU=QUICK; WAIT=290; PARALLEL=290
+292  MPRXTR    RCLK_GEN  CPU=SHORT; WAIT=291
+#
+# Preprocessing: residual check
+# -----------------------------
+299  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=123 152 292; PARAM1=400
+300  RCLKWAIT  RCLK_GEN  CPU=LOCAL; WAIT=299; PARAM1=RA_ORBIT; PARAM2=RH_ORBIT
+301  INIT_HOI  NO_OPT    CPU=LOCAL; WAIT=300
+302  INIT_VMF  NO_OPT    CPU=LOCAL; WAIT=301
+321  TIMESTAP  RCLK_EDT  CPU=LOCAL; WAIT=302; PARAM2=V_H
+322  TIMEST_P  RCLK_EDT  CPU=QUICK; WAIT=321; PARALLEL=321
+323  GPSXTR    RCLK_EDT  CPU=SHORT; WAIT=322
+324  RCLK_CHK  RCLK_EDT  CPU=SHORT; WAIT=323; NEXTJOB=325 321
+325  RESRMS    RCLK_EDT  CPU=SHORT; WAIT=324
+331  MRKOBSAP  RCLK_EDT  CPU=LOCAL; WAIT=325; PARAM2=BOTH
+332  MRKOBS_P  RCLK_EDT  CPU=QUICK; WAIT=331; PARALLEL=331
+351  CCRNXC    RCLK_EDT  CPU=SHORT; WAIT=325
+352  OBSXTR    RCLK_EDT  CPU=SHORT; WAIT=325
+361  GOTO      NO_OPT    CPU=LOCAL; WAIT=332 351 352; NEXTJOB=
+390  INIT_IAR  RCLK_IAR  CPU=LOCAL; WAIT=361
+#
+# Combined Code and Phase solution
+# --------------------------------
+399  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=390; PARAM1=500
+400  RCLKWAIT  RCLK_GEN  CPU=LOCAL; WAIT=399; PARAM1=RA_ORBIT; PARAM2=RA_ORBIT; PARAM3=14
+401  INIT_HOI  NO_OPT    CPU=LOCAL; WAIT=400
+402  INIT_VMF  NO_OPT    CPU=LOCAL; WAIT=401
+410  SOSUPDAT  RCLK_GEN  CPU=SHORT; WAIT=402
+411  GLOESTAP  RCLK_RES  CPU=LOCAL; WAIT=410; PARAM2=V_U; PARAM3=PROTOCOL
+412  GLOEST_P  RCLK_RES  CPU=LONG; WAIT=411; PARALLEL=411
+413  GPSXTR    RCLK_RES  CPU=SHORT; WAIT=412
+414  RESRMS    RCLK_RES  CPU=SHORT; WAIT=412
+421  ADDNEQ2   RCLK_RE2  CPU=SHORT; WAIT=412 413
+422  CRDMERGE  RCLK_RE2  CPU=LOCAL; WAIT=421
+423  TRPMERGE  RCLK_RE2  CPU=SHORT; WAIT=421; PARAM1=$O_$YSS+; PARAM2=$K_$YSS+; PARAM3=$U_$YSS+
+424  CCRNXC    RCLK_RES  CPU=SHORT; WAIT=422
+450  DO_PPPAR  NO_OPT    CPU=LOCAL; WAIT=414 423 424; NEXTJOB=411
+#
+# Verfy the clock solution, clock prediction
+# ------------------------------------------
+451  CODSPPCP  RCLK_PRD  CPU=LOCAL; WAIT=450; PARAM2=TP_
+452  CODSPP_P  RCLK_RES  CPU=QUICK; WAIT=451; PARALLEL=451
+453  OBSXTR    RCLK_RES  CPU=SHORT; WAIT=450
+471  CLK_PRED  RCLK_PRD  CPU=SHORT; WAIT=450
+472  CLKP_CHK  RCLK_PRD  CPU=SHORT; WAIT=471; NEXTJOB=475
+473  CODSPPCP  RCLK_PRD  CPU=LOCAL; WAIT=472 452; PARAM2=TPP
+474  CODSPP_P  RCLK_PRD  CPU=QUICK; WAIT=473; PARALLEL=473
+475  DUMMY     NO_OPT    CPU=LOCAL; WAIT=453 474
+#
+# High-rate clocks
+# ----------------
+# 499 WAIT_BPE NO_OPT            LOCAL    1 414 423 475
+499  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=475; PARAM1=900
+500  MKCLUS    RCLK_HRC  CPU=SHORT; WAIT=499; PARAM1=V_U
+501  CLKESTCB  RCLK_HRC  CPU=LONG; WAIT=500; PARAM1=V_Q
+502  CCRNXC    RCLK_HR1  CPU=SHORT; WAIT=501
+510  CCRNXC    RCLK_HRC  CPU=SHORT; WAIT=502
+520  HCCRNXCB  RCLK_HR2  CPU=SHORT; WAIT=510; PARAM1=V_Q; PARAM2=V_U
+521  HCCRNXCB  RCLK_HR3  CPU=SHORT; WAIT=520; PARAM1=V_Q; PARAM2=V_U
+531  FILESTAP  RCLK_NLI  CPU=LOCAL; WAIT=521
+532  FILEST_P  RCLK_NLI  CPU=FOX; WAIT=531; PARALLEL=531
+533  PHABIA    RCLK_NLI  CPU=LOCAL; WAIT=532
+534  IAR_VER   RCLK_NLI  CPU=LOCAL; WAIT=533
+590  DUMMY     NO_OPT    CPU=LOCAL; WAIT=520
+591  RAP_BIA   RCLK_BIA  CPU=BIG; WAIT=590
+#
+# Finish the story
+# ----------------
+899  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=534 590; PARAM1=999
+900  RCLK1PRC  NO_OPT    CPU=LOCAL; WAIT=899
+#
+# Regular processing
+# ------------------
+#
+910  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=900; NEXTJOB=950
+911  RCLK1SAV  NO_OPT    CPU=LOCAL; WAIT=910
+912  RCLK1DEL  NO_OPT    CPU=LOCAL; WAIT=911
+#
+# FTPRAPID sequence
+# -----------------
+920  CRTRAP    IGSR_RAP  CPU=SHORT; WAIT=912; CAMPAIGN=IGSRAPID; PARAM1=V_U
+#
+931  IGSR_DI2  NO_OPT    CPU=LOCAL; WAIT=920; CAMPAIGN=IGSRAPID; CONT_ERR
+932  IGSR_SA2  NO_OPT    CPU=LOCAL; WAIT=931; CAMPAIGN=IGSRAPID
+933  IGSR_DIS  NO_OPT    CPU=LOCAL; WAIT=932; CAMPAIGN=IGSRAPID; CONT_ERR
+#
+940  CRTRAP3   IGSR_RT2  CPU=SHORT; WAIT=933; CAMPAIGN=IGSRAPID
+#
+# Reprocessing
+# ------------------
+950  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=932 940; NEXTJOB=_ 999
+961  OBS_SAV   NO_OPT    CPU=LOCAL; WAIT=950; SKIP
+962  REPC_SAV  NO_OPT    CPU=LOCAL; WAIT=950
+963  REPC_DEL  NO_OPT    CPU=LOCAL; WAIT=961 962
+#
+999  BPE_BYE   NO_OPT    CPU=LOCAL; WAIT=963
+#
+# additional parameters required for PID's
+#
+
+VARIABLE     DEFAULT        PARAMETERS
+V_DOI      = 10.48620/97772; DESCRIPTION=Product DOI
+#
+# Solution IDs used in the BPE:
+# ----------------------------
+V_A        = BRD;           DESCRIPTION=Broadcast clocks
+V_K        = RA;            DESCRIPTION=Orbit and coordinates from IGSRAPID
+V_W        = C0;            DESCRIPTION=CODSPP apriori solution
+V_I        = CW;            DESCRIPTION=Weights for the code observations
+V_B        = CR;            DESCRIPTION=Code screening
+V_C        = CB;            DESCRIPTION=Unify inter-system/frequency biases
+V_E        = CC;            DESCRIPTION=CLKEST for starting the MAUPRP
+V_H        = T0;            DESCRIPTION=Code+phase screening in reg. clusters
+V_U        = TP;            DESCRIPTION=Final results, code+phase (after edit)
+V_O        = CE;            DESCRIPTION=Merged CRD+TRP files for CLKEST
+V_Q        = HR;            DESCRIPTION=Final results CLKEST: high-rate clocks
+#
+# Reference frame and station related files:
+# -----------------------------------------
+V_CRDINF   = IGC20;         DESCRIPTION=CRD/VEL/FIX master file name
+V_PSDINF   = IGC20;         DESCRIPTION=PSD corrections
+#
+V_STAINF   = CODE;          DESCRIPTION=Station information file
+#
+# General and model files:
+# -----------------------
+V_OBSSEL   = OBSERV_COD;    DESCRIPTION=Observation selection file
+V_SATINF   = SATELLIT;      DESCRIPTION=Satellite information file
+V_PCVINF   = ANT_COD;       DESCRIPTION=PCV information file
+V_PCV      = I20;           DESCRIPTION=GNSS PCV model
+V_ANTAZI   = YES;           DESCRIPTION=Consider antenna rotations (YES|NO)
+V_PCC4MWGF = 2022 11 27;    DESCRIPTION=PCC applied for MW/GF LC
+#
+V_SYSCRX   = SAT_GNSS;      DESCRIPTION=Satellite problem file for data import
+#
+V_SUBMOD   = DESAI2016;     DESCRIPTION=Subdaily pole model
+V_NUTMOD   = IAU2000R06;    DESCRIPTION=Nutation model
+V_GRAVMOD = COSTG_FSM_2603; DESCRIPTION=Gravity field model
+#
+V_TRPMOD   = GPT3;          DESCRIPTION=Default troposphere model
+#
+V_BLQINF   = FES2014b;      DESCRIPTION=BLQ file name, CMC corrections
+#
+# Ambiguity resolution:
+# --------------------
+V_IAR      = Y;             DESCRIPTION=Perform ZERO_AR using DO_PPPAR
+V_ARMODE   = RCLK;          DESCRIPTION=AR mode for DO_PPPAR; CARDS=FCLK MCLK RCLK
+#
+# Processing options used in the BPE:
+# ----------------------------------
+V_GNSS     = GRE;           DESCRIPTION=GNSS to be processed (GRESCJ)
+#
+V_BOXWNG   = BOXWING_I20;   DESCRIPTION=Boxwing model file
+V_SP3INT   = 300;           DESCRIPTION=Sampling in archived precise files
+V_SAMPL    = 300;           DESCRIPTION=Sampling rate of the GPSEST solution
+#
+V_NCLU     = 14;            DESCRIPTION=Number of clusters to be used
+V_NSTA     = 35;            DESCRIPTION=Number of stations per cluster
+#
+V_REQ_CAMP = RCLKGNSS;      DESCRIPTION=Campaign to be used
+V_RERUN    = 1;             DESCRIPTION=Number of reruns in case of failure
+V_PLUS     = +0;            DESCRIPTION=Plus  days
+V_MINUS    = -0;            DESCRIPTION=Minus days
+#
+V_BIAINF   = SINEX_BIA_COD; DESCRIPTION=BIAS SINEX information skeleton
+#
+# Other variables:
+# ---------------
+V_SAVDSK   = N;             DESCRIPTION=Start from savdsk, skip crtrap
+V_INI      = Y;             DESCRIPTION=BPE initalization mode (Y/N/Verified)
+V_MID      = Y;             DESCRIPTION=Use of middle day (if available)?
+V_XTR      = Y;             DESCRIPTION=Automatic program extraction (GPSXTR)
+V_UPD      = Y;             DESCRIPTION=Update general files?
+V_SAV      = Y;             DESCRIPTION=Save results?
+V_DEL      = Y;             DESCRIPTION=Delete results?
+V_DIS      = Y;             DESCRIPTION=Distribute results?

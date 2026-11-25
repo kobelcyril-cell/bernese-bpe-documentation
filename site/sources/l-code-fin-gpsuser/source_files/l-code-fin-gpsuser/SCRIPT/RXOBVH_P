@@ -1,0 +1,142 @@
+package RXOBVH_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      RXOBVH_P
+#
+# Purpose:   Parallel script for RXOBV3
+#
+# Programs:  RXOBV3
+#
+# Authors:   H.Bock
+#
+# Created:   04-Jul-2003
+#
+# Changes:   08-Feb-2005 mm: $s replaced by $bpe, unused stuff removed
+#            14-Dec-2007 hb/rd: use the same OPT-dir as the first RXOBV3
+#            17-Feb-2012 SL: keyword SINTERV changed to SAMPL
+#            30-Sep-2016 AV: Use SMT for R30 with IGS14.FLG
+#            14-Oct-2016 AV/AS: added vGNSS selection
+#            28-Nov-2016 AV: Add RNXSMT option
+#            10-Dec-2020 ST: RNXSMT: RNXFIL -> RNXFIL_SHORT
+#                            RXOBV3: RXOFILE -> RXOFILE_SHORT
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run
+{
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyssss,$subPid, $clu, $nclu,,
+      $PARAM1, $PARAM2, $PARAM3,$v_gn30, $v_gn05) =
+  $bpe->getKeys(
+      '$YSS+0','SUB_PID', 'V_CLU','V_NCLU',
+      'PARAM1','PARAM2','PARAM3','V_GNSS', 'V_GNSH');
+
+# Select GNSS, if desired
+# -----------------------
+  &setGNSS($bpe,"$ENV{U}/PAN/RXOBV3.INP","USE_",$v_gn30) if $PARAM2 eq 'R30' && $v_gn30;
+  &setGNSS($bpe,"$ENV{U}/PAN/RXOBV3.INP","USE_",$v_gn05) if $PARAM2 eq 'R05' && $v_gn05;
+
+
+# Define variables
+# ----------------
+  $PARAM1 = $$bpe{PARAM1};
+  $PARAM2 = $$bpe{PARAM2};
+  $PARAM3 = $$bpe{PARAM3};
+
+  print "PARAM1: $PARAM1\n";
+  print "PARAM2: $PARAM2\n";
+  print "PARAM3: $PARAM3\n";
+
+# Set cluster number and input files
+# ----------------------------------
+  my $cluster = $clu eq "" && $nclu eq ""? "$ddd$param1" : "$yyssss" . substr($subPid,1);
+  my $ffff    = $clu eq "" && $nclu eq ""? $param1       : "____";
+
+  setUserVar($bpe,"CLUSTER",$cluster,"FFFF",$ffff,"CCC",$subPid);
+
+
+# Observation files
+  if ($PARAM2 eq 'R30'){
+  # Alternative location of the observation files
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_PZH","OBS1");
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_PZO","OBS1");
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_CZH","OBS1");
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_CZO","OBS1");
+
+  # Use original instead of smoothed code
+      replaceSel($bpe,"RXOBV3","RXOFILE_SHORT",$PARAM1);
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","RADIO_O","1");
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","RADIO_S","0");
+
+      if(-e "$ENV{HOME}/MSC/IGS14.FLG"){
+        replaceSel($bpe,"RXOBV3","SMTFILE",$PARAM1);
+        $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","RADIO_O","0");
+        $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","RADIO_S","1");
+      }
+
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","MINSIG","0");
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","ACCEPT0","1");
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","ACCEPTCS","0");
+
+  # Sampling is 30 sec here
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","SAMPL","30");}
+
+  elsif($PARAM2 eq 'R05'){
+  # Alternative location of the observation files
+  #    $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_RXO","RAW/HRD");
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_PZH","OBSH");
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_PZO","OBSH");
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_CZH","OBSH");
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_CZO","OBSH");
+      $bpe->putKey("$$bpe{U}/PAN/MENU_EXT.INP","DIR_SMT","RAW");
+
+  # Use original instead of smoothed code
+      replaceSel($bpe,"RXOBV3","RXOFILE_SHORT",$PARAM1);
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","RADIO_O","1");
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","RADIO_S","0");
+
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","MINSIG","0");
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","ACCEPT0","1");
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","ACCEPTCS","0");
+
+  # Sampling is 5 sec here
+      $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","SAMPL","5");
+}
+
+#
+# Run RNXSMT if requested
+# -----------------------
+  if($PARAM3 =~ /SMT/){
+    if($PARAM2 eq 'R30'){
+  # Sampling is 5 sec here
+      $bpe->putKey("$$bpe{U}/PAN/RNXSMT.INP","SAMPL","30.0");
+    }elsif($PARAM2 eq 'R05'){
+  # Sampling is 5 sec here
+      $bpe->putKey("$$bpe{U}/PAN/RNXSMT.INP","MAXREC","20000");
+      $bpe->putKey("$$bpe{U}/PAN/RNXSMT.INP","SAMPL","5.0");
+      $bpe->putKey("$$bpe{U}/PAN/RNXSMT.INP","FLGCOD","0");
+    }
+  # Run RNXSMT
+    my $PGMNAM = "RNXSMT";
+    replaceSel($bpe,"RNXSMT","RNXFIL_SHORT",$PARAM1);
+    $bpe->RUN_PGMS($PGMNAM);
+
+  # Change RNX to SMT input in RXPOBV3
+    replaceSel($bpe,"RXOBV3","SMTFILE",$PARAM1);
+    $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","RADIO_O","0");
+    $bpe->putKey("$$bpe{U}/PAN/RXOBV3.INP","RADIO_S","1");
+  }
+#
+# Run program
+# -----------
+  my $PGMNAM = "RXOBV3";
+  $bpe->RUN_PGMS($PGMNAM)
+
+}

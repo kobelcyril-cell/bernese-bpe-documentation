@@ -1,0 +1,73 @@
+package CRDMRDAT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CRDMRDAT
+#
+# Purpose :  Adjust the value in V_REFINF to a known DATUM STRING in
+#            $X/GEN/DATUM. and execute CRDMERGE using this datum identified
+#            as the "New local geodetic datum"
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  11-Aug-2011
+#
+# Changes :  22-Sep-2016 AV/RD: Skip datum w/o PSD (XXXX_0)
+#            13-Jul-2020 RD/PF: PTH_GEN->PTH_DATUM
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($a,$refInf,$yyssss,
+      $dirDatum,$extDatum,$dirCrd,$extCrd) =
+    $bpe->getKeys(
+      'V_A','V_CRDINF','$YSS+0',
+      'PTH_DATUM','EXT_DATUM','DIR_CRD','EXT_CRD');
+
+# Read through the DATUM. file
+# ----------------------------
+  my $datName1 = "";
+  my $datName2 = "";
+  my $datum = "${dirDatum}/DATUM.${extDatum}";
+  open(DATUM,"$datum");
+  while (<DATUM>) {
+
+    # A data record starts
+    if ( length($_) > 23 &&
+         substr($_,19,4) eq "AE =" ) {
+
+      # Name of the data record
+      my $datName0 = substr($_,0,16);
+      $datName0 =~ s/[ ]*$//;
+      next if $datName0 =~ /_0$/;
+
+      # Exact match (IGS08 <=> IGS08)
+      $datName1 = $datName0 if ($datName0 eq $refInf);
+
+      # Only differences between small and big letters (IGb08 <=> IGSB08)
+      $datName2 = $datName0 if (uc $datName0 eq uc $refInf);
+
+    }
+  }
+  close DATUM;
+
+  # Replace "New local geodetic datum" if only a match with differences
+  # in small/big letters found
+  if ( $datName1 eq "" && $datName2 ne "" ) {
+    $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","NEWDAT","$datName2");
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "CRDMERGE";
+  $bpe->RUN_PGMS($PGMNAM);
+  
+  unlink (glob("${dirCrd}${a}${yyssss}??.${extCrd}"));
+
+}

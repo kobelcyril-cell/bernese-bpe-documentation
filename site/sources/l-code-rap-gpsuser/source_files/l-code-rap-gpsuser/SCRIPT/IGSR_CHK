@@ -1,0 +1,217 @@
+package IGSR_CHK;
+@ISA = ("RUNBPE");
+# ==============================================================================
+#
+# Name:       IGSR_CHK
+#
+# Purpose:    Check GPSEDT summary for bad satellites resp. maneuvers
+#             and restart the IGS(ULTRA)RAPID
+#
+# Author:     S. Schaer / rewritten to perl by L. Prange
+#
+# Created:    2000/ rewritten to perl 18-Feb-2022
+#
+# Changes:    18-Sep-2000 SS: Change extension of RESRMS file from DDD to YY_DDD
+#             18-Sep-2000 SS: Change extension of ASPLIT file from DDD to YY_DDD
+#             18-Sep-2000 SS: Change extension of CODXTR file from DDD to YY_DDD
+#             15-Aug-2001 RD: Seperate directories for all data types
+#             11-Jan-2002 MM: Increased MAXRUN to 4
+#             16-Aug-2002 SS: Prevent IGSRAPID RESCHK looping
+#             28-Jul-2003 RD: Adapt to the new BPE (remove _NEW, use STARTCOUNT)
+#             31-Jul-2003 SS: Use MANSAT instead of MAXDEL
+#             31-Oct-2003 SS: crx_alarm.com implemented
+#             15-Jan-2004 SS: Prevent exclusion of satellites in ULTRA mode
+#             27-May-2004 SS: Update APR PRE file (if STOP.FLG exists)
+#             20-Feb-2008 RD: Delete file containing the bad stations
+#             26-May-2009 RD: CODXTR/ASPLIT/RESCHK/RESRMS: YY_DDD -> YY_SSSS
+#             18-Feb-2022 LP: Rewrite from BDS to perl
+#
+# ==============================================================================
+
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+
+sub run {
+    my $bpe = shift;
+
+    # Get variables
+    # -------------
+    my ($yy,       $yyyy,     $ddd, $ssss, $yyddd,
+        $CAMP_PTH, $CAMPAIGN, $startcount,
+        $v_e,
+        $param2,   $param3,   $param4,
+        $dirOut,
+        $dirBsl,   $extBsl,
+        $dirPre,   $extPre
+    ) =
+    $bpe->getKeys('$Y',       '$Y+0',     '$+0', '$S+0', '$YD+0',
+                  'CAMP_PTH', 'CAMPAIGN', 'STARTCOUNT',
+                  'V_E',
+                  'PARAM2',   'PARAM3',   'PARAM4',
+                  'DIR_OUT',
+                  'DIR_BSL',  'EXT_BSL',
+                  'DIR_PRE',  'EXT_PRE'
+    );
+
+    # Define the number of iterations
+    # -------------------------------
+    my $maxRun = 4;
+    my $iRun   = $startcount;
+
+    # Define file names
+    # -----------------
+    my $yySess      = "${yy}_${ssss}";
+    my $staDelFile  = "${dirOut}/${yyddd}.CHK";
+    my $codXtrFile  = "${dirOut}/CODXTR.${yySess}";
+    my $aSplitFile  = "${dirOut}/ASPLIT.${yySess}";
+    my $resRmsFile  = "${dirOut}/RESRMS.${yySess}";
+    my $resChkFile  = "${dirOut}/RESCHK.${yySess}";
+    my $resSumFile  = "${dirOut}/RESSUM.${yySess}";
+    my $fromBslFile = "${dirBsl}/${v_e}_${yyddd}.${extBsl}";
+    my $fromPreFile = "${dirPre}/${v_e}_${yyddd}.${extPre}";
+    my $toBslFile   = "${dirBsl}/APR${yyddd}.${extBsl}";
+    my $toPreFile   = "${dirPre}/APR${yyddd}.${extPre}";
+    my $satCrxFile  = "SAT_${yyyy}.CRX";
+
+    my $dirMsc      = $dirOut."/../MSC/";
+    my $loopFlag    = "${dirMsc}/NO_LOOP.FLG";
+    my $ultFlag     = "${dirMsc}/ULT${yyddd}.FLG";
+    my $skipQFlag   = "${dirMsc}/SKIP_QIF.FLG";
+    my $stopFlag    = "${dirMsc}/STOP.FLG";
+    my $chkFlag     = "${PATH_RCLK}${CAMP_RCLK}/MSC/${yyddd}.CHK";
+
+    # Set keywords
+    # ------------
+    my $PAN = "$ENV{U}/PAN/MENU_EXT.INP";
+    $bpe->putKey($PAN,"EXT_SUM",$yySess);
+    $bpe->putKey($PAN,"EXT_DEL","CHK");
+
+    my $PGMNAM = "RESCHK";
+    $PAN = "$ENV{U}/PAN/${PGMNAM}.INP";
+    $bpe->putKey($PAN,"CODXTR",$codXtrFile);
+    if (-f $aSplitFile) { $bpe->putKey($PAN,"ASPLIT",$aSplitFile); }
+    $bpe->putKey($PAN,"RESRMS",$resRmsFile);
+    $bpe->putKey($PAN,"DELSTA",$staDelFile);
+    $bpe->putKey($PAN,"SUMOUT","RESSUM");
+    $bpe->putKey($PAN,"SATCRUX",$satCrxFile);
+    if (-f $loopFlag) {
+           $bpe->putKey($PAN,"BADSTA","0");
+           $bpe->putKey($PAN,"MANSAT","0");
+    }
+    if (-f $ultFlag) { $bpe->putKey($PAN,"MANSAT","0"); }
+
+    # Run the check
+    # -------------
+    $bpe->RUN_PGMS($PGMNAM);
+
+
+    # Add SYSOUT to the summary list, append summary
+    # ----------------------------------------------
+    $PAN = "$ENV{U}/INP/${PGMNAM}.INP";
+    my $resOutFile = $bpe->getKey($PAN,"SYSOUT");
+    print "RESCHK output file: $resOutFile created\n";
+
+    if (-f $resChkFile) { appendfile( $resChkFile, $resOutFile ); }
+    else                { copyfile  ( $resOutFile, $resChkFile ); }
+    if (-f $resSumFile) { appendfile( $resChkFile, $resSumFile ); }
+
+    system("$ENV{AUTO}/pos_alarm.com $yy $ddd");
+
+
+    # Delete bad stations
+    # -------------------
+    my $iDel       = 0;
+    my @DelStaList = ();
+    if (-f $staDelFile) {
+        print "Station deletion file found: $staDelFile \n";
+        @DelStaList = `cat $staDelFile`;
+        foreach (@DelStaList){ unlink($_); print"File deleted: $_\n"; $iDel++; }
+        unlink $staDelFile;
+    }
+
+
+    # Check for bad satellites
+    # ------------------------
+    my $iSat = 0;
+    my @resOutLines = `cat $resOutFile`;
+
+    my $lastLine = '';
+    my $thisLine = '';
+    foreach my $line (@resOutLines) {
+        $lastLine = $thisLine;
+        $thisLine = $line;
+        if ( $lastLine =~ /BAD/ ) {
+           if ( $thisLine =~ /SATELLITE(s)/ ) {$iSat = 1;}
+        }
+        if ( $lastLine =~ /FOR/ ) {
+           if ( $thisLine =~ /SATELLITE(s):/ ) {$iSat = 1;}
+        }
+    }
+
+    # In case an event was detected
+    # -----------------------------
+    my $iProblem = $iDel + $iSat;
+
+    if ($iProblem > 0) {
+
+       # Call RESCHK again with detailed output
+       # --------------------------------------
+       $bpe->putKey($PAN,"SUMMARY","DETAILS");
+       $bpe->RUN_PGMS($PGMNAM);
+    }
+
+    # Save APR BSL file to speed up SNGDIF(A)
+    # ---------------------------------------
+    copyfile( $fromBslFile, $toBslFile );
+
+    # Check how to continue
+    # ---------------------
+    if ($iProblem == 0) {
+        prtGoto($bpe,$param2);
+        `echo 'OK' > $chkFlag`;
+    }
+    else {
+         # Deactivate QIF in ULTRA mode
+         if (-f $ultFlag) {`echo ' ' > $skipQFlag`;}
+
+         # Continue when MAXRUN is reached
+         if ($iRun ge $maxRun) {
+             prtGoto($bpe,$param2);
+             `echo 'OK' > $chkFlag`;
+         }
+         else {
+
+              # Bad satellites found
+              if ($iSat > 0) {
+                  prtGoto($bpe,$param3);
+                  system("$ENV{AUTO}/crx_alarm.com $ddd $CAMP_PTH${CAMPAIGN}");
+              }
+              else {
+
+                  # Delete bad stations
+                  if ($iDel > 0) {
+                      prtGoto($bpe,$param4);
+                      unlink $toBslFile;
+                  }
+              }
+         }
+    }
+
+    if (-f $staDelFile) {
+        print "New station deletion file found: $staDelFile \n";
+        unlink $staDelFile;
+    }
+
+    if (-f $stopFlag) {
+        prtGoto($bpe,"999");
+        unlink $stopFlag;
+        if (-f $toPreFile) { copyfile( $fromPreFile, $toPreFile ); }
+    }
+}
+
+__END__

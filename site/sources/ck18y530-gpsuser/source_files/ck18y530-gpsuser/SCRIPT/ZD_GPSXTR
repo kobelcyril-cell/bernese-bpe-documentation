@@ -1,0 +1,77 @@
+package GPSXTR;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GPSXTR
+#
+# Purpose :  Generate summary of the parallel GPSEST runs
+#
+# Author  :  M. Meindl
+# Created :  03-Aug-2003
+#
+# Changes :  10-Feb-2005 mm: Old date variables removed
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yy,
+      $yyssss,
+      $ssss,
+      $pid,
+      $dirSum,
+      $extSum,
+      $dirOut
+  ) = $bpe->getKeys(
+      '$Y',
+      '$YSS+0',
+      '$S+0',
+      'PID',
+      'DIR_SUM',
+      'EXT_SUM',
+      'DIR_OUT'
+  );
+
+  # ---------- Delete old output files ------------
+  unlink("${dirSum}ESTX${yyssss}.${extSum}");
+  unlink("${dirSum}ESTC${yyssss}.${extSum}");
+  unlink("${dirSum}ESTW${yyssss}.${extSum}");
+
+  # ---------- Run program ------------
+  my $PGMNAM = "GPSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Summary output ------------
+  my $title = "GPSXTR from PID $pid at " . timstr(localtime(time));
+
+  appFile(
+    $title,
+    0,
+    "${dirSum}ESTX${yyssss}.${extSum}",
+    "${dirOut}GPSXTR.${yy}_${ssss}",
+    0
+  );
+
+  appFile(
+    $title,
+    0,
+    "${dirSum}ESTC${yyssss}.${extSum}",
+    "${dirOut}GPSCMP.${yy}_${ssss}",
+    0
+  );
+
+  appFile(
+    $title,
+    0,
+    "${dirSum}ESTW${yyssss}.${extSum}",
+    "${dirOut}GPSWKS.${yy}_${ssss}",
+    0
+  );
+}

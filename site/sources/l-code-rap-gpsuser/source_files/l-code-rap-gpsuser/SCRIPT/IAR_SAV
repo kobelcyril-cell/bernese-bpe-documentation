@@ -1,0 +1,179 @@
+package IAR_SAV;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  IAR_SAV
+#
+# Purpose :  Save result files for PPPAR.PCF
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  23-May-2018
+#
+# Changes :  06-Jun-2018 SS: Considered REPROCESSING.FLG;
+#                            saved IAR FPZ file; added extra file saving
+#            08-Jun-2018 SS: Prepared for MCLKGNSS
+#            10-Jul-2018 SS/AV: Prepared for FCLK_REP
+#            23-Aug-2018 SS: Saved IAR BIA file
+#            23-Aug-2019 SS: Corrected SAVMGEX
+#            09-Jan-2020 SS: Create polished IAR BIA and OSB files
+#            21-Oct-2020 AV: Use mode instead of campaig
+#                            Suppoer V_REPRO (alternative savedisk)
+#            02-Feb-2022 SS: Replaced substitute_dcb.com by polish_iar_osb.com
+#            24-May-2022 SS: IAR BIA/OSB files changed from V00 to V01
+#            20-Aug-2022 AV: Change save location for I20 test period
+#            22-Nov-2022 SS: Considered V_PCC4MWGF (for polish_iar_bia.com)
+#            30-Nov-2022 SS: Executed polish_iar_*.com with -gz if indicated
+#
+# ============================================================================
+use strict;
+use lib "$ENV{AUTO}";
+use gpsutil qw(copyfile);
+use igs_device;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use lib "$ENV{BPE}";
+use bpe_util qw(check_dir copy2archive prtMess);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyyy,$yyssss,$ssss,$mjd,
+      $camp_pth,$campaign,$mode,$sav,$repro,$pcc4mwgf,
+      $dirOut,$extOut,
+      $dirOsb,$extOsb,
+      $dirBia,$extBia,
+      $dirCrd,$extCrd,
+      $dirPre,$extPre,
+      $dirStd,$extStd,
+      $dirErp,$extErp,
+      $dirClk,$extClk,
+      $dirPzh,$extPzh,
+      ) =
+    $bpe->getKeys(
+      '$Y+0','$YSS+0','$S+0','$JD+0',
+      'CAMP_PTH','CAMPAIGN','V_MODE','V_SAV','V_REPRO','V_PCC4MWGF',
+      'DIR_OUT','EXT_OUT',
+      'DIR_OSB','EXT_OSB',
+      'DIR_BIA','EXT_BIA',
+      'DIR_CRD','EXT_CRD',
+      'DIR_PRE','EXT_PRE',
+      'DIR_STD','EXT_STD',
+      'DIR_ERP','EXT_ERP',
+      'DIR_CLK','EXT_CLK',
+      'DIR_PZH','EXT_PZH',
+      );
+
+#  my $repro = (-e "$camp_pth/$campaign/MSC/REPROCESSING.FLG");
+
+  my $iarFlg = "$camp_pth/$campaign/MSC/IAR${yyssss}.FLG";
+  my $iarRun = -e $iarFlg ? `cat $iarFlg`+0 : 0;
+
+# Some directories
+# ----------------
+  my $dirSav = "";
+  $dirSav = "$PATH_SAV$CAMP_SAVPPP/$yyyy/"    if $campaign eq "PPPFIN";
+  $dirSav = "$PATH_SAV$CAMP_SAVIGS/$yyyy/"    if $mode eq "FCLK";
+  $dirSav = "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/" if $mode eq "RCLK";
+  $dirSav = "$PATH_SAV$CAMP_SAVMGEX/$yyyy/"   if $mode eq "MCLK";
+  $dirSav = "$PATH_SAV/$repro/$yyyy/"         if $repro;
+  $dirSav = "$PATH_SAV/IGS_I20/$yyyy/"        if $dirOut =~ /FCLKI20/;
+
+  my $outSav = "${dirSav}OUT/";
+  my $orbSav = "${dirSav}ORB/";
+  my $staSav = "${dirSav}STA/";
+
+  $sav = "N" if $dirSav eq "";
+  if ($sav eq "Y") {
+    &check_dir($outSav,$orbSav,$staSav);
+  }
+
+# Copy files to savedisk
+# ----------------------
+  my @cpyLst = (
+    # Protocol
+    "${dirOut}IAR${yyssss}.PRC          ${outSav} _ ",
+    # Relevant WLB/NLB/IAR files
+    "${dirOsb}WLB${yyssss}.${extOsb}    ${orbSav} _ ",
+    "${dirOsb}NLB${yyssss}.${extOsb}    ${orbSav} _ ",
+    "${dirOsb}IAR${yyssss}.${extOsb}    ${orbSav} _ ",
+    "${dirBia}IAR${yyssss}.${extBia}    ${orbSav} _ ",
+    "${dirOsb}PHA${yyssss}.${extOsb}    ${orbSav} _ ",
+    "${dirCrd}NLB${yyssss}.${extCrd}    ${staSav} _ ",
+    "${dirCrd}NLI${yyssss}.${extCrd}    ${staSav} _ ",
+    "${dirCrd}FIX${yyssss}.${extCrd}    ${staSav} _ ",
+    "${dirCrd}IAR${yyssss}.FIX          ${staSav} _ ",
+    "${dirCrd}BAD${yyssss}.FIX          ${staSav} _ ",
+    # OBS header information
+    "${dirOut}IAR${yyssss}.FPZ          ${outSav} z ",
+    # ORB/ERP base products
+##    "${dirStd}IAR${yyssss}.${extStd}    ${orbSav} z ",
+##    "${dirErp}IAR${yyssss}.${extErp}    ${orbSav} z ",
+##    "${dirClk}IAR${yyssss}.${extClk}    ${orbSav} z ",
+    # Repetition file backup
+    "${dirOsb}IAR${yyssss}.${extOsb}_${iarRun}    ${orbSav} z ",
+##    "${dirClk}IAR${yyssss}.${extClk}_${iarRun}    ${orbSav} z ",
+    "${dirOut}IAR${yyssss}.FPZ_${iarRun}          ${outSav} z ",
+  );
+  if ($campaign ne "PPPFIN") {
+##    push(@cpyLst,"${dirClk}IAR${yyssss}.${extClk}_${iarRun}    ${orbSav} z ");
+  }
+
+# Saving not allowed
+# ------------------
+  if ($sav ne "Y") {
+    prtMess($bpe,"FILES NOT SAVED");
+  } else {
+
+# Do the saving
+# -------------
+    my (@err) = ();
+    foreach (@cpyLst) {
+      if (/BAD.*FIX/) {
+        &copy2archive(split(" ",$_));
+      } else {
+        push(@err,"$_\n") if (&copy2archive(split(" ",$_)));
+      }
+    }
+    die "\n *** copy2archive failed for\n @err\n" if (@err);
+    prtMess($bpe,"FILES SAVED");
+
+  }
+
+# Create polished IAR BIA and OSB files for RCLKGNSS
+# ----------------------------------------------
+  if ($sav eq "Y") {
+    if ($campaign eq "RCLKGNSS" || $campaign eq "FCLKGNSS" || $campaign eq "FCLKI20" || $campaign eq "MCLKGNSS") {
+##      $pcc4mwgf = "2100 01 01" if $pcc4mwgf eq "NEVER";
+##      $pcc4mwgf = "1990 01 01" if $pcc4mwgf eq "ALWAYS";
+      my $mjd_pcc = gps_date("-ymd $pcc4mwgf -o %IJ");
+      my $str_pcc = $mjd>=$mjd_pcc ? "IGS20" : "";
+      prtMess($bpe,"PCC4MWGF: $pcc4mwgf (APC_MODEL: $str_pcc)");
+      if ($str_pcc eq "") {
+        system("$ENV{AUTO}/polish_iar_bia.com ${orbSav}IAR${yyssss}.${extBia} ${orbSav}IAR${yyssss}_V01.${extBia} -c $str_pcc");
+        system("$ENV{AUTO}/polish_iar_osb.com ${orbSav}IAR${yyssss}.${extOsb} ${orbSav}IAR${yyssss}_V01.${extOsb} -c");
+      } else {
+        system("$ENV{AUTO}/polish_iar_bia.com ${orbSav}IAR${yyssss}.${extBia} ${orbSav}IAR${yyssss}_V01.${extBia} -gz $str_pcc");
+        system("$ENV{AUTO}/polish_iar_osb.com ${orbSav}IAR${yyssss}.${extOsb} ${orbSav}IAR${yyssss}_V01.${extOsb} -gz");
+      }
+      prtMess($bpe,"POLISHED IAR BIA/OSB FILES CREATED");
+    }
+  }
+
+# Save various files (for test purposes)
+# --------------------------------------
+  if ($sav eq "Y") {
+    system("tar -cf ${outSav}IAR${yyssss}_PZH.tar ${dirPzh}????${ssss}.${extPzh}");
+    system("gzip -f ${outSav}IAR${yyssss}_PZH.tar");
+
+    system("tar -cf ${outSav}IAR${yyssss}_OUT.tar ${dirOut}????${ssss}_???.${extOut}");
+    system("gzip -f ${outSav}IAR${yyssss}_OUT.tar");
+    unlink(glob("${dirOut}????${ssss}_???.${extOut}"));
+  }
+
+}
+
+

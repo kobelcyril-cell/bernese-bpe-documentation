@@ -1,0 +1,62 @@
+package GIRXTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GIRXTR
+#
+# Purpose :  Generate RAPIONO processing summary file
+#
+# Programs:  GPSXTR
+#
+# Author  :  S. Schaer
+# Created :  17-Sep-2015
+#
+# Changes :  19-May-2016/ss/av: Generalized and adapted for OSB implementation
+#            25-May-2016/ss: Changed RZB, RZF; added RZE, RZR
+#            31-May-2016 SS: Added RZG
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$yy,$ssss,$v_u,$v_i,
+      $dirSum,$dirOut) =
+    $bpe->getKeys('$YD+0','$Y','$S+0','V_U','V_I',
+                  'DIR_SUM','DIR_OUT');
+
+  my $PGMNAM = "GPSXTR";
+
+# Remove GIMXTR summary file
+# --------------------------
+##  my $prcFil = "${dirOut}GIM${yyddd}.PRC";
+  my $prcFil = "${dirOut}GIMXTR.${yy}_${ssss}";
+  unlink($prcFil);
+#
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GPSOUT","GIMXTR1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GIMOUT","");
+  my @out = ('$UA$YD+0','$UI$YD+0','$UB$YD+0','$UE$YD+0','$US$YD+0','$UF$YD+0','$UR$YD+0','$UG$YD+0');
+  for (@out) {
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",$_);
+    $bpe->RUN_PGMS($PGMNAM);
+    appFile("",0,"${dirSum}GIMXTR1.SUM",$prcFil,0);
+  }
+#
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GPSOUT","GIMXTR1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GIMOUT","GIMXTR2");
+  @out = ('$U_$YD+0','$II$YD+0','$ZI$YD-1');
+  for (@out) {
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",$_);
+    $bpe->RUN_PGMS($PGMNAM);
+    appFile("",0,"${dirSum}GIMXTR1.SUM",$prcFil,0);
+    appFile("",0,"${dirSum}GIMXTR2.SUM",$prcFil,0);
+  }
+
+##  move($prcFil,"${dirOut}GIMXTR.${yy}_${ssss}");
+
+}

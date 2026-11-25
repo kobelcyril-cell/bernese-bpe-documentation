@@ -1,0 +1,102 @@
+package MRKOB__P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MRKOB__P
+#
+# Purpose :  Mark observations corresponding to an edit file
+#
+# Programs:  SATMRK
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005               Last modified: __-___-____
+#
+# Changes :  26-Jan-2021 ec: Modify package name to avoid conflict with a 
+#                            script with same name but different content in
+#                            final campaign
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($file,   $param2, $param3, $param4, $param5, $param6,
+      $subPid) =
+      $bpe->getKeys(
+      'PARAM1','PARAM1','PARAM3','PARAM4','PARAM5','PARAM6',
+      'SUB_PID');
+
+
+# Initialize $D4 variable with subpid
+# -----------------------------------
+  setUserVar($bpe,"D4",$subPid);
+
+
+# Get the "to do" list from all parameters
+# ----------------------------------------
+  my @todo = ();
+  push @todo,${param2} if ("${param2}" ne "");
+  push @todo,${param3} if ("${param3}" ne "");
+  push @todo,${param4} if ("${param4}" ne "");
+  push @todo,${param5} if ("${param5}" ne "");
+  push @todo,${param6} if ("${param6}" ne "");
+
+
+# All tasks of the todo-list
+# --------------------------
+  foreach my $task (@todo) {
+    print "The selected task is: $task \n";
+
+    # Edit file or Synchronization
+    if ($task eq "SYNCHRO") {
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","WHATTODO","SYNCHRONIZE")
+    } else {
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","WHATTODO","EDIT_FILE")
+    }
+
+    # Either code or phase
+    if ($task eq "CODE" || $task eq "PHASE") {
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","BOTHZERO","0")
+    }
+
+    # Select code observation files
+    if ($task eq "PHASE") {
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","CZHFIL","")
+    } else {
+      replaceSel($bpe,"SATMRK","CZHFIL",$file);
+    }
+
+    # Select phase observation files
+    if ($task eq "CODE") {
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","PZHFIL","")
+    } else {
+      replaceSel($bpe,"SATMRK","PZHFIL",$file);
+    }
+
+    # Run program
+    my $PGMNAM = "SATMRK";
+    $bpe->RUN_PGMS($PGMNAM);
+
+  }
+
+# Delete BPE file
+# ---------------
+  open (BPE,$file);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $file\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+  unlink($file);
+
+
+}

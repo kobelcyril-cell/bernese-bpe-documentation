@@ -1,0 +1,66 @@
+package BIACALAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  BIACALAP
+#
+# Purpose :  Prepare parallel runs for bias calibration
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  21-Jun-2016
+#
+# Changes :  17-Aug-2021 AV: Add  BSW RINEX naming scheme to unlink
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtErr initPar_Bl);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ddd, $yyddd, $ssss, $yyyy,
+      $dirBpe,
+      $dirCzh, $dirOut, $dirBia, $dirIon, $dirOsb, $dirNeq, $dirRes,
+      $extCzh, $extOut, $extBia, $extIon, $extOsb, $extNeq, $extRes,) =
+  $bpe->getKeys
+     ('$+0', '$YD+0', '$S+0','$Y+0',
+      'DIR_BPEPRT',
+      'DIR_CZH', 'DIR_OUT', 'DIR_BIA', 'DIR_ION', 'DIR_OSB', 'DIR_NEQ','DIR_RES',
+      'EXT_CZH', 'EXT_OUT', 'EXT_BIA', 'EXT_ION', 'EXT_OSB', 'EXT_NEQ','EXT_RES');
+
+# Delete old files (OUT, SMC)
+# ---------------------------
+  unlink glob("${dirOut}????${ssss}_B?*.${extOut}");
+  unlink glob("${dirNeq}????${ssss}_B?*.${extNeq}");
+  unlink glob("${dirIon}????${ssss}_B?*.${extIon}");
+  unlink glob("${dirOsb}????${ssss}_B?*.${extOsb}");
+  unlink glob("${dirBia}????${ssss}_B?*.${extBia}");
+  unlink glob("${dirRes}????${ssss}_B?*.${extRes}");
+  unlink glob("${dirOut}../RAWI/????${ssss}.???");
+  unlink glob("${dirOut}../OBSI/????${ssss}.???");
+  unlink glob("${dirOut}../RAWI/?????????_${yyyy}${ssss}.???");
+  unlink glob("${dirOut}../OBSI/?????????_${yyyy}${ssss}.???");
+
+# Initialize parallel run
+# -----------------------
+  my @prcFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+  @prcFil = map { substr(basename($_),0,4) } @prcFil;
+  initPar_Bl($bpe,@prcFil);
+
+# Stop if no CZH files found
+# --------------------------
+  if (@prcFil == 0) {
+    prtErr($bpe,"No files to be processed found") and
+      die "No files to be processed found for session ${ssss}";
+  }
+
+}

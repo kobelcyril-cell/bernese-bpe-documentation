@@ -1,0 +1,67 @@
+package STDELEL;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  STDELEL
+#
+# Purpose :  Compute Orbit misclosures for CMP_SOL.PCF
+#
+# PARAMs  :
+#
+# Author  :  C. Kobel
+# Created :  25-Nov-2025
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyddd1, $yyssss, ,$yyssss1, $Stdname, $Erpname, $sol) = $bpe->getKeys('$YD+0','$YD-1','$YSS+0','$YSS-1','V_STD', 'V_ERP', 'V_SOL');
+
+
+# Set orbit files
+# -----------------------
+  my $tmpFil = "$ENV{U}/WORK/STDELE.lst";
+
+  open OUT, '>', $tmpFil;
+  print OUT "$Stdname${yyssss}\n";
+  print OUT "$Stdname${yyssss1}\n";
+  close OUT;
+  $bpe->putKey("$ENV{U}/PAN/STDELE.INP","STDFIL","SELECTED","REPLACE",$tmpFil);
+  $bpe->putKey("$ENV{U}/PAN/STDELE.INP","SYSOUT","ORBMISC_${Stdname}${yyssss}");
+  $bpe->putKey("$ENV{U}/PAN/STDELE.INP","POLE","${Erpname}${yyssss}");
+
+  system("rm $ENV{U}/WORK/STDELE.lst");
+  
+# Run program
+# -----------
+  my $PGMNAM = "STDELE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Set orbit files
+# -----------------------
+  my $tmpFil = "$ENV{U}/WORK/STDELE.lst";
+
+  open OUT, '>', $tmpFil;
+  print OUT "F${sol}_${yyddd}\n";
+  print OUT "F${sol}_${yyddd1}\n";
+  close OUT;
+  $bpe->putKey("$ENV{U}/PAN/STDELE.INP","STDFIL","SELECTED","REPLACE",$tmpFil);
+  $bpe->putKey("$ENV{U}/PAN/STDELE.INP","SYSOUT","ORBMISC_F${sol}_${yyssss}");
+  $bpe->putKey("$ENV{U}/PAN/STDELE.INP","POLE","F${sol}_${yyddd}");
+
+  system("rm $ENV{U}/WORK/STDELE.lst");
+
+# Run program
+# -----------
+  my $PGMNAM = "STDELE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  
+
+}

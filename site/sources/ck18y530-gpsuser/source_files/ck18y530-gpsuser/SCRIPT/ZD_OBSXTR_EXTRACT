@@ -1,0 +1,94 @@
+package OBSXTR_EXTRACT;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  OBSXTR_EXTRACT
+#
+# Purpose :  Extract statistics from OBSXTR output file
+#
+# Author  :  C. Kobel
+# Created :  24-Nov-2025
+#
+# Changes :  30-Apr-2026 CK: Reformatted, standardized header,
+#===========================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyyy,
+      $yyssss,
+      $V_fin
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$Y+0',
+      '$YSS+0',
+      'V_FIN'
+  );
+
+  # ---------- MSC directory ------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  die "MSC directory does not exist: $mscDir" unless -d $mscDir;
+
+  my $outfile = "$mscDir/PROCESSING_$yyddd";
+
+  # ---------- Input file ------------
+  my $infile = "${dirOut}/OBSXTR${V_fin}${yyssss}.OUT";
+  die "Cannot find input file: $infile" unless -f $infile;
+
+  print "Extract from: $infile\n";
+  print "Write into:   $outfile\n";
+
+  # ---------- Parse OBSXTR output ------------
+  open(my $fh_in, "<", $infile) or die "Cannot open $infile: $!";
+
+  my @rows;
+  while (my $line = <$fh_in>) {
+    next unless $line =~ /files do contain/;
+
+    my ($sys, $sat, $total, $usable, $bad);
+
+    if ($line =~ /contain\s+(\w+)\s+(\d+)\s+(\d+)\s+(\d+)\s+([\d\.]+%)/) {
+      ($sys, $sat, $total, $usable, $bad) = ($1, $2, $3, $4, $5);
+      push @rows, [$sys, $sat, $total, $usable, $bad];
+    }
+  }
+  close($fh_in);
+
+  # ---------- Write output ------------
+  open(my $fh, ">>", $outfile) or die "Cannot write $outfile: $!";
+
+  print $fh "==== OBSXTR STATISTICS ====\n";
+
+  if (@rows) {
+
+    print $fh sprintf("%-5s %-4s %12s %12s %10s\n",
+                      "Sys", "Sat", "Total", "Usable", "Bad");
+
+    print $fh "-----------------------------------------------\n";
+
+    foreach my $r (@rows) {
+      print $fh sprintf("%-5s %-4d %12d %12d %10s\n",
+                        $r->[0], $r->[1], $r->[2], $r->[3], $r->[4]);
+    }
+
+  } else {
+    print $fh "No lines with 'files do contain' found!\n";
+  }
+
+  print $fh "==============================================\n";
+  close($fh);
+
+  print "OBSXTR_EXTRACT done!\n";
+}

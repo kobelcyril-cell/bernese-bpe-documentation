@@ -1,0 +1,148 @@
+package CRTRAP;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  CRTRAP
+#
+# Purpose :  Create rapid orbit submission.
+#
+# Author  :  S. Schaer
+#
+# Created :  28-Jun-2004
+#
+# Changes :  10-Aug-2005 RD: No broadcast switch if CLKRAPID.PCF
+#            06-Nov-2006 SS/AG: Set CLKINFO in case of broadcast info
+#            06-Jun-2014 SS: Considered MIDyyddd.FLG
+#            16-Jun-2014 SS: Bugfix concerning PREWEI with AMyyddd.PRE
+#            03-Aug-2015 SS: Activated RCLKGNSS
+#            07-Jun-2016 RD/AV: Add compability for version 5.2
+#            27-Jun-2016 AV: Wait for other CRTRAP to finish (2xEOF problem)
+#                            Add PRE checker (check for 1 EOF in PRE file)
+#            10-Oct-2016 RD/AV: Remove version with compatible attitude modelling
+#            24-Oct-2019 SS: Automatically adjusted EPH title line (TITLE3)
+#            14-Nov-2019 AV: Skip if V_SAVDSK
+#            22-Apr-2020 ST: Change 'RB_' to '$A_'
+#            24-Nov-2025 SS: Specify TITPRE using replaceSelLst to force SP3d
+#            27-Nov-2025 SS: Add the DOI comment line to force SP3d
+#
+# =============================================================================
+
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+  my $PGMNAM;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,$param1,$gnss, $doi, $savdsk,
+    $dirOut,$dirClk,$dirPre,$extClk,$extPre,
+    $pcfFil,
+  ) =
+  $bpe->getKeys(
+    '$YD+0','PARAM1','V_GNSS','V_DOI','V_SAVDSK',
+    'DIR_OUT','DIR_CLK','DIR_PRE','EXT_CLK','EXT_PRE',
+    'PCFFIL',
+  );
+
+  print "SAVDSK $savdsk\n";
+  if ($savdsk eq "Y"){
+    print "CRTRAP skipped\n";
+  } else {
+    my $midFil = "${dirOut}../MSC/MID${yyddd}.FLG";
+    my $crtFlg = "${dirOut}../MSC/CRTRAP${yyddd}.FLG";
+    my $waiting =  30;
+    my $oldFile =  155;
+
+    while ( -e $crtFlg ) {
+
+      last if $repro;
+      if ( -e $crtFlg && (stat($crtFlg))[9]+$oldFile <= time ){
+        unlink($crtFlg);
+        last;
+      };
+
+      print timstr(gmtime time) . ": Other CRTRAP script running, waiting until $crtFlg disapears.\n";
+      sleep $waiting;
+    }
+
+    open  FOUT, ">$crtFlg";
+    print FOUT "CRTFLG\n";
+    close FOUT;
+
+    my $yyyyddd = "20".substr($yyddd,0,2)."-".substr($yyddd,2,);
+
+#                 12345678901234567890123456789012345678901234567890123456c8901234567890123456d
+    my $cenLin = "Center for Orbit Determination in Europe (CODE)";
+    my $titLin = "Rapid GNSS orbits and clocks for year-day $yyyyddd";
+    my $remLin = "Last day of a 3-day long-arc $gnss solution";
+    my $doiLin = "Product reference - DOI $doi";
+
+    if (-e $midFil) {
+# STDPRE:
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","STDORB",'MID$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","IMPELE",'MID$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","POLE",'MID$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","PREOUT",'RAM$YD+0');
+##      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","TITLE3","Note: Last day of a 3-day arc GPS/GLONASS solution");
+##      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","TITLE3","Note: Middle day of a 3-day arc GPS/GLONASS solution");
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","TITLE3","Note: Middle day of a 3-day arc $gnss solution");
+      $remLin = "Middle day of a 3-day long-arc $gnss solution";
+# PREWEI:
+      $bpe->putKey("$ENV{U}/PAN/PREWEI.INP","PREFIL",'RAM$YD+0');
+    }
+
+    my @lines = ($cenLin,$titLin,$remLin);
+# Add the DOI comment line to force SP3d
+    push(@lines,$doiLin);
+    replaceSelLst($bpe,"STDPRE","TITPRE",@lines);
+
+    my $clkFil = "${dirClk}TP_${yyddd}.${extClk}";
+    if(-e $clkFil || $pcfFil eq "RCLKGNSS.PCF") {
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SATCLK",'TP_$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","CLKINFO",'CoN');
+      prtMess($bpe,"PRECISE CLOCKS INCLUDED");
+    } else {
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SATCLK",'$A_$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","CLKINFO",'BRD');
+      prtMess($bpe,"BROADCAST CLOCKS INCLUDED");
+    }
+
+# Run programs
+# ------------
+    $PGMNAM = "STDPRE";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $PGMNAM = "PREWEI";
+    $bpe->RUN_PGMS($PGMNAM);
+
+# Check PRE file
+# --------------
+    my $raporb = $bpe->getKey("$$bpe{U}/INP/STDPRE.INP","PREOUT");
+    my $chk = chkPre($raporb);
+
+    unless($chk==1){
+      unlink($crtFlg);
+      prtErr($bpe,"Corrupted RAPID orbit file: $raporb") and
+      die "Corrupted RAPID orbit file: $raporb";
+    }
+    unlink($crtFlg);
+  }
+}
+
+# =============================================================================
+
+sub chkPre{
+  my $chkorb  = shift;
+  my $nEOF = 0;
+  open FINP, "< $chkorb";
+  while (<FINP>){
+    chomp;
+    $nEOF++ if($_=~/EOF/);
+  }
+  close FINP;
+  return $nEOF;
+}
+__END__

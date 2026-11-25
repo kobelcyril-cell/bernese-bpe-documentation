@@ -1,0 +1,58 @@
+package ULTIONO;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ULTIONO
+#
+# Purpose :  CREATE EXTRA ULT OSB FILE TO GET LIST OF GPS/GLONASS STATIONS USED
+#
+# Programs:
+#
+# Author  :  H. Bock
+# Created :  06-Dec-2007
+#
+# Changes :  18-May-2016 SS: Added ADDNEQ2; changed from DCB to OSB
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$CAMP_PTH,$CAMPAIGN,
+      $dirDcb,$extDcb,
+      $dirOsb,$extOsb) =
+    $bpe->getKeys('$YD+0','CAMP_PTH','CAMPAIGN',
+                  'DIR_DCB','EXT_DCB',
+                  'DIR_OSB','EXT_OSB');
+
+# Run program
+# -----------
+  my ($inpFil,$outFil);
+  my $ultFil="$CAMP_PTH${CAMPAIGN}/MSC/ULT$yyddd.FLG";
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+
+  if (-e $ultFil){
+      my $PGMNAM = "GPSEST";
+      $bpe->RUN_PGMS($PGMNAM);
+      $PGMNAM = "ADDNEQ2";
+      $bpe->RUN_PGMS($PGMNAM);
+      $inpFil="${dirOsb}/ULTIONO.${extOsb}";
+##      $outFil="${dirOsb}/U${h_end}${yyddd}.${extOsb}";
+##      copyfile("$inpFil","$outFil");
+      $outFil="${dirDcb}/ULTIONO.${extDcb}";
+      system("$ENV{AUTO}/osb2dcb.com $inpFil $outFil P1-P2");
+      die "$outFil not created" unless -s $outFil;
+      $inpFil="${dirDcb}/ULTIONO.${extDcb}";
+      $outFil="${dirDcb}/U${h_end}${yyddd}.${extDcb}";
+      copyfile("$inpFil","$outFil");
+  }
+
+}

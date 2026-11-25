@@ -1,0 +1,28 @@
+package ATTXTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ATTXTR
+#
+# Purpose :  Excecute ATTXTR
+#
+# Programs:  ATTXTR
+#
+# Author  :  C. Kobel
+# Created :  24-Nov-2025               Last modified: __-___-____
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Run programs
+# ------------
+  my $PGMNAM = "ATTXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

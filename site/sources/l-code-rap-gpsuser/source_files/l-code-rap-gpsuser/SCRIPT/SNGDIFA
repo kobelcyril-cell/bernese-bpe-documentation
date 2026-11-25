@@ -1,0 +1,54 @@
+package SNGDIFA;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SNGDIFA
+#
+# Purpose :  Create baselines
+#
+# Programs:  SNGDIF
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 10-Feb-2005
+#
+# Changes :  10-Feb-2005 mm: Old date variables removed
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Define variables
+# ----------------
+  my ($ssss,$yyddd,$bslDir,$obsDir,$clbDir) =
+         $bpe->getKeys('$S+0','$YD+0',"DIR_BSL","DIR_PSH","DIR_CLB");
+
+
+# Set options and print message
+# -----------------------------
+  my $bslFil = "${bslDir}APR$yyddd.BSL_DNU";
+  if (-e $bslFil) {
+    prtMess($bpe,"Apr baselines considered");
+    $bpe->putKey("$ENV{U}/PAN/SNGDIF.INP","STRATEGY","DEFINED");
+    $bpe->putKey("$ENV{U}/PAN/SNGDIF.INP","BASDEF","APR$yyddd") }
+  else {
+    prtMess($bpe,"Apr baselines not found") }
+
+
+# Delete single difference files
+# ------------------------------
+  unlink(glob("${obsDir}????${ssss}.?S?"));
+  unlink(glob("${clbDir}${yyddd}_??.CLB"));
+
+
+# Run program
+# -----------
+  my $PGMNAM = "SNGDIF";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

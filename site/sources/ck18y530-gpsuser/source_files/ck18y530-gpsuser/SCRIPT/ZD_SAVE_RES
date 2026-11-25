@@ -1,0 +1,158 @@
+package SAVE_RES;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  SAVE_RES
+#
+# Purpose :  Archives and saves results
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx
+#
+# Changes :  30-Apr-2026 CK: Reformatted, improved readability
+#===========================================================
+
+use strict;
+use warnings;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Parameters ------------
+  my (
+      $yyssss,
+      $yyddd,
+      $ssss,
+      $fin,
+      $wei,
+      $save,
+      $flt,
+      $dirRxc,
+      $dirCrd,
+      $dirStd,
+      $dirClk,
+      $dirErp,
+      $dirRpr,
+      $dirPre,
+      $dirFix,
+      $dirNeq,
+      $dirSos,
+      $dirOsb,
+      $dirPzh,
+      $dirBpe,
+      $dirTrp,
+      $dirObx,
+      $extRxc,
+      $extCrd,
+      $extStd,
+      $extClk,
+      $extErp,
+      $extRpr,
+      $extTrp,
+      $extObx,
+      $extFix,
+      $extNeq,
+      $extSos,
+      $extOsb,
+      $extPre
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      '$YD+0',
+      '$S+0',
+      $$bpe{PARAM2},
+      $$bpe{PARAM3},
+      '$(SAVE)',
+      $$bpe{PARAM4},
+      'DIR_RXC',
+      'DIR_CRD',
+      'DIR_STD',
+      'DIR_CLK',
+      'DIR_ERP',
+      'DIR_RPR',
+      'DIR_PRE',
+      'DIR_FIX',
+      'DIR_NEQ',
+      'DIR_SOS',
+      'DIR_OSB',
+      'DIR_PZH',
+      'DIR_BPEOUT',
+      'DIR_TRP',
+      'DIR_OBX',
+      'EXT_RXC',
+      'EXT_CRD',
+      'EXT_STD',
+      'EXT_CLK',
+      'EXT_ERP',
+      'EXT_RPR',
+      'EXT_TRP',
+      'EXT_OBX',
+      'EXT_FIX',
+      'EXT_NEQ',
+      'EXT_SOS',
+      'EXT_OSB',
+      'EXT_PRE'
+  );
+
+  # ---------- Archive only if enabled ------------
+  return unless ($save eq "YES");
+
+  # ---------- Archive structure ------------
+  my $resFol = "$ENV{K}/CK_ZDGNSS_ARCHIVE/${yyddd}";
+  my $resOrb = "$resFol/ORB";
+  my $resSta = "$resFol/STA";
+  my $resSol = "$resFol/SOL";
+  my $resBpe = "$resFol/BPE";
+  my $resOut = "$resFol/OUT";
+  my $resObs = "$resFol/OBS";
+  my $resAtm = "$resFol/ATM";
+
+  system("mkdir -p $resOrb $resSta $resSol $resBpe $resOut $resObs $resAtm");
+
+  # ---------- Copy results ------------
+  copyfile("${dirCrd}${fin}_$yyssss.${extCrd}",   $resSta);
+
+  copyfile("${dirPre}${fin}_$yyssss.${extPre}",   $resOrb);
+  copyfile("${dirStd}${fin}_$yyssss.${extStd}",   $resOrb);
+  copyfile("${dirErp}${fin}_$yyssss.${extErp}",   $resOrb);
+  copyfile("${dirRpr}${fin}_$yyssss.${extRpr}",   $resOrb);
+  copyfile("${dirClk}${fin}S$yyssss.${extClk}",   $resOrb);
+  copyfile("${dirRxc}${fin}S$yyssss.${extRxc}",   $resOut);
+  copyfile("${dirTrp}${fin}_$yyssss.${extTrp}",   $resAtm);
+  copyfile("${dirObx}${fin}_$yyssss.${extObx}",   $resOrb);
+
+  copyfile("${dirCrd}${flt}_$yyssss.${extCrd}",   $resSta);
+  copyfile("${dirStd}${flt}_$yyssss.${extStd}",   $resOrb);
+  copyfile("${dirErp}${flt}_$yyssss.${extErp}",   $resOrb);
+  copyfile("${dirRpr}${flt}_$yyssss.${extRpr}",   $resOrb);
+  copyfile("${dirClk}${flt}S$yyssss.${extClk}",   $resOrb);
+  copyfile("${dirRxc}${flt}S$yyssss.${extRxc}",   $resOut);
+
+  copyfile("${dirFix}${fin}_$yyddd.${extFix}",    $resSta);
+
+  copyfile("${dirNeq}${fin}??${yyssss}???.${extNeq}", $resSol);
+  copyfile("${dirNeq}${fin}99${yyssss}.${extNeq}",    $resSol);
+
+  copyfile("${dirSos}${wei}_$yyssss.${extSos}",    $resSta);
+
+  copyfile("${dirOsb}CBS$yyssss.${extOsb}",        $resOrb);
+  copyfile("${dirOsb}PHA$yyssss.${extOsb}",        $resOrb);
+  copyfile("${dirOsb}IAR$yyssss.${extOsb}",        $resOrb);
+
+  copyfile("${dirPzh}????${ssss}.???",             $resObs);
+
+  copyfile("${dirRxc}/OBSXTR.SUM",                 $resOut);
+  copyfile("${dirRxc}/IAR${yyssss}.PRC",           $resOut);
+
+  my @auxfl = glob("${dirRxc}/${flt}??${ssss}001.OUT");
+  copyfile("$auxfl[$#auxfl]", $resOut) if @auxfl;
+
+  @auxfl = glob("${dirRxc}/${fin}??${ssss}001.OUT");
+  copyfile("$auxfl[$#auxfl]", $resOut) if @auxfl;
+
+  copyfile("${dirRxc}/../MSC/MSC_${yyddd}/PHACOR_LOG_${yyddd}", $resOut);
+
+  # ---------- Archive compression ------------
+  system("cd $resFol/..; tar cvfz ${yyddd}.tgz ${yyddd}; rm -r ${yyddd}");
+}

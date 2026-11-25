@@ -1,0 +1,23 @@
+package DUMMY;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  DUMMY
+#
+# Purpose :  Do nothing
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  03-Aug-2003               Last modified: __-___-____
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+
+}

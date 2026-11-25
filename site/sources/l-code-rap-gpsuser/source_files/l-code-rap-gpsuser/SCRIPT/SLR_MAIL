@@ -1,0 +1,414 @@
+package SLR_MAIL;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      SLR_MAIL
+#
+# Purpose:   Send CPF via email: protocol file, warning message, 
+#            error message
+#
+# Authors:   C. Urschl
+#
+# Created:   06-Aug-2007
+#
+# Changes:   06-Aug-2007/mm: V_DIS activated  
+#            18-May-2008 DT: Send file with collected warnings (V_WARN)
+#            27-May-2008 DT: Add GLONASS109 (R11; 2007-065C), remove GLONASS95
+#            02-Apr-2008 DT: Add Glonass-115 (R08), remove Glonass-99 (R24)
+#            09-Jun-2009 DT: Remove gps35 (G05)
+#            17-Feb-2010 DT: Add gps35 (now as G25)
+#            07-Apr-2010 DT: Remove gps35; 
+#                            Replace glonass-109 (R11) with glonass-120 (R23)
+#            03-Sep-2010 DT: Add glonass-118 (R05), glonass-102 (R11), glonass-110 (R18)
+#            14-Sep-2010 DT: Add new address for CPF exploder
+#            06-Oct-2010 HB: Correct address for CPF exploder
+#            04-May-2011 DT: Add glonass-125 (R04); first GLONASS-K
+#            10-May-2011 DT: Add all GLONASS:
+#                            first part of list -> send to CDDIS
+#                            second part -> only renaming for Zimmerwald
+#            16-Aug-2011 AJ: ftp mode temporarily changed to passive
+#            17-Oct-2011 DT: R03 = glonass-125 (formerly R04),
+#                            R14 = glonass-101 (formerly R03)
+#                            glonass-108 not active anymore (R14)
+#            21-Oct-2011 DT: R04 = glonass-126 (new launch)
+#            05-Dec-2011 DT: R03 = glonass-128 (new launch)
+#            19-Dec-2011 DT: R07 = glonass-129 (new launch)
+#            22-Dec-2011 DT: R17 = glonass-130 (new launch)
+#            08-Mar-2012 DT: glonass-130 replaces glonass-120 in ILRS tracking
+#            24-Sep-2012 DT: R08=glonass-115 (official ILRS) replaced by
+#                            glonass-127
+#            23-Oct-2012 DT: R08=glonass-127 replaced by glonass-95;
+#                            use R07=glonass-129 for official ILRS tracking instead
+#            11-Jan-2013 CB; R08=glonass95 replaced by glonass125
+#            14-May-2013 CB: removed GPS35
+#            18-Jul-2013 CB: init of err1 and err2
+#            18-Nov-2013 CB: R08=glonass127 (instead of glonass125),
+#                            R02=glonass131 (instead of glonass114),
+#                            send all cpf files to dgfi
+#            19-Mar-2014 KS: different naming of satellite files
+#            20-Aug-2014 KS: GLONASS133 added
+#            28-Sep-2015 AM: gps36 added
+#            09-Mar-2016 AM: glonass135 (2016-008A) added
+#            27-Jun-2016 AM: glonass136 (2016-032A) added
+#            03-Mar-2017 AM: stop sending mail with CPF (cpfpred@dgfi.badw.de unknown)
+#            25-Jul-2017 AM: stop uploading CPF files to ftp
+#            12-Jul-2019 RD: Extensive checking for the complentess and correctness
+#            24-Sep-2019 RD: Disable e-mail to Andrea Maier
+#            10-Oct-2019 UM: add Galileo satellites to list (E201 -> galileo201, ...)
+#                            write warning, if Galileo CPF-files remain
+#            30-Dec-2019 UM: glonass141 (2019_088A) added
+#            31-Jan-2020 UM: CPF v2 naming convention
+#            20-Nov-2020 UM: glonass142 (2020-018A) added
+#            12-Jul-2021 UM: glonass143 (2020-075A) added
+#            14-Apr-2023 UM: glonass144 (2022-161A) added
+#                            glonass145 (2022-130A) added
+#                            galileo223 (2021-116A) added
+#                            galileo224 (2021-116B) added
+#            31-May-2024 UM: glonass147 (2023-114A) added
+#            14-Apr-2025 UM: R02 changed from glonass 102 (2006-062A) to glonass 131 (2013-019A)
+#	     21-Oct-2025 CK: Changed glonass120 to glonass105
+#            22-Apr-2026 RD: Remove the long lists of satellites; 
+#                            replace them by scripting the rules of creating filenames
+#            22-Apr-2026 RD: Check also the SIC number in the second line
+#
+# REMARK:    Inform Zimmerwald people if any change in GLONASS numbering
+#            is done!
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{EXE}";
+use lib "$ENV{BPE}";
+use lib "$ENV{AUTO}";
+use gpsutil;
+use Gps_Date;
+use bpe_util;
+use File::Copy;
+use File::Basename;
+use newFTP;
+use cddis_curl;
+
+# overloaded 'run' method.
+sub run {
+
+  my $bpe = shift;
+
+# CPF v1 or v2
+# ------------
+  my ($VCPF) = $bpe->getKeys ('V_VCPF');
+
+# Get variables
+# -------------
+  my $mjd      = $$bpe{MJD};
+  my $CAMP_PTH = $$bpe{CAMP_PTH};                                               
+  my $CAMPAIGN = $$bpe{CAMPAIGN};
+  my $warning  = $$bpe{V_WARN};
+
+# Define pathes and filenames
+# ---------------------------
+  my $orbdir   = "$CAMP_PTH$CAMPAIGN/ORB";
+  my $protfil  = "$CAMP_PTH$CAMPAIGN/OUT/PROTFIL.OUT";   
+  my $warnfil  = "$CAMP_PTH$CAMPAIGN/OUT/$warning";
+  
+  my $curdir   = `pwd`;
+  chomp($curdir);
+
+# Change to ORB dir
+# -----------------
+  chdir $orbdir;  
+ 
+
+# Mail CPF files to
+# -----------------
+  my $cpfUser;
+#  my $cpfUser = 
+####      'laser@aiubzmd.unibe.ch,'.
+####      'urschl@aiub.unibe.ch';
+####      'service@ranger.as.utexas.edu';
+##old        'cpfpred@dgfi.badw-muenchen.de';
+#wrong        'cpf_pred@dgfi.badw.de';
+#        'cpfpred@dgfi.badw.de';
+#        'christian.baumann@aiub.unibe.ch';
+  my $subject;
+
+# Upload CPF files to 
+# -------------------
+# name of DC
+  my $dcNam  = "CDDIS";
+
+# ftp-adress of DCs
+##  my $dcFtp  = "cddis.gsfc.nasa.gov";
+  my $dcFtp  = "cddisin.gsfc.nasa.gov";
+
+# slr path
+  my $dcPth  = "products/slr";
+
+# user and password
+  my $dcUser = "aiubgps";
+  my $dcPass = "stYs0147";
+
+# Set date
+# --------
+  my ($yyyy,$doy,$yymmdd,$mm,$dd,$yyddd) =
+    gps_date("-mjd $mjd -o %Y %j %y%m%d %m %d %y%j");
+
+# Open protocol file
+# ------------------
+  open (OUT,">$protfil") || die "Cannot open $protfil\n";
+  print OUT ("\n DoY: $doy $yyyy   Day: ${dd}-${mm}-${yyyy}   MJD: $mjd\n\n");
+  print OUT (" Generated CPF version $VCPF files: \n");
+
+# Satellite names
+# ---------------
+  # Satellites send to CDDIS (the first x Satellites in list)
+  # ------------------------
+  my $nsat_cddis = 99; #send all cpf to dgfi
+
+  my %defNames = ( "glonass1" => {"file" => "R",
+                                  "SIC"  => 9100,
+                                  "digit" => 2 },
+                   "galileo"  => {"file" => "E",
+                                  "SIC"  => 7000,
+                                  "digit" => 3 },
+                   "gps"      => {"file" => "G",
+                                  "SIC"  => 5000,
+                                  "digit" => 3 },
+                  );
+
+  my ($err1,$err2) = ('ERR','ERR');
+
+# Loop over all satellites
+# ------------------------
+  my ($sat,$cpffil,$slrfil,@files,@subnam);
+  my $isat = -1;
+  my $nfil = 0;
+  my $num_v1 = $doy + 500;
+  my $num_v2 = $doy;
+
+  foreach my $satType (keys %{defNames}) {
+
+    # Construct the CPF name on BSW side
+    my $cpfPattern = $defNames{$satType}->{"file"};
+    $cpfPattern .= "?" x $defNames{$satType}->{"digit"};
+    $cpfPattern .= "${yyddd}.CPF";
+
+    # Loop the related CPF files
+    foreach my $cpffil ( glob ("$orbdir/$cpfPattern") ){
+
+      # Construct the ILRS satellite name
+      my $satnam = "$satType" . substr( basename( $cpffil ), 1,  $defNames{$satType}->{"digit"});
+      my $satSIC = $defNames{$satType}->{"sic"} +
+                   substr( basename( $cpffil ), 1,  $defNames{$satType}->{"digit"});
+
+      # Construct the related ILRS filename
+      my $slrfil = "$orbdir/$satType";
+      $slrfil .= substr( basename( $cpffil ), 1,  $defNames{$satType}->{"digit"});
+
+      # CPF v1
+      if ($VCPF == 1) {
+        $slrfil .= "_cpf_${yymmdd}_${num_v1}1.cod";
+      # CPF v2
+      } elsif ($VCPF == 2) {
+        $slrfil .= "_cpf_${yymmdd}_${num_v2}01.cod";
+      # Unknown CPF version
+      } else {
+        prtMess($bpe,"CPF version $VCPF not implemented!");
+        die("CPF version $VCPF not implemented!\n" .
+            "Please check the script SLR_MAIL\n");
+      }
+
+      # Check the content of the file
+      if (-s $cpffil) {
+         open(CPF,$cpffil);
+         my @CPFtext = <CPF>;
+         close CPF;
+
+         # First line must contain the satellite name
+         if ( index($CPFtext[0],$satnam) == -1 ) {
+           prtMess($bpe,"Wrong filenaming for $satnam");
+           die("Wrong filenaming for satellite \"$satnam\"\n" .
+               "CPFname: $cpffil\nSLRname: $slrfil\n" .
+               "Content: $CPFtext[0]" .
+               "Please check the script SLR_MAIL\n");
+         }
+
+         # Second line must contain the SIC number
+         if ( index($CPFtext[1],"$satSIC") == -1 ) {
+           prtMess($bpe,"Wrong SIC number for $satnam");
+           die("Wrong SIC number for satellite \"$satnam\"\n" .
+               "CPFname: $cpffil\nSLRname: $slrfil\n" .
+               "Content: $CPFtext[0]" .
+               "Please check the script SLR_MAIL\n");
+         }
+
+         # Rename CPF files
+         copy($cpffil,$slrfil);
+         unlink($cpffil);
+
+         # Collect Files to be sent to CDDIS
+         # ---------------------------------
+         if ($isat<$nsat_cddis) {
+           push(@files,basename($slrfil));
+           push(@subnam,$satnam);
+           print OUT ("  ",$slrfil,"\n");
+           $nfil++;
+         }
+         else {
+           print " CPF not sent to CDDIS: ${slrfil} \n";
+         }
+      }
+    }
+  }
+
+
+# Check whether there are files that are not renamed for submission
+# -----------------------------------------------------------------
+  my @restFiles = glob("???${yyddd}.CPF");
+  if ( @restFiles ) {
+    open(WARN,">> $warnfil");
+    print WARN "Remaining GPS/GLONASS CPF files that are not considered by the script SLR_MAIL for submission:\n";
+    map { print WARN $_,"\n" } @restFiles;
+    print WARN "Please update SLR_MAIL accordingly\n";
+    close WARN;
+  }
+
+  @restFiles = glob("????${yyddd}.CPF");
+  if ( @restFiles ) {
+    open(WARN,">> $warnfil");
+    print WARN "Remaining GALILEO CPF files that are not considered by the script SLR_MAIL for submission:\n";
+    map { print WARN $_,"\n" } @restFiles;
+    print WARN "Please update SLR_MAIL accordingly\n";
+    close WARN;
+  }
+
+  if ($nfil eq 0) {
+      print OUT ("none\n");
+  }
+  
+  if ($nfil > 0) {
+
+    if (0) {
+# Send mail with CPF file inline
+# ------------------------------
+      my ($msg,$filatt,$ifil);
+      $ifil = -1;
+
+      print "\n\n--------------------- \n";
+      print "Mailing CPF files to: $cpfUser\n";
+      print "--------------------- \n";
+
+# Send cpf file inline
+      if ($$bpe{V_DIS} eq "Y") {
+          $err1 = "OK";
+          foreach $filatt (@files) {
+              print "\n$filatt\n\n";
+              $ifil++;
+              $subject = "$subnam[$ifil] DAILY CPFS COD";
+              send_mail($cpfUser, s=>$subject, f=>$filatt, m=>0) || ($err1 = "ERR");
+          }
+          print OUT ("\n CPF files sent to $cpfUser -> $err1\n");
+      } else {
+          prtMess($bpe,"FILES NOT DISTRIBUTED");
+      }
+
+   }  
+
+
+# Upload CPF files to cddis
+# -------------------------
+      my ($ftp,$dcFile,$iRun,$nRun);
+      $nRun = 6;
+
+      if ($$bpe{V_DIS} eq "Y") {
+
+
+          print "\n\n---------------------------------- \n";
+          print "Uploading CPF files to datacenter: $dcNam \n";
+          print "---------------------------------- \n\n";
+
+          print "ftp to $dcFtp\n";
+          print "cd $dcPth\n";
+          print OUT "cd $dcPth\n";
+
+          if (0) {
+          for ($iRun=1;$iRun<=$nRun;$iRun++) {
+              $err2 = "OK";
+    
+###              if ($ftp = newFTP->new($dcFtp,t=>60,v=>2,p=>0)) {
+              if ($ftp = newFTP->new($dcFtp,t=>60,v=>2,p=>1)) {
+    
+                  $ftp->login($dcUser,$dcPass) or $err2 = "ERR";
+                  $ftp->binary;
+                  $ftp->cwd($dcPth);
+                  foreach $dcFile (@files) { $ftp->put("$dcFile") };
+                  $ftp->quit();
+                  $ftp->ftpOK or $err2 = "ERR";
+    
+              } else { $err2 = "ERR" };
+    
+              print OUT ("\n CPF files sent to CDDIS (ftp), iRun = ${iRun} -> $err2\n");
+              if ($err2 eq "OK") { last }
+              sleep (600);
+          }
+          }
+          
+          # Upload to cddis https:
+
+          upload_cddis(@files);  
+ 
+          
+      } else {
+          prtMess($bpe,"FILES NOT DISTRIBUTED");    
+      }
+  }
+
+
+  chdir $curdir;  
+
+
+# Mail protocol file
+# ------------------
+  close (OUT);
+
+  print "\n\n----------------- \n";
+  print "Mailing protocol: $protfil \n";
+  print "----------------- \n";
+
+  $subject = "SLRPRED successfully completed: Day $doy $yyyy";
+  msg2key("SLR","-f $protfil","$subject");
+
+
+# Send warnings from PRT files
+# -----------------------------
+  my $slrWarn1 = "andrea.maier\@aiub.unibe.ch";
+  my $slrWarn2 = "ulrich.meyer\@aiub.unibe.ch";
+  
+  if (-e $warnfil) {
+     sysprint ("Mailing warning messages: $warning \n");
+     $subject = "Warnings: SLR CPF Prediction for Day $doy $yyyy";
+##     send_mail($slrWarn1, s=>$subject, f=>$warnfil);
+     send_mail($slrWarn2, s=>$subject, f=>$warnfil);
+     msg2key("SLR","-f $warnfil","$subject");
+   }
+   else {
+     sysprint ("No warning messages mailed: $warning \n");
+   }
+   
+
+
+# Write local time
+# ----------------
+  print "\n----------- \n";
+  print "Local time: ".timprt."\n";
+  print "----------- \n";
+
+# Create BYE file if ftp ok
+# -------------------------
+  if ("$err1" eq "OK" && "$err2" eq "OK") {
+      my $str = gps_date("-t -o %U / -93600 / %z / SLR_MAIL / %y%j");
+      `echo '$str' > $ENV{X}/MSC/BYE_SLRPRED_FTP.SLR`;
+  }
+
+}
+
+__END__
+

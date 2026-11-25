@@ -1,0 +1,156 @@
+package COPYSOL_VS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  COPYSOL_VS
+#
+# Purpose :  Copy solution files from V_SOLDIR
+#
+# Author  :  C. Kobel
+# Created :  16-Mar-2026
+#
+# ============================================================================
+use strict;
+use File::Copy;
+use lib "$ENV{AUTO}";
+
+sub copy_if_needed {
+  my ($src,$dst) = @_;
+
+  if (-e $dst) {
+    print "$dst already exists\n";
+    return;
+  }
+
+  if (! -e $src) {
+    die "Source file missing: $src\n";
+  }
+
+  copy($src,$dst) or die "Cannot copy $src -> $dst : $!";
+  print "Copied $src -> $dst\n";
+}
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($solDir,$dirORB,$dirCRD,
+      $yyddd,$yydddm1,$yydddm2,
+      $yyssss,$yyssssm1,$yyssssm2,$yy,
+      $CRD,$PRE,$STD,
+      $extCrd,$extPre,$extStd,$extErp,
+      $crdInf,$satcrx,$dirCrx,$extCrx,$extPsd) =
+      $bpe->getKeys('V_SOLDIR','DIR_ORB','DIR_CRD',
+                    '$YD+0','$YD-1','$YD-2',
+                    '$YSS+0','$YSS-1','$YSS-2','$Y+0',
+                    'V_CRD','V_PRE','V_STD',
+                    'EXT_CRD','EXT_PRE','EXT_STD','EXT_ERP',
+	            'V_REFCRD','V_SATCRX','DIR_CRX','EXT_CRX','EXT_PSD');
+
+# ---------------------------------------------------------------------------
+# Copy required model files
+# ---------------------------------------------------------------------------
+my $ret = system("$ENV{AUTO}/copyRef.pl ${dirCRD}.. $crdInf $crdInf.$extPsd");
+
+    die "ERROR: copyRef.pl failed (return code: $ret)\n"
+        if $ret != 0;
+
+my $localCrx = "${dirCrx}${satcrx}_$yy.${extCrx}";
+copy_if_needed("$ENV{CONFIG}/${satcrx}_$yy.${extCrx}",$localCrx);
+
+# ---------------------------------------------------------------------------
+# Copy CRD file
+# ---------------------------------------------------------------------------
+  my $srcCrd = "$solDir/STA/$CRD.$extCrd";
+  my $dstCrd = "$dirCRD/$CRD.$extCrd";
+
+  copy_if_needed($srcCrd,$dstCrd);
+
+# ---------------------------------------------------------------------------
+# PRE files
+# ---------------------------------------------------------------------------
+  my $orbDir = "$solDir/ORB";
+  print "\n $orbDir \n";
+  print "\n $orbDir/$PRE$yyddd.$extPre \n";
+  print "\n $orbDir/$PRE$yyssss.$extPre \n";
+  if (-e "$orbDir/$PRE$yyddd.$extPre") {
+
+      copy_if_needed("$orbDir/$PRE$yyddd.$extPre",  "$dirORB/$PRE$yyssss.$extPre");
+      copy_if_needed("$orbDir/$PRE$yydddm1.$extPre","$dirORB/$PRE$yyssssm1.$extPre");
+      copy_if_needed("$orbDir/$PRE$yydddm2.$extPre","$dirORB/$PRE$yyssssm2.$extPre");
+
+      copy_if_needed("$orbDir/$PRE$yyddd.$extErp",  "$dirORB/$PRE$yyssss.$extErp");
+      copy_if_needed("$orbDir/$PRE$yydddm1.$extErp","$dirORB/$PRE$yyssssm1.$extErp");
+      copy_if_needed("$orbDir/$PRE$yydddm2.$extErp","$dirORB/$PRE$yyssssm2.$extErp");
+
+      copy_if_needed("$orbDir/$PRE$yyddd.$extErp",  "$dirORB/$PRE$yyddd.$extErp");
+      copy_if_needed("$orbDir/$PRE$yydddm1.$extErp","$dirORB/$PRE$yydddm1.$extErp");
+      copy_if_needed("$orbDir/$PRE$yydddm2.$extErp","$dirORB/$PRE$yydddm2.$extErp");
+
+  } elsif (-e "$orbDir/$PRE$yyssss.$extPre") {
+
+      copy_if_needed("$orbDir/$PRE$yyssss.$extPre",  "$dirORB/$PRE$yyssss.$extPre");
+      copy_if_needed("$orbDir/$PRE$yyssssm1.$extPre","$dirORB/$PRE$yyssssm1.$extPre");
+      copy_if_needed("$orbDir/$PRE$yyssssm2.$extPre","$dirORB/$PRE$yyssssm2.$extPre");
+
+      copy_if_needed("$orbDir/$PRE$yyssss.$extErp",  "$dirORB/$PRE$yyssss.$extErp");
+      copy_if_needed("$orbDir/$PRE$yyssssm1.$extErp","$dirORB/$PRE$yyssssm1.$extErp");
+      copy_if_needed("$orbDir/$PRE$yyssssm2.$extErp","$dirORB/$PRE$yyssssm2.$extErp");
+
+      copy_if_needed("$orbDir/$PRE$yyssss.$extErp",  "$dirORB/$PRE$yyddd.$extErp");
+      copy_if_needed("$orbDir/$PRE$yyssssm1.$extErp","$dirORB/$PRE$yydddm1.$extErp");
+      copy_if_needed("$orbDir/$PRE$yyssssm2.$extErp","$dirORB/$PRE$yydddm2.$extErp");
+
+  } else {
+      die "No PRE file found for $PRE";
+  }
+
+# ---------------------------------------------------------------------------
+# STD files
+# ---------------------------------------------------------------------------
+# Determine which date format STD uses
+my $suffix5 = substr($STD, -5);
+my $suffix6 = substr($STD, -6);
+
+my $std_base;
+my $src;
+my $dst;
+
+if ($suffix5 eq $yyddd) {
+
+    # format: yyddd
+    $std_base = substr($STD, 0, length($STD)-5);
+
+    $src = "$orbDir/$std_base$yyddd.$extStd";
+    $dst = "$dirORB/$std_base$yyddd.$extStd";
+
+    copy_if_needed($src,$dst);
+
+    $src = "$orbDir/$std_base$yydddm1.$extStd";
+    $dst = "$dirORB/$std_base$yydddm1.$extStd";
+
+    copy_if_needed($src,$dst);
+
+} elsif ($suffix6 eq $yyssss) {
+
+    # format: yyssss
+    $std_base = substr($STD, 0, length($STD)-6);
+
+    $src = "$orbDir/$std_base$yyssss.$extStd";
+    $dst = "$dirORB/$std_base$yyssss.$extStd";
+
+    copy_if_needed($src,$dst);
+
+    $src = "$orbDir/$std_base$yyssssm1.$extStd";
+    $dst = "$dirORB/$std_base$yyssssm1.$extStd";
+
+    copy_if_needed($src,$dst);
+
+} else {
+
+    die "Cannot determine STD date format for $STD";
+
+}
+
+}

@@ -1,0 +1,110 @@
+package INIT_VMF;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  INIT_VMF
+#
+# Purpose :  Initialization concerning VMF setup
+#
+# Programs:
+#
+# Author  :  S. Schaer
+# Created :  07-Oct-2010
+#
+# Changes :  08-Oct-2010/ss: msg2key statement added
+#            08-Oct-2010/ss: Consider ULT FLG file
+#            15-Oct-2010/ss: Take over VMF information if indicated
+#            18-Oct-2010/ss: Do not execute get_vmf.com in ULT mode
+#            16-Feb-2011 mf: Do not get latest VMF grid files in repro mode
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $yyyy,
+      $pcfFil, $taskId,
+      $dirOut, $dirGrd, $extGrd,
+      $camp_pth, $campaign) =
+    $bpe->getKeys('$YD+0', '$+0', '$Y+0',
+                  'PCFFIL', 'TASKID',
+                  'DIR_OUT', 'DIR_GRD', 'EXT_GRD',
+                  'CAMP_PTH','CAMPAIGN');
+
+# Set variables
+# -------------
+  $pcfFil = (split('\.',$pcfFil))[0];
+  my $grdFil = "${dirGrd}VMF${yyddd}.${extGrd}";
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+  my $ultFil = "${dirOut}../MSC/ULT${yyddd}.FLG";
+  my $repro  = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+# Remove GRD/FLG file
+# -------------------
+  unlink($grdFil);
+  unlink($flgFil);
+
+# Get latest VMF grid files
+# -------------------------
+##  system("$ENV{AUTO}/get_vmf.com");
+  system("$ENV{AUTO}/get_vmf.com") unless -e $ultFil or $repro;
+
+# Copy daily VMF GRD file into campaign
+# -------------------------------------
+  system("$ENV{AUTO}/copyGrid.pl $dirOut/../ $ddd $yyyy VMF -oneFile");
+
+# Check whether VMF GRD file available
+# ------------------------------------
+  if (-s $grdFil) {
+    prtMess($bpe,"VMF initialization: $grdFil created");
+  } else {
+    prtMess($bpe,"VMF initialization: $grdFil not created");
+  }
+  my $flgLin = -e $flgFil ? `cat $flgFil` : "VMF";
+  chomp($flgLin);
+  prtMess($bpe,"VMF initialization: ${flgLin}");
+  if ($flgLin ne "VMF") {
+    prtMess($bpe,"VMF initialization: $flgFil found (${flgLin})");
+    msg2key("BPE","INIT_VMF: $pcfFil $taskId${yyddd}0: $flgFil found (${flgLin}): VMF info unavailable?");
+##    exit 0 if $pcfFil eq "IGSFIN1D";
+  }
+##  `echo 'GMF' > $flgFil` if $yyddd eq "10274";
+##  `echo 'GMF' > $flgFil` if $yyddd eq "10275";
+  `echo 'GMF' > $flgFil` if $pcfFil eq "IGSRAPID";
+
+# Take over VMF information if indicated
+# --------------------------------------
+  my $grdInp = "";
+  my $flgInp = "";
+  my $numDif = 0;
+
+  if ($pcfFil eq "CLKRAPID") {
+    $grdInp = "$CDIR_RAP/GRD/VMF${yyddd}.${extGrd}";
+    $flgInp = "$CDIR_RAP/MSC/TRP_${yyddd}.FLG";
+    $numDif = `diff $grdInp $grdFil | wc -l`+0 if -s $grdInp;
+    if (-e $flgInp) { unlink($grdFil); copy($flgInp,$flgFil) }
+    else            { copy($grdInp,$grdFil); unlink($flgFil) }
+  }
+
+  if ($pcfFil eq "CLKFINAL") {
+    $grdInp = "$CDIR_FIN/GRD/VMF${yyddd}.${extGrd}";
+    $flgInp = "$CDIR_FIN/MSC/TRP_${yyddd}.FLG";
+    $numDif = `diff $grdInp $grdFil | wc -l`+0 if -s $grdInp;
+    if (-e $flgInp) { unlink($grdFil); copy($flgInp,$flgFil) }
+    else            { copy($grdInp,$grdFil); unlink($flgFil) }
+  }
+
+  msg2key("BPE","INIT_VMF: $pcfFil $taskId${yyddd}0: Used VMF info different from latest VMF info.") if $numDif>0;
+
+}
+

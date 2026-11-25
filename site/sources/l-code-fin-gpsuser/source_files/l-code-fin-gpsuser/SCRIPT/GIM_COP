@@ -1,0 +1,197 @@
+package GIM_COP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GIM_COP
+#
+# Purpose :
+#
+# Programs:
+#
+# Author  :  A. Villiger
+# Created :  01-Jul-2016
+#
+# Changes :  26-Oct-2016 ss: Ignore observation files indicated as bad
+#            22-Mar-2019 ss: Unlink ALIC0770.19[OD]*
+#            02-Jan-2020 ST: Unlink YAR23640.19[OD]*
+#            03-Jan-2020 ST: Unlink YAR23650.19[OD]*
+#            06-Jan-2020 DA: Unlink YAR20030.20[OD]*
+#            14-Feb-2020 av: Unlink CEDU/BOGO for doy 041 and year 2020
+#            08-Mar-2020 DA: Unlink SFER0640.20[OD]
+#            09-Mar-2020 DA: Unlink SFER0650.20[OD]
+#            01-Jun-2020 ST: Unlink RIO21490.20[OD]*
+#            03-Jun-2020 ST: Unlink OHI31510.20[OD]*
+#            13-Jul-2020 RD/PF: $X/GEN->PTH_SATCRUX
+#            02-Oct-2020 SS: Unlink BRMU2720.20[OD]*
+#            26-Jan-2021 SS: Corrected PTH_SATCRUX (from DIR_SATCRUX)
+#            07-Jun-2021 ST: Unlink ANKR1520.21[OD]*
+#            17-Aug-2021 AV: Support new BSW naming scheme
+#            19-Oct-2021 ST: Unlink OUS2 DoY 288 to 292 year 2021
+#            30-Mar-2022 AV: Use copySkl
+#            28-Sep-2022 SS: New naming scheme now works with BADyyddd.FLG
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ( $yyddd ,$yyssss,$yyyy, $yy  ,$ddd, $ssss, $mjd,
+       $crdInf,$psdInf,$v_mgex,$repro,
+       $dirOsb,$dirRxo,$dirSmt,$dirCzh,$dirOut,$dirCrd,$dirFix,
+       $extOsb,$extRxo,$extSmt,$extCzh,$extOut,$extCrd,$extFix,
+       $dirIon,$dirTrp,$dirClk,$dirRes,$dirNeq,$dirRxc,
+       $extIon,$extTrp,$extClk,$extRes,$extNeq,$extRxc,$extPsd,
+       $dirCrx, $pthSkl,
+       $extCrx,) =
+    $bpe->getKeys( '$YD+0'  ,'$YSS+0' ,'$Y+0' ,'$Y'   ,'$+0'    ,'$S+0','$JD+0',
+                   'V_CRDINF','V_PSDINF','V_MGEX','V_REPRO',
+                   'DIR_OSB','DIR_RXO','DIR_SMT','DIR_CZH','DIR_OUT','DIR_CRD','DIR_FIX',
+                   'EXT_OSB','EXT_RXO','EXT_SMT','EXT_CZH','EXT_OUT','EXT_CRD','EXT_FIX',
+                   'DIR_ION','DIR_TRP','DIR_CLK','DIR_RES','DIR_NEQ','DIR_RXC',
+                   'EXT_ION','EXT_TRP','EXT_CLK','EXT_RES','EXT_NEQ','EXT_RXC','EXT_PSD',
+                   'PTH_SATCRUX','PTH_SINEXIN',
+                   'EXT_SATCRUX');
+
+# Copy Ref
+# --------
+  my $psdFil = $psdInf eq ""? "":"${psdInf}.${extPsd}";
+  system("$ENV{AUTO}/copyRef.pl ${dirOsb}.. $crdInf $psdFil");
+
+  print "Execute $ENV{AUTO}/copySkl.pl IGSIONO $pthSkl\n";
+  system("$ENV{AUTO}/copySkl.pl IGSIONO $pthSkl");
+
+# Create SAT_INF copy
+# -------------------
+  my $satorg = "${dirCrx}/SAT_${yyyy}.${extCrx}";
+  my $satout = "${dirCrx}/ION_${yyyy}.${extCrx}";
+  system("perl $ENV{AUTO}/cop_crx.com $satorg $satout");
+
+# Copy OSB
+# --------
+  copyfile("${dirOsb}/CODE.${extOsb}","${dirOsb}APR$yyddd.${extOsb}");
+
+# Copy RINEX 2 and/or 3 Data
+# --------------------------
+  if($v_mgex eq "Y"){
+    system("/gpfs/homefs/aiub/villiger/work/put_igsdata.com $yy $ddd -o $dirRxo ION -r3 --bsw");
+  }elsif($repro){
+    system("$ENV{AUTO}/put_igsdata.com $yy $ddd -o $dirRxo \"-or %ION %REP\"");
+  }else{
+    system("$ENV{AUTO}/put_igsdata.com $yy $ddd -o $dirRxo ION -r --bsw");
+  }
+# Exclusion list (according to BADyyddd.FLG):
+##  unlink("$dirRxo/BOR1${ssss}.${yy}O") if $mjd >= 57672 && $mjd <= 57685;
+##  unlink("$dirRxo/HYDE${ssss}.${yy}O") if $mjd == 57676 || $mjd == 57683;
+  unlink(glob("${dirRxo}RECF*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=58005 && $mjd<=58005;
+  unlink(glob("${dirRxo}UFPR*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=58017 && $mjd<=58017;;
+  unlink(glob("${dirRxo}WES2*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=58190 && $mjd<=58190;;
+  unlink(glob("${dirRxo}MBAR*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=58355 ;
+  unlink(glob("${dirRxo}ABMF*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=58360 ;
+  unlink(glob("${dirRxo}NOVM*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=58442 ;
+  unlink(glob("${dirRxo}USUD*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58487 ;
+  unlink(glob("${dirRxo}ALIC*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58560 ;
+  unlink(glob("${dirRxo}YAR2*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58847 ;
+  unlink(glob("${dirRxo}YAR2*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58848 ; # 2019 135
+  unlink(glob("${dirRxo}YAR2*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58851 ; # 2020 003
+  unlink(glob("${dirRxo}CEDU*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58861 ; # 2020 013
+  unlink(glob("${dirRxo}CEDU*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58889 ; # 2020 041
+  unlink(glob("${dirRxo}BOGO*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58889 ; # 2020 041
+  unlink(glob("${dirRxo}SFER*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58912 ; # 2020 064
+  unlink(glob("${dirRxo}SFER*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58913 ; # 2020 065
+  unlink(glob("${dirRxo}RIO2*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58997 ; # 2020 149
+  unlink(glob("${dirRxo}OHI3*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==58999 ; # 2020 151
+  unlink(glob("${dirRxo}BRMU*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==59120 ; # 2020 272
+  unlink(glob("${dirRxo}TIXI*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==59276 ; # 2021 062
+  unlink(glob("${dirRxo}OPMT*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==59296 ; # 2021 082
+  unlink(glob("${dirRxo}CEDU*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==59296 ; # 2021 082
+  unlink(glob("${dirRxo}ANKR*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=59366 && $mjd<=59370; # 2021 152 to 156
+  unlink(glob("${dirRxo}ANKR*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=59379 && $mjd<=59380; # 2021 165 to 166
+  unlink(glob("${dirRxo}OUS2*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=59502 && $mjd<=59506; # 2021 288 to 292
+  unlink(glob("${dirRxo}CNMR*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==59628 ; # 2022 049
+##  unlink(glob("${dirRxo}JOG2*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd>=59728 && $mjd<=59739; # 2022 149 to 160
+##  unlink(glob("${dirRxo}IRKJ*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==59732 ; # 2022 153
+##  unlink(glob("${dirRxo}ULAB*${ssss}.{${yy}[OD],RXO,rxo}*")) if $mjd==59733 ; # 2022 154
+
+
+# Ignore/remove observation files indicated as bad
+# ------------------------------------------------
+  my $badFil = "${dirOut}../MSC/BAD${yyddd}.FLG";
+  if (-s $badFil) {
+    my @lin = `cat $badFil`;
+    chomp(@lin);
+    foreach (@lin) {
+      my $sta = substr((split(" ",$_))[0],0,4);
+      my $fil = "${dirRxo}${sta}${ssss}.${yy}O";
+      if (-s $fil) {
+        print "${sta}${ssss}.${yy}O ignored/removed due to $badFil: $fil\n";
+        unlink($fil);
+      }
+      my $fil = (glob("${dirRxo}${sta}?????_${yyyy}${ssss}.RXO"))[0];
+      if (-s $fil) {
+        print "${sta}${ssss}.${yy}O ignored/removed due to $badFil: $fil\n";
+        unlink($fil);
+      }
+    }
+  }
+
+# Correct wrong RINEX entries
+# ---------------------------
+  system("$ENV{AUTO}/rinex.com $dirRxo $ddd");
+
+# Remove lock files
+# -----------------
+  unlink(glob "${dirOut}*.J");
+  unlink(glob "${dirOut}*.J_lk");
+
+# Remove protocol file
+# --------------------
+  unlink(glob "$dirOut/GIMXTR.${yy}_${ddd}");
+  unlink(glob "$dirOut/RESCHK.${yy}_${ddd}");
+  unlink(glob "$dirOut/RNX$yyssss.ERR");
+
+# Remove observation files
+# ------------------------
+  unlink(glob "${dirSmt}/????${ssss}.${extSmt}");
+  unlink(glob "${dirCzh}/????${ssss}.???");
+  unlink(glob "${dirCzh}/../OBS_BAD/????${ssss}.???");
+  unlink(glob "${dirCzh}/../OBS_LEO/????${ssss}.???");
+#
+  unlink(glob "$dirOut/../TMP/????${ssss}.???");
+
+# Remove special SATMRK OUT file
+# ------------------------------
+  unlink(glob "$dirOut/CLK_CHK.${extOut}");
+
+# Remove BPE-files
+# --------------------
+  unlink(glob "$dirOut/?????*.BPE");
+
+# Remove temporary files
+# ----------------------
+  unlink(glob "${dirIon}/???INP.${extIon}");
+  unlink(glob "${dirOsb}/???INP.${extOsb}");
+
+  unlink(glob "${dirTrp}/CLK0??.${extTrp}");
+  unlink(glob "${dirClk}/CLK0??.${extClk}");
+  unlink(glob "${dirOsb}/CLK0??.${extOsb}");
+
+  unlink(glob "${dirOsb}/CLK0??.F");
+  unlink(glob "${dirRxc}/CLK0??.${extRxc}");
+  unlink(glob "${dirOut}/CLK0??.${extOut}");
+
+  unlink(glob "${dirRes}/CLK0??.${extRes}");
+  unlink(glob "${dirNeq}/CLK0??.${extNeq}");
+  unlink(glob "${dirCrd}/CLK0??.${extCrd}");
+
+  unlink(glob "${dirFix}/LEO.${extFix}");
+  unlink(glob "${dirOsb}/OFF0??.${extOsb}");
+}

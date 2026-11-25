@@ -1,0 +1,51 @@
+package HRX_FTP;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  HRX_FTP
+#
+# Purpose :  Start get_nrtdata.com for list of data centers
+#
+# Programs:  -
+#
+# Author  :  S. Schaer
+#
+# Created :  29-Dec-2003
+#
+# Changes :  27-Apr-2004/ss: Make use of ultra.com
+#            05-Jan-2005/ss: Renamed ultra.com
+#            31-May-2012 RD: No datapool statistics
+#            29-Jan-2014 SL: Download only the last hour
+#            15-Dec-2014 AV: Change download script, fast option
+#            17-Mar-2015 AV: add -min option to get_obsdata.com
+#            15-Jun-2020 AV: Skip if not in campaign IGSRAPID
+# =============================================================================
+
+use strict;
+use warnings;
+
+# Lcoal packages
+use lib "$ENV{BPE}";
+use bpe_util qw(prtMess);
+
+sub run {
+  my $bpe = shift;
+
+  # Get variables
+# -------------
+  my ($campaign) = $bpe->getKeys('CAMPAIGN');
+
+# Skip download if not IGSRAPID campaing is used
+# ----------------------------------------------
+  return unless $campaign =~ /IGSRAPID/;
+
+# Run script
+# ----------
+  &prtMess($bpe,"DOWNLOAD OF HOURLY OBSERVATION DATA STARTED");
+#  system("$ENV{AUTO}/get_nrtdata.com -wait -nostat -f");
+  system("$ENV{AUTO}/get_obsdata.com -1 -t=hourly -m=IGS -fast -min=5 -nt=8 -nostat");
+}
+
+# =============================================================================
+
+__END__

@@ -1,0 +1,311 @@
+package RCLK_PRC;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  RCLK_PRC
+#
+# Purpose :  Create CLKRAPID BPE processing summary file
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005
+#
+# Changes :  25-Mar-2015 AS: MPRXTR-satellite statistics added
+#            05-Aug-2015 SS: Renamed processing summary file
+#            19-May-2016 AV: Modified bias summaries
+#            31-May-2016 SS/AV: Added CBG solution
+#            07-Jun-2016 RD: Add version with compatible attitude modelling
+#            10-Oct-2016 RD: Remove version with compatible attitude modelling
+#            15-Feb-2019 RD: Sort the RINEX messages (use of get_warn.pl)
+#            03-Sep-2020 AV: Add rclk_chk.com (send msg2key)
+#            07-Oct-2020 AV: Do not use "\%" in sprintf statement
+#            02-Sep-2021 RD/ST: Add printing of BPE server variables
+#            23-Oct-2023 EB: Short protocol generation and copy long/short to www
+#            25-Sep-2024 RD: Include OBSXTR files into the PRC file
+#            04-Apr-2025 EB: protocol call -q modified
+#            12-May-2025 EB: short protocol generation after rclk_chk
+#
+# ============================================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yy,  $ssss,  $yyssss, $yyddd, $ddd,
+      $V_K,  $V_E,  $V_B,  $V_C,  $V_H,  $V_I,  $V_U,  $V_Q,  $u,
+      $camp_pth, $campaign, $pthPcf, $pcfNam, $script,
+      $dirOut,   $dirSme,   $dirSum,   $dirLst,   $dirRxc,   $dirClk,
+      $extOut,   $extSme,   $extSum,   $extLst,   $extRxc,   $extClk) =
+    $bpe->getKeys(
+      '$Y', '$S+0', '$YSS+0', '$YD+0', '$+0',
+      'V_K', 'V_E', 'V_B', 'V_C', 'V_H', 'V_I', 'V_U', 'V_Q', 'U',
+      'CAMP_PTH','CAMPAIGN','PTH_PCF', 'PCFFIL','SCRIPT',
+      'DIR_OUT', 'DIR_SME', 'DIR_SUM', 'DIR_LST', 'DIR_RXC', 'DIR_CLK',
+      'EXT_OUT', 'EXT_SME', 'EXT_SUM', 'EXT_LST', 'EXT_RXC', 'EXT_CLK');
+
+# Check whether reprocessing or not
+# ---------------------------------
+  my $repro = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+# Initialize processing summary file
+# ----------------------------------
+  my $prcFil = "${dirOut}CLK${yyssss}.PRC";
+  unlink $prcFil;
+
+  if ($repro) {
+    appFile("CLOCK REPROCESSING BPE PROCESSING SUMMARY FOR YEAR-SESSION $yy-$ssss",
+      1,"",$prcFil,0);
+  } else {
+    appFile("CLOCK RAPID BPE PROCESSING SUMMARY FOR YEAR-SESSION $yy-$ssss",
+      1,"",$prcFil,0);
+
+    my $inp = "${dirClk}${V_U}_${yyssss}.${extClk}";
+    my $out = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/${V_U}_${yyddd}.${extClk}";
+    print "-$inp-\n";
+    print "-$out-\n";
+    copyfile($inp,$out);
+  }
+
+# Report the BPE settings
+# -----------------------
+  open(PRC,">> $prcFil");
+  print PRC "Summary file generated at ",timprt()," by $script\n\n";
+
+  $pthPcf =~ s/$$bpe{U}/$$bpe{U_OLD}/;
+  print "${pthPcf}/${pcfNam}\n";
+  print PRC reportBPEvariables($bpe,"${pthPcf}/${pcfNam}");
+  print PRC "\n\n";
+
+  close PRC;
+
+# Append protocol files
+# ---------------------
+# - Orbit reconstruction
+  my $sumFil = "${dirLst}ORB${yyssss}.${extLst}";
+  if ( $repro ) {
+    appFile("PART 0: RECONSTRUCTION OF THE STANDARD ORBIT",2,$sumFil,$prcFil,1);
+  }
+
+# - Single-point-positioning summary
+  $sumFil = "${dirOut}CODXTR.${yy}_${ssss}";
+  appFile("PART 1: SINGLE-POINT-POSITIONING SUMMARY",2,$sumFil,$prcFil,1);
+
+# - Code weighting summary
+  $sumFil = "${dirOut}${V_I}R${yy}${ssss}.${extOut}";
+  appFile("PART 2: WEIGHTING OF THE CODE OBSERVATIONS",2,$sumFil,$prcFil,1);
+
+# - PPP preprocessing summary
+  $sumFil = "${dirSum}PPP${yyssss}.${extSum}";
+  appFile("PART 3: PPP SUMMARY TO COMPLETE CRD+TRP FILES",2,$sumFil,$prcFil,0);
+
+# - Code screening summary
+  $sumFil = "${dirSum}${V_B}G${yyssss}.${extSum}";
+  appFile("PART 4: SCREENING OF THE CODE OBSERVATIONS",1,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirSum}${V_B}_${yyssss}.${extSum}";
+  appFile("",2,$sumFil,$prcFil,1);
+
+# - Compute the interfrequency code biases
+#  sumFil = "${dirSum}${V_C}S${yyssss}.${extSum}";
+#  unlink $sumFil;
+#  appFile("PART 5.1: INTER-SATELLITE/P1-C1 CODE BIASES",1,$sumFil,$prcFil,1);
+
+#  $sumFil = "${dirSum}${V_C}_${yyssss}.${extSum}";
+#  appFile("PART 5.1: OBSERVABLE-SPECIFIC CODE BIASES",1,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirSum}${V_C}S${yyssss}.${extSum}";
+  appFile("PART 5.1: OBSERVABLE-SPECIFIC CODE BIASES",2,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirSum}${V_C}F${yyssss}.${extSum}";
+  appFile("PART 5.2: FREQUENCY-DEPENDANT CODE BIASES",2,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirSum}${V_C}G${yyssss}.${extSum}";
+  appFile("PART 5.3: NON-GLONASS CODE BIASES",2,$sumFil,$prcFil,1);
+
+  # sumFil = "${dirSum}${V_C}S${yyssss}.${extSum}";
+  # unlink $sumFil;
+  # appFile("PART 5.1: INTER-SATELLITE/P1-C1 CODE BIASES",1,$sumFil,$prcFil,1);
+
+  # $sumFil = "${dirSum}${V_C}G${yyssss}.${extSum}";
+  # appFile("PART 5.2: INTER-FREQUENCY/P1-C1 CODE BIASES",2,$sumFil,$prcFil,1);
+
+  # $sumFil = "${dirSum}TD_${yyssss}.${extSum}";
+  # appFile("PART 5.3: DCB EXTRACTION SUMMARY",2,$sumFil,$prcFil,1);
+
+  # $sumFil = "${dirSum}TQ_${yyssss}.${extSum}";
+  # appFile("PART 5.4: FREQ EXTRACTION SUMMARY",2,$sumFil,$prcFil,1);
+
+# - Phase preprocessing summary
+  $sumFil = "${dirOut}MPRXTR.${yy}_${ssss}";
+  appFile("PART 6: PHASE PREPROCESSING SUMMARY",2,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirSum}MPS${yyssss}.${extSum}";
+  appFile("",2,$sumFil,$prcFil,1);
+
+# - Residual screening summary
+  $sumFil = "${dirSum}${V_H}G${yyssss}.${extSum}";
+  appFile("PART 7: CODE+PHASE RESIDUAL SCREENING SUMMARY",2,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirOut}/OBX_EDT_$yyssss.${extOut}";
+  appFile("",2,$sumFil,$prcFil,1);
+  $sumFil = "${dirSum}/OBX_EDT_$yyssss.${extSum}";
+  appFile("",2,$sumFil,$prcFil,1);
+
+  # Amiguity statistics
+  # -------------------
+    $sumFil = "${dirOut}/OBX_AMB_$yyssss.${extOut}";
+    appFile("PART 8: Satellite-wise ambiguity statistics",2,$sumFil,$prcFil,1);
+    $sumFil = "${dirSum}/OBX_AMB_$yyssss.${extSum}";
+    appFile("",2,$sumFil,$prcFil,1);
+
+# - Cluster solution summary
+  $sumFil = "${dirSum}${V_U}G${yyssss}.${extSum}";
+  appFile("PART 9: CODE+PHASE CLUSTER SOLUTION SUMMARY",1,$sumFil,$prcFil,1);
+
+  $sumFil = "${dirSum}${V_U}A${yyssss}.${extSum}";
+  appFile("",2,$sumFil,$prcFil,1);
+
+# - CODSPP test output for satellite clocks
+  $sumFil = "${dirSme}${V_U}_${yyssss}.${extSme}";
+  appFile("PART 10.1: CODSPP test for rapid solution (lin. clock assumed): " .
+          "${V_U}_${yyssss}",2,$sumFil,$prcFil,0);
+
+  $sumFil = "${dirSme}${V_U}P${yyssss}.${extSme}";
+  appFile("PART 10.2: CODSPP test for clock predictions (lin. clock assumed): " .
+          "${V_U}P${yyssss}",2,$sumFil,$prcFil,0);
+
+# - Count satellite clock records in clock RINEX files
+  my $tmp = "$u/WORK/rclk_prc.tmp";
+  unlink $tmp;
+
+  countClk("$dirRxc/${V_E}_${yyssss}.$extRxc",$tmp);
+  countClk("$dirRxc/${V_H}_${yyssss}.$extRxc",$tmp,288);
+  countClk("$dirRxc/${V_U}_${yyssss}.$extRxc",$tmp,288);
+  countClk("$dirRxc/${V_Q}_${yyssss}.$extRxc",$tmp);
+
+  appFile("PART 10: NUMBER OF SATELLITE CLOCK RECORDS IN THE CLOCK RINEX FILES\n".
+          "         ${V_E}_: from CLKEST for data screening             ( 30s)\n".
+          "         ${V_H}_: from residual screening GPSEST             (300s)\n".
+          "         ${V_U}_: GPS+GLONASS from GPSEST clusters           (300s)\n".
+          "         ${V_Q}_: GPS+GLONASS densification by CLKEST        ( 30s)\n",
+          2,$tmp,$prcFil,1);
+  unlink $tmp;
+
+# Reorder the RNX messages
+# ------------------------
+  system("perl $ENV{AUTO}/get_warn.pl ${dirOut}/RNXERR.${yy}_${ssss} ${dirOut}/RNXERR.${yy}_${ssss}");
+
+
+# Define files to be displayed
+# ----------------------------
+  my $alles =  ($repro) ? "${dirOut}/CLKREPRO.${yy}_${ssss}" :
+                          "${dirOut}/RCLKGNSS.${yy}_${ssss}";
+
+  my @filelist =  (
+                "${dirOut}/RNXERR.${yy}_${ssss}",
+                "${dirOut}/SMT${yyssss}.SMC",
+                "${dirOut}/CLK${yyssss}.PRC",
+                "${dirOut}/${V_U}_${yyssss}.OUT",
+                "${dirOut}/RESCHK.${yy}_${ssss}",
+                "${dirSum}/${V_H}_${yyssss}.SUM",
+                "${dirSum}/${V_U}_${yyssss}.SUM",
+                "${dirOut}/${V_Q}C${yyssss}.PRC",
+               ) ;
+   unlink($alles);
+   map { appFile($_,2,$_,$alles,0) } (@filelist);
+
+# ==============================================================================
+# Count satellite clock records in clock RINEX files
+# ==============================================================================
+  sub countClk(){
+    use File::Basename;
+
+    my $clkFil = shift;
+    my $tmpFil = shift;
+    my $numEpo = shift || 2880;
+
+    # Count the satellites
+    my %clkNum = ();
+
+    die("Clock RINEX file $clkFil is missing.\n") unless -s $clkFil;
+
+    open (CLK,"< $clkFil");
+    while (<CLK>) {
+      unless (/^AS /) { next }
+      my $sat = substr($_,3,3);
+
+      $clkNum{$sat} = 0 unless defined $clkNum{$sat};
+
+      $clkNum{$sat}++;
+    }
+    close CLK;
+
+    # Read the old file into a buffer
+    my @line = ();
+    my $old = (-s $tmpFil);
+    if ($old) {
+      open (OLD,"< $tmpFil");
+      while (my $lin = <OLD>) {
+        chomp ($lin);
+        push @line,$lin;
+      }
+      close OLD;
+    }
+
+    # A new header for the table
+    unless ($old) {
+      push @line, sprintf " Sat%21s \n",basename($clkFil);
+      push @line, sprintf "--------------------------\n";
+
+      foreach my $sat (sort keys %clkNum) {
+        push @line, sprintf " %s%12.0f%9.2f%s\n",
+             $sat,$clkNum{$sat},$clkNum{$sat}/$numEpo*100,'%';
+      }
+    # Extent the header for the table
+    } else {
+      $line[0] .= sprintf "%20s \n",basename($clkFil);
+      $line[1] .= sprintf "---------------------\n";
+
+      for (my $ii=2; $ii<=$#line; $ii++) {
+        my $sat = substr($line[$ii],1,3);
+        $line[$ii] .= sprintf "%11.0f%9.2f%s\n",
+                      $clkNum{$sat},$clkNum{$sat}/$numEpo*100,'%';
+      }
+    }
+
+    # Write the new file
+    open (NEW,"> $tmpFil");
+    print NEW @line;
+    close NEW;
+    return;
+  }
+
+# Run rclk_chk.com
+# -----------------
+  my $chk = system("$ENV{AUTO}/rclk_chk.com $ddd");
+
+# Create short protocol file
+# --------------------------
+  my $prcFilshort = "${dirOut}RCLKGNSS_SHORT.TXT";
+  system("perl $ENV{AUTO}/typ_rclk.pl ${ddd} -q > $prcFilshort");
+
+# Copy file to www
+# ----------------
+  copyfile("$alles","${PATH_WWW}code/rclkgnss.txt");
+  copyfile("${dirOut}RCLKGNSS_SHORT.TXT","${PATH_WWW}code/rclkgnss_short.txt");
+
+# finish or die in case of an error of rclk_chk
+# ---------------------------------------------
+  if($chk) {
+    &prtMess($bpe,"rclk_chk.com failed!");
+    die("rclk_chk.com failed!\n");
+  }
+}

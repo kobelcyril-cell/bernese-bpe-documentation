@@ -1,0 +1,102 @@
+package MAKE_UIF;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  MAKE_UIF
+#
+# Purpose :  Make ultra-rapid ionosphere file (UIF)
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  24-Aug-2012
+#
+# Changes :  27-Aug-2012/ss: Use copyaftp
+#            07-Sep-2012/ss: Stop when copy/copyaftp failed
+#            22-Oct-2014/ss: Additional checks added
+#            06-Nov-2014/ss: Increased time resolution from 2 to 1 hour
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#            08-Mar-2022 AV: Save disk: yearly subdirectory
+#            22-Nov-2022 AV: Add COD0OPSULT.ION_U
+#            28-Nov-2022 AV: Change upload from CODE_TEST to CODE
+#            01-Feb-2024 SS: Executed if date not before yesterday
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyyy, $yydddp1, $yydddp2,
+      $mjd, $e, $f, $sav, $dis,
+      $dirIon, $dirOut) =
+    $bpe->getKeys('$YD+0', '$Y+0', '$YD+1', '$YD+2',
+                  '$JD+0', 'V_E', 'V_F', 'V_SAV', 'V_DIS',
+                  'DIR_ION', 'DIR_OUT');
+
+# Set today's MJD
+# ---------------
+  my $mjd0 = gps_date("-doy 0 -o %IJ");
+  if ($mjd-$mjd0>=-1) {
+
+# Create ultra-rapid ionosphere file
+# ----------------------------------
+    my $uifFil = "${dirIon}IGSULTRA.ION";
+    my $ionFil = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/ATM/RA_${yyddd}.ION";
+    my $numLin = `cat $ionFil | wc -l`+0;
+##    my $numMap = 13;
+    my $numMap = 25;
+    my $ionLin = $numMap*285;
+    my $ionCut = ($numMap-1)*283;
+    die "$ionFil with $numLin lines\n" if $numLin != $ionLin;
+    if (-s $ionFil) { copy($ionFil,$uifFil) }
+    else            { die "$ionFil not found\n" }
+
+    $ionFil = "${dirIon}${e}${yydddp1}.ION";
+    $numLin = `cat $ionFil | wc -l`+0;
+    $ionLin = $numMap*283;
+    die "$ionFil with $numLin lines\n" if $numLin != $ionLin;
+    if (-s $ionFil) { system("tail -$ionCut $ionFil >> $uifFil") }
+    else            { die "$ionFil not found\n" }
+    $ionFil = "${dirIon}${f}${yydddp2}.ION";
+    $numLin = `cat $ionFil | wc -l`+0;
+    die "$ionFil with $numLin lines\n" if $numLin != $ionLin;
+    if (-s $ionFil) { system("tail -$ionCut $ionFil >> $uifFil") }
+    else            { die "$ionFil not found\n" }
+    prtMess($bpe,"UIF CREATED");
+
+# Save ultra-rapid ionosphere file
+# --------------------------------
+    if ($sav eq "Y") {
+      copy($uifFil,"$PATH_SAV$CAMP_SAVRAP/${yyyy}/ATM/IGSULTRA.ION") or die "copy failed with $uifFil\n";
+      prtMess($bpe,"UIF SAVED");
+    } else {
+      prtMess($bpe,"UIF NOT SAVED");
+    }
+
+# Distribute ultra-rapid ionosphere file
+# --------------------------------------
+    if ($sav eq "Y") {
+      copyaftp($uifFil,"CODE/COD.ION_U") or die "copyaftp failed with $uifFil\n";
+      copyaftp($uifFil,"CODE/COD0OPSULT.ION") or die "copyaftp failed with $uifFil\n";
+      prtMess($bpe,"UIF DISTRIBUTED");
+    } else {
+      prtMess($bpe,"UIF NOT DISTRIBUTED");
+    }
+
+  } else {
+    prtMess($bpe,"UIF NOT CREATED");
+  }
+
+}

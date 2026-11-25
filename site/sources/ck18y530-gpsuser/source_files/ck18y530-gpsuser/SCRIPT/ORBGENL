@@ -1,0 +1,42 @@
+package ORBGEN;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ORBGEN
+#
+# Purpose :  Execute ORBGEN
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+#            04-Sep-2018 DA: Set max. pot. deg. via V_POTDEG
+#            17-Jan-2023 DA: Corrected setting of max. pot. deg.
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(setUserVar);
+
+sub run {
+    my $bpe = shift;
+
+    # Get variables
+    # -------------
+    my ($V_POTDEG) = $bpe->getKeys('V_POTDEG');
+
+    # Set max. degree for Earth potential (if V_POTDEG set)
+    # -----------------------------------------------------
+    if ($V_POTDEG) {
+        print "Set max. potential degree to $V_POTDEG\n";
+        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","MXPOTDEG",$V_POTDEG);
+    }
+
+    # Run program
+    # -----------
+    my $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+}

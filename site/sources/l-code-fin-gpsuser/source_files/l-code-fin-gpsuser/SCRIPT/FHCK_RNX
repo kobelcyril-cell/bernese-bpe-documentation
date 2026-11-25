@@ -1,0 +1,203 @@
+package FHCK_RNX;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  FHCK_RNX
+#
+# Purpose :  Prepare and copy files to campaign
+#
+# Programs:
+#
+# Author  :  H. Bock
+# Created :  18-Mar-2008
+#
+# Changes :  10-Jul-2013 HB: Print message during waiting
+#            05-Oct-2016 AV: Copy HRX list file (IGS14 test mode)
+#            11-Oct-2016 AS: prepered for reprocessing, creation of hdryyddd.lst
+#                            is done indepentaly in case of repro
+#            21-Feb-2017 AV: Redownload HRT if indicated, deactivated
+#            03-Sep-2018 AV: Goto 24 UT epoch (if < 18-224)
+#            11-Sep-2018 AV: Copy next day to RAW/DDD
+#            03-May-2019 AV: Use RINEX3 data
+#            25-Aug-2022 AV: Change wait file location for IGS20
+#            19-May-2026 SS: Corrected and refined waiting loop
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+
+use lib "$ENV{BPE}";
+use bpe_util;
+use File::Basename;
+
+
+sub run {
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my $CAMP_PTH = $$bpe{CAMP_PTH};
+  my $CAMPAIGN = $$bpe{CAMPAIGN};
+  my ($yyyy, $yy, $ddd, $yyssss,
+      $yyy1, $dd1,
+      $repro,$ut24, $crdInf,
+      $rnxPth,$param2,$param3) =
+    $bpe->getKeys('$Y+0','$Y', '$+0','$YSS+0',
+                  '$Y+1','$+1',
+                  'V_REPRO','V_UT24','V_CRDINF',
+                  'DIR_RXO','PARAM2','PARAM3');
+
+  my $y1 = substr($yyy1,2,2);
+
+# Flag indicating redownload 5sec data
+# -------------------------------------
+  my $mrgFlg = "${CAMP_PTH}${CAMPAIGN}/MSC/MERGE.FLG";
+
+# Filename to wait for
+# --------------------
+  my $waitFile = "${CAMP_PTH}${CAMPAIGN}/OUT/HRX${yy}${ddd}.LST";
+  if($crdInf =~ /IGS20/){
+     $waitFile = "${PATH_FCLK}${CAMP_FCLK}/OUT/HRX${yy}${ddd}.LST";
+  };
+
+# The file must be older than (sec.)
+# ----------------------------------
+  my $olderThan = 120;
+
+# Length of the waiting loop
+# --------------------------
+  my $waiting =  60;
+  my $waitCnt = 180;
+
+# The waiting loop
+# ----------------
+  unless ($repro) {
+    until (-e $waitFile && (stat($waitFile))[9] + $olderThan <= time) {
+      prtMess($bpe,"$waitFile not yet available from l_code: \$AUTO/concat_rx3.com (CONCAT.PCF)");
+      print        "$waitFile not yet available from l_code: \$AUTO/concat_rx3.com (CONCAT.PCF)\n";
+      die "Waiting loop aborted to force manual interaction!\n" if $waitCnt==0;
+      $waitCnt--;
+      sleep $waiting;
+    }
+  }
+
+# Redownload data if indicated
+# ----------------------------
+  if( -e $mrgFlg ){
+    my $getHrt = 0;
+    open INP, "< $mrgFlg";
+    while (<INP>){$getHrt = 1 if /${yyssss}/};
+    close INP;
+    # if($getHrt == 1){
+    #   prtMess($bpe,"MERGE FLAG FOUND: RESTART HRT");
+    #   system("$ENV{AUTO}/get_obsdata.com ${yy}-${ddd}  -t=highrate -m=IGS -nt=2 -noxml");
+    #   system("$ENV{AUTO}/concat_rnx.com -d=${ddd}");
+    # }
+    unlink $mrgFlg;
+  }
+
+# Get 5-second RINEX files
+# ------------------------
+#  system("$ENV{AUTO}/put_igsdata.com $yy $ddd -o $rnxPth HRD");
+  system("$ENV{AUTO}/put_igsdata.com $yy $ddd -o $rnxPth HRD -r");
+  if( $ut24=~/Y/ && ($yyyy <2018 || $yyyy == 2018 && $ddd < 224)){
+    &check_dir("$rnxPth/$ddd");
+    system("$ENV{AUTO}/put_igsdata.com $y1 $dd1 -o $rnxPth/$ddd HRD");
+  }
+  print "RINEX DATA: $rnxPth\n";
+# Delete bad RINEX files
+# ----------------------
+  unlink "$rnxPth/MAL22920.15O";
+  unlink "$rnxPth/MAR60120.16O";
+  unlink "$rnxPth/NRMD0120.16O";
+  unlink "$rnxPth/PRDS0120.16O";
+  unlink "$rnxPth/SEY10120.16O";
+  unlink "$rnxPth/XMIS0120.16O";
+  unlink "$rnxPth/MBAR0130.16O";
+  unlink "$rnxPth/SEY10130.16O";
+  unlink "$rnxPth/SYDN0130.16O";
+  unlink "$rnxPth/WGTN0130.16O";
+  unlink "$rnxPth/XMIS0130.16O";
+  unlink "$rnxPth/ZIM20130.16O";
+  unlink "$rnxPth/DHLG0580.16O";
+  unlink "$rnxPth/BRAZ0580.16O";
+  unlink "$rnxPth/MBAR0750.16O";
+#  unlink "$rnxPth/MDVJ0650.16O";
+#  unlink "$rnxPth/PIMO0650.16O";
+#  unlink "$rnxPth/PRDS0650.16O";
+#  unlink "$rnxPth/PIMO0660.16O";
+#  unlink "$rnxPth/PRDS0660.16O";
+#  unlink "$rnxPth/WGTN0660.16O";
+  unlink "$rnxPth/XMIS1150.16O";
+  unlink "$rnxPth/MAL21150.16O";
+  unlink "$rnxPth/CGGN1150.16O";
+  unlink "$rnxPth/AMU21150.16O";
+  unlink "$rnxPth/ALGO1150.16O";
+  unlink "$rnxPth/STR21150.16O";
+  unlink "$rnxPth/BAKO2530.16O";
+  unlink "$rnxPth/BOGT2530.16O";
+  unlink "$rnxPth/BRUX2530.16O";
+  unlink "$rnxPth/DARW2530.16O";
+  unlink "$rnxPth/GLPS2530.16O";
+  unlink "$rnxPth/LPGS2530.16O";
+  unlink "$rnxPth/MAL22530.16O";
+  unlink "$rnxPth/NNOR2530.16O";
+  unlink "$rnxPth/TASH2530.16O";
+  unlink "$rnxPth/TOW22530.16O";
+  unlink "$rnxPth/TWTF2530.16O";
+  unlink "$rnxPth/WGTN2530.16O";
+  unlink "$rnxPth/ZIM22530.16O";
+  unlink "$rnxPth/HYDE3090.16O";
+  unlink "$rnxPth/BOGT3090.16O";
+  unlink "$rnxPth/ADIS3090.16O";
+  unlink "$rnxPth/KOUC3090.16O";
+  unlink "$rnxPth/LEIJ3090.16O";
+  unlink "$rnxPth/MAD23090.16O";
+  unlink "$rnxPth/LPGS3090.16O";
+  unlink "$rnxPth/MIZU3090.16O";
+  unlink "$rnxPth/VIS03090.16O";
+  unlink "$rnxPth/WARN3090.16O";
+  unlink "$rnxPth/STR23090.16O";
+  unlink "$rnxPth/WGTN3090.16O";
+  unlink "$rnxPth/XMIS3090.16O";
+  unlink "$rnxPth/BRFT3090.16O";
+  unlink "$rnxPth/MKEA3090.16O";
+  unlink "$rnxPth/CRO13090.16O";
+  unlink "$rnxPth/SPT03090.16O";
+  unlink "$rnxPth/AREQ3090.16O";
+  unlink "$rnxPth/MAG03090.16O";
+  unlink "$rnxPth/MBAR23090.16O";
+  unlink "$rnxPth/MAL23090.16O";
+  unlink "$rnxPth/RIOP3090.16O";
+  unlink "$rnxPth/FAA13090.16O";
+  unlink "$rnxPth/FTNA3090.16O";
+  unlink "$rnxPth/ISPA3090.16O";
+  unlink "$rnxPth/ZWE23090.16O";
+  unlink "$rnxPth/SUTM3570.16O";
+  unlink "$rnxPth/SUTH3570.16O";
+
+# Correct wrong RINEX entries
+# ---------------------------
+  system("$ENV{AUTO}/rinex.com $rnxPth $ddd");
+
+  if ( $repro ) {
+    open(HRD,">$waitFile");
+    foreach my $file ( glob("${rnxPth}/HRD/????${ddd}0.${yy}O") ) {
+      print HRD basename($file),"\n";
+    }
+    close HRD;
+  }
+
+  # Write the "next jobs" statement
+  # -------------------------------
+  if( $ut24=~/Y/ && ($yyyy <2018 || $yyyy == 2018 && $ddd < 224)){
+      $bpe->PRT_GOTO($param2);
+  }else{
+    $bpe->PRT_GOTO($param3);
+  }
+
+
+}

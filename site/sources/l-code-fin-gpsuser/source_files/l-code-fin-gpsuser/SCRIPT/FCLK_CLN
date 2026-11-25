@@ -1,0 +1,85 @@
+package FCLK_CLN;
+@ISA = ("RUNBPE");
+# ==============================================================================
+#
+# Name    :  FCLK_CLN
+#
+# Purpose :  Clean campaign of remaining parts from previous runs
+#
+# PARAMs  :
+#
+# Author  :  A. Villiger
+#
+# Created :  12-Oct-2016
+#
+# Changes :  14-Jan-2022 AV: Clean CW_$S+0????.OUT files
+#            07-Apr-2022 ST: Remove EXT_OXO.
+#
+# ==============================================================================
+
+use strict;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my($yyssss,$yyddd,$ddd,$dddm2,$yy,$ssss,$ssssm2,
+     $crdInf,$psdInf,$v_e,$v_h,$v_i,$v_v,$v_o,$v_u,
+     $repro,
+     $dirCrd, $dirOut,$dirOxo,$dirRxo,$dirOrb,$dirObs,$dirClb,$dirOsb,$dirPsd,
+     $extCrd, $extOut,       ,$extRxo,$extOrb,$extObs,$extClb,$extOsb,$extPsd
+  ) =
+  $bpe->getKeys(
+     '$YSS+0','$YD+0','$+0','$-2','$Y','$S+0','$S-2',
+     'V_CRDINF','V_PSDINF','V_E','V_H','V_I','V_V','V_O','V_U',
+     'V_REPRO',
+     'DIR_CRD','DIR_OUT','DIR_OXO','DIR_RXO','DIR_STD','DIR_PZH','DIR_CLB','DIR_OSB','DIR_PSD',
+     'EXT_CRD','EXT_OUT',          'EXT_RXO','EXT_STD','EXT_PZH','EXT_CLB','EXT_OSB','EXT_PSD'
+  );
+
+# Remove lock files
+# -----------------
+  unlink glob( "${dirOut}*.J_lk" );
+
+# remove the all files of this day
+# --------------------------------
+  unlink glob "${dirOut}${yyssss}*.BPE";
+  unlink glob "${dirOut}${v_e}?${yyssss}.*";
+  unlink glob "${dirOut}${v_h}?${yyssss}.*";
+  unlink glob "${dirOut}${v_i}?${yyssss}.*";
+  unlink glob "${dirOut}${v_v}?${yyssss}.*";
+  unlink glob "${dirOrb}${v_o}?${yyssss}.*";
+  unlink glob "${dirOut}${v_o}?${yyssss}.*";
+  unlink glob "${dirOut}${v_u}?${yyssss}.*";
+  unlink glob "${dirOut}CD${ssss}*.*";
+  unlink glob "${dirOut}CW?${ssss}*.*";
+  unlink glob "${dirOut}${v_e}${ssss}*.*";
+  unlink glob "${dirOut}${v_h}${ssss}*.*";
+  unlink glob "${dirOut}${v_i}${ssss}*.*";
+  unlink glob "${dirOut}${v_v}${ssss}*.*";
+  unlink glob "${dirOut}${v_o}${ssss}*.*";
+  unlink glob "${dirOut}${v_u}${ssss}*.*";
+
+  unlink glob "${dirObs}????${ssss}?.*";
+  unlink glob "${dirRxo}????${ssss}?.SMT";
+  unlink glob "${dirRxo}????${ssss}?.??O";
+
+  unlink glob "${dirOxo}????${ssssm2}?.??O";
+
+  unlink glob "${dirOut}*.${yy}_${ssss}";
+  unlink glob "${dirOut}SMT${yyssss}.SMC";
+
+  unlink glob "${dirOut}RNX${yyssss}.ERR";
+
+  # # Prepare reference files
+  # # -----------------------
+  # my $psdFil = $psdInf eq ""? "":"$psdInf.$extPsd";
+  # system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil");
+  # copyfile("${dirOsb}CODE.${extOsb}","${dirOsb}APR${udate}.${extOsb}");
+
+}

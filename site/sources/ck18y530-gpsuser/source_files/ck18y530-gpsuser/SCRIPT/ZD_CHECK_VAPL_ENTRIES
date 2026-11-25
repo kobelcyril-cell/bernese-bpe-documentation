@@ -1,0 +1,132 @@
+package CHECK_VAPL_ENTRIES;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CHECK_VAPL_ENTRIES
+#
+# Purpose :  Check OBS files against VAPL station entries
+#
+# Author  :  C. Kobel
+# Created :  06-Nov-2025
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use warnings;
+use lib "$ENV{AUTO}";
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $dirOut,
+      $dirObs,
+      $dirAtl,
+      $extAtl,
+      $yyddd,
+      $ssss
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      'DIR_PZH',
+      'DIR_ATL',
+      'EXT_ATL',
+      '$YD+0',
+      '$S+0'
+  );
+
+# ---------- Define ATL file ------------
+  my $vaplFile = "${dirAtl}/VAPL.${extAtl}";
+
+  die "VAPL file not found: $vaplFile\n" unless (-e $vaplFile);
+
+# ---------- Initialize logging ------------
+  my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+  mkdir $mscDir unless (-d $mscDir);
+
+  my $logfile = "${mscDir}/VAPL_entries";
+  open(my $LOG, '>>', $logfile) or die "Cannot open $logfile: $!";
+
+  print $LOG "\n=== CHECK_VAPL_ENTRIES started ===\n";
+
+# ---------- Read VAPL file ------------
+  open(my $VF, '<', $vaplFile) or die "Cannot open $vaplFile: $!";
+
+  my %vaplStations;
+  my $inHeader = 1;
+
+  while (my $line = <$VF>) {
+
+    chomp $line;
+
+    if ($inHeader) {
+      $inHeader = 0 if ($line =~ /^\$\$\s*END HEADER/);
+      next;
+    }
+
+    if ($line =~ /^\$\$\s*station\s+([A-Z0-9]{4})\s*;/) {
+      $vaplStations{uc $1} = 1;
+    }
+  }
+  close($VF);
+
+  my $nVapl = scalar(keys %vaplStations);
+  print $LOG "Found $nVapl stations in VAPL.ATL\n";
+
+# ---------- Scan OBS directory ------------
+  opendir(my $DH, $dirObs) or die "Cannot open $dirObs: $!";
+
+  my @obsFiles = grep {
+    /^.{4}\Q$ssss\E\./ && -f "${dirObs}$_"
+  } readdir($DH);
+
+  closedir($DH);
+
+  my %obsStations;
+  foreach my $file (@obsFiles) {
+    my ($sta) = $file =~ /^([A-Z0-9]{4})/;
+    $obsStations{uc $sta} = 1 if defined $sta;
+  }
+
+# ---------- Compare and delete ------------
+  my $deletedFiles = 0;
+  my $affectedSta  = 0;
+
+  foreach my $station (sort keys %obsStations) {
+
+    if ($vaplStations{$station}) {
+      print $LOG "Station $station OK\n";
+      next;
+    }
+
+    print $LOG "Station $station missing – deleting files\n";
+    $affectedSta++;
+
+    opendir(my $ODH, $dirObs) or die "Cannot open $dirObs: $!";
+
+    my @toDelete = grep {
+      /^\Q$station\E\Q$ssss\E\./ && -f "${dirObs}$_"
+    } readdir($ODH);
+
+    closedir($ODH);
+
+    foreach my $file (sort @toDelete) {
+
+      my $full = "${dirObs}$file";
+
+      if (unlink $full) {
+        print $LOG "  deleted: $file\n";
+        $deletedFiles++;
+      } else {
+        print $LOG "  ERROR deleting $file: $!\n";
+      }
+    }
+  }
+# ---------- Summary ------------
+  print $LOG "Stations without VAPL entry : $affectedSta\n";
+  print $LOG "OBS files deleted           : $deletedFiles\n";
+  print $LOG "=== CHECK_VAPL_ENTRIES finished ===\n";
+
+  close($LOG);
+}

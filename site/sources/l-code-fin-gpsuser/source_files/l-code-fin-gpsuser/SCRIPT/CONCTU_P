@@ -1,0 +1,75 @@
+package CONCTH_P;
+
+@ISA = ("RUNBPE");
+
+# ============================================================================
+#
+# Name    :  CONCTH_P
+#
+# Purpose :  Concatenate 24UT epoch if indicated
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#
+# Author  :  A. Villiger
+# Created :  03-Sep-2018
+#
+# Changes :
+#
+# ============================================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use lib "$ENV{EXE}";
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+  my ($yyyy, $yy, $ssss,$ddd, $dirRxo, $extRxo,
+      $param1, $subPid) =
+  $bpe->getKeys('$Y+0','$Y','$S+0','$+0','DIR_RXO','EXT_RXO',
+      'PARAM1', 'SUB_PID');
+
+  my ($PARAM2,$PARAM3,$PARAM4) = $bpe->getKeys('PARAM2','PARAM3','PARAM4');
+
+  # Set cluster number and input files
+  # ----------------------------------
+  setUserVar($bpe, "FFFF", $param1);
+
+  print "Process station: $param1";
+
+  # Set time window
+  # ---------------
+  setMinusPlus($bpe,+0,+1);
+  $bpe->putKey("$$bpe{U}/PAN/CCRNXO.INP", "USEWIN", "1");
+  $bpe->putKey("$$bpe{U}/PAN/CCRNXO.INP", "USEWIN", "1");
+  $bpe->putKey("$$bpe{U}/PAN/CCRNXO.INP", "RADIO_1", "0");
+  $bpe->putKey("$$bpe{U}/PAN/CCRNXO.INP", "RADIO_2", "1");
+  $bpe->putKey("$$bpe{U}/PAN/CCRNXO.INP", "STADAT", '$YMD_STR+0');
+  $bpe->putKey("$$bpe{U}/PAN/CCRNXO.INP", "STATIM", '00 00 00');
+  $bpe->putKey("$$bpe{U}/PAN/CCRNXO.INP", "ENDDAT", '$YMD_STR+1');
+  $bpe->putKey("$$bpe{U}/PAN/CCRNXO.INP", "ENDTIM", '00 00 00');
+
+
+  # Run program
+  # -----------
+  my $PGMNAM = "CCRNXO";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # Copy file ro short name
+  # -----------------------
+  my @long  = glob "${dirRxo}/${param1}00RX2*${yyyy}${ddd}*RNX";
+  foreach (@long){
+    my $file = $_;
+    my $filr = $_;
+    $filr =~ s/00RX2_.*/${ssss}\.${extRxo}/g;
+    my $filh = $file;
+    $filh =~ s/\/RAW\//\/RAW\/HRD\//g;
+    $filh =~ s/00RX2_.*/${ssss}\.${extRxo}/g;
+    print "Rename file: $file --> $filh ($filr)\n";
+    my $dest = -s $filh? $filh : $filr;
+    print "MOVE: $file $dest\n";
+    move($file,$dest);
+  }
+}

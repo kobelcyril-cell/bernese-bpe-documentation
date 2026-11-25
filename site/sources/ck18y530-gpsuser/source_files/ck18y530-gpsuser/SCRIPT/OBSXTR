@@ -1,0 +1,26 @@
+package OBSXTR;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  OBSXTR
+#
+# Purpose :  Execute OBSXTR
+#
+# PARAMs  :
+#
+# Author  :  E. Calero
+# Created :  12-Jul-2021
+#
+# Changes :  
+#
+# ============================================================================
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "OBSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

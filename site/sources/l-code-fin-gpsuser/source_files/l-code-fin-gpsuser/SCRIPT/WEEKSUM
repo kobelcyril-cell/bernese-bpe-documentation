@@ -1,0 +1,82 @@
+package WEEKSUM;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  WEEKSUM
+#
+# Purpose :  Generate IGS weekly analysis summary
+#
+# Programs:  SATWEEK
+#
+# PARAMs  :  PARAM1 - Optional STOP
+#
+# Author  :  R. Dach
+# Created :  06-Dec-2007
+#
+# Changes :  02-Oct-2012/ss: Consideration of COD/COF final product lines
+#            05-Oct-2012/ss: Just execute weeksum.com if DAYWEEK=6
+#            25-Oct-2012/ss: Create _BAK files
+#            22-Apr-2020 RD: Remove the 1-day part
+#            07-Sep-2021 LP: GNSS selection using setGNSS
+#            24-Aug-2022 AV: Add IGS20 case
+#            01-Dec-2022 AV: Undo temporary changes (IGS20 active)
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+use lib "$ENV{AUTO}";
+use igs_device;
+
+sub run {
+  my $bpe = shift;
+  our($CDIR_FIN,$CDIR_FCK);
+
+# Get variables
+# -------------
+  my ($wwww, $dayWeek, $param1, $dirOut,
+      $crdInf,
+      $camp_pth, $campaign, $v_gnss) =
+    $bpe->getKeys('$W+0', 'DAYWEEK', 'PARAM1', 'DIR_OUT',
+                  'V_CRDINF',
+                  'CAMP_PTH','CAMPAIGN','V_GNSS');
+print("$CDIR_FIN,$CDIR_FCK\n");
+# Local campaign for reprocessing
+  if (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG") {
+    $CDIR_FIN = "$camp_pth$campaign/"; 
+    $CDIR_FCK = "$camp_pth$campaign/";
+  }
+# If IGS20
+  if($crdInf =~ /IGSxx/){
+    $CDIR_FIN = "$camp_pth$campaign/";
+    $CDIR_FCK = "$camp_pth/FCLKI20/";
+  }
+
+print("$CDIR_FIN,$CDIR_FCK\n");
+  
+
+  if ($dayWeek == 6) {
+
+# Run the program
+# ---------------
+    my $PGMNAM = "SATWEEK";
+    &setGNSS($bpe,"$ENV{U}/PAN/".$PGMNAM.'.INP',"USE_",$v_gnss);
+    $bpe->RUN_PGMS($PGMNAM);
+
+# Create weekly summary file
+# --------------------------
+##    system("$ENV{AUTO}/weeksum.com $wwww ") && die("Error executing weeksum.com for week $wwww\n");
+# - COD (3D)
+    my $inp = "${dirOut}COD${wwww}7.SUM";
+    my $out = "${dirOut}COD${wwww}7.SUM_BAK";
+    copy($inp,$out) if -e $inp;
+    system("$ENV{AUTO}/weeksum.com $wwww COD $CDIR_FIN $CDIR_FCK") && die("Error executing weeksum.com for week $wwww (COD)\n");
+
+  } else {
+
+    die "Unexpected DAYWEEK: $dayWeek\n" if $param1 eq "STOP";
+
+  }
+
+}

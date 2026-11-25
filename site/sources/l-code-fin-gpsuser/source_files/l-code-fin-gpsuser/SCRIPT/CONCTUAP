@@ -1,0 +1,72 @@
+package CONCTAP;
+
+@ISA = ("RUNBPE");
+
+# ============================================================================
+#
+# Name    :  CONCTUAP
+#
+# Purpose :  Prepare parallel run of CONCTU_P
+#
+# PARAMs  :
+#
+# Author  :  A. Villiger
+# Created :  03-Sep-2018
+#
+# Changes :
+#
+# ============================================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use Data::Dumper qw(Dumper);
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+  # Get variables
+  # -------------
+  my ($ssss, $ddd, $yy, $yyyy,$yyddd,
+      $sss1, $yyy1,$yydd1,
+      $dirRxo, $ut24) =
+    $bpe->getKeys('$S+0','$+0', '$Y', '$Y+0','$YD+0',
+                  '$S+1', '$Y+1','$YD+1',
+                  'DIR_RXO', 'V_UT24');
+
+  my $y1 = substr($yyy1,2,2);
+
+  # Get files to be merged
+  # ----------------------
+  my $hrdLst ="${dirRxo}hrd${yyddd}.lst";
+  my $hrdLs1 ="${dirRxo}${ddd}hrd${yydd1}.lst";
+
+  my %hshsta1;
+  open INP, "< $hrdLs1";
+  foreach (<INP>){
+    chomp;
+    my ($sta) = /(\w\w\w\w)${sss1}/;
+    $hshsta1{$sta} = $_;
+  }
+  close INP;
+  open INP, "< $hrdLst";
+  my @stations = ();
+  foreach (<INP>){
+    chomp;
+    my ($sta) = /(\w\w\w\w)${ssss}/;
+    push @stations, $sta  if exists $hshsta1{$sta};
+    my $fil1 = -s "$dirRxo/HRD/$_"?
+                  "$dirRxo/HRD/$_":
+                  "$dirRxo/$_";
+    my $fil2 = "$dirRxo/${ddd}/$hshsta1{$sta}";
+    copy($fil1,"$dirRxo/../ORX/.");
+    print "OUT $fil1 $dirRxo/../ORX/\n";
+    print "OUT $fil2 $dirRxo/../ORX/$sta${ddd}A.${yy}O\n";
+    copy($fil2,"$dirRxo/../ORX/$sta${ddd}A.${yy}O");
+  }
+  close INP;
+
+  # Initialize parallel run
+  initPar_Bl($bpe, @stations);
+
+}

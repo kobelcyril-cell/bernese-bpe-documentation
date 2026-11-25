@@ -1,0 +1,46 @@
+package HELMR1_VS;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      HELMR1_VS
+#
+# Purpose:   HELMR1
+#
+# Programs:  HELMR1
+#
+# Authors:   C. Kobel
+#
+# Created:   16-Mar-2026
+#
+# Changes:   
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run
+{
+  my $bpe = shift;
+
+  my ($dirCrd,$extCrd,$CRD) = $bpe->getKeys('DIR_CRD','EXT_CRD','V_CRD');
+
+  # ------------------------------------------------------------
+  # Run Python script to extract FIX stations
+  # ------------------------------------------------------------
+  my $pyScript = "/storage/homefs/ck18y530/python/extract_fix_stations.py";
+  my $input    = "$dirCrd/$CRD.$extCrd";
+  my $output   = "$dirCrd/VELSOL$CRD.FIX";
+
+  system("python3 $pyScript $input $output") == 0
+      or die "Failed to run extract_fix_stations.py\n";
+
+  # ------------------------------------------------------------
+  # Run HELMR1
+  # ------------------------------------------------------------
+
+  my $PGMNAM = "HELMR1";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

@@ -1,0 +1,88 @@
+package NAVMRG2;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  NAVMRG2
+#
+# Purpose :  Merge hourly rinex observation and navigation files
+#
+# Programs:  CCRNXN
+#
+# Author  :  M. Meindl
+# Created :  03-Aug-2003
+#
+# Changes :  10-Feb-2005 mm: Old date variables removed
+#            06-Oct-2015 av: Merge hourly & daily files
+#                            Use ORX path
+#            07-Oct-2015 av: bugfix in file counting
+#            27-Sep-2018 st: Use CCRNXN instead of CCRINEXN
+#            26-Oct-2018 st: Handle mix of short and long RINEX file names
+#            26-Oct-2018 st: Simplify process (hoping CCRNXN and the
+#                            corresponding file handling is fast enough to
+#                            process the whole day for each ULTRA)
+#            28-Feb-2019 av: Save RNX3 navigation file to datapool
+#            11-Jul-2019 st: Rename CODE00CHE to CODE00MRG.
+#                            Substitute DIR_OXN, DIR_RXN, dir_oxn, dir_rxn
+#                            by DIR_ORX, DIR_RNX, dir_orx, dir_rnx.
+#            05-Mar-2020 av/st: Moved saving of merged CODE00MRG... file
+#                            to IGSR_NAV.
+#            13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area
+#            23-Jun-2022 ST: Outsourced the source file removal to NAVDEL
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use warnings;
+use lib "$ENV{AUTO}";
+use igs_device;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+use File::Copy;
+
+sub run {
+  my ($bpe) = @_;
+
+  # Get variables
+  # -------------
+  my ($ddd, $yyyy, $yy, $dir_orx, $dir_rnx) =
+    $bpe->getKeys('$+0', '$Y+0', '$Y', 'DIR_ORX', 'DIR_RNX');
+
+  my $navExt2 = "${ddd}?.${yy}[NG]";
+  my $navExt3 = "?????_?_${yyyy}${ddd}????_???_*?N.[Rr][Nn][Xx]";
+  my $navExt  = "?????_${yyyy}${ddd}?_*?.[Rr][Xx][Nn]";
+
+  my $mrgStaPath = "${dir_rnx}CODE";
+  my $renMrgStaPath = "${dir_rnx}OLD_";
+
+  # Rename the existing merged navigation files in a robust way
+  # (short/long file names, given day only).
+  # -----------------------------------------------------------
+  my @existingMrgFilePaths = glob(
+    "${mrgStaPath}${navExt2} ${mrgStaPath}${navExt3} ${mrgStaPath}${navExt}");
+
+  foreach my $existingMrgFilePath (@existingMrgFilePaths) {
+    my $renamedFilePath = $existingMrgFilePath;
+    $renamedFilePath =~ s/^${mrgStaPath}/${renMrgStaPath}/;
+    move ($existingMrgFilePath, $renamedFilePath);
+  }
+
+  # Get the list of source files of the given day
+  # ---------------------------------------------
+  my @fileList = glob("${dir_orx}????$navExt2 ${dir_orx}????$navExt3 ${dir_orx}????$navExt");
+
+  # Remove any merged files from the list
+  # (needed if $dir_orx is the same as $dir_rnx)
+  # --------------------------------------------
+  @fileList = grep(!/^(${mrgStaPath}|${renMrgStaPath})/, @fileList);
+
+  # Put the list of source files into the input panel
+  # -------------------------------------------------
+  replaceSelLst($bpe, "CCRNXN", "FILELIST", @fileList);
+
+  # Run CCRNXN
+  # ----------
+  my $PGMNAM = "CCRNXN";
+  $bpe->RUN_PGMS($PGMNAM);
+}

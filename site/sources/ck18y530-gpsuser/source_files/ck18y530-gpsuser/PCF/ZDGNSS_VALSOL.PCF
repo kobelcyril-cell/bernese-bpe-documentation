@@ -1,0 +1,63 @@
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+--------------------------------------------------------------------------------
+001      ZD_COPYSOL_VS           NO_OPT             CPU=SHORT
+002      ZD_XTR_UPDATE_HEADER    NO_OPT             CPU=SHORT; WAIT=001
+100      ZD_COMPAR2_VS           ZD_VAL_SOL         CPU=SHORT; WAIT=001
+110      ZD_HELMR1_VS            ZD_VAL_SOL         CPU=SHORT; WAIT=001
+120      ZD_ORB_VER              ZD_VAL_SOL         CPU=SHORT; WAIT=001
+130      ZD_STDELE_VS            ZD_VAL_SOL         CPU=SHORT; WAIT=001
+201      plotStanum              ZD_VAL_SOL         CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+202      plotSatnum              ZD_VAL_SOL         CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+203      plotSTDELE              ZD_VAL_SOL         CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+204      plotCCRNXC              ZD_VAL_SOL         CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+205      plotHELMR1              ZD_VAL_SOL         CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+206      plotHLMmap              ZD_VAL_SOL         CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+207      plotAMBXTR              ZD_VAL_SOL         CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=001
+208      plotGPSXTR              ZD_VAL_SOL_RMS     CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=002
+209      plotGPSXTR              ZD_VAL_SOL_OBS     CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=002
+210      plotGPSXTR              ZD_VAL_SOL_PAR     CPU=SHORT; SCR_PATH=${AIUB}/BPE_SCR; WAIT=002
+211      plotCOMPAR              NO_OPT             CPU=SHORT; WAIT=100
+212      plotORBVER              NO_OPT             CPU=SHORT; WAIT=120
+900      ZD_CONCATOUT_VS         NO_OPT             CPU=SHORT; WAIT=100 110 120 130
+
+VARIABLE   DEFAULT        PARAMETERS
+V_OUT    = R3I_VAL$YSS+0;            DESCRIPTION=Summary file (output)
+V_SOLDIR = ${R}/CK_ZDGNSS_R;         DESCRIPTION=Campaign with results (to-be-copied)
+V_CRD    = R3I_;                     DESCRIPTION=Station coordinates
+V_PRE    = R3I_;                     DESCRIPTION=Precise orbit
+V_STD    = R3I_;                     DESCRIPTION=Standard orbit
+V_CLKOUT = R3IS;                     DESCRIPTION=Output of CCRNXC
+V_AMBOUT = OBSXTR_AMB_R1I;           DESCRIPTION=Output of OBSXTR (Ambiguities)
+V_XTROUT = R1I;                      DESCRIPTION=Output of GPSXTR
+V_SOLNAM = Reduced_station_network;  DESCRIPTION=Label of various plots
+V_STANUM = Reduced_station_network;  DESCRIPTION=Label of station number plot
+V_SATNUM = Reduced_station_network;  DESCRIPTION=Label of satellite number plot
+V_STDELE = Reduced_station_network;  DESCRIPTION=Label of STDELE plot
+V_CCRNXC = Reduced_station_network;  DESCRIPTION=Label of CCRNXC linear fit plot
+V_HELMR1 = Reduced_station_network;  DESCRIPTION=Label of Helmert parameters plot
+V_MAPHLM = Reduced_station_network;  DESCRIPTION=Label of Helmert residuals plot
+V_AMBXTR = Reduced_station_network;  DESCRIPTION=Label of ambiguity resolution plot
+V_GPSXTR = Reduced_station_network;  DESCRIPTION=Label of GPSXTR plots
+V_COMPAR = Reduced_station_network;  DESCRIPTION=Label of COMPAR2 plot
+V_ORBVER = Reduced_station_network;  DESCRIPTION=Label of ORBVER plot
+V_CRDINF = IG?20;                    DESCRIPTION=Reference coordinates (+VEL/PSD)
+V_SATINF = *;                        DESCRIPTION=Satellite information
+V_PCV    = I??;                      DESCRIPTION=GNSS PCV model
+V_PCVM   = ????;                     DESCRIPTION=GNSS PCV model version
+V_SATCRX = *;                        DESCRIPTION=Satellite problems
+V_NUTMOD = *;                        DESCRIPTION=Nutation model
+V_SUBMOD = *;                        DESCRIPTION=Subdaily pole model
+V_ERP    = BULLET_A;                 DESCRIPTION=ERPs for orbit repeatability
+V_BLQINF = *;                        DESCRIPTION=Ocean tidal loading
+V_POTCOE = *;                        DESCRIPTION=Earth potential coefficients
+V_OTID   = *;                        DESCRIPTION=Ocean tides
+V_SETID  = *;                        DESCRIPTION=Solid Earth tides
+V_PEPH   = *;                        DESCRIPTION=Planetary ephemeris
+V_AEMI   = *;                        DESCRIPTION=Albedo emissivity
+V_AREF   = *;                        DESCRIPTION=Albedo reflectivity
+V_FLUX   = *;                        DESCRIPTION=Flux index
+V_MAC    = *;                        DESCRIPTION=Macro model
+V_PCFCONFIG = MODEL;                 DESCRIPTION=Configuration file
+

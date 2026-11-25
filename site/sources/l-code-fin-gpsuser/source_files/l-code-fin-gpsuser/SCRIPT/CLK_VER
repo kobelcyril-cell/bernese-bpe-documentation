@@ -1,0 +1,38 @@
+package CLK_VER;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CLK_VER
+#
+# Purpose :  Exexute $AUTO/check_clkver.com in order to detect and delete
+#            bad stations.
+#
+# Author  :  S. Schaer
+# Created :  13-Jun-2022
+#
+# Changes :  __-___-____ __:
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,$yyddd,$dirOut) = $bpe->getKeys('$YSS+0','$YD+0','DIR_OUT');
+
+  prtMess($bpe,"Clock verification started");
+  system("$ENV{AUTO}/clk_ver.com ${dirOut}CLK${yyddd}.SUM -sum -del") &&
+    die("$ENV{AUTO}/clk_ver.com failed for session $yyssss\n");
+  prtMess($bpe,"Clock verification finished");
+
+}

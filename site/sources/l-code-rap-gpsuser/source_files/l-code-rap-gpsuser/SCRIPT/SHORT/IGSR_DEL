@@ -1,0 +1,457 @@
+package IGSR_DEL;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name:       IGSR_DEL
+#
+# Purpose:    Deletion script for IGSRAPID process.
+#
+# PARAMs:
+#
+# Authors:    S. Lutz
+#
+# Created:    20-Nov-2013
+#
+# Changes:    29-Aug-2001/ss: Remove files related to RS solution
+#             10-Oct-2001/ss: Remove GCC file
+#             29-Jul-2002/ss: Clean up RAP SAV subdirectories
+#             02-Oct-2002/mm: Remove flags from BPE directory
+#             06-Jan-2003/hu: Pole files in ORB instead of X/GEN
+#             09-Jan-2003/ss: Pole files in ORB savedisk subdirectories
+#             03-Feb-2003/ss: Remove merged CODE PRE files
+#             13-Aug-2003/ss: Remove remaining ERP/IEP files
+#             27-Aug-2003/ss: Remove ULT CLRX files
+#             02-Aug-2007/mm: V_DEL activated
+#             26-May-2009/rd: Extractions: YY_DDD -> YY_SSSS
+#             30-Jul-2010/ss: Remove second REPOSITIONING2.FLG file
+#             01-Oct-2010/ss: Remove further REPOSITIONING FLG files
+#             08-Oct-2010/ss: Remove VMF GRD and TRP FLG files
+#             22-Feb-2011/ss: Remove old GPSWM360 CMP/LST/SUM/OUT files
+#             20-Nov-2013 SL: BDS to Perl
+#             10-Jun-2014 SS: Remove BIA results
+#             23-Oct-2014 SS: Remove ???yyddd_.OUT, RZ?yyddd.NQ0
+#             25-Mar-2015 AS: MPRXTR-satellite statistics added
+#             18-May-2016 SS: Remove OSB and EST files
+#             02-May-2018 SS: Remove REF VEL files
+#             31-Aug-2019 RD: Add OBSXTR program
+#             11-Sep-2019 LP: Remove newRB?*STD/RPR/TAB/ERP files
+#             15-Jun-2020 AV: Jump to nextjob if 3-day solution is skipped
+#             14-Jul-2020 RD/PF: change $X/GEN -> PTH_SATCRUX
+#             08-Mar-2022 AV: Save disk: yearly subdirectory
+#             07-Apr-2022 ST: Remove DIR_BRD, EXT_BRD, DIR_ONQ, EXT_ONQ, DIR_TAB and EXT_TAB.
+#             10-May-2022 AV: Remove new RINEX file names (-8days)
+#             11-Jul-2022 SS: Removed SKIP3D stuff
+#             24-Nov-2022 SS: Deleted OBX files
+#             20-Mar-2023 RD/PS: Remove output files from GNSAMB_P (RESRMS+SATMRK)
+#             25-Apr-2023 EB: Remove Compar PLT files
+#             08-Aug-2023 EB: CRD files keep 90 instead 15 days
+#             24-Jun-2024 ML: Added delete of output (.OUT) for IGSRAPID PID 622 (STDPRE/PREWEI)
+#             27-Sep-2024 RD: remove with 720 instead of 360 days delay on SAVEDISK/RAP
+#
+# =============================================================================
+
+use strict;
+use warnings;
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util qw(prtMess prtGoto);
+use lib "$ENV{AUTO}";
+use igs_device;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $CAMP_PTH,$CAMPAIGN,
+    $yyyy,           $yyyym8,             $yyyym30,  $yyyym90,  $yyyym720,
+           $ssssm2,  $ssssm8,  $ssssm15,  $ssssm30,             $ssssm720,
+           $yyssssm2,$yyssssm8,$yyssssm15,$yyssssm30,$yyssssm90,
+    $ddd,  $dddm2,   $dddm8,   $dddm15,              $dddm90,   $dddm720,
+    $yyddd,$yydddm2, $yydddm8, $yydddm15, $yydddm30, $yydddm90, $yydddm720,
+                                                                $wwwwm720,
+    $wwwwd,             $wwwwdm15, $wwwwdm30,                   $wwwwdm720,
+    $yydddm1,
+    $yydddm6,
+    $yydddp1,$yydddp2,
+    $v_a,$v_b,$v_e,$v_h,$v_i,$v_k,$v_o,$v_s,$v_u,$v_x,$v_z,
+    $del,
+    $PARAM2,
+    $dirBpe,
+    $dirBsl,$extBsl,
+    $dirClb,$extClb,
+    $dirClk,$extClk,
+    $dirCrd,$extCrd,
+    $dirVel,$extVel,
+            $extCrx,
+    $dirCzh,$extCzh,
+    $dirDcb,$extDcb,
+    $dirOsb,$extOsb,
+    $dirBia,$extBia,
+    $dirEst,$extEst,
+    $dirEdt,$extEdt,
+    $dirEle,$extEle,
+    $dirErp,$extErp,
+    $dirGcc,$extGcc,
+    $dirGrd,$extGrd,
+    $dirIep,$extIep,
+    $dirInx,$extInx,
+    $dirIon,$extIon,
+    $dirLst,$extLst,
+    $dirNeq,$extNeq,
+    $dirObx,$extObx,
+    $dirOut,$extOut,
+    $dirOxo,
+    $dirPlt,$extPlt,
+    $dirPre,$extPre,
+    $dirRes,$extRes,
+    $dirRxc,$extRxc,
+    $dirRxo,$extRxo,
+    $dirRpr,$extRpr,
+    $dirSmc,$extSmc,
+    $dirSme,$extSme,
+    $dirSmt,$extSmt,
+    $dirSnx,$extSnx,
+    $dirSta,$extSta,
+    $dirStd,$extStd,
+    $dirSum,$extSum,
+    $dirTro,$extTro,
+    $dirTrp,$extTrp,
+    $dirFix,$extFix,
+    $dirSatcrx,
+  ) =
+  $bpe->getKeys (
+    'CAMP_PTH','CAMPAIGN',
+     '$Y+0',         '$Y-8',              '$Y-(30)',  '$Y-(90)',  '$Y-(360)',
+            '$S-2',  '$S-8',  '$S-(15)',  '$S-(30)',              '$S-(360)',
+            '$YSS-2','$YSS-8','$YSS-(15)','$YSS-(30)','$YSS-(90)',
+    '$+0',  '$-2',   '$-8',   '$-(15)',               '$-(90)',   '$-(360)',
+    '$YD+0','$YD-2', '$YD-8', '$YD-(15)', '$YD-(30)', '$YD-(90)', '$YD-(360)',
+                                                                  '$W-(360)',
+    '$WD+0',         '$WD-(15)', '$WD-(30)',                      '$WD-(360)',
+    '$YD-1',
+    '$YD-6',
+    '$YD+1','$YD+2',
+    'V_A','V_B','V_E','V_H','V_I','V_K','V_O','V_S','V_U','V_X','V_Z',
+    'V_DEL',
+    'PARAM2',
+    'DIR_BPELOG',
+    'DIR_BSL','EXT_BSL',
+    'DIR_CLB','EXT_CLB',
+    'DIR_CLK','EXT_CLK',
+    'DIR_CRD','EXT_CRD',
+    'DIR_VEL','EXT_VEL',
+              'EXT_CRX',
+    'DIR_CZH','EXT_CZH',
+    'DIR_DCB','EXT_DCB',
+    'DIR_OSB','EXT_OSB',
+    'DIR_BIA','EXT_BIA',
+    'DIR_EST','EXT_EST',
+    'DIR_EDT','EXT_EDT',
+    'DIR_ELE','EXT_ELE',
+    'DIR_ERP','EXT_ERP',
+    'DIR_GCC','EXT_GCC',
+    'DIR_GRD','EXT_GRD',
+    'DIR_IEP','EXT_IEP',
+    'DIR_INX','EXT_INX',
+    'DIR_ION','EXT_ION',
+    'DIR_LST','EXT_LST',
+    'DIR_NEQ','EXT_NEQ',
+    'DIR_OBX','EXT_OBX',
+    'DIR_OUT','EXT_OUT',
+    'DIR_OXO',
+    'DIR_PLT','EXT_PLT',
+    'DIR_PRE','EXT_PRE',
+    'DIR_RES','EXT_RES',
+    'DIR_RXC','EXT_RXC',
+    'DIR_RXO','EXT_RXO',
+    'DIR_RPR','EXT_RPR',
+    'DIR_SMC','EXT_SMC',
+    'DIR_SME','EXT_SME',
+    'DIR_SMT','EXT_SMT',
+    'DIR_SNX','EXT_SNX',
+    'DIR_STA','EXT_STA',
+    'DIR_STD','EXT_STD',
+    'DIR_SUM','EXT_SUM',
+    'DIR_TRO','EXT_TRO',
+    'DIR_TRP','EXT_TRP',
+    'DIR_FIX','EXT_FIX',
+    'PTH_SATCRUX',
+  );
+
+# Reformat year string
+# --------------------
+  my $yym8   = substr($yyyym8,2,2);
+  my $yym30  = substr($yyyym30,2,2);
+  my $yym90  = substr($yyyym90,2,2);
+  my $yym720 = substr($yyyym720,2,2);
+
+# Look for ULTRA flag file
+# ------------------------
+  my $ultra = 0;
+  if(-s "${CAMP_PTH}${CAMPAIGN}/MSC/ULT${yyddd}.FLG") {
+    print "\n ### ULTRA flag file found!\n";
+    $ultra = 1;
+  }
+
+# Some directories on SAVEDISK
+# ----------------------------
+  my $dirSav = "${PATH_SAV}${CAMP_SAVRAP}/${yyyym720}/";
+  my $atmSav = "${dirSav}ATM/";
+  my $grdSav = "${dirSav}GRD/";
+  my $orbSav = "${dirSav}ORB/";
+  my $outSav = "${dirSav}OUT/";
+  my $rawSav = "${dirSav}RAW/";
+  my $solSav = "${dirSav}SOL/";
+  my $staSav = "${dirSav}STA/";
+
+# List of files to be deleted (sorted like in MENU_EXT)
+# ---------------------------
+  my @delLst = ();
+  push(@delLst,
+# General files
+    "${dirSatcrx}/${v_s}_${yydddm30}.${extCrx}",
+
+    "${dirSatcrx}/ULT${yydddm90}.${extCrx}",
+
+# Orbit files
+    "${dirStd}${v_k}G${wwwwd}.${extStd}",
+    "${dirStd}${v_i}G${wwwwd}.${extStd}",
+#    "${dirRpr}${v_a}_${yyddd}.${extStd}",
+    "${dirRpr}new${v_a}?${yyddd}.${extStd}",
+    "${dirRpr}${v_a}_${yyddd}.${extRpr}",
+    "${dirRpr}new${v_a}?${yyddd}.${extRpr}",
+    "${dirRpr}new${v_a}?${yyddd}.${extErp}",
+    "${dirRpr}${v_k}G${wwwwd}.${extRpr}",
+    "${dirRpr}${v_i}G${wwwwd}.${extRpr}",
+
+    "${dirStd}${v_o}_${yydddm8}.${extStd}",
+    "${dirRpr}${v_o}_${yydddm8}.${extRpr}",
+    "${dirPre}CODE${ssssm8}.${extPre}",
+    "${dirErp}CODE${ssssm8}.${extErp}",
+
+#    "${dirPre}???${yydddm15}.${extPre}",
+    "${dirStd}???${yydddm15}.${extStd}",
+    "${dirRpr}???${yydddm15}.${extRpr}",
+    "${dirEle}???${yydddm15}.${extEle}",
+    "${dirObx}???${yydddm15}.${extObx}",
+#    "${dirErp}???${yydddm15}.${extErp}",
+#    "${dirIep}???${yydddm15}.${extIep}",
+##    "${dirGcc}???${yydddm15}.${extGcc}",
+    "${dirClk}???${yydddm15}.${extClk}",
+    "${dirPre}RAM[12]${dddm15}.${extPre}",
+    "${dirStd}RAM[12]${dddm15}.${extStd}",
+    "${dirEle}RAM[12]${dddm15}.${extEle}",
+
+#AV    "${dirPre}???${wwwwdm30}.${extPre}",
+#    "${dirStd}???${wwwwdm30}.${extStd}",
+#    "${dirIep}???${wwwwdm30}.${extIep}",
+
+    "${dirDcb}???${yydddm90}.${extDcb}",
+    "${dirOsb}???${yydddm90}.${extOsb}",
+    "${dirBia}???${yydddm90}.${extBia}",
+    "${dirEst}???${yydddm90}.${extEst}",
+
+# RINEX files
+    "${dirSmt}*${ddd}?.${extSmt}",
+
+    "${dirOxo}????${ssssm8}.${yym8}?*",
+    "${dirRxo}????${ssssm8}.*",
+    "${dirRxo}?????????_${yyyym8}${ssssm8}.*",
+
+# Observation files
+    "${dirCzh}????${ssssm8}.*",
+
+# Station files
+    "${dirCrd}???${yydddm90}.${extCrd}",
+    "${dirVel}???${yydddm15}.${extVel}",
+    "${dirBsl}???${yydddm15}.${extBsl}",
+    "${dirClb}${yydddm15}*.${extClb}",
+
+# Atmosphere modeling files
+    "${dirTrp}???${yydddm15}.${extTrp}",
+    "${dirTro}???${yydddm15}.${extTro}",
+    "${dirIon}???${yydddm15}.${extIon}",
+    "${dirInx}???${yydddm15}.${extInx}",
+    "${dirGrd}???${yydddm15}.${extGrd}",
+    "${CAMP_PTH}${CAMPAIGN}/MSC/TRP_${yydddm15}.FLG",
+
+# Output files
+    "${dirOut}????${dddm2}*C.${extOut}",
+    "${dirOut}????${dddm2}*Cr.${extOut}",
+    "${dirOut}????${dddm2}*Cm.${extOut}",
+    "${dirOut}????${dddm2}*N.${extOut}",
+    "${dirOut}????${dddm2}*Q.${extOut}",
+    "${dirOut}????${dddm2}*V.${extOut}",
+    "${dirOut}????${dddm2}*W.${extOut}",
+    "${dirOut}STDPRE_*${yyddd}.${extOut}",
+    "${dirOut}PREWEI_*${yyddd}.${extOut}",
+    "${dirOut}POLXTR_*${yyddd}.${extOut}",
+    "${dirOut}STDPRE_*${yydddp1}.${extOut}",
+    "${dirOut}PREWEI_*${yydddp1}.${extOut}",
+    "${dirOut}POLXTR_*${yydddp1}.${extOut}",
+    "${dirOut}STDPRE_*${yydddp2}.${extOut}",
+    "${dirOut}PREWEI_*${yydddp2}.${extOut}",
+
+    "${dirSum}????${dddm2}*C.${extSum}",
+
+    "${dirSum}${v_b}?${yydddm6}.${extSum}",
+    "${dirSum}${v_e}?${yydddm6}.${extSum}",
+    "${dirSum}${v_k}?${yydddm6}.${extSum}",
+    "${dirSum}${v_h}?${yydddm6}.${extSum}",
+    "${dirSum}${v_i}?${yydddm6}.${extSum}",
+    "${dirSum}${v_z}?${yydddm6}.${extSum}",
+
+    "${dirOut}SMT${ssssm15}???.${extOut}",
+    "${dirOut}OBS${ssssm15}???.${extOut}",
+    "${dirOut}SPP${ssssm15}???.${extOut}",
+    "${dirOut}MPR${ssssm15}???.${extOut}",
+#    "${dirSum}???${ssssm15}???.${extSum}",
+#    "${dirLst}???${ssssm15}???.${extLst}",
+    "${dirSum}MP?${yyssssm15}.${extSum}",
+    "${dirSmc}SPP${yyssssm15}*.${extSmc}",
+    "${dirSme}SPP${yyssssm15}*.${extSme}",
+
+#    "${dirOut}???${yydddm15}.${extOut}",
+    "${dirOut}???${yydddm15}_.${extOut}",
+    "${dirOut}OBS${yydddm15}???.${extOut}",
+    "${dirOut}OBX_???_${yydddm15}.${extOut}",
+    "${dirSum}OBX_???_${yydddm15}.${extSum}",
+
+    "${dirPlt}???${yydddm30}.${extPlt}",
+    "${dirPlt}???${wwwwdm30}.${extPlt}",
+    "${dirSum}???${yydddm30}.${extSum}",
+    "${dirSmc}RXGR${ssssm30}.${extSmc}",
+
+    "${dirLst}???${yydddm90}.${extLst}",
+
+    "${dirOut}???${wwwwdm720}.${extOut}", # ${wwwwm720}?
+    "${dirSum}???${wwwwdm720}.${extSum}", # ${wwwwm720}?
+    "${dirPlt}???${wwwwdm720}.${extPlt}", # ${wwwwm720}?
+    "${dirLst}???${wwwwdm720}.${extLst}", # ${wwwwm720}?
+
+    "${dirGcc}???${yydddm720}.${extGcc}",
+
+    "${dirNeq}???${yydddm90}.${extNeq}",
+    "${dirSnx}???${yydddm90}.${extSnx}",
+
+# Bernese in-/output files
+    "${dirRes}????${ddd}C.${extRes}",
+    "${dirEdt}????${dddm2}C.${extEdt}",
+
+    "${dirRes}EDF${ssssm2}???.${extRes}",
+    "${dirRes}EDL${ssssm2}???.${extRes}",
+    "${dirEdt}EDT${ssssm15}???.${extEdt}",
+
+# Other output files
+    "${dirOut}${yydddm1}*.*",
+
+    "${dirOut}${v_o}${yydddm2}0.0*",
+
+    "${dirOut}FTP${yydddm30}.???",
+
+    "${dirOut}???${wwwwdm720}.CMP",       # ${wwwwm720}?
+
+# ???
+
+    "${dirSum}???${ssssm15}???.BPE",
+    "${dirLst}???${ssssm15}???.TMP",
+    "${dirSum}????${dddm8}C.???",
+    "${dirSum}???${yydddm30}.AMB",
+    "${dirSum}???${yydddm30}.ACC",
+    "${dirOut}*.${yym30}_${ssssm30}",
+    "${dirOut}???${yydddm90}.PRC",
+    "${dirSta}???${yyssssm2}.SEL",
+    "${dirSta}???${yydddm2}.SEL",
+    "${dirSta}???${yyssssm2}.NON",
+
+# Solution files
+    "${dirNeq}EST${ssssm2}???.${extNeq}",
+    "${dirNeq}EST${ssssm8}???.${extNeq}",
+
+##    "${dirNeq}${v_u}?${yydddm8}.${extNeq}",
+    "${dirNeq}${v_u}?${yydddm15}.${extNeq}",
+    "${dirNeq}${v_i}_${yydddm8}.${extNeq}",
+    "${dirNeq}${v_i}_${yydddm15}.${extNeq}",
+    "${dirNeq}${v_h}_${yydddm15}.${extNeq}",
+    "${dirNeq}${v_h}0${yydddm15}.${extNeq}",
+
+# Bernese Processing Engine
+    "${dirBpe}??${yyssssm8}_???_???.???*",
+    "${dirBpe}??${yyssssm30}_???_???.???*",
+    "${dirBpe}??${yyssssm90}_???_???.???*",
+
+    "${dirBpe}AIUB_${wwwwdm30}_??.???",  # UBLOX
+
+# SAVEDISK
+    "${orbSav}???${wwwwdm720}.${extPre}*",
+    "${orbSav}???${yydddm720}.${extEle}",
+    "${orbSav}???${wwwwdm720}.${extErp}",
+    "${orbSav}???${yydddm720}.${extErp}",
+    "${orbSav}???${yydddm720}.${extIep}",
+##    "${orbSav}???${yydddm720}.${extGcc}",
+    "${orbSav}???${yydddm720}.${extClk}*",
+    "${orbSav}???${yydddm720}.${extDcb}",
+    "${orbSav}???${yydddm720}.${extOsb}",
+
+    "${rawSav}????${ssssm720}.${yym720}N*",
+    "${rawSav}????${ssssm720}.${yym720}G*",
+
+    "${staSav}???${yydddm720}.${extCrd}",
+
+    "${atmSav}???${yydddm720}.${extTrp}",
+    "${atmSav}???${yydddm720}.${extTro}",
+    "${atmSav}???${yydddm720}.${extIon}",
+    "${atmSav}???${yydddm720}.${extInx}*",
+    "${grdSav}???${yydddm720}.${extGrd}",
+    "${atmSav}????${ssssm720}.${yym720}N*",
+
+    "${outSav}???${yydddm720}.${extRxc}*",
+
+    "${solSav}???${yydddm720}.${extNeq}",
+
+##    "${outSav}IGSRAPID.${yym720}_${dddm720}",
+
+# Other files
+    "${CAMP_PTH}${CAMPAIGN}/MSC/SKIP_JOB.FLG",
+    "${CAMP_PTH}${CAMPAIGN}/MSC/NO_LOOP.FLG",
+  );
+  if($ultra) {
+    push(@delLst,
+      "${CAMP_PTH}${CAMPAIGN}/MSC/SKIP_QIF.FLG",
+    );
+  } else {
+    if($yyddd > 17136) {
+    push(@delLst,
+##      "${CAMP_PTH}${CAMPAIGN}/MSC/REPOSITIONING.FLG_",
+      "${CAMP_PTH}${CAMPAIGN}/MSC/REPOSITIONING.FLG",
+      "${CAMP_PTH}${CAMPAIGN}/MSC/REPOSITIONING2.FLG",
+      "${CAMP_PTH}${CAMPAIGN}/MSC/REPOSITIONING3.FLG",
+      "${CAMP_PTH}${CAMPAIGN}/MSC/REPOSITIONING4.FLG",
+    );
+  }
+  }
+
+# Delete the files
+# ----------------
+  if($del eq "Y") {
+    foreach(@delLst) {
+      my @f = glob("$_");
+      print "\n$_: ".scalar(@f)."\n";
+      foreach my $f(@f) {
+        next unless(-e $f);
+        unlink($f);
+        print "  $f deleted\n";
+      }
+    }
+  } else {
+    &prtMess($bpe,"FILES NOT DELETED");
+    print  "\n *** FILES NOT DELETED\n";
+  }
+}
+
+# =============================================================================
+
+__END__

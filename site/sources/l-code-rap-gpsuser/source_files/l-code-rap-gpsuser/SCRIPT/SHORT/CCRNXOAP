@@ -1,0 +1,112 @@
+package CCRNXOAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  CCRNXOAP
+#
+# Purpose :  Prepare merging of hourly files
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  26-Jan-2006 mm: New initPar call (w/o tmpFil)
+#            10-Feb-2005 mm: Old date variables removed
+#            11-Mar-2014 av: Use glob instead of ls
+#            19-Mar-2015 av: Remove rinex.com on ORX (done in IGSR_COP)
+#            16-Apr-2018 av: Change for CCRNXO (RINEX2 and RINEX3 support)
+#            06-Jun-2018 av: Fixed RINEX3 search statement
+#            13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area
+#            06-Jan-2023 SS: Correct RINEX data not only in ULTRA mode
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ddd,$yy,$yyyy,$size,
+      $outDir,$orxDir,$rawDir) =
+    $bpe->getKeys(
+      '$+0','$Y','$Y+0','PARAM2',
+      "DIR_OUT","DIR_OXO","DIR_RXO");
+
+
+# Define directories and file names
+# ---------------------------------
+  my $ultFlg = "${outDir}../MSC/ULT${yy}${ddd}.FLG";
+  my @cluFil = ();
+
+  $size = 10 unless $size;
+
+# Not in ultra-mode
+# -----------------
+  if (!-s $ultFlg) {
+    prtMess($bpe,"No IGSULTRA: No merging of hourly observation data");
+
+# Correct RINEX data
+    system("$ENV{AUTO}/rinex.com $rawDir $ddd");
+
+  } else {
+
+# Ultra-mode
+# ----------
+
+# Correct RINEX data
+    system("$ENV{AUTO}/rinex.com $rawDir $ddd");
+    system("$ENV{AUTO}/rinex.com $orxDir $ddd");
+
+# Get files to merge (character-wise)
+    my ($i, $clu, $fil);
+    my @files2 = glob("${orxDir}*???${ddd}?.${yy}O");
+    my @files3 = glob("${orxDir}*_?_${yyyy}${ddd}*O.{rnx,RNX}");
+    my @files = glob("${orxDir}*_${yyyy}${ddd}?.{rxo,RXO}");
+
+
+# Iterate trough Short file names
+    my $count = 0;
+    my %sites;
+    map {$sites{rx2}{$1} = 1 if /(\w\w\w\w)${ddd}.\.${yy}O/} @files2;
+    map {$sites{rx3}{$1} = 1 if /(\w\w\w\w)....._._${yyyy}${ddd}.*O\.(rnx|RNX)/} @files3;
+    map {$sites{rnx}{$1} = 1 if /(\w\w\w\w)....._${yyyy}${ddd}.\.(rxo|RXO)/} @files;
+
+    unlink glob("${outDir}*_MERGE.CLU");
+    foreach my $site (sort keys %{$sites{rx2}}){
+      $count++;
+      $clu = "${outDir}".int($count/$size)."_MERGE.CLU";
+      open CLU,">> $clu";
+      map {print CLU $_."\n"} (grep /${site}${ddd}.\.${yy}O/, @files2);
+      close CLU
+    }
+
+    foreach my $site (sort keys %{$sites{rx3}}){
+      $count++;
+      $clu = "${outDir}".int($count/$size)."_MERGE.CLU";
+      open CLU,">> $clu";
+      map {print CLU $_."\n"} (grep /${site}....._._${yyyy}${ddd}.*(rnx|RNX)/, @files3);
+      close CLU
+    }
+
+    foreach my $site (sort keys %{$sites{rnx}}){
+      $count++;
+      $clu = "${outDir}".int($count/$size)."_MERGE.CLU";
+      open CLU,">> $clu";
+      map {print CLU $_."\n"} (grep /${site}....._${yyyy}${ddd}.\.(rxo|RXO)/, @files);
+      close CLU
+    }
+
+    my @cluFil = glob ("${outDir}*_MERGE.CLU");
+
+    prtMess($bpe,"Hourly RINEX observation data merged");
+
+# Initialize parallel run
+    initPar_Fl($bpe,@cluFil);
+ }
+}

@@ -1,0 +1,52 @@
+package ADDNEQ2C;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ADDNEQ2C
+#
+# Purpose :  Execute ADDNEQ2 according to the input argument and create datum
+#            file
+#
+# PARAMs  :  PARAM1: Value of user variable $(SOL)
+#
+# Author  :  E. Calero
+# Created :  25-Feb-2020
+#
+# Changes :  
+#
+# ============================================================================
+
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$sol,
+      $crdInf,
+      $dirFix  ,$extFix) = 
+      $bpe->getKeys('$YD+0',"$$bpe{PARAM1}",
+      'V_CRDINF',
+      'DIR_FIX','EXT_FIX');
+
+# Initialize FIX file
+  my $fixFl = "${dirFix}${sol}_${yyddd}.${extFix}";
+  unless ( -e $fixFl ) {
+    my $refFl = "${dirFix}${crdInf}.${extFix}";
+    system("cp $refFl $fixFl");
+    prtMess($bpe,"UPDATE FIX FILE");
+  }
+
+# Initialize $SOL variable
+  setUserVar($bpe,"SOL",$sol);
+
+# Run program
+# -----------
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

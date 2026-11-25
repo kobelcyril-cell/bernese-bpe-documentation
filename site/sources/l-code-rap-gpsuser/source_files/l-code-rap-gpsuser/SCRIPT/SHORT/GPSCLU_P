@@ -1,0 +1,183 @@
+package GPSCLU_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GPSCLU_P
+#
+# Purpose :  Parallel run for parameter estimation and NEQ-file generation
+#            (cluster _00 will be run with baselinewise correlations)
+#
+# Programs:  GPSEST
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  27-Apr-2005/ss: Do not set up stochastic pulses for non-U24 runs
+#            25-Feb-2010/ss: Activate HOI setup if indicated
+#            08-Oct-2010/ss: GMF/VMF troposphere model switch
+#            10-Sep-2013 SL: Do not transform ERPs to 24h for ULTRAs
+#            05-Jun-2014 SS: SANTOFF switch
+#            03-Sep-2015 lp: Downweight satellites (setSATWEIGHT)
+#            18-Sep-2019 av: Support V_GTRA
+#            07-Dec-2020 RD: Add PCF variable V_TRPMOD
+#            05-Jul-2021 LP: More generalized setting of TROPO keys
+#            27-Nov-2022 AV: Add ANTAZI variable
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+
+# External packages
+use File::Basename;
+use File::Copy;
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,$ssss,
+    $dirOut,$extOut,
+    $param1,$subPid,$pid,$v_tropMod,$antazi,
+    $gtra
+  ) =
+  $bpe->getKeys(
+    '$YD+0','$S+0',
+    'DIR_OUT','EXT_OUT',
+    'PARAM1','SUB_PID','PID','V_TRPMOD','V_ANTAZI',
+    'V_GTRA'
+  );
+
+# Do not set up stochastic pulses for non-U24 runs
+# ------------------------------------------------
+  my $ultFil = "$dirOut/../MSC/ULT$yyddd.FLG";
+  my $ultLin = -e $ultFil ? `cat $ultFil` : "24 23 23 0";
+  my $hour_end = (split(" ",$ultLin))[0];
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","STCEST","0") if $hour_end <= 15;
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","STCEST","0") if $hour_end <= 18;
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","STCEST","0") if -e $ultFil;
+
+# Daily ERPs for ultra
+# --------------------
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","NUMSET","24 00 00") if -e $ultFil;
+
+# Initialize $D4 variable with subpid
+# -----------------------------------
+  setUserVar($bpe,"D4",$subPid);
+
+# Replace selected with station list
+# ----------------------------------
+  replaceSel($bpe,"GPSEST","PSFILES",$param1);
+
+# Set correlation strategy
+# ------------------------
+  my $cluNum = index(basename($param1),"_00.CLB");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CORREL","BASELINE") if $cluNum!=-1;
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GNSSPEC","1")       if $gtra eq "Y";
+
+# Activate HOI setup if indicated
+# -------------------------------
+  my $hoiFil = "$dirOut/../ATM/HOI$yyddd.ION";
+  if (-s $hoiFil) {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS","HOI$yyddd");
+    unless (-e $ultFil) {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SCALHOI","1");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","HOI1","ONE_FOR_ALL");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SIGHOI1","0.0001");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","HOI2","ONE_FOR_ALL");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SIGHOI2","0.0001");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","HOI3","ONE_FOR_ALL");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SIGHOI3","0.0001");
+      prtMess($bpe,"HOI SETUP: ON (WITH ESTIMATION)");
+    } else {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SCALHOI","0");
+      prtMess($bpe,"HOI SETUP: ON (W/O ESTIMATION)");
+    }
+  } else {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS"," ");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SCALHOI","0");
+    prtMess($bpe,"HOI SETUP: OFF");
+  }
+
+# Set azimuth correction
+# ----------------------
+  if($antazi eq "Y" || $antazi eq "YES"){
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","USE_ANTAZI","1");
+    prtMess($bpe,"Consider station antenna rotations");
+
+  }
+
+# GMF/VMF troposphere model switch
+# --------------------------------
+  my $tropMod = 'VMF'; # default
+  if ($v_tropMod ne "") {
+    $v_tropMod  = $v_tropMod.'    ';
+    if (substr($v_tropMod,3,1) ne ' ') {$tropMod = substr($v_tropMod,0,4);}
+    else                               {$tropMod = substr($v_tropMod,0,3);}
+  }
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+  my $flgLin = -e $flgFil ? `cat $flgFil` : $tropMod;
+  chomp($flgLin);
+  prtMess($bpe,"GMF/VMF troposphere model switch: $flgLin");
+
+  my $TROPMOD_KEY = $flgLin;
+     $TROPMOD_KEY =~ s/GMF3/GPT3/;
+  my $TROPMF_KEY  = $flgLin;
+     $TROPMF_KEY  =~ s/GPT/GMF/;
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_".$TROPMOD_KEY);
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_".$TROPMF_KEY);
+  if     ($flgLin =~ /VMF/) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",'VMF$YD+0');}
+  elsif (($flgLin =~ /GMF/)||($flgLin =~ /GPT/)) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');}
+  else                     {die "*** Invalid TROPO model: $flgLin \n";}
+
+
+# Satellie antenna offset parameters (SANTOFF)
+# --------------------------------------------
+  if (-e $ultFil) {
+##    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SANTOFF","0");
+##    prtMess($bpe,"SANTOFF parameters not set up");
+  }
+
+# Deactivate OBS2NEQ for test purposes
+# ------------------------------------
+##  if (-e $ultFil) {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OBS2NEQ","0");
+    prtMess($bpe,"OBS2NEQ deactivated");
+##  }
+
+# Downweight satellites
+# ---------------------
+##  my $dirMsc   = "${dirOut}/../MSC/";
+##  my $BetaFile = $dirMsc.'BETA_'.$yyddd.'.FLG';
+##  &setSATWEIGHT($bpe,"$ENV{U}/PAN/GPSEST.INP",$BetaFile);
+
+# Run program
+# -----------
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/research/aiub_data/BSWsoftware/BERN_BIA/SOURCE/PGM/EXE_GNU/");
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/research/aiub_code/IGSFINAL/TMP/");
+##  $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","/storage/homefs/l_code_rap/myIGRF14/EXE_GNU/");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AZISAT_BAD","1");
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Copy output to scratch disk
+# ---------------------------
+  copy("${dirOut}EST${ssss}${subPid}.${extOut}",
+       "$ENV{T}/EST${ssss}${subPid}.$pid");
+
+# Delete BPE file
+# ---------------
+  open (BPE,$param1);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $param1\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+
+}

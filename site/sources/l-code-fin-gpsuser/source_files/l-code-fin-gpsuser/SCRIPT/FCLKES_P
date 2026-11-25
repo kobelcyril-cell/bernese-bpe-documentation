@@ -1,0 +1,106 @@
+package FCLKES_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FCLKES_P
+#
+# Purpose :  Execute GPSEST for zero-difference files (parallel mode)
+#
+# Remark  :  Use only phase data
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#
+# Author  :  R. Dach
+# Created :  11-Aug-2011
+#
+# Changes :  07-Mar-2017 AV: Synchronize Phase and Code data (SATMARK)
+#            10-Jul-2021 LP: Add $v_tropMod for VMF3
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtMess setUserVar replaceSel prtBPEfile);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ssss   , $yyddd,
+      $param1 , $subPid , $dirOut,
+      $clu    , $obstyp , $v_tropMod) =
+  $bpe->getKeys
+     ('$S+0'    , '$YD+0'  ,
+      'PARAM1'  , 'SUB_PID', 'DIR_OUT',
+      'V_PPPCLU', 'PARAM2' , 'V_TRPMOD');
+
+# Set cluster number and input files
+# ----------------------------------
+  my $cluster = $clu eq "" ? "$ssss$param1" : "$ssss$subPid";
+  my $ffff    = $clu eq "" ? $param1        : "____";
+
+  setUserVar($bpe,"CLUSTER",$cluster,"FFFF",$ffff,"CCC",$subPid);
+
+
+  prtMess($bpe,"PROCESSING FILE $param1$ssss");
+
+# Run program
+# -----------
+  my $PGMNAM = "SATMRK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Run PPP Test
+# ------------
+
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","$param1$ssss");
+  if ( $obstyp eq "BOTH" || $obstyp eq "CODE" || $obstyp eq "ALL") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES","$param1$ssss");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","") if $obstyp =~/(CODE|ALL)/;
+  }
+
+
+# GMF/VMF troposphere model switch
+# --------------------------------
+  my $tropMod = 'VMF'; # default
+  $v_tropMod  = $v_tropMod.'    ';
+  if (substr($v_tropMod,3,1) ne ' ') {$tropMod = substr($v_tropMod,0,4);}
+  else                               {$tropMod = substr($v_tropMod,0,3);}
+
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+  my $flgLin = -e $flgFil ? `cat $flgFil` : $tropMod;
+  chomp($flgLin);
+  prtMess($bpe,"GMF/VMF troposphere model switch: $flgLin");
+
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_".$flgLin);
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_".$flgLin);
+  if     ($flgLin =~ /VMF/) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",'VMF$YD+0');}
+  elsif (($flgLin =~ /GMF/)||($flgLin =~ /GPT/)) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');}
+  else                     {die "*** Invalid TROPO model: $flgLin \n";}
+
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Run PHASE-only and PHASE-CODE solution
+# --------------------------------------
+  if($obstyp eq "ALL"){
+    # Phase-only solution
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES","");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","$param1$ssss");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT",'$IP$S+0$(FFFF)');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RESIDRS",'');
+    $bpe->RUN_PGMS($PGMNAM);
+    # Phase-code solution
+    #$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES","$param1$ssss");
+    #$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT",'$IC$S+0$(FFFF)');
+    #$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RESIDRS",'$IC$S+0$(FFFF)');
+    #$bpe->RUN_PGMS($PGMNAM);
+  }
+# Print processed stations BPE file
+# ---------------------------------
+  prtBPEfile($param1,0) if ($clu ne "");
+
+}

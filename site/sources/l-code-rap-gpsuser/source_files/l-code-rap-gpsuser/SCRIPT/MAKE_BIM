@@ -1,0 +1,119 @@
+package MAKE_BIM;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  MAKE_BIM
+#
+# Purpose :  Make broadcast ionosphere model information
+#
+# PARAMs  :  PARAM1 - Optional minus parameter
+#
+# Author  :  S. Schaer
+# Created :  11-Sep-2012
+#
+# Changes :  18-Sep-2012/ss: Set title
+#            01-Dec-2016 SS: Upload to cddis https
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+use cddis_curl;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,
+      $mjd, $p, $sav, $dis, $upd, $param1,
+      $dirRxn, $dirIon, $dirOut) =
+    $bpe->getKeys('$YD+0',
+                  '$JD+0', 'V_P', 'V_SAV', 'V_DIS', 'V_UPD', 'PARAM1',
+                  'DIR_RXN', 'DIR_ION', 'DIR_OUT');
+
+# Set variables
+# -------------
+  $param1 = -10 if $param1 eq "";
+
+# Perform loop
+# ------------
+  my $mjd_last = $mjd;
+  my $mjd_first = gps_date("-mjd $mjd -d $param1 -o %IJ");
+  for ($mjd=$mjd_first;$mjd<=$mjd_last;$mjd++) {
+    my ($yyyy,$yy,$ddd) = gps_date("-mjd $mjd -o %Y %y %j");
+    my $dir  = "$PATH_AFTP$CAMP_CODE/IONO/$yyyy/";
+# This is the file used for checking the currentness of data:
+    my $out = "${dir}${p}G${ddd}0.${yy}I.Z";
+    next if -s $out;
+    next if $yyyy<2012;
+
+    system("$ENV{AUTO}/get_ioninfo.com $ddd $yy ${dirRxn}KLOB${ddd}0.${yy}N ${dirOut}IONINFO.SUM") && die "get_ioninfo.com failed\n";
+
+# Run program
+# -----------
+    $bpe->putKey("$ENV{U}/PAN/BIMINX.INP","NAVINP","KLOB${ddd}0");
+    $bpe->putKey("$ENV{U}/PAN/BIMINX.INP","INXOUT","\$P${yy}${ddd}");
+    $bpe->putKey("$ENV{U}/PAN/BIMINX.INP","SYSOUT","\$P${yy}${ddd}");
+
+    $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_RXN","${yy}N");
+
+    my $PGMNAM = "BIMINX";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    my $inp = "${dirIon}${p}${yy}${ddd}.INX";
+    replace($inp,"BROADCAST IONOSPHERE MODEL                                  ",
+                 "BROADCAST IONOSPHERE MODEL FOR DAY $ddd, $yyyy                ");
+    prtMess($bpe,"$inp CREATED");
+    $out = "CODE/IONO/$yyyy/${p}G${ddd}0.${yy}I";
+    if ($sav eq "Y") {
+      check_dir($dir);
+      copyaftp("-c",$inp,$out) or die "copyaftp failed with $inp to $out\n";
+      prtMess($bpe,"$inp DISTRIBUTED to $out");
+    }
+
+# Upload IONEX to CDDIS
+# ---------------------
+    if ($dis eq "Y") {
+      $iRun = 0;
+      $nRun = 3;
+      $ftpSum = "${dirOut}CDDIS_${p}.FTP";
+      unlink $ftpSum;
+
+      for ($iRun=1;$iRun<=$nRun;$iRun++) {
+        $err = "OK";
+##        open (FH,">>$ftpSum");
+##        if ($ftp = newFTP->new("cddisin.gsfc.nasa.gov",t=>60,v=>2,o=>*FH)) {
+##          $ftp->login('aiubgps','stYs0147');
+##          $ftp->cwd("/products/iono");
+##          $ftp->binary;
+##          $inp = "${dir}${p}G${ddd}0.${yy}I.Z";
+##          $out = lc($p)."g${ddd}0.${yy}i.Z";
+##          $ftp->put($inp,$out);
+##          $ftp->dir;
+##          $ftp->quit;
+##          $ftp->ftpOK or $err = "ERR";
+##        } else { $err = "ERR" }
+##        close FH;
+        $inp = "${dir}${p}G${ddd}0.${yy}I.Z";
+        $out = lc($p)."g${ddd}0.${yy}i.Z";
+        my %cddis_upload = ("$inp" => "$out");
+        my $irc = upload_cddis_hash(\%cddis_upload);
+        $err = "ERR" if $irc!=0;
+        if ($err eq "OK") { last }
+        sleep (30);
+      }
+      prtMess($bpe,"$inp UPLOADED TO $out");
+    }
+  }
+
+}

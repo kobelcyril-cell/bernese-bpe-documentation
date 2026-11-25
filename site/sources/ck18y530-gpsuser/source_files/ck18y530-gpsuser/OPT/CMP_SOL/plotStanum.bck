@@ -1,0 +1,468 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show general configuration"
+
+! Filename for resulting plots (output)
+! -------------------------------------
+FIGSHOW 1  "1"
+  ## widget = checkbox
+
+MSG_FIGSHOW 1  "Show resulting figure on the screen"
+
+FIGOUT 1  "Stanum.png"
+  ## widget = lineedit; path = DIR_FIG; ext = NO_EXT; maxfiles = 1
+
+DESCR_FIGOUT 1  "Output file for plot of number of epochs"
+
+FIGRES 1  "300"
+  ## widget = lineedit; check_type = integer; check_min = 50
+
+MSG_FIGRES 1  "Resolution of the figure"
+
+! Input data: list of coordinate files
+! ------------------------------------
+CRDFIL 1  "$(CRD)*.CRD"
+  ## widget = selwin; path = DIR_CRD; extList = EXT_CRD
+
+MSG_CRDFIL 1  "Coordinate files"
+
+! Options for all stations
+! ------------------------
+NSTA 1  "0"
+  ## widget = checkbox
+
+MSG_NSTA 1  "Plot lines for all stations"
+
+CSTA 1  "blue"
+  ## widget = combobox; editable = true; activeif = NSTA = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CSTA 1  "Color for all station line"
+
+WSTA 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NSTA = 1
+
+MSG_WSTA 1  "Line width for all stations"
+
+LSTA 1  "All"
+  ## widget = lineedit; activeif = NSTA = 1
+
+MSG_LSTA 1  "Legend entry for all stations"
+
+! Options for stations with GPS
+! -----------------------------
+NGPS 1  "1"
+  ## widget = checkbox
+
+MSG_NGPS 1  "Plot lines for stations with GPS"
+
+CGPS 1  "blue"
+  ## widget = combobox; editable = true; activeif = NGPS = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CGPS 1  "Color for lines for stations with GPS"
+
+WGPS 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NGPS = 1
+
+MSG_WGPS 1  "Line width for stations with GPS"
+
+LGPS 1  "GPS"
+  ## widget = lineedit; activeif = NGPS = 1
+
+MSG_LGPS 1  "Legend entry for stations with GPS"
+
+! Options for stations with GLONASS
+! ---------------------------------
+NGLO 1  "1"
+  ## widget = checkbox
+
+MSG_NGLO 1  "Plot lines for stations with GLO"
+
+CGLO 1  "green"
+  ## widget = combobox; editable = true; activeif = NGLO = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CGLO 1  "Color for lines for stations with GLO"
+
+WGLO 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NGLO = 1
+
+MSG_WGLO 1  "Line width for stations with GLO"
+
+LGLO 1  "GLONASS"
+  ## widget = lineedit; activeif = NGLO = 1
+
+MSG_LGLO 1  "Legend entry for stations with GLO"
+
+! Options for stations with GAL
+! -----------------------------
+NGAL 1  "1"
+  ## widget = checkbox
+
+MSG_NGAL 1  "Plot lines for stations with GAL"
+
+CGAL 1  "red"
+  ## widget = combobox; editable = true; activeif = NGAL = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CGAL 1  "Color for lines for stations with GAL"
+
+WGAL 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NGAL = 1
+
+MSG_WGAL 1  "Line width for stations with GAL"
+
+LGAL 1  "Galileo"
+  ## widget = lineedit; activeif = NGAL = 1
+
+MSG_LGAL 1  "Legend entry for stations with GAL"
+
+! Options for stations with SBAS
+! ------------------------------
+NSBS 1  "0"
+  ## widget = checkbox
+
+MSG_NSBS 1  "Plot lines for stations with SBS"
+
+CSBS 1  ""
+  ## widget = combobox; editable = true; activeif = NSBS = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CSBS 1  "Color for lines for stations with SBS"
+
+WSBS 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NSBS = 1
+
+MSG_WSBS 1  "Line width for stations with SBS"
+
+LSBS 1  ""
+  ## widget = lineedit; activeif = NSBS = 1
+
+MSG_LSBS 1  "Legend entry for stations with SBS"
+
+! Options for stations with BDS
+! -----------------------------
+NBDS 1  "0"
+  ## widget = checkbox
+
+MSG_NBDS 1  "Plot lines for stations with BDS"
+
+CBDS 1  ""
+  ## widget = combobox; editable = true; activeif = NBDS = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CBDS 1  "Color for lines for stations with BDS"
+
+WBDS 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NBDS = 1
+
+MSG_WBDS 1  "Line width for stations with BDS"
+
+LBDS 1  ""
+  ## widget = lineedit; activeif = NBDS = 1
+
+MSG_LBDS 1  "Legend entry for stations with BDS"
+
+! Options for stations with QZSS
+! ------------------------------
+NQZS 1  "0"
+  ## widget = checkbox
+
+MSG_NQZS 1  "Plot lines for stations with QZS"
+
+CQZS 1  ""
+  ## widget = combobox; editable = true; activeif = NQZS = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CQZS 1  "Color for lines for stations with QZS"
+
+WQZS 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NQZS = 1
+
+MSG_WQZS 1  "Line width for stations with QZS"
+
+LQZS 1  ""
+  ## widget = lineedit; activeif = NQZS = 1
+
+MSG_LQZS 1  "Legend entry for stations with QZS"
+
+! Options for stations with datum definition
+! ------------------------------------------
+NWGT 1  "0"
+  ## widget = checkbox
+
+MSG_NWGT 1  "Plot lines for stations with datum definition"
+
+CWGT 1  "blue"
+  ## widget = combobox; editable = true; activeif = NWGT = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CWGT 1  "Color for lines for stations with datum definition"
+
+WWGT 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NWGT = 1
+
+MSG_WWGT 1  "Line width for stations with datum definition"
+
+LWGT 1  "Datum"
+  ## widget = lineedit; activeif = NWGT = 1
+
+MSG_LWGT 1  "Legend entry for stations with datum definition"
+
+! Options for estimated stations
+! ------------------------------
+NEST 1  "0"
+  ## widget = checkbox
+
+MSG_NEST 1  "Plot lines for estimated stations"
+
+CEST 1  "magenta"
+  ## widget = combobox; editable = true; activeif = NEST = 1
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_CEST 1  "Color for lines for estimated stations"
+
+WEST 1  "3"
+  ## widget = spinbox; range = 1 20 1; activeif = NEST = 1
+
+MSG_WEST 1  "Line width for estimated stations"
+
+LEST 1  "Estimated"
+  ## widget = lineedit; activeif = NEST = 1
+
+MSG_LEST 1  "Legend entry for estimated stations"
+
+! Title: new entry
+! ----------------
+TITLE 1  "Number of stations"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+TIT_FONTSIZE 1  "large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_TIT_FONTSIZE 1  "Font size in the title"
+
+! Size of the plot
+! ----------------
+SIZEX 1  "12"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEX 1  "Width of the plot"
+
+SIZEY 1  "8"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEY 1  "Height of the plot"
+
+! Get boundaries of the plot
+! --------------------------
+XYAUTO 1  "0"
+  ## widget = checkbox
+
+MSG_XYAUTO 1  "Auto scale to a global map"
+
+TMIN 1  "$YMD_STR-(67)"
+  ## widget = lineedit; check_type = date; activeif = XYAUTO / 1
+
+MSG_TMIN 1  "Lower bound time axis"
+
+YMIN 1  ""
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_YMIN 1  "Lower bound data axis"
+
+TMAX 1  "$YMD_STR+1"
+  ## widget = lineedit; check_type = date; activeif = XYAUTO / 1
+
+MSG_TMAX 1  "Upper bound time axis"
+
+YMAX 1  ""
+  ## widget = lineedit; check_type = real; activeif = XYAUTO / 1
+
+MSG_YMAX 1  "Upper bound data axis"
+
+LABEL_X 1  "Epoch"
+  ## widget = lineedit
+
+MSG_LABEL_X 1  "Label for the time axis"
+
+LABEL_Y 1  "#"
+  ## widget = lineedit
+
+MSG_LABEL_Y 1  "Label for the data axis"
+
+LABEL_FONTSIZE 1  "large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_LABEL_FONTSIZE 1  "Font size in the labels"
+
+BGCOLOR 1  "white"
+  ## widget = combobox; editable = true
+  ## cards = white red green blue yellow orange magenta cyan grey
+
+MSG_BGCOLOR 1  "Plot background color"
+
+! Specify the legend characteristics
+! ----------------------------------
+LEGEND 1  "1"
+  ## widget = checkbox
+
+MSG_LEGEND 1  "Plot a legend"
+
+LEG_POS 1  "best"
+  ## widget = combobox; activeif = LEGEND = 1
+  ## cards = right center/left upper/right lower/right best center lower/left center/right upper/left upper/center lower/center
+
+MSG_LEG_POS 1  "Position of the legend"
+
+LEG_ANCHOR_X 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1; check_type = real
+
+MSG_LEG_ANCHOR_X 1  "Anchor point for legend position"
+
+LEG_ANCHOR_Y 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1; check_type = real
+
+MSG_LEG_ANCHOR_Y 1  "Anchor point for legend position"
+
+LEG_NCOLS 1  "1"
+  ## widget = spinbox; activeif = LEGEND = 1; range = 1 10 1
+
+MSG_LEG_NCOLS 1  "Number of columns for legend"
+
+LEG_FRAME 1  "1"
+  ## widget = checkbox; activeif = LEGEND = 1
+
+MSG_LEG_FRAME 1  "Plot a legend with a frame"
+
+LEG_TITLE 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1
+
+MSG_LEG_TITLE 1  "Title of the legend"
+
+LEG_FONTSIZE 1  "x-large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_LEG_FONTSIZE 1  "Font size in the legend"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PLOT STATION STATISTICS FROM COORD. FILES - plotStanum 1: Input/output files #
+#                                                                              #
+# GENERAL CONFIGURATION                                                        #
+#   Show general configuration        > % <                                    # SHOWGEN
+#                                                                              #
+# INPUT FILE                                                                   #
+#   Coordinate files to be evaluated  > %%%%%%%%%%%% <                         # CRDFIL
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Show figure on the screen         > % <                                    # FIGSHOW
+#   Name of the output file           > %%%%%%%%%%%%%%%%%%%%%%%% <             # FIGOUT
+#                                       (extension defines the format)         #
+#   Resolution of the figure          > %%%% < dpi                             # FIGRES
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# plotStanum 1.1: General Configuration                                        #
+#                                                                              #
+# FONT DEFINITIONS                                                             #
+#   Title                        > %%%%%%%%%%%% <                              # TIT_FONTSIZE
+#   Labels                       > %%%%%%%%%%%% <                              # LABEL_FONTSIZE
+#   Legend                       > %%%%%%%%%%%% <                              # LEG_FONTSIZE
+#                                                                              #
+# COLOR DEFINITIONS                                                            #
+#   Background color of the plot > %%%%%%%%%%%% <                              # BGCOLOR
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotStanum 2: Plot layout                                                    #
+#                                                                              #
+# PLOT LAYOUT SPECIFICATION                                                    #
+#   Size of the plot:      width    > %%%%%%%%%% <  height  > %%%%%%%%%% <     # SIZEX SIZEY
+#                                                                              #
+#   Boundaries: > % < auto or         epoch axis              data axis        # XYAUTO
+#                     lower bound   > %%%%%%%%%% <          > %%%%%%%%%% <     # TMIN YMIN
+#                     upper bound   > %%%%%%%%%% <          > %%%%%%%%%% <     # TMAX YMAX
+#                                     (yyyy mm dd)                             #
+#                                                                              #
+#   Labels at  epoch axis > %%%%%%%%%%%%%%%%%%%%% <                            # LABEL_X
+#              data axis  > %%%%%%%%%%%%%%%%%%%%% <                            # LABEL_Y
+#                                                                              #
+# CONTENT OF THE PLOT                                                          #
+#   Title > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotStanum 3: Time series for plotting                                       #
+#                                                                              #
+# Select what to plot        color           width     label                   #
+#       all:     > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NSTA CSTA WSTA LSTA
+# GNSS:                                                                        #
+#     G GPS:     > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NGPS CGPS WGPS LGPS
+#     R GLONASS: > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NGLO CGLO WGLO LGLO
+#     E Galileo: > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NGAL CGAL WGAL LGAL
+#     C BeiDou:  > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NBDS CBDS WBDS LBDS
+#     J QZSS:    > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NQZS CQZS WQZS LQZS
+#     S SBAS:    > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NSBS CSBS WSBS LSBS
+# Flag:                                                                        #
+#     W Datum    > % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NWGT CWGT WWGT LWGT
+#     A Estimated> % <     > %%%%%%%% <    > %%% <   > %%%%%%%%%%%%%%%% <      # NEST CEST WEST LEST
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotStanum 4: Legend layout                                                  #
+#                                                                              #
+# LEGEND LAYOUT SPECIFICATION                                                  #
+# > % <  Legend:                                                               # LEGEND
+#        Position  > %%%%%%%%%%%% <  X-off > %%%%% <  Y-off > %%%%% <          # LEG_POS LEG_ANCHOR_X LEG_ANCHOR_Y
+#        Frame     > % <                       Num. Columns  > % <             # LEG_FRAME LEG_NCOLS
+#        Title     > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <       # LEG_TITLE
+#                                                                              #
+# END_PANEL ####################################################################

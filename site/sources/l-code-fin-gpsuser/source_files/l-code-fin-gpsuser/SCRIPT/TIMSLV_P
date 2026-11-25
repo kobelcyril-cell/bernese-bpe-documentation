@@ -1,0 +1,59 @@
+package TIMSLV_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMSLV_P
+#
+# Purpose :  Parallel run of GPSEST using code and phase data
+#
+# Programs:  GPSEST
+#
+# Author  :  A. Villiger
+# Created :  21-Oct-2016
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($param1, $param2, $param3, $param4,$param5,$subPid,
+      $yyssss,) =
+    $bpe->getKeys(
+      'PARAM1','PARAM2','PARAM3','PARAM4','PARAM5','SUB_PID',
+      '$YSS+0');
+
+# Initialize $D4 and $CCC variable with subpid
+# --------------------------------------------
+  setUserVar($bpe,"D4",$subPid,"SOL",$param2,"HRS",$param3,"HRE",$param4);
+
+# Run program
+# -----------
+
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","INPFILE",$param1);
+
+  if($param5 !~ /INV/){
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NEQOUT",'$(SOL)$YSS+0$(D4)');
+    $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","NOINV","1");
+  }else{
+    if($subPid=~/001/){
+      my $ssol=substr($param2,0,3);
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","COORDRS","${ssol}E$yyssss");
+      $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","TROPSAV","${ssol}E$yyssss");
+    }
+  }
+
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}
+

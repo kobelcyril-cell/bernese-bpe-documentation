@@ -1,0 +1,38 @@
+package ULTWEI;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ULTWEI
+#
+# Purpose :  Execute ultra_prewei.com for generation of ultra-rapid orbit
+#            accuracy codes
+#
+# Programs:  -
+#
+# Author  :  S. Schaer
+# Created :  12-Jan-2004               Last modified: 31-Oct-2006
+#
+# Changes :  10-Feb-2005/mm: Old date variables removed
+#            31-Oct-2006/ss: Check whether ULT LST file created
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my $CAMP_PTH = $$bpe{CAMP_PTH};
+  my $CAMPAIGN = $$bpe{CAMPAIGN};
+  my ($ddd, $yyddd) = $bpe->getKeys('$+0', '$YD+0');
+
+# Execute script
+# --------------
+  system ("$ENV{AUTO}/ultra_prewei.com $ddd $CAMP_PTH$CAMPAIGN");
+
+  my $lstFil = "$CAMP_PTH$CAMPAIGN/OUT/ULT${yyddd}.LST";
+  die "$lstFil not created\n" unless -s $lstFil;
+
+}
+

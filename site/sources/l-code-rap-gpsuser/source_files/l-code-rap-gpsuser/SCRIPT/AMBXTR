@@ -1,0 +1,77 @@
+package AMBXTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  AMBXTR
+#
+# Purpose :  Generate summary of the paralel ambiguity fixing
+#
+# Programs:  GPSXTR
+#
+# Author  :  M. Meindl
+# Created :  27-Jan-2005
+#
+# Changes :  02-Oct-2017 SS: Added NLR summary
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyddd,$dirSum,$dirOut) = $bpe->getKeys('$YD+0','DIR_SUM','DIR_OUT');
+  my $PGMNAM = "GPSXTR";
+
+
+# Extract from GPSEST widelane runs
+# ---------------------------------
+  unlink("${dirSum}MLWXTR.SUM");
+  unlink("${dirSum}AMBXTR.SUM");
+#
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","WL");
+  $bpe->RUN_PGMS($PGMNAM);
+#
+  appFile("",0,"${dirSum}MLWXTR.SUM","${dirOut}MWW${yyddd}.SUM",0);
+  copy("${dirSum}AMBXTR.SUM","${dirOut}MWW${yyddd}.AMB");
+
+
+# Extract from GPSEST narrowlane runs
+# -----------------------------------
+  unlink("${dirSum}MLWXTR.SUM");
+  unlink("${dirSum}AMBXTR.SUM");
+#
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$+0N');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","NL");
+  $bpe->RUN_PGMS($PGMNAM);
+#
+  appFile("",0,"${dirSum}MLWXTR.SUM","${dirOut}MWN${yyddd}.SUM",0);
+  copy("${dirSum}AMBXTR.SUM","${dirOut}MWN${yyddd}.AMB");
+#
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","NLR");
+  $bpe->RUN_PGMS($PGMNAM);
+#
+  appFile("",0,"${dirSum}MLWXTR.SUM","${dirOut}MWN${yyddd}.SUM",0);
+
+
+# Extract from GPSEST QIF runs
+# ----------------------------
+  unlink("${dirSum}MLWXTR.SUM");
+  unlink("${dirSum}AMBXTR.SUM");
+#
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",'????$+0Q');
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","QIF");
+  $bpe->RUN_PGMS($PGMNAM);
+#
+  appFile("",0,"${dirSum}MLWXTR.SUM","${dirOut}QIF${yyddd}.SUM",0);
+  copy("${dirSum}AMBXTR.SUM","${dirOut}QIF${yyddd}.AMB");
+
+
+# ----------------------------------------------------------------------------
+# End of script
+# ----------------------------------------------------------------------------
+}

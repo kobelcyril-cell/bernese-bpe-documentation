@@ -1,0 +1,160 @@
+package MPGPUP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MPGPUP
+#
+# Purpose :  Loop with MAUPRP,GPSEST and ORBGEN for LEO screening
+#
+# PARAMs  :
+#
+# Authors :  H. Bock
+# Created :  02-Feb-2012
+#
+# Changes :  04-Jul-2016 DA: Use V_NSCR
+#            23-Sep-2016 DA: Write out residuals in MAUPRP and GPSEST
+#            06-Sep-2018 DA: Set max. pot. deg. via V_POTDEG
+#            09-Feb-2022 DA: Added V_IGNERR
+#            17-Jan-2023 DA: Corrected setting of max. pot. deg.
+#            24-Jun-2024 DA: Allow for multiple obs. files
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+use File::Copy;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtMess setUserVar);
+
+# overloaded 'run' method.
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,$POBS,$dirPzh,$extPzh,
+      $A,   $MINEL, $OFFS, $SPEC, $nScr,
+      $dirObs,  $dirStd,
+      $extObs,  $extStd, $V_POTDEG, $IGNERR ) =
+    $bpe->getKeys(
+      '$YSS+0','V_POBS','DIR_PZH','EXT_PZH',
+      'V_A','V_MINEL','V_OFFS','V_SPEC', 'V_NSCR',
+      'DIR_PZH','DIR_STD',
+      'EXT_PZH','EXT_STD','V_POTDEG','V_IGNERR');
+
+# Set max. degree for Earth potential in ORBGEN (if V_POTDEG set)
+# ---------------------------------------------------------------
+  if ($V_POTDEG) {
+      print "Set max. potential degree to $V_POTDEG\n";
+      $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","MXPOTDEG",$V_POTDEG);
+  }
+
+# Loop: ntry
+# ----------
+  my $nTry = 3;
+  $nTry = $nScr if ($nScr);
+
+  for (my $iTry=1;$iTry<=$nTry;$iTry++){
+
+    my $F1=$iTry-1;
+    my $F2=$iTry;
+
+    prtMess($bpe,"SCREENING LOOP $iTry :$F1 $F2");
+
+    if ($iTry == 1){
+        if ($SPEC eq "Y"){
+            $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","LEOSTD","${A}S${yyssss}");
+        }
+        $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS1","0.008");
+        $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS2","0.008");
+        $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS3","0.008");
+        $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGL12_1","0.008");
+        $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGL12_2","0.008");
+                    }
+    elsif ($iTry >= 2){
+      $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","LEOSTD","$A${F1}${yyssss}");
+      if ($iTry == 2){
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS1","0.001");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS2","0.001");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS3","0.001");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGL12_1","0.002");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGL12_2","0.002");
+      }
+      elsif ($iTry >= 3){
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","KINSTA","0");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS1","0");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS2","0");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGWGS3","0");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGL12_1","0.002");
+         $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SIGL12_2","0.002");
+      }
+    }
+
+    $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","MINELEO","${MINEL}");
+    $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","SYSOUT","M${A}${F1}${yyssss}");
+#    $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","RESIDRS","M${A}${F1}${yyssss}");
+
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","LEOSTD","${A}${yyssss}");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","LEORPR","${A}${yyssss}");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","LEORBRS","$A${F2}${yyssss}");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT","$A${F2}${yyssss}");
+#    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RESIDRS","G$A${F2}${yyssss}");
+    if (${OFFS} eq "Y"){
+        $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SAMPLE","0");}
+
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT","$A${F2}${yyssss}");
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GPSOUT","$A${F2}${yyssss}");
+
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","IMPORB","$A${F2}${yyssss}");
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","STDOUT","$A${F2}${yyssss}");
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SYSOUT","U$A${F2}${yyssss}");
+
+# Set IGNORE_ERR if requested
+# ---------------------------
+  if ($IGNERR) {
+      print "Set IGNORE_ERR to ${IGNERR}\n";
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IGNORE_ERR",$IGNERR);
+  }
+
+# Reset phase observations files if V_POBS non-empty
+# --------------------------------------------------
+  if ($POBS) {
+      # Resolve potential wildcards
+      my @pzhObs = glob("${dirPzh}/${POBS}.${extPzh}");
+      print "Reset phase obs. to @pzhObs\n";
+      my $tmpFil = "$ENV{U}/WORK/obsinpp.lst";
+      open TMP, '>', $tmpFil;
+      foreach my $o (@pzhObs) {
+          print TMP "$o\n";
+      }
+      close TMP;
+      $bpe->putKey("$ENV{U}/PAN/MAUPRP.INP","PZFILES","SELECTED","REPLACE",$tmpFil);
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","SELECTED","REPLACE",$tmpFil);
+  }
+
+# Run program MAUPRP
+# ------------------
+    my $PGMNAM="MAUPRP";
+    $bpe->RUN_PGMS($PGMNAM);
+
+# Run program GPSEST
+# ------------------
+    $PGMNAM = "GPSEST";
+    $bpe->RUN_PGMS($PGMNAM);
+
+# Run program GPSXTR
+# ------------------
+    $PGMNAM = "GPSXTR";
+    $bpe->RUN_PGMS($PGMNAM);
+
+# Run program ORBGEN
+# ------------------
+    $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    my $NAM="COP";
+    copy("$dirStd$A${F2}${yyssss}.${extStd}","$dirStd$A${NAM}${yyssss}.${extStd}");
+
+  }
+
+}

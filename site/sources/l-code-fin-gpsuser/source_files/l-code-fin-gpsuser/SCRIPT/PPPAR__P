@@ -1,0 +1,138 @@
+package PPPAR__P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  PPPAR__P
+#
+# Purpose :  PPP WL/NL AR and verification
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  21-Jun-2018
+#
+# Changes :  21-Jun-2018 SS: Derived from FILEST_P
+#            10-Aug-2018 SS: Changed observation data sampling for NL AR
+#            07-Dec-2020 RD: Add PCF variable V_TRPMOD
+#            03-Mar-2021 SS: NLBCLK no longer switched
+#            10-Jul-2021 LP: More generalized handling of TROPO model
+#            09-Mar-2023 SS: Considered V_GNSSAR (and corrected)
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1,  $param2,  $param3,  $param4,  $param5,  $subPid,  $clu,
+      $uvar,    $ssss,    $ddd,     $yy,      $yyddd,   $pcf,     $v_tropMod,
+      $v_gnss,  $v_gnssar,
+      $dirOut,  $dirRes,  $dirCzh,  $dirPzh,  $dirCzo,  $dirPzo,  $dirDel,
+      $dirIon,
+      $extOut,  $extRes,  $extCzh,  $extPzh,  $extCzo,  $extPzo,  $extDel,
+      $extIon) =
+  $bpe->getKeys(
+      'PARAM1', 'PARAM2', 'PARAM3', 'PARAM4', 'PARAM5', 'SUB_PID', 'V_CLU',
+      'U',      'SESSION','DAYYEAR','YEAR','$YD+0'   ,'PCFFIL',    'V_TRPMOD',
+      'V_GNSS', 'V_GNSSAR',
+      'DIR_OUT','DIR_RES','DIR_CZH','DIR_PZH','DIR_CZO','DIR_PZO','DIR_DEL',
+      'DIR_ION',
+      'EXT_OUT','EXT_RES','EXT_CZH','EXT_PZH','EXT_CZO','EXT_PZO','EXT_DEL',
+      'EXT_ION');
+
+
+# Set cluster number, input files, and loop variable
+# --------------------------------------------------
+  setUserVar($bpe,"D4",$subPid,"CD4",$param1);
+
+# Deactivate HOI setup if indicated
+# ---------------------------------
+  if ($pcf =~/RCLKGNSS/) {
+    my $hoiFil = "${dirIon}HOI${yyddd}.${extIon}";
+    print "HOIFIL: $hoiFil\n";
+    unless (-s $hoiFil) {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS"," ");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SCALHOI","0");
+      prtMess($bpe,"HOI SETUP: DEACTIVATED");
+    } else {
+      prtMess($bpe,"HOI SETUP: UNCHANGED");
+    }
+  }
+
+# Delete old output files for this station
+# ----------------------------------------
+##  unlink(glob("${dirOut}${param1}${ddd}?.*"));
+
+# Compute the observation file name
+# ---------------------------------
+  my $obsfil = "$param1$ssss";
+
+# GMF/VMF troposphere model switch
+# --------------------------------
+  if ($pcf =~/PPPFINAL/ || $pcf =~/PPPAR/) {
+
+    my $tropMod = 'VMF'; # default
+    $v_tropMod  = $v_tropMod.'    ';
+    if (substr($v_tropMod,3,1) ne ' ') {$tropMod = substr($v_tropMod,0,4);}
+    else                               {$tropMod = substr($v_tropMod,0,3);}
+
+    my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+    my $flgLin = -e $flgFil ? `cat $flgFil` : $tropMod;
+    chomp($flgLin);
+    prtMess($bpe,"GMF/VMF troposphere model switch: $flgLin");
+
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_".$flgLin);
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_".$flgLin);
+    if     ($flgLin =~ /VMF/) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",'VMF$YD+0');}
+    elsif (($flgLin =~ /GMF/)||($flgLin =~ /GPT/)) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');}
+    else                     {die "*** Invalid TROPO model: $flgLin \n";}
+
+  }
+
+# Select GNSS for AR
+# ------------------
+  unless ($v_gnssar eq "") {
+    &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnssar);
+    &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USEAR_",$v_gnssar);
+    prtMess($bpe,"GNSS for AR: $v_gnssar");
+  }
+
+# WL AR
+# -----
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TITLE",'$YSS+0_$(CD4): WIDELANE PHASE INTEGER FIXING');
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# NL AR
+# -----
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TITLE",'$YSS+0_$(CD4): NARROWLANE PHASE INTEGER FIXING');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT",'$(CD4)$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","COORDRS",'$(CD4)$S+0_NLI');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SATCLK",'$B$YSS+0');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS",'HOI$YD+0');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","FREQUENCY","L3");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CORREL","CORRECT");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","1");
+# Changed observation data sampling for NL AR
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SAMPLE","300");
+
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Verification
+# ------------
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TITLE",'$YSS+0_$(CD4): VERIFICATION OF AMBIGUITY-FIXED SOLUTION');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT",'$(CD4)$S+0_FIX');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","COORDRS",'$(CD4)$S+0_FIX');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSTRAT","NONE");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","0");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","1");
+# NL phase biases from CLK (to speed up GPSEST run)
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","NLBCLK","1");
+
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

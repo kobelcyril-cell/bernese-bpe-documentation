@@ -1,0 +1,92 @@
+package ION_WAIT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ION_WAIT
+#
+# Purpose :  Wait for Z1 ionosphere results
+#
+# PARAMs  :
+#
+# Author  :  S. Lutz
+# Created :  22-Jul-2008
+#
+# Changes :  28-Aug-2002/ss: Consider rapid ionosphere results
+#            22-Jul-2008/sl: Convert to perl
+#            08-Sep-2008/ps: Use reprocessed ionosphere results
+#            03-Nov-2008/dt: $CAMP_SAVREPO corrected to $CAMP_SAVREP
+#            07-Jan-2009 PS: Reimplemented $CAMP_SAVREPO
+#            06-Oct-2010/ss: Script renamed from QIF_WAIT to ION_WAIT
+#            08-Oct-2010/ss: Add Z3 ION product
+#            24-May-2019/ss: Do not accept any null model
+#            05-Jun-2019/is: alternative path variable for iono-products (repro)
+#            08-Jun-2019/ds: Corrected variable name for REPRO_01 products
+#            08-Mar-2022 AV: Rapid save disk: yearly subdirectory
+#
+# ============================================================================
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+sub run {
+
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyyy, $v_a, $dirIon, $extIon, $camp_pth, $campaign ) =
+    $bpe->getKeys(
+      '$YD+0','$Y+0','V_A','DIR_ION','EXT_ION','CAMP_PTH','CAMPAIGN' );
+
+  my $repro = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+  # Choose between the potential iono-products
+  my $inpion = "";
+  my @inpion0 = ("$CDIR_GIM/ATM/Z3_${yyddd}.${extIon}",
+                 "$CDIR_GIM/ATM/${v_a}_${yyddd}.${extIon}",
+                 "$CDIR_RAP/ATM/RM_${yyddd}.${extIon}",
+                 "$CDIR_RAP/ATM/RA_${yyddd}.${extIon}",
+                 "$CDIR_RAP/ATM/RZ_${yyddd}.${extIon}",
+                 "$PATH_SAV/$CAMP_SAVRAP/${yyyy}/ATM/RZ_${yyddd}.${extIon}");
+
+  if ($repro) {
+    @inpion0 = ("$PATH_SAV/$CAMP_SAVREP/$yyyy/ATM/Z3_${yyddd}.${extIon}",
+                "$PATH_SAV/$CAMP_SAVREP/$yyyy/ATM/Z1_${yyddd}.${extIon}");
+    if (!-e $inpion0[1]) {
+      @inpion0 = ("$PATH_SAV/$CAMP_SAVIGS/$yyyy/ATM/Z3_${yyddd}.${extIon}",
+                  "$PATH_SAV/$CAMP_SAVIGS/$yyyy/ATM/Z1_${yyddd}.${extIon}");
+    }
+  }
+
+  # Check which file is available
+  map { if ( -e $_ ) { $inpion = $_ } } reverse @inpion0;
+
+  # If nothing is in place wait for the final product
+  $inpion = $inpion0[1] if ($inpion eq "");
+
+  my $oution = "${dirIon}${v_a}_${yyddd}.${extIon}";
+
+  # Wait until the file is in place
+  my $iwait = 1;
+  while ($iwait == 1) {
+##    if (-e $inpion) { $iwait = 0 }
+    if (-e $inpion) {
+      my $inull = `grep '0.00000000' $inpion | wc -l`+0;
+      if ($inull <= 1) { $iwait = 0 }
+      else             { prtMess($bpe,"$inull ZERO VALUES") }
+    }
+    if ($iwait == 1) {
+      prtMess($bpe,"WAITING FOR ${inpion}");
+      sleep(300);
+    }
+  }
+
+  # Copy the file into the campaign
+  prtMess($bpe,"$inpion AVAILABLE");
+  while (time-(stat("${inpion}"))[9] < 60) { sleep(60) }
+  copyfile("$inpion","$oution");
+
+}

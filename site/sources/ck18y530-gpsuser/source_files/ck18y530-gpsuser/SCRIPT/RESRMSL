@@ -1,0 +1,28 @@
+package RESRMSL;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  RESRMS
+#
+# Purpose :  check the residuals for outliers and remove them 
+#
+# Programs:  RESRMS
+#
+# Author  :  R. Dach
+# Created :  12-Dec-2007               Last modified: __-___-____  
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

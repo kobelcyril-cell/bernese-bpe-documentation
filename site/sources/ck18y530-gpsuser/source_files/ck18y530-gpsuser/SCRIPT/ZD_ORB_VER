@@ -1,0 +1,195 @@
+
+package ORB_VER;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORB_VER
+#
+# Purpose :  ORBIT QUALITY CHECKS:
+#            3-DAY ORBIT OVERLAPS (ORBGEN)
+#
+# Programs:  ORBGEN
+#
+# Author  :  S. Schaer
+# Created :  22-Feb-2011
+#
+# Changes :  22-Feb-2011/ss: Execute orb_ver.com
+#            24-Feb-2011/ss: Make use of new options concerning orb_ver.com
+#            25-Sep-2012/ss: Extract LST file identifier
+#            12-Dec-2023/da: Introduced day-specific satellite exclusion
+#            09-Nov-2026/ck: YYDDD archive and order-independent summaries
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+use File::Temp ();
+use Time::Local qw(timegm);
+use POSIX qw(strftime);
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$yd,$wd,$CAMP_PTH,$CAMPAIGN,$vPre) =
+    $bpe->getKeys('$YD+0','$YD-1','$WD-1','CAMP_PTH','CAMPAIGN','V_PRE');
+
+  die "V_PRE is not defined\n" unless defined $vPre;
+  die "Invalid GPS week/day: $wd\n" unless $wd =~ /^\d{4}[0-6]$/;
+  die "Invalid BPE YYDDD date: $yd\n" unless $yd =~ /^\d{5}$/;
+
+# Satellites to exclude in ORBGEN
+# -------------------------------
+  my %exclSat = ("23342" => "125 126",
+                 "23343" => "125 126");
+
+# PlusMinus-Variable
+# ------------------
+    setMinusPlus($bpe,-2,0);
+
+# Exclude satellites for specific days
+# ------------------------------------
+    if (exists $exclSat{$yyddd}) {
+        print "Exclude following satellites in ORBGEN: $exclSat{$yyddd}\n";
+        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SATSELECT","SATELLITE_LIST");
+        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","USESAT","EXCLUDED");
+        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SATLST",$exclSat{$yyddd});
+    }
+
+# Run program
+# -----------
+    my $PGMNAM = "ORBGEN";
+    my $sumacc = "$vPre$wd";
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMFIL","");
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SUMACC",$sumacc);
+    $bpe->RUN_PGMS($PGMNAM);
+
+    my $day = 7 * substr($wd,0,4) + substr($wd,4,1);
+    my $out = "$CAMP_PTH${CAMPAIGN}/OUT";
+    my $archive = "$out/ORB_VER";
+    mkdir($archive) or die "Cannot create $archive: $!\n" unless -d $archive;
+    my $source = "$out/$sumacc.LST";
+    my $daily_result = "$archive/$vPre$yd.LST";
+    die "ORBGEN result missing or empty: $source\n" unless -s $source;
+    move($source,$daily_result)
+      or die "Cannot move $source to $daily_result: $!\n";
+    print "Archived $source as $daily_result\n";
+
+    rebuild_orbit_summaries($archive,$out,$day,$vPre);
+
+} # sub run
+
+# Calendar arithmetic uses UTC calendar days, not local-time seconds or GPS
+# observation epochs. YYDDD is unambiguous within the GPS era 1980--2079.
+sub orb_yd {
+  my ($day) = @_;
+  my @date = gmtime(315964800 + 86400 * $day); # 1980-01-06
+  die "YYDDD supports years 1980--2079 only\n"
+    if $date[5] + 1900 < 1980 || $date[5] + 1900 > 2079;
+  return strftime('%y%j',@date);
+}
+
+sub orb_day {
+  my ($yd) = @_;
+  my $year = substr($yd,0,2) + 0;
+  $year += $year >= 80 ? 1900 : 2000;
+  my $day = (timegm(0,0,0,1,0,$year) - 315964800) / 86400
+            + substr($yd,2,3) - 1;
+  die "Invalid YYDDD date: $yd\n" if $day < 0 || orb_yd($day) ne $yd;
+  return $day;
+}
+
+sub orb_wd {
+  my ($day) = @_;
+  return sprintf('%04d%d',int($day/7),$day%7);
+}
+
+sub rebuild_orbit_summaries {
+  my ($archive,$out,$changed_day,$vPre) = @_;
+  my %daily;
+  opendir(my $dir,$archive) or die "Cannot read $archive: $!\n";
+  while (my $name = readdir($dir)) {
+    next unless $name =~ /^\Q$vPre\E(\d{5})\.LST$/;
+    my $day = orb_day($1);
+    die "Empty daily result: $archive/$name\n" unless -s "$archive/$name";
+    $daily{$day} = "$archive/$name";
+  }
+  closedir($dir);
+  my @days = sort {$a <=> $b} keys %daily;
+  die "No daily orbit results for V_PRE '$vPre' in $archive\n" unless @days;
+
+  # orb_ver.com requires consecutive GPS-named inputs. All such names,
+  # including placeholders for missing dates, exist only in this tempdir.
+  # Use a neutral identifier to avoid the helper's special V3/V7 modes.
+  my $staging_id = 'orbit_';
+  my $temporary = File::Temp->newdir('orb-ver-XXXXXX',TMPDIR => 1);
+  my $work = "$temporary"; # directory is removed when this subroutine ends
+  mkdir("$work/OUT") or die "Cannot create temporary OUT: $!\n";
+  open(my $template,'<',$daily{$days[0]}) or die "Cannot read template: $!\n";
+  my @gap = <$template>;
+  close($template);
+  die "Invalid ORBGEN summary: $daily{$days[0]}\n" unless @gap >= 13;
+  # Remove eclipse/maneuver flags and all three days' accuracy values.
+  # The helper consequently emits '-' in LST and 0 in LIS for missing days.
+  $gap[7] =~ s/[^\r\n]/ /g;
+  my $zero = '    ';
+  for (my $j=4; $j<length($gap[8])-1; $j+=4) { $zero .= '   0' }
+  for my $row (10..12) { $gap[$row] = "$zero\n" }
+  my $missing = 0;
+  for my $day ($days[0]..$days[-1]) {
+    my $target = "$work/OUT/$staging_id".orb_wd($day).'.LST';
+    if (exists $daily{$day}) {
+      copy($daily{$day},$target) or die "Cannot stage $target: $!\n";
+    } else {
+      open(my $empty,'>',$target) or die "Cannot stage gap $target: $!\n";
+      print {$empty} @gap or die "Cannot write gap $target: $!\n";
+      close($empty) or die "Cannot close gap $target: $!\n";
+      $missing++;
+    }
+  }
+
+  # Update a weekly archive whenever a day in that week is recalculated.
+  # Publish it only once all seven real middle-day results are available.
+  my $sunday = $changed_day - $changed_day % 7;
+  my $complete = 1;
+  for my $day ($sunday..$sunday+6) { $complete = 0 unless exists $daily{$day} }
+  if ($complete) {
+    run_orbit_summary($work,$staging_id,$sunday+6,7);
+    my $label = "${vPre}WEEK_".orb_yd($sunday).'_'.orb_yd($sunday+6);
+    for my $ext ('LST','LIS') {
+      copy("$work/OUT/$staging_id.$ext","$out/$label.$ext")
+        or die "Cannot publish $label.$ext: $!\n";
+    }
+  }
+
+  # Leave the date after the latest middle-day result unstaged. The unchanged
+  # helper then substitutes the previous file and reads its third-day row.
+  # Once a real middle-day result exists for that date, it takes precedence
+  # automatically and the provisional right edge moves forward one day.
+  run_orbit_summary($work,$staging_id,$days[-1]+1,$days[-1]-$days[0]+2);
+  for my $ext ('LST','LIS') {
+    copy("$work/OUT/$staging_id.$ext","$out/$vPre.$ext")
+      or die "Cannot publish $vPre.$ext: $!\n";
+  }
+  print "Orbit overview $out/$vPre.LST and $out/$vPre.LIS for ".
+        orb_yd($days[0]).'--'.orb_yd($days[-1]+1).
+        ': '.scalar(@days)." middle days, $missing missing days, ".
+        "1 provisional last-day result\n";
+}
+
+sub run_orbit_summary {
+  my ($work,$staging_id,$last,$count) = @_;
+  my $helper = "$ENV{HOME}/ZDGNSS_RUN/perl/orb_ver.com";
+  # List form preserves spaces in paths and propagates helper failures.
+  my $status = system($^X,$helper,orb_wd($last),$work,$staging_id,$count);
+  die "orb_ver.com failed (status $status)\n" if $status != 0;
+  for my $ext ('LST','LIS') {
+    die "orb_ver.com did not produce $staging_id.$ext\n" unless -s "$work/OUT/$staging_id.$ext";
+  }
+}
+

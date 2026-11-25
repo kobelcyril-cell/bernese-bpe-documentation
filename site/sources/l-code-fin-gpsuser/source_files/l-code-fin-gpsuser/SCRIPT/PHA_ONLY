@@ -1,0 +1,61 @@
+package PHA_ONLY;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  PHA_ONLY
+#
+# Purpose :  Copy phase-only RINEX observation files to SMT files
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  29-Apr-2004
+#
+# Changes :  12-Sep-2008 PS: Added SVTL
+#
+# ============================================================================
+use strict;
+
+use lib "$ENV{AUTO}";
+use lib $ENV{BPE};
+use lib "$ENV{EXE}";
+use gpsutil;
+use bpe_util;
+use Gps_Date;
+use File::Copy;
+
+sub run {
+  my (@filLst);
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ssss, $doy, $yyyy, $dirOut,
+      $dirRxo, $extRxo,
+      $dirSmt, $extSmt) =
+    $bpe->getKeys('$S+0','$+0','$Y+0','DIR_OUT',
+                  'DIR_RXO', 'EXT_RXO',
+                  'DIR_SMT', 'EXT_SMT');
+
+  my $flgFil = "${dirOut}../MSC/SAT_INI.FLG";
+
+  my $mjd = gps_date("-doy $doy $yyyy  -o %IJ");
+
+#  Special handling of SVTL operating a TRIMBLE 4000SST receiver
+# --------------------------------------------------------------
+    if ( ($mjd < 53340 && $mjd >  50598) || ($mjd < 50588))
+         { @filLst = ("SVTL"); }
+    else { @filLst = (); }
+
+##  my @filLst = ();
+##  my @filLst = ("DWH1", "UNB1");
+##  my @filLst = ("DWH1", "UNB1", "WTZZ", "ZIMJ");
+##  my @filLst = ("CONZ", "DWH1", "OHI3", "UNB1", "WTZZ", "ZIMJ");
+##  my @filLst = ("CRAR", "DWH1", "IRKJ", "KHAJ", "KOU1", "MDVJ", "NOVJ", "OHI3", "UNB1", "WTZZ", "ZIMJ");
+
+  unless (-e $flgFil) {
+    foreach (@filLst) {
+      copy ("${dirRxo}$_${ssss}.${extRxo}",
+            "${dirSmt}$_${ssss}.${extSmt}");
+      print "Original RINEX file used: $_${ssss}.${extRxo}\n";   } }
+}

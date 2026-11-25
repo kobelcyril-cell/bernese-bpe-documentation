@@ -1,0 +1,127 @@
+package TIMEST_P;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  TIMEST_P
+#
+# Purpose :  Execute GPSEST for zero-difference files (parallel mode)
+#
+# Remark  :  The use of code or phase data is taken from variable V_OBSTYP.
+#            (default code+phase if V_OBSTYP is not defined)
+#
+#            According to the value of V_FIXCRD and V_FIXTRP an external
+#            solution may be introduced (options are adjusted properly)
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#
+# Author  :  R. Dach
+# Created :  11-Aug-2011
+#
+# Changes :
+# ============================================================================
+
+use strict;
+
+use File::Copy qw(copy);
+use lib $ENV{BPE};
+use bpe_util qw(prtMess setClusterVar replaceSel prtBPEfile setGNSS);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $yyyyssss, 
+      $ssss,
+      $param1, 
+      $clu, 
+      $satsys,
+      $obstyp, 
+      $fixCrd,    
+      $fixTrp,    
+      $fixDir,
+      $dirCrd, 
+      $dirTrp,
+      $extCrd, 
+      $extTrp
+    ) = $bpe->getKeys(
+      '$YYYSS+0', 
+      '$S+0',
+      'PARAM1', 
+      'PARAM2', 
+      'V_SATSYS',
+      'V_OBSTYP',
+      'V_FIXCRD', 
+      'V_FIXTRP', 
+      'V_FIXPTH',
+      'DIR_CRD',
+      'DIR_TRP',
+      'EXT_CRD',
+      'EXT_TRP'
+    );
+
+# Find out which observation files are needed
+# -------------------------------------------
+  my $isCode  = $obstyp ne "" ?  ($obstyp ne "PHASE") : 1;
+  my $isPhase = $obstyp ne "" ?  ($obstyp ne "CODE")  : 1;
+  
+# Set cluster number and input files
+# ----------------------------------
+  my $mess = setClusterVar($bpe, $clu);
+  prtMess($bpe,"$mess");
+
+# Selected files
+# --------------
+  if ($clu eq "") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES","$param1$ssss") if ($isCode);
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","$param1$ssss") if ($isPhase);
+  } else {
+    replaceSel($bpe,"GPSEST","CZFILES",$param1) if ($isCode);
+    replaceSel($bpe,"GPSEST","PZFILES",$param1) if ($isPhase);
+  }
+
+  replaceSel($bpe,"GPSEST","CZFILES","") unless ($isCode);
+  replaceSel($bpe,"GPSEST","PZFILES","") unless ($isPhase);
+
+# Selection of GNSS
+# -----------------
+  setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$satsys);
+
+# External coordinate file is introduced
+# --------------------------------------
+  if ( $fixCrd ne "" ) {
+    copy("${fixDir}/STA/${fixCrd}.${extCrd}","$dirCrd") unless -e "${dirCrd}/${fixCrd}.${extCrd}";
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","COORD","$fixCrd");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RADIO8_1","1");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RADIO8_2","0");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RADIO8_3","0");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","FIXSTA","WITH_FLAG");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","STAFLAG1","#");
+
+# External troposphere file is introduced
+# ---------------------------------------
+    if ( $fixTrp ne "" ) {
+      copy("${fixDir}/ATM/${fixTrp}.${extTrp}","$dirTrp") unless -e "${dirTrp}/${fixTrp}.${extTrp}";
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPEST","$fixTrp");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","NTRPSEL","WITH_TROPO");
+    }
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+
+  eval {
+    $bpe->RUN_PGMS($PGMNAM);
+  };
+  if ($@) {
+    prtMess($bpe, "WARNING: $PGMNAM (TIMEST_P_PPP) failed: $@");
+    return;
+  }
+
+# Print processed stations BPE file
+# ---------------------------------
+  prtBPEfile($param1,0) if ($clu ne "");
+
+}

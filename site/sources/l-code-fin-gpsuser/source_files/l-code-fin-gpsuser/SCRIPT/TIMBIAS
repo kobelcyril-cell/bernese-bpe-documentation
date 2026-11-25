@@ -1,0 +1,39 @@
+package TIMBIAS;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMBIAS
+#
+# Purpose :  Create bias fil
+#
+# Programs:
+#
+# Author  :  A. Villiger
+# Created :  21-Oct-2016
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib "$ENV{AUTO}";
+use gpsutil qw(copyfile);
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyssss,$ssss,$sol,
+      $dirOsb,$extOsb) =
+    $bpe->getKeys(
+        '$YSS+0','$S+0',"$$bpe{PARAM1}",
+      'DIR_OSB','EXT_OSB');
+
+  copyfile("$dirOsb/${sol}${ssss}001.\extOsb","$dirOsb/${sol}S${yyssss}.\extOsb");
+
+}
+

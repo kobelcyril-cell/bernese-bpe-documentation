@@ -1,0 +1,85 @@
+package EDTXTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  EDTXTR
+#
+# Purpose :  GENERATE SUMMARY OF THE PARALEL CODSPP RUNS
+#
+# Programs:
+#
+# Author  :  H. Bock
+# Created :  06-Dec-2007               Last modified: 19-May-2009
+#
+# Changes :  19-May-2009 rd: Session dependent parallelization filenames
+#            26-May-2009/rd: RESRMS: YY_DDD -> YY_SSSS
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yy,$ddd,$ssss,
+      $numFil,$numClu,$subPid,
+      $dirSum,$dirOut) =
+    $bpe->getKeys(
+      '$Y','$+0','$S+0',
+      'V_CLU','V_NCLU','SUB_PID',
+      'DIR_SUM','DIR_OUT');
+
+# Set cluster number, input files, and loop variable
+# --------------------------------------------------
+  my $cluster = $numFil eq "" && $numClu eq "" ? "$ddd????" : "$ssss???";
+
+  setUserVar($bpe,"CLUSTER",$cluster,"CCC",$subPid,"FL","F");
+
+  $bpe->putKey("$$bpe{U}/PAN/GPSXTR.INP","RADIO_1","0");
+  $bpe->putKey("$$bpe{U}/PAN/GPSXTR.INP","RADIO_2","1");
+
+  $bpe->putKey("$$bpe{U}/PAN/GPSXTR.INP","OUTPUT","ED[FL]$(CLUSTER)");
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  copyfile("$$bpe{SYSOUT}","$ENV{T}");
+
+# Summary of program run for Protocol
+# -----------------------------------
+  my $cmpSum="$dirSum/GPSCMP.${ddd}";
+  appFile ("",0,"$dirOut/GPSCMP.SUM","$cmpSum",1);
+
+  my $wksSum="$dirSum/GPSWKS.${ddd}";
+  appFile ("",0,"$dirOut/GPSWKS.SUM","$wksSum",1);
+
+
+# Generate residual overview from first and last iteration
+# --------------------------------------------------------
+  my $resOut="$dirSum/RESRMS.${yy}_$ssss";
+
+  $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $resSum=$bpe->getKey("$ENV{U}/INP/RESRMS.INP","OUTPUT");
+  appFile ("",0,"$resSum","$resOut",1);
+
+# Second RESRMS run
+# -----------------
+  # Redefine loop variable
+  setUserVar($bpe,"FL","L");
+
+  $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  appFile ("",0,"$resSum","$resOut",1);
+
+}

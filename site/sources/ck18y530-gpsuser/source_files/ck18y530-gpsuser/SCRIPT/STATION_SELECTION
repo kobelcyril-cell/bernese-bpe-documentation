@@ -1,0 +1,143 @@
+package STATION_SELECTION;
+@ISA = ("RUNBPE");
+
+use strict;
+use warnings;
+use File::Basename;
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+# ----------------------------------------------------------------------------
+sub run {
+    my $bpe = shift;
+
+    # ---------------------- Parameter -----------------------------------------
+    my ($dirOut, $ssss, $yyddd, $V_NSTA, $V_STAINF, $extCRD) =
+        $bpe->getKeys('DIR_OUT', '$S+0', '$YD+0', 'V_NSTA', 'V_STAINF', 'EXT_CRD');
+
+    # ---------------------- Fixed paths ---------------------------------------
+    my $python_dir = "/storage/homefs/ck18y530/python/StationNetwork";
+    my $matlab_dir = "/storage/homefs/ck18y530/matlab/StationNetwork";
+
+    my $yy = substr($yyddd, 0, 2);  # z.B. 25 aus 0220.25O
+    my $dirRaw = "${dirOut}../RAW";
+    my $dirSta = "${dirOut}../STA";
+    my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+    unless (-d $mscDir) {
+        mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+    }
+
+    my $logfile = "$mscDir/PROCESSING_${yyddd}";
+    open(my $LOG, '>>', $logfile) or die "Cannot open log file $logfile: $!";
+    print $LOG "\n=== STATION_SELECTION started ===\n";
+
+    # ---------------------- Step 0: Check V_NSTA ------------------------------
+    if ($V_NSTA eq 'ALL') {
+        print $LOG "V_NSTA = ALL, skipping Station selection script.\n";
+        print "Station selection skipped (V_NSTA = ALL)\n";
+        print $LOG "=== STATION_SELECTION finished ===\n";
+        close($LOG);
+        return;
+    }
+
+    my $matlab_selected = "$mscDir/selected_stations_${yyddd}.txt";
+
+    if ($V_NSTA eq 'FINAL') {
+
+        my $crdfile = "/storage/research/aiub_code/IGSFINAL/STA/F1_${yyddd}.CRD";
+        my $get_final_script = "$python_dir/get_final_stations.py";
+
+	if (-e $crdfile) {
+           # Python-Script aufrufen
+           my $cmd = "python3 $get_final_script $crdfile $matlab_selected";
+           print $LOG "Running FINAL station extraction\n";
+           system($cmd) == 0 or die "Python get_final_stations.py failed: $!\n";
+
+       	   print $LOG "FINAL mode: station list written.\n";
+    	   } else {
+             # File existiert nicht, loggen und V_NSTA wie ALL behandeln
+             print $LOG "WARNING: CRD file $crdfile not found. Treating as V_NSTA=ALL.\n";
+             print "CRD file $crdfile not found. Skipping FINAL selection (V_NSTA=ALL behavior).\n";
+             print "Station selection skipped (V_NSTA = ALL)\n";
+             print $LOG "=== STATION_SELECTION finished ===\n";
+             close($LOG);
+             return;
+    	     }
+
+    } else {
+
+        unless ($V_NSTA =~ /^\d+$/) {
+            die "ERROR: V_NSTA is neither ALL, FINAL, nor a number: $V_NSTA\n";
+        }
+
+        # ---------------------- Step 1: Run Python script -------------------------
+        my $python_script = "$python_dir/extract_geos_letters.py";
+        my $python_output = "$mscDir/available_stations_${yyddd}.txt";
+        my $obsfilename = "$ssss.${yy}O";
+        my $python_cmd = "python3 $python_script $dirRaw $obsfilename $python_output";
+        system($python_cmd) == 0 or die "Python script failed: $!\n";
+
+        # ---------------------- Step 2: Set variables for MATLAB ------------------
+        my $matlab_input = $python_output;   # result from python
+        my $matlab_crdfile = "$dirSta/$V_STAINF.$extCRD";
+        my $matlab_gif = "$mscDir/gnss_selection.gif";
+        my $matlab_hist = "$mscDir/baseline_histogram.png";
+
+        # ---------------------- Step 3: Run MATLAB function -----------------------
+        my $matlab_cmd = qq{matlab -batch "addpath('$matlab_dir'); gnss_station_selection($V_NSTA, '$matlab_crdfile', '$matlab_input', '$matlab_gif', '$matlab_hist', '$matlab_selected')" };
+        system($matlab_cmd) == 0 or die "MATLAB function failed: $!\n";
+    }
+
+    # ---------------------- Step 4: Compare stations --------------------------
+    my $python_output = "$mscDir/available_stations_${yyddd}.txt";  # für Löschvergleich
+    if ($V_NSTA eq 'FINAL') {
+        $python_output = $matlab_selected;  # in FINAL Mode verwenden wir direkt die Output-Liste
+    }
+
+    open(my $AVAIL, '<', $python_output) or die "Cannot open $python_output: $!";
+    open(my $SELECTED, '<', $matlab_selected) or die "Cannot open $matlab_selected: $!";
+
+    # Hash der ausgewählten Stationen
+    my %selected;
+    while (my $line = <$SELECTED>) {
+        chomp $line;
+        $line =~ s/^\s+|\s+$//g;
+        $selected{$line} = 1 if $line ne '';
+    }
+    close($SELECTED);
+
+    # Stationen vergleichen und ggf. Beobachtungsdateien löschen
+    my $deleted = 0;
+    my %deleted_stations;
+    while (my $line = <$AVAIL>) {
+        chomp $line;
+        $line =~ s/^\s+|\s+$//g;
+        next if $line eq '';
+
+        my $station = substr($line, 0, 4);
+
+        unless ($selected{$station}) {
+            my $pattern = sprintf("%s%s.%sO", $station, $ssss, $yy);
+            my $file_to_delete = "$dirRaw/$pattern";
+            if (-e $file_to_delete) {
+                unlink($file_to_delete) or warn "Could not delete $file_to_delete: $!";
+                $deleted++;
+                $deleted_stations{$station} = 1;
+            } else {
+                print $LOG "DEBUG: File not found, skipping deletion: $file_to_delete\n";
+            }
+        }
+    }
+    close($AVAIL);
+
+    # ---------------------- Logging der Ergebnisse -----------------------------
+    print $LOG "Deleted observation files from " . scalar(keys %deleted_stations) . " stations\n";
+    print $LOG "=== STATION_SELECTION finished ===\n";
+    close($LOG);
+
+    print "STATION_SELECTION done. Log appended to $logfile\n";
+
+}
+
+1;

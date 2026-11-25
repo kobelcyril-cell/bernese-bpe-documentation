@@ -1,0 +1,87 @@
+package GPSESTA;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GPSESTA
+#
+# Purpose :  Execute GPSEST, switch on NL AR if V_AR = 'Y'
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+# Created :  19-Mar-2019
+#
+# Changes :  17-Jun-2019 DA: Introduce V_INL1L2
+#            09-Feb-2022 DA: Added V_IGNERR
+#            01-Apr-2024 DA: Introduced V_POBS
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($OFFS,$AR,$IGNERR,
+      $INL1L2,$LEO,$ssss,
+      $POBS,$dirPzh,$extPzh) = $bpe->getKeys('V_OFFS','V_AR','V_IGNERR',
+                                             'V_INL1L2','V_LEO','$S+0',
+                                             'V_POBS','DIR_PZH','EXT_PZH');
+
+# Set sampling to 0 if observations epochs have an offset
+# -------------------------------------------------------
+  if (${OFFS} eq "Y") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SAMPLE","0");
+  }
+
+  if ($INL1L2 eq 'Y') { # Introduce L1 and L2 integers
+      print "Introduce L1 and L2 integers\n";
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DIFLVL","ZERO_AR");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSTRAT","NONE");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSAVE","0");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","0");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","1");
+  } elsif ($AR eq 'Y') { # ZD AR
+      print "Switch on ZD NL AR\n";
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DIFLVL","ZERO_AR");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSTRAT","SIGMA");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSAVE","1");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","1");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","0");
+  } else {
+      print "Switch off ZD NL AR, do not introduce L1 and L2 integers\n";
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DIFLVL","ZERO");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSTRAT","NONE");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSAVE","0");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","0");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","0");
+  }
+
+# Reset phase observations files if V_POBS non-empty
+# --------------------------------------------------
+  if ($POBS) {
+      # Resolve potential wildcards
+      my @pzhObs = glob("${dirPzh}/${POBS}.${extPzh}");
+      print "Reset phase obs. to @pzhObs\n";
+      my $tmpFil = "$ENV{U}/WORK/obsinp.lst";
+      open TMP, '>', $tmpFil;
+      foreach my $o (@pzhObs) {
+          print TMP "$o\n";
+      }
+      close TMP;
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","SELECTED","REPLACE",$tmpFil);
+  }
+
+# Set IGNORE_ERR if requested
+# ---------------------------
+  if ($IGNERR) {
+      print "Set IGNORE_ERR to ${IGNERR}\n";
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IGNORE_ERR",$IGNERR);
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+}

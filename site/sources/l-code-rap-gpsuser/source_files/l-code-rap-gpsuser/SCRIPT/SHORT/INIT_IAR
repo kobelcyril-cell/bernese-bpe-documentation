@@ -1,0 +1,106 @@
+package INIT_IAR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  INIT_IAR
+#
+# Purpose :  Perform initialization for PPPAR BPE (doing ZERO_AR)
+#
+# Programs:  SATMRK
+#
+# PARAMs  :  
+#
+# Author  :  S. Schaer
+# Created :  28-May-2018
+#
+# Changes :  30-May-2018 SS: Added V_IAR; removal of IAR OSB
+#            08-Aug-2018 SS: Prepared for consideration of ambiguity integers
+#            10-Aug-2018 SS: Combined (and saved) IAR OSB if IAR_DONE.FLG
+#
+# ----------------------------------------------------------------------------
+use lib "$ENV{AUTO}";
+use igs_device;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my $CAMP_PTH = $$bpe{CAMP_PTH};
+  my $CAMPAIGN = $$bpe{CAMPAIGN};
+
+# Get variables
+# -------------
+  my ($yyssss,$mjd,$yyyy,$v_iar,$v_sav,
+      $dirOut,$extOut,
+      $dirOsb,$extOsb) =
+    $bpe->getKeys('$YSS+0','$YD+0','$Y+0','V_IAR','V_SAV',
+                  'DIR_OUT','EXT_OUT',
+                  'DIR_OSB','EXT_OSB');
+
+  $v_iar = "Y" if $v_iar eq "";
+
+  my $iarFlg = "$CAMP_PTH$CAMPAIGN/MSC/IAR${yyssss}.FLG";
+  if (-e $iarFlg) {
+    unlink($iarFlg);
+    prtMess($bpe,"IAR${yyssss}.FLG REMOVED");
+  }
+  my $osbFil = "${dirOsb}IAR${yyssss}.${extOsb}";
+  if (-e $osbFil) {
+    unlink($osbFil);
+    prtMess($bpe,"IAR${yyssss}.${extOsb} REMOVED");
+  }
+  my $prcFil = "${dirOut}IAR${yyssss}.PRC";
+  if (-e $prcFil) {
+    unlink($prcFil);
+    prtMess($bpe,"IAR${yyssss}.PRC REMOVED");
+  }
+
+# Run program
+# -----------
+  my $iokFlg = "$CAMP_PTH$CAMPAIGN/MSC/IAR_DONE.FLG";
+  if (-e $iokFlg && $CAMPAIGN eq "FCLKGNSS") {
+##    my $dirSav = "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/";
+    my $dirSav = "$PATH_SAV$CAMP_PPP/$yyyy/";
+    my $inp = "${dirSav}OUT/IAR${yyssss}.PRC";
+    my $out = "${dirOut}IAR${yyssss}.PRC";
+    copy($inp,$out) or die "$inp not found\n";
+
+    $dirSav = "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/";
+    $inp = "${dirSav}ORB/IAR${yyssss}.${extOsb}";
+    $out = "${dirOsb}IAR${yyssss}.${extOsb}";
+    copy($inp,$out) or die "$inp not found\n";
+
+    $inp = "${dirOsb}IAR${yyssss}.${extOsb}";
+    $out = "${dirOsb}PHA${yyssss}.${extOsb}";
+    `grep -v '  C[1-9][A-Z]   ' $inp > $out`;
+    die "$out not found\n" unless -s $out;
+
+    $inp = "${dirOsb}CBS${yyssss}.${extOsb}";
+    $out = "${dirOsb}IAR${yyssss}.${extOsb}";
+    copy($inp,$out) or die "$inp not found\n";
+    $inp = "${dirOsb}PHA${yyssss}.${extOsb}";
+    `grep '  L[1-9][A-Z]   ' $inp >> $out`;
+
+    if ($v_sav eq "Y") {
+      $dirSav = "$PATH_SAV$CAMP_SAVIGS/$yyyy/";
+      $inp = "${dirOsb}IAR${yyssss}.${extOsb}";
+      $out = "${dirSav}ORB/IAR${yyssss}.${extOsb}";
+      copy($inp,$out) or die "$inp not found\n";
+    }
+
+    `echo '0' > ${iarFlg}`;
+    prtMess($bpe,"PPPAR ALREADY DONE");
+  } else {
+    if ($v_iar eq "N") {
+      my $PGMNAM = "SATMRK";
+      $bpe->RUN_PGMS($PGMNAM);
+    } else {
+      prtMess($bpe,"PPPAR TO BE DONE");
+    }
+  }
+
+}

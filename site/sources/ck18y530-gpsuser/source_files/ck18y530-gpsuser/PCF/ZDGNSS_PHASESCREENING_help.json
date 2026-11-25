@@ -1,0 +1,102 @@
+{
+    "100": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "101": {
+        "notes": "CLKEST collects observation files from CLB cluster files.\nAll listed observation files are merged into a unique selection.\nThe merged list is written to OBSFIL.SEL and used for processing.\nCLKEST is then executed with this combined observation set.\nRequires PARAM1 defining the CLB file pattern.",
+        "input": "????$S+0.PZH\n\"V_B\"_$YSS+0.CRD/STD/ERP/CLK\n\"V_B\"S$YSS+0.OSB\n\"V_W\"_$YSS+0.SIG",
+        "output": "\"V_E\"_$YSS+0.CLK (Clocks & RINEX)\n\"V_E\"_$YSS+0.PRC (Missing epochs)"
+    },
+    "102": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "103": {
+        "notes": "",
+        "input": "\"V_B\"_$YSS+0.CRD/STD/ERP\n\"V_E\"_$YSS+0.CLK",
+        "output": "MPR$???.OUT"
+    },
+    "104": {
+        "notes": "MPRXTR summarizes results of parallel MAUPRP runs.\nBad observation files are identified and deleted automatically.\nCorresponding CZ files are removed together with PZ files.\nProcessing logs and summary tables are updated accordingly.",
+        "input": "MPR$YSS+0??.OUT",
+        "output": "MPR$YSS+0.SUM (Station summary)\nMPS$YSS+0.SUM (Satellite summary)\nMPR$YSS+0.DEL (File deletion list)"
+    },
+    "110": {
+        "notes": "",
+        "input": "\"V_H\"",
+        "output": ""
+    },
+    "111": {
+        "notes": "",
+        "input": "????$S+0.PZH\n????$S+0.CZH\n\"V_B\"_$YSS+0.CRD/STD/RPR/ERP\n\"V_E\"_$YSS+0.CLK\n\"V_C\"S$YSS+0.OSB\n\"V_I\"0$YSS+0.SOS",
+        "output": "\"V_H\"$S+0???.NQ0"
+    },
+    "112": {
+        "notes": "",
+        "input": "\"V_H\"$S+0???.NQ0\n\"V_B\"_$YSS+0.CRD/ERP",
+        "output": "\"V_H\"_$YSS+0.CRD/ELE/ERP/TRP"
+    },
+    "113": {
+        "notes": "",
+        "input": "\"V_H\"_$YSS+0.ELE\n\"V_H\"_$YSS+0.ERP",
+        "output": "\"V_H\"_$YSS+0.STD/RPR"
+    },
+    "120": {
+        "notes": "Prepare parallel GPSEST run",
+        "input": "",
+        "output": ""
+    },
+    "121": {
+        "notes": "",
+        "input": "\"V_H\"_$YSS+0.CRD/STD/ERP/TRP\n\"V_E\"_$YSS+0.CLK\n\"V_C\"S$YSS+0.OSB\n\"V_I\"0$YSS+0.SOS",
+        "output": "\"V_H\"$S+0???.OUT/CLK/RES"
+    },
+    "122": {
+        "notes": "",
+        "input": "\"V_H\"$S+0???.OUT",
+        "output": "\"V_H\"G$YSS+0.SUM"
+    },
+    "130": {
+        "notes": "This script runs residual screening (RESRMS) followed by station quality checking (RESCHK). Stations exceeding RMS thresholds or flagged as bad are removed. Iterative processing is supported up to a maximum number of iterations.\n\nMaximum RMS threshold is derived from FLG files if available. Falls back to default RMS = 1000 mm if no FLG is found\n",
+        "input": "RESRMS:\n\"V_H\"\n\"V_H\"$S+0???.RES\nRESCHK:\n\"V_H\"_$YSS+0.SUM",
+        "output": "RESRMS:\n\"V_H\"_$YSS+0.SUM\n\"V_H\"_$YSS+0.LST\n\"V_H\"_$YSS+0.EDT\nRESCHK:\nDEL$YD+0.DEL\nRESCHK.$yy_$ssss.SUM\n"
+    },
+    "140": {
+        "notes": "This script determines a residual threshold from FLG files and appliesit to the RESRMS processing. Observations exceeding the threshold are flagged and removed accordingly.",
+        "input": "\"V_H\"$S+0???.RES",
+        "output": "\"V_H\"_$YSS+0.SUM\n\"V_H\"_$YSS+0.LST\n\"V_H\"_$YSS+0.EDT"
+    },
+    "141": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    },
+    "142": {
+        "notes": "",
+        "input": "????$S+0.CZH/PZH\n\"V_H\"_$YSS+0.EDT",
+        "output": ""
+    },
+    "150": {
+        "notes": "Iteratively lower threshold for observation screening\nExisitng FLG-filesname defines threshold for next iteration.",
+        "input": "MSC/\"V_H\"$YD+0_????.FLG",
+        "output": ""
+    },
+    "160": {
+        "notes": "Identifies stations with degraded receiver clock performance by analysing the SIG file from a previous processing step. It flags stations whose quality metric exceeds a defined threshold and marks them as \u201cbad clocks\u201d. It then reads the SOS weighting file and replaces the standard station weights for these flagged stations with a fixed downweighting value (CODE = 20.0). The modified SOS file is rewritten.",
+        "input": "RESRMS:\n\"V_I\"S+.0???.RES\nScript:\n\"V_W\"_$YSS+0.SIG\n\"V_I\"_$YSS+0.SOS\n",
+        "output": "\"V_I\"$YSS+0.SOS"
+    },
+    "170": {
+        "notes": "Concatenate and combine clocks",
+        "input": "\"V_H\"$S+0???.CLK\n\"V_H\"_$YSS+0.CLK",
+        "output": "\"V_H\"_$YSS+0.CLK (clocks & RINEX)"
+    },
+    "999": {
+        "notes": "",
+        "input": "",
+        "output": ""
+    }
+}

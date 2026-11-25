@@ -1,0 +1,27 @@
+package PREWEI;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  PREWEI
+#
+# Purpose :  Set/change orbit accuracy codes in precise orbit file
+#
+# Programs:  PREWEI
+#
+# Author  :  S. Schaer
+# Created :  04-Oct-2012
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "PREWEI";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

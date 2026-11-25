@@ -1,0 +1,151 @@
+package DEL_CLKD;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  DEL_CLKD
+#
+# Purpose :  Delete ZD-related result files, only if V_DEL=Y.
+#
+# PARAMs  :  DEL
+#
+# Author  :  C. Kobel
+# Created :  06-Jan-2026
+# Updated :
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+use File::Basename;
+use POSIX qw(strftime);
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  # ---------------------- Parameter -----------------------------------------
+  my (
+    $dirOut, $ssss, $yyssss, ,$yyddd, $CLEAN, $V_K ,$V_Q
+  ) = $bpe->getKeys('DIR_OUT', '$S+0', '$YSS+0', '$YD+0', 'V_DEL','V_K', 'V_Q');
+
+  unless (defined $CLEAN && $CLEAN eq 'Y') {
+    print "CLEAN variable not set to 'Y'. Nothing will be deleted.\n";
+    return;
+  }
+
+  # ---------------------- Directories ---------------------------------------
+  my $dirAtm = "${dirOut}../ATM";
+  my $dirGrd = "${dirOut}../GRD";
+  my $dirObs = "${dirOut}../OBS";
+  my $dirOrb = "${dirOut}../ORB";
+  
+  my $tag    = $yyssss;
+
+  print "------------------------------------------------------------\n";
+  print "DEL_CLKD started for $tag\n";
+  print "------------------------------------------------------------\n";
+
+  # ---------------------- Define files to delete ----------------------------
+
+  my @out_patterns = (
+     "CCRNXC.L??",
+#     "${V_Q}_${yyssss}.CLK",
+     "${V_Q}_${yyssss}.OUT",
+     "${V_Q}A${yyssss}.CLK",
+     "${V_Q}S${yyssss}.CLK",
+     "${V_Q}S${yyssss}.OUT",
+     "${V_Q}C${yyssss}.PRC",
+     "test.IFO",
+     "CLKDIFF.???",
+     "${V_K}_${yyssss}.CLK",
+     "${V_K}_${yyssss}.OUT",
+     "${V_K}X${yyssss}.CLK",
+     "${V_K}X${yyssss}.OUT",
+     "${V_K}R${yyssss}.CLK",
+     "${V_K}R${yyssss}.OUT",
+     "????${ssss}_REC.CLK",
+     "????${ssss}_REC.OUT",
+  );
+
+  my @atm_patterns = (
+    "????${ssss}_REC.TRP",
+    "NTAL_${yyddd}.GRD",
+    "NTOL_${yyddd}.GRD",
+    "HYDL_${yyddd}.GRD",
+    "VMF${yyddd}.GRD",
+  );
+
+  my @obs_patterns = (
+    "????${ssss}.???",
+  );
+
+  my @orb_patterns = (
+    "????${ssss}_REC.CLK",
+    "${V_Q}T${yyssss}.CLK",
+  );
+
+
+  # ---------------------- Delete Files --------------------------------------
+  my $deleted = 0;
+
+  foreach my $pattern (@out_patterns) {
+    foreach my $file (glob("${dirOut}${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@atm_patterns) {
+    foreach my $file (glob("${dirAtm}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@obs_patterns) {
+    foreach my $file (glob("${dirObs}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  foreach my $pattern (@orb_patterns) {
+    foreach my $file (glob("${dirOrb}/${pattern}")) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  # ---------------------- Delete Files in BPE directory ----------------------
+  my $dirBpe = "${dirOut}../BPE";
+  my $bpe_pattern = "*CLKDEN*${tag}*";
+
+  foreach my $file (glob("${dirBpe}/${bpe_pattern}")) {
+    # Überspringe die beiden Dateien, die behalten werden sollen
+    next if ($file =~ /CLKDEN${tag}_050_000\.LOG$/);
+    next if ($file =~ /CLKDEN${tag}_050_000\.PRT$/);
+
+    next if ($file =~ /CLKDEN${tag}${tag}_050_000\.LOG$/);
+    next if ($file =~ /CLKDEN${tag}${tag}_050_000\.PRT$/);
+
+    next if ($file =~ /CLKDEN_R${tag}_050_000\.LOG$/);
+    next if ($file =~ /CLKDEN_R${tag}_050_000\.PRT$/);
+
+
+    if (-e $file) {
+      unlink $file and print "Deleted: $file\n" and $deleted++;
+    }
+  }
+
+  # ---------------------- Summary -------------------------------------------
+  if ($deleted == 0) {
+    print "No files found for $tag.\n";
+  } else {
+    print "------------------------------------------------------------\n";
+    print "Deleted $deleted files for $tag.\n";
+    print "------------------------------------------------------------\n";
+  }
+
+  return;
+}
+
+1;
+# ============================================================================

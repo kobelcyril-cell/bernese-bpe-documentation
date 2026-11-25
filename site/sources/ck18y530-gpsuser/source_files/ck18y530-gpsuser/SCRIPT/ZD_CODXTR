@@ -1,0 +1,127 @@
+package CODXTR;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CODXTR
+#
+# Purpose :  Executes CODXTR and optionally deletes rejected binary
+#
+# Author  :  H. Bock
+# Created :  06-Dec-2007
+#
+# Changes :  26-May-2009 rd: CODXTR: YY_DDD -> YY_SSSS
+#===========================================================
+
+use strict;
+use warnings;
+
+use File::Basename;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $yy,
+      $ddd,
+      $ssss,
+      $param1,
+      $param2,
+      $dirOut,
+      $dirDel,
+      $dirDcb,
+      $extOut,
+      $extDel,
+      $extDcb
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      '$Y',
+      '$+0',
+      '$S+0',
+      'PARAM1',
+      'PARAM2',
+      'DIR_OUT',
+      'DIR_DEL',
+      'DIR_DCB',
+      'EXT_OUT',
+      'EXT_DEL',
+      'EXT_DCB'
+  );
+
+  # ---------- Delete old DEL file ------------
+  my $delFil = "${dirDel}SPP${yyssss}.${extDel}";
+  $bpe->putKey("$ENV{U}/PAN/CODXTR.INP", "FILBAD", basename($delFil));
+  unlink($delFil);
+
+  # ---------- Run program ------------
+  my $PGMNAM = "CODXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # ---------- Summary for protocol ------------
+  my $sumFil = "${dirOut}CODXTR.${yy}_${ssss}";
+  appFile(
+    "CODSPP: " . timstr(localtime(time)),
+    0, "$$bpe{SYSOUT}", $sumFil, 1
+  );
+
+  my $satDel = 0;
+  open(my $SYS, "<", $$bpe{SYSOUT});
+  while (<$SYS>) {
+    $satDel ||= /SATELLITE\(S\) REMOVED FROM BROADCAST CLOCK FILE/;
+  }
+  close($SYS);
+
+  # ---------- Delete rejected files ------------
+  my $iDel = 0;
+
+  if (-s $delFil) {
+    open(my $DEL, "<", $delFil);
+    while (<$DEL>) {
+      $iDel++;
+      chomp;
+
+      s/^\s+//;   # Remove leading blanks
+
+      unlink($_);
+      prtMess($bpe, "$_ deleted");
+    }
+    close($DEL);
+
+    appFile("Files excluded from processing:", 0, $delFil, $sumFil, 1);
+    unlink($delFil);
+  }
+
+  # ---------- Update summary ------------
+  if ($iDel > 0) {
+    system("echo $iDel FILES DELETED >> $sumFil");
+  }
+
+  # ---------- GLONASS-GPS offsets ------------
+  my $outFil = "$dirDcb/OFF$yy$ddd.$extDcb";
+  unlink($outFil);
+
+  foreach my $inpFil (glob "$dirDcb/OFF0??.$extDcb") {
+    if (-e $outFil) {
+      system("$ENV{AUTO}/filmerge.pl $outFil $inpFil ${outFil}_TMP 7");
+      rename("${outFil}_TMP", $outFil);
+    }
+    else {
+      copyfile($inpFil, $outFil);
+    }
+  }
+
+  # ---------- Repeat CODSPP if needed ------------
+  if ($satDel && $param1 eq "NEXTJOB") {
+
+    my $PGMNAM = "SATMRK";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    prtGoto($bpe, $param2);
+  }
+}

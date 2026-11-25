@@ -1,0 +1,87 @@
+package IGSR_MID;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  IGSR_MID
+#
+# Purpose :  Save PRE/ERP of middle day
+#
+# Programs:
+#
+# Author  :  S. Schaer
+# Created :  04-Jun-2014
+#
+# Changes :  04-Jun-2014/ss: Created based on ORB_CHK4
+#            06-Jun-2014/ss: Save also STD and ELE
+#            06-Jun-2014/ss: Check consistency concerning MIDyyddd.FLG
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$dddm1,$yydddm1,
+      $dirOut,$dirPre,$extPre,$dirErp,$extErp,
+      $dirStd,$extStd,$dirEle,$extEle,
+      $v_i,$v_z) =
+    $bpe->getKeys('$YD+0','$-1','$YD-1',
+                  'DIR_OUT','DIR_PRE','EXT_PRE','DIR_ERP','EXT_ERP',
+                  'DIR_STD','EXT_STD','DIR_ELE','EXT_ELE',
+                  'V_I','V_Z');
+
+# Check whether this is an ULTRA
+# ------------------------------
+  my $ultFil = "$dirOut/../MSC/ULT$yyddd.FLG";
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+  $h_end = 24 unless -e $ultFil;
+
+# Save ULTyyddd.FLG
+# -----------------
+  my $savFil = "$dirOut/../MSC/RM_$yydddm1.FLG";
+  if (-e $ultFil) { copyfile($ultFil,$savFil) }
+  else            { unlink($savFil) }
+
+# Save PRE/ERP file of middle day
+# -------------------------------
+  my $inpFil ="$dirPre/${v_i}M1${dddm1}.${extPre}";
+  my $outFil ="$dirPre/${v_z}_${yydddm1}.${extPre}";
+  if (-e $inpFil){ copyfile($inpFil,$outFil) }
+  else           { prtErr($bpe,"$inpFil not found") and die }
+
+##  $inpFil ="$dirErp/${v_i}_${yyddd}.${extErp}";
+##  $outFil ="$dirErp/${v_z}_${yydddm1}.${extErp}";
+##  if (-e $inpFil){ copyfile($inpFil,$outFil) }
+##  else           { prtErr($bpe,"$inpFil not found") and die }
+
+  $inpFil ="$dirStd/${v_i}M1${dddm1}.${extStd}";
+  $outFil ="$dirStd/${v_z}_${yydddm1}.${extStd}";
+  if (-e $inpFil){ copyfile($inpFil,$outFil) }
+  else           { prtErr($bpe,"$inpFil not found") and die }
+
+  $inpFil ="$dirEle/${v_i}M1${dddm1}.${extEle}";
+  $outFil ="$dirEle/${v_z}_${yydddm1}.${extEle}";
+  if (-e $inpFil){ copyfile($inpFil,$outFil) }
+  else           { prtErr($bpe,"$inpFil not found") and die }
+
+# Check consistency concerning MIDyyddd.FLG
+# -----------------------------------------
+  my $midFil = "$dirOut/../MSC/MID$yydddm1.FLG";
+  my $chkFil = "$dirPre/MID$yydddm1.$extPre";
+  if (!-e $midFil && -e $chkFil) {
+    prtMess($bpe,"midFil not found? Possible inconsistency?");
+##    die "$midFil not found? Possible inconsistency?";
+  }
+  if (-e $midFil && !-e $chkFil) {
+    prtMess($bpe,"chkFil not found? Possible inconsistency?");
+##    die "$chkFil not found? Possible inconsistency?";
+  }
+
+}

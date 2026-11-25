@@ -1,0 +1,108 @@
+package TIMEST_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMEST_A
+#
+# Purpose :  Parallel run of GPSEST using code and phase data
+#            and estimating osb via addneq iteration
+#
+# Programs:  GPSEST
+#
+# Author  :  A. Villiger
+# Created :  24-Apr-2016
+#
+# Changes : 
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($param1, $subPid, $yyddd, $ssss, $trpModel, $dirIon, $extIon, $B, $I) =
+    $bpe->getKeys('PARAM1', 'SUB_PID', '$YD+0', '$S+0', 'V_TRPMOD' ,'DIR_ION', 'EXT_ION',
+                  'V_B',    'V_I');
+
+
+# Initialize $D4 variable with subpid
+# -----------------------------------
+  setUserVar($bpe,"CCC",$subPid);
+
+
+# Replace selected with station list
+# ----------------------------------
+  replaceSel($bpe,"GPSEST","CZFILES",$param1);
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","");
+
+
+# Deactivate HOI setup if indicated
+# ---------------------------------
+  my $hoiFil = "${dirIon}HOI${yyddd}.${extIon}";
+  print "HOIFIL: $hoiFil\n";
+  unless (-s $hoiFil) {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS"," ");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SCALHOI","0");
+    prtMess($bpe,"HOI SETUP: DEACTIVATED");
+  } else {
+    prtMess($bpe,"HOI SETUP: UNCHANGED");
+  }
+
+# --------------------------------------------------
+# Explicit TRPMOD switch via V_TRPMOD
+# --------------------------------------------------
+if ($trpModel eq "GMF") {
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_GMF");
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_GMF");
+   prtMess($bpe,"Troposphere model SETUP: $trpModel");
+}
+
+
+# Print the selected files to the log file
+# ----------------------------------------
+  open (BPE,$param1);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $param1\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+
+
+# Deactivate inversion and residual
+# ---------------------------------
+  
+# Run program: 1. GPSEST
+# ----------------------
+  my $PGMNAM = "GPSEST";
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT", '$B$S+0$(CCC)__');
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Run program: 2. ADDNEQ2
+# -----------------------
+  $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Run program: 3. GPSEST
+# ----------------------
+
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","NEQUARS","");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RESIDRS",'$B$S+0$(CCC)');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP", '$B$S+0$(CCC)');
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST", "0");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OBS2NEQ","0");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT", '$B$S+0$(CCC)');
+  
+  $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  }
+

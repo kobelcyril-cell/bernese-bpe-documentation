@@ -1,0 +1,53 @@
+package MAKE_TRA;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MAKE_TRA
+#
+# Purpose :  Extract GLONASS translations from ADDNEQ2 output
+#
+# Author  :  S. Schaer
+#
+# Created :  27-Jan-2011
+#
+# Changes :  06-Feb-2012 RD/PS: Reprocessing mode added
+#            07-Jun-2012 SL: Check for "#GTRA" in ADDNEQ2 output
+#            02-Oct-2012 SS: Added PARAM2
+#            09-Jul-2026 EB: add extract_istp.pl to create T73 TRA file
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{'BPE'};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($wwww, $param1, $param2, $dirOut, $extOut) =
+    $bpe->getKeys('$W+0', 'PARAM1', 'PARAM2', 'DIR_OUT', 'EXT_OUT');
+
+  my $lst = "";
+  $lst = "${dirOut}${param2}${wwww}7.LST" if $param2 ne "";
+
+  my $out = "${dirOut}${param1}${wwww}7.${extOut}";
+  my $iGsp = 0;
+  open ( OUT,"$out" );
+  while (<OUT>){
+    $iGsp++ if($_ =~ /#GSP/ || $_ =~ /#GTRA/);
+    last if $iGsp;
+  }
+  close OUT;
+  if ($iGsp > 0)
+##   {  system("$ENV{AUTO}/make_tra.com $out ${dirOut}TRA_${wwww}_${param2}.LST") &&
+   {  system("$ENV{AUTO}/make_tra.com $out $lst") &&
+      die "Error executing make_tra.com for week $wwww\n";
+      system("$ENV{AUTO}/extract_istp.pl -f $out");
+    }
+   else
+   { $bpe->prtMess("no GSP in $out") }
+
+}

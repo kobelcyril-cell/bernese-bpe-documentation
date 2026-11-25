@@ -1,0 +1,160 @@
+package FPPP_SAV;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FPPP_SAV
+#
+# Purpose :  Save result files for PPPFIN.PCF
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+# Created :  10-Jun-2013
+#
+# Changes :  24-May-2016 AV: Switch from OSB to DCB
+#            25-Jan-2016 AV: Store IGS compatible OSBs
+#            13-Feb-2017 AV: Store BIA files
+#            05-Oct-2017 SS: Store relevant WLB/NLB/IZD files
+#            09-Mar-2018 AV: Do not die in case of missing IZD FIX file
+#            09-May-2018 SS: Do not die in case of missing BAD FIX file
+#            30-May-2018 SS: Removed IAR stuff
+#            06-Nov-2019 MK: add Galileo
+#            24-Oct-2023 EB: Short protocol generation and copy to www
+#
+# ============================================================================
+use strict;
+use lib "$ENV{AUTO}";
+use gpsutil qw(copyfile);
+use igs_device;
+use lib "$ENV{BPE}";
+use bpe_util qw(check_dir copy2archive prtMess);
+
+
+sub run {
+  my $bpe = shift;
+
+
+
+# Get variables
+# -------------
+ my   ($yyyy, $yyssss, $ssss, $ddd,
+      $c, $f, $g, $h, $i, $k, $l, $o, $n, $sav,
+      $dirNeq, $dirCrd, $dirTrp, $dirOsb, $dirOut, $dirSum,
+      $extNeq, $extCrd, $extTrp, $extOsb, $extOut, $extSum,
+      $dirPzh, $dirPzo, $dirCzh, $dirCzo,$dirBia,
+      $extPzh, $extPzo, $extCzh, $extCzo,$extBia
+      ) =
+    $bpe->getKeys(
+      '$Y+0','$YSS+0','$S+0','$+0',
+      'V_C', 'V_F', 'V_G', 'V_H','V_I', 'V_K', 'V_L', 'V_O', 'V_N', 'V_SAV',
+      'DIR_NEQ','DIR_CRD','DIR_TRP','DIR_OSB','DIR_OUT','DIR_SUM',
+      'EXT_NEQ','EXT_CRD','EXT_TRP','EXT_OSB','EXT_OUT','EXT_SUM',
+      'DIR_PZH','DIR_PZO','DIR_CZH','DIR_CZO','DIR_BIA',
+      'EXT_PZH','EXT_PZO','EXT_CZH','EXT_CZO','EXT_BIA'
+      );
+
+  # Copy away the observation files
+  # --------------------------------
+  check_dir("${dirPzh}../OBS1");
+  copyfile("${dirPzh}????${ssss}.${extPzh}","${dirPzh}../OBS1");
+  copyfile("${dirPzo}????${ssss}.${extPzo}","${dirPzo}../OBS1");
+  copyfile("${dirCzh}????${ssss}.${extCzh}","${dirCzh}../OBS1");
+  copyfile("${dirCzo}????${ssss}.${extCzo}","${dirCzo}../OBS1");
+
+# Some directories
+# ----------------
+  my $dirSav = "${PATH_SAV}${CAMP_SAVPPP}/${yyyy}/";
+  my $orbSav = "${dirSav}ORB/";
+  my $outSav = "${dirSav}OUT/";
+  my $atmSav = "${dirSav}ATM/";
+  my $solSav = "${dirSav}SOL/";
+  my $staSav = "${dirSav}STA/";
+
+  if($sav eq "Y") {
+    &check_dir($orbSav,$outSav,$atmSav,$solSav,$staSav);
+    &check_dir("${PATH_WWW}code/");
+  }
+
+# Create short protocol file
+# --------------------------
+  my $prtFilshort = "${dirOut}PPPFINAL_SHORT.TXT";
+  system("$ENV{AUTO}/typ_fppp.pl -q ${ddd} > $prtFilshort");
+
+# Copy files to savedisk
+# ----------------------
+  my @cpyLst = (
+
+    # Protocol
+    "${dirOut}PPP${yyssss}.PRC          ${outSav} _ ",
+#    "${dirOut}STA${yyssss}.PRC          ${outSav} _ ",
+    "${dirOut}PPP${yyssss}.PRC          ${PATH_WWW}code/pppfinal.txt _ ",
+    "${prtFilshort}                     ${PATH_WWW}code/pppfinal_short.txt _ ",
+
+    # Copy results from the PPP solution (code+phase/GPS+GLONASS)
+    "${dirCrd}${c}${yyssss}.${extCrd}   ${staSav} _ ",
+    "${dirTrp}${c}${yyssss}.${extTrp}   ${atmSav} _ ",
+    "${dirNeq}${f}${yyssss}.${extNeq}   ${solSav}${c}${yyssss}.${extNeq} _ ",
+
+    "${dirNeq}${h}${yyssss}.${extNeq}   ${solSav} _ ",
+    "${dirOsb}${h}${yyssss}.${extOsb}   ${orbSav} _ ",
+    "${dirOsb}${g}${yyssss}.${extOsb}   ${orbSav} _ ",
+    "${dirOsb}${h}${yyssss}.${extBia}   ${orbSav} _ ",
+    "${dirOsb}${g}${yyssss}.${extBia}   ${orbSav} _ ",
+
+    # Copy results from the PPP solution (phase-only/GPS+GLONASS+GALILEO)
+    "${dirCrd}${i}${yyssss}.${extCrd}   ${staSav} _ ",
+    "${dirTrp}${i}${yyssss}.${extTrp}   ${atmSav} _ ",
+    "${dirNeq}${i}${yyssss}.${extNeq}   ${solSav} _ ",
+
+    # Copy results from the PPP solution (phase-only/GPS-only)
+    "${dirCrd}${k}${yyssss}.${extCrd}   ${staSav} _ ",
+    "${dirTrp}${k}${yyssss}.${extTrp}   ${atmSav} _ ",
+    "${dirNeq}${k}${yyssss}.${extNeq}   ${solSav} _ ",
+
+    # Copy results from the PPP solution (phase-only/GLONASS-only)
+    "${dirCrd}${l}${yyssss}.${extCrd}   ${staSav} _ ",
+    "${dirTrp}${l}${yyssss}.${extTrp}   ${atmSav} _ ",
+    "${dirNeq}${l}${yyssss}.${extNeq}   ${solSav} _ ",
+
+    # Copy results from the PPP solution (phase-only/GALILEO-only)
+    "${dirCrd}${o}${yyssss}.${extCrd}   ${staSav} _ ",
+    "${dirTrp}${o}${yyssss}.${extTrp}   ${atmSav} _ ",
+    "${dirNeq}${o}${yyssss}.${extNeq}   ${solSav} _ ",
+  );
+
+# Distribution not allowed
+# ------------------------
+  if ( uc $sav ne "Y" ) {
+    prtMess($bpe,"FILES NOT SAVED");
+
+# Do the distribution
+# -------------------
+  } else {
+    my(@err) = ();
+    foreach(@cpyLst) {
+      if(/BAD.*FIX/){
+        &copy2archive(split(" ",$_));
+      }else{
+        push(@err,"$_\n") if(&copy2archive(split(" ",$_)));
+      }
+    }
+    die "\n *** copy2archive failed for\n @err\n" if(@err);
+
+    my $inposb = "${dirOsb}${h}${yyssss}.${extOsb}";
+    my $outdcb = "${orbSav}.DCB";
+
+    system("$ENV{AUTO}/osb2dcb.com $inposb $outdcb INTER-FREQ");
+    die "$outdcb not created" unless -s $outdcb;
+
+# Copy results from the PPP solution (phase-only/GPS+GLO+GAL, kinematic)
+# ----------------------------------------------------------------------
+    my $tarFil = "${outSav}${n}${yyssss}_${extSum}.tar";
+    system("tar -cvf $tarFil ${dirSum}${n}${ssss}????.${extSum}");
+
+  }
+
+
+ 
+}
+
+

@@ -1,0 +1,24 @@
+package OBSFMT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  OBSFMT
+#
+# Purpose :  Execute OBSFMT
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  05-Oct-2017
+#
+# ============================================================================
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "OBSFMT";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

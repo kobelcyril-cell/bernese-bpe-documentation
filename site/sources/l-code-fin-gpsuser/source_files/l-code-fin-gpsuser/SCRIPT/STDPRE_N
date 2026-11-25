@@ -1,0 +1,91 @@
+package STDPRE_O;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  STDPRE_N
+#
+# Purpose :  Genetare PRE-files for all days of the n-day solution:
+#            N can be 1 to infinity
+#            Based on former BDS script
+#
+# Programs:  STDPRE_N
+#
+# Author  :  A. Villiger
+# Created :  24-May-2019
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+  my ($yyyy,$ddd,$yyddd,
+      $gnss,$param1,$minus,$plus,
+      $dirOut) = $bpe->getKeys(
+      '$Y+0','$+0','$YD+0',
+      'V_GNSS','PARAM1','V_MINUS','V_PLUS',
+      'DIR_OUT');
+
+  my ($sol)  = $bpe->getKeys("V_${param1}");
+  my $repro  = "${dirOut}/../MSC/REPROCESSING.FLG";
+  my $satclk = ""; # Satellite clock file
+  my $stdpre = "$ENV{U}/PAN/STDPRE.INP";
+
+  # Set GNSS to be used
+  if($gnss){
+    &setGNSS($bpe,$stdpre,"USE_",$gnss);
+  }
+
+  # Check if reprofile exists
+  if(-e $repro){
+    $satclk = "B1_$yyddd";
+    $bpe->putKey($stdpre,"SATCLK",$satclk);
+    $bpe->putKey($stdpre,"TITLE2","Final GPS orbits and clocks for year-day $yyddd");
+    $bpe->putKey($stdpre,"TITLE3","Note: Middle day of a 3-day arc/BRD clocks");
+    $bpe->putKey($stdpre,"CLKINFO","BRD");
+  }
+
+  if($sol){
+    $bpe->putKey($stdpre,"POLE","${sol}_${yyddd}");
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "STDPRE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Extract remaining arcs (PM-range)
+# Name -1: ???M1$YYDDD
+#      +1: ???P1$YYDDD
+# ---------------------------------
+  my $mcount = 0;
+  my $pcount = 0;
+
+  for(my $nday = $minus; $nday <= $plus; $nday++){
+    next if $nday == 0;
+    my $mod  = $nday < 0? "M" : "P";
+    my $cnt  = abs($nday);
+    my $pm   = $nday<0? "-$cnt":"+$cnt";
+    my ($yydddt) = $bpe->getKeys('$YD'.${pm});
+    my $nam = "${sol}${mod}${cnt}${yydddt}";
+
+    print "Process $nday: $yydddt\n";
+
+    $bpe->putKey($stdpre,"SATCLK","");
+    $bpe->putKey($stdpre,"STDORB","$nam");
+    $bpe->putKey($stdpre,"IMPELE","$nam");
+    $bpe->putKey($stdpre,"PREOUT","$nam");
+    $bpe->putKey($stdpre,"SESSION_STRG",'$S'.$pm);
+    $bpe->putKey($stdpre,"SESSION_YEAR",'$Y'.$pm);
+    $bpe->putKey($stdpre,"STADAT",'$YMD_STR'.$pm);
+    $bpe->putKey($stdpre,"ENDDAT",'$YMD_STR'.$pm);
+    $bpe->RUN_PGMS($PGMNAM);
+  }
+}

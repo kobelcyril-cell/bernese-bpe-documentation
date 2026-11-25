@@ -1,0 +1,82 @@
+package GPSEST;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GPSEST
+#
+# Purpose :  Execute GPSEST
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+#            12-Aug-2014 DA: Check V_OFFS
+#            09-Feb-2022 DA: Added V_IGNERR
+#            02-Apr-2024 DA: Introduced V_POBS and V_COBS
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($OFFS,$IGNERR,
+      $POBS,$dirPzh,$extPzh,
+      $COBS,$dirCzh,$extCzh) = $bpe->getKeys('V_OFFS','V_IGNERR',
+                                             'V_POBS','DIR_PZH','EXT_PZH',
+                                             'V_COBS','DIR_CZH','EXT_CZH');
+
+# Set sampling to 0 if observations epochs have an offset
+# -------------------------------------------------------
+  if (${OFFS} eq "Y") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SAMPLE","0");
+  }
+
+# Reset phase observations files if V_POBS non-empty
+# --------------------------------------------------
+  if ($POBS) {
+      # Resolve potential wildcards
+      my @pzhObs = glob("${dirPzh}/${POBS}.${extPzh}");
+      print "Reset phase obs. to @pzhObs\n";
+      my $tmpFil = "$ENV{U}/WORK/obsinpp.lst";
+      open TMP, '>', $tmpFil;
+      foreach my $o (@pzhObs) {
+          print TMP "$o\n";
+      }
+      close TMP;
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES","SELECTED","REPLACE",$tmpFil);
+  }
+
+# Reset code observations files if V_COBS non-empty
+# -------------------------------------------------
+  if ($COBS) {
+      # Resolve potential wildcards
+      my @czhObs = glob("${dirCzh}/${COBS}.${extCzh}");
+      print "Reset code obs. to @czhObs\n";
+      my $tmpFil = "$ENV{U}/WORK/obsinpc.lst";
+      open TMP, '>', $tmpFil;
+      foreach my $o (@czhObs) {
+          print TMP "$o\n";
+      }
+      close TMP;
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES","SELECTED","REPLACE",$tmpFil);
+  }
+
+
+# Set IGNORE_ERR if requested
+# ---------------------------
+  if ($IGNERR) {
+      print "Set IGNORE_ERR to ${IGNERR}\n";
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IGNORE_ERR",$IGNERR);
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

@@ -1,0 +1,75 @@
+# ============================================================================
+# BASTST.PCF
+# ============================================================================
+#
+# Description:  Does GPSEST runs baseline by baseline for trouble shooting.
+#
+#               BASTST BPE processing summary file name: BASyyssss.PRC
+#
+# Comments   :  This is an example for a simply designed BPE PCF, where
+#               single programs get directly started without preceding
+#               execution of a copy (COP) script. Here, it is specifically
+#               assumed that all necessary input files may be taken over
+#               from a previous RNX2SNX BPE run (successfully completed by
+#               PID 312, or 313).
+#
+#
+# Author     :  S. Schaer
+# Created    :  21-Mar-2004
+#
+# Changes    :  23-Mar-2004 ??: Prepared for release V5.0
+#               20-Oct-2006 ??: added v_PCV
+#               18-Jul-2013 rd,hb: V_SATINF: SAT_1452->SAT_NONE
+#               18-Jul-2013 rd,lp: V_OBSSEL added
+#               16-Sep-2021 ST: Transform into the new PCF format
+#                               Reorder BPE server variables for reporting
+#               29-Mar-2022 AV: Modified keywords
+#               28-Mar-2023 RD/EB: Put parallel jobs with CPU=SHORT to CPU=QUICK/FOX
+#               14-Dec-2023 SS: V_PCV=I20
+#               25-Aug-2026 RD: Correct syntax for CARDS ("/"->" " between elements)
+#
+# ============================================================================
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Delete specific files
+# ---------------------
+001  BAS_DEL   BAS_GEN   CPU=LOCAL
+#
+# Compute baseline solutions and extract relevant information
+# -----------------------------------------------------------
+101  BASESTAP  BAS_GEN   CPU=LOCAL; WAIT=001
+102  BASEST_X  BAS_GEN   CPU=FOX; WAIT=101; PARALLEL=101
+111  RESRMS    BAS_GEN   CPU=SHORT; WAIT=102
+#
+# Create processing summary file
+# ------------------------------
+901  BAS_SUM   BAS_GEN   CPU=LOCAL; WAIT=111
+#
+#
+
+VARIABLE   DEFAULT        PARAMETERS
+#
+# Solution IDs used in the BPE:
+# ----------------------------
+V_A      = Q1_;           DESCRIPTION=A priori information
+V_B      = Q1_;           DESCRIPTION=Orbit/ERP information
+V_C      = BAS;           DESCRIPTION=Baseline results
+#
+# General and model files:
+# -----------------------
+V_OBSSEL = OBSERV_COD;    DESCRIPTION=Observation selection file
+V_SATINF = SATELLIT;      DESCRIPTION=Satellite information file
+V_PCVINF = ANT_COD;       DESCRIPTION=PCV information file
+V_PCV    = I20;           DESCRIPTION=GNSS PCV model
+#
+V_SATCRX = SAT;           DESCRIPTION=Satellite problem file
+V_SYSCRX = SAT_GNSS;      DESCRIPTION=Satellite problem file for data import
+#
+V_MEANPL = IERS2010;      DESCRIPTION=Mean pole model
+V_SUBMOD = IERS2010XY;    DESCRIPTION=Subdaily pole model
+V_NUTMOD = IAU2000R06;    DESCRIPTION=Nutation model
+#
+V_LOADNG = VAPL;          DESCRIPTION=Loading models; CARDS=NONE VAPL GFZ
+V_BLQINF = FES2014b;      DESCRIPTION=BLQ file name, CMC corrections
+V_ATLINF = VAPL;          DESCRIPTION=ATL file name, CMC corrections

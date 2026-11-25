@@ -1,0 +1,169 @@
+package DO_PPPAR;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  DO_PPPAR
+#
+# Purpose :  Start PPPAR BPE for session $YSS+0
+#
+#            PCF Variables:
+#
+#
+# PARAMs  :  PARAM2 - goto PID in case of repetition of clock computation
+#            PARAM4 - maximum number of repetitions (default: 0)
+#
+# Remarks :  $maxRep=0: CLK(0), AR(0), CLK(1)
+#            $maxRep=1: CLK(0), AR(0), CLK(1), AR(1), CLK(2)
+#            $maxRep=2: CLK(0), AR(0), CLK(1), AR(1), CLK(2), AR(2), CLK(3)
+#            Note:      ^amb-float...  ^ambiguity-fixed... (if index>0)
+#
+# Author  :  S. Schaer
+#
+# Created :  14-May-2018
+#
+# Changes :  15-May-2018/ss: Launch ppppar_pcs.com according to crontab
+#            22-May-2018/ss: Repeat GNSS clock computation if desired
+#            23-May-2018/ss: Added V_IAR
+#            04-Jun-2018/ss: Start PPPAR BPE using CAMPAIGN variable
+#            05-Jun-2018/ss: Considered IAR.FLG and EXIT.FLG
+#            05-Jun-2018/ss: Defined V_SAMPLE for PPPAR BPE
+#            08-Jun-2018/ss: Defined V_MINEL; prepared for MCLKGNSS
+#            18-Jun-2018/ss: Prevent start of PPPAR BPE if necessary
+#            10-Jul-2018/ss: Added FCLK_REP campaign
+#            23-Apr-2020/av: Modified pppar_pcs.com script
+#            27-Dec-2020/lp: Set CPU to LOCAL on antlia machine
+#            29-Mar-2022/av: Check if PPPAR finished successful
+#            03-Nov-2022/ss: Considered V_PCC4MWGF
+#            17-May-2024/ss: Print options to LOG
+#            27-Nov-2025 SS: Introduced V_DOI
+#            10-Feb-2026 AA: Added V_OBSSEL
+#            06-Jul-2026 SS: Added V_PCVINF
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss,$ddd,$yyyy,
+      $param1,$param2,$param4,
+      $mode, $v_iar,$pcv,$pcc4mwgf,$satinf,$pcvinf,$obssel,$usrcpu,$pcf,$doi,$camp_pth,$campaign,$dirOut,
+      $dirPrt, $extBpe ) =
+   $bpe->getKeys('$YSS+0','$+0','$Y+0',
+                 'PARAM1','PARAM2','PARAM4',
+                 'V_ARMODE','V_IAR','V_PCV','V_PCC4MWGF','V_SATINF','V_PCVINF','V_OBSSEL','V_CPUFIL','PCFFIL','V_DOI','CAMP_PTH','CAMPAIGN','DIR_OUT',
+                 'DIR_BPEPRT','EXT_BPEPRT');
+#  $v_iar = "Y" unless defined($v_iar);
+  $v_iar = "N" if $v_iar eq "";
+
+##  my $iarFlg = "${dirOut}../MSC/IAR${yyssss}.FLG";
+  my $iarFlg = "$camp_pth/$campaign/MSC/IAR${yyssss}.FLG";
+  unlink($iarFlg) if $param1 ne "NEXTJOB";
+  my $numRep = -e $iarFlg ? `cat $iarFlg`+0 : -1;
+  my $maxRep = $param4 ne "" ? $param4 : 0;
+  prtMess($bpe,"DO_PPPAR: $numRep $maxRep $v_iar");
+
+##  move("${dirOut}IAR${yyssss}.SUM","${dirOut}IAR${yyssss}.SUM_OLD");
+##  move("${dirOut}IAR${yyssss}.FPZ","${dirOut}IAR${yyssss}.FPZ_OLD");
+
+  my $maxFlg = "$camp_pth/$campaign/MSC/IAR.FLG";
+  if (-e $maxFlg) {
+    $maxRep = `cat $maxFlg`+0;
+  }
+  my $exiFlg = "$camp_pth/$campaign/MSC/EXIT.FLG";
+  if (-e $exiFlg) {
+    $maxRep = $numRep;
+    unlink($exiFlg);
+  }
+
+  if ($numRep < $maxRep && $v_iar eq "Y") {
+
+# Start PPPAR BPE for session $YSS+0
+# ----------------------------------
+    $numRep++;
+    prtMess($bpe,"PPPAR BPE STARTED FOR SESSION $yyssss");
+    prtMess($bpe,"PPPAR REPETITION ($numRep)");
+    my $path = "$camp_pth";
+    my $minel =   3;
+    my $arsmp =  30;
+    my $cpufil=  "";
+    if($mode=~/FCLK/){
+      $minel  =   5;
+      $arsmp  = 300;
+      $cpufil = "CODE_FIN";
+    }elsif($mode=~/RCLK/){
+      $minel =   5;
+      $arsmp = 300;
+      $cpufil = "CODE_RAP";
+    }elsif($mode=~/MCLK/){
+      $minel =   5;
+      $arsmp = 300;
+      $cpufil = "SHORT";
+    }elsif($mode=~/PPPFIN/){
+      $minel =   3;
+      $arsmp =  30;
+      $cpufil = "CODE_FIN";
+    }
+    if($usrcpu ne ""){
+      $cpufil = $usrcpu;
+    }
+    if($ENV{HOST}=~/antlia/){
+      $cpufil = "LOCAL";
+    }
+    my $options = " -d=$ddd "    .     # "$+0"        Doy
+                  " -y=$yyyy"    .     # "$Y+0"       Year
+                  " -c=$campaign".     # "CAMPAIGM"   Campaign to be used
+                  " -s=$arsmp"   .     # "V_ARSMP"    Sampling interval for PPPAR
+                  " -e=$minel"   .     # "V_ARMEL"    Minimum elevation
+                  " -p=$pcv"     .     # "V_PCV"      PCV file
+                  " -b=\"$pcc4mwgf\"". # "V_PCC4MWGF" Bias mode for MW LC
+                  " -i=$satinf"  .     # "V_SATINF"   SATINF to be used
+                  " -a=$pcvinf"  .     # "V_PCVINF"   PCVINF to be used
+                  " -o=$obssel"  .     # "V_OBSSEL"   OBSSEL to be used
+                  " -doi=$doi"   .     # "V_DOI"      Product reference
+                  " -path=$path" .     # "V_CAMP_PTH" Campaign location "e.g. $P, $K, ..."
+                  " -cpu=$cpufil".     # "V_CPUFIL"   Which CPU file shall be used
+                  " -mode=$mode";      #              Which mode (definex file naming conventions:
+#                  " -repro=REPCLK_R20";  #        Repro-mode
+
+                                   #              - FCLK:   FCLKGNSS
+                                   #              - RCLK:   RCLKGNSS
+                                   #              - MCLK:   MCLKGNSS
+                                   #              - PPPFIN: PPPFIN
+
+    print "Options: $options\n";
+    system("bash -lc '$ENV{AUTO}/pppar_pcs.com $options'") &&
+      die("PPPAR BPE failed for session $yyssss\n");
+    prtMess($bpe,"PPPAR BPE ENDED");
+
+# DO_PPPAR successful?
+# --------------------
+    my $bpeEnd = "${dirPrt}/AR${yyssss}_999_000.PRT";
+    print "Search for $bpeEnd\n";
+    if(-s $bpeEnd){
+      prtMess($bpe,"PPPAR finished");
+    }else{
+      prtMess($bpe,"PPPAR not successful");
+      die;
+    }
+
+# Repetition of GNSS clock computation?
+# -------------------------------------
+    if ($param1 eq "NEXTJOB") {
+      prtMess($bpe,"GNSS CLOCK COMPUTATION REPEATED ($numRep)");
+      prtGoto($bpe,$param2);
+    }
+
+  }
+
+}

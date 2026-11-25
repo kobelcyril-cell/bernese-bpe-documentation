@@ -1,0 +1,562 @@
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 1  "${R}/EC_FZDMGNSS"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${R}/EC_FZDMGNSS/STA/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2022"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "1000"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Environment variables
+! ---------------------
+ENVIRONMENT 9
+  "U" "/storage/homefs/ec20f882/GPSUSER_ZDM"
+  "T" "/scratch/local/ec20f882"
+  "X" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GPS"
+  "P" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "ec20f882"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/EC_BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! --------------------------------------------------------------------
+! INPUTFILES                                                         |
+! --------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General constants
+! -----------------
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+! Geodetic datum
+! --------------
+DATUM 1  "${CONFIG}/DATUM.BSW"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+  # DATUM
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+  # $(SATINF)_$(PCV)
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "${CONFIG}/$(SATCRX).CRX"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+  ## emptyallowed = true
+  # $(SATCRX)
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Observation type
+! ----------------
+RADIO_Z 1  "1"
+  ## widget = radiobutton; group = FILTYP
+  ## radiokeys = PZHFILES RMSFIT CORESITE
+
+MSG_RADIO_Z 1  "Zero difference observation files"
+
+RADIO_S 1  "0"
+  ## widget = radiobutton; group = FILTYP; radiokeys = PSHFILES
+
+MSG_RADIO_S 1  "Single difference observation files"
+
+! All observation files: Zero difference
+! --------------------------------------
+PZHFILES 0
+  ## widget = selwin; path = DIR_PZH; ext = EXT_PZH
+  # ????$S+0
+
+PZHFILES_TXT_COL_1 1  "Observation Header"
+
+PZHFILES_PTH_COL_2 1  "${R}/EC_FZDMGNSS/OBS/"
+  ## widget = initmenu; pointer = DIR_PZO
+
+PZHFILES_EXT_COL_2 1  "PZO"
+  ## widget = initmenu; pointer = EXT_PZO
+
+PZHFILES_TXT_COL_2 1  "Observation Files"
+
+PZHFILES_PTH_COL_3 1  "${R}/EC_FZDMGNSS/OBS/"
+  ## widget = initmenu; pointer = DIR_CZH
+
+PZHFILES_EXT_COL_3 1  "CZH"
+  ## widget = initmenu; pointer = EXT_CZH
+
+PZHFILES_PTH_COL_4 1  "${R}/EC_FZDMGNSS/OBS/"
+  ## widget = initmenu; pointer = DIR_CZO
+
+PZHFILES_EXT_COL_4 1  "CZO"
+  ## widget = initmenu; pointer = EXT_CZO
+
+MSG_PZHFILES 1  "Zero difference observation files"
+
+! All observation files: Single difference
+! ----------------------------------------
+PSHFILES 0
+  ## widget = selwin; path = DIR_PSH; ext = EXT_PSH
+  # 
+
+PSHFILES_TXT_COL_1 1  "Observation Header"
+
+PSHFILES_PTH_COL_2 1  "${R}/EC_FZDMGNSS/OBS/"
+  ## widget = initmenu; pointer = DIR_PSO
+
+PSHFILES_EXT_COL_2 1  "PSO"
+  ## widget = initmenu; pointer = EXT_PSO
+
+PSHFILES_TXT_COL_2 1  "Observation Files"
+
+PSHFILES_PTH_COL_3 1  "${R}/EC_FZDMGNSS/OBS/"
+  ## widget = initmenu; pointer = DIR_CSH
+
+PSHFILES_EXT_COL_3 1  "CSH"
+  ## widget = initmenu; pointer = EXT_CSH
+
+PSHFILES_PTH_COL_4 1  "${R}/EC_FZDMGNSS/OBS/"
+  ## widget = initmenu; pointer = DIR_CSO
+
+PSHFILES_EXT_COL_4 1  "CSO"
+  ## widget = initmenu; pointer = EXT_CSO
+
+MSG_PSHFILES 1  "Single difference observation files"
+
+! Coordinate file
+! ---------------
+COORD 1  "${R}/EC_FZDMGNSS/STA/$B_221000.CRD"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+  # $B_$YSS+0
+
+DESCR_COORD 1  "Station coordinates"
+
+! RMS lin fit for clocks
+! ----------------------
+RMSFIT 0
+  ## widget = selwin; path = DIR_SIG; ext = EXT_SIG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_RMSFIT 1  "Linear fit RMS of station clocks"
+
+! Station list with core sites
+! ----------------------------
+CORESITE 0
+  ## widget = selwin; path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_CORESITE 1  "List of core sites"
+
+! --------------------------------------------------------------------
+! OUTPUTFILES                                                        |
+! --------------------------------------------------------------------
+! File with selected obs-file names
+! ---------------------------------
+SELBSL 1  "${R}/EC_FZDMGNSS/STA/$C1000.CLB"
+  ## widget = lineedit; path = DIR_CLB; ext = EXT_CLB
+  # $C$S+0
+
+MSG_SELBSL 1  "Cluster assignment files"
+
+! File with not selected obs-file names
+! -------------------------------------
+NOTUSE 0
+  ## widget = lineedit; path = DIR_DEL; ext = EXT_DEL
+  ## activeif = RADIO_Z = 1
+  # 
+
+DESCR_NOTUSE 1  "Rejected observation files list"
+
+! Delete Code files too
+! ---------------------
+DELALL 1  "1"
+  ## widget = checkbox; activeif = RADIO_Z = 1 and NOTUSE / _
+
+MSG_DELALL 1  "Add code observation files to list"
+
+! Program output file
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${R}/EC_FZDMGNSS/OUT/MKCLUS.L08"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # ${P}/IGSRAPID/OUT/MKCLUS
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error message file
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title
+! -----
+TITLE 1  "Create global cluster for computation of OSB"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Max number of ambiguities allowed per file
+! ------------------------------------------
+MAXAMB 1  "995"
+  ## widget = spinbox; range = 0 999 5; activeif = RADIO_Z = 1
+
+MSG_MAXAMB 1  "Maximum number of ambiguities per file"
+
+! Minimum number of observation expected
+! --------------------------------------
+MINOBS 1  "3000"
+  ## widget = spinbox; range = 0 9999 100; activeif = RADIO_Z = 1
+
+MSG_MINOBS 1  "Minimum number of observations per file"
+
+! MAX RMS for lin fit of the clock allowed for a station
+! ------------------------------------------------------
+MAXRMS 1  "0"
+  ## widget = lineedit; check_type = real; check_min = 0
+  ## activeif = RMSFIT /= _ AND RADIO_Z = 1
+
+MSG_MAXRMS 1  "Maximum linear fit RMS of station clocks"
+
+! Strategy for cluster definition
+! -------------------------------
+CLUSTRAT_Z 1  "GLOBAL"
+  ## widget = combobox; editable = false; cards = GLOBAL REGIONAL
+  ## activeif = RADIO_Z = 1
+
+MSG_CLUSTRAT_Z 1  "Strategy for zero difference observations"
+
+! Strategy for cluster definition
+! -------------------------------
+CLUSTRAT_S 1  "REGIONAL"
+  ## widget = combobox; editable = false; cards = REGIONAL
+  ## activeif = RADIO_S = 1
+
+MSG_CLUSTRAT_S 1  "Strategy for single difference observations"
+
+! Number of clusters (zero diff., global)
+! ---------------------------------------
+NUMCLU_ZG 1  "4"
+  ## widget = spinbox; range = 1 100 1
+
+MSG_NUMCLU_ZG 1  "Number of clusters"
+
+! Automatic number of stations per cluster (zero diff., global)
+! -------------------------------------------------------------
+AUTOSTA_ZG 1  "0"
+  ## widget = checkbox
+
+MSG_AUTOSTA_ZG 1  "Optimum number of stations per cluster"
+
+! Max. number of stations per cluster (zero diff., global)
+! --------------------------------------------------------
+MAXSTA_ZG 1  "999"
+  ## widget = spinbox; range = 0 999 5; activeif = AUTOSTA_ZG = 0
+
+MSG_MAXSTA_ZG 1  "Maximal number of stations per cluster"
+
+! Station selection criteria (zero diff., global)
+! -----------------------------------------------
+STADEL_ZG 1  "NUM.OBS"
+  ## widget = combobox; cards = NUM.OBS CLOCK GEOMETRY DENSITY
+  ## editable = false; activeif = MAXSTA_ZG > 0
+
+MSG_STADEL_ZG 1  "Station selection criterion"
+
+! Min. obs. per satellite in each epoch and cluster (zero diff., global)
+! ----------------------------------------------------------------------
+SATOBS_ZG 1  "3"
+  ## widget = spinbox; range = 0 20 1
+  ## activeif = NUMCLU_ZG > 1 OR AUTOSTA_ZG = 1
+
+MSG_SATOBS_ZG 1  "Min number of observ. per satellite at each epoch"
+
+! Number of clusters where SATOBS must be achieved (zero diff., global)
+! ---------------------------------------------------------------------
+NSOLVE_ZG 1  "4"
+  ## widget = spinbox; range = 0 5 1
+  ## activeif = NUMCLU_ZG > 1 AND SATOBS_ZG > 1
+
+MSG_NSOLVE_ZG 1  "Number of clusters with redundancy option applied"
+
+! Satellites with a low number of observ.
+! ---------------------------------------
+OBSSAT_ZG 1  "90"
+  ## widget = spinbox; range = 0 100 5
+  ## activeif = NUMCLU_ZG > 1 AND SATOBS_ZG > 1
+
+MSG_OBSSAT_ZG 1  "Satellites with a low number of observ."
+
+! Satellite systems to be considered (no selection: ALL)
+! ----------------------------------
+! GPS
+USE_G 1  "0"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Consider observations from GPS"
+
+! GLONASS
+USE_R 1  "0"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Consider observations from GLONASS"
+
+! Galileo
+USE_E 1  "0"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Consider observations from Galileo"
+
+! SBAS
+USE_S 1  "0"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Consider observations from SBAS"
+
+! BeiDou
+USE_C 1  "0"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Consider observations from BeiDou"
+
+! QZSS
+USE_J 1  "0"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Consider observations from QZSS"
+
+! Sampling interval to be considered
+! ----------------------------------
+NSAMPL_ZG 1  "0"
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_NSAMPL_ZG 1  "Sampling interval to be considered"
+
+! Max. number of stations per cluster (zero diff., regional)
+! ----------------------------------------------------------
+RADIO_Z1 1  "0"
+  ## widget = radiobutton; group = REGTYP; radiokeys = MAXSTA_ZR
+
+MSG_RADIO_Z1 1  "Maximum number of stations per cluster"
+
+MAXSTA_ZR 1  "40"
+  ## widget = spinbox; range = 0 999 5
+
+MSG_MAXSTA_ZR 1  "Maximum number of stations per cluster"
+
+! Number of clusters (zero diff., regional)
+! -----------------------------------------
+RADIO_Z2 1  "1"
+  ## widget = radiobutton; group = REGTYP; radiokeys = NUMCLU_ZR NSAMPL_ZR
+
+MSG_RADIO_Z2 1  "Number of clusters"
+
+NUMCLU_ZR 1  "4"
+  ## widget = spinbox; range = 1 100 1
+
+MSG_NUMCLU_ZR 1  "Number of clusters"
+
+! Min. obs. per satellite of each station in each epoch  (zero diff., regional)
+! -----------------------------------------------------------------------------
+STAOBS_ZR 1  "2"
+  ## widget = spinbox; range = 0 5 1
+  ## activeif = RADIO_Z2 = 1 AND NUMCLU_ZR > 1
+
+MSG_STAOBS_ZR 1  "Min number of observ. per satellite at each epoch"
+
+! Sampling interval to be considered
+! ----------------------------------
+NSAMPL_ZR 1  "$(SAMPL)"
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_NSAMPL_ZR 1  "Sampling interval to be considered"
+
+! Max. number of stations per cluster (baseline, regional)
+! ----------------------------------------------------------
+RADIO_S1 1  "0"
+  ## widget = radiobutton; group = REGTYP; radiokeys = MAXSTA_SR
+
+MSG_RADIO_S1 1  "Maximum number of baselines per cluster"
+
+MAXSTA_SR 1  "30"
+  ## widget = spinbox; range = 0 999 5
+
+MSG_MAXSTA_SR 1  "Maximum number of baselines per cluster"
+
+! Number of clusters (baseline, regional)
+! -----------------------------------------
+RADIO_S2 1  "1"
+  ## widget = radiobutton; group = REGTYP; radiokeys = NUMCLU_SR
+
+MSG_RADIO_S2 1  "Number of clusters"
+
+NUMCLU_SR 1  "5"
+  ## widget = spinbox; range = 1 100 1
+
+MSG_NUMCLU_SR 1  "Number of clusters"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# FORM CLUSTERS OF OBSERVATION FILES - MKCLUS 1: Filenames                     #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files                  > % <                              # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+# > % <Zero@@ difference observation files  > %%%%%%%%%%%% <                   # RADIO_Z PZHFILES
+# > % <Single difference observation files  > %%%%%%%%%%%% <                   # RADIO_S PSHFILES
+#   Station coordinates                     > %%%%%%%%%%%% <                   # COORD
+#   Linear fit RMS of station clocks        > %%%%%%%%%%%% <                   # RMSFIT
+#   List of core sites                      > %%%%%%%%%%%% <                   # CORESITE
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Cluster assignment files                > %%%%%%%%%%%% <                   # SELBSL
+#   Rejected observation files list         > %%%%%%%%%%%% <                   # NOTUSE
+#   Add code observation files to list      > % <                              # DELALL
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output        > % < use MKCLUS.Lnn            or > %%%%%%%%%%%% <  # SYSODEF SYSOUT
+#   Error messages        > % < merged to program output  or > %%%%%%%%%%%% <  # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# MKCLUS 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Geodetic datum          > %%%%%%%%%%%% <                                   # DATUM
+#   Satellite information   > %%%%%%%%%%%% <                                   # SATELL
+#   Satellite problems      > %%%%%%%%%%%% <                                   # SATCRUX
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MKCLUS 2: General Options                                                    #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# STATION/FILE SELECTION                                                       #
+#   Minimum number of observations per file       > %%%% <                     # MINOBS
+#   Maximum number of ambiguities per file        > %%%% <                     # MAXAMB
+#   Maximum linear fit RMS of station clocks      > %%%%%%%%% <microseconds    # MAXRMS
+#                                                                              #
+# CLUSTER DEFINITION                                                           #
+#   Strategy for zero@@ difference observations   > %%%%%%%%% <                # CLUSTRAT_Z
+#   Strategy for single difference observations   > %%%%%%%%% <                # CLUSTRAT_S
+#                                                                              #
+# Satellite systems to be considered (NO SELECTION: ALL)                       #
+#       > % < GPS            > % < GLONASS        > % < Galileo                # USE_G USE_R USE_E
+#       > % < SBAS           > % < BeiDou         > % < QZSS                   # USE_S USE_C USE_J
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_Z = 1 AND CLUSTRAT_Z = GLOBAL ##############################
+# MKCLUS 3: Global Cluster Definition Options (Zero Differences)               #
+#                                                                              #
+# CLUSTER DEFINITION                                                           #
+#   Number of clusters                                          > %%% <        # NUMCLU_ZG
+#   Optimum number of stations per cluster                      > % <          # AUTOSTA_ZG
+#   Maximum number of stations per cluster                      > %%% <        # MAXSTA_ZG
+#   Station selection criterion                                 > %%%%%%%%% <  # STADEL_ZG
+#                                                                              #
+# OBSERVATION REDUNDANCY                                                       #
+#   Minimum number of observations per satellite at each epoch  > %%% <        # SATOBS_ZG
+#   Number of clusters for which redundancy option applies      > %%% <        # NSOLVE_ZG
+#     ... but not for satellites with a low number of observ.   > %%% < percent# OBSSAT_ZG
+#   Sampling interval to be considered                          > %%%% <sec    # NSAMPL_ZG
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_Z = 1 AND CLUSTRAT_Z = REGIONAL ############################
+# MKCLUS 3: Regional Cluster Definition Options (Zero Differences)             #
+#                                                                              #
+# CLUSTER DEFINITION                                                           #
+# > % <Maximum number of stations per cluster                      > %%% <     # RADIO_Z1 MAXSTA_ZR
+# > % <Number of clusters                                          > %%% <     # RADIO_Z2 NUMCLU_ZR
+#      Minimum number of observations per satellite at each epoch  > %%% <     # STAOBS_ZR
+#      Sampling interval to be considered                          > %%%% <sec # NSAMPL_ZR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL RADIO_S = 1 AND CLUSTRAT_S = REGIONAL ############################
+# MKCLUS 3: Regional Cluster Definition Options (Single Differences)           #
+#                                                                              #
+# CLUSTER DEFINITION                                                           #
+# > % <Maximum number of baselines per cluster            > %%% <              # RADIO_S1 MAXSTA_SR
+# > % <Number of clusters                                 > %%% <              # RADIO_S2 NUMCLU_SR
+#                                                                              #
+# END_PANEL ####################################################################

@@ -1,0 +1,226 @@
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Environment variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+!---------------------------------------------------------------------
+! INPUTFILES                                                         |
+!---------------------------------------------------------------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Local geodetic datum
+! --------------------
+DATUM 1  "DATUM"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! Coordinate file
+! ---------------
+COORD 1  "$(CRDINF)"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+
+DESCR_COORD 1  "Input coordinate file"
+
+! Update file
+! -----------
+VELAPR 1  "$(CRDINF)"
+  ## widget = selwin; path = DIR_VEL; ext = EXT_VEL; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_VELAPR 1  "Input velocity file"
+
+! Plate definition file
+! ---------------------
+VELTRN 1  "$(CRDINF)"
+  ## widget = selwin; path = DIR_PLD; ext = EXT_PLD; maxfiles = 1
+
+DESCR_VELTRN 1  "Plate definition file"
+
+! Plate motion model file
+! -----------------------
+PMMFIL 1  "NNR-NUVEL1A"
+  ## widget = selwin; path = DIR_PMM; ext = EXT_PMM; maxfiles = 1
+
+DESCR_PMMFIL 1  "Plate motion model file"
+
+!---------------------------------------------------------------------
+! OUTPUTFILES                                                        |
+!---------------------------------------------------------------------
+! Velocities
+! ----------
+VELORS 1  "NUVELO"
+  ## widget = lineedit; path = DIR_VEL; ext = EXT_VEL
+
+DESCR_VELORS 1  "Output velocity file"
+
+! Program output file
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "NUVELO"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error message file
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Scratch file
+! ------------
+AUXFIL 1  "NUVELO$J"
+  ## widget = lineedit; path = PTH_SCR; ext = EXT_SCR; emptyallowed = false
+
+DESCR_AUXFIL 1  "Scratch file"
+
+DELETE_FILES 1  "AUXFIL"
+
+! --------------------------------------------------------------------
+! OPTIONS                                                            |
+! --------------------------------------------------------------------
+! Title
+! -----
+TITLE 1  "IGSRAPID_$YSS+0: NUVELO using NNR-NUVEL1A.PMM"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Station selection
+! -----------------
+STASEL 1  "ALL"
+  ## widget = combobox; editable = false; cards = ALL MANUAL
+
+MSG_STASEL 1  "Select stations for output file"
+
+! Manual selection (fixed)
+! ------------------------
+VELSTA 1  ""
+  ## widget = selwin; pointer = STALST; activeif = STASEL = MANUAL
+
+MSG_VELSTA 1  "Stations for velocity computation"
+
+! --------------------------------------------------------------------
+! SELECTION LISTS                                                    |
+! --------------------------------------------------------------------
+! Stations
+! --------
+STALST 0
+  ## widget = selwin; menuaux = MENUAUX; action = STALST
+  ## menuauxkeys = CONST DATUM COORD
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# COMPUTE NUVEL VELOCITIES - NUVELO 1: Input/Output Files                      #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Input coordinate file   > %%%%%%%%%%%% <                                   # COORD
+#   Input velocity file     > %%%%%%%%%%%% <                                   # VELAPR
+#   Plate definition file   > %%%%%%%%%%%% <                                   # VELTRN
+#   Plate motion model file > %%%%%%%%%%%% <                                   # PMMFIL
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Output velocity file    > %%%%%%%%%%%% <                                   # VELORS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output      > % < use NUVELO.Lnn            or    > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages      > % < merged to program output  or    > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# NUVELO 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Geodetic datum          > %%%%%%%%%%%% <                                   # DATUM
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# TEMPORARY FILES                                                              #
+#   Scratch file            > %%%%%%%%%%%% <                                   # AUXFIL
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# NUVELO 2: Options                                                            #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # TITLE
+#                                                                              #
+# STATION SELECTION                                                            #
+#   Select stations for output file      > %%%%%%%%%%%% <                      # STASEL
+#   Stations for velocity computation    > %%%%%%%%%%%%%%%%%%%% <              # VELSTA
+#                                                                              #
+# END_PANEL ####################################################################

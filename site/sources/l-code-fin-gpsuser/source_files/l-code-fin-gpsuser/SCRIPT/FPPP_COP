@@ -1,0 +1,216 @@
+package FPPP_COP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FPPP_COP
+#
+# Purpose :  Copy required files for PPPFIN.PCF
+#
+# PARAMs  :  
+#
+# Author  :  R. Dach
+# Created :  10-Jun-2013
+#
+# Changes :  04-Aug-2015 AV: Alternative search place for rapid STD and ERP
+#            05-Aug-2015 SS/AV: RAP_newClk replaced by RCLKGNSS
+#            12-Aug-2015 SS: Use $CAMP_SAVRAPCLK/$yyyy/
+#            20-May-2016 AV: Create APR$yy$ssss.OSB
+#            22-Sep-2016 AV/RD: Add PSD to copyRef
+#            25-Jan-2017 AV: Copy additional REF OSB
+#            23-May-2017 AV: Use TP_ from RCLKGNSS savedisk
+#            05-Apr-2018 SS: Forced reset in case of updated clock file
+#            17-May-2018 SS: Extended PPPAR stuff
+#            30-Jul-2019 SS: Changed key from NEW to MSC
+#            06-Nov-2019 MK: add Galileo
+#            02-Mar-2022 SS: Forced reset if PPPyyssss.PRC already exists
+#            08-Mar-2022 AV: Rapid save disk: yearly subdirectory
+#            29-Mar-2022 AV: Use copySkl
+#            09-Oct-2025 DA/RD: Always remove obs. files of today
+#            21-Oct-2025 EB: correct above changes to session; always remove CRD and NEQ files of today
+#            16-Jan-2026 SS: Further notifications regarding V_RESET (using prtMess)
+#
+# ============================================================================
+use strict;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use lib $ENV{BPE};
+use bpe_util qw(prtMess);
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+my   ($yy, $yyddd, $yyssss, $ssss,$yyyy,
+      $b, $c, $f, $i, $k, $l, $o, $n, $crdInf, $psdInf, $reset,
+      $dirClk, $dirCrd, $dirErp, $dirStd, $dirRxc,
+      $extClk, $extCrd, $extErp, $extStd, $extRxc,
+      $dirTrp, $dirNeq, $dirSum, $dirOut, $dirRes,
+      $extTrp, $extNeq, $extSum, $extOut, $extRes,
+      $dirPzh, $dirPzo, $dirCzh, $dirCzo, $dirOsb, $dirPsd,
+      $extPzh, $extPzo, $extCzh, $extCzo, $extOsb, $extPsd,
+      $pthSkl
+      ) =
+    $bpe->getKeys(
+      '$Y','$YD+0', '$YSS+0', '$S+0','$Y+0',
+      'V_B','V_C','V_F','V_I','V_K','V_L','V_O','V_N', 'V_CRDINF', 'V_PSDINF','V_RESET',
+      'DIR_CLK','DIR_CRD','DIR_ERP','DIR_STD','DIR_RXC',
+      'EXT_CLK','EXT_CRD','EXT_ERP','EXT_STD','EXT_RXC',
+      'DIR_TRP','DIR_NEQ','DIR_SUM','DIR_OUT','DIR_RES',
+      'EXT_TRP','EXT_NEQ','EXT_SUM','EXT_OUT','EXT_RES',
+      'DIR_PZH','DIR_PZO','DIR_CZH','DIR_CZO','DIR_OSB','DIR_PSD',
+      'EXT_PZH','EXT_PZO','EXT_CZH','EXT_CZO','EXT_OSB','EXT_PSD',
+      'PTH_SINEXIN'
+      );
+
+  # Wait for the RCLKGNSS solution
+  # ------------------------------
+##  my $rClkSav = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/../RAP_newClk/";
+  my $rClkSav =   "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/";
+  my $olderThan = 120;   # The file must be older than (sec.)
+  my $waiting = 60;      # Length of the waiting loop
+  my $waitFile = "${rClkSav}ORB/HR_$yyssss.${extClk}.Z";
+  until (-e $waitFile && (stat($waitFile))[9] + $olderThan <= time) {
+      print "Waiting for $waitFile\n";
+      sleep $waiting;
+  }
+  # Copy pole, coordinate and orbit information from 3day_SOLUTION
+  # --------------------------------------------------------------
+  #$rClkSav = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/";
+  my $rapCmp  = "$CDIR_RAP/";
+
+  copyfile("${rClkSav}ORB/TP_$yyssss.${extErp}",  "${dirErp}${b}$yyssss.${extErp}" );
+  copyfile("${rClkSav}ORB/TP_$yyssss.${extStd}",  "${dirStd}${b}$yyssss.${extStd}" );
+
+  if( ! -s "${dirStd}${b}$yyssss.${extStd}" ){
+      copyfile("${rapCmp}ORB/RM_$yyddd.${extErp}",  "${dirErp}${b}$yyssss.${extErp}" );
+      copyfile("${rapCmp}ORB/RM_$yyddd.${extStd}",  "${dirStd}${b}$yyssss.${extStd}" );
+      print "ST2: From: ${rapCmp}ORB/RM_$yyddd.${extStd} to ${dirStd}${b}$yyssss.${extStd}\n";
+  }
+
+  # Copy only if the files in the archive have been updated
+  $rClkSav = "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/";
+  if ( ! -s "${dirClk}${b}$yyssss.${extClk}" ||
+       (stat("${rClkSav}ORB/HR_$yyssss.${extClk}.Z"))[9] >
+       (stat("${dirClk}${b}$yyssss.${extClk}"))[9] ) {
+
+# Forced reset in case of updated clock file
+    if (-e "${dirClk}${b}$yyssss.${extClk}" || -e "${dirOut}PPP${yyssss}.PRC") {
+      $reset = "Y";
+      prtMess($bpe,"RESET DUE TO UPDATED CLOCK FILE");
+      msg2key("BPE","PPPFINAL_${yyssss}: Forced reset due to updated clock file.");
+    }
+
+    copyfile("${rClkSav}OUT/HR_$yyssss.${extRxc}.Z","${dirRxc}${b}$yyssss.${extRxc}.Z");
+    copyfile("${rClkSav}ORB/HR_$yyssss.${extClk}.Z","${dirClk}${b}$yyssss.${extClk}.Z");
+
+    uncompress("${dirRxc}${b}$yyssss.${extRxc}.Z");
+    uncompress("${dirClk}${b}$yyssss.${extClk}.Z");
+  } elsif (uc($reset) eq "Y") {
+    prtMess($bpe,"RESET DUE TO V_RESET=Y");
+    msg2key("NEW","PPPFINAL_${yyssss}: Reset due to V_RESET=Y.");
+  }
+
+
+  # Copy other relevant general files into the campaign
+  # ---------------------------------------------------
+  my $psdFil = $psdInf eq ""? "":"$psdInf.$extPsd";
+  system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil REF$yyssss");
+
+  print "Execute $ENV{AUTO}/copySkl.pl IGSRAPID $pthSkl\n";
+  system("$ENV{AUTO}/copySkl.pl PPPFINAL $pthSkl");
+
+  copyfile("${dirOsb}/CODE.${extOsb}","${dirOsb}APR$yyssss.${extOsb}");
+  copyfile("$ENV{REF}/CODE_30D.${extOsb}","${dirOsb}REF$yyssss.${extOsb}");
+
+  # Remove observation and result files for the session if V_RESET indicates
+  # ------------------------------------------------------------------------
+  prtMess($bpe,"V_RESET=$reset");
+  if ( uc($reset) eq "Y" ) {
+    unlink glob "${dirPzh}????${ssss}.${extPzh}";
+    unlink glob "${dirPzo}????${ssss}.${extPzo}";
+    unlink glob "${dirCzh}????${ssss}.${extCzh}";
+    unlink glob "${dirCzo}????${ssss}.${extCzo}";
+
+    unlink glob "${dirOut}RNXERR.${yy}_${ssss}";
+
+    unlink glob "${dirSum}WRN${ssss}????.${extSum}";
+
+    unlink glob "${dirOut}CODXTR.${yy}_${ssss}";
+    unlink glob "${dirOut}MPRXTR.${yy}_${ssss}";
+
+    unlink glob "${dirRes}EDF${ssss}????.${extRes}";
+    unlink glob "${dirRes}EDL${ssss}????.${extRes}";
+    unlink glob "${dirOut}EDL${ssss}????.${extOut}";
+
+    unlink glob "${dirOut}${f}${ssss}????.${extOut}";
+    unlink glob "${dirOut}${i}${ssss}????.${extOut}";
+    unlink glob "${dirOut}${k}${ssss}????.${extOut}";
+    unlink glob "${dirOut}${l}${ssss}????.${extOut}";
+    unlink glob "${dirOut}${o}${ssss}????.${extOut}";
+    unlink glob "${dirSum}${n}${ssss}????.${extSum}";
+
+    unlink glob "${dirNeq}${c}${ssss}????.${extNeq}";
+    unlink glob "${dirNeq}${f}${ssss}????.${extNeq}";
+    unlink glob "${dirNeq}${i}${ssss}????.${extNeq}";
+    unlink glob "${dirNeq}${k}${ssss}????.${extNeq}";
+    unlink glob "${dirNeq}${l}${ssss}????.${extNeq}";
+    unlink glob "${dirNeq}${o}${ssss}????.${extNeq}";
+
+    unlink glob "${dirCrd}${c}${ssss}????.${extCrd}";
+    unlink glob "${dirCrd}${i}${ssss}????.${extCrd}";
+    unlink glob "${dirCrd}${k}${ssss}????.${extCrd}";
+    unlink glob "${dirCrd}${l}${ssss}????.${extCrd}";
+    unlink glob "${dirCrd}${o}${ssss}????.${extCrd}";
+
+    unlink glob "${dirTrp}${c}${ssss}????.${extTrp}";
+    unlink glob "${dirTrp}${i}${ssss}????.${extTrp}";
+    unlink glob "${dirTrp}${k}${ssss}????.${extTrp}";
+    unlink glob "${dirTrp}${l}${ssss}????.${extTrp}";
+    unlink glob "${dirTrp}${o}${ssss}????.${extTrp}";
+
+# PPPAR stuff:
+    unlink glob "${dirOut}????${ssss}_???.${extOut}";
+    unlink glob "${dirCrd}????${ssss}_???.${extCrd}";
+    unlink glob "${dirCrd}NLB${yyssss}.${extCrd}";
+    unlink glob "${dirCrd}NLI${yyssss}.${extCrd}";
+    unlink glob "${dirCrd}FIX${yyssss}.${extCrd}";
+    unlink glob "${dirOut}IAR${yyssss}.${extSum}";
+    unlink glob "${dirOut}IAR${yyssss}.PRC";
+    unlink glob "${dirOut}IAR${yyssss}.FPZ";
+
+    prtMess($bpe,"RESET DONE!");
+  }
+
+  # Remove observation files from today (to remove potential files from
+  # previous years)
+  my $dddToday = &gps_date("-t -o %j");
+  my $ssssToday = $dddToday."0";
+  print "Remove obs. files for current doy $dddToday\n";
+  unlink glob "${dirPzh}????${ssssToday}.${extPzh}";
+  unlink glob "${dirPzo}????${ssssToday}.${extPzo}";
+  unlink glob "${dirCzh}????${ssssToday}.${extCzh}";
+  unlink glob "${dirCzo}????${ssssToday}.${extCzo}";
+
+  print "Remove neq files for current doy $dddToday\n";
+  unlink glob "${dirNeq}${c}${ssssToday}????.${extNeq}";
+  unlink glob "${dirNeq}${f}${ssssToday}????.${extNeq}";
+  unlink glob "${dirNeq}${i}${ssssToday}????.${extNeq}";
+  unlink glob "${dirNeq}${k}${ssssToday}????.${extNeq}";
+  unlink glob "${dirNeq}${l}${ssssToday}????.${extNeq}";
+  unlink glob "${dirNeq}${o}${ssssToday}????.${extNeq}";
+
+  print "Remove crd files for current doy $dddToday\n";
+  unlink glob "${dirCrd}${c}${ssssToday}????.${extCrd}";
+  unlink glob "${dirCrd}${i}${ssssToday}????.${extCrd}";
+  unlink glob "${dirCrd}${k}${ssssToday}????.${extCrd}";
+  unlink glob "${dirCrd}${l}${ssssToday}????.${extCrd}";
+  unlink glob "${dirCrd}${o}${ssssToday}????.${extCrd}";
+}
+
+

@@ -1,0 +1,40 @@
+package SKIP_UHC;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SKIP_UHC
+#
+# Purpose :  Skip 5 second clock generation, in case of reprocessing
+#
+# Programs:
+#
+# Author  :  A. Susnik
+# Created :  22-Nov-2016
+#
+# Changed :
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Basename;
+use lib "$ENV{BPE}";
+use lib "$ENV{AUTO}";
+use lib "$ENV{EXE}";
+use gpsutil;
+use bpe_util;
+use Gps_Date;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Define variables
+# ----------------
+  my ($v_gnsh,$param2) = $bpe->getKeys('V_GNSH','PARAM2');
+
+  unless($v_gnsh) {
+     prtGoto($bpe, $param2);
+  }
+
+}

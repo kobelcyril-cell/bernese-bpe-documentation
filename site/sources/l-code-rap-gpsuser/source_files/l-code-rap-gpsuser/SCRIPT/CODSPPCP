@@ -1,0 +1,93 @@
+package CODSPPCP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  CODSPPCP
+#
+# Purpose :  Prepare parallel CODSPP run using MKCLUS to select a subset of
+#            stations to be used for CODSPP
+#
+# Programs:  MKCLUS
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005               Last modified: 19-May-2009
+#
+# Changes :  19-May-2009 rd: Session dependent parallelization filenames
+#            07-Jun-2016 RD: Add version with compatible attitude modelling
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ssss    , $yyssss  , $ddd     , $param2,   $param3,  $numFil,  $numClu,
+      $dirCzh  , $dirOut  , $dirSmc  , $dirSme  , $dirClk  , $dirClb  ,
+      $extCzh  , $extOut  , $extSmc  , $extSme  , $extClk  , $extClb  ,
+      $dirBpe             ) =
+  $bpe->getKeys
+     ('$S+0'   , '$YSS+0' , '$+0'    , 'PARAM2',  'PARAM3', 'V_CLU', 'V_NCLU',
+      'DIR_CZH', 'DIR_OUT', 'DIR_SMC', 'DIR_SME', 'DIR_RXC', 'DIR_CLB',
+      'EXT_CZH', 'EXT_OUT', 'EXT_SMC', 'EXT_SME', 'EXT_RXC', 'EXT_CLB',
+      'DIR_BPEPRT'        );
+
+  $numClu = $param3 if ($param3 ne "");
+
+# Delete old files (OUT, SMC)
+# ---------------------------
+  my $spp = $param2 || "SPP";
+  unlink "${dirSmc}${spp}${yyssss}.${extSmc}";
+  unlink "${dirSme}${spp}${yyssss}.${extSme}";
+  if ($numFil ne "" || $numClu ne "") {
+    unlink glob("${dirClk}${spp}${ssss}???.${extClk}");
+    unlink glob("${dirOut}${spp}${ssss}???.${extOut}") }
+  else {
+    unlink glob("${dirClk}${spp}${ddd}????.${extClk}");
+    unlink glob("${dirOut}${spp}${ddd}????.${extOut}") }
+
+# Initialize parallel run
+# -----------------------
+  my $bpeFil = "${dirBpe}SPP${ssss}";
+  unlink(glob("${bpeFil}???.BPE"));
+
+
+# Use MKCLUS to built the clusters
+# --------------------------------
+  my $clbnam = "${spp}${ssss}0";
+  unlink glob("${dirClb}${clbnam}*.${extClb}");
+
+  $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP","SELBSL","${clbnam}");
+
+  my $PGMNAM = "MKCLUS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Read the cluster file(s)
+# ------------------------
+  my @czhFil = ();
+  foreach my $clbFil ( glob("${dirClb}${clbnam}*.${extClb}") ) {
+    open (CLB,"< $clbFil");
+    while (my $file = <CLB>) {
+      push @czhFil,$file;
+    }
+    close CLB;
+  }
+
+# Put the BPE cluster files into the list
+# ---------------------------------------
+  if ($numFil ne "") {
+    initPar_Cl($bpe,$bpeFil,@czhFil,0,$numFil,0) }
+  elsif ($numClu ne "") {
+    initPar_Cl($bpe,$bpeFil,@czhFil,$numClu,0,0) }
+  else {
+    @czhFil = map { substr(basename($_),0,4) } @czhFil;
+    initPar_Bl($bpe,@czhFil) }
+
+}

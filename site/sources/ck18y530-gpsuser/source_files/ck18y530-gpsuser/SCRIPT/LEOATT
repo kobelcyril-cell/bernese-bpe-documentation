@@ -1,0 +1,44 @@
+package LEOATT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEOATT
+#
+# Purpose :  Execute LEOATT
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+# Created :  27-May-2021
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($dirAtt, $V_ATT) = $bpe->getKeys('DIR_ATT','V_ATT');
+
+# Run program if V_ATT non-empty
+# ------------------------------
+  if ($V_ATT) {
+      my $PGMNAM = "LEOATT";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      # Rename resulting BSW-formatted ATT file to original name
+      my $oldATT = "${dirAtt}/${V_ATT}.ATT";
+      my $newATT = "${dirAtt}/${V_ATT}B.ATT";
+      if (-e $newATT) {
+          system("mv $newATT $oldATT");
+          print "Renamed $newATT to $oldATT\n";
+      } else {
+          die " *** $newATT not found\n";
+      }
+  } else {
+      print "Skip LEOATT\n";
+  }
+}

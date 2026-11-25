@@ -1,0 +1,98 @@
+package MSG_MUL;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MSG_MUL
+#
+# Purpose :  Prepare message concerning code bias multiplier retrieval.
+#
+# Programs:
+#
+# PARAMs  :  PARAM1 - Solution identifier
+#
+# Author  :  S. Schaer
+# Created :  30-Jun-2016
+#
+# Changes :  30-Jul-2019/ss: Changed key from NEW to MSC
+#            17-Dec-2022 RD: Messages per GNSS
+#
+# ----------------------------------------------------------------------------
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ssss, $param1,
+      $repro,
+      $pcfFil, $taskId,
+      $dirOut,$extOut,$dirOsb,$extOsb,$dirBia,$extBia) =
+    $bpe->getKeys('$YD+0', '$S+0', 'PARAM1',
+                  'V_REPRO',
+                  'PCFFIL', 'TASKID',
+                  'DIR_OUT','EXT_OUT','DIR_OSB','EXT_OSB','DIR_BIA','EXT_BIA');
+
+  $param1 = "S1M" if $param1 eq "";
+
+  $param1 = $$bpe{"V_$param1"} if length($param1) == 1;
+  $param1 = $param1."_"        if length($param1) == 2;
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+
+  my $outFil = "${dirOut}${param1}${yyddd}.${extOut}";
+  print "OUTFIL: $outFil\n";
+
+  my $mulFil = "${dirOut}MULTIPLIER.LST";
+  print "MULFIL: $mulFil\n";
+
+  my $nam = basename($outFil);
+  my $lin, $sta, $key;
+  my @lin, @est;
+  my %lst = ();
+
+  my @key = ("NOT_OK","OK_BUT","UNDEF");
+  foreach $key (@key) {
+    getstring ($outFil,$key);
+    @lin = @StrList;
+
+    foreach $lin (@lin) {
+      print "$key: $nam:$lin\n";
+      prtMess($bpe,"$key: $nam:$lin") if $key eq "NOT_OK";
+      `echo '$nam: $key:$lin' >> $mulFil`;
+
+# Add station to list to be reported using msg2key
+      $sta = substr($lin,1,14);
+      my $sys = substr($lin,39,1);
+      push(@{ $lst{$sys} },substr($sta,0,4)) if $key eq "NOT_OK";
+
+##      @est = `grep '$sta' $outFil | grep " G " | grep "/"`;
+##      chomp(@est);
+      @est = `grep '$sta' $outFil | grep " G " | grep "/" | grep "#OSB"`;
+      chomp(@est);
+      @est=($lin,@est);
+
+# Add station to key-specific .LST file
+      map { `echo '$nam:$_' >> ${dirOut}MULTIPLIER_${key}.LST` } @est;
+    }
+  }
+
+  unless ($repro){
+# Report NOT_OK cases using msg2key
+    foreach my $sys ( keys %lst ) {
+      my $lst = join(" ",@{ $lst{$sys} });
+##    if ($lst ne "" && $lst ne "TN22") {
+      if ($lst ne "") {
+        prtMess($bpe,"Code Bias Multipliers ($sys) NOT_OK for: $lst");
+        msg2key("MSC","MSG_MUL: $pcfFil $taskId${yyddd}0: Code Bias Multipliers ($sys) NOT_OK for: $lst");
+      }
+    }
+  }
+
+}

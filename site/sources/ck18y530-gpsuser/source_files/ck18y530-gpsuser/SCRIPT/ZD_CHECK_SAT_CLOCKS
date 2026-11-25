@@ -1,0 +1,60 @@
+package CHECK_SAT_CLOCKS;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CHECK_SAT_CLOCKS
+#
+# Purpose :  Checks completeness of satellite clock products
+#
+# Author  :  C. Kobel
+# Created :  16-Feb-2026
+#
+# Changes :  30-Apr-2026 CK: Reformatted, improved path handling,
+#===========================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+sub run {
+    my $bpe = shift;
+    # ---------- Get parameters ------------
+    my (
+        $dirOut,
+        $dirOrb,
+        $extClk,
+        $yyssss,
+        $yyddd,
+        $V_fin
+    ) = $bpe->getKeys(
+        'DIR_OUT',
+        'DIR_ORB',
+        'EXT_CLK',
+        '$YSS+0',
+        '$YD+0',
+        'V_FIN'
+    );
+
+    # ---------- Input file ------------
+    my $input_file = "${dirOrb}${V_fin}_${yyssss}.${extClk}";
+    die "Input file not found: $input_file" unless -e $input_file;
+
+    # ---------- Output directory ------------
+    my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+    mkdir $mscDir unless -d $mscDir;
+
+    my $output_file = "${mscDir}/sat_clock_completeness_${yyddd}.txt";
+
+    # ---------- Python execution ------------
+    my $py_script = "$ENV{HOME}/ZDGNSS_RUN/python/check_clk_completeness.py";
+
+    my $cmd = "python3 $py_script $input_file $output_file";
+
+    system($cmd) == 0
+        or die "Python script failed while checking satellite clocks: $?";
+
+    print "CHECK_SAT_CLOCKS completed. Output: $output_file\n";
+}

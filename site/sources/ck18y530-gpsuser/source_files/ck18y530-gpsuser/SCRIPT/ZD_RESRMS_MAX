@@ -1,0 +1,60 @@
+package RESRMS_MAX;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  RESRMS_MAX
+#
+# Purpose :  Check residuals for outliers and remove them according to flags
+#
+# Author  :  C. Kobel
+# Created :  02-Jul-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use File::Basename;
+
+sub run {
+
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyddd,
+      $v_h,
+      $u,
+      $dirOut
+  ) = $bpe->getKeys(
+      '$YD+0',
+      'V_CPSC',
+      'U',
+      'DIR_OUT'
+  );
+
+  # ---------- Determine residual threshold ------------
+  my @resFil = glob("${dirOut}../MSC/${v_h}${yyddd}_????.FLG");
+  my $resFlg = $resFil[0];
+
+  my $maxRES;
+
+  if (-e $resFlg) {
+    ($resFlg = basename($resFlg)) =~ s/\.[^.]+$//;
+    $maxRES = substr($resFlg, -4);
+    $maxRES = sprintf("%d", $maxRES);
+    $maxRES = $maxRES / 1000;
+  } else {
+    $maxRES = 1.0;
+  }
+
+  # ---------- Configure RESRMS ------------
+  $bpe->putKey("$u/PAN/RESRMS.INP", "BIGRES",  $maxRES);
+  $bpe->putKey("$u/PAN/RESRMS.INP", "BIGRES2", $maxRES);
+
+  print "RESRMS threshold: $maxRES\n";
+
+  # ---------- Run program ------------
+  my $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+}

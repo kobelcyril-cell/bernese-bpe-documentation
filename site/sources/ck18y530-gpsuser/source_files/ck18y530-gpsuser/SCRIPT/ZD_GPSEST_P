@@ -1,0 +1,49 @@
+package GPSEST_P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  GPSEST_P
+#
+# Purpose :  Station-wise zero-difference data screening
+#
+# Author  :  R. Dach
+# Created :  11-Jan-2005
+#
+# Changes :  15-Jun-2026: ck: Reformatted
+#===========================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+
+# ---------- Get variables ------------
+  my (
+      $ssss,
+      $dirPzh,
+      $dirCzh,
+      $dirBpe,
+      $extPzh,
+      $extCzh
+  ) = $bpe->getKeys(
+      '$S+0',
+      'DIR_PZH',
+      'DIR_CZH',
+      'DIR_BPEPRT',
+      'EXT_PZH',
+      'EXT_CZH'
+  );
+
+
+# ---------- Initialize parallel run ------------
+  my $bpeFil = "${dirBpe}EDT${ssss}";
+  my @pzhFil = glob("${dirPzh}????${ssss}.${extPzh}");
+  @pzhFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+  @pzhFil = map { substr(basename($_),0,4) } @pzhFil;
+  initPar_Bl($bpe,@pzhFil);
+
+}

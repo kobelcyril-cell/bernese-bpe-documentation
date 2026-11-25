@@ -1,0 +1,54 @@
+package REALIGAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  REALIGAP
+#
+# Purpose :  Prepare parallel ADDNEQ2 runs for realignment of daily bias
+#            results.
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  15-Jun-2017
+#
+# Changes :  19-Jul-2017 SS: Execute weekly (if DOW=2)
+#            13-Sep-2019 SS: Check $HOST and skip procedure if indicated
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyyy, $wwwwd) = $bpe->getKeys('$YD+0', '$Y+0', '$WD+0');
+
+  my $dow = substr($wwwwd,4,1);
+  print "DOW: $dow\n";
+
+  my $host = "$ENV{HOST}";
+  print "Host: $host\n";
+
+# Create list of years to be processed
+# ------------------------------------
+  my @yyyy = ();
+  my $yyyy0 = 1994;
+##  $yyyy = 1998;
+  while ($yyyy0 <= $yyyy) { push(@yyyy,$yyyy0); $yyyy0++ }
+# Execute on Friday:
+  @yyyy = () unless $dow eq "4";
+# Do never execute:
+  @yyyy = ();
+##  @yyyy = () unless $dow eq "3" || $dow eq "4";
+##  @yyyy = () unless $dow eq "3" || $dow eq "4" || $dow eq "2";
+  @yyyy = () if substr($host,0,6) eq "antlia";
+  print "DOW: $dow YYYY: @yyyy\n";
+
+# Initialize parallel run
+# -----------------------
+  initPar_Bl($bpe,@yyyy);
+
+}

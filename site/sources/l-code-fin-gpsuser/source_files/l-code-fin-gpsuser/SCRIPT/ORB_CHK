@@ -1,0 +1,347 @@
+#!/bin/sh
+# SCRIPT-NAME
+# sh script file written by bds
+# -----------------------------
+# functions used by shell
+do_rm( ) {
+    if [ "$1" ]
+    then
+        if [ -f `echo $1 | tr ' ' '\012' | head -1` ]
+        then
+            eval rm $1
+        fi
+    fi
+}
+#
+toupper( ) {
+    eval $1=`echo $2 | ${UPPERC}`
+    eval export $1
+}
+#
+seterr( ) {
+    if [ $? = 0 ]
+    then
+        ERRSTAT=OK
+    else
+        ERRSTAT=ERR
+    fi
+}
+#
+# -----------------------------
+# SHELL STARTS HERE
+# -----------------------------
+#
+# ORB_CHK2
+# ========
+#
+# ORBIT QUALITY CHECKS:
+# 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN)
+# 2-DAY OVERLAP WITH ARC-SPLITTING CHECK
+# **** USES SOL AS SOLUTION TYPE ****
+# ----------------------------------------
+#
+# 18-Sep-2000/SS: Change extension of ASPLIT file from DDD to YY_DDD
+# 18-Sep-2000/SS: Change extension of ORBCHK file from DDD to YY_DDD
+# 21-Oct-2005/SS: Skip long-arc-fit computations if desired
+# 20-Jan-2006/SS: Skip STDELE if desired
+# 22-Jul-2008 PS/RD: prepare for reprocesing
+#
+# SHELL VARIABLES:
+# ----------------
+#
+# YEAR    :  Year of the session to be processed (2 digit)
+# SESSION :  Session number (4 characters)
+# CAMPAIGN:  Campaign name
+# CAMP_PTH:  Campaign path
+# CAMP_DRV:  Drive letter for campain (i.e. P)
+# OPT_DIR :  Directory for panels
+# PID     :  Process identification number (3 digits)
+# SUB_PID :  Subprocess id (3 digits)
+# PRT_FILE:  Protocol file name including path
+# SCRIPT  :  Name of script
+# TASKID  :  Task id of script, usually 00
+# PRIORITY:  Priority of the script
+# CPU     :  CPU the script is running on
+# DAYYEAR :  Julian day of the year
+# DAY     :  Day of the Month
+# MONTH   :  Month, 1=JAN, 12=DEC
+# GPSWEEK :  GPS week
+# DAYWEEK :  Day of the week, 0=SUN, 6=SAT
+# V_X     :  X Variable in DAT151__.PAN
+# V_O     :  O Variable in DAT151__.PAN
+# V_Z     :  Z Variable in DAT151__.PAN
+# V_PLUS  :  Plus variable in DAT151__.PAN
+# V_MINUS :  Minus variable in DAT151__.PAN
+# V_x     :  User variable
+# PARAMx  :  Script specific parameter, x is 1 thru 9
+# U       :  Directory path to U:
+#
+# See if this shell is being run from the PCS
+# script, or directly for testing.  If testing,
+# no the header script is not passed in as %1%
+#
+# use the new menu system
+TSTMENU="TRUE"
+export TSTMENU
+#
+if [ "$1" = "" ]
+then
+#
+#   set variables for testing here
+#
+    TEST_START_DIR=`pwd`
+    cd $U/WORK
+    TESTING="YES"
+    export TESTING
+else
+    TESTING="NO"
+    export TESTING
+    . "$1"
+    seterr
+fi
+#
+# START THE MENU SYSTEM IN NON-INTERACTIVE MODE
+# ---------------------------------------------
+. $X/SCRIPT/BEG_MENU
+seterr
+#
+# SET VARIABLES IN DAT151__.PAN
+# -----------------------------
+. $X/SCRIPT/SET_SESS
+seterr
+#
+# SHELL BODY
+# ----------
+#
+# Skip in case of reprocessing
+# ----------------------------
+REPRO=""$CAMP_PTH""$CAMPAIGN"/MSC/REPROCESSING.FLG"
+export REPRO
+if [ -f `echo $REPRO | tr ' ' '\012' | head -1` ]
+then
+    :
+else
+    SKPFIL=""$CAMP_PTH""$CAMPAIGN"/MSC/NO_LONGARCFIT.FLG"
+    export SKPFIL
+    SP2FIL=""$CAMP_PTH""$CAMPAIGN"/MSC/NO_STDELE.FLG"
+    export SP2FIL
+#
+    SOL="NUL"
+    export SOL
+    if [ "$PARAM2" = A ]
+    then
+        SOL=""$V_A""
+        export SOL
+    fi
+    if [ "$PARAM2" = B ]
+    then
+        SOL=""$V_B""
+        export SOL
+    fi
+    if [ "$PARAM2" = E ]
+    then
+        SOL=""$V_E""
+        export SOL
+    fi
+    if [ "$PARAM2" = K ]
+    then
+        SOL=""$V_K""
+        export SOL
+    fi
+    if [ "$PARAM2" = H ]
+    then
+        SOL=""$V_H""
+        export SOL
+    fi
+    if [ "$PARAM2" = I ]
+    then
+        SOL=""$V_I""
+        export SOL
+    fi
+    if [ "$PARAM2" = O ]
+    then
+        SOL=""$V_O""
+        export SOL
+    fi
+    if [ "$PARAM2" = X ]
+    then
+        SOL=""$V_X""
+        export SOL
+    fi
+    if [ "$PARAM2" = Z ]
+    then
+        SOL=""$V_Z""
+        export SOL
+    fi
+    if [ "$PARAM2" = U ]
+    then
+        SOL=""$V_U""
+        export SOL
+    fi
+    if [ "$PARAM2" = V ]
+    then
+        SOL=""$V_V""
+        export SOL
+    fi
+    if [ "$PARAM2" = W ]
+    then
+        SOL=""$V_W""
+        export SOL
+    fi
+#
+#   save the interval variables
+#   ---------------------------
+    SAV_MINUS=""$VAR_MINUS""
+    export SAV_MINUS
+    SAV_PLUS=""$VAR_PLUS""
+    export SAV_PLUS
+#
+#   Set the 7-day overlap
+#   ---------------------
+    VAR_MINUS=""-6""
+    export VAR_MINUS
+    VAR_PLUS=""+0""
+    export VAR_PLUS
+#
+    ${EXE}/NPUTKEY $U/PAN/MENU_VAR.INP VAR_MINUS "$VAR_MINUS"
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/MENU_VAR.INP VAR_PLUS "$VAR_PLUS"
+    seterr
+#
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP RADIO_1 "0"
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP RADIO_2 "1"
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP STADAT '"$YMD_STR-6"'
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP ENDDAT '"$YMD_STR+0"'
+    seterr
+#
+#   Run the program
+#   ---------------
+    PGMNAM="ORBGEN"
+    export PGMNAM
+    if [ -f `echo $SKPFIL | tr ' ' '\012' | head -1` ]
+    then
+        :
+    else
+        . $X/SCRIPT/RUN_PGMS
+        seterr
+    fi
+#
+#   Set the 2-day overlap
+#   ---------------------
+    VAR_MINUS=""-1""
+    export VAR_MINUS
+    VAR_PLUS=""+0""
+    export VAR_PLUS
+#
+    ${EXE}/NPUTKEY $U/PAN/MENU_VAR.INP VAR_MINUS "$VAR_MINUS"
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/MENU_VAR.INP VAR_PLUS "$VAR_PLUS"
+    seterr
+#
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP RADIO_1 "0"
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP RADIO_2 "1"
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP STADAT '"$YMD_STR-1"'
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP ENDDAT '"$YMD_STR+0"'
+    seterr
+    ${EXE}/NPUTKEY $U/PAN/ORBGEN.INP SUMFIL ""
+    seterr
+#
+    PGMNAM="ORBGEN"
+    export PGMNAM
+    . $X/SCRIPT/RUN_PGMS
+    seterr
+#
+#   Put the name of the sysout to the extraction program
+#   ----------------------------------------------------
+    ${EXE}/NPUTKEY $U/PAN/DEFXTR.INP JOBOUT "$SYSOUT"
+    seterr
+#
+#   Check the program run (espcially ARC-SPLIT)
+#   -------------------------------------------
+    PGMNAM="DEFXTR"
+    export PGMNAM
+    rm -f "$CAMP_PTH""$CAMPAIGN"/OUT/DFX"$YEAR""$SESSION".SUM
+    rm -f "$CAMP_PTH""$CAMPAIGN"/OUT/DFW"$YEAR""$SESSION".SUM
+    rm -f "$CAMP_PTH""$CAMPAIGN"/OUT/ASP"$YEAR""$SESSION".SUM
+#
+    . $X/SCRIPT/RUN_PGMS
+    seterr
+#
+#   Summary of program run for Protocol
+#   -----------------------------------
+    XTRSUM=""$CAMP_PTH""$CAMPAIGN"/OUT/ORBCHK."$YEAR"_"$SESSION""
+    export XTRSUM
+#
+    if [ -f `echo $XTRSUM | tr ' ' '\012' | head -1` ]
+    then
+        cat "$CAMP_PTH""$CAMPAIGN"/OUT/DFW"$YEAR""$SESSION".SUM >> "$XTRSUM"
+        cat "$CAMP_PTH""$CAMPAIGN"/OUT/DFX"$YEAR""$SESSION".SUM >> "$XTRSUM"
+    else
+        cp "$CAMP_PTH""$CAMPAIGN"/OUT/DFW"$YEAR""$SESSION".SUM "$XTRSUM"
+        cat "$CAMP_PTH""$CAMPAIGN"/OUT/DFX"$YEAR""$SESSION".SUM >> "$XTRSUM"
+    fi
+#
+    XTRLST=""$CAMP_PTH""$CAMPAIGN"/OUT/"$SOL"G"$GPSWEEK""$DAYWEEK".LST"
+    export XTRLST
+    if [ -f `echo $XTRSUM | tr ' ' '\012' | head -1` ]
+    then
+        cat "$CAMP_PTH""$CAMPAIGN"/OUT/DFW"$YEAR""$SESSION".SUM >> "$XTRLST"
+    else
+        cp "$CAMP_PTH""$CAMPAIGN"/OUT/DFW"$YEAR""$SESSION".SUM "$XTRLST"
+    fi
+#
+    ARCSUM=""$CAMP_PTH""$CAMPAIGN"/OUT/ASPLIT."$YEAR"_"$SESSION""
+    export ARCSUM
+    if [ -f `echo $ARCSUM | tr ' ' '\012' | head -1` ]
+    then
+        cat "$CAMP_PTH""$CAMPAIGN"/OUT/ASP"$YEAR""$SESSION".SUM >> "$ARCSUM"
+    else
+        cp "$CAMP_PTH""$CAMPAIGN"/OUT/ASP"$YEAR""$SESSION".SUM "$ARCSUM"
+    fi
+    rm -f "$CAMP_PTH""$CAMPAIGN"/OUT/ASP"$YEAR""$SESSION".SUM
+#
+    PGMNAM="STDELE"
+    export PGMNAM
+    if [ -f `echo $SP2FIL | tr ' ' '\012' | head -1` ]
+    then
+        :
+    else
+        . $X/SCRIPT/RUN_PGMS
+        seterr
+    fi
+#
+    PGMOUT=""$CAMP_PTH""$CAMPAIGN"/OUT/"$SYSOUT""
+    export PGMOUT
+    ELEOUT=""$CAMP_PTH""$CAMPAIGN"/OUT/"$SOL"_"$GPSWEEK""$DAYWEEK".CMP"
+    export ELEOUT
+    cp "$PGMOUT" "$ELEOUT"
+#
+#   reset the interval variables
+#   ----------------------------
+    VAR_MINUS=""$SAV_MINUS""
+    export VAR_MINUS
+    VAR_PLUS=""$SAV_PLUS""
+    export VAR_PLUS
+#
+#   End skip in case of reprocessing
+#   --------------------------------
+fi
+#
+# --------------
+# end the script
+# --------------
+. $X/SCRIPT/END_MENU
+seterr
+if [ "$TESTING" = "YES" ]
+then
+    cd "$TEST_START_DIR"
+else
+    . $X/SCRIPT/DO_TAIL
+    seterr
+fi

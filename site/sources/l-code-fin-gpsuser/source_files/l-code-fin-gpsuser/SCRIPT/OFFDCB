@@ -1,0 +1,63 @@
+package OFFDCB;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  OFFDCB
+#
+# Purpose :  Execute save_offdcb.com to create OFFyyddd.DCB
+#
+# Programs:
+#
+# Author  :  S. Schaer
+# Created :  08-Jun-2016
+#
+# Changes :  30-Sep-2016 AV: Check for GLONASS data
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$yyssss,
+      $dirDcb,$dirOut,
+      $extDcb,$extOut
+    ) = $bpe->getKeys(
+     '$YD+0','$YSS+0',
+     'DIR_DCB','DIR_OUT',
+     'EXT_DCB','EXT_OUT');
+
+# Check if GLONASS processed
+# --------------------------
+  my $rxogra = "${dirOut}/RXO${yyssss}.${extOut}";
+  die "RNXGRA output not found: $rxogra" unless -s $rxogra;
+  my $isGlo = 0;
+  open INP, "< $rxogra";
+  foreach (<INP>){
+    if(/^  \d\d\d \|/){
+      $isGlo = 1;
+      last;
+    }
+  }
+  close INP;
+
+# Run programs
+  # ------------
+#  if (1==1){
+  if($isGlo == 1){
+    my $filDcb = "${dirDcb}OFF${yyddd}.${extDcb}";
+    system("$ENV{AUTO}/save_offdcb.com $filDcb");
+    die "$filDcb not found" unless -s $filDcb;
+
+    `mv ${dirDcb}OFF???.${extDcb} ${dirDcb}../TMP/`;
+  }else{
+    prtMess($bpe,"NO_GLONASS_DATA_PROCESSED");
+  }
+
+}

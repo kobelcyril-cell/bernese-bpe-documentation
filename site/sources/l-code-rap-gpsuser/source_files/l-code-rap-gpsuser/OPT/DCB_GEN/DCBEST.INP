@@ -1,0 +1,360 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  ## emptyallowed = false
+
+DESCR_CONST 1  "General constants"
+
+! IONEX Control File
+! ------------------
+IONEXCF 1  "IONEX"
+  ## widget = selwin; path = PTH_IONEXCF; ext = EXT_IONEXCF; maxfiles = 1
+  ## emptyallowed = false
+
+DESCR_IONEXCF 1  "IONEX control file"
+
+! DCB input
+! ---------
+DCBINP 0
+  ## widget = selwin; path = DIR_DCB; ext = EXT_DCB
+
+MSG_DCBINP 1  "Differential code bias files"
+
+DCBINP_TXT_COL_1 1  "Differential code bias files"
+
+! DCB output
+! ----------
+DCBOUT 0
+  ## widget = lineedit; path = DIR_DCB; ext = EXT_DCB
+
+DESCR_DCBOUT 1  "Differential code bias results"
+
+! Graphics of residuals
+! ---------------------
+RESGRA 0
+  ## widget = lineedit; path = DIR_OUT
+
+DESCR_RESGRA 1  "Graphics of residuals"
+
+! Graphics of satellite DCBs
+! --------------------------
+SATGRA 0
+  ## widget = lineedit; path = DIR_OUT
+
+DESCR_SATGRA 1  "Graphics of satellite DCBs"
+
+! Graphics of receiver DCBs
+! -------------------------
+RECGRA 0
+  ## widget = lineedit; path = DIR_OUT
+
+DESCR_RECGRA 1  "Graphics of receiver DCBs"
+
+! Graphics of satellite ACF
+! -------------------------
+SATACF 0
+  ## widget = lineedit; path = DIR_OUT
+
+DESCR_SATACF 1  "Graphics of satellite ACF"
+
+! Graphics of receiver ACF
+! ------------------------
+RECACF 0
+  ## widget = lineedit; path = DIR_OUT
+
+DESCR_RECACF 1  "Graphics of receiver ACF"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "DCBEST"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title
+! -----
+TITLE 0
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Satellite system
+! ----------------
+SATSYS 1  "ALL"
+  ## widget = combobox; cards = ALL GPS GLONASS; editable = false
+
+MSG_SATSYS 1  "Satellite system"
+
+! Code bias type
+! --------------
+DCBTYP 1  "AUTO"
+  ## widget = combobox; cards = P1P2 P1C1 LC P2C2 AUTO; editable = false
+
+MSG_DCBTYP 1  "Code bias type"
+
+! Reference satellite number
+! --------------------------
+REFSAT 1  "SUM"
+  ## widget = combobox; cards = SUM ALL; editable = true
+
+MSG_REFSAT 1  "Reference satellite number"
+
+! Use variance information
+! ------------------------
+USEVAR 1  "1"
+  ## widget = checkbox
+
+MSG_USEVAR 1  "Use variance information"
+
+! Estimate receiver DCBs
+! ----------------------
+RECEST 1  "1"
+  ## widget = checkbox
+
+MSG_RECEST 1  "Estimate receiver DCBs"
+
+! Use first N characters of station name
+! --------------------------------------
+NUMCHR 1  "0"
+  ## widget = lineedit; activeif = RECEST = 1
+
+MSG_NUMCHR 1  "Use first N characters of station name"
+
+! Graphic output
+! --------------
+GRAOUT 1  "1"
+  ## widget = checkbox; activeif = PGPLOT = 1
+
+MSG_GRAOUT 1  "Graphic output"
+
+! Initial epoch
+! -------------
+EPOCH 1  "1995 01 01 00 00 00"
+  ## widget = lineedit
+
+MSG_EPOCH 1  "Initial epoch"
+
+! Print username/date/time
+! ------------------------
+PRINAM 1  "1"
+  ## widget = checkbox
+
+MSG_PRINAM 1  "Print username/date/time"
+
+! Create flat graphics
+! --------------------
+FLTGRA 1  "0"
+  ## widget = checkbox
+
+MSG_FLTGRA 1  "Create flat graphics"
+
+! Save weighted satellite RMS errors
+! ----------------------------------
+SAVRMS 1  "COMBINED_WRMS"
+  ## widget = combobox; cards = FORMAL_RMS COMBINED_WRMS INDIVIDUAL_WRMS
+  ## editable = false
+
+MSG_SAVRMS 1  "Save satellite DCB errors as"
+
+! Save DCB values of the N-th file only
+! -------------------------------------
+SAVNTH 0
+  ## widget = lineedit
+
+MSG_SAVNTH 1  "Save DCB values of the N-th file only"
+
+! A priori sigma of reference satellite
+! -------------------------------------
+REFSIG 1  "0.01"
+  ## widget = lineedit; check_min = 0.0
+
+MSG_REFSIG 1  "A priori sigma of reference satellite"
+
+! Maximum accepted a priori sigma
+! -------------------------------
+MAXSIG 0
+  ## widget = lineedit
+
+MSG_MAXSIG 1  "Maximum accepted a priori sigma"
+
+! Smoothing width
+! ---------------
+SMTWDT 1  "2"
+  ## widget = lineedit; check_min = 0.0
+
+MSG_SMTWDT 1  "Smoothing width"
+
+! Lower limit for satellite DCBs
+! ------------------------------
+LIMLO 1  "-15"
+  ## widget = lineedit
+
+MSG_LIMLO 1  "Lower limit for satellite DCBs"
+
+! Upper limit for satellite DCBs
+! ------------------------------
+LIMHI 1  "15"
+  ## widget = lineedit
+
+MSG_LIMHI 1  "Upper limit for satellite DCBs"
+
+! Plus-minus interval for satellite DCBs
+! --------------------------------------
+INTSAT 1  "0.5"
+  ## widget = lineedit; check_min = 0.0
+
+MSG_INTSAT 1  "Plus-minus interval for satellite DCBs"
+
+! Plus-minus interval for receiver DCBs
+! -------------------------------------
+INTREC 1  "5"
+  ## widget = lineedit; check_min = 0.0
+
+MSG_INTREC 1  "Plus-minus interval for receiver DCBs"
+
+! Maximum lag for ACF
+! -------------------
+MAXLAG 1  "30"
+  ## widget = lineedit; check_min = 0.0; activeif = SATACF / _ OR RECACF / _
+
+MSG_MAXLAG 1  "Maximum lag for ACF"
+
+! PGPLOT graphics package included
+! --------------------------------
+PGPLOT 1  "1"
+  ## widget = checkbox
+
+MSG_PGPLOT 1  "PGPLOT graphics package included"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# COMBINE DIFFERENTIAL CODE BIAS ESTIMATES - DCBEST 1: Filenames               #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants                > %%%%%%%%%%%% <                          # CONST
+#   IONEX control file               > %%%%%%%%%%%% <                          # IONEXCF
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Differential code biases         > %%%%%%%% <                              # DCBINP
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Combined differential code biases> %%%%%%%% <                              # DCBOUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output  > % < use DCBEST.Lnn            or > %%%%%%%%%%%% <        # SYSODEF SYSOUT
+#   Error message   > % < merged to program output  or > %%%%%%%%%%%% <        # ERRMRG SYSERR
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# DCBEST 2: General Options                                                    #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# GENERAL SELECTION AND DATUM DEFINITION                                       #
+#   Satellite system                      > %%%%%%% <                          # SATSYS
+#   Code bias type                        > %%%%%%% <                          # DCBTYP
+#   Reference satellite number            > %%%%%%% <                          # REFSAT
+#   A priori sigma of reference satellite > %%%%%%% < nanosec                  # REFSIG
+#                                                                              #
+# COMBINATION OPTIONS                                                          #
+#   Use variance information              > % <                                # USEVAR
+#   Maximum accepted a priori sigma       > %%%%%%% < nanosec                  # MAXSIG
+#   Estimate receiver DCBs                > % <                                # RECEST
+#                                                                              #
+# OUTPUT OPTIONS                                                               #
+#   Save satellite DCB errors as          > %%%%%%%%%%%%%%% <                  # SAVRMS
+#   Save DCB values of the N-th file only > %%% <                              # SAVNTH
+#                                                                              #
+# GRAPHIC OUTPUT                          > % <                                # GRAOUT
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL GRAOUT = 1 #######################################################
+# DCBEST 2: Graphic Options                                                    #
+#                                                                              #
+# GRAPHICS OF                                                                  #
+#   Residuals       > %%%%%%%%%%%% <                                           # RESGRA
+#   Satellite DCBs  > %%%%%%%%%%%% <    Receiver DCBs  > %%%%%%%%%%%% <        # SATGRA RECGRA
+#   Satellite ACF   > %%%%%%%%%%%% <    Receiver ACF   > %%%%%%%%%%%% <        # SATACF RECACF
+#                                                                              #
+# GENERAL OPTIONS                                                              #
+#   Initial epoch (YYYY MM DD HH MM SS)   > %%%%%%%%%%%%%%%%%%% <              # EPOCH
+#   Smoothing width                       > %%%%%%% < days                     # SMTWDT
+#   Maximum lag for ACF                   > %%%%%%% < days                     # MAXLAG
+#                                                                              #
+# RANGE DEFINITIONS                                                            #
+#   Lower limit for satellite DCBs        > %%%%%%% < nanosec                  # LIMLO
+#   Upper limit for satellite DCBs        > %%%%%%% < nanosec                  # LIMHI
+#   Plus-minus interval for satellite DCBs> %%%%%%% < nanosec                  # INTSAT
+#   Plus-minus interval for receiver@@DCBs> %%%%%%% < nanosec                  # INTREC
+#                                                                              #
+# GRAPHICS LAYOUT                                                              #
+#   Print username/date/time              > % <                                # PRINAM
+#   Create flat graphics                  > % <                                # FLTGRA
+#                                                                              #
+# END_PANEL ####################################################################

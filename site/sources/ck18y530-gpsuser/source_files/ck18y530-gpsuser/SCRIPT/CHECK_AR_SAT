@@ -1,0 +1,105 @@
+package CHECK_AR_SAT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CHECK_AR_SAT
+#
+# Purpose :  Check whether Ambiugity resolution failed for a satellite,
+#            deleting corresponding OUT-files and execute SATMRK.
+#            Can be tried in DRY-mode
+#
+# PARAMs  :  DIR_OUT, PARAM2
+#
+# Author  :  C. Kobel
+# Created :  13-Feb-2026
+#
+# ============================================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use strict;
+use warnings;
+use lib "$ENV{U}/SCRIPT";
+use JumpLogger qw(logJump);
+
+# ---------------------- DRY-RUN Setting ---------------------------------------
+# 1 = only Log, do nothing; 0 = do everything
+my $DRY_RUN = 0;
+
+sub run {
+    my $bpe = shift;
+
+    # ---------------------- Parameters ----------------------------------------
+    my ($dirOut, $param2, $yyddd, $ssss) = 
+        $bpe->getKeys('DIR_OUT', 'PARAM2', '$YD+0', '$S+0');
+
+    my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+    unless (-d $mscDir) {
+        if ($DRY_RUN) {
+            print "Would create directory: $mscDir\n";
+        } else {
+            mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+        }
+    }
+
+    my $logfile = "$mscDir/PROCESSING_${yyddd}";
+    open(my $LOG, '>>', $logfile) or die "Cannot open log file $logfile: $!";
+
+    print $LOG "\n=== CHECK_AR_SAT started ===\n";
+
+    my $ar_file = "$mscDir/affected_satellite_AR";
+
+    if (-e $ar_file) {
+        open(my $AR, '<', $ar_file) or die "Cannot open $ar_file: $!";
+        my $prn;
+        while (my $line = <$AR>) {
+            if ($line =~ /Affected satellite:\s*(\d+)/i) {
+                $prn = $1;
+                last;
+            }
+        }
+        close($AR);
+
+        if (defined $prn) {
+            print $LOG "Problem with Ambiguity Resolution: affected satellite detected: $prn\n";
+
+            # ---------------------- Delete OUT-files ---------------------------
+            my @files = glob("$dirOut/*${ssss}_NLB.OUT");
+            if ($DRY_RUN) {
+                print $LOG "[DRY-RUN] Would delete " . scalar(@files) . " OUT-files matching *${ssss}_NLB.OUT\n";
+            } else {
+                foreach my $f (@files) {
+                    unlink $f or warn "Cannot delete $f: $!";
+                }
+                print $LOG "Deleted " . scalar(@files) . " OUT-files matching *${ssss}_NLB.OUT\n";
+            }
+
+            # ---------------------- SATMRK -------- ----------------------------
+            if ($DRY_RUN) {
+                print $LOG "[DRY-RUN] Would put SATMRK keys and run SATMRK for PRN $prn\n";
+                print $LOG "[DRY-RUN] Would call prtGoto(\$bpe, $param2)\n";
+            } else {
+                $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
+                $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
+                $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", $prn);
+                $bpe->RUN_PGMS("SATMRK");
+		
+		# SATMRK executed → delete affected_satellite_AR
+                unlink $ar_file or warn "Cannot delete $ar_file: $!";
+
+		prtGoto($bpe, $param2);
+            }
+        } else {
+            print $LOG "No valid PRN found in affected_satellite_AR file.\n";
+        }
+    } else {
+        print $LOG "Ambiguity Resolution fine for all satellites.\n";
+    }
+
+    print $LOG "=== CHECK_AR_SAT finished ===\n";
+    close($LOG);
+    print "CHECK_AR_SAT done. Log appended to $logfile\n";
+}
+
+1;

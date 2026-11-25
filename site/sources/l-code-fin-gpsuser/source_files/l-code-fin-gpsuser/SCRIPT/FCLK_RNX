@@ -1,0 +1,191 @@
+package FCLK_RNX;
+@ISA = ("RUNBPE");
+# ==============================================================================
+#
+# Name    :  FCLK_RNX
+#
+# Purpose :  Copy required files for CLKFINAL.PCF
+#
+# PARAMs  :
+#
+# Author  :  R. Dach
+#
+# Created :  13-Nov-2013
+#
+# Changes :
+#
+#            04-Dec-2014 AV: Change get_obsdata.com parameter
+#            15-Mar-2015 AV: Add -min option to get_obsdata.com
+#            25-Oct-2015 LP: Delete bad RINEX files
+#            20-May-2016 AV: Create APRyyddd.OSB
+#            21-May-2016 SS: Added use lib (for copyfile)
+#            22-Sep-2016 AV/RD: Add PSD to copyRef
+#            11-Oct-2016 AV/AS: Merge with repro15 RCKLGNSS.PCF, added $repro
+#                               option
+#            11-Nov-2019 AV: Add FIN to put_igsdata
+#            13-Aug-2021 RD: Start using BSW-style filenaming in the campaign area
+#
+# ==============================================================================
+
+use strict;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my($yyssss,$yyddd,$ddd,$dddm2,$yy,$ssss,
+     $crdInf,$psdInf,$v_e,$v_h,$v_i,$v_v,$v_o,$v_u,
+     $repro,
+     $dirCrd, $dirOut,$dirOxo,$dirRxo,$dirOrb,$dirObs,$dirClb,$dirOsb,$dirPsd,
+     $extCrd, $extOut,$extOxo,$extRxo,$extOrb,$extObs,$extClb,$extOsb,$extPsd
+  ) =
+  $bpe->getKeys(
+     '$YSS+0','$YD+0','$+0','$-2','$Y','$S+0',
+     'V_CRDINF','V_PSDINF','V_E','V_H','V_I','V_V','V_O','V_U',
+     'V_REPRO',
+     'DIR_CRD','DIR_OUT','DIR_OXO','DIR_RXO','DIR_STD','DIR_PZH','DIR_CLB','DIR_OSB','DIR_PSD',
+     'EXT_CRD','EXT_OUT','EXT_OXO','EXT_RXO','EXT_STD','EXT_PZH','EXT_CLB','EXT_OSB','EXT_PSD'
+  );
+
+# Prepare reference files
+# -----------------------
+  my $psdFil = $psdInf eq ""? "":"$psdInf.$extPsd";
+  system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil");
+  copyfile("${dirOsb}CODE.${extOsb}","${dirOsb}APR${yyddd}.${extOsb}");
+
+# Remove lock files
+# -----------------
+  unlink glob( "${dirOut}*.J_lk" );
+
+# remove the all files of this day
+# --------------------------------
+  unlink glob "${dirOut}${yyssss}*.BPE";
+  unlink glob "${dirOut}${v_e}?${yyddd}.*";
+  unlink glob "${dirOut}${v_h}?${yyddd}.*";
+  unlink glob "${dirOut}${v_i}?${yyddd}.*";
+  unlink glob "${dirOut}${v_v}?${yyddd}.*";
+  unlink glob "${dirOrb}${v_o}?${yyddd}.*";
+  unlink glob "${dirOut}${v_o}?${yyddd}.*";
+  unlink glob "${dirOut}${v_u}?${yyddd}.*";
+  unlink glob "${dirOut}CD${ddd}*.*";
+  unlink glob "${dirOut}${v_e}${ddd}*.*";
+  unlink glob "${dirOut}${v_h}${ddd}*.*";
+  unlink glob "${dirOut}${v_i}${ddd}*.*";
+  unlink glob "${dirOut}${v_v}${ddd}*.*";
+  unlink glob "${dirOut}${v_o}${ddd}*.*";
+  unlink glob "${dirOut}${v_u}${ddd}*.*";
+
+  unlink glob "${dirObs}????${ddd}?.*";
+  unlink glob "${dirRxo}????${ddd}?.SMT";
+  unlink glob "${dirRxo}????${ddd}?.??O";
+
+  unlink glob "${dirOxo}????${dddm2}?.??O";
+
+  unlink glob "${dirOut}*.${yy}_${ddd}";
+  unlink glob "${dirOut}SMT${yyddd}.SMC";
+
+  unlink glob "${dirOut}RNX${yyssss}.ERR";
+
+
+# Copy RINEX obs data for repro
+# -------------------
+  if ( $repro ) {
+    system("$ENV{AUTO}/put_igsdata.com $yy $ssss -o $dirRxo \"-or %CLK %FIN\" -r");
+    system("$ENV{AUTO}/rinex.com $dirRxo $ddd $yy");
+
+
+# Copy RINEX obs data
+# -------------------
+  } else {
+    system("$ENV{AUTO}/get_obsdata.com $ddd -m=IGS -nt=8 -min=5 -fast -nostat");  # Repeat FTP
+    system("$ENV{AUTO}/put_igsdata.com $yy $ssss -o $dirRxo CLK --bsw");
+    system("$ENV{AUTO}/rinex.com $dirRxo $ddd $yy");
+  }
+
+# Delete bad RINEX files
+# ----------------------
+  unlink "$dirRxo/MAL22920.15O";
+  unlink "$dirRxo/MAR60120.16O";
+  unlink "$dirRxo/NRMD0120.16O";
+  unlink "$dirRxo/PRDS0120.16O";
+  unlink "$dirRxo/SEY10120.16O";
+  unlink "$dirRxo/XMIS0120.16O";
+  unlink "$dirRxo/MBAR0130.16O";
+  unlink "$dirRxo/SEY10130.16O";
+  unlink "$dirRxo/SYDN0130.16O";
+  unlink "$dirRxo/WGTN0130.16O";
+  unlink "$dirRxo/XMIS0130.16O";
+  unlink "$dirRxo/ZIM20130.16O";
+  unlink "$dirRxo/MBAR0750.16O";
+#  unlink "$dirRxo/MDVJ0650.16O";
+#  unlink "$dirRxo/PIMO0650.16O";
+#  unlink "$dirRxo/PRDS0650.16O";
+#  unlink "$dirRxo/PIMO0660.16O";
+#  unlink "$dirRxo/PRDS0660.16O";
+#  unlink "$dirRxo/WGTN0660.16O";
+  unlink "$dirRxo/XMIS1150.16O";
+  unlink "$dirRxo/MAL21150.16O";
+  unlink "$dirRxo/CGGN1150.16O";
+  unlink "$dirRxo/AMU21150.16O";
+  unlink "$dirRxo/ALGO1150.16O";
+  unlink "$dirRxo/STR21150.16O";
+  unlink "$dirRxo/BAKO2530.16O";
+  unlink "$dirRxo/BOGT2530.16O";
+  unlink "$dirRxo/BRUX2530.16O";
+  unlink "$dirRxo/DARW2530.16O";
+  unlink "$dirRxo/GLPS2530.16O";
+  unlink "$dirRxo/LPGS2530.16O";
+  unlink "$dirRxo/MAL22530.16O";
+  unlink "$dirRxo/NNOR2530.16O";
+  unlink "$dirRxo/TASH2530.16O";
+  unlink "$dirRxo/TOW22530.16O";
+  unlink "$dirRxo/TWTF2530.16O";
+  unlink "$dirRxo/WGTN2530.16O";
+  unlink "$dirRxo/ZIM22530.16O";
+  unlink "$dirRxo/HYDE3090.16O";
+  unlink "$dirRxo/BOGT3090.16O";
+  unlink "$dirRxo/ADIS3090.16O";
+  unlink "$dirRxo/KOUC3090.16O";
+  unlink "$dirRxo/LEIJ3090.16O";
+  unlink "$dirRxo/MAD23090.16O";
+  unlink "$dirRxo/LPGS3090.16O";
+  unlink "$dirRxo/MIZU3090.16O";
+  unlink "$dirRxo/VIS03090.16O";
+  unlink "$dirRxo/WARN3090.16O";
+  unlink "$dirRxo/STR23090.16O";
+  unlink "$dirRxo/WGTN3090.16O";
+  unlink "$dirRxo/XMIS3090.16O";
+  unlink "$dirRxo/BRFT3090.16O";
+  unlink "$dirRxo/MKEA3090.16O";
+  unlink "$dirRxo/CRO13090.16O";
+  unlink "$dirRxo/SPT03090.16O";
+  unlink "$dirRxo/AREQ3090.16O";
+  unlink "$dirRxo/MAG03090.16O";
+  unlink "$dirRxo/MBAR23090.16O";
+  unlink "$dirRxo/MAL23090.16O";
+  unlink "$dirRxo/RIOP3090.16O";
+  unlink "$dirRxo/FAA13090.16O";
+  unlink "$dirRxo/FTNA3090.16O";
+  unlink "$dirRxo/ISPA3090.16O";
+  unlink "$dirRxo/ZWE23090.16O";
+  unlink "$dirRxo/SUTM3570.16O";
+  unlink "$dirRxo/SUTH3570.16O";
+  unlink "$dirRxo/TXES11?0.19O";
+  unlink "$dirRxo/KIT311?0.19O";
+  unlink "$dirRxo/WILL1750.19O";
+  unlink "$dirRxo/SFER3330.19O";
+  unlink "$dirRxo/SFER3340.19O";
+  unlink "$dirRxo/SFER3350.19O";
+  unlink "$dirRxo/ADIS0130.20O";
+
+# Save a list of classical RINEX files
+# ------------------------------------
+  open(CLB,"> ${dirClb}${yyddd}RNX.${extClb}");
+  map { print CLB "$_\n" } glob "${dirRxo}????${ddd}?.${extRxo}";
+  close CLB;
+}

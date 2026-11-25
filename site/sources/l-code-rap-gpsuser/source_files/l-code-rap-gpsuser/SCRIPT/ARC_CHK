@@ -1,0 +1,59 @@
+package ARC_CHK;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ARC_CHK
+#
+# Purpose :
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  21-Aug-2003               Last modified: 29-Mar-2005
+#
+# Changes :  10-Feb-2005 mm: Remove old date variables
+#            29-Mar-2005 ss: Bugfix: $dddd replaced by $yyyy
+#            14-Jul-2020 RD/PF: change $X/GEN -> PTH_SATCRUX
+#            18-Mar-2022 RD/AV: add strict
+#
+# ----------------------------------------------------------------------------
+ 
+use strict;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Define variables
+# ----------------
+  my $CAMP_PTH = $$bpe{CAMP_PTH};
+  my $CAMPAIGN = $$bpe{CAMPAIGN};
+  my $V_ARCFIT = $$bpe{V_ARCFIT};
+  my ($ddd,$yy,$yyyy,$dirSatcrx,$extSatcrx) =
+      $bpe->getKeys(
+      '$+0','$Y','$Y+0','PTH_SATCRUX','EXT_SATCRUX');
+
+
+# Start arc_chk.com script
+# ------------------------
+  system ("$ENV{AUTO}/arc_chk.com $V_ARCFIT $ddd $CAMP_PTH$CAMPAIGN");
+
+# Merge various SAT CRX files
+# ---------------------------
+  print "SATCRX: DIR: ${dirSatcrx} EXT: $extSatcrx\n";
+  $extSatcrx = "CRX" if $extSatcrx == "";
+
+  my $CRXINP1 = "${dirSatcrx}/ARC_CHK.${extSatcrx}";
+  my $CRXINP2 = "${dirSatcrx}/GPSNANU.${extSatcrx}";
+  my $CRXOUT  = "IGSULTRA.CRX";
+  system ("$ENV{AUTO}/filmerge.pl $CRXINP1 $CRXINP2 $CRXOUT 6");
+
+  $CRXINP1 = "IGSULTRA.CRX";
+  $CRXINP2 = "${dirSatcrx}/SAT_${yyyy}.${extSatcrx}";
+  $CRXOUT  = "${dirSatcrx}/ULT${yy}${ddd}.${extSatcrx}";
+  system ("$ENV{AUTO}/filmerge.pl $CRXINP1 $CRXINP2 $CRXOUT 6");
+
+  print "CRUXDIR: $dirSatcrx $CRXINP1 $CRXINP2  $CRXOUT\n";
+
+}

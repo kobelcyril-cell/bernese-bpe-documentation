@@ -1,0 +1,266 @@
+
+! -------------------------------------------------------------------------
+! PHACOR input panel - private Bernese menu integration test
+! -------------------------------------------------------------------------
+! Environment variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Menu and session information
+! -----------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! -------------------------------------------------------------------------
+! General Bernese input files
+! -------------------------------------------------------------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+SATELL 1  "SATELLIT_I20"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+SATCRUX 1  "ZD_SAT_$Y+0"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! -------------------------------------------------------------------------
+! PHACOR input files
+! The path and extension definitions follow the STDDIF.INP convention.
+! -------------------------------------------------------------------------
+LOGFILES 1  "*$S+0_NLB"
+  ## widget = selwin; path = DIR_OUT; ext = EXT_OUT; maxfiles = 9999
+
+LOGFILES_TXT_COL_1 1  "Bernese NLB output files"
+
+ORBITFILE 1  "$(APR)_$YSS+0"
+  ## widget = selwin; path = DIR_ORB; ext = EXT_PRE; maxfiles = 1
+
+DESCR_ORBITFILE 1  "Reference orbit file"
+
+COORDFILE 1  "$(APR)_$YSS+0"
+  ## widget = selwin; path = DIR_STA; ext = EXT_CRD; maxfiles = 1
+
+DESCR_COORDFILE 1  "Station coordinate file"
+
+CLKFILE 1  "$(APR)_$YSS+0"
+  ## widget = selwin; path = DIR_ORB; ext = EXT_CLK; maxfiles = 1
+
+DESCR_CLKFILE 1  "Satellite clock file"
+
+OSBFILE 1  "WL_$YSS+0"
+  ## widget = selwin; path = DIR_ORB; ext = EXT_OSB; maxfiles = 1
+
+DESCR_OSBFILE 1  "Observable-specific bias file"
+
+BIAFILE 1  "WL_$YSS+0"
+  ## widget = selwin; path = DIR_ORB; ext = EXT_BIA; maxfiles = 1
+
+DESCR_BIAFILE 1  "Satellite bias file"
+
+BIAFILE_MOD 1  "NL_$YSS+0_mod"
+  ## widget = lineedit; path = DIR_ORB; ext = EXT_BIA
+
+DESCR_BIAFILE_MOD 1  "Output file for modified satellite bias data"
+
+OSBFILE_MOD 1  "NL_$YSS+0_mod"
+  ## widget = lineedit; path = DIR_ORB; ext = EXT_OSB
+
+DESCR_OSBFILE_MOD 1  "Output file for modified observable-specific bias data"
+
+CLKFILE_MOD 1  "$(APR)_$YSS+0_mod"
+  ## widget = lineedit; path = DIR_ORB; ext = EXT_CLK
+
+DESCR_CLKFILE_MOD 1  "Output file for modified satellite clock data"
+
+ORBITFILE_MOD 1  "$(APR)_$YSS+0_mod"
+  ## widget = lineedit; path = DIR_ORB; ext = EXT_PRE
+
+DESCR_ORBITFILE_MOD 1  "Output file for modified orbit data"
+
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Use default program output name"
+
+SYSOUT 1  "PHACOR$YSS+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Merge error messages into program output"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # 
+
+DESCR_SYSERR 1  "Error message"
+
+! -------------------------------------------------------------------------
+! GNSS system selection (same USE_* names as GPSEST.INP)
+! -------------------------------------------------------------------------
+USE_G 1  "0"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Use GPS"
+
+USE_E 1  "0"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Use Galileo"
+
+USE_C 1  "1"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Use BeiDou"
+
+USE_J 1  "0"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Use QZSS"
+
+! -------------------------------------------------------------------------
+! Debugging
+! -------------------------------------------------------------------------
+DEBUG_PHACOR 1  "1"
+  ## widget = checkbox
+
+MSG_DEBUG_PHACOR 1  "Write detailed PHACOR debug trace to program output"
+
+CHECK_PHASE_JUMPS 1  "1"
+  ## widget = checkbox
+
+INTEGER_CLOCK 1  "1"
+  ## widget = checkbox
+
+PROCESSING_SAMPLING 1  "300"
+  ## widget = lineedit; check_type = integer
+
+OBSERVATION_SAMPLING 1  "30"
+  ## widget = lineedit; check_type = integer
+
+MINIMUM_REDUNDANCY 1  "4"
+  ## widget = lineedit; check_type = integer
+
+MINIMUM_LENGTH 1  "12"
+  ## widget = lineedit; check_type = integer
+
+FIX_AMBIGUITY_THRESHOLD 1  "0.100001"
+  ## widget = lineedit; check_type = real
+
+ESTIMATED_AMBIGUITY_THRESHOLD 1  "0.200001"
+  ## widget = lineedit; check_type = real
+
+AMBIGUITY_OVERLAP 1  "0.50"
+  ## widget = lineedit; check_type = real
+
+MAXIMUM_BASELINE_LENGTH 1  "4000.0"
+  ## widget = lineedit; check_type = real
+
+MINIMUM_JUMP_CORRELATION 1  "0.50"
+  ## widget = lineedit; check_type = real
+
+MINIMUM_DATUM_CLUSTER_SIZE 1  "10"
+  ## widget = lineedit; check_type = integer
+
+MINIMUM_FAR_CLUSTER_SIZE 1  "5"
+  ## widget = lineedit; check_type = integer
+
+MAXIMUM_SATELLITE_ERROR_RATE 1  "0.40"
+  ## widget = lineedit; check_type = real
+
+CLOCK_COEFFICIENTS 1  "10"
+  ## widget = lineedit; check_type = integer
+
+ORBIT_COEFFICIENTS 1  "10"
+  ## widget = lineedit; check_type = integer
+
+BOUNDARY_CONSTRAINT_SIGMA 1  "0.01"
+  ## widget = lineedit; check_type = real
+
+RADIAL_CONSTRAINT_SIGMA 1  "0.50"
+  ## widget = lineedit; check_type = real
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PHACOR 1: Input and Output Files                                             #
+#                                                                              #
+# INPUT FILES                                                                  #
+#   GPSEST output files      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # LOGFILES
+#   Reference orbit file     > %%%%%%%%%%%% <                                  # ORBITFILE
+#   Station coordinate file  > %%%%%%%%%%%% <                                  # COORDFILE
+#   Satellite clock file     > %%%%%%%%%%%% <                                  # CLKFILE
+#   Observable-specific bias > %%%%%%%%%%%% <                                  # OSBFILE
+#   Satellite bias file      > %%%%%%%%%%%% <                                  # BIAFILE
+# OUTPUT FILES                                                                 #
+#   Modified bias file       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # BIAFILE_MOD
+#   Modified OSB file        > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # OSBFILE_MOD
+#   Modified clock file      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # CLKFILE_MOD
+#   Modified orbit file      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # ORBITFILE_MOD
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output         > % < use PHACOR.Lnn            or  > %%%%%%%%%%%% <# SYSODEF SYSOUT
+#   Error messages         > % < merged to program output  or  > %%%%%%%%%%%% <# ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PHACOR 2: Settings                                                           #
+#   Satellite systems                                                         #
+#     GPS                     > % <                                           # USE_G
+#     Galileo                 > % <                                           # USE_E
+#     BeiDou                  > % <                                           # USE_C
+#     QZSS                    > % <                                           # USE_J
+#                                                                              #
+#   Check phase jumps            > % <                                         # CHECK_PHASE_JUMPS
+#   Integer clock output         > % <                                         # INTEGER_CLOCK
+#   Processing sampling [s]      > %%%%%%%%% <                                 # PROCESSING_SAMPLING
+#   Observation sampling [s]     > %%%%%%%%% <                                 # OBSERVATION_SAMPLING
+#   Minimum redundancy           > %%%%%%%%% <                                 # MINIMUM_REDUNDANCY
+#   Minimum interval length      > %%%%%%%%% <                                 # MINIMUM_LENGTH
+#   Fix ambiguity threshold      > %%%%%%%%% <                                 # FIX_AMBIGUITY_THRESHOLD
+#   Estimated ambiguity threshold> %%%%%%%%% <                                 # ESTIMATED_AMBIGUITY_THRESHOLD
+#   Ambiguity overlap            > %%%%%%%%% <                                 # AMBIGUITY_OVERLAP
+#   Maximum baseline length [km] > %%%%%%%%% <                                 # MAXIMUM_BASELINE_LENGTH
+#   Minimum jump correlation     > %%%%%%%%% <                                 # MINIMUM_JUMP_CORRELATION
+#   Minimum datum cluster size   > %%%%%%%%% <                                 # MINIMUM_DATUM_CLUSTER_SIZE
+#   Minimum MLAMBDA cluster size > %%%%%%%%% <                                 # MINIMUM_FAR_CLUSTER_SIZE
+#   Maximum satellite error rate > %%%%%%%%% <                                 # MAXIMUM_SATELLITE_ERROR_RATE
+#   Clock coefficients           > %%%%%%%%% <                                 # CLOCK_COEFFICIENTS
+#   Orbit coefficients           > %%%%%%%%% <                                 # ORBIT_COEFFICIENTS
+#   Boundary constraint sigma    > %%%%%%%%% <                                 # BOUNDARY_CONSTRAINT_SIGMA
+#   Radial constraint sigma      > %%%%%%%%% <                                 # RADIAL_CONSTRAINT_SIGMA
+#                                                                              #
+# Extended Output                                                              #
+#   Enable detailed trace        > % <                                         # DEBUG_PHACOR
+#                                                                              #
+# END_PANEL ####################################################################

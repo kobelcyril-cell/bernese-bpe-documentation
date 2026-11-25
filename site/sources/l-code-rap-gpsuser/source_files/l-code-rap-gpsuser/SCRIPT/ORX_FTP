@@ -1,0 +1,52 @@
+package ORX_FTP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORX_FTP
+#
+# Purpose :  Execute get_obsdata.com in RAPID mode
+#
+# Programs:  -
+#
+# Author  :  S. Schaer
+# Created :  07-Dec-2004
+#
+# Changes :  31-May-2012 RD: No datapool statistics
+#            11-Dec-2014 AV: Change get_obsdata.com parameters, fast option
+#            17-Mar-2015 AV: Add -min option to get_obsdata.com
+#            15-Jun-2020 AV: Skip if not in campaign IGSRAPID
+#
+# ---------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{EXE}";
+use Gps_Date;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ddd, $yyyy, $campaign) = $bpe->getKeys('$+0', '$Y+0','CAMPAIGN');
+
+  my $secNow = gps_date("-t -o %U");
+  my $secEod = gps_date("-doy $ddd $yyyy -hms 24:00:00 -o %U");
+
+  my $sec = $secNow-$secEod;
+
+# Skip download if not IGSRAPID campaing is used
+# ----------------------------------------------
+  return unless $campaign =~ /IGSRAPID/;
+
+# Run script
+# ----------
+  if ($sec > 10800) {
+    prtMess($bpe,"DOWNLOAD OF DAILY OBSERVATION DATA STARTED");
+#    system("$ENV{AUTO}/get_obsdata.com -d=$ddd -nostat");
+    system("$ENV{AUTO}/get_obsdata.com $ddd -t=daily -m=IGS -fast -min=5 -nt=8 -nostat");
+    prtMess($bpe,"DOWNLOAD OF DAILY OBSERVATION DATA ENDED") }
+  else {
+    prtMess($bpe,"NO DOWNLOAD OF DAILY OBSERVATION DATA") }
+
+}

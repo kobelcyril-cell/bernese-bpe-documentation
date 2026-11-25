@@ -1,0 +1,64 @@
+package ORB_VER;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORB_VER
+#
+# Purpose :  ORBIT QUALITY CHECKS:
+#            3-DAY ORBIT OVERLAPS (ORBGEN)
+#
+# Programs:
+#
+# Author  :  H. Bock
+# Created :  05-Dec-2007
+#
+# Changes :  22-Feb-2011/ss: Execute orb_ver.com
+#            24-Feb-2011/ss: Make use of new options concerning orb_ver.com
+#            24-JUL-2019 DS: call updMacMod to update BOXWING.MAC with $param2
+#            14-Jul-2020 RD/PF: change $X/GEN -> PTH_PLATDEF
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+use fileUpdate;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$ddd,$wwww,$wd,$wd0,$CAMP_PTH,$CAMPAIGN,$dirPlatdef,$param2) =
+    $bpe->getKeys('$YD+0','$+0','$W-1','$WD-1','$WD+0','CAMP_PTH','CAMPAIGN','PTH_PLATDEF','PARAM2');
+
+# Check if this is an ULTRA:
+# -------------------------
+  my $ultFil = "$CAMP_PTH${CAMPAIGN}/MSC/ULT$yyddd.FLG";  # ultra-flag
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+  if (-e $ultFil){
+      my $endTim =sprintf("%02d%6s",$h_end,' 00 00');
+      $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","ENDTIM","$endTim");}
+
+# PlusMinus-Variable
+# ------------------
+  setMinusPlus($bpe,-2,0);
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBGEN";
+  my $ERR_STATE = &updMacMod($bpe,"$ENV{U}/PAN/$PGMNAM.INP","${dirPlatdef}/BOXWING.MAC",$param2);
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Create LST file for PREWEI
+# --------------------------
+  system("$ENV{AUTO}/orb_lst_rap.com $ddd $CAMP_PTH${CAMPAIGN}") && die;
+
+  system("$ENV{AUTO}/orb_ver.com $wd $CAMP_PTH${CAMPAIGN} VER 7 $wwww") if substr($wd,4,1) eq "6";
+  system("$ENV{AUTO}/orb_ver.com $wd0 $CAMP_PTH${CAMPAIGN} VER 7 $wwww") if substr($wd0,4,1) eq "6";
+  system("$ENV{AUTO}/orb_ver.com $wd0 $CAMP_PTH${CAMPAIGN} VER -32");
+
+}

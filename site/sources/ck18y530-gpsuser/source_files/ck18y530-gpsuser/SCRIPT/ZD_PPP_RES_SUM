@@ -1,0 +1,103 @@
+package PPP_RES_SUM;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  PPP_RES_SUM
+#
+# Purpose :  Check zero- or double-difference data screening results and
+#            creates a summary on the residual screening:
+#
+#            1. RESRMS to create F(irst) residual screening summary
+#            2. RESRMS to create L(ast) residual screening summary
+#            3. RESCHK to create residual screening statistics
+#
+#            Binary data files of misbehaving stations are subsequently
+#            removed if indicated
+#
+#            After deleting stations the BPE processing is continued
+#            with SNGDIF in case of double-difference processing.
+#
+# PARAMs  :  PARAM1 - "NEXTJOB"-indicator (if necessary)
+#            PARAM2 - goto PID in case of misbehaving stations
+#
+# Author  :  R. Dach
+# Created :  11-Aug-2011
+#
+# Changes :  14-Jun-2013 RD: Call for "deleteFiles" corrected
+# ============================================================================
+
+use strict;
+
+use File::Copy;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtGoto setUserVar appFile deleteFiles);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyyyssss  , $ssss    ,
+      $param2  , $startcount,
+      $dirOut  , $dirSum  , $dirDel  ,
+      $extOut   ,$extSum  , $extDel   ) =
+  $bpe->getKeys
+     ('$YYYSS+0' , '$S+0'   ,
+      'PARAM2' , 'STARTCOUNT',
+      'DIR_OUT', 'DIR_SUM', 'DIR_DEL',
+      'EXT_OUT', 'EXT_SUM', 'EXT_DEL' );
+
+  my $prcFil = "${dirOut}RES_${yyyyssss}.PRC";     # Residual check summary file
+  my $outFil = "${dirOut}CHK_${yyyyssss}.${extOut}";
+  my $sumFil = "${dirSum}CHK_${yyyyssss}.${extSum}";
+  my $chkFil = "${dirSum}RES_${yyyyssss}.${extSum}";
+
+# Delete old files (DEL)
+# ----------------------
+  unlink ($chkFil);
+
+# Run programs
+# ------------
+  setUserVar($bpe,"FL","F");
+
+  my $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $resSum = $bpe->getKey("$ENV{U}/INP/RESRMS.INP","OUTPUT");
+  appFile("",0,$resSum,$chkFil,1);
+
+  setUserVar($bpe,"FL","L");
+
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $resSum = $bpe->getKey("$ENV{U}/INP/RESRMS.INP","OUTPUT");
+  appFile("",0,$resSum,$chkFil,1);
+
+
+  $bpe->putKey("$ENV{U}/PAN/RESCHK.INP","RESRMS",$chkFil);
+  $PGMNAM = "RESCHK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Delete collecting protocol file in first run
+# --------------------------------------------
+  unlink $prcFil if $startcount == 1;
+
+# Collect protocol files
+# ----------------------
+  appFile("",0,$outFil,$prcFil,1);
+  appFile("",0,$sumFil,$prcFil,1);
+  appFile("",0,$chkFil,$prcFil,1);
+
+
+# Bad stations detected?
+# ----------------------
+  if ( $bpe->getKey("$ENV{U}/INP/RESCHK.INP","BADSTA") eq "1" ) {
+    my $delFil = $bpe->getKey("$ENV{U}/INP/RESCHK.INP","DELSTA");
+    if (-s $delFil) {
+      deleteFiles($bpe,$delFil,1);
+      prtGoto($bpe,$param2) if ($param2 ne "");
+    }
+  }
+
+}

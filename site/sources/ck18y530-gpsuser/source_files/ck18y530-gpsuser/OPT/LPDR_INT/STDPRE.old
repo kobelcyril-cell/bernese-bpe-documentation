@@ -1,0 +1,672 @@
+
+ENVIRONMENT 13
+  "U" "/storage/homefs/l_hpfaiub/GPSUSER"
+  "T" "/scratch/local/l_hpfaiub"
+  "X" "/storage/research/aiub_data/BSWsoftware/BERN/GPS"
+  "P" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "G" "/storage/research/aiub_u_camp"
+  "E" "/storage/research/aiub_gravdet"
+  "R" "/storage/scratch/aiub/camp"
+  "USER" "l_hpfaiub"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 1  "${K}/OSCELE"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${K}/OSCELE/STA/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2023"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "0010"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+! Satellite information
+! ---------------------
+SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+  ## emptyallowed = true
+  # $(SATINF)_$(PCV)
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "${CONFIG}/$(SATCRX).CRX"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+  # $(SATCRX)
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! ERP File
+! ---------
+POLE 1  "${K}/OSCELE/ORB/$B230010.ERP"
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
+  # $B$YSS+0
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! Ocean loading tables
+! --------------------
+OCNLOAD 1  "${K}/OSCELE/STA/$(BLQINF).BLQ"
+  ## widget = selwin; path = DIR_BLQ; ext = EXT_BLQ; maxfiles = 1
+  ## emptyallowed = true
+  # $(BLQINF)
+
+DESCR_OCNLOAD 1  "Ocean tidal loading"
+
+! Atmospheric loading tables
+! --------------------------
+ATMLOAD 1  "${K}/OSCELE/STA/$(ATLINF).ATL"
+  ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
+  ## emptyallowed = true
+  # $(ATLINF)
+
+DESCR_ATMLOAD 1  "Atmospheric tidal loading"
+
+! Coordinate file (for geodetic datum)
+! ------------------------------------
+CSYSTEM_CRD 1  "${K}/OSCELE/STA/$(CRDINF).CRD"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+  ## emptyallowed = false
+  # $(CRDINF)
+
+DESCR_CSYSTEM_CRD 1  "Coordinate file (for datum)"
+
+! Subdaily ERP Model
+! -------------------
+SUBMOD 1  "${MODEL}/$(SUBMOD).SUB"
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+  # $(SUBMOD)
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Nutation Model
+! -------------------
+NUTMOD 1  "${MODEL}/$(NUTMOD).NUT"
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+  # $(NUTMOD)
+
+DESCR_NUTMOD 1  "Nutation model"
+
+! GPS-UTC file
+! -------------
+GPSUTC 1  "${CONFIG}/GPSUTC.BSW"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  ## emptyallowed = false
+  # GPSUTC
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! Standard Orbit File
+! -------------------
+STDORB 1  "${K}/OSCELE/ORB/$ACOP230010.STD"
+  ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
+  ## emptyallowed = true
+  # $ACOP$YSS+0
+
+DESCR_STDORB 1  "Standard orbits"
+
+STDORB_NEW 0
+  ## widget = selwin; path = DIR_ORB; ext = EXT_ORB; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
+
+! Element File
+! ------------
+IMPELE 0
+  ## widget = selwin; path = DIR_ELE; ext = EXT_ELE; maxfiles = 1
+  ## emptyallowed = true
+  # 
+
+DESCR_IMPELE 1  "Orbital elements file"
+
+! Satellite Clock File
+! --------------------
+SATCLK 0
+  ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
+  ## emptyallowed = true; activeif = RADIO_CB = 1
+  # 
+
+DESCR_SATCLK 1  "Satellite clock corrections"
+
+! RINEX clock file
+! --------------------
+RXCLKIN 0
+  ## widget = selwin; path = DIR_RXC; ext = EXT_RXC; maxfiles = 1
+  ## emptyallowed = true; activeif = RADIO_CR = 1
+  # 
+
+DESCR_RXCLKIN 1  "Clock RINEX files"
+
+! Select input clock file
+! -------------------------
+RADIO_CB 1  "1"
+  ## widget = radiobutton; group = CLKINP
+
+MSG_RADIO_CB 1  "BERNESE clock file"
+
+RADIO_CR 1  "0"
+  ## widget = radiobutton; group = CLKINP
+
+MSG_RADIO_CR 1  "RINEX clock file"
+
+! Precise Ephem. Files
+! --------------------
+PREOUT 1  "${K}/OSCELE/ORB/$ACOP230010.PRE"
+  ## widget = lineedit; path = DIR_PRE; ext = EXT_PRE; maxfiles = 1
+  # $ACOP$YSS+0
+
+DESCR_PREOUT 1  "Precise orbits output file"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${K}/OSCELE/OUT/SP$A230010.OUT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # SP$A$YSS+0
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title: new entry
+! ----------------
+TITLE 1  "LEOPOD_230010_$(LEO): Conversion of STD to PRE orbit"
+  ## widget = lineedit
+  # LEOPOD_$YSS+0_$(LEO): Conversion of STD to PRE orbit
+
+MSG_TITLE 1  "Title line"
+
+! Format Type of Precise Ephemerides File
+! ---------------------------------------
+FORMAT 1  "SP3C"
+  ## widget = combobox; editable = false; cards = SP1 SP3 SP3C SP3C/D
+
+MSG_FORMAT 1  "Format type"
+
+VELOCITIES 1  "0"
+  ## widget = checkbox
+
+MSG_VELOCITIES 1  "Write the velocities"
+
+! Satellite/GNSS Selection
+! ------------------------
+SATSELECT 1  "SYSTEM_WISE"
+  ## widget = combobox; editable = false
+  ## cards = ALL_SATELLITES SYSTEM_WISE SATELLITE_LIST
+
+MSG_SATSELECT 1  "Select satellites to be processed"
+
+! GPS
+USE_G 1  "1"
+  ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
+
+MSG_USE_G 1  "Use GPS"
+
+! GLONASS
+USE_R 1  "0"
+  ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
+
+MSG_USE_R 1  "Use GLONASS"
+
+! Galileo
+USE_E 1  "0"
+  ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
+
+MSG_USE_E 1  "Use Galileo"
+
+! SBAS
+USE_S 1  "0"
+  ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
+
+MSG_USE_S 1  "Use SBAS"
+
+! BeiDou
+USE_C 1  "0"
+  ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
+
+MSG_USE_C 1  "Use BeiDou"
+
+! QZSS
+USE_J 1  "0"
+  ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
+
+MSG_USE_J 1  "Use QZSS"
+
+! LEO
+USE_L 1  "1"
+  ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
+
+MSG_USE_L 1  "Use LEO"
+
+USESAT 1  "INCLUDED"
+  ## widget = combobox; editable = false; cards = INCLUDED EXCLUDED
+  ## activeif = SATSELECT == SATELLITE_LIST
+
+MSG_USESAT 1  "The satellites in the following list will be"
+
+SATLST 0
+  ## widget = lineedit; activeif = SATSELECT == SATELLITE_LIST
+
+MSG_SATLST 1  "Satellite list"
+
+! Observation Window
+! ------------------
+USEWIN 1  "1"
+  ## widget = checkbox
+
+MSG_USEWIN 1  "Specify a time window"
+
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Observation window: Defined by year and session ID"
+
+RADIO_2 1  "1"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_2 1  "Observation window: Defined by start and end times"
+
+SESSION_YEAR 1  "2023"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  # $Y+0
+
+MSG_SESSION_YEAR 1  "Year for session def. the time window"
+
+SESSION_STRG 1  "0010"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+  # $S+0
+
+MSG_SESSION_STRG 1  "Session defining the time window"
+
+STADAT 1  "23MD_STR-$(TDA)"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+  # $YMD_STR-$(TDA)
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "$(FROM)"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "23MD_STR+$(TDE)"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+  # $YMD_STR+$(TDE)
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "$(TO)"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+! Tabular Interval
+! ----------------
+TABINT 1  "$(SPRD)"
+  ## widget = lineedit
+
+MSG_TABINT 1  "TABULAR INTERVAL"
+
+! Reference System
+! ----------------
+!RSYSTEM     1  "90"
+!  ## widget = combobox; editable = true; cards = 72 84 90
+!
+!MSG_RSYSTEM 1  "Reference system"
+! Agency
+! ------
+AGENCYO 0
+  ## widget = lineedit
+
+MSG_AGENCYO 1  "Agency"
+
+! Orbit Type
+! ---------
+ORBTYPO 0
+  ## widget = combobox; editable = true; cards = F B E
+
+MSG_ORBTYPO 1  "Orbit type"
+
+! Title
+! -----
+TITPRE 1  ""
+  ## widget = uniline; check_strlen.1 = 77; numlines = 6
+
+MSG_TITPRE 1  "Comment lines in precise orbit file"
+
+TITLE1 0
+  ## widget = lineedit
+  # 
+
+MSG_TITLE1 1  "Title 1"
+
+TITLE2 0
+  ## widget = lineedit
+  # 
+
+MSG_TITLE2 1  "Title 2"
+
+TITLE3 0
+  ## widget = lineedit
+  # 
+
+MSG_TITLE3 1  "Title 3"
+
+TITLE4 0
+  ## widget = lineedit; activeif = TITOPT4 = 0
+  # 
+
+MSG_TITLE4 1  "Title 4"
+
+! Write model identifier
+! ----------------------
+TITOPT4 1  "1"
+  ## widget = checkbox
+
+MSG_TITOPT4 1  "Write model identifier"
+
+! CLK info
+! --------
+CLKINFO 1  "N/A"
+  ## widget = combobox; editable = true; cards = N/A BRD CoN CoM
+  ## activeif = TITOPT4 = 1
+
+MSG_CLKINFO 1  "CLK info"
+
+! Geodetic datum
+! --------------
+!CSYSTEM     1  "IGb14"
+!  ## widget = combobox; editable = true; cards = ITR94 ITR96 ITR97 ITR05 ITR08 ITR14 IGS00 IGb00 IGS05 IGS08 IGb08 IGS14 IGb14
+!  ## activeif = CSYSTEM_CRD = _
+!
+!MSG_CSYSTEM 1  "Geodetic datum"
+! Agency
+! ------
+AGENCYN 1  "AIUB"
+  ## widget = lineedit
+
+MSG_AGENCYN 1  "Agency"
+
+! Orbit Type
+! ----------
+ORBTYPN 1  "FIT"
+  ## widget = combobox; editable = true; cards = FIT EXT BCT HLM
+
+MSG_ORBTYPN 1  "Orbit type"
+
+! Time System
+! -----------
+TIMESYS 1  "GPS"
+  ## widget = combobox; editable = false; cards = GPS GLO GAL UTC TAI
+  ## activeif = FORMAT == SP3C/D OR  FORMAT == SP3C
+
+MSG_TIMESYS 1  "Time system"
+
+! Data Description
+! ----------------
+DATTYP 1  "PHASE"
+  ## widget = combobox; editable = false; cards = PHASE CODE BOTH RANGE
+
+MSG_DATTYP 1  "Data description"
+
+! Data Description
+! ----------------
+DATDIF 1  "ZERO"
+  ## widget = combobox; editable = false; cards = ZERO SINGLE DOUBLE
+  ## activeif = DATTYP / RANGE
+
+MSG_DATDIF 1  "Data description"
+
+! Fit interval
+! ------------
+FITORB 1  "999"
+  ## widget = lineedit; activeif = FORMAT == SP3C/D OR  FORMAT == SP3C
+
+MSG_FITORB 1  "Fit interval for orbits"
+
+FITCLK 1  "999"
+  ## widget = lineedit; activeif = FORMAT == SP3C/D OR  FORMAT == SP3C
+
+MSG_FITCLK 1  "Fit interval for clocks"
+
+NOPRED 1  "0"
+  ## widget = lineedit; activeif = FORMAT == SP3C/D OR  FORMAT == SP3C
+
+MSG_NOPRED 1  "No prediction if observed for less than xx hours"
+
+! Write optional E-records
+! ------------------------
+WRITEE 1  "0"
+  ## widget = checkbox; activeif = FORMAT == SP3C/D OR  FORMAT == SP3C
+
+MSG_WRITEE 1  "Write E records"
+
+! ILRS Benchmark orbit output
+! ---------------------------
+SHOWILRS 1  "0"
+  ## widget = checkbox
+
+MSG_SHOWILRS 1  "Activate ILRS output"
+
+BENCH 1  "0"
+  ## widget = checkbox
+
+MSG_BENCH 1  "Options for ILRS benchmark"
+
+ORBILRS 0
+  ## widget = lineedit; path = DIR_PRE; ext = NO_EXT; maxfiles = 1
+  ## activeif = BENCH = 1
+  # 
+
+DESCR_ORBILRS 1  "ILRS Benchmark orbit output file"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONVERT STANDARD TO PRECISE ORBITS - STDPRE 1: Filenames                     #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files      > % <                                          # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Standard orbits             > %%%%%%%%%%%% <   (new) > %%%%%%%%%%%% <      # STDORB STDORB_NEW
+#   Orbital elements file       > %%%%%%%%%%%% <                               # IMPELE
+#   Satellite clock corrections                                                #
+#   > % < BERNESE format        > %%%%%%%%%%%% <                               # RADIO_CB SATCLK
+#   > % < Clock RINEX file      > %%%%%%%%%%%% <                               # RADIO_CR RXCLKIN
+#   Earth rotation parameters   > %%%%%%%%%%%% <                               # POLE
+#   Ocean tidal loading         > %%%%%%%%%%%% <     (for CMC)                 # OCNLOAD
+#   Atmospheric tidal loading   > %%%%%%%%%%%% <     (for CMC)                 # ATMLOAD
+#   Coordinate file             > %%%%%%%%%%%% <     (for geodetic datum)      # CSYSTEM_CRD
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Precise orbits output file  > %%%%%%%%%%% <                                # PREOUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output         > % < use STDPRE.Lnn            or > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages         > % < merged to program output  or > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# STDPRE 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Satellite information   > %%%%%%%%%%%% <                                   # SATELL
+#   Subdaily ERP model      > %%%%%%%%%%%% <                                   # SUBMOD
+#   Nutation model          > %%%%%%%%%%%% <                                   # NUTMOD
+#   Satellite problems      > %%%%%%%%%%%% <                                   # SATCRUX
+#   GPS-UTC time difference > %%%%%%%%%%%% <                                   # GPSUTC
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# STDPRE 2: Options                                                            #
+#                                                                              #
+# TYPE OF PRECISE EPHEMERIS FILE                                               #
+#   Format type                                > %%%%%%% <                     # FORMAT
+#   Write the velocities                       > % <                           # VELOCITIES
+#                                                                              #
+# SATELLITE SELECTION            >  %%%%%%%%%%%%%%%% <                         # SATSELECT
+#          > % < GPS             > % < GLONASS         > % < Galileo           # USE_G USE_R USE_E
+#          > % < SBAS            > % < BeiDou          > % < QZSS              # USE_S USE_C USE_J
+#          > % < LEO                                                           # USE_L
+#                                                                              #
+#   The satellites in the following list will be     > %%%%%%%%%%%% <          # USESAT
+#   Satellite list > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # SATLST
+#                                                                              #
+# TABULAR INTERVAL                             > %%%% < seconds                # TABINT
+#   Specify a time window                      > % <                           # USEWIN
+#                                                                              #
+# LENGTH OF FIT INTERVAL                                                       #
+#   For orbits                                 > %%%%%% < hours                # FITORB
+#   For clocks                                 > %%%%%% < hours                # FITCLK
+#   No prediction if observed for less than    > %%%%%% < hours                # NOPRED
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWILRS = 1 #####################################################
+# STDPRE 2.01: ILRS-specific Output                                            #
+#                                                                              #
+# OPTIONS FOR ILRS BENCHMARK                   > % <                           # BENCH
+#   Orbit output file                          > %%%%%%%%%%%% <                # ORBILRS
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL FORMAT = SP1 #####################################################
+# STDPRE 2.1: Options for SP1 Formatted Precise Orbit File                     #
+#                                                                              #
+#                                                                              #
+#   Agency             > %%% <                                                 # AGENCYO
+#                                                                              #
+#   Orbit type         > %% <         F: for "fit"                             # ORBTYPO
+#                                     B: for "broadcast"                       #
+#                                     E: for "extrapolated"                    #
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL FORMAT = SP3C/D  OR  FORMAT = SP3C  OR  FORMAT = SP3 #############
+# STDPRE 2.2: Options for New Formatted Precise Orbit File                     #
+#                                                                              #
+# > Comment_lines_for_precise_orbit_file_______________________________   <    # TITPRE
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#   Title 1    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE1
+#   Title 2    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE2
+#   Title 3    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE3
+#   Title 4    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE4
+#   Model identifiers in last title line > % < (IGS convention)                # TITOPT4
+#   CLK info                             > %%% <                               # CLKINFO
+#                                                                              #
+#                                                                              #
+#                                                                              #
+#   Agency                               > %%%% <                              # AGENCYN
+#                                                                              #
+#   Orbit type                           > %%%% <                              # ORBTYPN
+#   Time system                          > %%%% <                              # TIMESYS
+#                                                                              #
+#   Data description                     > %%%%%% <    > %%%%%%% <             # DATTYP DATDIF
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL USEWIN = 1 #######################################################
+# STDPRE 2.3: Observation Window                                               #
+#                                                                              #
+# OBSERVATION WINDOW                                                           #
+#                                                                              #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year > %%%% <    Session > %%%% <                                    # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################

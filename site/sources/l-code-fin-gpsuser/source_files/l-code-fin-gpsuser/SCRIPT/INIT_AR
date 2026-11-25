@@ -1,0 +1,48 @@
+package INIT_AR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  INIT_AR
+#
+# Purpose :  This script computes the maximum baseline length for the
+#            Mel-Wuebb ambiguity resolution in dependance of the iteration
+#            number. The length is written into a file named BASLST.OPT in
+#            the BPE directory.
+#
+# Programs:
+#
+# Author  :  M. Meindl
+# Created :  24-Sep-2003
+#
+# Changes :  23-Jul-2008 PS: Moved computation of max bsl length to GPSAMBAP
+#                            Reset ambiguities
+#            01-Mar-2011 SS: Unlink SDB LST file
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $dirOut) = $bpe->getKeys('$YSS+0', 'DIR_OUT');
+
+  unlink "${dirOut}SDB${yyssss}.LST";
+
+
+# Define variables
+# ----------------
+  my $iRun     = $$bpe{STARTCOUNT};
+
+
+# Reset ambiguities for 1st run
+# -----------------------------
+
+  if ($iRun==1)
+    {
+       my $PGMNAM = "SATMRK";
+       $bpe->RUN_PGMS($PGMNAM);
+    }
+
+}

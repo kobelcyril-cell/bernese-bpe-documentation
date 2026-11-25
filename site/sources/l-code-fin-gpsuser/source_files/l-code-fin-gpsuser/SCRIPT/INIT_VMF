@@ -1,0 +1,132 @@
+package INIT_VMF;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  INIT_VMF
+#
+# Purpose :  Initialization concerning VMF setup
+#
+# Programs:
+#
+# Author  :  S. Schaer
+# Created :  07-Oct-2010
+#
+# Changes :  08-Oct-2010/ss: msg2key statement added
+#            08-Oct-2010/ss: Consider ULT FLG file
+#            15-Oct-2010/ss: Take over VMF information if indicated
+#            18-Oct-2010/ss: Do not execute get_vmf.com in ULT mode
+#            16-Feb-2011 mf: Do not get latest VMF grid files in repro mode
+#            25-Jul-2013/ss: Suppress warning messages in ULT mode
+#            04-Aug-2015/ss: CLKRAPID raplaced by RCLKGNSS
+#            07-Dec-2020 RD: Add PCF variable V_TRPMOD
+#            09-Dec-2020 RD: CLKFINAL raplaced by FCLKGNSS
+#            09-Jul-2021 LP: More generalized handling of TROPO model
+#            12-Aug-2021 LP: If used by FCLKGNSS: copy VMF*.GRD from orbit campaign
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $yyyy,
+      $pcfFil, $taskId, $v_tropMod,
+      $dirOut, $dirGrd, $extGrd,
+      $camp_pth, $campaign) =
+    $bpe->getKeys('$YD+0', '$+0', '$Y+0',
+                  'PCFFIL', 'TASKID', 'V_TRPMOD',
+                  'DIR_OUT', 'DIR_GRD', 'EXT_GRD',
+                  'CAMP_PTH','CAMPAIGN');
+
+# Default tropo model VMF in final environement
+# ---------------------------------------------
+  my $tropMod = 'VMF'; # default
+  $v_tropMod  = $v_tropMod.'    ';
+  if (substr($v_tropMod,3,1) ne ' ') {$tropMod = substr($v_tropMod,0,4);}
+  else                               {$tropMod = substr($v_tropMod,0,3);}
+
+
+# Set variables
+# -------------
+  $pcfFil = (split('\.',$pcfFil))[0];
+  my $grdFil = "${dirGrd}VMF${yyddd}.${extGrd}";
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+  my $ultFil = "${dirOut}../MSC/ULT${yyddd}.FLG";
+  my $repro  = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+# Remove GRD/FLG file
+# -------------------
+  unlink($grdFil);
+  unlink($flgFil);
+
+# Download latest VMF grid files
+# ------------------------------
+  unless ( -e $ultFil or $repro ) {
+    if ( $tropMod =~ /VMF/ ) {system("$ENV{AUTO}/get_vmf.com");}
+  }
+
+# Copy daily VMF GRD file into campaign
+# -------------------------------------
+  if ( $tropMod =~ /VMF/ ) {
+    system("$ENV{AUTO}/copyGrid.pl $dirOut/../ $ddd $yyyy $v_tropMod -oneFile");
+  }
+
+# Check whether VMF GRD file available
+# ------------------------------------
+  if ( $tropMod =~ /VMF/ ) {
+    if (-s $grdFil) {
+      prtMess($bpe,"$v_tropMod initialization: $grdFil created");
+    } else {
+      prtMess($bpe,"$v_tropMod initialization: $grdFil not created");
+    }
+  }
+  my $flgLin = -e $flgFil ? `cat $flgFil` : $tropMod;
+  chomp($flgLin);
+  prtMess($bpe,"$v_tropMod initialization: ${flgLin}");
+  if ($flgLin ne $tropMod) {
+    prtMess($bpe,"$v_tropMod initialization: $flgFil found (${flgLin})");
+    msg2key("BPE","INIT_VMF: $pcfFil $taskId${yyddd}0: $flgFil found (${flgLin}): $v_tropMod info unavailable?");
+##    exit 0 if $pcfFil eq "IGSFIN1D";
+  }
+##  `echo 'GMF' > $flgFil` if $yyddd eq "10274";
+##  `echo 'GMF' > $flgFil` if $yyddd eq "10275";
+##  `echo 'GMF' > $flgFil` if $pcfFil eq "IGSRAPID";
+
+# Take over VMF information if indicated
+# --------------------------------------
+  my $grdInp = "";
+  my $flgInp = "";
+  my $numDif = 0;
+
+  if ($pcfFil eq "RCLKGNSS") {
+    $grdInp = "$CDIR_RAP/GRD/VMF${yyddd}.${extGrd}";
+    $flgInp = "$CDIR_RAP/MSC/TRP_${yyddd}.FLG";
+    $numDif = `diff $grdInp $grdFil | wc -l`+0 if -s $grdInp;
+    if (-e $flgInp) { unlink($grdFil); copy($flgInp,$flgFil) }
+    else            { copy($grdInp,$grdFil); unlink($flgFil) }
+  }
+
+  if ($pcfFil eq "FCLKGNSS") {
+    $grdInp = "$CDIR_FIN/GRD/VMF${yyddd}.${extGrd}";
+    $flgInp = "$CDIR_FIN/MSC/TRP_${yyddd}.FLG";
+    
+    if (-s $grdInp) { copy($grdInp,$grdFil); }
+    
+    $numDif = `diff $grdInp $grdFil | wc -l`+0 if -s $grdInp;
+    if (-e $flgInp) { unlink($grdFil); copy($flgInp,$flgFil) }
+    else            { copy($grdInp,$grdFil); unlink($flgFil) }
+  }
+
+  msg2key("BPE","INIT_VMF: $pcfFil $taskId${yyddd}0: Used VMF info different from latest VMF info.") if $numDif>0;
+
+}
+

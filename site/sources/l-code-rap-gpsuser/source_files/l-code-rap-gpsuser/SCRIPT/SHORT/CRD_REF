@@ -1,0 +1,77 @@
+package CRD_REF;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CRD_REF
+#
+# Purpose :  Create sorted CRD and VEL master file
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  20-Apr-2005
+#
+# Changes :  26-Apr-2005/ss: Update master files in case of differences
+#            13-May-2005/ss: Update files in current STA directory, too
+#            03-Aug-2007/ss: Return if update not allowed
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($crdInf,
+      $dirCrd, $extCrd,
+      $dirVel, $extVel) =
+    $bpe->getKeys('V_CRDINF',
+                  'DIR_CRD', 'EXT_CRD',
+                  'DIR_VEL', 'EXT_VEL');
+
+# Update not allowed
+# ------------------
+  unless ($$bpe{V_UPD} eq "Y") {
+    prtMess($bpe,"FILES NOT UPDATED");
+    return;
+  }
+
+# Run program
+# -----------
+  $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","RADIO_1","1");
+  $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","RADIO_2","0");
+
+  my $PGMNAM = "CRDMERGE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $filNew = "${dirCrd}REF.${extCrd}";
+  my $filOld = "${dirCrd}${crdInf}.${extCrd}";
+  my $filRef = "$ENV{REF}/${crdInf}.${extCrd}";
+  my $diff = `diff $filNew $filOld | wc -l`;
+  $diff = $diff+0;
+  if ($diff > 0) {
+    copy($filNew,$filOld);
+    copy($filNew,$filRef);
+    msg2key("MSC","${crdInf}.${extCrd} sorted and updated in REF directory") }
+
+  $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","RADIO_1","0");
+  $bpe->putKey("$ENV{U}/PAN/CRDMERGE.INP","RADIO_2","1");
+
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $filNew = "${dirVel}REF.${extVel}";
+  $filOld = "${dirVel}${crdInf}.${extVel}";
+  $filRef = "$ENV{REF}/${crdInf}.${extVel}";
+  $diff = `diff $filNew $filOld | wc -l`;
+  $diff = $diff+0;
+  if ($diff > 0) {
+    copy($filNew,$filOld);
+    copy($filNew,$filRef);
+    msg2key("MSC","${crdInf}.${extVel} sorted and updated in REF directory") }
+
+}

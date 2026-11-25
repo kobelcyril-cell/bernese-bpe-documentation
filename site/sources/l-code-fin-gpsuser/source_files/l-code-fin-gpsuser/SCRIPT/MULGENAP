@@ -1,0 +1,63 @@
+package MULGENAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  MULGENAP
+#
+# Purpose :  Prepare parallel runs for bias multiplier retrieval
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  23-Jun-2016
+#
+# Changes :  __-___-____/__:
+#
+# ============================================================================
+use strict;
+
+use File::Basename;
+
+use lib $ENV{BPE};
+use bpe_util qw(prtErr initPar_Bl);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ddd, $yyddd, $ssss,
+      $dirBpe,
+      $dirCzh, $dirOut, $dirBia, $dirIon, $dirOsb, $dirNeq,
+      $extCzh, $extOut, $extBia, $extIon, $extOsb, $extNeq) =
+  $bpe->getKeys
+     ('$+0', '$YD+0', '$S+0',
+      'DIR_BPEPRT',
+      'DIR_CZH', 'DIR_OUT', 'DIR_BIA', 'DIR_ION', 'DIR_OSB', 'DIR_NEQ',
+      'EXT_CZH', 'EXT_OUT', 'EXT_BIA', 'EXT_ION', 'EXT_OSB', 'EXT_NEQ');
+
+# Delete old files (OUT, SMC)
+# ---------------------------
+##  unlink glob("${dirOut}????${ssss}_*.${extOut}");
+  unlink glob("${dirOut}????${ssss}_M.${extOut}");
+##  unlink glob("${dirNeq}????${ssss}_*.${extNeq}");
+  unlink glob("${dirNeq}????${ssss}_M.${extNeq}");
+##  unlink glob("${dirIon}????${ssss}_.${extIon}");
+##  unlink glob("${dirOsb}????${ssss}_.${extOsb}");
+##  unlink glob("${dirBia}????${ssss}_.${extBia}");
+
+# Initialize parallel run
+# -----------------------
+  my @prcFil = glob("${dirCzh}????${ssss}.${extCzh}");
+
+  @prcFil = map { substr(basename($_),0,4) } @prcFil;
+  initPar_Bl($bpe,@prcFil);
+
+# Stop if no CZH files found
+# --------------------------
+  if (@prcFil == 0) {
+    prtErr($bpe,"No files to be processed found") and
+      die "No files to be processed found for session ${ssss}";
+  }
+
+}

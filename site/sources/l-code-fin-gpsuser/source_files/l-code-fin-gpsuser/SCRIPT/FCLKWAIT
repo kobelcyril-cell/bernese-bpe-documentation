@@ -1,0 +1,74 @@
+package FCLKWAIT;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  FCLKWAIT
+#
+# Purpose :  Waiting loop until the file "$PATH_RAP$CAMP_RAP/BPE/IGSULTRA.RUN"
+#            is older then 10 minutes.
+#            (No conflict between 24-ultra an TIMEDT).
+#
+# Programs:
+#
+# Author  :  R.Dach
+# Created :  11-Jan-2005
+#
+# Changes :  15-Oct-2010/ss: Take over VMF information from IGSRAPID campaign
+#            14-Feb-2013 SL: Print comment during sleeping  phase
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $dirOut, $dirGrd, $extGrd) =
+    $bpe->getKeys('$YD+0', 'DIR_OUT', 'DIR_GRD', 'EXT_GRD');
+
+# Filename to wait for
+# --------------------
+  my $waitFile = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/BPE/IGSULTRA.RUN";
+
+# The file must be older than (sec.)
+# ----------------------------------
+  my $olderThan = 600;
+
+# Length of the waiting loop
+# --------------------------
+  my $waiting = 60;
+
+# The waiting loop
+# ----------------
+  until ((stat($waitFile))[9] + $olderThan <= time) {
+    print "Waiting $waiting until $waitFile older than $olderThan\n";
+    sleep $waiting;
+  }
+
+# Take over VMF information from IGSRAPID campaign
+# ------------------------------------------------
+  my $grdInp = -e "$CDIR_RAP/GRD/VMF${yyddd}.${extGrd}" ?
+               "$CDIR_RAP/GRD/VMF${yyddd}.${extGrd}" :
+               "$PATH_SAV/$CAMP_SAVRAP/GRD/VMF${yyddd}.${extGrd}";
+  my $flgInp = "$CDIR_RAP/MSC/TRP_${yyddd}.FLG";
+
+  my $grdFil = "${dirGrd}VMF${yyddd}.${extGrd}";
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+
+  if(-e $flgInp) {
+    unlink($grdFil);
+    copy($flgInp,$flgFil);
+  } else {
+    copy($grdInp,$grdFil);
+    unlink($flgFil);
+  }
+
+}

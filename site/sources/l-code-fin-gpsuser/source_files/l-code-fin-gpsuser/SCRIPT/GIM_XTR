@@ -1,0 +1,70 @@
+package GIM_XTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GIM_XTR
+#
+# Purpose :  Generate IGSIONO processing summary file
+#
+# Programs:  GPSXTR
+#
+# Author  :  S. Schaer
+# Created :  17-Sep-2015
+#
+# Changes :  19-May-2016/ss/av: Generalized and adapted for OSB implementation
+#            25-May-2016/ss: Changed RZB, RZF; added RZE, RZR
+#            31-May-2016 SS: Added RZG
+#            29-Jun-2016/ss: Added S1M
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,$yydddm1,$yy,$ddd,$v_e,$v_h,$v_c,$v_w,$v_x,$v_z,$v_f,
+      $dirSum,$dirOut) =
+    $bpe->getKeys('$YD+0','$YD-1','$Y','$+0','V_E','V_H','V_C','V_W','V_X','V_Z','V_F',
+                  'DIR_SUM','DIR_OUT');
+
+  my $PGMNAM = "GPSXTR";
+
+# Remove GIMXTR summary file
+# --------------------------
+##  my $prcFil = "${dirOut}GIM${yyddd}.PRC";
+  my $prcFil = "${dirOut}GIMXTR.${yy}_${ddd}";
+  unlink($prcFil);
+#
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GPSOUT","GIMXTR1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GIMOUT","GIMXTR2");
+  @out = ('$EI$YD+0','$HI$YD-1','$ZS$YD+0','$ZF$YD+0','$XR$YD+0');
+  for (@out) {
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",$_);
+    $bpe->RUN_PGMS($PGMNAM);
+    appFile("",0,"${dirSum}GIMXTR1.SUM",$prcFil,0);
+    appFile("",0,"${dirSum}GIMXTR2.SUM",$prcFil,0);
+  }
+#
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GPSOUT","GIMXTR1");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","GIMOUT","");
+  my @out = (
+             '$EA$YD+0','$ES$YD+0','$EF$YD+0','$ER$YD+0','$EG$YD+0','$EX$YD+0',
+             '$EB$YD+0','$EE$YD+0',
+             '$WA$YD+0','$WS$YD+0','$WF$YD+0','$WR$YD+0','$WG$YD+0','$WC$YD+0',
+             '$CA$YD+0','$CS$YD+0','$CF$YD+0','$CR$YD+0','$CG$YD+0','$CX$YD+0',
+             '$CM$YD+0',
+                        '$FS$YD+0','$FF$YD+0','$FR$YD+0','$FG$YD+0','$FV$YD+0',
+             );
+  for (@out) {
+    $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT",$_);
+    $bpe->RUN_PGMS($PGMNAM);
+    appFile("",0,"${dirSum}GIMXTR1.SUM",$prcFil,0);
+  }
+
+##  move($prcFil,"${dirOut}GIMXTR.${yy}_${ddd}");
+
+}

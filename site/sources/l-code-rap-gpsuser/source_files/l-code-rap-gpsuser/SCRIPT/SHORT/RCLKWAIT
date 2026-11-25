@@ -1,0 +1,348 @@
+package RCLKWAIT;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  RCLKWAIT
+#
+# Purpose :  Coordinates the IGSRAPID and the corresponding clock job
+#
+# Programs:
+#
+# Author  :  R. Dach
+# Created :  11-Jan-2005
+#
+# Changes :  04-Sep-2002 RD: Use RSC coord instead of RA_
+#            06-Jan-2003 HU: Pole files in ORB instead of X/GEN
+#            28-Jul-2003 ss: Change from old to new BPE
+#            13-Nov-2004 ss: Consider RAM1 STD/ERP info if available
+#            11-Jan-2005 rd: Switch to perl
+#            30-Jun-2005 ss: Use RA (minimum-constraint) instead of RS CRD
+#            09-Aug-2005 rd: RA_WAIT= RAP-PID 600 (old: RAP-PRC)
+#            26-May-2009 rd: Introduce reprocessing mode
+#            15-Oct-2010/ss: Take over VMF information from IGSRAPID campaign
+#            19-Oct-2012/ss: Consider $byeFil
+#            15-Jan-2014 SL: Wait for PID 586 instead of 600 (RA_ORBIT)
+#            06-Jun-2014 SS: Initiate use of middle day (V_MID)
+#            11-Jun-2014 SS: Handle special case with RF_ORBIT
+#            12-Jun-2014 SS: Save MIDyyddd.TRP/TRO
+#            08-Aug-2014 RD/SS: Adjusted concerning RM_ORBIT
+#            03-Aug-2015 SS: Activated RCLKGNSS
+#            03-Aug-2017 AV: Optional time condition
+#            05-Jun-2018 SS: Replaced "GPS" by "G"
+#            06-Jun-2018 SS: Considered RM_yyddd in REPRO mode
+#            16-Sep-2019 AV: Use regex for PCFFIL check (RCLKGNSS)
+#            05-Mar-2020 ST: Moved broadcast clock generation in case of
+#                            reprocessing or save disk flag to NAV2CLK.
+#            22-Apr-2020 ST: Change 'RB_' to '${v_a}_'
+#            23-Apr-2020 ST: Stop copy of $A_$YSS+0 to $A0$YSS+0.
+#            15-May-2020 LP: Determine TRP-file header size with &getTropHeadInf
+#            05-Jul-2021 LP: Fixed typos in VMF-related substr
+#            08-Mar-2022 AV: Save disk: yearly subdirectory
+#            07-Oct-2022 RD: Correct condition to use RF-products
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use sta_util;
+use statistics_util;
+use lib "$ENV{EXE}";
+use Gps_Date;
+
+sub run {
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my $rapBrd   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/";
+  my $rapStd   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/";
+  my $rapErp   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/";
+  my $rapCrd   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/STA/";
+  my $rapTrp   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/ATM/";
+  my $rapOut   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/OUT/";
+  my $rapBpe   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/BPE/";
+
+  my ($PARAM1, $PARAM2, $PARAM3, $v_k, $v_a, $v_gnss, $v_mid, $savdsk,
+      $pcf, $camp_pth, $campaign, $dirOut, $trpModel,
+      $yyddd,  $yyssss, $yydddp1, $ssss, $ddd, $yyyy, $wwwwd,
+      $dirStd,   $dirErp,   $dirCrd,   $dirTrp,   $dirClk,   $dirPre,
+      $extStd,   $extErp,   $extCrd,   $extTrp,   $extClk,   $extPre,
+      $dirRxn,   $dirGrd,   $dirClb,   $dirAbb,   $dirPzh,
+      $extRxn,   $extGrd,   $extClb,   $extAbb,   $extPzh,
+  ) =
+      $bpe->getKeys
+     ('PARAM1', 'PARAM2', 'PARAM3', 'V_K', 'V_A', 'V_GNSS', 'V_MID','V_SAVDSK',
+      'PCFFIL', 'CAMP_PTH', 'CAMPAIGN', 'DIR_OUT', 'V_TRPMOD',
+      '$YD+0', '$YSS+0', '$YD+1', '$S+0', '$+0', '$Y+0', '$WD+0',
+      'DIR_STD', 'DIR_ERP', 'DIR_CRD', 'DIR_TRP', 'DIR_CLK', 'DIR_PRE',
+      'EXT_STD', 'EXT_ERP', 'EXT_CRD', 'EXT_TRP', 'EXT_CLK', 'EXT_PRE',
+      'DIR_RXN', 'DIR_GRD', 'DIR_CLB', 'DIR_ABB', 'DIR_PZH',
+      'EXT_RXN', 'EXT_GRD', 'EXT_CLB', 'EXT_ABB', 'EXT_PZH',
+  );
+
+  my $waiting = 300;
+  my $oldFile =  60;
+
+  initStaLst(abb => "${dirAbb}/CODE.${extAbb}");
+
+  $v_mid = "N" if $v_mid eq "";
+
+# Reprocessing?
+# -------------
+  my $repro = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+  if ($repro || $savdsk eq "Y") {
+    my $savDir = "$ENV{PATH_SAV}$ENV{CAMP_SAVRAP}/${yyyy}/";
+    my $savFil = "RM_${yyddd}";
+    my $crdFil = "RA_${yydddp1}";
+    my $cmpFil = "${v_k}_${yyssss}";
+    copyfile("${savDir}ORB/${savFil}.${extPre}.Z","${dirPre}${cmpFil}.${extPre}.Z");
+    system("gzip -df ${dirPre}${cmpFil}.${extPre}.Z");
+    copyfile("${savDir}ORB/${savFil}.${extErp}","${dirErp}${cmpFil}.${extErp}");
+    copyfile("${savDir}STA/${crdFil}.${extCrd}","${dirCrd}${cmpFil}.${extCrd}");
+    copyfile("${savDir}ATM/${savFil}.${extTrp}","${dirTrp}${cmpFil}.${extTrp}");
+
+    # Reintegrate the orbit
+    my $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+  } else {
+
+# Define the data sets
+# --------------------
+    my %rapFil = ();
+
+    my $byeFil = "${rapBpe}RP${yyddd}0_999_000.PRT";
+
+    $rapFil{RF_ORBIT}{WAIT} = "${rapBpe}RP${yyddd}0_300_000.PRT";
+    $rapFil{RF_ORBIT}{WAIT} = $byeFil if -e $byeFil;
+    $rapFil{RF_ORBIT}{STD}  = "${rapStd}RF_${yyddd}.STD";
+    $rapFil{RF_ORBIT}{ERP}  = "${rapErp}RAP${yyddd}.ERP";
+    $rapFil{RF_ORBIT}{CRD}  = "${rapCrd}RF_${yyddd}.CRD";
+  #  $rapFil{RF_ORBIT}{TRP}  = "${rapTrp}RF_${yyddd}.TRP";
+
+    $rapFil{RH_ORBIT}{WAIT} = "${rapBpe}RP${yyddd}0_560_000.PRT";
+    $rapFil{RH_ORBIT}{WAIT} = $byeFil if -e $byeFil;
+    $rapFil{RH_ORBIT}{STD}  = "${rapStd}RQ_${yyddd}.STD";
+    $rapFil{RH_ORBIT}{ERP}  = "${rapErp}RQ_${yyddd}.ERP";
+    $rapFil{RH_ORBIT}{CRD}  = "${rapCrd}RQ_${yyddd}.CRD";
+    $rapFil{RH_ORBIT}{TRP}  = "${rapTrp}RQ_${yyddd}.TRP";
+
+    $rapFil{RA_ORBIT}{WAIT} = "${rapOut}RAP${yyddd}.PRC";
+    $rapFil{RA_ORBIT}{WAIT} = "${rapBpe}RP${yyddd}0_590_000.PRT";
+    $rapFil{RA_ORBIT}{WAIT} = $byeFil if -e $byeFil;
+  ##  $rapFil{RA_ORBIT}{STD}  = "${rapStd}RAM1${ddd}.STD";
+  ##  $rapFil{RA_ORBIT}{ERP}  = "${rapErp}RA_${yydddp1}.ERP";
+    $rapFil{RA_ORBIT}{STD}  = "${rapStd}RA_${yyddd}.STD";
+    $rapFil{RA_ORBIT}{ERP}  = "${rapErp}RA_${yyddd}.ERP";
+    $rapFil{RA_ORBIT}{CRD}  = "${rapCrd}RA_${yyddd}.CRD";
+    $rapFil{RA_ORBIT}{TRP}  = "${rapTrp}RA_${yyddd}.TRP";
+
+    $rapFil{RM_ORBIT}{WAIT} = "${rapOut}RAP${yyddd}.PRC";
+    $rapFil{RM_ORBIT}{WAIT} = $byeFil if -e $byeFil;
+    $rapFil{RM_ORBIT}{STD}  = "${rapStd}RM_${yyddd}.STD";
+    $rapFil{RM_ORBIT}{ERP}  = "${rapErp}RM_${yyddd}.ERP";
+    $rapFil{RM_ORBIT}{CRD}  = "${rapCrd}RM_${yyddd}.CRD";
+    $rapFil{RM_ORBIT}{TRP}  = "${rapTrp}RM_${yyddd}.TRP";
+
+    $rapFil{SA_ORBIT}{WAIT} = "${rapOut}RAP${yyddd}.PRC";
+    $rapFil{SA_ORBIT}{WAIT} = $byeFil if -e $byeFil;
+    $rapFil{SA_ORBIT}{STD}  = "${rapStd}RM_${yyddd}.STD";
+    $rapFil{SA_ORBIT}{ERP}  = "${rapErp}RM_${yyddd}.ERP";
+    $rapFil{SA_ORBIT}{CRD}  = "${rapCrd}RM_${yyddd}.CRD";
+    $rapFil{SA_ORBIT}{TRP}  = "${rapTrp}RM_${yyddd}.TRP";
+
+# Initiate use of middle day (if desired and if available)
+# --------------------------------------------------------
+    my $midFil   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/MSC/MID${yyddd}.FLG";
+##    my $ultFil   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/MSC/ULT${yydddp1}.FLG";
+    my $ultFil   = "$ENV{PATH_RAP}$ENV{CAMP_RAP}/MSC/RM_${yyddd}.FLG";
+    if ($v_mid eq "Y") {
+      if (-s $rapFil{RM_ORBIT}{STD} &&
+          -s $rapFil{RM_ORBIT}{ERP} &&
+          -s $rapFil{RM_ORBIT}{CRD} &&
+          -s $rapFil{RM_ORBIT}{TRP}) {
+        prtMess($bpe,"Switched to RM_ORBIT");
+        if ( $pcf =~ /RCLKGNSS.*PCF/ && $PARAM1 eq "RF_ORBIT" ) {
+          copyfile("${rapBrd}${v_a}_${yyddd}.CLK","${dirClk}${v_a}_${yyssss}.${extClk}");
+        } elsif ( $PARAM1 eq "RF_ORBIT" ) {
+          copyfile("${rapBrd}${v_a}_${yyddd}.CLK","${dirClk}${v_a}_${yyddd}.${extClk}");
+        }
+        $PARAM1 = "RM_ORBIT";
+        $PARAM2 = "RM_ORBIT";
+        system("echo ' ' > ${camp_pth}${campaign}/MSC/MID${yyddd}.FLG");
+        copyfile($ultFil,"${camp_pth}${campaign}/MSC/MID${yyddd}.FLG") if -s $ultFil;
+        if ($pcf =~ /RCLKGNSS.*PCF/) {
+          system("echo ' ' > $midFil");
+          copyfile($ultFil,$midFil) if -s $ultFil;
+          copyfile("${rapStd}RM_${yyddd}.STD","${rapStd}MID${yyddd}.STD");
+          copyfile("${rapErp}RM_${yyddd}.ERP","${rapErp}MID${yyddd}.ERP");
+          copyfile("${rapStd}RM_${yyddd}.PRE","${rapStd}MID${yyddd}.PRE");
+          copyfile("${rapStd}RM_${yyddd}.ELE","${rapStd}MID${yyddd}.ELE");
+          copyfile("${rapErp}RM_${yyddd}.IEP","${rapErp}MID${yyddd}.IEP");
+          copyfile("${rapErp}COM${wwwwd}.ERP","${rapErp}MID${wwwwd}.ERP");
+          copyfile("${rapTrp}RM_${yyddd}.TRP","${rapTrp}MID${yyddd}.TRP");
+          copyfile("${rapTrp}RM_${yyddd}.TRO","${rapTrp}MID${yyddd}.TRO");
+          copyfile("${rapOut}RM_${yyddd}.OUT","${rapOut}MID${yyddd}.OUT");
+
+##          $rapFil{RM_ORBIT}{STD}  = "${rapStd}MID${yyddd}.STD";
+##          $rapFil{RM_ORBIT}{ERP}  = "${rapErp}MID${yyddd}.ERP";
+##          $rapFil{RM_ORBIT}{CRD}  = "${rapCrd}MID${yyddd}.CRD";
+##          $rapFil{RM_ORBIT}{TRP}  = "${rapTrp}MID${yyddd}.TRP";
+        }
+      } else {
+        prtMess($bpe,"RM_ORBIT unavailable");
+      }
+    } else {
+      prtMess($bpe,"RM_ORBIT undesired");
+    }
+
+# Get the keyword for waiting
+# ---------------------------
+    my $keyword = $PARAM1;
+
+# Use alternative solution set to speed up the procedure
+# ------------------------------------------------------
+    my $flgFil = "${camp_pth}${campaign}/MSC/SKIP_JOB.FLG";
+
+    if ( -e $flgFil ) { my $keyword = $PARAM2 }
+
+    prtMess($bpe,"Waiting for $keyword");
+
+# List of possible solutions for each keyword
+# -------------------------------------------
+    my @keyList = ();
+
+    foreach my $key (split(" ","RM_ORBIT RA_ORBIT RH_ORBIT RF_ORBIT")) {
+      push @keyList,$key;
+      if ($keyword eq "FINISHED") { $oldFile = 3600; last }
+      if ($keyword eq $key) { last }
+    }
+
+# Check for which solution all files are available
+# ------------------------------------------------
+    my $useKey = "";
+    while ($useKey eq "") {
+      unless ( $repro || $PARAM3 eq  "" ){
+          my ($mjd_t) = gps_date("-t -o %FJ");
+          my ($yyddd_t) = gps_date("-doy -1 -o %y%j");
+          my ($seconds) = gps_date("-yd $yyddd_t -hms ${PARAM3} 00 00 -o %U");
+          print "TIME: $yyddd_t $mjd_t SEC:  $seconds\n";
+          if($yyddd == $yyddd_t && $mjd_t > 0.6){
+              my $rmorb = $rapFil{RM_ORBIT}{STD};
+              print "STAT: ".(stat($rmorb))[9]."\n";
+              if((stat($rmorb))[9] < $seconds){
+                print timstr(localtime(time)),
+                  " Waiting for file $rapFil{RM_ORBIT}{STD}\n";
+                sleep $waiting;
+                next;
+              }
+          }
+      }
+
+      foreach my $key (@keyList) {
+        $useKey = $key;
+        my $files = $rapFil{$key};
+        foreach my $filKey (keys(%$files)) {
+          if (-e $rapFil{$key}{$filKey} &&
+            (stat($rapFil{$key}{$filKey}))[9]+$oldFile <= time) {
+             print timstr(localtime(time)),
+                   " Waiting for file $rapFil{$key}{$filKey}\n"; next }
+          print timstr(localtime(time)),
+                " Looking for file $rapFil{$key}{$filKey} ...\n";
+          $useKey = "";
+          last
+        }
+        if ($useKey ne "") { last }
+
+      }
+
+      if ($useKey eq "") { sleep $waiting }
+
+    }
+
+# Copy the files
+# --------------
+    prtMess($bpe,"Copy solution $useKey");
+
+    if ( $pcf =~ /RCLKGNSS.PCF/ ) {
+      copyfile($rapFil{$useKey}{STD},"${dirStd}${v_k}_${yyssss}.${extStd}");
+      copyfile($rapFil{$useKey}{ERP},"${dirErp}${v_k}_${yyssss}.${extErp}");
+      copyfile($rapFil{$useKey}{CRD},"${dirCrd}${v_k}_${yyssss}.${extCrd}");
+      copyfile($rapFil{$useKey}{TRP},"${dirTrp}${v_k}_${yyssss}.${extTrp}") if (defined $rapFil{$useKey}{TRP});
+      if ( $PARAM1 eq "RF_ORBIT" ) {
+        copyfile("${rapBrd}${v_a}_${yyddd}.CLK","${dirClk}${v_a}_${yyssss}.${extClk}");
+      }
+    }elsif ( $pcf =~ /RCLKGNSS_GAL.PCF/ ) {
+      copyfile("${dirCrd}/../../IGSR_GAL/ORB/RQ_${yyddd}.STD","${dirStd}${v_k}_${yyssss}.${extStd}");
+      copyfile("${dirCrd}/../../IGSR_GAL/ORB/RQ_${yyddd}.ERP","${dirErp}${v_k}_${yyssss}.${extErp}");
+      copyfile("${dirCrd}/../../IGSR_GAL/STA/RQ_${yyddd}.CRD","${dirCrd}${v_k}_${yyssss}.${extCrd}");
+      copyfile("${dirCrd}/../../IGSR_GAL/ATM/RQ_${yyddd}.TRP","${dirTrp}${v_k}_${yyssss}.${extTrp}") if (defined $rapFil{$useKey}{TRP});
+    }else {
+      copyfile($rapFil{$useKey}{STD},"${dirStd}${v_k}_${yyddd}.${extStd}");
+      copyfile($rapFil{$useKey}{ERP},"${dirErp}RCK${yyddd}.${extErp}");
+      copyfile($rapFil{$useKey}{CRD},"${dirCrd}${v_k}_${yyddd}.${extCrd}");
+      copyfile($rapFil{$useKey}{TRP},"${dirTrp}${v_k}_${yyddd}.${extTrp}") if (defined $rapFil{$useKey}{TRP});
+      if ( $PARAM1 eq "RF_ORBIT" ) {
+        copyfile("${rapBrd}${v_a}_${yyddd}.CLK","${dirClk}${v_a}_${yyddd}.${extClk}");
+      }
+    }
+
+
+# Take over VMF information from IGSRAPID campaign
+# ------------------------------------------------
+    my $grdInp = "$CDIR_RAP/GRD/VMF${yyddd}.${extGrd}";
+    my $flgInp = "$CDIR_RAP/MSC/TRP_${yyddd}.FLG";
+
+    my $grdFil = "${dirGrd}VMF${yyddd}.${extGrd}";
+    my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+
+    if (-e $flgInp) { unlink($grdFil); copyfile($flgInp,$flgFil) }
+    else            { copyfile($grdInp,$grdFil) if substr($trpModel,0,3) eq "VMF"; unlink($flgFil) }
+
+    copyfile($grdInp,$grdFil) if -s $grdInp && substr($trpModel,0,3) eq "VMF";
+
+  }
+
+# Add new coordinates
+# -------------------
+  my $PGMNAM = "CRDMERGE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Provide a list with stations in the troposphere file
+# ----------------------------------------------------
+  my $trpFil = "${dirTrp}${v_k}_${yyssss}.${extTrp}";
+  if ( -s $trpFil ) {
+    my $clbFil = "${dirClb}${v_k}${ssss}01.${extClb}";
+
+    my $iRead = 0;
+    my %tropo = ();
+    my ($ERR_STATE,$tropFileVers,$skipHeadLines,$numEpoTrop) = &getTropHeadInf($trpFil);
+
+    open(TRP,$trpFil);
+    while (<TRP>) {
+      $iRead++;
+      if ( $iRead > $skipHeadLines ) {
+        last if ( /^[ ]*$/ );
+        my $sta = substr($_,1,16);
+        $tropo{$sta}++;
+      }
+    }
+    close TRP;
+
+    my $trpMax = 0;
+    map { $trpMax = $_ if ($trpMax < $_) } values %tropo;
+
+    open(CLB,"> $clbFil");
+    foreach my $sta ( sort keys %tropo ) {
+      next if ($tropo{$sta} < $trpMax);
+      my ($sta2,$sta4,$stanam) = getABB($sta);
+      my $obsFil = "${dirPzh}${sta4}${ssss}.${extPzh}";
+      print CLB "$obsFil\n" if (-s $obsFil);
+    }
+    close CLB;
+  }
+}

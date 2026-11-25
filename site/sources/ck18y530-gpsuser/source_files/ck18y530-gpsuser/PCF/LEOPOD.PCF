@@ -1,0 +1,190 @@
+#
+# =============================================================================
+# LEOPOD.PCF
+# =============================================================================
+#
+# Purpose:      PRECISE ORBIT DETERMINATION FOR LOW EARTH ORBITER
+# - reduced-dynamic and kinematic orbits
+#
+# -----------------------------------------------------------------------------
+#
+# A description of the BPE, the use of the BPE server variables, input and
+# output files as well as the important points to be checked in the processing
+# summary are provided in
+# ${U}/PCF/LEOPOD.README    (UNIX/Linux)
+# %U%\PCF\LEOPOD.README    (Windows)
+#
+# -----------------------------------------------------------------------------
+#
+# Author:       Heike Bock
+# Created:      09-Feb-2012                  Last modified:
+#
+# Changes:
+#
+# ==============================================================================
+#
+#
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Copy required files (apart from RINEX and ATT)
+# ----------------------------------------------
+001  LEO_COP   NO_OPT    CPU=SHORT
+#
+# Prepare clock information
+# => PART 0
+# ------------------------------------------
+071  RNXCLK    LPDR_GEN  CPU=SHORT; WAIT=001; SKIP
+#
+# LEO RINEX and ATT import
+# => PART 1
+# ------------------------------------------
+080  LEO_RNX   NO_OPT    CPU=LOCAL
+085  LEOATT    LPDR_APR  CPU=SHORT; WAIT=080
+090  RNXSMTL   LPDR_APR  CPU=SHORT; WAIT=001 080
+100  RXOBV3L   LPDR_APR  CPU=SHORT; WAIT=090
+#
+# First a priori orbit generation for LEO
+# => PART 2
+# ------------------------------------------
+110  CODSPP    LPDR_APR  CPU=SHORT; WAIT=071 085 100
+120  KINPRE    LPDR_APR  CPU=SHORT; WAIT=110
+130  ORBAPR    LPDR_APR  CPU=SHORT; WAIT=120
+#
+# Data screening
+# => PART 3
+# -------------------------------------------
+131  ORBAPRS   LPDR_APS  CPU=SHORT; WAIT=130
+135  CODSPPS   LPDR_APS  CPU=SHORT; WAIT=131; SKIP
+140  MPGPUP    LPDR_MPG  CPU=SHORT; WAIT=135
+150  GPSEST    LPDR_GRS  CPU=SHORT; WAIT=140
+151  GPSESTRB  LPDR_GR2  CPU=SHORT; WAIT=140
+152  APPOSB    NO_OPT    CPU=LOCAL; WAIT=151
+160  RESRMSL   LPDR_GRS  CPU=SHORT; WAIT=150 151 152
+170  SATMRK    LPDR_GRS  CPU=SHORT; WAIT=160
+200  CODSPP    LPDR_INT  CPU=SHORT; WAIT=170
+#
+# A priori orbit for final orbit determination
+# => PART 4
+# -------------------------------------------
+400  STDPREL   LPDR_INT  CPU=SHORT; WAIT=140
+410  ORBAPF    LPDR_INT  CPU=SHORT; WAIT=085 400
+#
+# Final LEO POD
+# -------------
+# Reduced-dynamic orbit
+# => PART 5
+# -------------------------------------------
+420  SKIP_WL   NO_OPT    CPU=LOCAL; WAIT=200 410; NEXTJOB=500
+425  AMBINI    LPDR_WL   CPU=SHORT; WAIT=420
+430  GPSEST    LPDR_WL   CPU=SHORT; WAIT=085 425
+440  GPSXTRL   LPDR_WL   CPU=SHORT; WAIT=430
+500  GPSESTA   LPDR_FIN  CPU=SHORT; WAIT=085 430
+501  GPSXTRL   LPDR_FIN  CPU=SHORT; WAIT=500
+502  ORBGENL   LPDR_FIN  CPU=SHORT; WAIT=085 501
+503  STDPREL   LPDR_FIN  CPU=SHORT; WAIT=502
+504  LEOITER   NO_OPT    CPU=LOCAL; WAIT=503; NEXTJOB=500
+511  GPSESTA2  LPDR_RES  CPU=SHORT; WAIT=085 504
+512  RESRMSL   LPDR_RES  CPU=SHORT; WAIT=511
+#
+# Kinematic orbit
+# => PART 6
+# -------------------------------------------
+600  GPSESTA2  LPDR_KIN  CPU=SHORT; WAIT=085 504
+601  GPSXTRL   LPDR_KIN  CPU=SHORT; WAIT=600
+602  KINPRE    LPDR_KIN  CPU=SHORT; WAIT=600
+612  RESRMSL   LPDR_KIN  CPU=SHORT; WAIT=601 602
+#
+# Comparison of orbits
+# => PART 7
+# -------------------------------------------
+620  STDPREL2  LPDR_KIN  CPU=SHORT; WAIT=600 504 602
+700  ORBCMP    LPDR_CMP  CPU=SHORT; WAIT=620
+#
+# Create summary file, save and delete files
+# -------------------------------------------
+901  LEO_SUM   LPDR_GEN  CPU=LOCAL; WAIT=700 512 612
+902  LEO_SAV   LPDR_GEN  CPU=LOCAL; WAIT=901
+903  LEO_DEL   LPDR_GEN  CPU=LOCAL; WAIT=902; SKIP
+904  CLEANUP   NO_OPT    CPU=LOCAL; WAIT=903
+905  OBS_REN   NO_OPT    CPU=LOCAL; WAIT=904
+991  BPE_CLN   LPDR_GEN  CPU=LOCAL; WAIT=905; SKIP
+#
+# End of BPE
+# ----------
+999  DUMMY     NO_OPT    CPU=LOCAL; WAIT=991
+#
+
+VARIABLE   DEFAULT        PARAMETERS
+V_LEO      = DUMMY;         DESCRIPTION=LEO name
+V_SVN      = DUMMY;         DESCRIPTION=LEO SVN (for LEOATT)
+V_LMAC     = DUMMY;         DESCRIPTION=Macro model file
+V_ATT      = DUMMY;         DESCRIPTION=Attitude file name
+V_A        = DUMMY;         DESCRIPTION=A priori information for LEO
+V_F        = DUMMY;         DESCRIPTION=Final solution identifier for LEO
+V_ORBDIR   = DUMMY;         DESCRIPTION=GPS orbit/ERP directory
+V_CLKDIR   = DUMMY;         DESCRIPTION=GPS clock directory
+V_B        = *;             DESCRIPTION=GPS orbit/ERP
+V_CLK      = *;             DESCRIPTION=GPS CLK information
+V_SPEC     = *;             DESCRIPTION=Use special a priori orbit (maneuver)
+V_SMP      = DUMMY;         DESCRIPTION=Sampling in RXOBV3
+V_SPRD     = *;             DESCRIPTION=Sampling for RD orbit
+V_SPKN     = DUMMY;         DESCRIPTION=Sampling for kin. orbit
+V_ESTOSB   = DUMMY;         DESCRIPTION=Output file for estimated rec. code biases
+V_AR       = *;             DESCRIPTION=Zero difference ambiguity resolution
+V_INL1L2   = *;             DESCRIPTION=Introduce L1 and L2 integers (no AR)
+V_OSB      = *;             DESCRIPTION=OSB file for ZD AR
+V_AMBINI   = *;             DESCRIPTION=Initialize already resolved ambiguites?
+V_WLEAST   = *;             DESCRIPTION=WL amb. resolvable if 1 int. within sig.
+V_NLEAST   = *;             DESCRIPTION=NL amb. resolvable if 1 int. within sig.
+V_WMOST    = *;             DESCRIPTION=Max. sig. of resolvable WL amb.
+V_NMOST    = *;             DESCRIPTION=Max. sig. of resolvable NL amb.
+V_WSIGMI   = *;             DESCRIPTION=Min. sig. used for WL AR testing
+V_NSIGMI   = *;             DESCRIPTION=Min. sig. used for NL AR testing
+V_PTHR     = *;             DESCRIPTION=Phase res. threshold in m for screening
+V_CTHR     = *;             DESCRIPTION=Code res. threshold in hm for screening
+V_MXCINT   = *;             DESCRIPTION=Max. clock interpolation (s)
+V_OFFS     = *;             DESCRIPTION=Do observation epochs have an offset?
+V_NSCR     = *;             DESCRIPTION=Number of screening loops
+V_ITRD     = *;             DESCRIPTION=Number of iterations for RD POD
+V_FROM     = *;             DESCRIPTION=Start time (HH MM SS)
+V_TO       = *;             DESCRIPTION=End time (HH MM SS)
+V_TDA      = *;             DESCRIPTION=Number of days to go back to arc start
+V_TDE      = *;             DESCRIPTION=Number of days to go forward to arc end
+V_TARC     = *;             DESCRIPTION=Arc length (days)
+V_NSTC     = *;             DESCRIPTION=Number of pseudo-stoch. par. per day
+V_CONR     = *;             DESCRIPTION=Constraint for R pseudo-stoch. par
+V_CONS     = *;             DESCRIPTION=Constraint for S pseudo-stoch. par
+V_CONW     = *;             DESCRIPTION=Constraint for W pseudo-stoch. par
+V_MINEL    = *;             DESCRIPTION=Elevation cut-off for observations
+V_RNX3     = *;             DESCRIPTION=Run RNXSMT?
+V_POTCOE   = *;             DESCRIPTION=Earth potential coefficients
+V_POTDEG   = *;             DESCRIPTION=Max. degree for Earth potential
+V_BLQINF   = *;             DESCRIPTION=BLQ FILE NAME, CMC CORRECTIONS
+V_SUBMOD   = *;             DESCRIPTION=Subdaily pole model
+V_NUTMOD   = *;             DESCRIPTION=Nutation model
+V_OTID     = *;             DESCRIPTION=Ocean tides file
+V_PEPH     = *;             DESCRIPTION=Planetary ephemeris
+V_CRDINF   = *;             DESCRIPTION=CRD FILE NAME
+V_STAINF   = *;             DESCRIPTION=ABB and STA FILE NAME
+V_RESULT   = ;              DESCRIPTION=Directory name for the LEO-POD results
+V_PCV      = *;             DESCRIPTION=GNSS PCV MODEL
+V_PCVM     = *;             DESCRIPTION=PCV Model version
+V_PCC4MWGF = *;             DESCRIPTION=PCC applied for MW/GF LC
+V_SATINF   = *;             DESCRIPTION=SATELLITE INFORMATION
+V_PCVINF   = *;             DESCRIPTION=PCV INFORMATION
+V_SATCRX   = *;             DESCRIPTION=Satellite problem file
+V_OBSSEL   = *;             DESCRIPTION=Observation selection
+V_REFDIR   = *;             DESCRIPTION=Directory with basic Bernese files
+V_LEODIR   = DUMMY;         DESCRIPTION=Directory with LEO data files
+V_RNXDIR   = DUMMY;         DESCRIPTION=Directory with RINEX files (in V_LEODIR)
+V_ATTDIR   = DUMMY;         DESCRIPTION=Directory with ATT files (in V_LEODIR)
+V_SAV      = *;             DESCRIPTION=Save results?
+V_DEL      = *;             DESCRIPTION=Delete results?
+V_CLEAN    = *;             DESCRIPTION=Clean up?
+V_OBSREN   = *;             DESCRIPTION=Rename observation files?
+V_IGNERR   = ;              DESCRIPTION=GPSEST SR to ignore errors from
+#
+V_PCFCONFIG = LEOPOD MODEL;          DESCRIPTION=Configuration file
+
+

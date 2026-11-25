@@ -1,0 +1,385 @@
+#!/bin/sh
+# SCRIPT-NAME
+# sh script file written by bds
+# -----------------------------
+# functions used by shell
+do_rm( ) {
+    if [ "$1" ]
+    then
+        if [ -f `echo $1 | tr ' ' '\012' | head -1` ]
+        then
+            eval rm $1
+        fi
+    fi
+}
+#
+toupper( ) {
+    eval $1=`echo $2 | ${UPPERC}`
+    eval export $1
+}
+#
+seterr( ) {
+    if [ $? = 0 ]
+    then
+        ERRSTAT=OK
+    else
+        ERRSTAT=ERR
+    fi
+}
+#
+# -----------------------------
+# SHELL STARTS HERE
+# -----------------------------
+#
+# Changes:
+# 27-Aug-2001 rd: switch to the new menu system
+# 14-Mar-2002 mm: "Code-DD"-GPSEST, RESRMS and SATMRK added
+# 18-Mar-2002 mm: Enable iterations (code screening and Wuebb only in
+# first iteration)
+# 30-Mar-2002 ss: Create baseline-specific W1 (P1-C1) DCB NQ0
+# 02-Sep-2002 ss: Check whether CSO file available
+# 14-Sep-2002 ss: ADDNEQ2 run to retrieve DCB values just after WL AR
+# 17-Sep-2002 ss: Make use of improved GPSEST version
+# 18-Sep-2002 ss: Number of NPUTKEY reduced
+# 28-Jul-2003 rd: Adapt to the new BPE ("\$CD4"->"\$(CD4)", no links anymore)
+# 29-Jul-2003 rd: Replace "{]}" by "]" in path names
+# 29-Jul-2003 rd: Quotes for \$(CD4)
+# 21-Jan-2004 ss: Set PRE04 when needed
+# 14-Apr-2005 mm: TITLE set correctly (w/o STRING)
+# 02-Mar-2011 ss: CD4 replaced by FFFF
+# 20.May.2016 ss/av: Modified due ro OSB implementation
+#
+# GPSAMB_P
+# ========
+#
+# PARALLEL RUN FOR AMBIGUITY FIXING (BASELINE BY BASELINE) USING MELWUB
+# ---------------------------------------------------------------------
+#
+# Shell Variables: (set when running the header file)
+# ---------------
+#
+# YEAR    :  Year of the session to be processed (2 digit)
+# SESSION :  Session number (4 characters)
+# CAMPAIGN:  Campaign name
+# CAMP_PTH:  Campaign path
+# CAMP_DRV:  Drive letter for campain (i.e. P)
+# OPT_DIR :  Directory for panels
+# PID     :  Process identification number (3 digits)
+# SUB_PID :  Subprocess id (3 digits)
+# PRT_FILE:  Protocol file name including path
+# SCRIPT  :  Name of script
+# TASKID  :  Task id of script, usually 00
+# PRIORITY:  Priority of the script
+# CPU     :  CPU the script is running on
+# DAYYEAR :  Julian day of the year
+# DAY     :  Day of the Month
+# MONTH   :  Month, 1=JAN, 12=DEC
+# GPSWEEK :  GPS week
+# DAYWEEK :  Day of the week, 0=SUN, 6=SAT
+# V_X     :  X Variable in DAT151__.PAN
+# V_O     :  O Variable in DAT151__.PAN
+# V_Z     :  Z Variable in DAT151__.PAN
+# V_PLUS  :  Plus variable in DAT151__.PAN
+# V_MINUS :  Minus variable in DAT151__.PAN
+# V_x     :  User variable
+# PARAMx  :  Script specific parameter, x is 1 thru 9
+# U       :  Directory path to U:
+#
+# Use the new menu
+TSTMENU="TRUE"
+export TSTMENU
+#
+# See if this shell is being run from the PCS
+# script, or directly for testing.  If testing,
+# no the header script is not passed in as %1%
+#
+if [ "$1" = "" ]
+then
+#
+#   set variables for testing here
+#
+    TEST_START_DIR=`pwd`
+    cd $U/WORK
+    TESTING="YES"
+    export TESTING
+else
+    TESTING="NO"
+    export TESTING
+    . "$1"
+    seterr
+fi
+#
+# START THE MENU SYSTEM IN NON-INTERACTIVE MODE
+# ---------------------------------------------
+. $X/SCRIPT/BEG_MENU
+seterr
+#
+# SET VARIABLES IN DAT151__.PAN
+# -----------------------------
+. $X/SCRIPT/SET_SESS
+seterr
+#
+# Define some temporary files
+# ---------------------------
+tmp_id=$$
+export tmp_id
+TMPFIL1="B_"$tmp_id".TM1"
+export TMPFIL1
+TMPFIL2="B_"$tmp_id".TM2"
+export TMPFIL2
+rm -f "$TMPFIL1"
+rm -f "$TMPFIL2"
+#
+# Get "PARALEL" parameter (PARAM1)
+# --------------------------------
+FILE=""$PARAM1""
+export FILE
+#
+# Get first four characters of filename
+# -------------------------------------
+echo "$FILE" > "$TMPFIL1"
+${EXE}/RBPE PRSLIN "$TMPFIL1" "$TMPFIL2"
+seterr
+FILNAM=`cat "$TMPFIL2"`
+export FILNAM
+FILNAM4=`echo "$FILNAM" | cut -c1-4`
+#
+# Set variable CODE4 in panel DAT151__.PAN (4-char FILNAM: e.g. EZIM)
+# -------------------------------------------------------------------
+tmpfil="OBS"$tmp_pid".SEL"
+export tmpfil
+# open write #fid "$tmpfil"
+rm -f "$tmpfil"
+#
+echo '"'FFFF'"' '"'"$FILNAM4"'"' >> "$tmpfil"
+# close #fid
+${EXE}/NPUTKEY $U/PAN/MENU_VAR.INP USERVAR SELECTED PREPEND "$tmpfil"
+seterr
+rm -f "$tmpfil"
+#
+# Generate "SELECTED" file
+# ------------------------
+rm -f $U/WORK/PHSFILE.SEL
+echo "$FILNAM" > $U/WORK/PHSFILE.SEL
+#
+# Check whether CSO file available
+# --------------------------------
+CSOFIL=""$CAMP_PTH""$CAMPAIGN"/OBS/"$FILNAM4""$SESSION".CSO"
+export CSOFIL
+if [ -f `echo $CSOFIL | tr ' ' '\012' | head -1` ]
+then
+#
+#   Screening of code observations
+#   ------------------------------
+#
+#   Check if residuals exist
+#   ------------------------
+    RESFIL=""$CAMP_PTH""$CAMPAIGN"/OUT/"$FILNAM4""$DAYYEAR"C.RES"
+    export RESFIL
+    if [ -f `echo $RESFIL | tr ' ' '\012' | head -1` ]
+    then
+#
+#       Do nothing
+#       ----------
+        $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" WL_AR_DONE
+        seterr
+    else
+#
+#       Double-difference code-only solution
+#       ------------------------------------
+        $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" WL_AR_STARTED
+        seterr
+#
+#       set STRING = "HELF"
+#
+#       set STRING = "DD CODE DATA SCREENING, BASELINE \$(FFFF), DAY \$YD+0"
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP TITLE     %STRING%
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP TITLE     "DD CODE DATA SCREENING, BASELINE \$(FFFF), DAY \$YD+0"
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP CSFILES   "\$(FFFF)\$S+0"
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP PSFILES   ""
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP DCBINP    APR\$YD+0
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP SYSOUT    "\$(FFFF)\$+0C"
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP RESIDRS   "\$(FFFF)\$+0C"
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP FIXSTA    ALL
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP AMBSTRAT  NONE
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP APRWIDE   0
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP AMBSAVE   0
+        seterr
+#
+        PGMNAM="GPSEST"
+        export PGMNAM
+        . $X/SCRIPT/RUN_PGMS
+        seterr
+#
+#       Screening of residuals
+#       ----------------------
+        PGMNAM="RESRMS"
+        export PGMNAM
+        . $X/SCRIPT/RUN_PGMS
+        seterr
+#
+#       Removing bad observations
+#       -------------------------
+        PGMNAM="SATMRK"
+        export PGMNAM
+        . $X/SCRIPT/RUN_PGMS
+        seterr
+#
+#       Compute residuals after screening (skipped for time reasons)
+#       ------------------------------------------------------------
+#       set PGMNAM = GPSEST
+#       source X:[SCRIPT]RUN_PGMS
+#
+#       First GPSEST for the baseline (MELWUB to get WIDELANE AMB.)
+#       -----------------------------------------------------------
+        OSBFIL=""$CAMP_PTH""$CAMPAIGN"/ORB/"$FILNAM4""$DAYYEAR"W.OSB"
+        export OSBFIL
+        rm -f "$OSBFIL"
+#
+#       set STRING = "WL AMBIGUITY RESOLUTION, BASELINE \$(FFFF), DAY \$YD+0"
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP TITLE     %STRING%
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP TITLE     "WL AMBIGUITY RESOLUTION, BASELINE \$(FFFF), DAY \$YD+0"
+        seterr
+#
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP PSFILES   "\$(FFFF)\$S+0"
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP SYSOUT    "\$(FFFF)\$+0W"
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP RESIDRS   ""
+        seterr
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP NEQUARS   "\$(FFFF)\$+0W"
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP DCBOUT    "\$(FFFF)\$+0W"
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP FREQUENCY MELWUEBB
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP AMBSTRAT  SIGMA
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP AMBSAVE   1
+        seterr
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP LEAST     3
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP MOST      0.07
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP SIGMAMIN  0.05
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP DCBEST    1
+#       CAUTION: NEW:
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP DCBREC    1
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP PRE04     PRIOR_TO_NEQ_SAVING
+#
+#       set USER_PROJECT = TRUE
+#       set PROJECT_NAME = AMBRES
+#       set PGMNAM = GPSEST
+#       source X:[SCRIPT]RUN_PGMS_PRJ
+        PGMNAM="GPSEST"
+        export PGMNAM
+        . $X/SCRIPT/RUN_PGMS
+        seterr
+#
+#       Reset options for NL ambiguity resolution
+#       -----------------------------------------
+#       set STRING = "NL AMBIGUITY RESOLUTION, BASELINE \$(FFFF), DAY \$YD+0"
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP TITLE     %STRING%
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP TITLE     "NL AMBIGUITY RESOLUTION, BASELINE \$(FFFF), DAY \$YD+0"
+        seterr
+#
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP CSFILES   ""
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP DCBINP    ""
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP SYSOUT    "\$(FFFF)\$+0N"
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP NEQUARS   ""
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP DCBOUT    ""
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP FREQUENCY L3
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP FIXSTA    FIRST
+        seterr
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP APRWIDE   1
+        seterr
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP LEAST    3.0
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP MOST      0.07
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP SIGMAMIN  0.05
+#       call X:[EXE]NPUTKEY U:[PAN]GPSEST.INP DCBEST    0
+        ${EXE}/NPUTKEY $U/PAN/GPSEST.INP PRE04     NO
+        seterr
+#
+        if [ -f `echo $OSBFIL | tr ' ' '\012' | head -1` ]
+        then
+            $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" OSB_RETRIEVAL_POSSIBLE
+            seterr
+#
+            PGMNAM="ADDNEQ2"
+            export PGMNAM
+#           source X:[SCRIPT]RUN_PGMS
+        else
+#           rm %CAMP_PTH%%CAMPAIGN%{.}SOL{]}%FILNAM4%%DAYYEAR%W.NQ0
+            :
+        fi
+#
+        rm -f "$CAMP_PTH""$CAMPAIGN"/OUT/"$FILNAM4""$DAYYEAR"F.OUT
+#
+        $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" WL_AR_ENDED
+        seterr
+    fi
+#
+#   Save previous narrowlane AR GPSEST output file
+#   ----------------------------------------------
+    $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" NL_AR_STARTED
+    seterr
+#
+    OUTFIL=""$CAMP_PTH""$CAMPAIGN"/OUT/"$FILNAM4""$DAYYEAR"N.OUT"
+    export OUTFIL
+    SAVFIL=""$CAMP_PTH""$CAMPAIGN"/OUT/"$FILNAM4""$DAYYEAR"F.OUT"
+    export SAVFIL
+    if [ -f `echo $OUTFIL | tr ' ' '\012' | head -1` ]
+    then
+        if [ -f `echo $SAVFIL | tr ' ' '\012' | head -1` ]
+        then
+            :
+        else
+            cp "$OUTFIL" "$SAVFIL"
+        fi
+    fi
+#
+#   Second GPSEST for the baseline (L3 to get L1&L2 AMB. intro. WIDELANE AMB.)
+#   --------------------------------------------------------------------------
+    PGMNAM="GPSEST"
+    export PGMNAM
+    . $X/SCRIPT/RUN_PGMS
+    seterr
+#
+    $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" NL_AR_ENDED
+    seterr
+else
+    $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" "$CSOFIL"_UNAVAILABLE
+    seterr
+    $X/SCRIPT/PRT_MESS "$PRT_FILE" MSG "$SCRIPT" PROCESS_SKIPPED
+    seterr
+fi
+#
+# Remove temporary Files
+# ----------------------
+rm -f "$TMPFIL1"
+rm -f "$TMPFIL2"
+#
+# --------------
+# end the script
+# --------------
+. $X/SCRIPT/END_MENU
+seterr
+if [ "$TESTING" = "YES" ]
+then
+    cd "$TEST_START_DIR"
+else
+    . $X/SCRIPT/DO_TAIL
+    seterr
+fi

@@ -1,0 +1,108 @@
+package AMB_EXTRACT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  AMB_EXTRACT
+#
+# Purpose :  Extract useful summary entries ("Tot:") from IARyyssss.PRC
+#            and write formatted table lines to PROCESSING_yyddd.
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  # ---------------------- Parameter -----------------------------------------
+  my ($dirOut, $yyddd, $ssss, $yyyy, $yyssss, $V_Z) =
+    $bpe->getKeys('DIR_OUT', '$YD+0', '$S+0', '$Y+0', '$YSS+0', 'V_Z');
+
+  # Define and create day-specific MSC directory
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    die "Cannot create directory $mscDir: $!";
+  }
+
+  my $outfile = "$mscDir/PROCESSING_$yyddd";
+
+  # Input file
+  my $infile = "${dirOut}/IAR${yyssss}.PRC";
+  die "Cannot find input file $infile\n" unless -f $infile;
+
+  print "Extract from: $infile\n";
+  print "Write into:   $outfile\n";
+
+  # ---------------------- Read IAR file ------------------------------------
+  open(my $fh_in, "<", $infile) or die "Cannot open $infile: $!";
+
+  my @wanted = ();
+  while (my $line = <$fh_in>) {
+
+    # Select lines beginning with "Tot:"
+    if ($line =~ /^\s*Tot:/) {
+      push @wanted, $line;
+    }
+  }
+  close($fh_in);
+
+  # ---------------------- Write results -------------------------------------
+  open(my $fh, ">>", $outfile) or die "Cannot write $outfile: $!";
+
+  print $fh "==== Ambiguity resolution statistics ====\n";
+
+  if (@wanted) {
+
+    # ------- write header line -------
+    print $fh sprintf("%-7s %-7s %-7s %-20s\n",
+                      "Total", "%", "SYS", "AMB");
+    print $fh "-------------------------------------------------------------\n";
+
+foreach my $l (@wanted) {
+
+    chomp $l;
+
+    # Initialisiere Default-Werte
+    my ($first, $sixth, $sys, $comment) = ('-', '-', '-', '-');
+
+    # Kommentar extrahieren
+    if ($l =~ /#(.*)$/) {
+        $comment = $1;
+        $l =~ s/#.*$//;  # Kommentar aus der Linie entfernen
+    }
+
+    # Felder splitten
+    my @fields = split(/\s+/, $l);
+
+    if (@fields >= 6) {
+        $first = $fields[2];   # erste Zahl nach Tot:
+        $sixth = $fields[7];   # sechste Zahl (Index 6, da Tot: = fields[0])
+    }
+
+# SYS = alle Felder, die nur aus G/E bestehen, in der Reihenfolge
+    my @sys_fields;
+    foreach my $f (@fields) {
+        push @sys_fields, $f if $f =~ /^[GE]+$/;
+    }
+    $sys = join(" ", @sys_fields) if @sys_fields;
+
+    print $fh sprintf("%-7s %-7s %-7s %-20s\n",
+                      $first, $sixth, $sys, $comment);
+}
+
+
+  } else {
+    print $fh "No 'Tot:' lines found!\n";
+  }
+
+  print $fh "=============================================================\n";
+  close($fh);
+
+  print "AMB_EXTRACT done!\n";
+}
+
+1;

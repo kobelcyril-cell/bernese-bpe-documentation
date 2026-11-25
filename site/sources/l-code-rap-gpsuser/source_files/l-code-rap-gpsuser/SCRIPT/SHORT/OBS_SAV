@@ -1,0 +1,75 @@
+package OBS_SAV;
+@ISA = ("RUNBPE");
+# ==========================================================================
+#
+# Name    :  OBS_SAV
+#
+# Purpose :  Save the observation file into an archive
+#
+# Programs:
+#
+# Author  :  R. Dach
+# Created :  06-Dec-2007
+#
+# Changes :  22-Jul-2008 PS/RD: prepare for reprocesing
+#            25-Nov-2008 SL: $rnxTar = ""
+#            05-Jun-2018 SS: Replaced "GPS" by "G"
+#            06-Jun-2018 SS: Prepared for REPRO_IAR
+#            30-Jul-2020 ST: Add use igs_device.
+#
+# ==========================================================================
+
+use strict;
+
+use File::Basename;
+
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+# --------------------------------------------------------------------------
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,  $ssss, $yyyy, $camp_pth, $campaign, $v_sav, $v_gnss,
+      $dirPzh,  $extPzh, $dirPzo,  $extPzo,
+      $dirCzh,  $extCzh, $dirCzo,  $extCzo) =
+     $bpe->getKeys(
+      '$YD+0','$S+0','$Y+0','CAMP_PTH','CAMPAIGN','V_SAV','V_GNSS',
+      'DIR_PZH','EXT_PZH','DIR_PZO','EXT_PZO',
+      'DIR_CZH','EXT_CZH','DIR_CZO','EXT_CZO');
+
+  my $repro = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+# Archive Bernese observation files and RINEX after a reprocessing
+# ----------------------------------------------------------------
+  if ( $v_sav eq "Y" && $repro) {
+
+    # Define the directory
+    my $obsTar = $v_gnss eq "G" ?
+                "$PATH_SAV/$CAMP_SAVREP/$yyyy/OBS/CLK$yyddd.tar.gz" :
+                "$PATH_SAV/$CAMP_SAVREP/r$yyyy/OBS/CLK$yyddd.tar.gz";
+    $obsTar = "$PATH_SAV/REPRO_IAR/$yyyy/OBS/CLK$yyddd.tar.gz";
+
+    check_dir (dirname $obsTar);
+
+    # Create the archives
+    unless ($obsTar eq "") {
+      system ("tar -cvf - $dirPzh/????$ssss.$extPzh " .
+                         "$dirPzo/????$ssss.$extPzo " .
+                         "$dirCzh/????$ssss.$extCzh " .
+                         "$dirCzo/????$ssss.$extCzo | gzip -c > $obsTar");
+    }
+
+# Do the distribution
+# -------------------
+  } else {
+    prtMess($bpe,"OBSERVATION FILES NOT SAVED");
+  }
+
+}

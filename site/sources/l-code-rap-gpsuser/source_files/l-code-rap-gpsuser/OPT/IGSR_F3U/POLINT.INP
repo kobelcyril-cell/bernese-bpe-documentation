@@ -1,0 +1,241 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some Keywords for Automatic Output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Leap Second File
+! ----------------
+GPSUTC 1  "GPSUTC"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! Nutation Model
+! --------------
+NUTMOD 1  "$(NUTMOD)"
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_NUTMOD 1  "Nutation Model"
+
+! Subdaily ERP Model
+! -------------------
+SUBMOD 1  "$(SUBMOD)"
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Input ERP Files (IERS)
+! -----------------------
+EPFIL 1  "U$T$YD+0"
+  ## widget = selwin; path = DIR_IEP; ext = EXT_IEP; maxfiles = 4000
+
+ERPFIL_TXT_COL_1 1  "IEP files"
+
+! ERP File
+! ------------------
+POLE 1  "RAP$YD+0"
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! Pole IERS Format
+! ----------------
+IERSPOL 0
+  ## widget = lineedit; path = DIR_IEP; ext = EXT_IEP
+
+DESCR_IERSPOL 1  "IERS ERP file"
+
+! Plot File
+! ---------
+PLOTRS 1  "U$T$YD+0"
+  ## widget = lineedit; path = DIR_PLT; ext = EXT_PLT
+
+DESCR_PLOTRS 1  "Plot file of results"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "POLINT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title for Output Files
+! ----------------------
+TITLE 1  "Differences between ADDNEQ2 pole and Bulletin A"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Continuity
+! ----------
+CONT 1  "0"
+  ## widget = checkbox
+
+MSG_CONT 1  "Continuity"
+
+! Restitute subdaily ERP model
+! -----------------------------
+RESTSUB 1  "0"
+  ## widget = checkbox
+
+MSG_RESTSUB 1  "Restitute subdaily"
+
+! Allow double epochs
+! -------------------
+DBLEPO 1  "0"
+  ## widget = checkbox
+
+MSG_DBLEPO 1  "Allow double epochs"
+
+! Start record
+! -------------
+ILINEA 1  "1"
+  ## widget = lineedit
+
+MSG_ILINEA 1  "Start record"
+
+! End record
+! ----------
+ILINEB 1  "57"
+  ## widget = lineedit
+
+MSG_ILINEB 1  "End record"
+
+! Sampling
+! --------
+SAMPLING 1  "1"
+  ## widget = lineedit; check_type = integer; check_min = 1
+
+MSG_SAMPLING 1  "Sampling"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# DIFFERENCES BETWEEN ERP FILES - POLINT 1: Input/Output files                 #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files     > % <                                           # SHOWGEN
+#                                                                              #
+# INPUT FILES:                                                                 #
+#   Earth rotation parameters (IERS)    > %%%%%%%%%%%% <                       # EPFIL
+#   A priori Earth rotation parameters  > %%%%%%%%%%%% <                       # POLE
+#                                                                              #
+# OUTPUT FILES:                                                                #
+#   Earth rotation parameters (IERS)    > %%%%%%%%%%%% <                       # IERSPOL
+#   Plot file of results                > %%%%%%%%%%%% <                       # PLOTRS
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output         > % < use POLINT.Lnn           or  > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages         > % < merged to program output or  > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# TITLE    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # TITLE
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# POLINT 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#    GPS-UTC time difference          > %%%%%%%%%%%% <                         # GPSUTC
+#    General constants                > %%%%%%%%%%%% <                         # CONST
+#    Nutation model                   > %%%%%%%%%%%% <                         # NUTMOD
+#    Subdaily ERP model               > %%%%%%%%%%%% <                         # SUBMOD
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# POLINT 2: Input Options                                                      #
+#                                                                              #
+# CONTINUITY BETWEEN SETS:                                                     #
+#   Continuity between sets in UT1-UTC, DEPS and DPSI     > % <                # CONT
+#   Restitute subdaily pole model                         > % <                # RESTSUB
+#   Allow double epochs in result file(s)                 > % <                # DBLEPO
+#                                                                              #
+#                                                                              #
+# RECORD NUMBERS TO BE USED          Q1 A3  B3  C3  D3  G3  H3  F7  TUM  IGS   #
+#   Start record            > %% <    1  3  25   3   4  13  13   3   2    1    # ILINEA
+#   End record              > %% <   24  4  48   4   5  24  24  17   8    7    # ILINEB
+#                                                                              #
+#   Sampling                > %% <                                             # SAMPLING
+# END_PANEL ####################################################################

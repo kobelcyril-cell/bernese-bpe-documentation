@@ -18,6 +18,7 @@ import update_manual as manual
 
 ACTION_LABELS = (
     "Only rebuild the manual",
+    "Only publish to GitHub",
     "Add GPSUSER",
     "Remove GPSUSER",
     "Update GPSUSER",
@@ -112,22 +113,25 @@ class ManualGUI:
         if action == "Only rebuild the manual":
             ttk.Label(self.action_frame, text="Rebuild all configured GPSUSER manuals.").pack(anchor="w")
             self.button("Build manual", self.run_selected_action)
+        elif action == "Only publish to GitHub":
+            ttk.Label(self.action_frame, text="Publish the existing site/ to GitHub without rebuilding.").pack(anchor="w")
+            self.button("Publish to GitHub", self.run_selected_action)
         elif action == "Add GPSUSER":
             ttk.Label(self.action_frame, text="GPSUSER directory (must contain PCF/, SCRIPT/, and OPT/)").grid(row=0, column=0, sticky="w")
             self.path_var = tk.StringVar()
             ttk.Entry(self.action_frame, textvariable=self.path_var, width=76).grid(row=1, column=0, sticky="ew", padx=(0, 6))
             self.button("Browse…", self.browse_source, row=1, column=1)
             ttk.Label(self.action_frame, text="Configured sources: " + (", ".join(self.source_choices()) or "none")).grid(row=2, column=0, columnspan=2, sticky="w", pady=6)
-            self.button("Add source and rebuild", self.run_selected_action)
+            self.button("Add source and rebuild", self.run_selected_action, row=3)
         elif action in ("Remove GPSUSER", "Update GPSUSER"):
             ttk.Label(self.action_frame, text="Configured GPSUSER").grid(row=0, column=0, sticky="w")
             self.source_var = tk.StringVar()
             self.source_box = ttk.Combobox(self.action_frame, textvariable=self.source_var, values=self.source_choices(), state="readonly", width=90)
             self.source_box.grid(row=1, column=0, sticky="ew")
             if action == "Remove GPSUSER":
-                self.button("Remove source and rebuild", self.run_selected_action)
+                self.button("Remove source and rebuild", self.run_selected_action, row=2)
             else:
-                self.button("Update selected source", self.run_selected_action)
+                self.button("Update selected source", self.run_selected_action, row=2)
         elif action == "Add comment":
             self.build_add_comment_form()
         elif action == "Remove comment":
@@ -265,11 +269,16 @@ class ManualGUI:
         ttk.Label(self.action_frame, text="Existing comment").grid(row=0, column=0, sticky="w")
         self.comment_var = tk.StringVar()
         ttk.Combobox(self.action_frame, textvariable=self.comment_var, values=list(self.comment_map), state="readonly", width=100).grid(row=1, column=0, sticky="ew")
-        self.button("Remove comment and rebuild", self.run_selected_action)
+        self.button("Remove comment and rebuild", self.run_selected_action, row=2)
 
     def run_selected_action(self):
+        if self.worker and self.worker.is_alive():
+            return
         action = self.action.get()
         try:
+            if action == "Only publish to GitHub":
+                self.start_operation(publish_only=True)
+                return
             manual.ACTIVE_USER_NAME = self.user_name.get().strip() or manual.current_user_name()
             action_codes = {
                 "Only rebuild the manual": "a", "Add GPSUSER": "b1", "Remove GPSUSER": "b2",
@@ -282,7 +291,9 @@ class ManualGUI:
             if action == "Only rebuild the manual":
                 pass
             elif action == "Add GPSUSER":
-                self.add_source()
+                path = self.add_source()
+                self.append_log("Saved GPSUSER: {}\n".format(path))
+                self.show_form()
             elif action == "Remove GPSUSER":
                 self.remove_source()
             elif action in ("Update GPSUSER",):
@@ -297,9 +308,13 @@ class ManualGUI:
                 self.remove_handbook_entry()
             else:
                 return
-            self.start_build()
+            self.start_operation()
         except ValueError as exc:
             messagebox.showerror("Check the details", str(exc))
+        except OSError as exc:
+            self.status.set("Action failed.")
+            self.append_log(str(exc) + "\n")
+            messagebox.showerror("Action failed", str(exc))
 
     def add_source(self):
         raw = self.path_var.get().strip().strip('"')
@@ -313,6 +328,7 @@ class ManualGUI:
         if path in sources:
             raise ValueError("This GPSUSER is already configured.")
         manual.write_configured_sources(sources + [path])
+        return path
 
     def require_source(self):
         path = self.source_map.get(self.source_var.get())
@@ -417,15 +433,14 @@ class ManualGUI:
         self.log.see("end")
         self.log.configure(state="disabled")
 
-    def start_build(self):
-        if self.worker and self.worker.is_alive():
-            return
-        self.publish_requested = self.publish_var.get()
+    def start_operation(self, publish_only=False):
+        self.publish_requested = publish_only or self.publish_var.get()
         self.active_user_name = self.user_name.get().strip() or manual.current_user_name()
-        self.status.set("Building manual…")
+        self.status.set("Publishing to GitHub…" if publish_only else "Building manual…")
         self.progress.start(12)
-        self.append_log("\n--- Build started ---\n")
-        self.worker = threading.Thread(target=self.build_worker, daemon=True)
+        if not publish_only:
+            self.append_log("\n--- Build started ---\n")
+        self.worker = threading.Thread(target=self.run_operation, args=(publish_only,), daemon=True)
         self.worker.start()
 
     def run_process(self, command, env):
@@ -434,31 +449,35 @@ class ManualGUI:
             self.events.put(("line", line))
         return process.wait()
 
-    def build_worker(self):
+    def build_manual(self, env):
+        command = [sys.executable, "-u", str(Path(manual.__file__).resolve()), "--no-prompts"]
+        update_source = getattr(self, "selected_update_source", None)
+        configured = manual.read_configured_sources()
+        if update_source is None or len(configured) <= 1:
+            return self.run_process(command, env)
+        branch = manual.OUTPUT_DIR / "sources" / manual.source_slug(update_source)
+        command.extend(["--source-dir", str(update_source), "--output-dir", str(branch)])
+        result = self.run_process(command, env)
+        if result == 0:
+            manual.write_multi_source_overview(manual.OUTPUT_DIR, configured)
+        return result
+
+    def run_operation(self, publish_only):
         env = os.environ.copy()
         env["DOCBUILDER_USER"] = self.active_user_name
         env["PYTHONUNBUFFERED"] = "1"
-        command = [sys.executable, "-u", str(Path(manual.__file__).resolve()), "--no-prompts"]
         try:
-            update_source = getattr(self, "selected_update_source", None)
-            configured = manual.read_configured_sources()
-            if update_source is not None and len(configured) > 1:
-                branch = manual.OUTPUT_DIR / "sources" / manual.source_slug(update_source)
-                command = [sys.executable, "-u", str(Path(manual.__file__).resolve()), "--source-dir", str(update_source), "--output-dir", str(branch), "--no-prompts"]
-                result = self.run_process(command, env)
-                if result == 0:
-                    manual.write_multi_source_overview(manual.OUTPUT_DIR, configured)
-            else:
-                result = self.run_process(command, env)
+            result = 0 if publish_only else self.build_manual(env)
             if result == 0 and self.publish_requested:
                 script = manual.ROOT / "publish_manual.sh"
                 if not script.is_file():
                     self.events.put(("error", "publish_manual.sh is missing next to update_manual.py."))
                     return
-                self.events.put(("status", "Build complete. Publishing to GitHub…"))
+                if not publish_only:
+                    self.events.put(("status", "Build complete. Publishing to GitHub…"))
                 self.events.put(("line", "\n--- GitHub publish started ---\n"))
                 result = self.run_process(["bash", str(script)], env)
-            self.events.put(("done", result))
+            self.events.put(("publish_done" if publish_only else "done", result))
         except Exception as exc:
             self.events.put(("error", str(exc)))
 
@@ -479,6 +498,12 @@ class ManualGUI:
                         self.status.set("No matching targets found.")
                 elif kind == "status":
                     self.status.set(value)
+                elif kind == "publish_done":
+                    self.progress.stop()
+                    if value == 0:
+                        self.status.set("Published to GitHub.")
+                    else:
+                        self.status.set("GitHub publish failed (exit code {}).".format(value))
                 elif kind == "done":
                     self.progress.stop()
                     if value == 0:

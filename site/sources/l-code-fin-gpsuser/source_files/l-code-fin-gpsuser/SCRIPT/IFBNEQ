@@ -1,0 +1,123 @@
+package ADDNEQ2;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ADDNEQ2
+#
+# Purpose :  Combine NQ0-files
+#
+# Programs:  ADDNEQ2, GPSXTR, SATMRK
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  18-May-2016 av/ss: Changed IFB to OSB search string
+#            15-Jul-2016 av: Collect gpsxtr runs in one summary file
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use sta_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get some variables
+# ------------------
+  my ($param2, $ssss, $yyssss, $nRun,$v_t,
+      $dirAbb, $dirSum, $extAbb, $extSum) =
+     $bpe->getKeys
+     ('PARAM2','$S+0','$YSS+0','STARTCOUNT','V_T',
+      'DIR_ABB','DIR_SUM','EXT_ABB','EXT_SUM');
+
+
+# Run program: ADDNEQ2
+# --------------------
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $PGMNAM = "GPSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $sumFil = $bpe->getKey("$ENV{U}/INP/GPSXTR.INP","GPSOUT");
+#  copyfile($sumFil,"$sumFil.$nRun");
+#  $sumFil = "$sumFil.$nRun";
+
+
+# Search for exceptional IFB values
+  my @ifbList = ();
+
+  my $errFil = "$ENV{U}/WORK/allMsg";
+  getWarn($bpe,$errFil);
+
+  if (-e $errFil) {
+    open (SYSERR,"< $errFil");
+    while (<SYSERR>) {
+      my @rec = split(':',$_);
+      next if $#rec < 3;
+
+#      if ($rec[1] =~ /Exceptional IFB found for sat\/sta/) {
+      if ($rec[1] =~ /Exceptional OSB found for sat\/sta/) {
+        open(SUM,">> $sumFil");
+        print SUM " $_";
+        close SUM;
+        my $sat = $rec[2];
+        my $sta = $rec[3];
+        while ($sat =~ / $/) {$sat =~ s/ $//; }
+        while ($sat =~ /^ /) {$sat =~ s/^ //; }
+        $sat =~ s/^G/ /;
+        $sat =~ s/^R/1/;
+        $sat =~ s/^E/2/;
+        $sat =~ s/^S/3/;
+        chomp($sta);
+        while ($sta =~ / $/) {$sta =~ s/ $//; }
+        while ($sta =~ /^ /) {$sta =~ s/^ //; }
+
+        push @ifbList,"$sat:$sta";
+      }
+    }
+    close SYSERR;
+  }
+  my $sumOut = "${dirSum}${v_t}S$yyssss.${extSum}";
+  appFile("",1,$sumFil,$sumOut,0);
+
+# Delete satellites/stations with exceptional IFB values
+  if (@ifbList) {
+    open(SUM,">> $sumFil");
+    print SUM "\n";
+    close SUM;
+
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","WHATTODO","MARK_MANUAL");
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","TYPCHG","MARK");
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","FREQ",'L1&L2');
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","RADIO_21","1");
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","RADIO_22","0");
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","NUMFROM","");
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","NUMTO","");
+
+    my $abbFil = "${dirAbb}CODE.${extAbb}";
+    initStaLst( abb => $abbFil );
+    foreach my $help (@ifbList) {
+      my ($sat,$sta) = split(":",$help);
+      my $staID = (getABB($sta))[1];
+      print "filename :$sta:$staID$ssss: satellite :$sat:\n";
+
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","PZHFIL","$staID$ssss");
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","CZHFIL","$staID$ssss");
+      $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","$sat");
+
+      $PGMNAM = "SATMRK";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      prtGoto($bpe,$param2);
+    }
+  }
+
+
+
+}

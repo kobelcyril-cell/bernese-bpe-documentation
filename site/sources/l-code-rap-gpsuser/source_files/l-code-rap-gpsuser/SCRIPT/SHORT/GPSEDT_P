@@ -1,0 +1,82 @@
+package GPSEDT_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GPSEDT_P
+#
+# Purpose :  Parallel run for residual screening:
+#            1. GPSEST to create F(irst) residual files
+#            2. RESRMS to screen residual files
+#            3. SATMRK to mark outliers
+#            4. GPSEST to create L(ast) residual files (for RESCHK)
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 19-May-2009
+#
+# Changes :  10-Feb-2005 mm:
+#            19-May-2009 rd: Session dependent parallelization filenames
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($ssss , $ddd , $param1 , $subPid ,  $numFil, $numClu) =
+  $bpe->getKeys
+     ('$S+0', '$+0', 'PARAM1', 'SUB_PID', 'V_CLU', 'V_NCLU');
+
+# Set cluster number, input files, and loop variable
+# --------------------------------------------------
+  my $cluster = $numFil eq "" && $numClu eq "" ? "$ddd$param1" : "$ssss$subPid";
+  my $ffff    = $numFil eq "" && $numClu eq "" ? $param1       : "____";
+
+  setUserVar($bpe,"CLUSTER",$cluster,"FFFF",$ffff,"CCC",$subPid,"FL","F");
+
+  if ($numFil eq "" && $numClu eq "") {
+    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","PSHFIL","$param1$ssss");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PSFILES","$param1$ssss") }
+  else {
+    replaceSel($bpe,"SATMRK","PSHFIL",$param1);
+    replaceSel($bpe,"GPSEST","PSFILES",$param1) }
+
+# Run programs
+# ------------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $PGMNAM = "SATMRK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # Redefine loop variable
+  setUserVar($bpe,"FL","L");
+
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $PGMNAM = "RESRMS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Delete BPE file
+# ---------------
+  open (BPE,$param1);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $param1\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+  unlink($param1);
+
+}

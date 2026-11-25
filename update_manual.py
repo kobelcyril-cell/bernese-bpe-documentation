@@ -593,9 +593,9 @@ def scan_pcf(path: Path, source_label: str = "") -> PCFDocument:
                 doc.description = stripped.split(":", 1)[1].strip()
             elif stripped.startswith("# Comments"):
                 pass
-            elif stripped.startswith("# Author"):
+            elif stripped.startswith("# Author") and ":" in stripped:
                 doc.author = stripped.split(":", 1)[1].strip()
-            elif stripped.startswith("# Created"):
+            elif stripped.startswith("# Created") and ":" in stripped:
                 doc.created = stripped.split(":", 1)[1].strip()
             elif stripped.startswith("# Changes"):
                 pass

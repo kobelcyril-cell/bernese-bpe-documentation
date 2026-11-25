@@ -1,0 +1,39 @@
+package RNXSMT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  RNXSMTS
+#
+# Purpose :  Execute RNXSMT
+#
+# PARAMs  :
+#
+# Author  :  H. Bock
+# Created :  24-Apr-2014
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yy, $ssss,  $dirSmt, $extSmt, $leo, $rnx3) =
+      $bpe->getKeys('$Y', '$S+0', 'DIR_SMT', 'EXT_SMT', 'V_LEO', 'V_RNX3');
+
+# Run program if LEO data is in RINEX3-format
+# -------------------------------------------
+  if (${rnx3} eq "Y") {
+
+      # Delete old SMT file
+      unlink("${dirSmt}${leo}${ssss}.${extSmt}");
+      print "Removed ${dirSmt}${leo}${ssss}.${extSmt}";
+
+      # Run program
+      my $PGMNAM = "RNXSMT";
+      $bpe->RUN_PGMS($PGMNAM);
+  }
+
+}

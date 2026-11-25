@@ -1,0 +1,100 @@
+package GLOEST_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GLOEST_P
+#
+# Purpose :  Parallel run of GPSEST using code and phase data
+#
+# Programs:  GPSEST
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005
+#
+# Changes :  04-Mar-2010/ss: Deactivate HOI setup if indicated
+#            03-Oct-2014 lp: New GNSS selection using setGNSS
+#            23-May-2018 ss: Enabled ZERO_AR if IARyyssss.FLG
+#            07-Jun-2018 ss: Checked V_IAR
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($param1, $subPid, $camp_pth,$campaign, $v_iar, $yyddd, $dirIon, $extIon) =
+     $bpe->getKeys
+     ('PARAM1','SUB_PID','CAMP_PTH','CAMPAIGN', 'V_IAR', '$YD+0', 'DIR_ION', 'EXT_ION');
+
+
+# Put all GLONASS in one cluster?
+# -------------------------------
+  my $glo1clu = (-e "$camp_pth$campaign/MSC/GLO_ONE_CLUST.FLG");
+
+  if ( $glo1clu ) {
+    my $cluNum = index(basename($param1),"00.CLB");
+    &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_","G") if $cluNum==-1;
+  }
+
+
+# Initialize $D4 variable with subpid
+# -----------------------------------
+  setUserVar($bpe,"CCC",$subPid);
+
+
+# Replace selected with station list
+# ----------------------------------
+  replaceSel($bpe,"GPSEST","CZFILES",$param1);
+  replaceSel($bpe,"GPSEST","PZFILES",$param1);
+
+
+# Deactivate HOI setup if indicated
+# ---------------------------------
+  my $hoiFil = "${dirIon}HOI${yyddd}.${extIon}";
+  print "HOIFIL: $hoiFil\n";
+  unless (-s $hoiFil) {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS"," ");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SCALHOI","0");
+    prtMess($bpe,"HOI SETUP: DEACTIVATED");
+  } else {
+    prtMess($bpe,"HOI SETUP: UNCHANGED");
+  }
+
+# Enable ZERO_AR if indicated
+# ---------------------------
+  my $iarFlg = "$camp_pth$campaign/MSC/IAR${yyddd}0.FLG";
+  if (-e $iarFlg && $v_iar ne "N") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DIFLVL","ZERO_AR");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP",'IAR$YSS+0');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","1");
+    prtMess($bpe,"ZERO_AR ENABLED");
+  } else {
+    prtMess($bpe,"ZERO_AR DISABLED");
+  }
+
+# Print the selected files to the log file
+# ----------------------------------------
+  open (BPE,$param1);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $param1\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}
+

@@ -1,0 +1,81 @@
+package GIR_UPD;
+@ISA = ("RUNBPE");
+# ==============================================================================
+#
+# Name:       GIR_UPD
+#
+# Purpose:    Update rapid GIM ION and INX files
+#
+# Authors:    S. Schaer
+#
+# Created:    24-May-2016
+#
+# Changes:    25-May-2016 ss: Renamed OSB  results (from RZ_ to RZS)
+#
+# ==============================================================================
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $yy, $yyyy, $wwwwd, $yydddm1,
+      $V_U, $V_I, $V_Z,
+      $dirOut, $dirInx, $extInx, $dirIon, $extIon, $dirOsb, $extOsb, $dirBia, $extBia) =
+    $bpe->getKeys('$YD+0', '$+0', '$Y', '$Y+0', '$WD+0', '$YD-1',
+                  'V_U', 'V_I', 'V_Z',
+                  'DIR_OUT', 'DIR_INX', 'EXT_INX', 'DIR_ION', 'EXT_ION', 'DIR_OSB', 'EXT_OSB', 'DIR_BIA', 'EXT_BIA');
+
+
+# Update rapid GIM ION and INX files
+# ----------------------------------
+  my ($ion,$osb);
+
+  $ion = "${dirInx}${V_U}_${yyddd}.${extInx}";
+  $osb = "${dirOsb}${V_U}S${yyddd}.${extOsb}";
+  die "$ion not found" unless -s $ion;
+  die "$osb not found" unless -s $osb;
+  system("$ENV{AUTO}/update_ion.com $ion $osb");
+
+  $ion = "${dirIon}${V_U}_${yyddd}.${extIon}";
+  $osb = "${dirOsb}${V_U}S${yyddd}.${extOsb}";
+  die "$ion not found" unless -s $ion;
+  die "$osb not found" unless -s $osb;
+  system("$ENV{AUTO}/update_ion.com $ion $osb");
+
+  $ion = "${dirInx}${V_I}_${yyddd}.${extInx}";
+  $osb = "${dirOsb}${V_U}S${yyddd}.${extOsb}";
+  die "$ion not found" unless -s $ion;
+  die "$osb not found" unless -s $osb;
+  system("$ENV{AUTO}/update_ion.com $ion $osb");
+
+  $ion = "${dirIon}${V_I}_${yyddd}.${extIon}";
+  $osb = "${dirOsb}${V_U}S${yyddd}.${extOsb}";
+  die "$ion not found" unless -s $ion;
+  die "$osb not found" unless -s $osb;
+  system("$ENV{AUTO}/update_ion.com $ion $osb");
+
+  $ion = "${dirInx}${V_Z}_${yydddm1}.${extInx}";
+  $osb = "${dirOsb}${V_U}S${yydddm1}.${extOsb}";
+  die "$ion not found" unless -s $ion;
+  die "$osb not found" unless -s $osb;
+  system("$ENV{AUTO}/update_ion.com $ion $osb");
+
+  $ion = "${dirIon}${V_Z}_${yydddm1}.${extIon}";
+  $osb = "${dirOsb}${V_U}S${yydddm1}.${extOsb}";
+  die "$ion not found" unless -s $ion;
+  die "$osb not found" unless -s $osb;
+  system("$ENV{AUTO}/update_ion.com $ion $osb");
+
+}

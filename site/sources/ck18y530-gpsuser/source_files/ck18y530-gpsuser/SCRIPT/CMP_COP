@@ -1,0 +1,57 @@
+package CMP_COP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CMP_COP
+#
+# Purpose :  Copy files required by CMPSOL.PCF
+#
+# PARAMs  :
+#
+# Author  :  C. Kobel
+# Created :  17-Oct-2025
+#
+# Changes :  
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyyy, $yyssss,  $yyddd, $yydddm1,
+      $V_SOL,
+      $dirCrd, $dirErp,  $dirPre,  $dirClk, $dirStd,
+      $extCrd, $extErp,  $extPre,  $extClk, $extStd
+      ) =
+    $bpe->getKeys(
+      '$Y+0','$YSS+0','$YD+0', '$YD-1',
+      'V_SOL',
+      'DIR_CRD','DIR_ERP','DIR_PRE','DIR_CLK','DIR_STD',
+      'EXT_CRD','EXT_ERP','EXT_PRE','EXT_CLK','EXT_STD'
+      );
+
+# Prepare reference files
+# -----------------------
+  my $Erpfil = "$ENV{PATH_SAV}IGS/${yyyy}/ORB/F${V_SOL}_${yyddd}.${extErp}";
+  my $Erpfilm1 = "$ENV{PATH_SAV}IGS/${yyyy}/ORB/F${V_SOL}_${yydddm1}.${extErp}";
+  my $Stdfil = "$ENV{PATH_SAV}IGS/${yyyy}/ORB/F${V_SOL}_${yyddd}.${extStd}";
+  my $Stdfilm1 = "$ENV{PATH_SAV}IGS/${yyyy}/ORB/F${V_SOL}_${yydddm1}.${extStd}";
+#  my $Clkfil = "$ENV{PATH_SAV}IGS/${yyyy}/ORB/F3H_${yyssss}.${extClk}.Z";
+  my $Prefil = "$ENV{PATH_SAV}IGS/${yyyy}/ORB/F${V_SOL}_${yyddd}.${extPre}";
+  my $Crdfil = "$ENV{PATH_SAV}IGS/${yyyy}/STA/F${V_SOL}_${yyddd}.${extCrd}";
+  system("cp $Erpfil $dirErp");
+  system("cp $Erpfilm1 $dirErp");
+  system("cp $Stdfil $dirStd");
+  system("cp $Stdfilm1 $dirStd");
+#  system("cp $Clkfil $dirClk");
+  system("cp $Prefil $dirPre");
+  system("cp $Crdfil $dirCrd");
+#  system("gzip -df ${dirClk}F3H_${yyssss}.${extClk}.Z");
+
+}

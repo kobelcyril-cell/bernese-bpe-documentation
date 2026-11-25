@@ -1,0 +1,100 @@
+package ZD3D_COP;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ZD3D_COP
+#
+# Purpose :  Copy files reqiured by CLKDEN
+#
+# Author  :  E. Calero
+# Created :  10-May-2021
+#
+# Changes :  15-Jun-2026: CK: Reformatted
+#===========================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+  my ($yyssss, $yyssssm1,$yyssssp1,
+      $yyddd,  $yydddm1, $yydddp1,
+      $apr,    $f1d,
+      $psdInf,   $crdInf,
+      $dirRxc,  $dirCrd,  $dirStd,  $dirClk,  $dirErp,  $dirRpr,
+      $dirFix,  $dirNeq,  $dirSos,  $dirOsb,  $dirPzh,  $dirBpe,
+      $extRxc,  $extCrd,  $extStd,  $extClk,  $extErp,  $extRpr,
+      $extFix,  $extNeq,  $extSos,  $extOsb
+      ) =
+    $bpe->getKeys(
+      '$YSS+0','$YSS-1', '$YSS+1',
+      '$YD+0', '$YD-1',  '$YD+1',
+      $$bpe{PARAM1},$$bpe{PARAM2},
+      'V_PSDINF','V_CRDINF',
+      'DIR_RXC','DIR_CRD','DIR_STD','DIR_CLK','DIR_ERP','DIR_RPR',
+      'DIR_FIX','DIR_NEQ','DIR_SOS','DIR_OSB','DIR_PZH','DIR_BPEOUT',
+      'EXT_RXC','EXT_CRD','EXT_STD','EXT_CLK','EXT_ERP','EXT_RPR',
+      'EXT_FIX','EXT_NEQ','EXT_SOS','EXT_OSB'
+      );
+
+# Prepare reference files
+# -----------------------
+  my $psdFil = "${psdInf}.PSD";
+  print "ejcr ${dirCrd} $crdInf $psdFil \n";
+  system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil");
+
+# Copy reference REFCLK.FIX into campaign for reference satellite clocks
+# ----------------------------------------------------------------------
+  copyfile("$ENV{REF}/REFCLK.FIX", "${dirFix}REFCLK.${extFix}");
+
+# Copy 1-day-arc information
+# --------------------------
+  system("mkdir $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}");
+  my $resFol   = "$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/${yyddd}/";
+  system("cd $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/; cp ../${yyddd}.tgz . ;tar xvfz ${yyddd}.tgz");
+  my $resOrb   = "$resFol/ORB/";
+  my $resSta   = "$resFol/STA/";
+  my $resSol   = "$resFol/SOL/";
+  $resFol      = "$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/${yydddm1}/";
+  system("cd $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/; cp ../${yydddm1}.tgz . ;tar xvfz ${yydddm1}.tgz");
+  my $resOrbm1 = "$resFol/ORB/";
+  my $resStam1 = "$resFol/STA/";
+  my $resSolm1 = "$resFol/SOL/";
+  $resFol      = "$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/${yydddp1}/";
+  system("cd $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/; cp ../${yydddp1}.tgz . ;tar xvfz ${yydddp1}.tgz");
+  my $resOrbp1 = "$resFol/ORB/";
+  my $resStap1 = "$resFol/STA/";
+  my $resSolp1 = "$resFol/SOL/";
+
+  
+##### NEQs + F1I ERP + T1 STD + T1 RPR + T1$YSS+0 CLK (--> FIN$YD+0.CLK) + 
+##### F1I_$YD+0.FIX -> FIN$YD+0.FIX
+
+  copyfile("${resSol}${f1d}??${yyssss}???.${extNeq}","${dirNeq}");
+  copyfile("${resSolm1}${f1d}99${yyssssm1}.${extNeq}","${dirNeq}");
+  copyfile("${resSolp1}${f1d}99${yyssssp1}.${extNeq}","${dirNeq}");
+
+  copyfile("${resOrb}${f1d}_$yyssss.${extErp}","${dirErp}");
+  copyfile("${resOrbm1}${f1d}_$yyssssm1.${extErp}","${dirErp}");
+  copyfile("${resOrbp1}${f1d}_$yyssssp1.${extErp}","${dirErp}");
+
+  copyfile("${resOrb}${apr}_$yyssss.${extStd}","${dirStd}");
+  copyfile("${resOrbm1}${apr}_$yyssssm1.${extStd}","${dirStd}");
+  copyfile("${resOrbp1}${apr}_$yyssssp1.${extStd}","${dirStd}");
+
+  copyfile("${resOrb}${apr}_$yyssss.${extRpr}","${dirRpr}");
+  copyfile("${resOrbm1}${apr}_$yyssssm1.${extRpr}","${dirRpr}");
+  copyfile("${resOrbp1}${apr}_$yyssssp1.${extRpr}","${dirRpr}");
+
+  copyfile("${resOrb}${apr}_$yyssss.${extClk}","${dirClk}FIN${yyddd}.${extClk}");
+
+  copyfile("${resSta}${f1d}_$yyddd.${extFix}","${dirFix}FIN${yyddd}.${extFix}");
+
+
+  system("rm -r $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp${yyddd}/");
+
+
+
+}

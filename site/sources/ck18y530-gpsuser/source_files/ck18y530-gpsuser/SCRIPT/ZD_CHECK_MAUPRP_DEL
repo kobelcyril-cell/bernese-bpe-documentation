@@ -1,0 +1,84 @@
+package CHECK_MAUPRP_DEL;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CHECK_MAUPRP_DEL
+#
+# Purpose :  Checks the MAUPRP deletion file for excluded stations.
+#
+# Author  :  C. Kobel
+# Created :  16-Oct-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+# ---------- Get parameters ------------
+  my (
+      $dirOut,
+      $yyddd,
+      $ssss,
+      $yyssss
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      '$YD+0',
+      '$S+0',
+      '$YSS+0'
+  );
+
+  my $mauprp_file = "${dirOut}/MPR${yyssss}.DEL";
+
+# ---------- Prepare common log file ------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $logfile = "$mscDir/PROCESSING_${yyddd}";
+  open(my $LOG, '>>', $logfile)
+    or die "Cannot open log file $logfile: $!";
+
+  print $LOG "\n=== CHECK_MAUPRP_DEL started ===\n";
+  print $LOG "Checking file: MPR${yyssss}.DEL\n";
+
+# ---------- Read MAUPRP deletion file ------------
+  my %stations;
+  if (-e $mauprp_file) {
+    open(my $MPR, '<', $mauprp_file)
+      or die "Cannot open $mauprp_file: $!";
+
+    while (my $line = <$MPR>) {
+      chomp $line;
+
+      # ---------- Extract station name from OBS file path ------------
+      if ($line =~ m{OBS/([^/]+?)\Q$ssss\E\.[^./\s]+}i) {
+        $stations{$1} = 1;
+      }
+    }
+
+    close($MPR);
+
+    if (%stations) {
+      foreach my $station (sort keys %stations) {
+        print $LOG "Station excluded by MAUPRP: $station\n";
+      }
+    } else {
+      print $LOG "No station excluded in MAUPRP.\n";
+    }
+  } else {
+    print $LOG "No station excluded in MAUPRP.\n";
+  }
+
+  print $LOG "=== CHECK_MAUPRP_DEL finished ===\n";
+  close($LOG);
+
+  print "CHECK_MAUPRP_DEL done. Log appended to $logfile\n";
+}

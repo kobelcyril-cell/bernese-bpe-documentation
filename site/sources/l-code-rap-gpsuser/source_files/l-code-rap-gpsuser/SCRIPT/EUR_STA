@@ -1,0 +1,156 @@
+package EUR_STA;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  EUR_STA
+#
+# Purpose :  Download euref.snx and convert it into EUREF.STA and EUREF_RED.STA
+#
+# Programs:
+#
+# Author  :  S. Schaer
+#
+# Created :  21-Mar-2006
+#
+# Changes :  04-Jul-2006/ss: Changed STA filenames
+#            18-Jul-2006/ss: Continue in case of ftp connection problem
+#            25-Jul-2007/ss: Improved error handling
+#            02-Aug-2007/mm: V_DIS activated
+#            15-Nov-2010 SL: program STA2STA added for V50
+#            01-Nov-2012/lp: Update BSWUSER52, too
+#            07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER
+#            26-Aug-2015 ss: Check created .STA files for completeness
+#            28-Aug-2015 ss: Send SMS if indicated (in RAP mode only)
+#            25-Sep-2015 ss: Added "OK=/OK_FULL=";
+#                            excluded: carg, dlf1, knja
+#            09-Mar-2016 ss: Excluded kosg
+#            13-Apr-2016 av/as: Exclude kos1, irbe
+#            14-Apr-2016 as: Removed exlussion of kos1 and irbe
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#            20-Dec-2021 RD: Detect automatically for the last station
+#            14-Jun-2022 RD: Correct inconsistency for THU3
+#        
+# ---------------------------------------------------------------------------
+
+use lib "$ENV{AUTO}";
+use lib $ENV{BPE};
+use newFTP;
+use bpe_util;
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $dirSnx, $dirSta) =
+    $bpe->getKeys('$YD+0', 'DIR_SNX', 'DIR_STA');
+
+  my $ultFil = "$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/ULT${yyddd}.FLG";
+
+# Download igs.snx
+# ----------------
+  my $snxFil = "${dirSnx}EUREF.SNX";
+  unlink $snxFil;
+
+  my $err = "OK";
+  if($ftp = newFTP->new("epncb.oma.be")) {
+    $ftp->login();
+    $ftp->cwd("/epncb/station/general/");
+    $ftp->ascii;
+    $ftp->qget("euref.snx","${snxFil}") or $err = "ERR";
+    $ftp->quit;
+  }
+
+  if (-s $snxFil && $err eq "OK") {
+
+    copy($snxFil,"${snxFil}_BAK");
+# List of problem stations to be removed to get a complete .STA file
+#    `grep -v bcln $snxFil |grep -v carg | grep -v dlf1 | grep -v knja | grep -v plnd | grep -v tari | grep -v kosg > ${snxFil}_TMP`;
+    `grep -v -E '(bcln|carg|dlf1|knja|plnd|tari|kosg|oslo|tron|vard)' $snxFil > ${snxFil}_TMP`;
+    move("${snxFil}_TMP",$snxFil);
+
+    # Inconsistent entry for THU3 between receiver and antenna in the EPN-log-file
+    replace($snxFil,'19:143:86340','19:143:00000');
+
+    my($staFil,$title,$PGMNAM,$chkFil,$ok1,$ok2);
+
+if (1==1) {
+
+    $staFil = "EUREF_FULL";
+    $title  = "STAINFO FROM euref.snx, BERNESE GNSS SOFTWARE 5.3";
+#              -------------------------------------------------
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","STAFILE",$staFil);
+
+    $PGMNAM = "SNX2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE1",$staFil);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE2","${staFil}V50");
+
+    $PGMNAM = "STA2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    # Extract the 4chr abbreviation of the last station in the input SINEX file
+    $snxFil = $bpe->getKey("$ENV{U}/INP/SNX2STA.INP","SNXFILE");
+    #grep -B1 '\-SITE/ID' $snxFil | head -n1 | awk '{ print toupper($1) }'
+    $lastSta = `grep -B1 \'\\-SITE/ID\' $snxFil | head -n1 | awk '{ printf \"\%s\", toupper(\$1) }'`;
+
+    $chkFil = $bpe->getKey("$ENV{U}/INP/STA2STA.INP","STAFILE1");
+#    $ok1 = `grep 'ZYWI' $chkFil | wc -l`+0;
+    $ok1 = `grep \'$lastSta\' $chkFil | wc -l`+0;
+
+# BPE allowed to distribute files?
+    if ( $ok1 > 0 ) {
+      if($$bpe{V_SAV} eq "Y") {
+        system("$ENV{AUTO}/gen2bswuser.com IGSR_STA ${dirSta} ${staFil}");
+      }
+      else { prtMess($bpe,"FILES NOT DISTRIBUTED"); }
+    }
+
+    $staFil = "EUREF";
+    $title  = "REDUCED STAINFO FROM euref.snx, BERNESE GNSS SOFTWARE 5.3";
+#              ---------------------------------------------------------
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","STAFILE",$staFil);
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","REDRSN","1");
+    $bpe->putKey("$ENV{U}/PAN/SNX2STA.INP","REDASN","1");
+
+    $PGMNAM = "SNX2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","TITLE",$title);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE1",$staFil);
+    $bpe->putKey("$ENV{U}/PAN/STA2STA.INP","STAFILE2","${staFil}V50");
+
+    $PGMNAM = "STA2STA";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $chkFil = $bpe->getKey("$ENV{U}/INP/STA2STA.INP","STAFILE1");
+#    $ok2 = `grep 'ZYWI' $chkFil | wc -l`+0;
+    $ok2 = `grep \'$lastSta\' $chkFil | wc -l`+0;
+
+    if ($ok1==0 || $ok2==0) {
+      msg2key("MSC","IGSRAPID: EUR_STA: Incomplete EUREF_FULL.STA/EUREF.STA created (OK=$ok1/OK_FULL=$ok2)") unless -e $ultFil;
+    }
+
+# BPE allowed to distribute files?
+    if ( $ok2 > 0 ) {
+      if($$bpe{V_SAV} eq "Y") {
+        system("$ENV{AUTO}/gen2bswuser.com IGSR_STA ${dirSta} ${staFil}");
+      }
+      else { prtMess($bpe,"FILES NOT DISTRIBUTED"); }
+    }
+  }
+  else {
+    msg2key(
+      "MSC",
+      "EUR_STA: ftp connection problem wrt epncb.oma.be. euref.snx not downloaded."
+    );
+  }
+}
+
+}

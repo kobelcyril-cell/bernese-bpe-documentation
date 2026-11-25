@@ -1,0 +1,121 @@
+package NAV2CLK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  NAV2CLK
+#
+# Purpose :  Execute NAV2CLK
+#
+# PARAMs  :
+#
+# Author  :  A. Villiger, P. Stebler
+# Created :  05-Mar-2020
+#
+# Changes :  05-Mar-2020 AV/ST: Forked from RXN2PRE.
+#            11-Mar-2020 AV/ST: Bugfix: use gpsutil
+#            23-Apr-2020 ST: Stop copy of $A_$YSS+0 to $A0$YSS+0.
+#            08-Mar-2022 AV: Save disk: yearly subdirectory
+#
+# ============================================================================
+
+use strict;
+use warnings;
+
+use lib $ENV{BPE};
+use bpe_util;
+
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+sub run {
+  my ($bpe) = @_;
+
+  # Get variables
+  # -------------
+  my ($yyyy, $yyssss, $ddd, $camp_pth, $campaign, $v_savdsk,
+      $extRnx, $extRxn, $extClk,
+      $dirRnx, $dirRxn, $dirClk) =
+    $bpe->getKeys(
+      '$Y+0', '$YSS+0', '$+0', 'CAMP_PTH', 'CAMPAIGN', 'V_SAVDSK',
+      'EXT_RNX', 'EXT_RXN', 'EXT_CLK',
+      'DIR_RNX', 'DIR_RXN', 'DIR_CLK');
+
+  my $repro = (-e "${camp_pth}${campaign}/MSC/REPROCESSING.FLG");
+
+  if (not ($repro || $v_savdsk eq "Y")) {
+    return;
+  }
+
+  # It is a reprocessing or we have to start from savedisk
+  # ------------------------------------------------------
+
+  # Copy
+  my $orx3Dp = "${CDIR_DATA}/ORX/daily/RINEX3/${yyyy}/${ddd}/";
+  my $orx2Dp = "${CDIR_DATA}/ORX/daily/RINEX2/${yyyy}/${ddd}/";
+  my $rawSav = "${PATH_SAV}${CAMP_SAVRAP}/${yyyy}/RAW/";
+
+  my $shortTpl = "CODE${ddd}0.${extRxn}";
+  my $longTpl  = "CODE00MRG_3_${yyyy}${ddd}0000_01D_???_MN.${extRnx}";
+
+  my $destPathAndName = "${dirRxn}${shortTpl}";
+
+  my @priorizedFileTpls = (
+    "${rawSav}/${longTpl}",
+    "${orx3Dp}/${longTpl}",
+    "${rawSav}/${shortTpl}",
+    "${orx2Dp}/${shortTpl}"
+    );
+
+  my $brdFound = 0;
+
+  foreach my $priorizedFileTpl (@priorizedFileTpls) {
+
+    $brdFound = globCopyUncompress($priorizedFileTpl, $destPathAndName);
+
+    if ($brdFound) {
+      last;
+    }
+  }
+
+  if (not $brdFound) {
+    prtErr($bpe, "No broadcast navigation RINEX file found");
+    die();
+  }
+
+  # Run RXN2PRE
+  # -------------
+  my $PGMNAM = "RXN2PRE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  # Run SATCLK2
+  # -----------
+  $PGMNAM = "SATCLK2";
+  $bpe->RUN_PGMS($PGMNAM);
+}
+
+sub globCopyUncompress {
+  my ($srcTpl, $destUncompressed) = @_;
+
+  my @srcs = glob("${srcTpl}{,.Z,.gz}");
+
+  foreach my $src (@srcs) {
+
+    my $end = "";
+
+    $end = ".Z" if $src =~ /\.Z$/;
+    $end = ".gz" if $src =~ /\.gz$/;
+
+    my $destTemp = "${destUncompressed}${end}";
+
+    copyfile($src, $destTemp);
+
+    if ($end ne "") {
+      system("gzip -df ${destTemp}");
+    }
+
+    return 1;
+  }
+
+  return 0;
+}

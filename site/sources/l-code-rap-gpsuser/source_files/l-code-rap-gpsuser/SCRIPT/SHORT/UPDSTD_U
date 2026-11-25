@@ -1,0 +1,63 @@
+package UPDSTD_U;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  UPDSTD_U
+#
+# Purpose :  Generate standard orbit from ele-file using ORBGEN
+#            (update standard orbit)
+#
+# Programs:  ORBGEN
+#
+# Author  :  S. Lutz
+#
+# Created :  11-Sep-2013
+#
+# Changes :  12-Sep-2013 SL: Use &gtUltVrs
+#            30-Oct-2013 SL: Set ARCINT
+#
+# =============================================================================
+
+use strict;
+use warnings;
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util qw(rdUltFlg gtUltVrs setUserVar);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,
+    $CAMP_PTH,$CAMPAIGN,
+    $minus,$plus,
+  ) =
+  $bpe->getKeys(
+    '$YD+0',
+    'CAMP_PTH','CAMPAIGN',
+    'V_MINUS','V_PLUS',
+  );
+
+  my($ultFil) = "${CAMP_PTH}${CAMPAIGN}/MSC/ULT$yyddd.FLG";
+  my($h_end,$h_tro,$h_rnx,$h_chr) = &rdUltFlg($ultFil);
+  my($T) = &gtUltVrs($h_end,$h_chr);
+  &setUserVar($bpe,"T",$T);
+
+# Get arc-length
+# --------------
+  my($int) = $plus-$minus+2;
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBGEN";
+  $bpe->putKey("$ENV{U}/PAN/$PGMNAM.INP","ARCINT",$int);
+  $bpe->RUN_PGMS($PGMNAM);
+
+}
+
+# =============================================================================
+
+__END__

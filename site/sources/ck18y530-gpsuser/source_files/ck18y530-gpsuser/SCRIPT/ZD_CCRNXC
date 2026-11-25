@@ -1,0 +1,31 @@
+package CCRNXC;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CCRNXC
+#
+# Purpose :  Concatenate and combine clock RINEX files.
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005
+#
+# Changes :  15-Jun-2026: ck: Revised
+#===========================================================
+
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/CCRNXC.INP","USE_",$v_gnss);
+  
+  # ---------- Run program ------------
+  my $PGMNAM = "CCRNXC";
+  $bpe->RUN_PGMS($PGMNAM);
+}

@@ -1,0 +1,112 @@
+package FTRP_SAV;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  FTRP_SAV
+#
+# Purpose :  Copy all relevant results from PPPTROPO.PCF to save disk
+#
+# Programs:
+#
+# Author  :  R. Dach
+# Created :  01-Jan-2021
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+use lib "$ENV{BPE}";
+use bpe_util qw(check_dir copy2archive prtMess);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+ my  ($yyssss, $yyyy, $ssss,
+      $ppp, $v_savdir, $sav,
+      $camp_pth, $campaign,
+      $dirSum, $dirTrp, $dirTro, $dirSla,
+      $extSum, $extTrp, $extTro, $extSla) =
+
+    $bpe->getKeys(
+      '$YSS+0', '$Y+0', '$S+0',
+      'V_PPP', 'V_SAVDIR', 'V_SAV',
+      'CAMP_PTH','CAMPAIGN',
+      'DIR_SUM', 'DIR_TRP', 'DIR_TRO', 'DIR_TRS',
+      'EXT_SUM', 'EXT_TRP', 'EXT_TRO', 'EXT_TRS');
+
+
+# Some directories
+# ----------------
+  my $dirSav = "${v_savdir}/${yyyy}/";
+  my $atmSav = "${dirSav}ATM/";
+  my $outSav = "${dirSav}OUT/";
+
+  if($sav eq "Y") {
+    &check_dir($outSav,$atmSav);
+  }
+
+# Extract the title of the reprocessing
+# -------------------------------------
+  my $tit = "";
+  my $repro = "${camp_pth}${campaign}/MSC/REPROCESSING.FLG";
+  if ( -e $repro ) {
+    open(REP,"$repro");
+    $tit = <REP>;
+    my $tit2 = <REP>;  # <<< ?
+    $tit = $tit2 if ( $tit2 ne "" );
+    close(REP);
+    chomp($tit);
+  }
+
+# Merge the TRP files
+# -------------------
+  my $out = "${dirTrp}${ppp}_${yyssss}.${extTrp}";
+  unlink $out;
+  my $numHead=0;
+  foreach my $inp ( glob "${dirTrp}${ppp}${ssss}????.${extTrp}" ) {
+
+    # First file is copied and the number of header lines is counted
+    unless ( -e $out ) {
+      File::Copy::copy("$inp","$out");
+      open(FILE, "< $out") or die "can't open $out: $!";
+      for ($numHead=0; <FILE>; $numHead++) { last if ( /^ STATION NAME  / ) }
+      $numHead++;$numHead++;
+      print "$numHead\n";
+      next;
+    }
+
+    # The other files are attached to the end
+    system("$ENV{AUTO}/filmerge.pl $out $inp ${out}_ $numHead");
+    rename("${out}_", "$out");
+  }
+
+# Copy files to savedisk
+# ----------------------
+ my @cpyLst = (
+   "${dirSum}${ppp}_${yyssss}.${extSum}    ${outSav} f ",
+   "${dirTrp}${ppp}_${yyssss}.${extTrp}    ${atmSav} f ",
+   "${dirTro}${ppp}_${yyssss}.${extTro}    ${atmSav} f ",
+   "${dirSla}SLA_${yyssss}.tar.gz          ${atmSav} _ " );
+
+
+ if($sav eq "Y") {
+   system("cd ${dirSla}; tar -cvzf SLA_${yyssss}.tar.gz ${ppp}${ssss}????.${extSla}");
+
+   my(@err) = ();
+   foreach(@cpyLst) {
+     push(@err,"$_\n") if(&copy2archive(split(" ",$_),$tit));
+   }
+   die "\n *** copy2archive failed for\n @err\n" if(@err);
+ }
+
+# Some messages
+# -------------
+ if($sav ne "Y") {
+   &prtMess($bpe,"FILES NOT SAVED");
+   print       "\nFILES NOT SAVED\n";
+ }
+
+}

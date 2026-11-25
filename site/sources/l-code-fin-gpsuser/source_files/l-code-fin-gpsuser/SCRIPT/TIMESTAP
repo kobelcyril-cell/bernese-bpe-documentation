@@ -1,0 +1,121 @@
+package TIMESTAP;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMESTAP
+#
+# Purpose :  Prepare parallel GPSEST run using MKCLUS for clustering
+#
+# Programs:  MKCLUS
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005               Last modified: 26-May-2009
+#
+# Changes :  19-May-2009 rd: Session dependent parallelization filenames
+#            26-May-2009 rd: RESCHK: YY_DDD -> YY_SSSS
+#            18-Oct-2016 av: Set CODE/PHASE/BOTH if indicated
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yy,$ddd,$ssss,$yyssss,$yyddd,
+      $sol            ,$param2 ,$param3,$param4,
+      $dirNeq,  $dirOut,  $dirRes,  $dirClk,  $dirClb, $dirDel, $dirPzh,
+      $extNeq,  $extOut,  $extRes,  $extClk,  $extClb, $extDel, $extPzh ) =
+     $bpe->getKeys(
+      '$Y','$+0','$S+0','$YSS+0','$YD+0',
+      "$$bpe{PARAM2}",'PARAM2','PARAM3','PARAM4',
+      'DIR_NEQ','DIR_OUT','DIR_RES','DIR_RXC','DIR_CLB','DIR_DEL','DIR_PZH',
+      'EXT_NEQ','EXT_OUT','EXT_RES','EXT_RXC','EXT_CLB','EXT_DEL','EXT_PZH');
+
+  my $clbnam = "${yyssss}";
+  my $mode   = $param3 =~ /(CODE|PHASE|BOTH)/? $param3 :
+               $param4 =~ /(CODE|PHASE|BOTH)/? $param4 : "";
+
+# Remove old solution files
+# -------------------------
+  if ( $sol ne "" && $param2 =~ /^V_/ ) {
+    unlink glob("${dirNeq}${sol}${ssss}*.${extNeq}");
+    unlink glob("${dirOut}${sol}${ssss}*.${extOut}");
+    unlink glob("${dirRes}${sol}${ssss}*.${extRes}");
+    unlink glob("${dirClk}${sol}${ssss}*.${extClk}");
+
+    $clbnam = "${sol}${ssss}";
+  }
+
+
+# Use MKCLUS to built the clusters
+# --------------------------------
+  my ${clbrnx} = "${dirClb}${yyddd}RNX.${extClb}";
+  if ( -e $clbrnx ) {
+    my @obsFil = ();
+    open(CLB,$clbrnx);
+    while(<CLB>) {
+      my $pzhFil = $dirPzh . substr(basename($_),0,8) . ".$extPzh";
+print ":$pzhFil: ",-s $pzhFil,"\n";
+      push @obsFil,$pzhFil if ( -e $pzhFil );
+    }
+    close CLB;
+    replaceSelLst($bpe,"MKCLUS","PZHFILES",@obsFil);
+  }
+  $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP","SELBSL","${clbnam}");
+
+  if ($param3 eq "DELETE") {
+    $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP","NOTUSE","DEL$yyssss");
+    unlink("${dirDel}DEL${yyssss}.{extDel}");
+  }
+
+  unlink glob("${dirClb}${clbnam}*.${extClb}");
+
+  my $PGMNAM = "MKCLUS";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+# Put the BPE cluster files into the list
+# ---------------------------------------
+  if($mode){
+    print "MODE: $mode\n";
+    my @file;
+    print "${dirClb}${clbnam}*.${extClb}\n";
+    map {push(@file, "$_ $mode"); print "$_\n";} glob("${dirClb}${clbnam}*.${extClb}");
+    initPar_Fl($bpe, @file);
+  }else{
+    initPar_Fl($bpe,glob("${dirClb}${clbnam}*.${extClb}"));
+  }
+
+
+# Remove bad stations
+# -------------------
+  if ( $param3 eq "DELETE" ) {
+    my $del = $bpe->getKey("$ENV{U}/INP/MKCLUS.INP","NOTUSE");
+    open (DEL,"< $del");
+    while (<DEL>) {
+      chomp;
+      while ( /^ / ) { s/^ // }  # Remove leading blanks
+      unlink ($_);
+      prtMess($bpe,"$_ deleted")
+    }
+    close(DEL);
+    unlink($del);
+
+  }
+
+# Add SYSOUT to summary
+# ---------------------
+  if ( $param3 eq "PROTOCOL" ) {
+    my $xtrsum = "${dirOut}RESCHK.${yy}_${ddd}";
+    appFile("",0,$$bpe{SYSOUT},$xtrsum);
+  }
+
+}

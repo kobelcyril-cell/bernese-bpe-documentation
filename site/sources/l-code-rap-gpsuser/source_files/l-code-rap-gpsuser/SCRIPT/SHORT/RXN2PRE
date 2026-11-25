@@ -1,0 +1,29 @@
+package RXN2PRE;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  RXN2PRE
+#
+# Purpose :  Execute RXN2PRE
+#
+# PARAMs  :
+#
+# Author  :  P. Stebler
+# Created :  30-Oct-2018
+#
+# Changes :  15-Dec-2018 Continued
+#
+# ============================================================================
+
+use strict;
+use warnings;
+use lib $ENV{BPE};
+
+sub run {
+  my ($bpe) = @_;
+
+  # Run RXN2PRE
+  # -------------
+  my $PGMNAM = "RXN2PRE";
+  $bpe->RUN_PGMS($PGMNAM);
+}

@@ -1,0 +1,54 @@
+package COPY_APR_AR;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  COPY_APR_AR
+#
+# Purpose :  Copy a priori Orbits (PRE/STD/RPR)
+#
+# Author  :  C. Kobel
+# Created :  17-Jun-2026
+#
+# Changes :  
+# ============================================================================
+
+use strict;
+use warnings;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+# ---------- Get parameters ------------
+  my (
+      $yyssss,
+      $direction,
+      $apr,
+      $dirStd,
+      $extStd,
+      $extRpr
+   ) = $bpe->getKeys(
+      '$YSS+0',
+      'PARAM2',
+      'V_APR',
+      'DIR_STD',
+      'EXT_STD',
+      'EXT_RPR'
+   );
+
+# ----------- Copy the a priori information -----------
+  if ($direction =~ /START/) {
+
+     copyfile("${dirStd}${apr}_${yyssss}.${extStd}","${dirStd}${apr}_APR_${yyssss}.${extStd}");
+     copyfile("${dirStd}${apr}_${yyssss}.${extRpr}","${dirStd}${apr}_APR_${yyssss}.${extRpr}");
+     }
+  elsif ($direction =~ /END/) {
+
+     copyfile("${dirStd}${apr}_APR_${yyssss}.${extStd}","${dirStd}${apr}_${yyssss}.${extStd}");
+     copyfile("${dirStd}${apr}_APR_${yyssss}.${extRpr}","${dirStd}${apr}_${yyssss}.${extRpr}");
+     }
+  else {
+     print "ERROR: Invalid direction '$direction'. "
+                . "Allowed values are START or END.\n";
+     }
+}

@@ -1,0 +1,292 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! -------------------------------------------------------------------------
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! ERP File
+! ---------
+POLE 1  "SCRIPT"
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! Subdaily ERP Model
+! -------------------
+SUBMOD 1  "DESAI2016"
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Nutation Model
+! -------------------
+NUTMOD 1  "IAU2000R06"
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+
+DESCR_NUTMOD 1  "Nutation model"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "SATELLIT_I20"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "$(SATCRX)_$Y+0"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Planetary Ephemeris
+! -------------------
+JPLEPH 1  "DE421"
+  ## widget = selwin; path = PTH_JPLEPH; ext = EXT_JPLEPH; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_JPLEPH 1  "Planetary ephemeris file"
+
+! Standard Orbit
+! --------------
+STDFIL 1  "SCRIPT"
+  ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 999
+
+MSG_STDFIL 1  "Standard orbit files"
+
+! Special ERP File for Standard Orbit
+! ------------------------------------
+POLFIL 1  "1"
+  ## widget = checkbox
+
+MSG_POLFIL 1  "Use ERP file accompanying the standard orbit"
+
+! Path for special ERP files
+! --------------------------
+STDFIL_PTH_COL_2 0
+  ## widget = initmenu; pointer = DIR_ERP
+
+! Extension for special ERP files
+! -------------------------------
+STDFIL_EXT_COL_2 0
+  ## widget = initmenu; pointer = EXT_ERP
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "SCRIPT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title
+! -----
+TITLE 1  "ORBIT MISCLOSURES"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+EPOCH 1  ""
+  ## widget = lineedit
+
+MSG_EPOCH 1  "Epoch for comparison"
+
+MOREPRT 1  "0"
+  ## widget = checkbox
+
+MSG_MOREPRT 1  "Expand the output lines by satellite meta info"
+
+OUTMEAN 1  "0"
+  ## widget = checkbox
+
+MSG_OUTMEAN 1  "Add mean to the summary section"
+
+OUTMEDIAN 1  "0"
+  ## widget = checkbox
+
+MSG_OUTMEDIAN 1  "Add median to the summary section"
+
+OUTSIGMA 1  "0"
+  ## widget = checkbox
+
+MSG_OUTSIGMA 1  "Add sigma (66% of the data) to the summary section"
+
+OUTIQR 1  "0"
+  ## widget = checkbox
+
+MSG_OUTIQR 1  "Add interquartile range to the summary section"
+
+! GNSS to be included in the comparison
+! -------------------------------------
+! GPS
+USE_G 1  "1"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Use GPS"
+
+! GLONASS
+USE_R 1  "1"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Use GLONASS"
+
+! Galileo
+USE_E 1  "1"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Use Galileo"
+
+! SBAS
+USE_S 1  "0"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Use SBAS"
+
+! BeiDou
+USE_C 1  "0"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Use BeiDou"
+
+! QZSS
+USE_J 1  "0"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Use QZSS"
+
+! LEOs
+USE_L 1  "0"
+  ## widget = checkbox
+
+MSG_USE_L 1  "Use LEOs"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# COMPARE OSCULATING ELEMENTS - STDELE 1: Filenames                            #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# INPUT FILE(S)                                                                #
+#   Standard orbit files                                     > %%%%%%%%%%%% <  # STDFIL
+#   Use ERP file accompanying the standard orbit             > % <             # POLFIL
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output     > % < use STDELE.Lnn            or    > %%%%%%%%%%%% <  # SYSODEF SYSOUT
+#   Error messages     > % < merged to program output  or    > %%%%%%%%%%%% <  # ERRMRG SYSERR
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# STDELE 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants         > %%%%%%%%%%%% <                                 # CONST
+#   Earth rotation parameters > %%%%%%%%%%%% <                                 # POLE
+#   Subdaily ERP model        > %%%%%%%%%%%% <                                 # SUBMOD
+#   Nutation model            > %%%%%%%%%%%% <                                 # NUTMOD
+#   Satellite information     > %%%%%%%%%%%% <                                 # SATELL
+#   Satellite problems        > %%%%%%%%%%%% <                                 # SATCRUX
+#   Planetary ephemeris       > %%%%%%%%%%%% <                                 # JPLEPH
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign         > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # CAMPAIGN
+#   Selected session            year> %%%% <  session> %%%% <                  # YR4_INFO SES_INFO
+#   Session table             > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# STDELE 2: Options                                                            #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+#                                     YYYY-MM-DD  HH-MM-SS                     #
+# Specify an epoch for comparison   > %%%%%%%%%%%%%%%%%%%%% <                  # EPOCH
+# (if empty the epoch will be derived automatically from the arc intervals)    #
+#                                                                              #
+# GNSS TO BE INCLUDED IN THE COMPARISON                                        #
+#          > % < GPS            > % < GLONASS        > % < Galileo             # USE_G USE_R USE_E
+#          > % < SBAS           > % < BeiDou         > % < QZSS                # USE_S USE_C USE_J
+#          > % < LEOs                                                          # USE_L
+#                                                                              #
+# CONTENT OF THE PROGRAM OUTPUT                                                #
+#   Expand the output lines by satellite meta information      > % <           # MOREPRT
+#   Overall statistics contains:       arithmetic mean         > % <           # OUTMEAN
+#                                      median value            > % <           # OUTMEDIAN
+#                                      sigma (66% of the data) > % <           # OUTSIGMA
+#                                      interquartile range     > % <           # OUTIQR
+# END_PANEL ####################################################################

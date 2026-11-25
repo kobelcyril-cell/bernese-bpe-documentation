@@ -1,0 +1,29 @@
+package UPDSTD;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  UPDSTD
+#
+# Purpose :  Generate standard orbit from ele-file using ORBGEN
+#            (update standard orbit)
+#
+# Programs:  ORBGEN
+#
+# Author  :  R. Dach
+# Created :  06-Dec-2007               Last modified:
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

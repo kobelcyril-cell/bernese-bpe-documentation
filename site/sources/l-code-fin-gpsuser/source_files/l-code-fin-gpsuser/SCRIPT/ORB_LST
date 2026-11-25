@@ -1,0 +1,30 @@
+package ORB_LST;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORB_LST
+#
+# Purpose :  Create weekly list for PREWEI run
+#
+# Programs:
+#
+# Author  :  R. Dach
+# Created :  06-Dec-2007
+#
+# Changes :
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($wwww) = $bpe->getKeys('$W+0',);
+
+  system("$ENV{AUTO}/orb_lst.com $wwww $$bpe{CAMP_PTH}$$bpe{CAMPAIGN}") &&
+  die "Error excuting orblst.com for week $wwww\n";
+
+}

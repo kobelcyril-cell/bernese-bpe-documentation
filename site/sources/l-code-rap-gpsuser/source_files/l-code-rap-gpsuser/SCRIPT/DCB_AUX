@@ -1,0 +1,363 @@
+package DCB_AUX;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  DCB_AUX
+#
+# Purpose :  Perform auxiliary tasks concerning DCBIONO
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  30-Aug-2012
+#
+# Changes :  10-Sep-2012/ss: Added receiver_checker.com
+#            10-Sep-2012/ss: Appended P2C2_RINEX.DCB
+#            11-Sep-2012/ss: Undone P2C2 extension and added CODE_FULL.DCB
+#            02-Nov-2012/lp: Start supporting BSWUSER52
+#            08-Sep-2016/ss: Removed BSWUSER50 stuff
+#            30-Sep-2016/ss: Deactivated update of (DCBEST-based) CODE.OSB
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#            14-Jul-2020 RD/PF: change $X/GEN -> PTH_OBSSEL
+#            15-Jul-2026 SS: Removed/deactivated bcwg stuff
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yydddp1, $yydddp2,
+      $wwwwd, $wwwwdp1, $wwwwdp2,
+      $mjd, $e, $f, $sav, $dis, $upd,
+      $dirDcb, $dirIon, $dirOut, $dirObssel) =
+    $bpe->getKeys('$YD+0', '$YD+1', '$YD+2',
+                  '$WD+0', '$WD+1', '$WD+2',
+                  '$JD+0', 'V_E', 'V_F', 'V_SAV', 'V_DIS', 'V_UPD',
+                  'DIR_DCB', 'DIR_ION', 'DIR_OUT', 'PTH_OBSSEL');
+
+# Create CODE.DCB
+# ---------------
+  if ($upd eq "Y") {
+# CODE.DCB:
+    $inp = "$ENV{REF}/P1P2.DCB";
+    $out = "$ENV{REF}/CODE.DCB";
+    copy($inp,$out);
+    $inp = "$ENV{REF}/P1C1.DCB";
+    system("cat $inp >> $out");
+    copy($out,"${dirDcb}CODE.DCB");
+    prtMess($bpe,"CODE.DCB UPDATED");
+    if ($sav eq "Y") {
+      copyaftp($out,"CODE/CODE.DCB");
+      copyaftp($out,"BSWUSER52/ORB/CODE.DCB");
+      prtMess($bpe,"CODE.DCB DISTRIBUTED");
+    }
+# CODE.OSB:
+    $inp = "$ENV{REF}/CODE.DCB";
+##    $out = "$ENV{REF}/CODE.OSB";
+    $out = "$ENV{REF}/CODE.OSB_DCBEST";
+    system("$ENV{AUTO}/dcb2osb.com $inp $out");
+# CODE_FULL.DCB:
+    $inp = "$ENV{REF}/P1P2.DCB";
+    $out = "$ENV{REF}/CODE_FULL.DCB";
+    copy($inp,$out);
+    $inp = "$ENV{REF}/P1C1.DCB";
+    $num = `cat $inp | wc -l`-1;
+    system("cat $inp | head -$num >> $out");
+    $inp = "$ENV{REF}/P1C1_RINEX.DCB";
+    system("cat $inp | grep '^R[0-9]' >> $out");
+    system("echo '' >> $out");
+    $inp = "$ENV{REF}/P2C2_RINEX.DCB";
+    system("cat $inp | grep -v '^[GR] ' >> $out");
+    copy($out,"${dirDcb}CODE_FULL.DCB");
+    prtMess($bpe,"CODE_FULL.DCB UPDATED");
+    if ($sav eq "Y") {
+      copyaftp($out,"CODE/CODE_FULL.DCB");
+##      copyaftp($out,"BSWUSER52/ORB/CODE_FULL.DCB");
+      prtMess($bpe,"CODE_FULL.DCB DISTRIBUTED");
+    }
+  }
+
+# Post RECEIVER. file to BCWG ftp area
+# ------------------------------------
+  if ($sav eq "Y_") {
+    $inp = "${dirObssel}/RECEIVER.";
+    $ftp = "$PATH_AFTP/bcwg/cc2noncc/receiver_bernese.lis";
+    copy($inp,$ftp) unless -s $ftp;
+    $dif = `diff $inp $ftp | wc -l`+0;
+    copy($inp,$ftp) if $dif>4;
+  }
+
+# Perform receiver_checker.com
+# ----------------------------
+  if ($sav eq "Y") {
+##    system("$ENV{AUTO}/receiver_checker.com -ftp") && die "receiver_checker.com failed\n";
+  } else {
+##    system("$ENV{AUTO}/receiver_checker.com")      && die "receiver_checker.com failed\n";
+  }
+
+# Create extra p1c1bias files and post them to ftp server
+# -------------------------------------------------------
+  if ($sav eq "Y") {
+    copy("${dirDcb}DCBEST_C1_.F","${dirDcb}P1C1.F");
+
+##    system("$ENV{AUTO}/make_p1c1bias.com  ");
+##    system("$ENV{AUTO}/make_p1c1bias.com p");
+
+##    system("$ENV{AUTO}/make_p1c1bias.com m 1996");
+##    system("$ENV{AUTO}/make_p1c1bias.com p 1996");
+
+##    system("$ENV{AUTO}/make_p1c1bias.com m 2000");
+##    system("$ENV{AUTO}/make_p1c1bias.com p 2000");
+  }
+
+# Create new DCB files
+# --------------------
+  if ($upd eq "Y_") {
+    $inp = "$ENV{REF}/CODE.DCB";
+    $out = "$ENV{REF}/GNSS.DCB";
+    system("$ENV{AUTO}/dcb2dcb.com $inp $out -0 -0 -auto");
+    if ($dif eq "Y_") {
+      $ftp = "$PATH_AFTP/bcwg/cc2noncc/code.dcb";
+      copy($out,$ftp) unless -s $ftp;
+      $dif = `diff $out $ftp | wc -l`+0;
+      copy($out,$ftp) if $dif>4;
+    }
+  }
+
+
+  if ($upd eq "Y_") {
+    $sel = "P1C1";
+    $all = "";
+    @lst = glob("$PATH_SAV${CAMP_SAVIGS}/2???/ORB/P1C1????.DCB");
+    @lst = (@lst,"$ENV{REF}/P1C1.DCB");
+    @lst = (@lst,glob("$PATH_SAV${CAMP_SAVIGS}/2???/ORB/P1P2????${all}.DCB")) if $sel eq "GNSS";
+    @lst = (@lst,"$ENV{REF}/P1P2${all}.DCB") if $sel eq "GNSS";
+    $out = "$ENV{REF}/${sel}BIAS${all}.DCB";
+    $i = 0;
+    $app = "-noappend";
+    foreach $inp (@lst) {
+      $nam = basename($inp);
+      $yymm = substr($nam,4,4);
+      $app = "-append" if $i>0;
+      $tit = "CODE MONTHLY GPS P1-C1 DCB SOLUTIONS";
+      $opt = "";
+      $opt = "-1" if $nam eq "P1C10005.DCB";
+      if ($nam eq "P1C1.DCB" ||
+          $nam eq "P1P2.DCB" ||
+          $nam eq "P1P2_ALL.DCB" ||
+          $nam eq "CODE.DCB") {
+        $lst = basename($lst[$i-1]);
+        $yy = substr($lst,4,2);
+        $mm = substr($lst,6,2);
+        $yymm = gps_date("-ymd $yy $mm 01 -d 32 -o %y%m");
+        $opt = "-2";
+      }
+      $opt = "-2" if $yymm eq ".DCB";
+      system("$ENV{AUTO}/dcb2dcb.com $inp $out $yymm $app '$tit' $opt");
+      print "$nam: $yymm $app '$tit' $opt\n";
+      $i++;
+    }
+###################################################################
+##    $ftp = "$PATH_AFTP/bcwg/cc2noncc/".lc($sel)."bias".lc($all)."_unsorted.dcb";
+##    copy($out,$ftp) unless -s $ftp;
+##    $dif = `diff $out $ftp | wc -l`+0;
+##    copy($out,$ftp) if $dif>4;
+###################################################################
+    $tmp = "$ENV{REF}/SORTED.DCB";
+    `head -9 $out > $tmp`;
+    @lin = `grep '^[GR][0-9][0-9]' $out`;
+    @srt = map { $_->[0] }
+          sort { $a->[1] cmp $b->[1] }
+##           map { [ $_, substr($_,0,3) ] } @lin;
+           map { [ $_, substr($_,29,9).substr($_,0,3) ] } @lin;
+##           map { [ $_, substr($_,0,3).substr($_,82,40).substr($_,29,9) ] } @lin;
+    open(TMP,">> $tmp");
+    print TMP @srt;
+    close(TMP);
+    @lin = `grep '^[GR]  ' $out`;
+    @srt = map { $_->[0] }
+          sort { $a->[1] cmp $b->[1] }
+           map { [ $_, substr($_,6,20).substr($_,82,40).substr($_,0,1).substr($_,29,9) ] } @lin;
+    open(TMP,">> $tmp");
+    print TMP @srt;
+    close(TMP);
+##    $ftp = "$PATH_AFTP/bcwg/cc2noncc/".lc($sel)."bias".lc($all).".dcb";
+##    copy($tmp,$ftp) unless -s $ftp;
+##    $dif = `diff $tmp $ftp | wc -l`+0;
+##    copy($tmp,$ftp) if $dif>4;
+
+
+    $sel = "GNSS";
+    $all = "";
+    @lst = glob("$PATH_SAV${CAMP_SAVIGS}/2???/ORB/P1C1????.DCB");
+    @lst = (@lst,"$ENV{REF}/P1C1.DCB");
+    @lst = (@lst,glob("$PATH_SAV${CAMP_SAVIGS}/2???/ORB/P1P2????${all}.DCB")) if $sel eq "GNSS";
+    @lst = (@lst,"$ENV{REF}/P1P2${all}.DCB") if $sel eq "GNSS";
+    $out = "$ENV{REF}/${sel}BIAS${all}.DCB";
+    $i = 0;
+    $app = "-noappend";
+    foreach $inp (@lst) {
+      $nam = basename($inp);
+      $yymm = substr($nam,4,4);
+      $app = "-append" if $i>0;
+      $tit = "CODE MONTHLY GPS/GNSS P1-C1/P1-P2 DCB SOLUTIONS";
+      $opt = "";
+      $opt = "-1" if $nam eq "P1C10005.DCB";
+      if ($nam eq "P1C1.DCB" ||
+          $nam eq "P1P2.DCB" ||
+          $nam eq "P1P2_ALL.DCB" ||
+          $nam eq "CODE.DCB") {
+        $lst = basename($lst[$i-1]);
+        $yy = substr($lst,4,2);
+        $mm = substr($lst,6,2);
+        $yymm = gps_date("-ymd $yy $mm 01 -d 32 -o %y%m");
+        $opt = "-2";
+      }
+      $opt = "-2" if $yymm eq ".DCB";
+      system("$ENV{AUTO}/dcb2dcb.com $inp $out $yymm $app '$tit' $opt");
+      print "$nam: $yymm $app '$tit' $opt\n";
+      $i++;
+    }
+    $tmp = "$ENV{REF}/SORTED.DCB";
+    `head -9 $out > $tmp`;
+    @lin = `grep '^[GR][0-9][0-9]' $out`;
+    @srt = map { $_->[0] }
+          sort { $a->[1] cmp $b->[1] }
+##           map { [ $_, substr($_,0,3) ] } @lin;
+           map { [ $_, substr($_,29,9).substr($_,0,3) ] } @lin;
+##           map { [ $_, substr($_,0,3).substr($_,82,40).substr($_,29,9) ] } @lin;
+    open(TMP,">> $tmp");
+    print TMP @srt;
+    close(TMP);
+    @lin = `grep '^[GR]  ' $out`;
+    @srt = map { $_->[0] }
+          sort { $a->[1] cmp $b->[1] }
+           map { [ $_, substr($_,6,20).substr($_,82,40).substr($_,0,1).substr($_,29,9) ] } @lin;
+    open(TMP,">> $tmp");
+    print TMP @srt;
+    close(TMP);
+##    $ftp = "$PATH_AFTP/bcwg/cc2noncc/".lc($sel)."bias".lc($all).".dcb";
+##    copy($tmp,$ftp) unless -s $ftp;
+##    $dif = `diff $tmp $ftp | wc -l`+0;
+##    copy($tmp,$ftp) if $dif>4;
+
+
+    $sel = "GNSS";
+    $all = "_ALL";
+    @lst = glob("$PATH_SAV${CAMP_SAVIGS}/2???/ORB/P1C1????.DCB");
+    @lst = (@lst,"$ENV{REF}/P1C1.DCB");
+    @lst = (@lst,glob("$PATH_SAV${CAMP_SAVIGS}/2???/ORB/P1P2????${all}.DCB")) if $sel eq "GNSS";
+    @lst = (@lst,"$ENV{REF}/P1P2${all}.DCB") if $sel eq "GNSS";
+    $out = "$ENV{REF}/${sel}BIAS${all}.DCB";
+    $i = 0;
+    $app = "-noappend";
+    foreach $inp (@lst) {
+      $nam = basename($inp);
+      $yymm = substr($nam,4,4);
+      $app = "-append" if $i>0;
+      $tit = "CODE MONTHLY GPS/GNSS P1-C1/P1-P2 DCB SOLUTIONS";
+      $opt = "";
+      $opt = "-1" if $nam eq "P1C10005.DCB";
+      if ($nam eq "P1C1.DCB" ||
+          $nam eq "P1P2.DCB" ||
+          $nam eq "P1P2_ALL.DCB" ||
+          $nam eq "CODE.DCB") {
+        $lst = basename($lst[$i-1]);
+        $yy = substr($lst,4,2);
+        $mm = substr($lst,6,2);
+        $yymm = gps_date("-ymd $yy $mm 01 -d 32 -o %y%m");
+        $opt = "-2";
+      }
+      $opt = "-2" if $yymm eq ".DCB";
+      system("$ENV{AUTO}/dcb2dcb.com $inp $out $yymm $app '$tit' $opt");
+      print "$nam: $yymm $app '$tit' $opt\n";
+      $i++;
+    }
+    $tmp = "$ENV{REF}/SORTED.DCB";
+    `head -9 $out > $tmp`;
+    @lin = `grep '^[GR][0-9][0-9]' $out`;
+    @srt = map { $_->[0] }
+          sort { $a->[1] cmp $b->[1] }
+##           map { [ $_, substr($_,0,3) ] } @lin;
+           map { [ $_, substr($_,29,9).substr($_,0,3) ] } @lin;
+##           map { [ $_, substr($_,0,3).substr($_,82,40).substr($_,29,9) ] } @lin;
+    open(TMP,">> $tmp");
+    print TMP @srt;
+    close(TMP);
+    @lin = `grep '^[GR]  ' $out`;
+    @srt = map { $_->[0] }
+          sort { $a->[1] cmp $b->[1] }
+##           map { [ $_, substr($_,6,20).substr($_,82,40).substr($_,0,1).substr($_,29,9) ] } @lin;
+           map { [ $_, substr($_,6,20).substr($_,0,1).substr($_,82,40).substr($_,29,9) ] } @lin;
+    open(TMP,">> $tmp");
+    print TMP @srt;
+    close(TMP);
+##    $ftp = "$PATH_AFTP/bcwg/cc2noncc/".lc($sel)."bias".lc($all).".dcb";
+##    copy($tmp,$ftp) unless -s $ftp;
+##    $dif = `diff $tmp $ftp | wc -l`+0;
+##    copy($tmp,$ftp) if $dif>4;
+  }
+
+# Create extra dcbiono_*.lis files
+# --------------------------------
+  if ($upd eq "Y") {
+    `grep '^[GRES][0-9][0-9]' $ENV{REF}/P1P2_ALL.DCB | cut -c1-3 > $ENV{TXT}/dcbiono_sat_all.lis`;
+    `grep '^G[0-9][0-9]' $ENV{REF}/P1P2_ALL.DCB | cut -c1-3 > $ENV{TXT}/dcbiono_sat_gps.lis`;
+    `grep '^R[0-9][0-9]' $ENV{REF}/P1P2_ALL.DCB | cut -c1-3 > $ENV{TXT}/dcbiono_sat_glonass.lis`;
+
+    `grep '^[GRE]  ' $ENV{REF}/P1P2_ALL.DCB | cut -c7-20 | sort -u > $ENV{TXT}/dcbiono_sta_all.lis`;
+    `grep '^G  ' $ENV{REF}/P1P2_ALL.DCB | cut -c7-20 > $ENV{TXT}/dcbiono_sta_gps.lis`;
+    `grep '^R  ' $ENV{REF}/P1P2_ALL.DCB | cut -c7-20 > $ENV{TXT}/dcbiono_sta_glonass.lis`;
+    `diff $ENV{TXT}/dcbiono_sta_all.lis $ENV{TXT}/dcbiono_sta_glonass.lis | grep '^< ' | cut -c3-16 > $ENV{TXT}/dcbiono_sta_gps_only.lis`;
+##    `grep '^G     [SU][0-9][0-9][0-9]' $ENV{REF}/P1P2_ALL.DCB | cut -c7-20 > $ENV{TXT}/dcbiono_sta_nga.lis`;
+
+    `cat $ENV{REF}/P[12]C[12]_RINEX.DCB | grep '^[GRES][0-9][0-9]' | cut -c1-3 | sort -u > $ENV{TXT}/dcbiono_sat_all_rinex.lis`;
+    `cat $ENV{REF}/P[12]C[12]_RINEX.DCB | grep '^[GRES]  ' | cut -c7-10 | sort -u > $ENV{TXT}/dcbiono_sta_all_rinex.lis`;
+
+    @sol = ("Z1_","D11","D12");
+    foreach $sol (@sol) {
+      $outfil = "$ENV{TXT}/dcbiono_".lc($sol).".lis";
+      open(OUTFIL,"> $outfil");
+      @dcblst = glob("$PATH_SAV$CAMP_SAVIGS/????/ORB/${sol}[0-9]????.DCB");
+      foreach $inpfil (@dcblst) {
+        $numsa1 = 0;
+        $numsa2 = 0;
+        $numsat = 0;
+        $numst1 = 0;
+        $numst2 = 0;
+        $numsta = 0;
+        open(INPFIL,"< $inpfil");
+        while (<INPFIL>) {
+          $numsa1++ if /^G[0-9][0-9]/;
+          $numsa2++ if /^R[0-9][0-9]/;
+          $numsat++ if /^[GRES][0-9][0-9]/;
+          $numst1++ if /^G  /;
+          $numst2++ if /^R  /;
+          $numsta++ if /^[GRES]  /;
+        }
+        close(INPFIL);
+        $yyddd = substr(basename($inpfil),3,5);
+        ($mjd,$yyyy,$yy,$ddd) = gps_date("-yd $yyddd -o %IJ %Y %y %j");
+        $epo = ($mjd-47892+0.5)/365.25+1990;
+        $epo = sprintf "%10.5f",$epo;
+        $str = sprintf "%3d %3d %3d %3d %3d %3d",$numsa1,$numsa2,$numsat,$numst1,$numst2,$numsta;
+        print OUTFIL "$epo  $mjd  $yy $ddd  $str\n";
+      }
+      close(OUTFIL);
+    }
+  }
+
+}

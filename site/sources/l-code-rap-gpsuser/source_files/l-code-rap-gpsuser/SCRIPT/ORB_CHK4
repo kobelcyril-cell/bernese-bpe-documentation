@@ -1,0 +1,142 @@
+package ORB_CHK4;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORB_CHK4
+#
+# Purpose :  ORBIT QUALITY CHECK CONCERNING MIDDLE-DAY SOLUTION
+#
+# Programs:
+#
+# Author  :  H. Bock
+# Created :  05-Dec-2007
+#
+# Changes :  01-Nov-2012/ss: ASPLIT procedure concerning RM solution
+#                            (according to IGSFINAL)
+#            17-Nov-2015 SS: Considered V_UPD
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ymdm7,$ymdm2,$ymdm1,$ymdp0,
+      $ssss,$yy,$ddd,$dm1,$yyddd,$yydm1,$wwwwd,
+      $CAMP_PTH,$CAMPAIGN,
+      $dirOut,$dirPre,$extPre,$dirErp,$extErp,
+      $v_i,$v_z) =
+    $bpe->getKeys('$YMD_STR-7','$YMD_STR-2','$YMD_STR-1','$YMD_STR+0',
+                  '$S+0','$Y','$+0','$-1','$YD+0','$YD-1','$WD+0',
+                  'CAMP_PTH','CAMPAIGN',
+                  'DIR_OUT','DIR_PRE','EXT_PRE','DIR_ERP','EXT_ERP',
+                  'V_I','V_Z');
+
+# Check if this is an ULTRA:
+# -------------------------
+  my $ultFil = "$CAMP_PTH${CAMPAIGN}/MSC/ULT$yy$ddd.FLG";  # ultra-flag
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+  unless (-e $ultFil) {
+      $h_end=24;}
+
+  my $skpFil = "$CAMP_PTH${CAMPAIGN}/MSC/NO_LONGARCFIT.FLG";
+
+# Save PRE/ERP file of middle day
+# -------------------------------
+##  my $inpFil ="$dirPre/${v_i}M1${dm1}.${extPre}";
+##  my $outFil ="$dirPre/${v_z}_${yydm1}.${extPre}";
+##  if (-e $inpFil){
+##      copyfile($inpFil,$outFil);}
+##  else {
+##      prtErr($bpe,"$inpFil not found") and die;}
+##
+##  $inpFil ="$dirErp/${v_i}_${yyddd}.${extErp}";
+##  $outFil ="$dirErp/${v_z}_${yydm1}.${extErp}";
+##  if (-e $inpFil){
+##      copyfile($inpFil,$outFil);}
+##  else {
+##      prtErr($bpe,"$inpFil not found") and die;}
+
+# PlusMinus-Variable
+# ------------------
+  setMinusPlus($bpe,-7,-1);
+
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","RADIO_1",'0');
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","RADIO_2",'1');
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","STADAT","$ymdm7");
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","ENDDAT","$ymdm1");
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","SUMFIL","");
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBGEN";
+  if (-e $skpFil){prtMess($bpe,"$skpFil EXISTS");}
+  unless (-e $ultFil || -e $skpFil){
+      $bpe->RUN_PGMS($PGMNAM);}
+
+# ASPLIT procedure
+# ----------------
+  unless (-e $ultFil) {
+
+    setMinusPlus($bpe,-2,-1);
+
+    $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","PREFIL",'$Z_$YD+-');
+    $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","RADIO_1",'0');
+    $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","RADIO_2",'1');
+    $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","STADAT","$ymdm2");
+    $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","ENDDAT","$ymdm1");
+    $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","SUMFIL","");
+
+    $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $bpe->putKey("$$bpe{U}/PAN/DEFXTR.INP","JOBOUT","$$bpe{SYSOUT}");
+
+    unlink("$dirOut/DEFXTR.SUM");
+    unlink("$dirOut/DEFWKS.SUM");
+    unlink("$dirOut/ASPLIT.SUM");
+
+    unless ($$bpe{V_UPD} eq "Y") {
+      $bpe->putKey("$$bpe{U}/PAN/DEFXTR.INP","ASPLIT",'');
+      prtMess($bpe,"ASPLIT_NOT_PERFORMED");
+    }
+
+    $PGMNAM = "DEFXTR";
+    $bpe->RUN_PGMS($PGMNAM);
+
+##    my $xtrSum="$dirOut/ORBCHK4.${yy}_${ssss}";
+##    if(-e $xtrSum){
+##      appFile ("",0,"$dirOut/DEFWKS.SUM","$xtrSum");
+##      appFile ("",0,"$dirOut/DEFXTR.SUM","$xtrSum"); }
+##    else {
+##      copyfile("$dirOut/DEFWKS.SUM","$xtrSum");
+##      appFile("",0,"$dirOut/DEFXTR.SUM","$xtrSum");
+##    }
+
+##    my $xtrLst="$dirOut/${v_z}X${wwwwd}.LST";
+##    if(-e $xtrLst){
+##      appFile("",0,"$dirOut/DEFWKS.SUM","$xtrLst");
+##    } else {
+##      copyfile("$dirOut/DEFWKS.SUM","$xtrSum");
+##    }
+
+    my $arcSum="$dirOut/ASPLIT.${yy}_${ssss}";
+#    if(-e $arcSum){
+    if(-e "$dirOut/ASPLIT.SUM"){
+      appFile("",0,"$dirOut/ASPLIT.SUM","$arcSum");
+#    } else {
+#      copyfile("$dirOut/ASPLIT.SUM","$arcSum");
+    }
+    unlink("$dirOut/ASPLIT.SUM");
+
+    system("$ENV{AUTO}/crx_alarm.com $dm1 $CAMP_PTH${CAMPAIGN} -asplit");
+  }
+
+}

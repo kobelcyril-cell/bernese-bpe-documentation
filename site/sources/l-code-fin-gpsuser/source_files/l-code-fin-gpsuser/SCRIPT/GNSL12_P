@@ -1,0 +1,88 @@
+package GNSL12_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GNSL12_P
+#
+# Purpose :  Execute GPSEST for L1&L2 ambiguity resolution
+#
+# PARAMs  :  PARAM1 - 4-character baseline name
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  20-Mar-2005/ss: Derived from GPSQIF_P
+#            26-Feb-2007/eb: new keyword V_GNSSAR for GNSS Amb. fixing
+#            07-Aug-2008/ss: Check ambiguity-fixed solution and adapt tesing
+#                            parameters when indicated
+#            28-Feb-2011/ss: Simplification and SD bias handling
+#            08-Mar-2011/ss: Run SATMRK
+#            29-Sep-2014 lp: New GNSS selection using setGNSS
+#            20-May-2016/ss/av: Updated due to OSB implementation
+#            14-Mar-2018/ss: Updated (from PNAC)
+#            05-Jul-2018/ss: UNBN data problem
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1, $v_gnssar, $ssss, $mjd) = $bpe->getKeys('PARAM1', 'V_GNSSAR', '$S+0', '$JD+0');
+
+  setMinusPlus($bpe,0,0);
+
+# Set filename variable
+# ---------------------
+  setUserVar($bpe,"FFFF",$param1);
+
+# Select specific processing options, if desired
+# ----------------------------------------------
+# (all GNSS for processing and selected GNSS for AR)
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_","ALL");
+  unless ($v_gnssar eq "") {
+    &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USEAR_",$v_gnssar);
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "SATMRK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# DO NOT INTRODUCE L1/L2 INTEGERS:
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","0");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","GLORES","ALWAYS");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP"," ");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","DCBINP","\$(FFFF)\$~~P");
+
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PSFILES","\$(FFFF)\$S+0");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CSFILES","");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","RESIDRS","");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT","\$(FFFF)\$+0B");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TITLE","Baseline: \$(FFFF), L1&L2 ambiguity resolution");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","FREQUENCY","L1&L2");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSTRAT","SIGMA");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","0");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRL1L2","0");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","AMBSAVE","1");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","LEAST","4.5");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MOST","0.08");
+##  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SIGMAMIN","0.08");
+
+# UNBN data problem:
+  if (substr($param1,0,2) eq "UO" || substr($param1,2,2) eq "UO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","LEAST","2.25");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MOST","0.04");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SIGMAMIN","0.04");
+    prtMess($bpe,"CHANGED OPTIONS FOR BASELINE: $param1 $mjd");
+  }
+
+  $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  system("$ENV{AUTO}/get_sdbias2.com $$bpe{SYSOUT}");
+
+}

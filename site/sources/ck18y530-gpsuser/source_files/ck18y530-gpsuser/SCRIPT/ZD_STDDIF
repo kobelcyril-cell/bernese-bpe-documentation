@@ -1,0 +1,25 @@
+package STDDIF;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  STDDIF
+#
+# Purpose :  Execute STDDIF
+#
+# Author  :  U. Meyer
+# Created :  07-May-2013
+#
+# Changes :  30-Apr-2026 CK: Revised
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Run program ------------
+  my $PGMNAM = "STDDIF";
+  $bpe->RUN_PGMS($PGMNAM);
+}

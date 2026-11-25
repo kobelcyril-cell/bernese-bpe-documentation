@@ -1,0 +1,81 @@
+package GPSXTR_EXTRACT;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GPSXTR_EXTRACT
+#
+# Purpose :  Extract Rms, #fil, #obs, #par from LARGEXTRyyssss.SUM
+#            Write them to PROCESSING_yyddd in table format.
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  # ---------------------- Parameter -----------------------------------------
+  my ($dirOut, $yyddd, $ssss, $yyyy, $yyssss, $V_Z, $V_L) =
+    $bpe->getKeys('DIR_OUT', '$YD+0', '$S+0', '$Y+0', '$YSS+0', 'V_Z', 'V_L');
+
+  # Define and create day-specific MSC directory
+  # --------------------------------------------
+  my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    die "Cannot create directory $mscDir: $!";
+  }
+
+  my $outfile = "$mscDir/PROCESSING_$yyddd";
+
+  # Input file
+  my $infile = "${dirOut}/${V_Z}${V_L}XTR${yyssss}.SUM";
+  die "Cannot find input file $infile\n" unless -f $infile;
+
+  print "Extract from: $infile\n";
+  print "Write into:   $outfile\n";
+
+  # ---------------------- Read input file -----------------------------------
+  open(my $fh_in, "<", $infile) or die "Cannot open $infile: $!";
+
+  my ($rms, $fil, $obs, $par);
+  while (my $line = <$fh_in>) {
+
+
+    if ($line =~ /Rms:\s*([\d\.]+)\s*,\s*#\s*fil\.\:\s*(\d+)\s*,\s*#\s*obs\.\:\s*(\d+)\s*,\s*#\s*par\.\:\s*(\d+)/) {
+      ($rms, $fil, $obs, $par) = ($1, $2, $3, $4);
+      last;
+    }
+  }
+  close($fh_in);
+
+  # ---------------------- Write result --------------------------------------
+  open(my $fh, ">>", $outfile) or die "Cannot write $outfile: $!";
+
+  print $fh "==== GPSXTR STATISTICS ====\n";
+
+  if (defined $rms) {
+
+    # Header
+    print $fh sprintf("%10s %10s %12s %12s\n",
+                      "RMS", "#FIL", "#OBS", "#PAR");
+    print $fh "------------------------------------------------------\n";
+
+    # One table line
+    print $fh sprintf("%10.3f %10d %12d %12d\n",
+                      $rms, $fil, $obs, $par);
+
+  } else {
+    print $fh "No valid Rms/#fil/#obs/#par line found!\n";
+  }
+
+  print $fh "==============================================\n";
+  close($fh);
+
+  print "GPSXTR_EXTRACT done!\n";
+}
+
+1;

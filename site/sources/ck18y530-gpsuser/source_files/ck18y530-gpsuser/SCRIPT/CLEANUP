@@ -1,0 +1,212 @@
+package CLEANUP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CLEANUP
+#
+# Purpose :  Clean up campaign of LEOPOD processing:
+#            - Append first 100 lines of GNSS PRE file and clock RINEX file,
+#              as well as ERP file to PRC file
+#            - Delete GNSS clock RINEX file
+#            - Delete LEO RINEX file and smoothed LEO RINEX file
+#            - Delete LEO attitude file
+#            - Delete OUT/$A$YSS+0.CLK (CODSPP of PID 110)
+#            - Delete OUT/M$A?$YSS+0.RES (MAUPRP of PID 140)
+#            - Delete OUT/$A$YSS+0.RES (GPSEST of PID 150)
+#            - Compress OUT/KN$F$YSS+0.COV (GPSEST of PID 600)
+#            - Compress OUT/KN$F$YSS+0.CLK (GPSEST of PID 600)
+#
+#            The Bernese clock file and the GNSS orbit and ERP files are not
+#            deleted since they might still be used if several LEOs are
+#            processed in parallel.
+#
+# Author  :  D. Arnold
+# Created :  20-Dec-2016
+#
+# Changes :  11-Dec-2017 DA: Delete also SMT file
+#            13-Apr-2022 DA: Removed DIR_TAB and EXT_TAB
+#            15-Nov-2024 DA: Check if PRC avail., use V_ATT, del. BSW clk. file
+#            18-Nov-2024 DA: Do not del. BSW clk. file (parallel POD)
+#
+#
+# ============================================================================
+use strict;
+
+use lib "$ENV{BPE}";
+use bpe_util qw(prtMess);
+
+use lib "$ENV{EXE}";
+use Gps_Date;
+
+use File::Basename;
+
+sub run {
+    my $bpe = shift;
+
+# Get variables
+# -------------
+    my ($yyssss, $ssss, $wwww, $wwwwd, $yy, $clean,
+        $A, $B, $F, $CLK, $ATT,
+        $LEO, $del, $param1,
+        $dirOut, $dirSum, $dirLst, $dirEdt, $dirRes,
+        $extOut, $extSum, $extLst, $extEdt, $extRes,
+        $dirRxc, $dirPlt, $dirKin, $dirRpr, $dirEle,
+        $extRxc, $extPlt, $extKin, $extRpr, $extEle,
+        $dirIep, $dirPre, $dirStd, $dirErp, $dirClk,
+        $extIep, $extPre, $extStd, $extErp, $extClk,
+        $dirRxo, $dirPzh, $dirPzo, $dirCzh, $dirCzo, $dirAtt,
+        $extRxo, $extPzh, $extPzo, $extCzh, $extCzo, $extAtt ) =
+            $bpe->getKeys(
+                '$YSS+0','$S+0','$W+0','$WD+0','$Y','V_CLEAN',
+                'V_A', 'V_B', 'V_F', 'V_CLK', 'V_ATT',
+                'V_LEO','V_DEL','PARAM1',
+                'DIR_OUT','DIR_SUM','DIR_LST','DIR_EDT','DIR_RES',
+                'EXT_OUT','EXT_SUM','EXT_LST','EXT_EDT','EXT_RES',
+                'DIR_RXC','DIR_PLT','DIR_KIN','DIR_RPR','DIR_ELE',
+                'EXT_RXC','EXT_PLT','EXT_KIN','EXT_RPR','EXT_ELE',
+                'DIR_IEP','DIR_PRE','DIR_STD','DIR_ERP','DIR_CLK',
+                'EXT_IEP','EXT_PRE','EXT_STD','EXT_ERP','EXT_CLK',
+                'DIR_RXO','DIR_PZH','DIR_PZO','DIR_CZH','DIR_CZO','DIR_ATT',
+                'EXT_RXO','EXT_PZH','EXT_PZO','EXT_CZH','EXT_CZO','EXT_ATT' );
+
+    # Do anything?
+    if ($clean && $clean ne 'Y') {
+        print "Skip cleaning up\n";
+        return;
+    }
+
+# Save first 100 lines of GNSS PRE file and GNSS RINEX clock file, as well as
+# ERP file into PRC file to keep track of which GNSS products have been used
+# for the POD (if PRC file available)
+    my $prcFil = "${dirOut}${LEO}${F}${yyssss}.PRC";
+    if (-e $prcFil) {
+        print "Save GNSS products:\n";
+        my $date = &gps_date("-t -l -o %V");
+
+        # GNSS PRE file
+        my $preFil = "${dirPre}/${B}${yyssss}.${extPre}";
+        print "$preFil ";
+        if (-e $preFil) {
+            print "found. Append first 100 lines to $prcFil\n";
+            open PRC, '>>', $prcFil;
+            print PRC "\n\n","="x80,"\n";
+            print PRC "GNSS PRE file ".&basename($preFil)." available in campaign on ${date}:\n";
+            print PRC "="x80,"\n\n";
+            close PRC;
+            system("head -100 $preFil >> $prcFil");
+        } else {
+            print "not found.\n";
+        }
+
+        # ERP file
+        my $erpFil = "${dirPre}/${B}${yyssss}.${extErp}";
+        print "$erpFil ";
+        if (-e $erpFil) {
+            print "found. Append to $prcFil\n";
+            open PRC, '>>', $prcFil;
+            print PRC "\n\n","="x80,"\n";
+            print PRC "ERP file ".&basename($erpFil)." available in campaign on ${date}:\n";
+            print PRC "="x80,"\n\n";
+            close PRC;
+            system("cat $erpFil >> $prcFil");
+        } else {
+            print "not found.\n";
+        }
+
+        # Bernese clock file
+        my $clkFil = "${dirPre}/${CLK}${yyssss}.${extClk}";
+        print "$clkFil ";
+        if (-e $clkFil) {
+            print "found. Append first 100 lines to $prcFil\n";
+            open PRC, '>>', $prcFil;
+            print PRC "\n\n","="x80,"\n";
+            print PRC "Clock file ".&basename($clkFil)." available in campaign on ${date}:\n";
+            print PRC "="x80,"\n\n";
+            close PRC;
+            system("head -100 $clkFil >> $prcFil");
+        } else {
+            print "not found.\n";
+        }
+    } else {
+        print "$prcFil not found, did not append any GNSS products to it\n";
+    }
+
+# Clean up
+    print "\nDelete files:\n";
+
+    # Delete clock RINEX file OUT/$(CLK)$YSS+0.CLK
+    &delFil("${dirOut}/${CLK}${yyssss}.${extClk}");
+
+    # Delete clock file ORB/$(CLK)$YSS+0.CLK
+    #&delFil("${dirPre}/${CLK}${yyssss}.${extClk}");
+
+    # Delete LEO RINEX file
+    &delFil("${dirRxo}/${LEO}${ssss}.${yy}O");
+
+    # Delete smoothed LEO RINEX file
+    &delFil("${dirRxo}/${LEO}${ssss}.SMT");
+
+    # Delete LEO attitude file
+    &delFil("${dirPre}/${ATT}.${extAtt}");
+
+    # Delete OUT/$A$YSS+0.CLK (CODSPP of PID 110)
+    &delFil("${dirOut}/${A}${yyssss}.${extClk}");
+
+    # Delete OUT/M$A?$YSS+0.RES (MAUPRP of PID 140)
+    &delFil("${dirOut}/M${A}?${yyssss}.${extRes}");
+
+    # Delete OUT/$A$YSS+0.RES (GPSEST of PID 150)
+    &delFil("${dirOut}/${A}${yyssss}.${extRes}");
+
+    # Compress OUT/KN$F$YSS+0.COV (GPSEST of PID 600)
+    &cmpFil("${dirOut}/KN${F}${yyssss}.COV");
+
+    # Compress OUT/KN$F$YSS+0.CLK (GPSEST of PID 600)
+    &cmpFil("${dirOut}/KN${F}${yyssss}.${extClk}");
+
+    return;
+}
+
+sub delFil { # Delete files if existing
+    my @files = glob($_[0]);
+
+    if (@files) {
+        foreach my $f (@files) {
+            if (-e $f) {
+                print "$f found. ";
+                unlink($f);
+                if (-e $f) {
+                    print "Could not be deleted\n";
+                } else {
+                    print "Deleted\n";
+                }
+            } else {
+                print "$f not found\n";
+            }
+        }
+    } else {
+        print "No files $_[0] found\n";
+    }
+}
+
+sub cmpFil { # Compress files with bzip2 if existing
+    my @files = glob($_[0]);
+
+    if (@files) {
+        foreach my $f (@files) {
+            if (-e $f) {
+                print "$f found. ";
+                system("bzip2 $f");
+                if (! -e $f && -e "${f}.bz2") {
+                    print "Compressed to ${f}.bz2\n";
+                } else {
+                    print "Could not be compressed\n";
+                }
+            } else {
+                print "$f not found\n";
+            }
+        }
+    } else {
+        print "No files $_[0] found\n";
+    }
+}

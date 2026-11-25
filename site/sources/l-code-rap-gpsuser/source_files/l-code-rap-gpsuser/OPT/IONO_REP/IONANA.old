@@ -1,0 +1,600 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 12
+  "P" "/storage/research/aiub_code"
+  "Q" "/storage/research/aiub_code"
+  "K" "/storage/research/aiub_u_camp"
+  "X" "/storage/research/aiub_data/BSWsoftware/BERN/GPS"
+  "U" "/storage/homefs/l_code/GPSUSER"
+  "S" "/storage/research/aiub_data/PRODUCTS"
+  "G" "/storage/research/aiub_u_camp"
+  "USER" "l_code"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  "MODEL" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/MODEL"
+  "CONFIG" "/storage/research/aiub_data/BSWsoftware/BERN/GLOBAL/CONFIG"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 1  "${P}/EXAMPLE"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 1  "${P}/EXAMPLE/GEN/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "2022"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "3010"
+  ## widget = comment
+  # $S+0
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! General Constants
+! -----------------
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  ## emptyallowed = false
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+! IONEX Control File
+! ------------------
+IONEXCF 1  "${P}/EXAMPLE/GEN/IONEX.SKL"
+  ## widget = selwin; path = PTH_IONEXCF; ext = EXT_IONEXCF; maxfiles = 1
+  ## emptyallowed = false
+  # IONEX
+
+DESCR_IONEXCF 1  "IONEX control file"
+
+! Ionosphere maps
+! ---------------
+IONINP 0
+  ## widget = selwin; path = DIR_ION; ext = EXT_ION
+  # _$B1[67]???
+
+MSG_IONINP 1  "Ionosphere maps"
+
+IONINP_TXT_COL_1 1  "Ionosphere maps"
+
+! Ionosphere map (output)
+! -----------------------
+IONOUT 0
+  ## widget = lineedit; path = DIR_ION; ext = EXT_ION
+
+DESCR_IONOUT 1  "Ionosphere map output"
+
+! Data output
+! -----------
+DATOUT 1  "${P}/EXAMPLE/OUT/MEANTECR.SUM"
+  ## widget = lineedit; path = DIR_SUM; ext = EXT_SUM
+  # MEANTECR
+
+DESCR_DATOUT 1  "Data output"
+
+! Graphics: SMTSER
+! ----------------
+SMTSER 1  "${P}/EXAMPLE/OUT/MEANTECR.CPS"
+  ## widget = lineedit; path = DIR_OUT
+  ## activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+  # MEANTECR.CPS
+
+DESCR_SMTSER 1  "Graphics: Smoothed ionosphere series"
+
+! Graphics: SMTACF
+! ----------------
+SMTACF 1  "${P}/EXAMPLE/OUT/MEANTECR_ACF0.CPS"
+  ## widget = lineedit; path = DIR_OUT
+  ## activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+  # MEANTECR_ACF0.CPS
+
+DESCR_SMTACF 1  "Graphics: Smoothed ACF"
+
+! Graphics: PRESER
+! ----------------
+PRESER 1  "${P}/EXAMPLE/OUT/MEANTECR_FC.CPS"
+  ## widget = lineedit; path = DIR_OUT
+  ## activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+  # MEANTECR_FC.CPS
+
+DESCR_PRESER 1  "Graphics: Ionosphere prediciton"
+
+! Graphics: PREACF
+! ----------------
+PREACF 1  "${P}/EXAMPLE/OUT/MEANTECR_ACF.CPS"
+  ## widget = lineedit; path = DIR_OUT
+  ## activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+  # MEANTECR_ACF.CPS
+
+DESCR_PREACF 1  "Graphics: ACF of prediciton"
+
+! Graphics: TECPLT
+! ----------------
+TECPLT 0
+  ## widget = lineedit; path = DIR_OUT; activeif = PRCMOD = TEC_PROFILES
+  # 
+
+DESCR_TECPLT 1  "Graphics: TEC profile"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "${P}/EXAMPLE/OUT/MEANTECR.OUT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # MEANTECR
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Title
+! -----
+TITLE 1  "CODE REPRO GIM time series from day 001, 1994 to day 301, 2022"
+  ## widget = lineedit
+  # CODE REPRO GIM time series from day 001, 1994 to day $+0, $Y+0
+
+MSG_TITLE 1  "Title line"
+
+! Processing mode
+! ---------------
+PRCMOD 1  "COEFFICIENT-SPECIFIC_ANALYSIS"
+  ## widget = combobox
+  ## cards = COEFFICIENT-SPECIFIC_ANALYSIS IONOSPHERE_PREDICTION TEC_PROFILES
+  ## editable = false
+
+MSG_PRCMOD 1  "Processing mode"
+
+! Degree of coefficient
+! ---------------------
+DEGCOE 1  "0"
+  ## widget = lineedit; activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+
+MSG_DEGCOE 1  "Degree of coefficient"
+
+! Order
+! -----
+ORDCOE 1  "0"
+  ## widget = lineedit; activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+
+MSG_ORDCOE 1  "Order"
+
+! One coefficient only
+! --------------------
+ONECOE 1  "1"
+  ## widget = checkbox; activeif = DEGCOE / _ OR ORDCOE / _
+
+MSG_ONECOE 1  "One coefficient only"
+
+! File-specific averaging
+! -----------------------
+FILAVG 1  "1"
+  ## widget = checkbox
+
+MSG_FILAVG 1  "File-specific averaging"
+
+! Smoothed acf
+! ------------
+ACFSMT 1  "0"
+  ## widget = checkbox
+
+MSG_ACFSMT 1  "Smoothed acf"
+
+! Maximum TEC
+! -----------
+MAXTEC 1  "0"
+  ## widget = checkbox; activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+
+MSG_MAXTEC 1  "Maximum TEC"
+
+! Minimum TEC
+! -----------
+MINTEC 1  "0"
+  ## widget = checkbox; activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+
+MSG_MINTEC 1  "Minimum TEC"
+
+! Single-layer height
+! -------------------
+SLHGT 1  "0"
+  ## widget = checkbox; activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+
+MSG_SLHGT 1  "Single-layer height"
+
+! Time argument in years
+! ----------------------
+TIMEYR 1  "1"
+  ## widget = checkbox
+
+MSG_TIMEYR 1  "Time argument in years"
+
+! Numeric labels automatically chosen
+! -----------------------------------
+AUTOLBL 1  "0"
+  ## widget = checkbox
+
+MSG_AUTOLBL 1  "Numeric labels automatically chosen"
+
+! Confidence band for stochastic component
+! ----------------------------------------
+CONFSTO 1  "0"
+  ## widget = checkbox
+
+MSG_CONFSTO 1  "Confidence band for stochastic component"
+
+! Confidence band for deterministic component
+! -------------------------------------------
+CONFDET 1  "0"
+  ## widget = checkbox
+
+MSG_CONFDET 1  "Confidence band for deterministic component"
+
+! Graphic output
+! --------------
+GRAOUT 1  "1"
+  ## widget = checkbox
+  ## activeif = PRCMOD / IONOSPHERE_PREDICTION AND PGPLOT = 1
+
+MSG_GRAOUT 1  "Graphic output"
+
+! No data points plotted
+! ----------------------
+NODATA 1  "0"
+  ## widget = checkbox
+
+MSG_NODATA 1  "No data points plotted"
+
+! Flat plots
+! ----------
+FLTGRA 1  "0"
+  ## widget = checkbox
+
+MSG_FLTGRA 1  "Flat plots"
+
+! White background (for gif files)
+! --------------------------------
+WHITEBG 1  "0"
+  ## widget = checkbox
+
+MSG_WHITEBG 1  "White background (for gif files)"
+
+! Print username/date/time
+! ------------------------
+PRINAM 1  "1"
+  ## widget = checkbox
+
+MSG_PRINAM 1  "Print username/date/time"
+
+! Drift
+! -----
+DRIFT 1  "0"
+  ## widget = checkbox
+
+MSG_DRIFT 1  "Drift"
+
+! Amplitudes varying as solar cycle
+! ---------------------------------
+SOLCYC 1  "1"
+  ## widget = checkbox
+
+MSG_SOLCYC 1  "Amplitudes varying as solar cycle"
+
+! Daily TEC samples
+! -----------------
+DAYTEC 1  "0"
+  ## widget = checkbox
+
+MSG_DAYTEC 1  "Daily TEC samples"
+
+! Local time monitored for maximum/minimum TEC
+! --------------------------------------------
+LOCAL 1  "0"
+  ## widget = checkbox
+
+MSG_LOCAL 1  "Local time monitored for maximum/minimum TEC"
+
+! Averaged TEC profile
+! --------------------
+AVGTEC 1  "0"
+  ## widget = checkbox
+
+MSG_AVGTEC 1  "Averaged TEC profile"
+
+! Day-to-day scattering
+! ---------------------
+SCATTER 1  "1"
+  ## widget = checkbox
+
+MSG_SCATTER 1  "Day-to-day scattering"
+
+! Percentage line separated
+! -------------------------
+PRCLINE 1  "1"
+  ## widget = checkbox
+
+MSG_PRCLINE 1  "Percentage line separated"
+
+! Universal time instead of local time
+! ----------------------------
+NOLOCTIM 1  "1"
+  ## widget = checkbox
+
+MSG_NOLOCTIM 1  "Universal time instead of local time"
+
+! Smoothing parameter
+! -------------------
+SMTPAR 1  "1.5"
+  ## widget = lineedit; activeif = SMTSER / _ OR SMTACF = 1
+
+MSG_SMTPAR 1  "Smoothing parameter"
+
+! Prediction length for both components
+! -------------------------------------
+PRDLEN 1  "32"
+  ## widget = lineedit
+
+MSG_PRDLEN 1  "Prediction length for both components"
+
+! Prediction length for deterministic component only
+! --------------------------------------------------
+DETLEN 1  "365"
+  ## widget = lineedit; activeif = PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS
+
+MSG_DETLEN 1  "Prediction length for deterministic component only"
+
+! Time interval used for actual prediction
+! ----------------------------------------
+PRDINT 1  "120"
+  ## widget = lineedit
+
+MSG_PRDINT 1  "Time interval used for actual prediction"
+
+! Maximum lag for acf plot
+! ------------------------
+ACFLAG 1  "120"
+  ## widget = lineedit
+
+MSG_ACFLAG 1  "Maximum lag for acf plot"
+
+! Factor for noise component
+! --------------------------
+FACNOI 1  "10"
+  ## widget = lineedit
+
+MSG_FACNOI 1  "Factor for noise component"
+
+! Factor for confidence bands
+! ---------------------------
+FACBND 1  "2"
+  ## widget = lineedit
+
+MSG_FACBND 1  "Factor for confidence bands"
+
+! Period
+! ------
+PERIOD 3
+  "4017.75"
+  "365.25"
+  "182.83"
+  ## widget = uniline; check_type.1 = real; numlines = 7
+
+MSG_PERIOD 1  "A priori periods"
+
+! Latitude
+! --------
+LATIT 1  "0"
+  ## widget = lineedit; activeif = PRCMOD = TEC_PROFILES
+
+MSG_LATIT 1  "Latitude"
+
+! Longitude
+! ---------
+LONGI 1  "0"
+  ## widget = lineedit; activeif = PRCMOD = TEC_PROFILES
+
+MSG_LONGI 1  "Longitude"
+
+! Universal time
+! --------------
+UTIME 1  "0"
+  ## widget = lineedit; activeif = PRCMOD = TEC_PROFILES
+
+MSG_UTIME 1  "Universal time"
+
+! Maximum TEC for tec plot
+! ------------------------
+MAXPLT 1  "0"
+  ## widget = lineedit
+
+MSG_MAXPLT 1  "Maximum TEC for tec plot"
+
+! Percentage line every X %
+! -------------------------
+LINDIST 1  "20"
+  ## widget = lineedit
+
+MSG_LINDIST 1  "Percentage line every X %"
+
+! Model number for predicted information
+! --------------------------------------
+MODNUM 1  "0000"
+  ## widget = lineedit
+  ## activeif = PRCMOD = IONOSPHERE_PREDICTION AND IONOUT / _
+
+MSG_MODNUM 1  "Model number for predicted information"
+
+! PGPLOT graphics package included
+! --------------------------------
+PGPLOT 1  "1"
+  ## widget = checkbox
+
+MSG_PGPLOT 1  "PGPLOT graphics package included"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ANALYZE GLOBAL IONOSPHERE MODELS - IONANA 1: Filenames                       #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants      > %%%%%%%%%%%% <                                    # CONST
+#   IONEX control file     > %%%%%%%%%%%% <                                    # IONEXCF
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Ionosphere maps        > %%%%%%%%%%%% <                                    # IONINP
+#                                                                              #
+# RESULT FILES                                                                 #
+#   Ionosphere map         > %%%%%%%%%%%% <                                    # IONOUT
+#   TEC data               > %%%%%%%%%%%% <                                    # DATOUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output  > % < use IONANA.Lnn            or > %%%%%%%%%%%% <        # SYSODEF SYSOUT
+#   Error message   > % < merged to program output  or > %%%%%%%%%%%% <        # ERRMRG SYSERR
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# IONANA 2: General Options                                                    #
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# GENERAL PROCESSING OPTIONS                                                   #
+#   Processing mode                     > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # PRCMOD
+#   File-specific averaging of ION data > % <                                  # FILAVG
+#                                                                              #
+# GRAPHIC OUTPUT                        > % <                                  # GRAOUT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS ###########################
+# IONANA 3: Coefficient-specific Analysis                                      #
+#                                                                              #
+# COEFFICIENT SELECTION                                                        #
+#   Degree of coefficient                 > %%% <                              # DEGCOE
+#   Order@@of coefficient                 > %%% <                              # ORDCOE
+#   Analyse selected coefficient only     > % <                                # ONECOE
+#                                                                              #
+# ADDITIONAL TASKS                                                             #
+#   Find maximum TEC                      > % <                                # MAXTEC
+#   Find minimum TEC                      > % <                                # MINTEC
+#   Analyze estimated single-layer heights> % <                                # SLHGT
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL PRCMOD / TEC_PROFILES ############################################
+# IONANA 4: Ionosphere Prediciton                                              #
+#                                                                              #
+# OPTIONS FOR IONOSPHERE PREDICTION                                            #
+#   Model number for predicted information      > %%%% <                       # MODNUM
+#   Prediction length                           > %%%%%%%%% < days             # PRDLEN
+#   Time interval used for actual prediction    > %%%%%%%%% < days             # PRDINT
+#   Factor for noise component                  > %%%%%%%%% <                  # FACNOI
+#   Parameter smoothing length                  > %%%%%%%%% < days             # SMTPAR
+#   Smoothed auto-correlation function (ACF)    > % <                          # ACFSMT
+#   Drift parameter to be set up                > % <                          # DRIFT
+#   Amplitudes varying as solar cycle           > % <                          # SOLCYC
+#                                                                              #
+# > Periods_to_be_considered_(days)       <                                    # PERIOD
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL GRAOUT = 1 AND PRCMOD / IONOSPHERE_PREDICTION ####################
+# IONANA 5.1: Graphic Options                                                  #
+#                                                                              #
+# GRAPHICS OF                                                                  #
+#   Smoothed@@time series  > %%%%%%%%%%%% <   Original ACF > %%%%%%%%%%%% <    # SMTSER SMTACF
+#   Predicted time series  > %%%%%%%%%%%% <   Smoothed ACF > %%%%%%%%%%%% <    # PRESER PREACF
+#   TEC profiles           > %%%%%%%%%%%% <                                    # TECPLT
+#                                                                              #
+# GENERAL OPTIONS                                                              #
+#   Factor for confidence bands       > %%%%%%%%% <                            # FACBND
+#                                                                              #
+# GRAPHICS LAYOUT                                                              #
+#   Automatic numeric labels          > % <                                    # AUTOLBL
+#   Print username/date/time          > % <                                    # PRINAM
+#   Create flat graphics              > % <                                    # FLTGRA
+#   White background (for gif files)  > % <                                    # WHITEBG
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL GRAOUT = 1 AND PRCMOD = COEFFICIENT-SPECIFIC_ANALYSIS ############
+# IONANA 5.2: Graphic Options for Coefficient-specific Analysis                #
+#                                                                              #
+# GENERAL OPTIONS                                                              #
+#   Confidence band for deterministic component      > % <                     # CONFDET
+#   Confidence band for stochastic @@@component      > % <                     # CONFSTO
+#   No data points plotted                           > % <                     # NODATA
+#   Time argument in years                           > % <                     # TIMEYR
+#                                                                              #
+# RANGE DEFINITONS                                                             #
+#   Prediction of deterministic component plotted for> %%%%%%%%% < days        # DETLEN
+#   Maximum lag for ACF plot                         > %%%%%%%%% < days        # ACFLAG
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL GRAOUT = 1 AND PRCMOD = TEC_PROFILES #############################
+# IONANA 5.3: Graphic Options for TEC Profiles                                 #
+#                                                                              #
+# TEC PROFILE DEFINITION                                                       #
+#   Latitude                                    > %%%%%%%%% < deg              # LATIT
+#   Longitude                                   > %%%%%%%%% < deg              # LONGI
+#   Universal time                              > %%%%%%%%% < hours            # UTIME
+#                                                                              #
+# GENERAL OPTIONS                                                              #
+#   Averaged TEC profile                        > % <                          # AVGTEC
+#   Day-to-day scattering                       > % <                          # SCATTER
+#   Daily TEC samples                           > % <                          # DAYTEC
+#   Universal time instead of local time        > % <                          # NOLOCTIM
+#   Local time monitored for maximum/minimum TEC> % <                          # LOCAL
+#   Percentage line separated                   > % <                          # PRCLINE
+#   Percentage line every X %                   > %%%% < %                     # LINDIST
+#                                                                              #
+# RANGE DEFINITON                                                              #
+#   Maximum TEC for graphic output              > %%%%%%%%% < TECU             # MAXPLT
+#                                                                              #
+# END_PANEL ####################################################################

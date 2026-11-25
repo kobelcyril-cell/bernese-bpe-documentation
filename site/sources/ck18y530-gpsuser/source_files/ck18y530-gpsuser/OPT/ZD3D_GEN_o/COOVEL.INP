@@ -1,0 +1,212 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Coordinate File Names (input)
+! -----------------------------
+CRDINP 1  "$(CRDINF)"
+  ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+
+DESCR_CRDINP 1  "Input coordinate file"
+
+! Epoch of Ref. Coord. (output)
+! -----------------------------
+CRDOUT 1  "FIN$YD+0"
+  ## widget = lineedit; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
+
+DESCR_CRDOUT 1  "Output coordinate file"
+
+! Velocity according to Ref.Coo.
+! ------------------------------
+VELOCI 1  "$(CRDINF)"
+  ## widget = selwin; path = DIR_VEL; ext = EXT_VEL; maxfiles = 1
+
+DESCR_VELOCI 1  "Input velocity file"
+
+! Approx. velocities at ref. epoch
+! --------------------------------
+VELOUT 1  "FIN$YD+0"
+  ## widget = lineedit; path = DIR_VEL; ext = EXT_VEL; maxfiles = 1
+
+DESCR_VELOUT 1  "Approx. velocities at ref. epoch"
+
+! PSD corrections for ITRF2014
+! ----------------------------
+PSDDAT 1  "$(PSDINF)"
+  ## widget = selwin; path = DIR_PSD; ext = EXT_PSD; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_PSDDAT 1  "PSD corrections (since ITRF14)"
+
+! Periodic corrections for ITRF2014
+! ---------------------------------
+PERDAT 0
+  ## widget = selwin; path = DIR_TVC; ext = EXT_TVC; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_PERDAT 1  "Annual/semiannual corrections (since ITRF14)"
+
+! Loading corrections for DTRF2014
+! --------------------------------
+LOADDAT 0
+  ## widget = selwin; path = DIR_TVC; ext = EXT_TVC; maxfiles = 1
+  ## emptyallowed = true
+
+MSG_LOADDAT 1  "Loading corrections (since DTRF14)"
+
+! Station list without PSD corrections (output)
+! ---------------------------------------------
+NOPSD 1  ""
+  ## widget = lineedit; path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
+
+DESCR_NOPSD 1  "Stations without PSD corrections"
+
+! Reference Epoch
+! ---------------
+REFDAT 1  "$YMD_STR+0"
+  ## widget = lineedit; check_type = date
+
+MSG_REFDAT 1  "Reference epoch: date"
+
+! Reference Epoch
+! ---------------
+REFTIM 1  "12 00 00"
+  ## widget = lineedit; check_type = time
+
+MSG_REFTIM 1  "Reference epoch: time"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "COOVEL"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  ""
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 1  ""
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 1  ""
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Local Geodetic Datum
+! --------------------
+DATUM 1  "DATUM"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! Title: new entry
+! ----------------
+TITLE 1  "ZDMFIN3D_$YD+0: A PRIORI STATION COORDINATES BASED ON $(CRDINF)"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+SHOWGEN 1  "0"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# EXTRAPOLATE COORDINATES - COOVEL 1: Filenames                                #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files            > % <                                    # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Input coordinate file             > %%%%%%%%%%%% <                         # CRDINP
+#   Input velocity file               > %%%%%%%%%%%% <                         # VELOCI
+#   PSD correction (since ITRF14)     > %%%%%%%%%%%% <                         # PSDDAT
+#   Annual/semiannual corrections     > %%%%%%%%%%%% <                         # PERDAT
+#                                                                              #
+# REFERENCE EPOCH                       yyyy mm dd      hh mm ss               #
+#                                     > %%%%%%%%%% <  > %%%%%%%% <             # REFDAT REFTIM
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Output coordinate file            > %%%%%%%%%%%% <                         # CRDOUT
+#   Approx. velocities at ref. epoch  > %%%%%%%%%%%% <                         # VELOUT
+#   Stations without PSD corrections  > %%%%%%%%%%%% <                         # NOPSD
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output       > % < use COOVEL.Lnn            or   > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages       > % < merged to program output  or   > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# COOVEL 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants   > %%%%%%%%%%%% <                                       # CONST
+#   Geodetic datum      > %%%%%%%%%%%% <                                       # DATUM
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################

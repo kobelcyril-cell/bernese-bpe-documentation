@@ -1,2 +1,4 @@
 # One GPSUSER directory per line
 /storage/homefs/ck18y530/GPSUSER
+/storage/homefs/l_code_rap/GPSUSER
+/storage/homefs/l_code_fin/GPSUSER

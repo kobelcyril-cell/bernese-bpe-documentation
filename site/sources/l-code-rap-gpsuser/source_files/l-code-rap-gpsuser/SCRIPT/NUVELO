@@ -1,0 +1,24 @@
+package NUVELO;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  NUVELO
+#
+# Purpose :  Execute NUVELO
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  24-Feb-2025
+#
+# ============================================================================
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "NUVELO";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

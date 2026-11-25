@@ -1,0 +1,64 @@
+package PLOT_BIA;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  PLOT_BIA
+#
+# Purpose :  Generate plots for realigned daily bias results.
+#            results.
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  17-Aug-2017
+#
+# Changes :  18-Sep-2017 AV: Add plot_align.com for A1R and A1G
+#            13-Sep-2019 SS: Check $HOST and skip procedure if indicated
+#            20-May-2021 SS: Changed path
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $yyyy, $wwwwd) = $bpe->getKeys('$YD+0', '$Y+0', '$WD+0');
+
+  my $dow = substr($wwwwd,4,1);
+  print "DOW: $dow\n";
+
+  my $host = "$ENV{HOST}";
+  print "Host: $host\n";
+
+# Generate plots
+# --------------
+  if ($dow eq "4" && substr($host,0,6) ne "antlia") {
+
+    prtMess($bpe,"EXECUTED bias_jumps.com");
+##    system("$ENV{HOME}../sschaer/auto/bias_jumps.com");
+
+    prtMess($bpe,"EXECUTED bias_jumps_mgex.com");
+##    system("$ENV{HOME}../sschaer/auto/bias_jumps_mgex.com");
+
+    prtMess($bpe,"EXECUTED bias_jumps_iono.com");
+##    system("$ENV{HOME}../sschaer/auto/bias_jumps_iono.com ALL");
+    system("$ENV{HOME}../sschaer/auto/bias_jumps_iono.com YEAR");
+
+    my $modGMT = "module unload GMT/5.4.3-foss-2018a; module load GMT/5.4.3-foss-2018a";
+
+    prtMess($bpe,"PLOT GENERATION STARTED FOR CODE BIAS RESULTS");
+    prtMess($bpe,"EXECUTED plot_align.com -n -O -S -R -typ=A1R");
+    system("$modGMT; $ENV{AUTO}/plot_align.com -n -O -S -R -typ=A1R");
+    prtMess($bpe,"EXECUTED plot_align.com -n -O -S -R -typ=A1G");
+    system("$modGMT; $ENV{AUTO}/plot_align.com -n -O -S -R -typ=A1G");
+
+##    prtMess($bpe,"PLOT GENERATION STARTED FOR MGEX BIAS RESULTS");
+
+  } else {
+    prtMess($bpe,"PLOT GENERATION SKIPPED");
+  }
+
+}

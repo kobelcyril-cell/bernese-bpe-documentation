@@ -1,0 +1,198 @@
+package MAKE_CKM;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  MAKE_CKM
+#
+# Purpose :  Make CODE Klobuchar-style model information
+#
+# PARAMs  :  PARAM1 - Optional minus parameter
+#            PARAM2 - Optional reference solution identifier
+#
+# Author  :  S. Schaer
+# Created :  11-Sep-2012
+#
+# Changes :  12-Sep-2012/ss: Save and distribute CGIM RINEX results
+#            12-Sep-2012/ss: Consider also latest rapid IONEX information
+#            18-Sep-2012/ss: Some refinements and preparation of LAST.yyN
+#            18-Sep-2012/ss: Set title
+#            26-Oct-2015/ss: Increased default for $param1 from -10 to -32
+#            01-Dec-2016 SS: Upload to cddis https
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#            08-Mar-2022 AV: Save disk: yearly subdirectory
+#            11-Jan-2023 SS: Support long filenames (GIM.RNX)
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use newFTP;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+use File::Compare qw(compare);
+use cddis_curl;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,
+      $mjd, $o, $sav, $dis, $upd, $param1, $param2,
+      $dirRxn, $dirOxn, $dirIon, $dirOut) =
+    $bpe->getKeys('$YD+0',
+                  '$JD+0', 'V_O', 'V_SAV', 'V_DIS', 'V_UPD', 'PARAM1', 'PARAM2',
+                  'DIR_RXN', 'DIR_OXN', 'DIR_ION', 'DIR_OUT');
+
+# Set variables
+# -------------
+  $param1 = -32   if $param1 eq "";
+  $param1 = -365;
+  $param2 = "Z3_" if $param2 eq "";
+
+# Perform loop
+# ------------
+  my $mjd_last = $mjd;
+  my $mjd_first = gps_date("-mjd $mjd -d $param1 -o %IJ");
+  for ($mjd=$mjd_first;$mjd<=$mjd_last;$mjd++) {
+    my ($yyyy,$yy,$ddd) = gps_date("-mjd $mjd -o %Y %y %j");
+    my ($yym1,$dddm1) = gps_date("-mjd $mjd -d -1 -o %y %j");
+    my ($yyp5,$dddp5) = gps_date("-mjd $mjd -d +5 -o %y %j");
+    my $dir  = "$PATH_AFTP$CAMP_CODE/IONO/$yyyy/";
+    my $out = "${dir}${o}G${ddd}0.${yy}I.Z";
+# This is the file used for checking the currentness of data:
+    my $chk = "$PATH_SAV$CAMP_SAVIGS/$yyyy/ATM/${param2}${yy}${ddd}.INX.Z";
+    my $nam = basename($chk);
+    $chk = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/ATM/RM_${yy}${ddd}.INX.Z" unless -s $chk;
+    $chk = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/ATM/RA_${yy}${ddd}.INX.Z" unless -s $chk;
+    $chk = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/ATM/RZ_${yy}${ddd}.INX.Z" unless -s $chk;
+    my $flg = substr(basename($chk),0,1);
+    my $sol = substr(basename($chk),0,3);
+    next unless -s $chk;
+    next if -s $out && (stat($out))[9]-(stat($chk))[9]>0;
+    next if -s "$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N_R" && $flg eq "R";
+##    next if $yyyy<2012;
+
+##    system("$ENV{AUTO}/get_ioninfo.com $ddd $yy ${dirRxn}KLOB${ddd}0.${yy}N ${dirOut}IONINFO.SUM") && die "get_ioninfo.com failed\n";
+    copy($chk,"$dirIon$nam");
+    uncompress("$dirIon$nam");
+
+# Run program
+# -----------
+    $bpe->putKey("$ENV{U}/PAN/INXFIT.INP","TITLE","CODE\'S KLOBUCHAR-STYLE IONOSPHERE MODEL FOR DAY $ddd, $yyyy");
+
+    $bpe->putKey("$ENV{U}/PAN/INXFIT.INP","INXINP","${param2}${yy}${ddd}");
+    $bpe->putKey("$ENV{U}/PAN/INXFIT.INP","NAVINP","LAST");
+    $bpe->putKey("$ENV{U}/PAN/INXFIT.INP","NAVOUT","${param2}_${ddd}0");
+
+    $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_RXN","${yy}N");
+    $bpe->putKey("$ENV{U}/PAN/MENU_EXT.INP","EXT_OXN","${yy}N");
+
+    my $aprFil = "${dirRxn}${param2}_${dddm1}0.${yym1}N";
+    my $lstFil = "${dirOxn}LAST.${yy}N";
+    copy($aprFil,$lstFil) if -s $aprFil;
+    $aprFil = "${dirRxn}${param2}_${ddd}0.${yy}N";
+    copy($aprFil,$lstFil) if -s $aprFil;
+
+    my $PGMNAM = "INXFIT";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    my $inp = "${dirRxn}${param2}_${ddd}0.${yy}N";
+    prtMess($bpe,"$inp CREATED");
+
+    $lstFil = "${dirOxn}LAST.${yy}N";
+    copy($inp,$lstFil);
+    prtMess($bpe,"$lstFil REFRESHED");
+    if ($yyp5 ne $yy) {
+      $lstFil = "${dirOxn}LAST.${yyp5}N";
+      copy($inp,$lstFil);
+      prtMess($bpe,"$lstFil REFRESHED");
+    }
+
+    if ($sav eq "Y") {
+      $out = "$PATH_SAV$CAMP_SAVIGS/$yyyy/ATM/${sol}_${ddd}0.${yy}N";
+      $out = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/ATM/${sol}_${ddd}0.${yy}N" if $flg eq "R";
+      copy($inp,$out) or die "copy failed with $inp to $out\n";
+      prtMess($bpe,"$inp SAVED TO $out");
+    }
+    if ($sav eq "Y") {
+      if ($flg ne "R") {
+        $out = "CODE/$yyyy/CGIM${ddd}0.${yy}N";
+        copyaftp("-c",$inp,$out) or die "copyaftp failed with $inp to $out\n";
+        prtMess($bpe,"$inp DISTRIBUTED TO $out");
+        unlink(glob("$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N*"));
+        $out = "CODE/$yyyy/COD0OPSFIN_${yyyy}${ddd}0000_01D_01D_GIM.RNX";
+        copyaftp("-g",$inp,$out) or die "copyaftp failed with $inp to $out\n";
+        prtMess($bpe,"$inp DISTRIBUTED TO $out");
+        unlink(glob("$PATH_AFTP$CAMP_CODE/COD?OPS???_${yyyy}${ddd}*GIM.RNX*"));
+      } else {
+        $out = "CODE/CGIM${ddd}0.${yy}N_R";
+        copyaftp($inp,$out) or die "copyaftp failed with $inp to $out\n";
+        prtMess($bpe,"$inp DISTRIBUTED TO $out");
+        unlink(glob("$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N_P*"));
+        $out = "CODE/COD0OPSRAP_${yyyy}${ddd}0000_01D_01D_GIM.RNX";
+        copyaftp($inp,$out) or die "copyaftp failed with $inp to $out\n";
+        prtMess($bpe,"$inp DISTRIBUTED TO $out");
+        unlink(glob("$PATH_AFTP$CAMP_CODE/COD?OPSP??_${yyyy}${ddd}*GIM.RNX*"));
+      }
+    }
+
+    $bpe->putKey("$ENV{U}/PAN/BIMINX.INP","NAVINP","${param2}_${ddd}0");
+    $bpe->putKey("$ENV{U}/PAN/BIMINX.INP","INXOUT","\$O${yy}${ddd}");
+    $bpe->putKey("$ENV{U}/PAN/BIMINX.INP","SYSOUT","\$O${yy}${ddd}");
+
+    $PGMNAM = "BIMINX";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $inp = "${dirIon}${o}${yy}${ddd}.INX";
+    replace($inp,"BROADCAST IONOSPHERE MODEL                                  ",
+                 "CODE\'S KLOBUCHAR-STYLE IONOSPHERE MODEL FOR DAY $ddd, $yyyy   ");
+    replace($inp,"GPS ","GNSS");
+    prtMess($bpe,"$inp CREATED");
+    $out = "CODE/IONO/$yyyy/${o}G${ddd}0.${yy}I";
+    if ($sav eq "Y" && $flg ne "R") {
+      check_dir($dir);
+      copyaftp("-c",$inp,$out) or die "copyaftp failed with $inp to $out\n";
+      prtMess($bpe,"$inp DISTRIBUTED to $out");
+    }
+
+# Upload IONEX to CDDIS
+# ---------------------
+    if ($dis eq "Y" && $flg ne "R") {
+      $iRun = 0;
+      $nRun = 3;
+      $ftpSum = "${dirOut}CDDIS_${o}.FTP";
+      unlink $ftpSum;
+
+      for ($iRun=1;$iRun<=$nRun;$iRun++) {
+        $err = "OK";
+##        open (FH,">>$ftpSum");
+##        if ($ftp = newFTP->new("cddisin.gsfc.nasa.gov",t=>60,v=>2,o=>*FH)) {
+##          $ftp->login('aiubgps','stYs0147');
+##          $ftp->cwd("/products/iono");
+##          $ftp->binary;
+##          $inp = "${dir}${o}G${ddd}0.${yy}I.Z";
+##          $out = lc($o)."g${ddd}0.${yy}i.Z";
+##          $ftp->put($inp,$out);
+##          $ftp->dir;
+##          $ftp->quit;
+##          $ftp->ftpOK or $err = "ERR";
+##        } else { $err = "ERR" }
+##        close FH;
+        $inp = "${dir}${o}G${ddd}0.${yy}I.Z";
+        $out = lc($o)."g${ddd}0.${yy}i.Z";
+        my %cddis_upload = ("$inp" => "$out");
+        my $irc = upload_cddis_hash(\%cddis_upload);
+        $err = "ERR" if $irc!=0;
+        if ($err eq "OK") { last }
+        sleep (30);
+      }
+      prtMess($bpe,"$inp UPLOADED TO $out");
+    }
+  }
+
+}

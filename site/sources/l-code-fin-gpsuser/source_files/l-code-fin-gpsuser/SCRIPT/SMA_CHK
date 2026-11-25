@@ -1,0 +1,191 @@
+package SMA_CHK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  SMA_CHK
+#
+# Purpose :  Check semi-major axis correction and RMS values for all
+#            involved satellites (PRNs) and release SMS message in case of
+#            anomalies.
+#
+# Programs:
+#
+# Remark  :
+#
+# PARAMs  :  PARAM1 - solution identifier
+#            PARAM2 - SMT (optional check concerning SMT results)
+#            PARAM3 - not yet used
+#
+# Author  :  S. Schaer
+#
+# Created :  11-Jan-2024
+#
+# Changes :  12-Jan-2024 SS: Added check concerning SMT results
+#            12-Jan-2024 SS: Added update of SAT CRX (due to SMT anomaly)
+#            16-Jan-2024 SS: Prepared for IGSFIN1D
+#            22-Jan-2024 SS: Increased $tolSmt (to 25%)
+#            16-Apr-2024 SS: Modified @prnLst to accommodate maneuvers
+#            22-Oct-2024 SS: Trigger some actions only for the past 32 days
+#            08-Aug-2025 SS: Skipped poorly observed PRNs for SMA checking
+#            18-Oct-2025 SS: Added R28 to @prnLstSkp
+#
+# ============================================================================
+
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,$yyssss,$yyyyssss,$ddd,$ssss,$yyyy,$mjd,
+    $param1,$param2,$param3,
+    $pcfFil,
+    $dirOut,$extOut,
+  ) =
+  $bpe->getKeys(
+    '$YD+0','$YSS+0','$YYYSS+0','$+0','$S+0','$Y+0','$JD+0',
+    'PARAM1','PARAM2','PARAM3',
+    'PCFFIL',
+    'DIR_OUT','EXT_OUT',
+  );
+
+  $param1 = $$bpe{"V_$param1"} if $param1 ne "";
+  $param1 = $param1."_" if length($param1) == 2;
+
+  $pcfFil = (split('\.',$pcfFil))[0];
+
+  my $filOut = "${dirOut}${param1}${yyddd}.${extOut}";
+  my $filSmt = "${dirOut}SMT${ddd}????.${extOut}";
+  my $tolCor =  5.0;
+  my $tolRms =  0.5;
+  my $tolSmt = 25;
+  my $mjd0   = gps_date("-doy 0 -d -32 -o %IJ");
+  if      ($pcfFil eq "IGSULTRA") {
+    $tolCor = 30.0;
+    $tolRms =  3.0;
+    $tolSmt = 50;
+  } elsif ($pcfFil eq "IGSRAPID") {
+  } elsif ($pcfFil eq "IGSFIN1D") {
+    $filSmt = "${dirOut}SMT${yyddd}???.${extOut}";
+    $tolCor =  1.0;
+  } elsif ($pcfFil eq "MGEXORB") {
+    $tolCor = 100;
+  } else {
+##    my $filAdd = "${dirOut}${param1}${yyssss}.${extOut}";
+##    $filOut = $filAdd if !-e $filOut && -e $filAdd;
+  }
+  prtMess($bpe,"PCF: $pcfFil");
+
+# Check ADDNEQ2 output file concerning semi-major axis correction and RMS values
+# ------------------------------------------------------------------------------
+  prtMess($bpe,"Checked: $filOut");
+  my @prnLstSkp = ("  0","125","128");
+  if (-e $filOut) {
+    my @lin = `grep '#ORB' $filOut | grep ' A '`;
+    my $msgSng = "";
+    my $msgCor = "";
+    my $msgRms = "";
+    my @prnLst = ();
+    foreach (@lin) {
+      my $arc = substr($_, 3, 1);
+      my $prn = substr($_, 5, 3);
+
+      my $num  = $prn%100;
+      my $prn0 = $prn-$num;
+      $num  = $num-50 if $num>50;
+      $prn0 = sprintf("%3i",$prn0+$num);
+      push(@prnLst,$prn0) if lindex($prn0,@prnLst)==-1;
+
+      my $cor = substr($_,30,10);
+      my $rms = substr($_,58,10);
+      $cor = "         *" if substr($cor,-1,1) eq "*";
+      $rms = "         *" if substr($rms,-1,1) eq "*";
+      my $str = "$prn($arc) $cor $rms";
+      print "SMA:PRN(arc): $str\n";
+      if (lindex($prn0,@prnLstSkp)!=-1) {
+        prtMess($bpe,"Skipped: SMA:PRN(arc): $str");
+      } elsif (substr($cor,-1,1) eq "-") {
+        $msgSng = $msgSng." ".join(" ",split(" ",$str));
+      } elsif (substr($cor,-1,1) eq "*" || abs($cor)>$tolCor) {
+        $msgCor = $msgCor." ".join(" ",split(" ",$str));
+      } elsif (substr($rms,-1,1) eq "*" || $rms>$tolRms) {
+        $msgRms = $msgRms." ".join(" ",split(" ",$str));
+      }
+    }
+    @prnLst = sort { $a <=> $b } @prnLst;
+
+# Check RNXSMT output files concerning SMT results
+# ------------------------------------------------
+    my $msgSmt = "";
+    if ($param2 eq "SMT") {
+      prtMess($bpe,"Checked: $filSmt");
+      my $filChk = "${dirOut}SMT_CHK.LST_$$";
+      `grep '^ PRN:' $filSmt > $filChk`;
+      my @prnCrx = ();
+      foreach $prn (@prnLst) {
+        my $numAll = `grep 'PRN:$prn' $filChk | wc -l`+0;
+        my $numBad = `grep 'PRN:$prn' $filChk | grep ' 0\.00' | wc -l`+0;
+        my $perBad = 100;
+        $perBad = 100*$numBad/$numAll if $numAll>0;
+        $perBad = sprintf("%5.1f",$perBad);
+        $msgSmt = $msgSmt." $prn $perBad\%" if $perBad>$tolSmt;
+        print "SMT:PRN: $prn $perBad\%\n";
+        push(@prnCrx,$prn) if $perBad>95;
+      }
+      unlink($filChk);
+      map { print "CRX:PRN: $_\n" } @prnCrx;
+
+# Update SAT CRX if indicated
+# ---------------------------
+      my $numCrx = @prnCrx;
+      if ($numCrx>0 && $mjd>=$mjd0) {
+        my $filOld = "$ENV{CONFIG}/SAT_${yyyy}.CRX";
+        my $filNew = "$ENV{CONFIG}/SAT_${yyyy}.CRX_$$";
+
+        my $ymdStrOld = gps_date("-yd $yyddd -d -1 -o %X");
+        $ymdStrOld =~ s/-/ /g;
+        my $ymdStrNew = gps_date("-yd $yyddd       -o %X");
+        $ymdStrNew =~ s/-/ /g;
+
+        foreach $prn (@prnCrx) {
+          my $linOld = `grep '  $prn         3         2       ' $filOld | grep '$ymdStrOld 23 59 59  <<'`;
+          if ($linOld ne "") {
+            my $linNew = $linOld;
+            substr($linNew,53,10) = $ymdStrNew;
+            print "Old:$linOld";
+            print "New:$linNew";
+            copy($filOld,$filNew);
+            replace($filNew,$linOld,$linNew);
+            copy($filNew,$filOld);
+            unlink($filNew);
+            prtMess($bpe,"Updated (PRN: $prn): $filOld");
+            $msgSmt = $msgSmt." $prn (SAT.CRX)";
+          }
+        }
+      }
+    }
+
+    my $msg = "";
+    $msg = $msg."\nBig SMA corr. PRN(arc):".$msgCor if $msgCor ne "";
+    $msg = $msg."\nBig SMA RMS PRN(arc):"  .$msgRms if $msgRms ne "";
+    $msg = $msg."\nSing. SMA PRN(arc):"    .$msgSng if $msgSng ne "";
+    $msg = $msg."\nBad SMT data PRN:"      .$msgSmt if $msgSmt ne "";
+    if ($msg ne "") {
+      $msg = "${pcfFil}_${yyssss} SMA_CHK:".$msg;
+      msg2key("BPE",$msg) if $mjd>=$mjd0;
+      prtMess($bpe,$msg);
+      print "$msg\n";
+    }
+  } else {
+    die "$filOut not found\n";
+  }
+
+}

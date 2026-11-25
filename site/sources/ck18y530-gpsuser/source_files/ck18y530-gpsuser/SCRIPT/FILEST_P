@@ -1,0 +1,207 @@
+package FILEST_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  FILEST_P
+#
+# Purpose :  Station-wise zero-difference data screening:
+#
+#            1. GPSEST to create a residual files
+#            2. RESRMS to screen residual files
+#            3. RESCHK To detect bad stations
+#            4. SATMRK to mark outliers
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#            PARAM2..PARAM5 - CODE PHASE BOTH
+#                     to select the observation files type for screening
+#
+# Author  :  R. Dach
+# Created :  11-Jan-2005
+#
+# Changes :  05-Mar-2017 AV: Check if ION file is available
+#            18-Sep-2017 AV: Switch GMF/VMF for PPPFINAL
+#            15-May-2018 SS: Switch for PPPAR
+#            04-Jun-2018 SS: Merged script version (for fin and rap)
+#            20-Jan-2018 AV: Switch for RCLKGNSS
+#            07-Dec-2020 RD: Add PCF variable V_TRPMOD
+#
+# ----------------------------------------------------------------------------
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Path qw(make_path);
+use File::Copy qw(move);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($param1,  $param2,  $param3,  $param4,  $param5,  $subPid,   $clu,
+      $uvar,    $ssss,    $ddd,     $yy,   ,  $yyddd ,  $pcf,      $trpModel, $usehoi,
+      $dirOut,  $dirRes,  $dirCzh,  $dirPzh,  $dirCzo,  $dirPzo,  $dirDel,
+      $dirIon,
+      $extOut,  $extRes,  $extCzh,  $extPzh,  $extCzo,  $extPzo,  $extDel,
+      $extIon) =
+  $bpe->getKeys(
+      'PARAM1', 'PARAM2', 'PARAM3', 'PARAM4', 'PARAM5', 'SUB_PID', 'V_CLU',
+      'U',    , 'SESSION','DAYYEAR','YEAR','$YD+0'   ,'PCFFIL',    'V_TRPMOD', 'V_USEHOI',
+      'DIR_OUT','DIR_RES','DIR_CZH','DIR_PZH','DIR_CZO','DIR_PZO','DIR_DEL',
+      'DIR_ION',
+      'EXT_OUT','EXT_RES','EXT_CZH','EXT_PZH','EXT_CZO','EXT_PZO','EXT_DEL',
+      'EXT_ION');
+
+
+# Set cluster number, input files, and loop variable
+# --------------------------------------------------
+  setUserVar($bpe,"D4",$subPid,"CD4",$param1);
+
+
+# --------------------------------------------------
+# Explicit HOI switch via V_USEHOI
+# --------------------------------------------------
+if ($usehoi eq "NO") {
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS","");
+    prtMess($bpe,"HOI SETUP: DISABLED by V_USEHOI=NO");
+}
+
+# --------------------------------------------------
+# Explicit TRPMOD switch via V_TRPMOD
+# --------------------------------------------------
+if ($trpModel eq "GMF") {
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_GMF");
+   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_GMF");
+   prtMess($bpe,"Troposphere model SETUP: $trpModel");
+}
+
+
+# Deactivate HOI setup if indicated
+# ---------------------------------
+  if ($pcf =~/RCLKGNSS/) {
+    my $hoiFil = "${dirIon}HOI${yyddd}.${extIon}";
+    print "HOIFIL: $hoiFil\n";
+    unless (-s $hoiFil) {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS"," ");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SCALHOI","0");
+      prtMess($bpe,"HOI SETUP: DEACTIVATED");
+    } else {
+      prtMess($bpe,"HOI SETUP: UNCHANGED");
+    }   
+  }
+
+# ---------- Check GRD status files ------------
+my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+# NTAL
+my $noNtal = "${mscDir}/no_NTAL";
+if (-e $noNtal) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "ALOAD_FILES", ' ' );
+   prtMess( $bpe, "NTAL disabled: no_NTAL exists" ); }
+# NTOL
+my $noNtol = "${mscDir}/no_NTOL";
+if (-e $noNtol) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "ONTLD_FILES", ' ' );
+   prtMess( $bpe, "NTOL disabled: no_NTOL exists" ); }
+# HYDL
+my $noHydl = "${mscDir}/no_HYDL";
+if (-e $noHydl) {
+   $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "HLOAD_FILES", ' ' );
+   prtMess( $bpe, "HYDL disabled: no_HYDL exists" ); }
+
+
+# Delete old output files for this station
+# ----------------------------------------
+##  unlink(glob("${dirOut}${param1}${ddd}?.*"));
+
+# Compute the observation file name
+# ---------------------------------
+  my $obsfil = "$param1$ssss";
+
+# GMF/VMF troposphere model switch
+# --------------------------------
+  if ($pcf =~/PPPFINAL/ || $pcf =~/PPPAR/ || $pcf =~ /RCLKGNSS/) {
+    my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+    my $flgLin = -e $flgFil ? `cat $flgFil` : $trpModel ne "" ? $trpModel : "VMF";
+    chomp($flgLin);
+    prtMess($bpe,"GMF/VMF troposphere model switch: $flgLin");
+    if ($flgLin eq "GMF") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_GMF");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_GMF");
+    } elsif ($flgLin eq "VMF") {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",'VMF$YD+0');
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_VMF");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_VMF");
+    } else {
+      exit 0;
+    }
+  }
+
+# Run GPSEST
+# ----------
+my $PGMNAM = "GPSEST";
+
+my ($status, $err);
+
+{
+    local $@;
+    eval {
+        $status = $bpe->RUN_PGMS($PGMNAM);
+        1;
+    } or do {
+        $err = $@ || "Unknown exception";
+    };
+}
+
+# --------------------------------------------------
+# GPSEST failed
+# --------------------------------------------------
+if (defined $err || (defined $status && $status != 0)) {
+
+    my $log_dir = "${dirOut}../MSC/MSC_$yyddd";
+    make_path($log_dir) unless -d $log_dir;
+
+    my $removed_dir = "${dirCzh}Removed_Stations_$yyddd";
+    make_path($removed_dir) unless -d $removed_dir;
+
+    my $log_file = "$log_dir/GPSEST_ERROR.log";
+
+    open(my $LOG, ">>", $log_file);
+
+    my $timestamp = scalar localtime();
+
+    print $LOG "=====================================================\n";
+    print $LOG "$timestamp\n";
+    print $LOG "GPSEST failed\n";
+    print $LOG "Station    : $param1\n";
+    print $LOG "Session    : $ssss\n";
+    print $LOG "YYDDD      : $yyddd\n";
+    print $LOG "Status     : " . (defined($status) ? $status : "undef") . "\n";
+    print $LOG "Error      : " . (defined($err) ? $err : "-") . "\n";
+
+    foreach my $ext ($extCzh, $extPzh, $extCzo, $extPzo) {
+
+        my $file = "${param1}${ssss}.${ext}";
+        my $src  = "${dirCzh}$file";
+        my $dst  = "$removed_dir/$file";
+
+        if (-e $src) {
+            if (move($src, $dst)) {
+                print $LOG "MOVED   $file\n";
+            } else {
+                print $LOG "FAILED  $file : $!\n";
+            }
+        } else {
+            print $LOG "MISSING $file\n";
+        }
+    }
+
+    print $LOG "Station removed from processing.\n\n";
+    close($LOG);
+
+    prtMess($bpe,"GPSEST failed for $param1 - station removed from processing.");
+
+    return;
+}
+
+}

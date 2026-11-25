@@ -1,0 +1,300 @@
+package SAT_INI;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SAT_INI
+#
+# Purpose :  Compute a priori orbits on the basis of DD code observations
+#
+# Programs:  ORBGEN, GPSEST, STDPRE, STDDIF
+#
+# Author  :  S. Schaer
+# Created :  05-Dec-2003
+#
+# Changes :  07-Jan-2004/ss: STDDIF added
+#            08-Jan-2004/ss: SAT_INI.CRX used
+#            15-Jan-2004/ss: sat_ini.com added
+#            19-Jan-2004/ss: SAT CRX file automatically updated
+#            29-Jun-2004/ss: Do not execute get_nanu.com in case of new PRNs
+#            30-Jun-2004/ss: Refinements concerning handling of new PRNs
+#            10-Feb-2005/mm: Old date variables removed
+#            21-Feb-2006/ss: Exit loop when EXIT.FLG found
+#            19-Oct-2006/ss: Support different POD modi
+#            24-Oct-2006/ss: Additional STDDIF run
+#            27-Dec-2006/ss: Bugfix wrt GLONASS POD
+#            11-Apr-2007/ss: Remove SAT_INI.PRE if older than 1 day
+#            21-Aug-2007/ss: Create PM STD file if not yet available
+#            08-Aug-2008/ss: Select POD mode automatically
+#            24-Feb-2012/ss: Changed path statement
+#            23-Oct-2014/lp: Replace SATSYS by USE_... and setGNSS
+#            27-Jun-2016/ss: Updated for OSB implementation
+#            14-Nov-2019/lp: Generalize for systems GRESCJ
+#            14-Jul-2020 RD/PF: change $X/GEN -> PTH_SATCRUX
+#            11-Jan-2024 SS: move replaced by copy (and unlink);
+#                            _TMP replaced by _$$
+#
+# ---------------------------------------------------------------------------
+use lib "$ENV{AUTO}";
+use lib $ENV{BPE};
+use lib "$ENV{EXE}";
+use gpsutil;
+use bpe_util;
+use Gps_Date;
+use File::Copy;
+
+
+
+sub run {
+  my $bpe = shift;
+
+  my $PARAM2   = $$bpe{PARAM2};
+  my $PARAM3   = $$bpe{PARAM3};
+  my $CAMP_PTH = $$bpe{CAMP_PTH};
+  my $CAMPAIGN = $$bpe{CAMPAIGN};
+
+  my ($ddd, $yy, $yyyy, $yydddm1, 
+      $dirOut, $dirStd, $dirSatcrx, $extSatcrx) =
+    $bpe->getKeys('$+0', '$Y', '$Y+0', '$YD-1', 
+      'DIR_OUT', 'DIR_STD', 'PTH_SATCRUX', 'EXT_SATCRUX');
+
+  my $flgFil = "$CAMP_PTH$CAMPAIGN/MSC/SAT_INI.FLG";
+  my $manFil = "$CAMP_PTH$CAMPAIGN/MSC/REPOSITIONING.FLG";
+  my $exiFil = "$CAMP_PTH$CAMPAIGN/MSC/EXIT.FLG";
+  my $podFil = "$CAMP_PTH$CAMPAIGN/MSC/POD.FLG";
+  my $crxFil = "${dirSatcrx}/SAT_INI.${extSatcrx}";
+
+  # Define satellite systems
+  # ------------------------
+  my $gnssList   = 'GRESCJ';            # ADD_GNSS_HERE
+  my @sysChar    = split('',$gnssList); # List of systems to be considered
+  my %sysNum     = ("G","0","R","1","E","2","S","3","C","4","J","5");
+
+
+# Run programs
+# ------------
+  if (-e $flgFil) {
+
+    my ($newPRN, $oldPRN) = split(" ",`cat $flgFil`);
+    my ($repPRN)          = split(" ",`cat $manFil`);
+
+##    system("$ENV{HOME}/../sschaer/auto/keep_aiv.com $ddd $newPRN") if $newPRN ne "";
+
+    my $PGMNAM = "SNGDIF";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    my $nRun = 6;
+##    my $nRun = 4;
+#    my $nRun = 9;
+    if ($oldPRN ne "") { $nRun = $nRun + 6 }
+ #   elsif (!-s $crxFil) { system ("rsh ubecx01 $ENV{AUTO}/get_nanu.com -silent") }
+
+#    my $preInp = "$CAMP_PTH$CAMPAIGN/ORB/RP3$yy$ddd.PRE";
+    my $preInp = "$CAMP_PTH$CAMPAIGN/ORB/RP2$yy$ddd.PRE";
+    my $preInp = "$CAMP_PTH$CAMPAIGN/ORB/CODE${ddd}0.PRE";
+    my $preOut = "$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.PRE";
+    unlink ($preOut) if gps_date("-t -o %U") - (stat($preOut))[9] > 86400;
+    if (-s $preOut) {
+      prtMess($bpe,"$preOut CONSIDERED FOR INITIALIZATION") }
+    else {
+      copy ($preInp,$preOut);
+      prtMess($bpe,"$preInp CONSIDERED FOR INITIALIZATION") }
+
+# Change PRN number in case of brand new satellite
+# ------------------------------------------------
+    if ($oldPRN ne "") { replace ($preOut,$oldPRN,$newPRN) }
+# Second brand new satellite:
+##    replace ($preOut,"R02","R01");
+
+# Note: GPSEST output of ineration x is copied to SAT_INI_x.OUT
+
+    my $erpInp = "$CAMP_PTH$CAMPAIGN/ORB/RAP$yy$ddd.ERP";
+    my $erpOut = "$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.ERP";
+    copy ($erpInp,$erpOut);
+
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","SATCRUX",'SAT_INI');
+
+    $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","RADIO_P",'0');
+    $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","RADIO_E",'1');
+
+    my $prn        = substr($repPRN,1,2);
+    my $prnSysChar = substr($repPRN,0,1);
+    $prn = $prn+0;
+    $prn = $prn + $sysNum{$prnSysChar}*100;
+    print "Info1 repPRN: $prn $prnSysChar \n";
+
+    if ($prn == 0) {
+      $prn        = substr($newPRN,1,2);
+      $prnSysChar = substr($newPRN,0,1);
+      $prn = $prn+0;
+      $prn = $prn + $sysNum{$prnSysChar}*100;
+    }
+    print "Info2 newPRN: $prn $prnSysChar \n";
+
+    my $pod = "ALL";
+    $pod    = `cat $podFil` if -e $podFil;
+    chomp($pod);
+    if ($prn == 0) { $pod = "ALL" }
+    print "Info3 POD: $prn and $pod $prnSysChar \n";
+
+    for ($iRun=1;$iRun<=$nRun;$iRun++) {
+
+      prtMess($bpe,"ITERATION $iRun STARTED");
+      prtMess($bpe,"ORBIT IMPROVEMENT FOR $pod ($prn)");
+
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","ORBEST",$pod);
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","ORBEST_LST",$prn);
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SATCRUX",'SAT_INI');
+##      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PHASECC",'SAT_INI'); # if nadir angle exceeded
+
+      my $selSysChar = "G";
+      if (($gnssList =~ /$prnSysChar/) && ($prnSysChar ne "G")) {
+        $selSysChar = $selSysChar.$prnSysChar;
+      }
+      print "Info4 selsys: $selSysChar $prnSysChar \n";
+
+      &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$selSysChar);
+      prtMess($bpe,"POD FORCED FOR GNSS $selSysChar");
+
+# Please set $bia to 0 if non-ADDNEQ2 SAT_INI should be performed for GPS only.
+      my $bia = 1;
+      if ($prnSysChar ne "G" || $bia == 1) {
+        if ($iRun == 1) {
+          $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST","0");
+          $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OBS2NEQ","0");
+          $PGMNAM = "GPSEST";
+          $bpe->RUN_PGMS($PGMNAM);
+          copy ("$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.ELE","$CAMP_PTH$CAMPAIGN/ORB/SAT_INI_0.ELE");
+        }
+        $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST","1");
+##        $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBREC_R","SATELLITE");
+        $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBREC_R","SYSTEM");
+        $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OBS2NEQ","1");
+      }
+
+      $PGMNAM = "GPSEST";
+      $bpe->RUN_PGMS($PGMNAM);
+
+##      $bpe->putKey("$ENV{U}/PAN/MENU_PGM.INP","CMD_PATH","${XG}");
+
+      my $SYSOUT  = $$bpe{SYSOUT};
+      if ($prnSysChar eq "G" && $bia == 0) {
+        copy ($SYSOUT,"$CAMP_PTH$CAMPAIGN/OUT/SAT_INI_$iRun.OUT");
+        copy ("$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.ELE","$CAMP_PTH$CAMPAIGN/ORB/SAT_INI_$iRun.ELE");
+
+        my $nCor = `grep '     A ' $SYSOUT | grep '  M' | cut -c16-34 | grep -v 0\.00 | wc -l`;
+        prtMess($bpe,"NUMBER OF SIGNIFICANT A-CORRECTIONS: $nCor");
+
+        $PGMNAM = "RESRMS";
+####        $bpe->RUN_PGMS($PGMNAM);
+      }
+      $nCor = 99;
+
+      if ($prnSysChar ne "G" || $bia == 1) {
+        $PGMNAM = "ADDNEQ2";
+        $bpe->RUN_PGMS($PGMNAM);
+          my $SYSOUT  = $$bpe{SYSOUT};
+         copy ($SYSOUT,"$CAMP_PTH$CAMPAIGN/OUT/SAT_INI_$iRun.OUT");
+         system("$ENV{AUTO}/merge_ele.com $CAMP_PTH$CAMPAIGN/ORB/SAT_INI_0.ELE $CAMP_PTH$CAMPAIGN/ORB/SAT_INI2.ELE  $CAMP_PTH$CAMPAIGN/ORB/SAT_INI.ELE");
+         copy ("$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.ELE","$CAMP_PTH$CAMPAIGN/ORB/SAT_INI_$iRun.ELE");
+      }
+
+##      if ($iRun == $nRun) {
+##        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","STADAT",'$YMD_STR-1');
+##        $bpe->putKey("$ENV{U}/PAN/ORBGEN.INP","STADAT",'$YMD_STR+1');
+##      }
+
+      $PGMNAM = "ORBGEN";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      $PGMNAM = "STDDIF";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      $SYSOUT = $$bpe{SYSOUT};
+      system("grep Maneuver $SYSOUT >> ${dirOut}REPOSITIONING.LST");
+
+      if (-e $manFil && $iRun>1 && $newPRN eq "") {
+        system ("$ENV{AUTO}/sat_ini.com $ddd $CAMP_PTH$CAMPAIGN") }
+
+      prtMess($bpe,"ITERATION $iRun ENDED");
+
+      if ($oldPRN ne "" && $nCor == 0 && $iRun >= 4) { last }
+
+      if (-e $manFil && !-s $crxFil) { last }
+
+      if (-e $exiFil) { last }
+
+    }
+
+    if (-e $manFil && -s $crxFil && $newPRN eq "") {
+
+      copy ("${dirSatcrx}/SAT_${yyyy}.${extSatcrx}","${dirSatcrx}/SAT_${yyyy}.${extSatcrx}_BAK");
+      system ("$ENV{AUTO}/filmerge.pl ${dirSatcrx}/SAT_INI.${extSatcrx} ${dirSatcrx}/SAT_${yyyy}.${extSatcrx} ${dirSatcrx}/SAT_${yyyy}.${extSatcrx}_$$ 6");
+##      system ("$ENV{AUTO}/filmerge.pl ${dirSatcrx}/SAT_${yyyy}.${extSatcrx} ${$dirSatcrx}/SAT_INI.${extSatcrx} ${dirSatcrx}/SAT_${yyyy}.${extSatcrx}_$$ 6");
+      copy ("${dirSatcrx}/SAT_${yyyy}.${extSatcrx}_$$","${dirSatcrx}/SAT_${yyyy}.${extSatcrx}");
+##      unlink ("${dirSatcrx}/SAT_${yyyy}.${extSatcrx}_$$");
+
+    }
+
+    if (-e $manFil && !-s $crxFil && $newPRN eq "") {
+
+      unlink ($manFil);
+
+      prtMess($bpe,"NO REPOSITIONING EVENT DETECTED");
+
+      prtGoto($bpe,$PARAM2)
+
+    }
+
+    else {
+
+     $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","SATCRUX",'SAT_INI');
+
+##      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","STADAT",'$YMD_STR-1');
+##      $bpe->putKey("$ENV{U}/PAN/STDPRE.INP","STADAT",'$YMD_STR+1');
+
+      $PGMNAM = "STDPRE";
+      $bpe->RUN_PGMS($PGMNAM);
+
+      prtMess($bpe,"APR$yy$ddd.PRE CREATED");
+
+      prtGoto($bpe,$PARAM3)
+
+    }
+
+# Create PM STD file if necessary (IGSRAPID not yet completed)
+# ------------------------------------------------------------
+    my $stdFil = "${dirStd}PM_${yydddm1}.STD";
+    unless (-s $stdFil) { copy("${dirStd}RP_${yydddm1}.STD",$stdFil) }
+
+    $bpe->putKey("$ENV{U}/PAN/STDDIF.INP","STDORB",'PM_$YD-1');
+    $bpe->putKey("$ENV{U}/PAN/STDDIF.INP","PLOTRS",'SPECIAL');
+
+    $PGMNAM = "STDDIF";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    $SYSOUT = $$bpe{SYSOUT};
+    system("grep Maneuver $SYSOUT >> ${dirOut}REPOSITIONING.LST");
+
+    copy ("$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.PRE","$CAMP_PTH$CAMPAIGN/ORB/TMP$yy$ddd.PRE");
+    system ("$ENV{AUTO}/merge_pre.com $CAMP_PTH$CAMPAIGN/ORB/ EXT TMP NEW -auto $ddd");
+    unlink ("$CAMP_PTH$CAMPAIGN/ORB/TMP$yy$ddd.PRE");
+
+    unlink ($preOut);
+    unlink ($erpOut);
+    unlink ($flgFil);
+    unlink ($exiFil);
+
+  }
+
+  else {
+
+    prtMess($bpe,"$flgFil NOT FOUND");
+
+    prtGoto($bpe,$PARAM2)
+
+  }
+
+}

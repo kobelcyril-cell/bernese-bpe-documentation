@@ -1,0 +1,92 @@
+package WAIT_JOB;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  WAIT_JOB
+#
+# Purpose :  Wait for particular file (indicating particular job completion)
+#
+# PARAMs  :  PARAM1 - Optional minus/plus parameter (default: -1)
+#            PARAM2 - Optional task ID              (default: value of TASKID)
+#            PARAM3 - Optional PID number           (default: 999)
+#            PARAM4 - Optional waiting file         (default: blank)
+#                     (default directory: $camp_pth$campaign/MSC/)
+#            PARAM5 - Optional maximum waiting time (default: 86400 sec)
+#            PARAM6 - Optional waiting time         (default: 60 sec)
+#            PARAM7 - Optional minimum age of file  (default: 30 sec)
+#
+# Author  :  S. Schaer
+# Created :  26-Sep-2012
+#
+# Changes :  26-Sep-2012/ss: Check existence of last file if indicated
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $param1, $param2, $param3, $param4, $param5, $param6, $param7,
+      $taskID, $camp_pth, $campaign,
+      $dirBpe, $extBpe) = $bpe->getKeys
+     ('$YSS+0', 'PARAM1', 'PARAM2', 'PARAM3', 'PARAM4', 'PARAM5', 'PARAM6', 'PARAM7',
+      'TASKID', 'CAMP_PTH', 'CAMPAIGN',
+      'DIR_BPEPRT', 'EXT_BPEPRT');
+
+  my $repro = (-e "$camp_pth$campaign/MSC/REPROCESSING.FLG");
+
+# Set default values
+# ------------------
+  $param1 = -1      if $param1 eq "";
+  $param2 = $taskID if $param2 eq "";
+  $param3 = 999     if $param3 eq "";
+  $param5 = 86400   if $param5 eq "";
+  $param6 = 60      if $param6 eq "";
+  $param7 = 30      if $param7 eq "";
+
+# Add default directory if indicated
+# ----------------------------------
+  $param4 = "$camp_pth$campaign/MSC/$param4" if $param4 ne "" && length(dirname($param4))<=1;
+
+# Redefine session variable
+# -------------------------
+  $yyssss = gps_date("-yd $yyssss -d $param1 -o %y%j0");
+
+# Perform waiting loop
+# --------------------
+  my $chkFil = $param4 eq "" ? "${dirBpe}${param2}${yyssss}_${param3}_000.${extBpe}" : $param4;
+  prtMess($bpe,"WAITING FILE: $chkFil");
+
+  my $lstFil = $param4 eq "" ? "${dirBpe}${param2}${yyssss}_999_000.${extBpe}" : "";
+
+  $wait = 0;
+##  $cont = 0;
+  $cont = $repro ? 1 : 0;
+  while ($cont==0) {
+    if (-e $chkFil && (stat($chkFil))[9]+$param7 <= time) {
+      prtMess($bpe,"CONTINUING") unless $wait==0;
+      $cont++ }
+    elsif (-e $lstFil && (stat($lstFil))[9]+$param7 <= time) {
+      prtMess($bpe,"CONTINUING DUE TO EXISTENT ".basename($lstFil)) unless $wait==0;
+      $cont++ }
+    else {
+      prtMess($bpe,"WAITING FOR ".basename($chkFil));
+      sleep($param6);
+      $wait++ }
+    if ($wait>=$param5/$param6) {
+      prtMess($bpe,"WAITING LOOP ABORTED DUE TO UNAVAILABILITY OF ".basename($chkFil));
+      die "WAITING LOOP ABORTED DUE TO UNAVAILABILITY OF ".basename($ionFin)."\n";
+    }
+  }
+
+}

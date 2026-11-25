@@ -1,0 +1,38 @@
+package ATTXTR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ATTXTR
+#
+# Purpose :  Report the attitude in ORBEX format
+#
+# Programs:  ATTXTR
+#
+# Author  :  M. Meindl
+#
+# Created :  30-Jul-2003
+#
+# Changes :  24-Nov-2022 SS: Retrieved second midnight epoch
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($mjd,$campaign) = $bpe->getKeys('$JD+0','CAMPAIGN');
+
+# Retrieved second midnight epoch (if requested)
+# ----------------------------------------------
+  if ($mjd>=59910 || $campaign=~/I20/) {
+    $bpe->putKey("$$bpe{U}/PAN/ATTXTR.INP","ENDTIM","24 00 00");
+  }
+
+# Run program
+# -----------
+  my $PGMNAM = "ATTXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

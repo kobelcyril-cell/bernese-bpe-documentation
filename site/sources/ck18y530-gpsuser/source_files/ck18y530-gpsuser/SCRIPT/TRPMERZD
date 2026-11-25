@@ -1,0 +1,52 @@
+package TRPMERZD;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TRPMERZD
+#
+# Purpose :  Merge TRP-files
+#
+# Programs:
+#
+# Author  :  E. Calero
+# Created :  02-Jun-2022
+#
+# Changes : 
+#
+# ----------------------------------------------------------------------------
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use statistics_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyssss, $ssss,
+      $v_k,
+      $dirTrp,  $extTrp) = $bpe->getKeys(
+      '$YSS+0','$S+0',
+      'V_K',
+      'DIR_TRP','EXT_TRP');
+
+  my @trpFiles = glob("${dirTrp}????${ssss}_REC.${extTrp}");
+  my $trpTmp = "${dirTrp}${v_k}_${yyssss}.${extTrp}_tmp";
+  my $trpOut = "${dirTrp}${v_k}_${yyssss}.${extTrp}";
+  copyfile("$troFiles[0]","$troOutFl");
+  
+  foreach my $trpFil ( @trpFiles ) {
+    if (! -e $trpTmp) {
+      copyfile($trpFil,$trpTmp);
+    } else {
+    
+      my ($ERR_STATE1,$tropFileVers1,$nHeadLines1,$numEpoTrop1) = &getTropHeadInf($trpTmp);
+      my ($ERR_STATE2,$tropFileVers2,$nHeadLines2,$numEpoTrop2) = &getTropHeadInf($trpFil);
+
+      system ("$ENV{AUTO}/filmerge.pl $trpTmp $trpFil $trpOut $nHeadLines1 1 $nHeadLines2");
+      copyfile($trpOut,$trpTmp);
+    }
+  }
+  unlink $trpTmp;
+}

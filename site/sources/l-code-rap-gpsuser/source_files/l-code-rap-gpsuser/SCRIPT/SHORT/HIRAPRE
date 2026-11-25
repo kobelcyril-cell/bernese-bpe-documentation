@@ -1,0 +1,127 @@
+package HIRAPRE;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  HIRAPRE
+#
+# Purpose :  CREATE EXTRA HIGH-RATE PRE FILE FOR REAL-TIME APPLICATION (IP)
+#
+# Programs:  STDPRE
+#
+# Author  :  H. Bock
+#
+# Created :  07-Dec-2007
+#
+# Changes :  07-May-2008/ss: Do not copy old info to COD_IP.EPH
+#            07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#            04-Apr-2023 RD: Compress->gzip
+#            24-Nov-2025 SS: Specify TITPRE using replaceSelLst to force SP3d
+#            27-Nov-2025 SS: Add the DOI comment line to force SP3d
+#
+# =============================================================================
+
+use strict;
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $ymdp1,$ymdp0,$yy,$ddd,$yydp1,$yyyy,
+    $CAMP_PTH,$CAMPAIGN,
+    $dirOut,
+    $dirPre,$extPre,
+    $v_sav,
+  ) =
+  $bpe->getKeys(
+    '$YMD_STR+1','$YMD_STR+0','$Y','$+0','$YD+1','$Y+0',
+    'CAMP_PTH','CAMPAIGN',
+    'DIR_OUT',
+    'DIR_PRE','EXT_PRE',
+    'V_SAV',
+  );
+  my $PGMNAM;
+
+# Check if this is an ULTRA:
+# -------------------------
+  my $ultFil = "${CAMP_PTH}${CAMPAIGN}/MSC/ULT$yy$ddd.FLG";
+  my($h_end,$h_tro,$h_rnx,$h_chr) = &rdUltFlg($ultFil);
+  my $T = &gtUltVrs($h_end,$h_chr);
+  &setUserVar($bpe,"T",$T);
+
+  my $sess_fin;
+
+  if(-e $ultFil){
+    $sess_fin = sprintf("%03d%1s",$ddd,$h_chr);
+    $sess_fin = sprintf("%4d-%03d%1s",$yyyy,$ddd,$h_chr);
+  } else {
+    $h_end = 24;
+    $sess_fin = sprintf("%4d-%03d%1s",$yyyy,$ddd,"0");
+  }
+
+#               12345678901234567890123456789012345678901234567890123456c8901234567890123456d
+  my @lines = ("Center for Orbit Determination in Europe (CODE)",
+               "Ultra-Rapid GNSS Orbits for Internet Protocol (IP)",
+               "Based on a (up to 3-day) long-arc \$(GNSS) solution",
+               "Data used up to year-session $sess_fin");
+
+  $PGMNAM = "STDPRE";
+  $bpe->putKey("$$bpe{U}/PAN/$PGMNAM.INP","TITLE3","DATA USED UP TO $sess_fin");
+# Add the DOI comment line to force SP3d
+  push(@lines,"Product reference - DOI \$(DOI_U)");
+# Add contact address
+  push(@lines,"Contact address: code(at)aiub.unibe.ch");
+  replaceSelLst($bpe,$PGMNAM,"TITPRE",@lines);
+
+  my $h_b=${h_end}+1;
+  if($h_b >= 24) {
+    $h_b=$h_b-24;
+    $bpe->putKey("$$bpe{U}/PAN/$PGMNAM.INP","STADAT","$ymdp1");
+  } else {
+    $bpe->putKey("$$bpe{U}/PAN/$PGMNAM.INP","STADAT","$ymdp0");
+  }
+  my $staTim=sprintf("%02d%6s",$h_b,' 00 00');
+  $bpe->putKey("$$bpe{U}/PAN/$PGMNAM.INP","STATIM","$staTim");
+
+  my $h_e=${h_end}+13;
+  if($h_e >= 24) {
+    $h_e=$h_e-24;
+    $bpe->putKey("$$bpe{U}/PAN/$PGMNAM.INP","ENDDAT","$ymdp1");
+  } else {
+    $bpe->putKey("$$bpe{U}/PAN/$PGMNAM.INP","ENDDAT","$ymdp0");
+  }
+  my $endTim=sprintf("%02d%6s",$h_e,' 00 00');
+  $bpe->putKey("$$bpe{U}/PAN/$PGMNAM.INP","ENDTIM","$endTim");
+
+##  my $newFil="$CAMP_PTH${CAMPAIGN}/MSC/ULT${yydp1}.FLG";
+  my $newFil="${CAMP_PTH}${CAMPAIGN}/ORB/RA_${yydp1}.PRE";
+  unless(-e $newFil) {
+    $bpe->RUN_PGMS($PGMNAM);
+
+# Not allowed to distribute files
+# -------------------------------
+    if($v_sav ne "Y"){
+      prtMess($bpe,"FILES_NOT_DISTRIBUTED");
+    } else {
+      my $inpFil="${dirPre}REALTIME.${extPre}";
+      my $outFil="${PATH_AFTP}/CODE/BKG/COD_IP.EPH";
+      check_dir("${PATH_AFTP}/CODE/BKG");
+      unlink("${inpFil}.gz");
+#      system("/usr/bin/compress -rv $inpFil");
+      compress("-z gzip","$inpFil");
+      copyfile("$inpFil.gz","$outFil.gz");
+    }
+  }
+}
+
+# =============================================================================
+
+__END__

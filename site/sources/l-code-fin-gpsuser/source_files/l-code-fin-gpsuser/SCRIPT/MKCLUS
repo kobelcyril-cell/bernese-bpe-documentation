@@ -1,0 +1,150 @@
+package MKCLUS;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      MKCLUS
+#
+# Purpose:   Run MKCLUS
+#
+# Programs:  MKCLUS
+#
+# Authors:   R. Dach
+#
+# Created:   03-July-2009
+#
+# Changes:   11-Oct-2016 AS/AV: merged with l_code_rap script
+#            10-Jul-2018 AV: Do not add deletion file to MKCLUS
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use File::Copy;
+use File::Basename;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run
+{
+    my $bpe = shift;
+
+    # Get variables
+    # -------------
+    my $fixFil = "";
+    my ($param1,$u,$ssss,$yyssss,$pcf,
+        $dirClb,$dirOut,$dirFix,$dirDel,$dirPZH,
+        $extClb,$extOut,$extFix,$extDel,$extPZH) =
+        $bpe->getKeys(
+            $$bpe{PARAM1},'U','$S+0','$YSS+0','PCFFIL',
+            'DIR_CLB','DIR_OUT','DIR_FIX','DIR_DEL','DIR_PZH',
+            'EXT_CLB','EXT_OUT','EXT_FIX','EXT_DEL','EXT_PZH');
+
+    my $scrFil = "";
+
+    # Are cluster files specified as parameters?
+    # ------------------------------------------
+    my  @clbList = glob("${dirClb}${param1}${ssss}??.${extClb}");
+
+    if ("${param1}" ne "" && scalar @clbList) {
+
+        # Merge all observation files in these cluster files
+        # --------------------------------------------------
+        my %obsLst = ();
+
+        foreach my $clbFil ( @clbList ) {
+            unless (-s $clbFil) { next }
+
+            open (CLB,"< $clbFil");
+            while (my $obsFil = <CLB> ) {
+                chomp($obsLst{ substr(basename($obsFil),0,8) } = $obsFil);
+            }
+            close(CLB);
+        }
+
+        # Use the merged list of observation files
+        # ----------------------------------------
+        $scrFil = "$u/WORK/OBSFIL.SEL";
+        open (OBS,"> $scrFil");
+        map { print OBS "$obsLst{$_}\n"; } sort keys %obsLst;
+        close OBS;
+
+        replaceSel($bpe,"MKCLUS","PZHFILES",$scrFil);
+
+        # Do not remove the reference clock
+        # ---------------------------------
+        my $outFil = "${dirOut}${param1}_${yyssss}.${extOut}";
+        if (-e $outFil) {
+            open (INP,"< $outFil");
+            while (<INP>){
+                next unless ($_=~ /^ Selected reference station:/);
+                $fixFil = "${dirFix}${param1}_${yyssss}.${extFix}";
+                open(FIX,"> $fixFil");
+                print FIX substr($_,33);
+                close FIX;
+                system("$ENV{EXE}/NPUTFIL",$fixFil,"FIX","REPLACE",$fixFil);
+                $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP","CORESITE",$fixFil);
+                last;
+            }
+            close INP;
+        }
+    }
+
+    # RINEX error file
+    # ----------------
+    my $rnxErr = "${dirOut}RNX${yyssss}.ERR";
+
+    # Delete old DEL file
+    # -------------------
+    my $delFil = "${dirDel}OBS${yyssss}.${extDel}";
+    unlink ($delFil);
+    unless ($pcf =~/(FCLKGNSS|FCLKI20)/) {
+        $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP","NOTUSE",$delFil);
+        $bpe->putKey("$ENV{U}/PAN/MKCLUS.INP","DELALL","1");
+    }
+
+    # Run program
+    # -----------
+    my $PGMNAM = "MKCLUS";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    # Remove stations if requested
+    # ----------------------------
+    if ($pcf =~/FCLKGNSS/) {
+        my $del = $bpe->getKey("$ENV{U}/INP/MKCLUS.INP","NOTUSE");
+        if ($del ne "") {
+
+            my ($yyssss,$dirSmc,$extSmc)=$bpe->getKeys('$YSS+0','DIR_SMC','EXT_SMC');
+            my $sum = "${dirSmc}SMT${yyssss}.${extSmc}";
+            appFile("Files excluded from processing (too many stations):",0,$del,$sum,0);
+
+            open (DEL,"< $del");
+            while (<DEL>) { chomp(); unlink $_ }
+            close (DEL);
+        }
+
+        # Remove a "private" fix file
+        # ---------------------------
+        unlink $fixFil if ("$fixFil" ne "");
+    }
+    else {
+        # Delete rejected binary observation files
+        # ----------------------------------------
+        if (-s $delFil) {
+            open (DEL,$delFil);
+            while (<DEL>) {
+                chomp;
+                while ( /^ / ) { s/^ // }  # Remove leading blanks
+                unlink ($_);
+                prtMess($bpe,"$_ deleted") }
+            close DEL;
+            appFile ("Checking the number of Ambiguities\n".
+                     "Files excluded from processing (> 300 ambiguities per file):",
+                     0,"$delFil","$rnxErr",1);
+            unlink $delFil;
+        } else {
+            appFile ("Checking the number of Ambiguities\n".
+                     "All files accepted (< 300 ambiguities per file)",
+                     0,"","$rnxErr",0);
+        }
+    }
+}

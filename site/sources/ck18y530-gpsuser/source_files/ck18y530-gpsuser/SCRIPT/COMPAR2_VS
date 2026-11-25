@@ -1,0 +1,72 @@
+package COMPAR2_VS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  COMPAR2_VS
+#
+# Purpose :  Execute COMPAR2 w/ input from -7,...,0 days
+#
+# PARAMs  :
+#
+# Author  :  C. Kobel
+# Created :  16-Mar-2026
+#
+# Changes :  C.Kobel: Compare to CODE routine product
+#
+# ============================================================================
+use strict;
+
+sub run {
+    my $bpe = shift;
+
+    # Get variables
+    # -------------
+    my ($yyddd,$yydddm1,$yydddm2,$yydddm3,$yydddm4,$yydddm5,$yydddm6,
+        $yyssss,$yyssssm1,$yyssssm2,$yyssssm3,$yyssssm4,$yyssssm5,$yyssssm6,
+        $CRD) = $bpe->getKeys(
+        '$YD+0','$YD-1','$YD-2','$YD-3','$YD-4','$YD-5','$YD-6',
+        '$YSS+0','$YSS-1','$YSS-2','$YSS-3','$YSS-4','$YSS-5','$YSS-6',
+        'V_CRD');
+
+    # Determine which date format to use
+    # ----------------------------------
+    my $suffix_len = 5;
+    my $suffix = substr($CRD, -$suffix_len);
+    my ($d0,$d1,$d2,$d3,$d4,$d5,$d6);
+
+    if ($suffix eq $yyddd) {
+        ($d0,$d1,$d2,$d3,$d4,$d5,$d6) = ($yyddd,$yydddm1,$yydddm2,$yydddm3,$yydddm4,$yydddm5,$yydddm6);
+    } else {
+        ($d0,$d1,$d2,$d3,$d4,$d5,$d6) = ($yyssss,$yyssssm1,$yyssssm2,$yyssssm3,$yyssssm4,$yyssssm5,$yyssssm6);
+	$suffix_len = 6;
+    }
+
+    # Remove existing date part from CRD
+    my $crd_base = substr($CRD, 0, length($CRD)-$suffix_len);
+    print "$crd_base \n";
+    print "$crd_base$d0\n";
+    print "$crd_base$d1\n";
+    print "$crd_base$d3\n";
+    # Set precise orbit files
+    # -----------------------
+    my $tmpFil = "$ENV{U}/WORK/COMPAR2.lst";
+
+    open my $OUT, '>', $tmpFil or die "Cannot open $tmpFil: $!";
+    print $OUT "$crd_base$d0\n";
+    print $OUT "$crd_base$d1\n";
+    print $OUT "$crd_base$d2\n";
+    print $OUT "$crd_base$d3\n";
+    print $OUT "$crd_base$d4\n";
+    print $OUT "$crd_base$d5\n";
+    print $OUT "$crd_base$d6\n";
+    close $OUT;
+
+    $bpe->putKey("$ENV{U}/PAN/COMPAR2.INP","COOFIL","SELECTED","REPLACE",$tmpFil);
+
+    system("rm $ENV{U}/WORK/COMPAR2.lst");
+
+    # Run program
+    # -----------
+    my $PGMNAM = "COMPAR2";
+    $bpe->RUN_PGMS($PGMNAM);
+}

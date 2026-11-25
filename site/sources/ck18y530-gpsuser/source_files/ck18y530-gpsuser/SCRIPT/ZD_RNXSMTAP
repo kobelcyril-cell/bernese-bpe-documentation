@@ -1,0 +1,74 @@
+package RNXSMTAP;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  RNXSMTAP
+#
+# Purpose :  Prepare parallel RNXSMT run
+#
+# Author  :  M. Meindl
+# Created :  23-Jul-2003               Last modified: 19-May-2009
+#
+# Changes :  26-Jan-2006 mm: New initPar call (w/o tmpFil)
+#===========================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $yyssss,
+      $ssss,
+      $ddd,
+      $numClu,
+      $dirBpe,
+      $dirOut,
+      $dirRxo,
+      $dirSmt,
+      $extOut,
+      $extRxo,
+      $extSmt
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      '$S+0',
+      '$+0',
+      'V_NCLU',
+      'DIR_BPEPRT',
+      'DIR_OUT',
+      'DIR_RXO',
+      'DIR_SMT',
+      'EXT_OUT',
+      'EXT_RXO',
+      'EXT_SMT'
+  );
+
+# ---------- Delete old files (SMT) ------------
+  unlink glob("${dirSmt}????${ssss}.${extSmt}");
+
+  if ($numClu ne "") {
+    unlink glob("${dirOut}SMT${ssss}???.${extOut}");
+  } else {
+    unlink glob("${dirOut}SMT${ddd}????.${extOut}");
+  }
+
+# ---------- Delete collecting file for RINEX error/warning messages ------------
+  unlink "${dirOut}RNX${yyssss}.ERR";
+
+# ---------- Initialize parallel run ------------
+  my $bpeFil = "${dirBpe}SMT${ssss}";
+  my @rxoFil = glob("${dirRxo}????${ssss}.${extRxo}");
+
+  if ($numClu ne "") {
+    initPar_Cl($bpe, $bpeFil, @rxoFil, $numClu, 0, 0);
+
+  } else {
+    @rxoFil = map { substr(basename($_), 0, 4) } @rxoFil;
+    initPar_Bl($bpe, @rxoFil);
+  }
+}

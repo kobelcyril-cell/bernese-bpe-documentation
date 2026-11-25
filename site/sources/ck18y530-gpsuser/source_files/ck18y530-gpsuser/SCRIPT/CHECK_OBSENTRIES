@@ -1,0 +1,109 @@
+package CHECK_OBSENTRIES;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  CHECK_OBSENTRIES
+#
+# Purpose :  Prüft, ob zu allen Beobachtungsdateien im RAW-Verzeichnis
+#            (Muster: ????$ssss.$yyO) ein Eintrag im Stations-File existiert.
+#            Fehlt ein Eintrag, wird eine Meldung ins NUM_OBSFIL-Log geschrieben
+#            und die Datei gelöscht.
+#
+# PARAMs  :  V_CRDINF, EXT_CRD
+#
+# Author  :  C. Kobel
+# Created :  06-Nov-2025
+#
+# ============================================================================
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use strict;
+use warnings;
+use File::Basename;
+
+# ----------------------------------------------------------------------------
+sub run {
+  my $bpe = shift;
+
+  # ---------------------- Parameter -----------------------------------------
+  my ($dirOut, $yyddd, $ssss, $yyyy, $CRDINF, $extCRD) =
+    $bpe->getKeys('DIR_OUT', '$YD+0', '$S+0', '$Y+0', 'V_CRDINF', 'EXT_CRD');
+
+  my $yy = substr($yyyy, -2);
+  my $dirRaw = "${dirOut}../RAW";
+  my $dirSta = "${dirOut}../STA";
+
+  # ---------------------- Gemeinsames Logfile mit NUM_OBSFIL ----------------
+  my $mscDir  = "${dirOut}/../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $logfile = "$mscDir/PROCESSING_${yyddd}";
+  open(my $LOG, '>>', $logfile) or die "Cannot open log file $logfile: $!";
+
+  print $LOG "\n=== CHECK_OBSENTRIES started ===\n";
+
+  # ---------------------- Step 1: Read station file -------------------------
+  my $stationinfo = "${dirSta}/${CRDINF}.${extCRD}";
+  die "Station file not found: $stationinfo\n" unless -e $stationinfo;
+
+  open(my $SF, '<', $stationinfo) or die "Cannot open stationinfo $stationinfo: $!";
+
+  my %stations;
+  my $line_count = 0;
+  while (my $line = <$SF>) {
+      $line_count++;
+      next if $line_count <= 6;            # überspringe die ersten 6 Zeilen
+      last if $line =~ /^\s*$/;            # stoppe bei erster Leerzeile
+      chomp $line;
+
+      # Stelle sicher, dass die Zeile lang genug ist (Zeichen 6-9 => Index 5..8)
+      if (length($line) < 9) {
+          warn "stationinfo: line too short, stopping at line $line_count\n";
+          last;
+      }
+
+      my $station = substr($line, 5, 4);   # Zeichen 6-9 (0-basierter Index)
+      $station =~ s/^\s+|\s+$//g;          # trim leading/trailing spaces
+      $station = uc $station;              # Einheitliche Grossschreibung
+
+      next unless $station =~ /^[A-Z0-9]{4}$/;  # nur gültige Station-Kürzel akzeptieren
+
+      $stations{$station} = 1;
+  }
+  close($SF);
+
+  my $station_count = scalar(keys %stations);
+  print $LOG "Found $station_count station entries in ${CRDINF}.${extCRD}.\n";
+
+  # ---------------------- Step 2: Scan RAW directory ------------------------
+  opendir(my $DH, $dirRaw) or die "Cannot open directory $dirRaw: $!";
+  my @files = grep { /^.{4}${ssss}\.${yy}O$/ && -f "$dirRaw/$_" } readdir($DH);
+  closedir($DH);
+
+  my $obs_count = scalar(@files);
+  print $LOG "Found $obs_count observation files in RAW.\n";
+
+  # ---------------------- Step 3: Compare and act ---------------------------
+  my $deleted = 0;
+  foreach my $file (@files) {
+    my ($station) = $file =~ /^([A-Z0-9]{4})/;
+    unless ($stations{$station}) {
+      print $LOG "→ Deleted $file (no matching station entry).\n";
+      unlink("$dirRaw/$file") or warn "Could not delete $file: $!";
+      $deleted++;
+    }
+  }
+
+  # ---------------------- Summary ------------------------------------------
+  print $LOG "Deleted $deleted files without matching entries.\n";
+
+  print $LOG "=== CHECK_OBSENTRIES finished ===\n";
+  close($LOG);
+
+  print "CHECK_OBSENTRIES done. Log appended to $logfile\n";
+}
+
+1;

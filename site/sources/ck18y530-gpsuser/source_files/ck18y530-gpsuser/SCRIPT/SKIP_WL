@@ -1,0 +1,37 @@
+package SKIP_WL;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  SKIP_WL
+#
+# Purpose :  Skip WL ambiguity fixing part unless V_AR = 'Y' or if
+#            V_INL1L2 = 'Y'.
+#
+# PARAMs  :
+#
+# Author  :  D. Arnold
+# Created :  19-Mar-2019
+#
+# Changes :  17-Jun-2019 DA: Introduce V_INL1L2
+#
+# ============================================================================
+use strict;
+
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($V_AR, $INL1L2, $param2) =
+      $bpe->getKeys('V_AR', 'V_INL1L2', 'PARAM2');
+
+  # Jump forward unless V_AR = 'Y'
+  if ($V_AR ne 'Y' || $INL1L2 eq 'Y') {
+      print "Skip WL ambiguity resolution. Jump forward to PID $param2\n";
+      $bpe->PRT_GOTO($param2);
+  } else {
+      print "Execute WL ambiguity resolution\n";
+  }
+}

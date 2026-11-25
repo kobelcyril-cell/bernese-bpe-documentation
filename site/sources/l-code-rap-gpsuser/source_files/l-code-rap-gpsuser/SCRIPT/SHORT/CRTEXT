@@ -1,0 +1,101 @@
+package CRTEXT;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  CRTEXT
+#
+# Purpose :  Create extrapolated (EXT) PRE info (for orbit initialization)
+#
+# Programs:  CCPREORB, ORBGEN, STDPRE
+#
+# Author  :  S. Schaer
+#
+# Created :  21-Dec-2004
+#
+# Changes :  09-Feb-2005 mm: Old date variables removed
+#            27-Apr-2012 ss: Manage problem with GPS constellation change
+#            03-Dec-2013 SL: Use new ULTRA product (U$T)
+#            26-Feb-2014 SS: Execute extra CCPREORB run
+#
+# =============================================================================
+
+use warnings;
+
+# External packages
+use File::Copy qw(copy);
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,$ssss,$wwwwd,
+    $CAMP_PTH,$CAMPAIGN,
+    $dirPre,$extPre,
+    $dirErp,$extErp,
+  ) =
+  $bpe->getKeys(
+    '$YD+0','$S+0','$WD+0',
+    'CAMP_PTH','CAMPAIGN',
+    'DIR_PRE','EXT_PRE',
+    'DIR_ERP','EXT_ERP',
+  );
+  my $PGMNAM;
+
+# Set T
+# -----
+  my $ultFil = "${CAMP_PTH}${CAMPAIGN}/MSC/ULT${yyddd}.FLG";
+  my($h_end,$h_tro,$h_rnx,$h_chr) = &rdUltFlg($ultFil);
+  my $T = &gtUltVrs($h_end,$h_chr);
+  &setUserVar($bpe,"T",$T);
+
+  if(-s $ultFil) {
+    prtMess($bpe,"SKIPPED (ULT.FLG)");
+  } else {
+
+###############################################################################
+# CAUTION: In case of a problem (NO ELLIPSE) please comment the following short
+# sequence and correct info in EXT_ssss.PRE (set 0.000000 for an epoch or so)
+###############################################################################
+    $PGMNAM = "CCPREORB";
+    $bpe->putKey("$ENV{U}/PAN/$PGMNAM.INP","MERGE1",'$I_$YD+0');
+    $bpe->putKey("$ENV{U}/PAN/$PGMNAM.INP","MERGE2",'$H_$YD+0');
+    $bpe->RUN_PGMS($PGMNAM);
+
+    my $ch4 = $bpe->getKey("$ENV{U}/INP/$PGMNAM.INP","CHAR4");
+    &copy("${dirErp}U$T${wwwwd}.${extErp}","${dirErp}${ch4}${ssss}.${extErp}");
+
+    $bpe->putKey("$ENV{U}/PAN/$PGMNAM.INP","MERGE1","${ch4}${ssss}");
+    $bpe->putKey("$ENV{U}/PAN/$PGMNAM.INP","MERGE2",'EXT$YD+0');
+    $bpe->RUN_PGMS($PGMNAM);
+
+##    replace("${dirPre}${ch4}${ssss}.${extPre}","G24","G00")
+##      if($yyddd eq "12117");
+##    replace("${dirPre}${ch4}${ssss}.${extPre}","R17","G00")
+##      if($yyddd eq "16055");
+##    sleep(180);
+###############################################################################
+
+    $PGMNAM = "ORBGEN";
+    $bpe->RUN_PGMS($PGMNAM);
+
+ ##   unlink("${dirPre}${ch4}${ssss}.${extPre}");
+    unlink("${dirErp}${ch4}${ssss}.${extErp}");
+
+    $PGMNAM = "STDPRE";
+    $bpe->RUN_PGMS($PGMNAM);
+
+    prtMess($bpe,"EXT PRE INFO CREATED");
+  }
+}
+
+# =============================================================================
+
+__END__

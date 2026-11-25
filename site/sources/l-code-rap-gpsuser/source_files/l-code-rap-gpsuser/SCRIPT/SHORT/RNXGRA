@@ -1,0 +1,45 @@
+package RNXGRA;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  RNXGRA
+#
+# Purpose :  Create a "pseudo" graphic of rinex observations
+#
+# Programs:  RNXGRA
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  05-Jan-2020 RD: Display is adjusted to V_GNSS
+#            01-Jun-2021 ST: Temporary ignore V_GNSS
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ( $gnss ) =
+  $bpe->getKeys
+     ( 'V_GNSS' );
+
+
+
+# Select GNSS, if desired
+# -----------------------
+#  &setGNSS($bpe,"$ENV{U}/PAN/RNXGRA.INP","USE_",$gnss);
+
+
+# Run program
+# -----------
+  my $PGMNAM = "RNXGRA";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

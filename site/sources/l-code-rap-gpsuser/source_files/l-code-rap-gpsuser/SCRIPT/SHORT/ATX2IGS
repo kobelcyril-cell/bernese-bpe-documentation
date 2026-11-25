@@ -1,0 +1,86 @@
+package ATX2IGS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  ATX2IGS
+#
+# Purpose :  Update PCV_COD.I08 using ATX2PCV
+#
+# PARAMs  :
+#
+# Author  :  A. Gaede
+# Created :  20-Jul-2007
+#
+# Changes :  14-Feb-2008 RD: Extend the script for different PCV models
+#            09-Oct-2012/ss: Use STAINF variable
+#            01-Nov-2012/lp: Update BSWUSER52, too
+#            07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER
+#            15-Oct-2014/ss: Revised
+#            13-Jan-2017/av: Optional pcv selection (param1)
+#            16-Jan-2017/av: Activated gen2bswuser.com also for param1
+#            14-Jul-2020 RD/PF: change $X/GEN -> PTH_PHASECC
+#            29-Mar-2022 AV: GEN path splitted to MODEL/CONFIG
+#            27-Sep-2022 AV: Add gen2bswuser54
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($dirPhg, $extPhg, $dirOut, $dirSta, $dirPhasecc,$extPhasecc,
+      $staInf, $satInf, $pcvInf, $pcv, $nadir, $param1) =
+    $bpe->getKeys('DIR_PHG', 'EXT_PHG', 'DIR_OUT', 'DIR_STA','PTH_PHASECC','EXT_PHASECC',
+                  'V_STAINF', 'V_SATINF', 'V_PCVINF', 'V_PCV', 'V_NADIR','PARAM1');
+
+# If PARAM1 defined switch version
+# --------------------------------
+  if($param1 ne ""){
+    $pcv = $param1;
+  }
+# Copy ANTEX information
+# ----------------------
+  copy("$ENV{REF}/${pcv}.ATX",$dirOut);
+  copy("$ENV{REF}/${staInf}.STA",$dirSta);
+
+# Change input options in case of param1
+# --------------------------------------
+  if($param1 ne ""){
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","PHASEXT","$pcv.ATX");
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","PHASECC",'$(PCVINF).'."$pcv");
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","PHASRSG","PCV_$pcv");
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","SYSOUT","ATX2PCV_$pcv");
+    $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","SATELL",'$(SATINF).'."$pcv");
+  }
+# Run program
+# -----------
+  $bpe->putKey("$ENV{U}/PAN/ATX2PCV.INP","MXFNAD","$nadir") unless $nadir eq "";
+
+  my $PGMNAM = "ATX2PCV";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $filNew = "${dirPhg}PCV_${pcv}.${extPhg}";
+  my $filOld = "${dirPhasecc}/${pcvInf}_${pcv}.$extPhasecc";
+  my $filnam = "${pcvInf}_${pcv}.$extPhasecc";
+  my $diff = `diff $filNew $filOld | wc -l`;
+  $diff = $diff + 0;
+  if ($diff > 4) {
+    `diff $filNew $filOld > ${filOld}_DIF`;
+    copy($filOld,"${filOld}_BAK");
+    copy($filNew,"${filOld}_TMP");
+    move("${filOld}_TMP",$filOld);
+
+    system("$ENV{AUTO}/gen2bswuser.com ATX2PCV ${filnam}");
+    system("$ENV{AUTO}/gen2bswuser54.com ATX2PCV");
+
+    msg2key("BPE","${filnam} updated in CONFIG directory and BSWUSER52");
+  }
+}

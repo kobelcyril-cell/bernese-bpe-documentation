@@ -1,0 +1,212 @@
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! -------------------------------------------------------------------------
+! Environment Variables
+! -------------------------------------------------------------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! -------------------------------------------------------------------------
+! General Constants
+! -------------------------------------------------------------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "$(SATINF)_$(PCV)"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "$(SATCRX)"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Sinex header file
+! -----------------
+SINEXIN 1  "$(BIAINF)"
+  ## widget = selwin; path = PTH_SINEXIN; ext = EXT_SINEXIN; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_SINEXIN 1  "SINEX general input file"
+
+! GPSEST Input Files
+! ------------------
+OUTPUT 1  "????$S+0_WLB"
+  ## widget = selwin; path = DIR_OUT; ext = EXT_OUT; maxfiles = 999
+  ## emptyallowed = true
+
+MSG_OUTPUT 1  "GPSEST output files"
+
+! ----------------------------------------------------------------------
+! Output window
+! ----------------------------------------------------------------------
+OUTPUT_TXT_COL_1 1  "GPSEST output files"
+
+! Title
+! -----
+TITLE 1  "PPPAR_$YSS+0: WIDELANE PHASE BIAS DETERMINATION"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! AMB PHASE BIAS
+! --------------
+PHAOSB 1  "WL_$YSS+0"
+  ## widget = lineedit; path = DIR_OSB; ext = EXT_OSB; maxfiles = 1
+
+MSG_PHAOSB 1  "Phase biases"
+
+! BIAS SINEX
+! ----------
+BIASSNX 1  "WL_$YSS+0"
+  ## widget = lineedit; path = DIR_BIA; ext = EXT_BIA; maxfiles = 1
+
+DESCR_BIASSNX 1  "BIAS SINEX"
+
+! Display Extended Printing Options
+! ---------------------------------
+PRINT 1  "1"
+  ## widget = checkbox
+
+MSG_PRINT 1  "Enable extended program output"
+
+! Antenna phase center corrections
+! --------------------------------
+PHASECC 1  "PCV_COD"
+  ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_PHASECC 1  "Antenna corrections"
+
+! Display Extended Printing Options
+! ---------------------------------
+QRTDET 1  "1"
+  ## widget = checkbox
+
+MSG_QRTDET 1  "Quarter-cycle detection"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "WLB$YSS+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 1  "STKLOG"
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 1  "TEST"
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 00 10"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PHASE BIAS EXTRACTOPN - PHABIA: 1 Extractions                                #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# INPUT FILENAMES           > %%%%%%%%%%%% <          (GPSEST output)          # OUTPUT
+#                                                                              #
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output       > % < use GPSXTR.Lnn            or   > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages       > % < merged to program output  or   > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1  #####################################################
+# PHABIA                                                                       #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Satellite information   > %%%%%%%%%%%% <                                   # SATELL
+#   Satellite problems      > %%%%%%%%%%%% <                                   # SATCRUX
+#   SINEX header file       > %%%%%%%%%%%% <                                   # SINEXIN
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PHABIA : 2. Output Files                                                     #
+#                                                                              #
+# TITLE   > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% < # TITLE
+#                                                                              #
+# OUTPUT FILES                                                                 #
+#   Phase biases                      > %%%%%%%%%%%% <                         # PHAOSB
+#   Bias SINEX                        > %%%%%%%%%%%% <                         # BIASSNX
+#                                                                              #
+# SPECIAL PROCESSING OPTIONS                                                   #
+#   Activate quarter cycle detection  > % <                                    # QRTDET
+#   Activate extended program output  > % <                                    # PRINT
+#                                                                              #
+# END_PANEL ####################################################################

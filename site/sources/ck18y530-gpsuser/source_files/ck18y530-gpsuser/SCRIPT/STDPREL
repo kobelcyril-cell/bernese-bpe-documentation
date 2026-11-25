@@ -1,0 +1,27 @@
+package STDPRE;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  STDPRE
+#
+# Purpose :  Execute STDPRE
+#
+# PARAMs  :
+#
+# Author  :  H. Bock
+# Created :  28-May-2004
+#
+# Changes :  25-Jul-2013 SS: Updated to common layout
+#
+# ============================================================================
+use strict;
+
+sub run {
+  my $bpe = shift;
+
+# Run program
+# -----------
+  my $PGMNAM = "STDPRE";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

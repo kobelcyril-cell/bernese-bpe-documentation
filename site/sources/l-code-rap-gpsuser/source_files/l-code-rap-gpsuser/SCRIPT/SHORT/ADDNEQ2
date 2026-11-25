@@ -1,0 +1,32 @@
+package ADDNEQ2;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ADDNEQ2
+#
+# Purpose :  Combine NQ0-files
+#
+# Programs:  ADDNEQ2, GPSXTR
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: __-___-____
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Run programs
+# ------------
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  $PGMNAM = "GPSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

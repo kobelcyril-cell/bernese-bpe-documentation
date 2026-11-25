@@ -1,0 +1,144 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+TITLE 1  "$I_$YD+0 REDUCED TO $IN_$YD+0"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! -------------------------------------------------------------------
+! General Files
+! -------------------------------------------------------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+STAINFO 1  "IGS_SNX"
+  ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
+
+DESCR_STAINFO 1  "Station information"
+
+! -------------------------------------------------------------------
+! Input/Output Files
+! -------------------------------------------------------------------
+! Input Troposphere Sinex
+! -----------------------
+SNXINP 1  "$I_$YD+0"
+  ## widget = selwin; path = DIR_TRO; ext = EXT_TRO
+
+MSG_SNXINP 1  "Input file: troposphere SINEX"
+
+! Output Troposphere Sinex
+! ------------------------
+SNXOUT 1  "$IN$YD+0"
+  ## widget = lineedit; path = DIR_TRO; ext = EXT_TRO; maxfiles = 1
+
+DESCR_SNXOUT 1  "Result file: troposphere SINEX"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "TROTRO"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "ERROR"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# MANIPULATE TROPOSPHERE SINEX FILES - TROTRO 1: Filenames                     #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Troposphere SINEX       > %%%%%%%%%%%% <                                   # SNXINP
+#   Station information     > %%%%%%%%%%%% <                                   # STAINFO
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Troposphere SINEX       > %%%%%%%%%%%% <                                   # SNXOUT
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output        > % < use TROTRO.Lnn            or  > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages        > % < merged to program output  or  > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# TITLE  > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # TITLE
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# TROTRO 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################

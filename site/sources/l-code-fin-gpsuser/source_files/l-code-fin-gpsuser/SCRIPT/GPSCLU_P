@@ -1,0 +1,162 @@
+package GPSCLU_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  GPSCLU_P
+#
+# Purpose :  Parallel run for parameter estimation and NEQ-file generation
+#            (cluster _00 will be run with baselinewise correlations)
+#
+# Programs:  GPSEST
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003
+#
+# Changes :  27-Apr-2005/ss: Do not set up stochastic pulses for non-U24 runs
+#            08-Oct-2010/ss: GMF/VMF troposphere model switch
+#            15-Apr-2013/hb: Switch if APL files are missing, only to be
+#                            activated if APL files are missing too long for
+#                            week submission
+#            06-May-2019/av: Use v_gnss to select used GNSS
+#            07-May-2019 RD: V_LOADNG added (to switch between TU VIenna and GFZ)
+#            09-Jul-2021 LP: Add $v_tropMod for VMF3
+#            18-Aug-2022 AV: Set azimuth flag
+#            18-Aug-2026 RD: No flag files for loading are needed anymore
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($yyddd,
+      $loading, $v_gnss, $v_tropMod, $antazi,
+      $param1, $sub_pid,
+      $dirGrd, $dirOut,
+      $extGrd) =
+    $bpe->getKeys('$YD+0',
+                  'V_LOADNG','V_GNSS', 'V_TRPMOD', 'V_ANTAZI',
+                  'PARAM1', 'SUB_PID',
+                  'DIR_GRD', 'DIR_OUT',
+                  'EXT_GRD' );
+
+
+# Initialize $D4 variable with subpid
+# -----------------------------------
+  setUserVar($bpe,"D4",$sub_pid);
+
+# Replace selected with station list
+# ----------------------------------
+  replaceSel($bpe,"GPSEST","PSFILES",$param1);
+
+
+# Select GNSS, if desired
+# -----------------------
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
+
+# Set correlation strategy
+# ------------------------
+  my $cluNum = index(basename($param1),"_00.CLB");
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CORREL","BASELINE") if $cluNum!=-1;
+
+# Set azimuth correction
+# ----------------------
+  if($antazi eq "Y" || $antazi eq "YES"){
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","USE_ANTAZI","1");
+    prtMess($bpe,"Consider station antenna rotations");
+
+  }
+
+# GMF/VMF troposphere model switch
+# --------------------------------
+  my $tropMod = 'VMF'; # default
+  if ($v_tropMod ne "") {
+    $v_tropMod  = $v_tropMod.'    ';
+    if (substr($v_tropMod,3,1) ne ' ') {$tropMod = substr($v_tropMod,0,4);}
+    else                               {$tropMod = substr($v_tropMod,0,3);}
+  }
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+  my $flgLin = -e $flgFil ? `cat $flgFil` : $tropMod;
+  chomp($flgLin);
+  prtMess($bpe,"GMF/VMF troposphere model switch: $flgLin");
+
+  my $TROPMOD_KEY = $flgLin;
+     $TROPMOD_KEY =~ s/GMF3/GPT3/;
+  my $TROPMF_KEY  = $flgLin;
+     $TROPMF_KEY  =~ s/GPT/GMF/;
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TROPOS","DRY_".$TROPMOD_KEY);
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","MAPPNG","WET_".$TROPMF_KEY);
+  if     ($flgLin =~ /VMF/) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",'VMF$YD+0');}
+  elsif (($flgLin =~ /GMF/)||($flgLin =~ /GPT/)) {$bpe->putKey("$ENV{U}/PAN/GPSEST.INP","VMF_FILES",' ');}
+  else                     {die "*** Invalid TROPO model: $flgLin \n";}
+
+
+## -----------------------------------------------------------
+## only to be activated if APL-Files are missing too long for
+## week submission
+## -----------------------------------------------------------
+  my %grdFilLst = $loading eq "VAPL" ? 
+                           ("ALOAD_FILES" => "APL${yyddd}",
+                            "ONTLD_FILES" => "",
+                            "HLOAD_FILES" => "") :
+                  $loading eq "GFZ" ?
+                           ("ALOAD_FILES" => "NTAL_${yyddd}",
+                            "ONTLD_FILES" => "NTOL_${yyddd}",
+                            "HLOAD_FILES" => "HYDL_${yyddd}") :
+                  $loading eq "NONE" ?
+                           ("ALOAD_FILES" => "",
+                            "ONTLD_FILES" => "",
+                            "HLOAD_FILES" => "") :
+                  # else case
+                           ("ALOAD_FILES" => "undef",
+                            "ONTLD_FILES" => "undef",
+                            "HLOAD_FILES" => "undef");
+
+  if ( $grdFilLst{"ALOAD_FILES"} eq "undef" ) {
+    die "\nUnsupported source of loading files: \"$loading\"!\n" .
+        "Currently supported values are: NONE, VAPL, GFZ\n\n";
+  }
+
+  foreach my $keyNam (keys %grdFilLst) {
+    print ": $keyNam : $grdFilLst{$keyNam} : ${dirGrd}$grdFilLst{$keyNam}.${extGrd} :\n";
+    if ( $grdFilLst{$keyNam} eq "" ) {
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP",$keyNam,"");
+    } elsif ( -s "${dirGrd}$grdFilLst{$keyNam}.${extGrd}" ) {
+      prtMess($bpe,"Grid file for model ".substr($keyNam,0,5)." set to: $grdFilLst{$keyNam}");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP",$keyNam,$grdFilLst{$keyNam});
+    } else {
+      prtMess($bpe,"Grid file $grdFilLst{$keyNam} for model ".substr($keyNam,0,5)." is missing -- disabled");
+      $bpe->putKey("$ENV{U}/PAN/GPSEST.INP",$keyNam,"");
+    }
+  }
+
+## -----------------------------------------------------------
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Delete BPE file
+# ---------------
+  open (BPE,$param1);
+  print "\n\n","-"x75,"\n";
+  print "Contents of BPE file $param1\n";
+  print "-"x75,"\n";
+  print <BPE>;
+  print "-"x75,"\n";
+  close BPE;
+
+
+  print "\nGPSCLU_P fertig\n\n";
+}

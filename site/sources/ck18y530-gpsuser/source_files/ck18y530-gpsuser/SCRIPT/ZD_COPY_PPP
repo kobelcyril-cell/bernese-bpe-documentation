@@ -1,0 +1,38 @@
+package COPY_PPP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  COPY_PPP
+#
+# Purpose :  Copy required files for PPP.PCF
+#
+# PARAMs  :
+#
+# Author  :  C. Kobel
+# Created :  12-Nov-2026
+#
+# Changes :  
+# ============================================================================
+use strict;
+use File::Copy qw(copy);
+
+sub run{
+  my $bpe = shift;
+
+  my ($yyssss, $orb, $dirRxc, $extRxc) = $bpe->getKeys('$YSS+0', 'V_ORB', 'DIR_RXC', 'EXT_RXC');
+
+  my $standard = "${dirRxc}/${orb}_${yyssss}.${extRxc}";
+  my $fallback = "${dirRxc}/${orb}S${yyssss}.${extRxc}";
+
+  return if -e $standard;
+
+  unless (-e $fallback) {
+    die "[COPY_PPP] Neither clock file found:\n"
+       . "  $standard\n"
+       . "  $fallback\n";
+    return;
+  }
+
+  copy($fallback, $standard)
+    or die "[COPY_PPP] Cannot copy $fallback to $standard: $!\n";
+}

@@ -1,0 +1,92 @@
+package IERSDIST;
+@ISA = ("RUNBPE");
+# ==============================================================================
+#
+# Name:       IERSDIST
+#
+# Purpose:    Distribute IEP file for IERS
+#
+# Authors:
+#
+# Created:    __-___-____
+# Last mod.:  07-Jan-2011
+#
+# Changes:    10-Jun-2002 HU: Submit on 1=Mo and 6=Sa
+#             04-Jan-2003/HU: Pole files in ORB instead of X/GEN
+#             28-Jul-2003 rd: Adapt to the new BPE (no links anymore)
+#             29-Jul-2003 rd: Replace "{]}" by "]" in path names
+#             22-Mar-2005 ss: do_mail replaced by msg2key
+#             03-Aug-2007 mm: V_DIS activated
+#             07-Jan-2011 SL: BDS converted to perl, consider NO_DIS.FLG
+#             24-Sep-2020 RD/ST: Add key lines '# Calls ... using input file: ...'
+#
+# ==============================================================================
+
+use File::Copy qw(move);
+use lib "$ENV{BPE}";
+use bpe_util qw(prtMess);
+use lib "$ENV{AUTO}";
+use gpsutil qw(msg2key);
+
+sub run {
+  $bpe = shift;
+
+# Get variables
+# -------------
+  (
+    $yyddd,$day,$month,$year4,$wwwwd,$year,$ddd,
+    $v_dis,
+    $dirOut,$dirErp,$extErp,$dirIep,$extIep,
+  ) = $bpe->getKeys(
+    '$YD+0','$D','$M','$Y+0','$WD+0','$Y','$+0',
+    'V_DIS',
+    'DIR_OUT','DIR_ERP','EXT_ERP','DIR_IEP','EXT_IEP',
+  );
+
+# Copy iep file to erp
+# --------------------
+  my($iepFil) = "$dirIep/COD$yyddd.$extIep";
+  my($erpFil) = "$dirErp/COD$yyddd.$extErp";
+  &move($iepFil,$erpFil);
+
+# Tail polxtr output file and send as mail
+# ----------------------------------------
+  my($xtrFil) = "$dirOut/POLXTR.OUT";
+  open(XTR,"<$xtrFil");
+  my(@lines) = <XTR>;
+  close(XTR);
+  open(TMP,">pole.tmp");
+  print TMP $lines[$_] foreach(-36..-1);
+  close(TMP);
+  &msg2key("MSC","-f pole.tmp","POLXTR $ddd for IERS completed");
+  unlink("pole.tmp");
+
+# Set title
+# ---------
+  my($title) = "CODE - BULLETIN A EOPs: 19-06-1993 - $day-$month-$year4";
+  $bpe->putKey("$$bpe{U}/PAN/PLTGEN.IN1","TITLE",$title);
+
+# Submit Results (Submit on Tu and Th 3-d results for Th and Sa resp.)
+# --------------
+  my($dayweek) = substr($wwwwd,4,1);
+  print "Day of week: $dayweek\n";
+  my($print_yn) = "U";
+  $print_yn     = "S" if($dayweek == 4 || $dayweek == 6);
+
+  if($$bpe{V_DIS} eq "Y" && !-e "$ENV{HOME}/../l_code/MSC/NO_DIS.FLG") {
+# The following comments are interpreted by $AUTO/chk_l_code_CVS_state.pl.
+# Calls $XT/PLTGEN using input file: PLTGEN.IN1
+# Calls $XT/PLTGEN using input file: PLTGEN.INP
+# Calls $XP/MENUAUX using input file: POLXTR.LST (Locally Modified)
+    my($cmd) = "$ENV{AUTO}/distiers.com $year $ddd $print_yn";
+    print "$cmd\n";
+    system("$cmd");
+  } else {
+    &prtMess($bpe,"FILES NOT DISTRIBUTED");
+  }
+
+}
+
+# ==============================================================================
+
+__END__

@@ -1,0 +1,123 @@
+package CHECK_OBSENTRIES;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  CHECK_OBSENTRIES
+#
+# Purpose :  Check observation files against station entries
+#
+# Author  :  C. Kobel
+# Created :  06-Nov-2025
+#
+# Changes :  
+#===========================================================
+
+use strict;
+use warnings;
+use File::Basename;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+sub run {
+  my $bpe = shift;
+
+# ---------- Get variables ------------
+  my (
+      $dirOut,
+      $dirCrd,
+      $dirRxo,
+      $yyddd,
+      $ssss,
+      $yyyy,
+      $CRDINF,
+      $extCRD
+  ) = $bpe->getKeys(
+      'DIR_OUT',
+      'DIR_CRD',
+      'DIR_RXO',
+      '$YD+0',
+      '$S+0',
+      '$Y+0',
+      'V_CRDINF',
+      'EXT_CRD'
+  );
+# ---------- Define year ------------
+  my $yy     = substr($yyyy, -2);
+# ---------- Initialize logging ------------
+  my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+  unless (-d $mscDir) {
+    mkdir $mscDir or die "Cannot create directory $mscDir: $!";
+  }
+
+  my $logfile = "$mscDir/PROCESSING_${yyddd}";
+  open(my $LOG, '>>', $logfile) or die "Cannot open log file $logfile: $!";
+
+  print $LOG "\n=== CHECK_OBSENTRIES started ===\n";
+# ---------- Read station file ------------
+  my $stationFile = "${dirCrd}/${CRDINF}.${extCRD}";
+  die "Station file not found: $stationFile\n" unless (-e $stationFile);
+
+  open(my $SF, '<', $stationFile) or die "Cannot open $stationFile: $!";
+
+  my %stations;
+  my $line_count = 0;
+
+  while (my $line = <$SF>) {
+
+    $line_count++;
+    next if ($line_count <= 6);
+    last if ($line =~ /^\s*$/);
+
+    chomp $line;
+
+    last if (length($line) < 9);
+
+    my $station = substr($line, 5, 4);
+    $station =~ s/^\s+|\s+$//g;
+    $station = uc $station;
+
+    next unless ($station =~ /^[A-Z0-9]{4}$/);
+
+    $stations{$station} = 1;
+  }
+  close($SF);
+
+  my $nSta = scalar(keys %stations);
+  print $LOG "Found $nSta station entries in ${CRDINF}.${extCRD}\n";
+
+# ---------- Scan RAW directory ------------
+  opendir(my $DH, $dirRxo) or die "Cannot open directory $dirRxo: $!";
+
+  my @files = grep { /^.{4}${ssss}\.${yy}O$/ && -f "$dirRxo/$_" } readdir($DH);
+
+  closedir($DH);
+
+  my $nObs = scalar(@files);
+  print $LOG "Found $nObs observation files in RAW\n";
+
+# ---------- Compare and delete unmatched files ------------
+  my $deleted = 0;
+
+  foreach my $file (@files) {
+
+    my ($station) = $file =~ /^([A-Z0-9]{4})/;
+
+    unless ($stations{$station}) {
+
+      print $LOG "Deleted $file (no matching station entry)\n";
+
+      unlink("$dirRxo/$file")
+        or warn "Could not delete $file: $!";
+
+      $deleted++;
+    }
+  }
+
+# ---------- Summary ------------
+  print $LOG "Deleted $deleted files without matching entries\n";
+  print $LOG "=== CHECK_OBSENTRIES finished ===\n";
+
+  close($LOG);
+
+  print "CHECK_OBSENTRIES done. Log: $logfile\n";
+}

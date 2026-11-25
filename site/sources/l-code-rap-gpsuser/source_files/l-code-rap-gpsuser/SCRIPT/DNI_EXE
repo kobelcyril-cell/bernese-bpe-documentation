@@ -1,0 +1,35 @@
+package DNI_EXE;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  DNI_EXE
+#
+# Purpose :  Copy EXE files from project environment to $XG
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  21-Dec-2011
+#
+# Changes :  24-Feb-2012/ss: Changed path statement
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+use lib "$ENV{EXE}";
+use Gps_Date;
+use File::Copy;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Copy EXE files
+# --------------
+  my @exe = glob("$ENV{HOME}/DCBIONO/EXE_G95/*");
+  map { copy($_,$ENV{XG}); print "$_ copied to $ENV{XG}\n" } @exe;
+
+}

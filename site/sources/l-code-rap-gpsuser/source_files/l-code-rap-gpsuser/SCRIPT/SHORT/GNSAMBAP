@@ -1,0 +1,72 @@
+package GNSAMBAP;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  GNSAMBAP
+#
+# Purpose :  Prepare parallel WL/NL ambiguity resolution process for a set of
+#            baselines selected by BASLST
+#
+# PARAMs  :
+#
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
+#
+# Changes :  25-Apr-2007/ss: Derived from GPSQIFAP
+#
+# ============================================================================
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd, $ddd, $bl, $bl0, $dirBsl, $dirOut, $extOut,
+      $dirRes, $extRes, $dirEdt, $extEdt, $dirSum, $extSum) =
+  $bpe->getKeys
+     ('$YD+0', '$+0', 'V_BL_AMB', 'V_BL_L12', 'DIR_BSL', 'DIR_OUT', 'EXT_OUT',
+      'DIR_RES', 'EXT_RES', 'DIR_EDT', 'EXT_EDT', 'DIR_SUM', 'EXT_SUM');
+
+# Delete old files (OUT, SEL)
+# ---------------------------
+##  my $basFil = "${dirBsl}AMB${yyssss}.SEL";
+##  unlink ($basFil);
+##  unlink glob("${dirOut}????${ssss}_C.${extOut}");
+##  unlink glob("${dirRes}????${ssss}_C.${extRes}");
+##  unlink glob("${dirEdt}????${ssss}_C.${extEdt}");
+##  unlink glob("${dirSum}????${ssss}_C.${extSum}");
+##  unlink glob("${dirOut}????${ssss}_W.${extOut}");
+##  unlink glob("${dirOut}????${ssss}_N.${extOut}");
+  unlink glob("${dirOut}????${ddd}C.${extOut}");
+  unlink glob("${dirRes}????${ddd}C.${extRes}");
+  unlink glob("${dirEdt}????${ddd}C.${extEdt}");
+  unlink glob("${dirSum}????${ddd}C.${extSum}");
+  unlink glob("${dirOut}????${ddd}W.${extOut}");
+  unlink glob("${dirOut}????${ddd}N.${extOut}");
+
+# Set maximum/minimum baseline length if defined
+# ----------------------------------------------
+  $bpe->putKey("$ENV{U}/PAN/BASLST.INP","MAXLEN",$bl) unless $bl eq "";
+##  $bpe->putKey("$ENV{U}/PAN/BASLST.INP","MINLEN",$bl0) unless $bl0 eq "";
+
+# Run program
+# -----------
+  my $PGMNAM = "BASLST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Get baselines to be processed
+# -----------------------------
+  my $basFil=$bpe->getKey("$ENV{U}/INP/BASLST.INP","SELBSL");
+  my @basLin;
+  open (BAS,$basFil);
+  push (@basLin,<BAS>);
+  close BAS;
+  chomp(@basLin);
+
+# Initialize parallel run
+# -----------------------
+  initPar_Bl($bpe,@basLin);
+
+}

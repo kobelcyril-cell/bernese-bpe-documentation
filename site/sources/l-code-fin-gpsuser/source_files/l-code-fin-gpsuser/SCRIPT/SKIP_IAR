@@ -1,0 +1,70 @@
+package SKIP_IAR;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SKIP_IAR
+#
+# Purpose :  Skip PPP AR if indicated
+#
+# Programs:  SATMRK
+#
+# PARAMs  :  PARAM2 - goto PID to continue without PPP AR
+#
+# Author  :  S. Schaer
+# Created :  12-Jun-2018
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{AUTO}";
+use igs_device;
+use lib $ENV{BPE};
+use bpe_util qw(check_dir prtGoto prtMess);
+use File::Copy;
+
+
+sub run {
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my $CAMP_PTH = $$bpe{CAMP_PTH};
+  my $CAMPAIGN = $$bpe{CAMPAIGN};
+  my $PARAM2   = $$bpe{PARAM2};
+  my $PARAM3   = $$bpe{PARAM3};
+##  my $V_IAR    = $$bpe{V_IAR};
+
+# Get variables
+# -------------
+  my ($yyssss,$yyyy,$v_iar,
+      $dirOsb,$extOsb) =
+   $bpe->getKeys('$YSS+0','$Y+0','V_IAR',
+                 'DIR_OSB','EXT_OSB');
+
+  my $iarFlg = "$CAMP_PTH$CAMPAIGN/MSC/IAR${yyssss}.FLG";
+  unlink($iarFlg);
+
+# Run program
+# -----------
+  my $PGMNAM = "SATMRK";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  my $inpOsb = "$PATH_SAV$CAMP_SAVRAPCLK/$yyyy/ORB/IAR${yyssss}.OSB";
+  my $outOsb = "${dirOsb}IAR${yyssss}.${extOsb}";
+
+# Decide whether PPP AR shall be done
+# -----------------------------------
+   if (-s $inpOsb && $v_iar ne "N") {
+    unlink($outOsb);
+    copy($inpOsb,$outOsb);
+    die "$outOsb not found" unless -s $outOsb;
+    prtMess($bpe,"$inpOsb FOUND");
+    prtMess($bpe,"PPP AR DONE");
+  } else {
+    prtMess($bpe,"$inpOsb NOT FOUND");
+    prtMess($bpe,"PPP AR SKIPPED");
+    prtGoto($bpe,$PARAM2);
+  }
+
+}

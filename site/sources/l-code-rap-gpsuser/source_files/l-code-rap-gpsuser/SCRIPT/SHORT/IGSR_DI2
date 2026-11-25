@@ -1,0 +1,790 @@
+package IGSR_DIS;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name:       IGSR_DIS
+#
+# Purpose:    Submit results of rapid/ultra solution
+#             Redesign of IGSR_FTP
+#
+# Authors:    A. Villiger
+#
+# Created:    18-Mar-2021
+#
+# Changes :   07-May-2008/ss: Submission order changed, BKG added
+#             15-May-2008/ss: Bugfix wrt COU.ERP update
+#             05-Jun-2008/lo: Stop submission Tropo NRT to GFZ from 05.06.2008
+#             27-Auhg-2008/rd,ss: Stop supporting BSWUSER/BSWUSER42
+#             06-Oct-2008 SL: appFile added (to $ftpFil)
+#             17-Nov-2009 mm: Submissions to GFZ stopped
+#             24-Jun-2010 lo: change from cddis to cddisin
+#             05-Jan-2011 SL: check ~l_code/MSC/NO_DIS.FLG file
+#             14-Aug-2012 DT: Add ROB for ftp submission (only Ultras)
+#             24-Sep-2012/ss: Change model identifiers for COU.ERP
+#             01-Nov-2012 lp: Copy files also to BSWUSER52; Consider BSW version in GEN+REF files
+#             07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER
+#             14-Jan-2013 lp: Wait a while before dying
+#             12-Nov-2013 SL: Submit new solutions (US)
+#             15-Nov-2013 SL: Save new ULTRA results (U$T or US?)
+#             13-Jan-2014 SL: U$T${wwwwd}.${extErp} -> ULT... for ORBMRG
+#             06-Jun-2014 SS: Considered MIDyyddd.FLG
+#             12-Jun-2014 SS: Create _M files on ftp; consider MIDyyddd.TRO
+#             15-Oct-2014 SS: Removed V_SATINF, V_PCVINF, V_PCV
+#             03-Aug-2015 SS: Activated RCLKGNSS as operational CLKRAPID
+#             05-Aug-2015 SS: Post _M files in addition to CODE/yyyy_M
+#             06-Aug-2015 SS: Save _M files (.PRE/.IEP) in $S/RCLKGNSS/ORB/
+#             07-Aug-2015 SS: Save _M files using TP_yyddd naming
+#             26-Aug-2015 SS: Post extra _U (.EPH/.ERP) files to aftp
+#             27-Aug-2015 SS: Remove extra _U files in case of RAP mode
+#             16-Sep-2015 RD/SS: Corrected submission of .CLK_M
+#             07-Jun-2016 AV: Prepare for compability solution for V5.2
+#             29-Aug-2016 AV: Prepare for http cddis upload
+#             30-Aug-2016 AV: Deactivated http upload to cddis
+#             12-Sep-2016 SS: Changed $S/RCLKGNSS/ORB to $S/RCLKGNSS/yyyy/ORB
+#             02-Nov-2016 AV: Change to long filename for cddis http upload
+#             14-Nov-2016 AV: CDDIS http upload activated
+#             10-Feb-2017 RD: Stop posting to BSWUSER50
+#             07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
+#             09-Aug-2019 AV: Convert ERP for BSWUSER 52
+#             14-Non-2019 AV: Skip if V_SAVDSK
+#             09-Jan-2020 SS: Prepared posting of IAR BIA and OSB files
+#             26-Mar-2020 SS: Make available:
+#                               CODE/COD_TRO.SNX_R.Z
+#                               CODE/CODwwwwd_TRO.SNX_R.Z
+#                               CODE/IERS/yyyy/CODwwwwd_TRO.SNX_R.Z
+#             10-Mar-2021 AV: Change BKG from ftp to sftp (use IGS directory)
+#             19-Mar-2021 AV: Rename cddis_upload to disCDDIS
+#             20-Mar-2021 AV: Continue if IERS fails
+#             13-Jan-2022 AV: Clear intermediate BKG log file "${log}2"
+#             01-Mar-2022 SS: Post BIA file if already made available
+#             08-Mar-2022 AV: Save disk: yearly subdirectory
+#             20-Apr-2022 SS: Post hidden BIA file (for _M as well as _R)
+#             24-May-2022 SS: IAR BIA/OSB files changed from V00 to V01
+#             01-Jun-2022 SS: Added check_dir concerning CODE/IERS/yyyy
+#             07-Jul-2022 AV: Change BKG host
+#             27-Sep-2022 AV: Add gen2bswuser54.com
+#             17-Oct-2022 AV: long filenames for IGS20 products
+#             24-Oct-2022 AV: Chenge COD0IGSULT to COD0OPSULT
+#             30-Nov-2022 SS: Renamed BIA.BIA to OSB.BIA; gunzipped .gz files
+#             21-Dec-2022 SS: IAR BIA files no longer hidden;
+#                             posted middle-day IAR BIA files;
+#                             upload IAR BIA files (to IGS and CDDIS)
+#             11-Jan-2023 SS: Renamed 01D_01D_TRO.SNX to 01D_02H_TRO.SNX
+#             12-Jan-2023 SS: Introduced COD0OPSPRD
+#             18-Jan-2023 SS: Distributed COD0OPSRAP ATT.OBX (not yet uploaded)
+#             14-Mar-2023 RD: Adjust ultra submissions (on spare)
+#             01-May-2023 EB: FTP log file ROB+IERS reduced
+#             03-May-2023 EB: IERS upload stopped (they take it from CDDIS)
+#             25-Jul-2023 EB: Upload BKG+ROB using gzip if requested by extension
+#             20-Oct-2023 EB: Short protocol copy to www
+#             23-Oct-2023 EB: PATH_WWW taken with backslash at end
+#             15-Nov-2023 SS: Uploaded COD0OPSRAP ATT.OBX
+#             08-Dec-2023 EB: Sat statistics added
+#             17-Feb-2026 SS: Execute $AUTO/pcv2week.com -auto -w
+#             05-Mar-2026 EB: printing of pcv2week corrected
+#             01-Jul-2026 SS: Uploaded COD0OPSULT.* using $short_u and $name_u
+#             01-Oct-2026 CK/EB: ROB disabled (ftp planned to be disconinued Oct. 26)
+#             21-Oct-2026 SS: Created COD0OPSPRD_21D.ERP
+#
+# =============================================================================
+use strict;
+
+# External packages
+use File::Copy qw(copy);
+use File::Basename;
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use lib_erp;
+use gpsutil;
+use newFTP;
+use cddis_curl;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yy,$yyyy,$yym1,$yyp1,$yyp2,$ddd,$dm1,$dp1,$dp2,$yyddd,$yyssss,
+    $yydp1,$yydp2,$wwwwd,$wwwwdp1,$wwwwdp2,$wwwwdm1,$wwwwdm2,$wwwwdm3,
+    $v_sav,$v_dis,$savdsk,$crdinf,
+    $dirOut,
+    $dirTrp,$extTrp,
+    $dirPre,$extPre,
+    $dirErp,$extErp,
+    $dirRxc,$extRxc,
+    $dirTro,$extTro,
+    $dirIep,$extIep,
+    $dirSnx,$extSnx,
+            $extOut,
+    $dirStd,$extStd,
+    $dirObx,$extObx,
+  ) =
+  $bpe->getKeys(
+    '$Y','$Y+0','$Y-1','$Y+1','$Y+2','$+0','$-1','$+1','$+2','$YD+0','$YSS+0',
+    '$YD+1','$YD+2','$WD+0','$WD+1','$WD+2','$WD-1','$WD-2','$WD-3',
+    'V_SAV','V_DIS','V_SAVDSK','V_CRDINF',
+    'DIR_OUT',
+    'DIR_TRP','EXT_TRP',
+    'DIR_PRE','EXT_PRE',
+    'DIR_ERP','EXT_ERP',
+    'DIR_RXC','EXT_RXC',
+    'DIR_TRO','EXT_TRO',
+    'DIR_IEP','EXT_IEP',
+    'DIR_SNX','EXT_SNX',
+              'EXT_OUT',
+    'DIR_STD','EXT_STD',
+    'DIR_OBX','EXT_OBX',
+  );
+
+# Return if V_SAVDSK == Y
+# -----------------------
+  if($savdsk eq "Y"){
+    print "SAVDSK activated, skipped\n";
+    return(1);
+  }
+
+# Set flags
+# ---------
+  my $midFil    = "${dirOut}../MSC/MID${yyddd}.FLG";
+  my $ultFil    = "$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/ULT${yyddd}.FLG";
+  my $nxtUltFil = "$$bpe{CAMP_PTH}$$bpe{CAMPAIGN}/MSC/ULT${yydp1}.FLG";
+
+# Some variables
+# --------------
+  my $xa       = "$ENV{AUTO}";
+  my $ftpCod   = "${PATH_AFTP}${CAMP_CODE}/";
+  my $ftpCod_M = "${PATH_AFTP}${CAMP_CODE}/${yyyy}_M/";
+  my $ftpCod_I = "${PATH_AFTP}${CAMP_CODE}/IERS/${yyyy}/";
+  my $clkInc   = "NO";
+  my $savDir = "$PATH_SAV/RCLKGNSS/$yyyy/ORB/";
+
+  check_dir($ftpCod);
+#_M  check_dir($ftpCod_M);
+  check_dir($ftpCod_I);
+  check_dir($savDir);
+  check_dir("$ENV{T}/rob_upload");
+  check_dir("$ENV{T}/bkg_upload");
+
+#??  my $uldNam = "COD0OPSULT";
+#??  my $rapNam = "COD0OPSRAP";
+
+# Set day
+# -------
+  my $accDay = $ddd;
+  my $accYr  = $yyyy;
+  my $hour   = "99";
+
+
+# Read ultra flag file
+# --------------------
+  my($h_end,$h_tro,$h_rnx,$h_chr) = &rdUltFlg($ultFil);
+  my $T  = &gtUltVrs($h_end,$h_chr);
+
+  my $sess_fin = "${ddd}${h_chr}";
+  if(-e $ultFil) {
+    ($accDay,$accYr,$hour) = $h_end < 15 ? ($ddd,$yyyy,"12")
+                                         : ($dp1,$yyp1,"00");
+  }
+
+# Copy SATINFO, PCV, RECEIVER, SAT-CRX files to BSWUSER
+# -----------------------------------------------------
+  print "gen2bswuser: $ENV{CONFIG} ${yyyy} ${yyp1}\n";
+  system("$ENV{AUTO}/gen2bswuser.com IGSR_FTP ${yyyy} ${yyp1}");
+  system("$ENV{AUTO}/gen2bswuser54.com IGSR_FTP ${yyyy} ${yyp1}");
+
+# Execute pcv2week.com to create/update week-specific PCV file set
+# ----------------------------------------------------------------
+  print "pcv2week.com: $ENV{AUTO}/pcv2week.com -auto -w\n";
+  system("$ENV{AUTO}/pcv2week.com -auto -w");
+
+# Prepair files to submit to archive and ftp
+# ------------------------------------------
+  my $isMid   = -e $midFil                 ? 1: 0;
+  my $isUlt   = -e $ultFil                 ? 1: 0;
+  my $isNxtUlt= -e $nxtUltFil              ? 1: 0;
+  my $isUlt24 = -e $ultFil && $h_end == 24 ? 1: 0;
+
+# Set file names
+# --------------
+  my $outFil_rap = "RA_$yyddd";
+  my $outFil_ult = "RQ_$yyddd";
+  my $dayOrb     = "${dirPre}RAC${yyddd}.${extPre}";
+  my $dayErp     = "${dirErp}COD${wwwwd}.${extErp}";
+  my $ultErp     = "${dirErp}U$T${wwwwd}.${extErp}";
+  my $dayClk     = "${CDIR_RCLK}/../RCLKGNSS/OUT/HR_${yyddd}0.${extRxc}";
+  my $dayClk52   = "${CDIR_RCLK}/../RCLKGNSS/OUT/XR_${yyddd}0.${extRxc}";
+  my $dayClk3    = "${CDIR_RCLK}/../RCLKGNSS/OUT/HR_${yyyy}${ddd}0.${extRxc}";
+  my $dayBia     = "${savDir}IAR${yyssss}_V01.BIA.gz";
+  my $dayOsb     = "${savDir}IAR${yyssss}_V01.OSB.gz";
+  my $dayTro     = "${dirTro}U$T${yyddd}.${extTro}";
+  my $daySnx     = "${dirSnx}RA_${yyddd}.${extSnx}";
+  my $daySnxTro  = "${dirSnx}RAT${yyddd}.${extSnx}";
+  my $dayAtt     = "${dirObx}RQ_${yyddd}.${extObx}";
+  if(-e $midFil){
+    $outFil_rap = "MID$yyddd";
+    $dayOrb     = "${dirPre}RAM${yyddd}.${extPre}";
+    $dayErp     = "${dirErp}MID${wwwwd}.${extErp}";
+    $dayTro     = "${dirTro}MID${yyddd}.${extTro}";
+  }
+
+  my $isClk   = -e $dayClk                 ? 1: 0;
+  my $isDaySnxTro = `grep TROTOT $daySnxTro | wc -l`+0;
+  if($isDaySnxTro==0){
+    prtMess($bpe,"TROTOT RECORDS UNAVAILABLE IN $daySnxTro");
+  }
+
+  # Predictions
+  my $dayOrb1    = "${dirPre}RP_${yydp1}.${extPre}";
+  my $dayOrb2    = "${dirPre}RP2${yydp2}.${extPre}";
+  my $dayOrb3    = "${dirPre}RP3${yydp1}.${extPre}";
+  my $dayErp1    = "${dirIep}U$T${wwwwd}.${extIep}";
+
+# Create ACC summary file
+# -----------------------
+  system("$xa/make_accsum.com $accDay $accYr $hour $dirOut $outFil_rap");
+  my $ftpAcc = "${dirOut}${outFil_rap}.ACC";
+
+# Copy SATINFO, PCV, RECEIVER, SAT-CRX files to BSWUSER
+# -----------------------------------------------------
+  print "gen2bswuser: $ENV{CONFIG} ${yyyy} ${yyp1}\n";
+  system("$ENV{AUTO}/gen2bswuser.com IGSR_FTP ${yyyy} ${yyp1}");
+
+
+# Submit ot archive files
+# -----------------------
+  my %ultra_fil;
+  my %rapid_fil;
+  my %rapid_mid_fil;
+  my %prediction;
+  my %ultra_24_fil;
+
+# NamingScheme
+# ------------
+  my $rapName = "COD0OPSRAP";
+  my $midName = "CODMOPSRAP";
+  my $ultName = "COD0OPSULT";
+  my $prdName = "COD0OPSPRD";
+
+  my %uplUltNam;
+  $uplUltNam{dayTro}    = "${ultName}.TRO";                               # "COD.TRO_U";
+  $uplUltNam{daySnx}    = "${ultName}.${extSnx}";                         # "COD.${extSnx}_U";
+  $uplUltNam{daySnxTro} = "${ultName}_TRO.${extSnx}";                     # "COD_TRO.${extSnx}_U";
+  $uplUltNam{dayAtt}    = "${ultName}.OBX";
+  $uplUltNam{ultErp}    = "IGSULTRA.${extErp}";
+  $uplUltNam{dayErp}    = "${ultName}_${yyyy}${ddd}0000_01D_01D_ERP.ERP"; # "COD${wwwwd}.${extErp}_U";
+  $uplUltNam{dayOrb}    = "${ultName}_${yyyy}${ddd}0000_01D_05M_ORB.SP3"; # "COD${wwwwd}.EPH_U";
+
+  my %uplRapNam;
+  $uplRapNam{dayTro}    = "${rapName}_${yyyy}${ddd}0000_01D_01H_TRO.TRO"; # "COD${wwwwd}.${extTro}_R";
+  $uplRapNam{daySnx}    = "${rapName}_${yyyy}${ddd}0000_01D_01D_SOL.SNX"; # "COD${wwwwd}.${extSnx}_R";
+  $uplRapNam{daySnxTro} = "${rapName}_${yyyy}${ddd}0000_01D_02H_TRO.SNX"; # "${ftpCod}COD${wwwwd}_TRO.${extSnx}_R";
+  $uplRapNam{ultErp}    = "IGSULTRA.${extErp}";
+  $uplRapNam{ultErp1}   = "ULT${wwwwd}.${extErp}";
+  $uplRapNam{dayOrb}    = "${rapName}_${yyyy}${ddd}0000_01D_05M_ORB.SP3"; # "COD${wwwwd}.EPH_R";
+  $uplRapNam{dayErp}    = "${rapName}_${yyyy}${ddd}0000_01D_01D_ERP.ERP"; # "COD${wwwwd}.${extErp}_R";
+  $uplRapNam{dayClk}    = "${rapName}_${yyyy}${ddd}0000_01D_30S_CLK.CLK_V2"; # "COD${wwwwd}.${extRxc}_R";
+  $uplRapNam{dayClk3}   = "${rapName}_${yyyy}${ddd}0000_01D_30S_CLK.CLK"; # "COD${wwwwd}.${extRxc}_R";
+  $uplRapNam{dayBia}    = "${rapName}_${yyyy}${ddd}0000_01D_01D_OSB.BIA.gz"; # "COD${wwwwd}.BIA_R.Z";
+  $uplRapNam{dayAtt}    = "${rapName}_${yyyy}${ddd}0000_01D_30S_ATT.OBX";
+
+  my %uplRapMidNam;
+  $uplRapMidNam{dayOrb}    = "${midName}_${yyyy}${ddd}0000_01D_05M_ORB.SP3";    # "COD${wwwwd}.EPH_M";
+  $uplRapMidNam{dayErp}    = "${midName}_${yyyy}${ddd}0000_01D_01D_ERP.ERP";    # "COD${wwwwd}.${extErp}_M";
+  $uplRapMidNam{dayClk}    = "${midName}_${yyyy}${ddd}0000_01D_30S_CLK.CLK_V2"; # "COD${wwwwd}.${extRxc}_M";
+  $uplRapMidNam{dayClk3}   = "${midName}_${yyyy}${ddd}0000_01D_30S_CLK.CLK";    # "COD${wwwwd}.${extRxc}_M";
+  $uplRapMidNam{dayBia}    = "${midName}_${yyyy}${ddd}0000_01D_01D_OSB.BIA.gz";  # "COD${wwwwd}.BIA_M.Z";
+
+
+  my %uplPrdNam;
+  $uplPrdNam{dayOrb1} = "obsolete";                                         ; # "COD${wwwwdp1}.EPH_P";
+  $uplPrdNam{dayOrb2} = "obsolete";                                         ; # "COD${wwwwdp2}.EPH_P2";
+  $uplPrdNam{dayOrb3} = "${prdName}_${yyyy}${ddd}0000_05D_05M_ORB.SP3"      ; # "COD${wwwwdp1}.EPH_5D";
+  $uplPrdNam{dayErp1} = "obsolete";                                         ; # "COD${wwwwdp1}.ERP_P";
+  $uplPrdNam{dayErp2} = "obsolete";                                         ; # "COD${wwwwdp2}.ERP_P2";
+  $uplPrdNam{dayErp3} = "${prdName}_${yyyy}${ddd}0000_21D_06H_ERP.ERP"      ; # "COD${wwwwdp1}.ERP_5D";
+  $uplPrdNam{dayOrb3_nU} = "${prdName}_05D.SP3";
+  $uplPrdNam{dayErp3_nU} = "${prdName}_21D.ERP";
+
+# Upload ULTRA
+# ------------
+  if($isUlt){
+    $ultra_fil{$dayTro}{"${ftpCod}$uplUltNam{dayTro}"} = " ";
+    $ultra_fil{$daySnx}{"${ftpCod}$uplUltNam{daySnx}"} = "c";
+    if($isDaySnxTro){
+      $ultra_fil{$daySnxTro}{"${ftpCod}$uplUltNam{daySnxTro}"} = "c";
+    };
+  }else{
+    $rapid_fil{$dayTro}{"${ftpCod}$uplRapNam{dayTro}"} = " ";
+    $rapid_fil{$daySnx}{"${ftpCod}$uplRapNam{daySnx}"} = "c";
+    $rapid_fil{$daySnx}{"${ftpCod_I}$uplRapNam{daySnx}"} = "c";
+    $rapid_fil{$dayAtt}{"${ftpCod}$uplRapNam{dayAtt}"} = "c";
+    if($isDaySnxTro){
+      $rapid_fil{$daySnxTro}{"${ftpCod}$uplRapNam{daySnxTro}"} = "c";
+      $rapid_fil{$daySnxTro}{"${ftpCod_I}$uplRapNam{daySnxTro}"} = "c";
+    }
+    if(! $isNxtUlt){
+        $ultra_fil{$dayTro}{"${ftpCod}$uplUltNam{daySnxTro}"};
+    }
+  }
+
+# Upload ULTRA as RAPID
+  if($isUlt24){
+    $ultra_24_fil{$dayOrb}{"${ftpCod}$uplUltNam{dayOrb}"} = " ";
+    $ultra_24_fil{$dayErp}{"${ftpCod}$uplUltNam{dayErp}"} = " ";
+  }
+
+# Upload RAPID
+  $rapid_fil{$ultErp}{"${dirErp}$uplRapNam{ultErp}"}  = " ";
+  $rapid_fil{$ultErp}{"${dirErp}$uplRapNam{ultErp1}"} = " ";
+  if(! $isUlt){
+    $rapid_fil{$dayOrb}{"${ftpCod}$uplRapNam{dayOrb}"} = " ";
+    $rapid_fil{$dayErp}{"${ftpCod}$uplRapNam{dayErp}"} = " ";
+  }
+
+  if($isClk == 1){
+    $rapid_fil{$dayClk}{"${ftpCod}$uplRapNam{dayClk}"}   = " ";
+    $rapid_fil{$dayClk3}{"${ftpCod}$uplRapNam{dayClk3}"} = " ";
+    $rapid_fil{$dayBia}{"${ftpCod}$uplRapNam{dayBia}"}   = " ";
+  }
+
+# Upload RAPID_M
+# --------------
+  print "MY MID: $isMid\n";
+  if($isMid == 1){
+    $rapid_mid_fil{$dayOrb}{"${ftpCod}$uplRapMidNam{dayOrb}"}   = " ";
+    $rapid_mid_fil{$dayOrb}{"${savDir}TP_${yyssss}.${extPre}"}  = "z";
+
+    $rapid_mid_fil{$dayErp}{"${ftpCod}$uplRapMidNam{dayErp}"}   = " ";
+    $rapid_mid_fil{$dayErp}{"${savDir}TP_${yyssss}.${extIep}"}  = "z";
+
+    $rapid_mid_fil{$dayClk}{"${ftpCod}$uplRapMidNam{dayClk}"}   = " ";
+    $rapid_mid_fil{$dayClk3}{"${ftpCod}$uplRapMidNam{dayClk3}"} = " ";
+
+#_M    $rapid_mid_fil{$dayBia}{"${ftpCod_M}COD${wwwwd}.BIA_M.Z"}     = " ";
+    $rapid_mid_fil{$dayBia}{"${ftpCod}$uplRapMidNam{dayBia}"}   = " ";
+#_M    my $ftpBia = "${ftpCod_M}$uplRapMidNam{dayBia}";
+#_M    $rapid_mid_fil{$dayBia}{$ftpBia}                             = " " if -e $ftpBia;
+#_M    $rapid_mid_fil{$dayBia}{"${ftpCod_M}$uplRapMidNam{dayBia}"}  = " " unless -e $ftpBia;
+#_M    $rapid_mid_fil{$dayBia}{"${ftpCod}$uplRapMidNam{dayBia}"}    = " " unless -e $ftpBia;
+  }
+
+# Upload predictions
+# ------------------
+  # $prediction{$dayOrb1}{"${ftpCod}$uplPrdNam{dayOrb1}"} = " ";
+  # $prediction{$dayOrb2}{"${ftpCod}$uplPrdNam{dayOrb2}"} = " ";
+  $prediction{$dayOrb3}{"${ftpCod}$uplPrdNam{dayOrb3}"} = " ";
+  # $prediction{$dayErp1}{"${ftpCod}$uplPrdNam{dayErp1}"} = " ";
+  # $prediction{$dayErp1}{"${ftpCod}$uplPrdNam{dayErp2}"} = " ";
+  $prediction{$dayErp1}{"${ftpCod}$uplPrdNam{dayErp3}"} = " ";
+  if(! $isUlt){
+    $prediction{$dayOrb3}{"${ftpCod}$uplPrdNam{dayOrb3_nU}"} = " ";
+    $prediction{$dayErp1}{"${ftpCod}$uplPrdNam{dayErp3_nU}"} = " ";
+  }
+
+
+# Upload to archive
+# -----------------
+  sendToArchive(\%ultra_fil);
+  sendToArchive(\%ultra_24_fil);
+  sendToArchive(\%rapid_fil);
+  sendToArchive(\%rapid_mid_fil);
+  sendToArchive(\%prediction);
+
+##  uncompress glob("${ftpCod}COD${wwwwd}.BIA_?.Z");
+##  map { system("uncompress -f $_") } (glob("${ftpCod}COD${wwwwd}.BIA_?.Z"));
+  map { system("gunzip -f $_") } (glob("${ftpCod}COD?OPSRAP_${yyyy}${ddd}0000_01D_01D_OSB.BIA.gz"));
+
+# Upload BSW52
+# ------------
+  if($isUlt){
+    # Convert ERP file
+    my $src52 = "${dirErp}U$T${wwwwd}.${extErp}_V52";
+    erp2bsw52($ultErp,$src52);
+    my $trg52 = "$CAMP_BSW52/ORB/COU.${extErp}";
+    print "copyaftp: $src52 -> $trg52\n";
+    copyaftp($src52,$trg52);
+    unlink $src52;
+  }elsif(! $isNxtUlt){
+    my $src   = "${dirErp}U$T${wwwwd}.${extErp}";
+    my $src52 = "${dirErp}U$T${wwwwd}.${extErp}_V52";
+    erp2bsw52($src,$src52);
+    my $trg52 = "$CAMP_BSW52/ORB/COU.${extErp}";
+    print "copyaftp: $src52 -> $trg52\n";
+    copyaftp($src52,$trg52);
+  }
+
+# Return if v_dis not activated
+# -----------------------------
+  if($v_dis ne "Y" || -e "$ENV{HOME}/../l_code/MSC/NO_DIS.FLG") {
+    prtMess($bpe,"FILES_NOT_DISTRIBUTED");
+    return;
+  }
+
+# Submit to external repositories
+# -------------------------------
+
+# File selection
+# --------------
+  my %disIGS;
+  my %disIEP;
+  my %disCDDIS;
+
+ # Upload Rapid
+  my $long_r = "COD0OPSRAP_${yyyy}${ddd}0000_01D";
+  my $codOrbLong = "${long_r}_05M_ORB.SP3.gz";
+  my $codErpLong = "${long_r}_01D_ERP.ERP.gz";
+  my $codAttLong = "${long_r}_30S_ATT.OBX.gz";
+  my $codAccLong = "${long_r}_01D_SUM.SUM.gz";
+  my $codClkLong = "${long_r}_30S_CLK.CLK.gz";
+  my $codBiaLong = "${long_r}_01D_OSB.BIA.gz";
+
+  if($h_end == 24){
+    $disIGS{$codOrbLong}     = $dayOrb;
+    $disIGS{$codErpLong}     = $dayErp;
+    $disIGS{$codAttLong}     = $dayAtt;
+    $disIGS{$codAccLong}     = $ftpAcc;
+    $disCDDIS{$dayOrb} = $codOrbLong;
+    $disCDDIS{$dayErp} = $codErpLong ;
+    $disCDDIS{$dayAtt} = $codAttLong ;
+    $disCDDIS{$ftpAcc} = $codAccLong;
+  }
+
+  unless(-e $ultFil){
+    $disIEP{"cod${wwwwd}.erp"}   =  "${ftpCod}COD${wwwwd}.${extErp}_R";
+  }
+  $disIEP{"cod${wwwwdm1}.erp"} = "${ftpCod}COD${wwwwdm1}.ERP_R";
+  $disIEP{"cod${wwwwdm2}.erp"} = "${ftpCod}COD${wwwwdm2}.ERP_R";
+  $disIEP{"cod${wwwwdm3}.erp"} = "${ftpCod}COD${wwwwdm3}.ERP_R";
+
+  # Upload CLK
+  if($isClk){
+    $disIGS{$codClkLong} = $dayClk;
+    $disIGS{$codBiaLong} = $dayBia;
+    $disCDDIS{$dayClk} = "$codClkLong";
+    $disCDDIS{$dayBia} = "$codBiaLong";
+  }
+
+  # Upload ULTRA
+  if($isUlt){
+    my $short_u = "COD0OPSULT";
+    my $name_u  = "";
+    if      ($T ==  6) {
+      $name_u = "US2${wwwwd} ULTRA_30";
+    } elsif ($T == 12) {
+      $name_u = "US1${wwwwd} ULTRA_12";
+    } elsif ($T == 18) {
+      $name_u = "US3${wwwwd} ULTRA_18";
+    } elsif ($T == 24) {
+      $name_u = "US0${wwwwdp1} ULTRA_24";
+    }
+    my $name = (split(" ",$name_u))[0];
+    my $ultOrb = "/${dirPre}${name}.${extPre}";
+    my $ultErp = "/${dirIep}${name}.${extIep}";
+    $name = (split(" ",$name_u))[1];
+    my $ultAcc = "/${dirOut}${name}.ACC";
+    unless ($name_u eq "") {
+      $disCDDIS{$ultOrb} = "${short_u}.SP3.gz";
+      $disCDDIS{$ultErp} = "${short_u}.ERP.gz",
+      $disCDDIS{$ultAcc} = "${short_u}.SUM.gz";
+copy("$ultOrb","${dirPre}${short_u}.SP3_ftp_from_000_$h_end");
+copy("$ultErp","${dirPre}${short_u}.ERP_ftp_from_000_$h_end");
+    }
+
+    # Ultra 06
+    $ultOrb = "${dirPre}US2${wwwwd}.${extPre}";
+    $ultErp = "${dirIep}US2${wwwwd}.${extIep}";
+    $ultAcc = "${dirOut}ULTRA_30.ACC";
+    my $long_u = "COD0OPSULT_${yym1}${dm1}0600_02D";
+    system("$xa/make_accsum.com $ddd $yyyy 06 $dirOut $outFil_ult ULTRA_30");
+
+    $disIGS{"${long_u}_05M_ORB.sp3"}     = $ultOrb;
+    $disIGS{"${long_u}_01D_ERP.erp"}     = $ultErp;
+    $disIGS{"${long_u}_02D_SUM.sum"}     = $ultAcc;
+    $disCDDIS{$ultOrb} = "${long_u}_05M_ORB.SP3.gz";
+    $disCDDIS{$ultErp} = "${long_u}_01D_ERP.ERP.gz",
+    $disCDDIS{$ultAcc} = "${long_u}_02D_SUM.SUM.gz";
+copy("$ultOrb","${dirPre}${long_u}_05M_ORB.SP3_ftp_from_${ddd}_$h_end");
+copy("$ultErp","${dirPre}${long_u}_05M_ORB.ERP_ftp_from_${ddd}_$h_end");
+
+  # Ultra 12
+    $ultOrb = "${dirPre}US1${wwwwd}.${extPre}";
+    $ultErp = "${dirIep}US1${wwwwd}.${extIep}";
+    $ultAcc = "${dirOut}ULTRA_12.ACC";
+    $long_u = "COD0OPSULT_${yym1}${dm1}1200_02D";
+    system("$xa/make_accsum.com $ddd $yyyy 12 $dirOut $outFil_ult ULTRA_12");
+
+    $disIGS{"${long_u}_05M_ORB.sp3"}     = $ultOrb;
+    $disIGS{"${long_u}_01D_ERP.erp"}     = $ultErp;
+    $disIGS{"${long_u}_02D_SUM.sum"}     = $ultAcc;
+    $disCDDIS{$ultOrb} = "${long_u}_05M_ORB.SP3.gz";
+    $disCDDIS{$ultErp} = "${long_u}_01D_ERP.ERP.gz",
+    $disCDDIS{$ultAcc} = "${long_u}_02D_SUM.SUM.gz";
+copy("$ultOrb","${dirPre}${long_u}_05M_ORB.SP3_ftp_from_${ddd}_$h_end");
+copy("$ultErp","${dirPre}${long_u}_05M_ORB.ERP_ftp_from_${ddd}_$h_end");
+
+    # Ultra 18
+    $ultOrb = "${dirPre}US3${wwwwd}.${extPre}";
+    $ultErp = "${dirIep}US3${wwwwd}.${extIep}";
+    $ultAcc = "${dirOut}ULTRA_18.ACC";
+    $long_u = "COD0OPSULT_${yym1}${dm1}1800_02D";
+    system("$xa/make_accsum.com $ddd $yyyy 18 $dirOut $outFil_ult ULTRA_18");
+
+    if($h_end >= 10) {
+      $disIGS{"${long_u}_05M_ORB.SP3"}     = $ultOrb;
+      $disIGS{"${long_u}_01D_ERP.ERP"}     = $ultErp;
+      $disIGS{"${long_u}_02D_SUM.SUM"}     = $ultAcc;
+      $disCDDIS{$ultOrb} = "${long_u}_05M_ORB.SP3.gz";
+      $disCDDIS{$ultErp} = "${long_u}_01D_ERP.ERP.gz",
+      $disCDDIS{$ultAcc} = "${long_u}_02D_SUM.SUM.gz";
+copy("$ultOrb","${dirPre}${long_u}_05M_ORB.SP3_ftp_from_${ddd}_$h_end");
+copy("$ultErp","${dirPre}${long_u}_05M_ORB.ERP_ftp_from_${ddd}_$h_end");
+   };
+
+     # Ultra 00
+    $ultOrb = "${dirPre}US0${wwwwdp1}.${extPre}";
+    $ultErp = "${dirIep}US0${wwwwdp1}.${extIep}";
+    $ultAcc = "${dirOut}ULTRA_24.ACC";
+    $long_u = "COD0OPSULT_${yyyy}${ddd}0000_02D";
+    system("$xa/make_accsum.com $dp1 $yyp1 00 $dirOut $outFil_ult ULTRA_24");
+
+    if($h_end >= 15) {
+      $disIGS{"${long_u}_05M_ORB.SP3"}     = $ultOrb;
+      $disIGS{"${long_u}_01D_ERP.ERP"}     = $ultErp;
+      $disIGS{"${long_u}_02D_SUM.SUM"}     = $ultAcc;
+      $disCDDIS{$ultOrb} = "${long_u}_05M_ORB.SP3.gz";
+      $disCDDIS{$ultErp} = "${long_u}_01D_ERP.ERP.gz",
+      $disCDDIS{$ultAcc} = "${long_u}_02D_SUM.SUM.gz";
+copy("$ultOrb","${dirPre}${long_u}_05M_ORB.SP3_ftp_from_${ddd}_$h_end");
+copy("$ultErp","${dirPre}${long_u}_05M_ORB.ERP_ftp_from_${ddd}_$h_end");
+    };
+  };
+
+
+#  my $logIERS = "${dirOut}IERS.FTP";
+#  my $logROB = "${dirOut}ROB.FTP";
+  my $logBKG = "${dirOut}BKG.FTP";
+
+    # Submit files to data centers
+  my $err=0;
+#  my $retIERS = ftpUploadIERS(\%disIEP, $logIERS, ${yyyy}, ${ddd});
+#  if($retIERS){
+#      prtMess($bpe,"FTP_TO_IERS_FINISHED");
+#  }else{
+#      prtMess($bpe,"FTP_TO_IERS_FAILED");
+#      msg2key("RAP","IGSRAPID $yyddd: IERS upload failed");
+#      #    $err++;
+#  }
+#  my $retROB  = ftpUploadROB(\%disIGS, $logROB, ${yyyy}, ${ddd});
+#  if($retROB){
+#      prtMess($bpe,"FTP_TO_ROB_FINISHED");
+#  }else{
+#      prtMess($bpe,"FTP_TO_ROB_FAILED");
+#      $err++;
+#  }
+  my $retBKG  = ftpUploadBKG(\%disIGS,$logBKG);
+  if($retBKG){
+      prtMess($bpe,"FTP_TO_BKG_FINISHED");
+  }else{
+      prtMess($bpe,"FTP_TO_BKG_FAILED");
+      $err++;
+  }
+
+  map {print "CDDIS: $_ -> $disCDDIS{$_}\n";} (keys %disCDDIS);
+  my $retCDDISlong = upload_cddis_hash(\%disCDDIS);
+
+  if($err>0){
+      print "Could not submit solutions\n!";
+      die;
+  }
+
+# Copy protocols to archive
+# -------------------------
+  if(1 == 1){
+    my $ftpSum = "${dirOut}FTP${yyddd}.SUM";
+#    &copy2archive($logIERS,$ftpSum);
+    &copy2archive($logBKG,$ftpSum);
+    #appFile("",0,$logROB,$ftpSum,1);
+
+    my $savOut = "$PATH_SAV$CAMP_SAVRAP/${yyyy}/OUT";
+    check_dir($savOut);
+
+    if(-e $ultFil) {
+      my $sumFil = "${dirOut}IGSULTRA_${h_end}.${yy}_${ddd}";
+      my $shortFil = "${dirOut}IGSULTRA_SHORT.TXT";
+      my $satFil = "${dirOut}IGSULTRA_SAT.TXT";
+      appFile("",0,$ftpSum,$sumFil);
+      &copy2archive($sumFil,$savOut);
+      &copy2archive($sumFil,"${PATH_WWW}code/igsultra.txt");
+      &copy2archive($shortFil,"${PATH_WWW}code/igsultra_short.txt");
+      &copy2archive($satFil,"${PATH_WWW}code/igsultra_sat.txt");
+    }
+    else {
+      my $prcFil = "${dirOut}IGSRAPID.PRC";
+      appFile("",0,$ftpSum,$prcFil,1);
+      &copy2archive($prcFil,$savOut);
+
+      $prcFil = "${dirOut}IGSRAPID.${yy}_${ddd}";
+      appFile("",0,$ftpSum,$prcFil,1);
+      &copy2archive($prcFil,$savOut);
+      &copy2archive($prcFil,"${PATH_WWW}code/igsrapid.txt");
+
+      $prcFil = "${dirOut}IGSRAPID_SHORT.TXT";
+      &copy2archive($prcFil,"${PATH_WWW}code/igsrapid_short.txt");
+      $prcFil = "${dirOut}IGSRAPID_SAT.TXT";
+      &copy2archive($prcFil,"${PATH_WWW}code/igsrapid_sat.txt");
+    }
+  }
+
+
+}
+
+sub ftpUploadBKG{
+  my %cont = %{(shift)};
+  my $log  = shift;
+  my $err  = "${log}_ERR";
+
+  my $ret  = 1;
+
+  my $host_bkg = "141.74.17.25";
+  my $user_bkg = "code-put";
+  my $port_bkg = "20022";
+
+  unlink "${log}";
+  unlink "${log}2";
+  unlink "${err}";
+
+  foreach my $file (keys %cont){
+    print "BKG: $cont{$file} -> $file\n";
+# gzip if requested
+    if($file =~ /\.gz$/ && $cont{$file} !~ /\.gz$/){
+      my $tmpFil = "$ENV{T}/bkg_upload/$file";
+      print "gzip -nc $cont{$file} > $tmpFil\n";
+      system("gzip -nc $cont{$file} > $tmpFil");
+      system("scp -v -i $ENV{HOME}/.ssh/id_rsa_bkg -P $port_bkg  $tmpFil ${user_bkg}\@${host_bkg}:IGSac/$file > ${err} 2>>${log}2");
+      unlink $tmpFil;
+    }
+    else {
+      system("scp -v -i $ENV{HOME}/.ssh/id_rsa_bkg -P $port_bkg  $cont{$file} ${user_bkg}\@${host_bkg}:IGSac/$file > ${err} 2>>${log}2");
+    }
+  }
+  if(-s $err){
+    $ret = 0;
+  }
+
+  open LOG, "< ${log}2";
+  open OUT, "> ${log}";
+  print OUT "LOG BKG:\n";
+  map {print OUT $_ unless /debug/} (<LOG>);
+  close OUT;
+  close LOG;
+
+  print "Upload to BKG log: $log\n";
+  print "RETURN BKG $ret\n";
+
+  return $ret;
+}
+
+sub ftpUploadIERS{
+  my %cont = %{(shift)};
+  my $log  = shift;
+  my $yyyy  = shift;
+  my $ddd  = shift;
+  open my $LOG, ">$log";
+
+  my $host = "hpiers.obspm.fr";
+  my $ret = 0;
+
+  my $ftpCon;
+  if($ftpCon = newFTP->new($host,t=>60,v=>2,o=>$LOG)){
+    $ret = $ftpCon->login();
+    if($ret == 1){
+      $ftpCon->cwd("/pub/rotation/code");
+      $ftpCon->ascii();
+      foreach my $file (keys %cont){
+        print "IERS: $cont{$file} -> $file\n";
+        $ftpCon->put($cont{$file},$file);
+      }
+      $ftpCon->dir("*${yyyy}${ddd}*");
+      $ftpCon->quit();
+    }
+  };
+  close $LOG;
+  print "RETURN IERS $ret\n";
+  return $ret;
+}
+
+sub ftpUploadROB{
+  my %cont = %{(shift)};
+  my $log = shift;
+  my $yyyy  = shift;
+  my $ddd  = shift;
+  open my $LOG, ">$log";
+
+  my $host = "igs.oma.be";
+  my $user = "cou";
+  my $pass = "2sCLoYqU";
+  my $ret = 0;
+  my $ftpCon;
+  if($ftpCon = newFTP->new($host,t=>60,v=>2,o=>$LOG)){
+    $ret = $ftpCon->login($user,$pass);
+    if($ret == 1){
+      foreach my $file (keys %cont){
+        print "ROB: $cont{$file} -> $file\n";
+# gzip if requested
+        if($file =~ /\.gz$/ && $cont{$file} !~ /\.gz$/){
+          my $tmpFil = "$ENV{T}/rob_upload/$file";
+          print "gzip -nc $cont{$file} > $tmpFil\n";
+          system("gzip -nc $cont{$file} > $tmpFil");
+          $ftpCon->binary();
+          $ftpCon->put($tmpFil,$file);
+          unlink $tmpFil;
+        }
+        else {
+          $ftpCon->ascii();
+          $ftpCon->put($cont{$file},$file);
+        }
+      }
+      $ftpCon->dir("*${yyyy}${ddd}*");
+      $ftpCon->quit();
+    }
+  };
+  close $LOG;
+  print "RETURN ROB $ret\n";
+  return $ret;
+}
+
+sub sendToArchive{
+  my %cont = %{(shift)};
+  foreach my $src (keys %cont){
+    foreach my $trg (keys %{$cont{$src}}){
+      print "TOARCH: $src -> $trg with $cont{$src}{$trg} cont\n";
+      if($cont{$src}{$trg} eq "z"){
+        &copy2archive($src,$trg,"z");
+      }else{
+        &copy2archive($src,$trg);
+      }
+    }
+  };
+  return;
+}
+
+sub sendToArchiveDry{
+  my %cont = %{(shift)};
+  my $DRY = shift;
+  foreach my $src (keys %cont){
+    foreach my $trg (keys %{$cont{$src}}){
+      print $DRY "TOARCH: $src -> $trg with $cont{$src}{$trg} cont\n";
+    }
+  };
+  return;
+}
+
+# =============================================================================
+
+__END__

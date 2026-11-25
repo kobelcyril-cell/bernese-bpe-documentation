@@ -1,0 +1,121 @@
+package ORB_CHK3;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  ORB_CHK3
+#
+# Purpose :  7- AND 2-DAY ORBIT OVERLAPS (ORBGEN)
+#            DAY BOUNDARY OVERLAP        (STDELE)
+#
+# Programs:  STDPRE
+#
+# Author  :  H. Bock
+# Created :  05-Dec-2007
+#
+# Changes :  26-May-2009 rd: ASPLIT: YY_DDD -> YY_SSSS
+#            17-Nov-2015 SS: Considered V_UPD
+#
+# ----------------------------------------------------------------------------
+use strict;
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($ymdm6,$ymdm1,$ymdp0,$yy,$ddd,$ssss,$wwwwd,
+      $CAMP_PTH,$CAMPAIGN,$dirOut,$v_i) =
+    $bpe->getKeys('$YMD_STR-6','$YMD_STR-1','$YMD_STR+0','$Y','$+0','$S+0','$WD+0',
+                  'CAMP_PTH','CAMPAIGN','DIR_OUT','V_I');
+
+# Check if this is an ULTRA:
+# -------------------------
+  my $ultFil = "$CAMP_PTH${CAMPAIGN}/MSC/ULT$yy$ddd.FLG";  # ultra-flag
+  my ($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+  unless (-e $ultFil) {
+      $h_end=24;}
+
+  my $skpFil = "$CAMP_PTH${CAMPAIGN}/MSC/NO_LONGARCFIT.FLG";
+  my $sp2Fil = "$CAMP_PTH${CAMPAIGN}/MSC/NO_STDELE.FLG";
+
+# PlusMinus-Variable
+# ------------------
+  setMinusPlus($bpe,-6,0);
+
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","RADIO_1",'0');
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","RADIO_2",'1');
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","STADAT","$ymdm6");
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","ENDDAT","$ymdp0");
+
+# Run program
+# -----------
+  my $PGMNAM = "ORBGEN";
+  unless (-e $ultFil || -e $skpFil){
+      $bpe->RUN_PGMS($PGMNAM);}
+
+# PlusMinus-Variable
+# ------------------
+  setMinusPlus($bpe,-1,0);
+
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","RADIO_1",'0');
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","RADIO_2",'1');
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","STADAT","$ymdm1");
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","ENDDAT","$ymdp0");
+  $bpe->putKey("$$bpe{U}/PAN/ORBGEN.INP","SUMFIL","");
+
+# Run ORBGEN
+# ----------
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Put the name of the sysout to the extraction program
+# ----------------------------------------------------
+  $bpe->putKey("$$bpe{U}/PAN/DEFXTR.INP","JOBOUT","$$bpe{SYSOUT}");
+
+# Unlink some files
+# -----------------
+  unlink("$dirOut/DEFXTR.SUM");
+  unlink("$dirOut/DEFWKS.SUM");
+
+  unless ($$bpe{V_UPD} eq "Y") {
+    $bpe->putKey("$$bpe{U}/PAN/DEFXTR.INP","ASPLIT",'');
+    prtMess($bpe,"ASPLIT_NOT_PERFORMED");
+  }
+
+  $PGMNAM = "DEFXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Summary of program run for Protocol
+# -----------------------------------
+  my $xtrLst="$dirOut/${v_i}G${wwwwd}.LST";
+  if (-e $xtrLst){
+      appFile ("",0,"$dirOut/DEFWKS.SUM","$xtrLst");
+      appFile ("",0,"$dirOut/DEFXTR.SUM","$xtrLst"); }
+  else {
+      copyfile("$dirOut/DEFWKS.SUM","$xtrLst");
+      appFile ("",0,"$dirOut/DEFXTR.SUM","$xtrLst"); }
+
+##  my $arcSum="$dirOut/ASPLIT.${yy}_${ssss}";
+##  if (-e $arcSum){
+##      if (-e "$dirOut/ASPLIT.SUM"){
+##          appFile ("",0,"$dirOut/ASPLIT.SUM","$arcSum"); }}
+##  else {
+##      copyfile("$dirOut/ASPLIT.SUM","$arcSum"); }
+##  unlink("$dirOut/ASPLIT.SUM");
+
+# Check arc boundary overlap
+# --------------------------
+  $PGMNAM = "STDELE";
+  unless (-e $sp2Fil){
+      $bpe->RUN_PGMS($PGMNAM);}
+
+  my $pgmOut="$$bpe{SYSOUT}";
+  print "$pgmOut\n";
+  my $eleOut="$dirOut/${v_i}_${wwwwd}.CMP";
+  copyfile("$pgmOut","$eleOut");
+
+}

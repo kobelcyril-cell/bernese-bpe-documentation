@@ -1,0 +1,70 @@
+package CLKEST5S;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name:      CLKEST5S
+#
+# Purpose:   Run CLKEST with/without 24 UT epoch
+#
+# Programs:  CLKEST
+#
+# Author  :  A. Villiger
+# Created :  17-Nov-2005
+#
+# Changes :  11-Oct-2018 AV: Support UREFYYSSSS.FLG for reference station selection
+#            25-Apr-2019 AV/SS: Support satellite reference in UREFYYSSSS.FLG
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+
+sub run
+{
+  my $bpe = shift;
+
+# Get variables
+# -------------
+ my ($yyyy ,$ssss, $yyssss, $ut24,$dirOut) =
+     $bpe->getKeys(
+     '$Y+0','$S+0','$YSS+0','V_UT24','DIR_OUT');
+
+  my $refflg = "${dirOut}/../MSC/UREF${yyssss}.FLG";
+
+# Set reference clock if indicated
+# --------------------------------
+  if(-e $refflg){
+    open INP, "< $refflg";
+    my $sta = "";
+    foreach (<INP>){
+      ($sta) = /^(\w\w\w\w|\w\w\w)$/;
+    }
+    close INP;
+    if($sta=~/\w\w\w/){
+      $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","RADIO_AUTO",'0');
+      $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","RADIO_RSTA",'1');
+      $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","REFCLK","$sta");
+      print "REFFLG: $refflg\n";
+      print "Selected reference station/satellite: $sta\n";
+    }
+  }
+
+# Set 24 UT epoch
+# ---------------
+  my $PGMNAM = "CLKEST";
+
+  print "ACTIVATE 24 UT CLOCK:$ut24\n";
+  if($ut24 =~ /Y/){
+    $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","USEWIN" ,'1');
+    $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","RADIO_1",'0');
+    $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","RADIO_2",'1');
+    $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","STADAT" ,'$YMD_STR+0');
+    $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","STATIM" ,'00 00 00');
+    $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","ENDDAT" ,'$YMD_STR+1');
+    $bpe->putKey("$ENV{U}/PAN/CLKEST.INP","ENDTIM" ,'00 00 01');
+  }
+
+# Run program CLKEST
+# --------------------
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

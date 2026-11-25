@@ -1,0 +1,146 @@
+package PREDNEW;
+@ISA = ("RUNBPE");
+# =============================================================================
+#
+# Name    :  PREDNEW
+#
+# Purpose :  Generate orbit prediction (using middle days if possible)
+#
+# Programs:  POLXTR, ORBGEN, DEFXTR
+#
+# Author  :  R. Dach
+#
+# Created :  03-Aug-2003
+#
+# Changes :  06-Jan-2003 hu: Pole files in ORB instead of X/GEN
+#            16-Jan-2003 ss: Do no longer delete ERP files
+#            19-Jul-2006 ss: Perform 15-day ERP prediction
+#            20-Jul-2006 ss: Compute 15-day orbit prediction in rapid mode
+#            20-Nov-2006 rd: Convert to perl
+#            31-Jul-2008 ss: Do no longer consider TURBO.FLG
+#            11-Jul-2013 SL: Use general ERP file (copies) for ORBGEN
+#
+# =============================================================================
+
+use strict;
+
+# External packages
+use File::Basename qw(basename);
+
+# Local packages
+use lib "$ENV{BPE}";
+use bpe_util qw(rdUltFlg setMinusPlus copy2archive appFile check_dir);
+use lib "$ENV{EXE}";
+use Gps_Date qw(gps_date);
+use lib "$ENV{AUTO}";
+use gpsutil qw(copyfile);
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my(
+    $yyddd,$wwwwd,$ssss,$mjd,
+    $u,$CAMP_PTH,$CAMPAIGN,$v_arcfit,$v_i,
+    $dirErp,$extErp,
+    $dirLst,$extLst,
+    $dirIep,$extIep,
+    $dirOut,
+    $dirSum,$extSum,
+  ) =
+  $bpe->getKeys(
+    '$YD+0','$WD+0','$S+0','$JD+0',
+    'U','CAMP_PTH','CAMPAIGN','V_ARCFIT','V_I',
+    'DIR_ERP','EXT_ERP',
+    'DIR_LST','EXT_LST',
+    'DIR_IEP','EXT_IEP',
+    'DIR_OUT',
+    'DIR_SUM','EXT_SUM',
+  );
+
+# Define flag file names
+# ----------------------
+  my $ultFil = "${CAMP_PTH}${CAMPAIGN}/MSC/ULT${yyddd}.FLG";
+
+# Extract the end time from the ultra-flag file
+# ---------------------------------------------
+  my($h_end,$h_tro,$h_rnx,$h_chr) = rdUltFlg($ultFil);
+
+# Set the N-day overlap (see also POLXTR_U!)
+# ------------------------------------------
+  $bpe->setMinusPlus($v_arcfit*(-1),0);
+
+# Run the program's
+# -----------------
+  my $PGMNAM = "POLXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Set the POLE file
+# -----------------
+  my $polFil = $bpe->getKey("${u}/INP/POLXTR.INP","POLERS");
+  $bpe->putKey("${u}/PAN/ORBGEN.INP","POLE",$polFil);
+############################################
+# Copy general ERP file to PRE file names
+  my $preFil = $bpe->getKey("${u}/PAN/ORBGEN.INP","PREFIL");
+  my($d) = 0;
+  foreach $d($v_arcfit*(-1)..0) {
+    &copy2archive($polFil,
+          "${dirErp}".substr(&basename($preFil),0,3).
+                      &gps_date("-mjd ".scalar($mjd+$d)." -o %y%j").
+                      ".${extErp}");
+  }
+############################################
+
+# Generate orbit prediction
+# -------------------------
+  $bpe->putKey("${u}/PAN/ORBGEN.INP","STADAT","\$YMD_STR-(${v_arcfit})");
+  $bpe->putKey("${u}/PAN/ORBGEN.INP","STATIM","${h_end} 00 00");
+
+  $PGMNAM = "ORBGEN";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  copyfile("$$bpe{SYSOUT}","${dirOut}ECLIPSING.OUT");
+
+# Put the name of the sysout to the extraction program
+# ----------------------------------------------------
+  $bpe->putKey("${u}/PAN/DEFXTR.INP","JOBOUT","$$bpe{SYSOUT}");
+
+# Check the program run
+# ---------------------
+  unlink("${dirSum}DEFXTR.{$extSum}");
+  unlink("${dirSum}DEFWKS.{$extSum}");
+
+  $PGMNAM = "DEFXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Summary of program run for Protocol
+# -----------------------------------
+  my $xtrLst = "${dirLst}${v_i}G${wwwwd}.${extLst}";
+  my $sumFil = "${dirSum}DEFWKS.${extSum}";
+  appFile("",0,$sumFil,$xtrLst,0) if (-e $sumFil);
+
+  $sumFil = "${dirSum}DEFXTR.${extSum}";
+  appFile("",0,$sumFil,$xtrLst,0) if (-e $sumFil);
+
+# Append ARC_CHK summary to ORBGEN LST file
+# -----------------------------------------
+  my $lstFil = "${dirLst}AFIT$ssss.${extLst}";
+  $sumFil = "${dirSum}ARC_CHK.${extSum}";
+  appFile("",0,$sumFil,$lstFil,0) if (-e $sumFil);
+
+# Store some files
+# ----------------
+  if($yyddd <= 8300) {
+    my $savDir = "${CAMP_PTH}${CAMPAIGN}/POL";
+    check_dir($savDir);
+    foreach my $key ("EPFIL","POLE","IERSPOL","POLERS","PLOTRS") {
+      my $source = $bpe->getKey("$u/INP/POLXTR.INP","$key");
+      my $file   = basename($source);
+      my $target = "$savDir/${file}_${yyddd}_${h_end}";
+      copyfile("$source","$target");
+    }
+  }
+}
+
+# =============================================================================

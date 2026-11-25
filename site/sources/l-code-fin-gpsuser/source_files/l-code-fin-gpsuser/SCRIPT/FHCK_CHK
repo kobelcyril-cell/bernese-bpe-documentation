@@ -1,0 +1,101 @@
+package FHCK_CHK;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  FHCK_CHK
+#
+# Purpose :  Check from which files CRD and TRP is still missing
+#
+# Programs:
+#
+# Author  :  H. Bock
+# Created :  01-Apr-2008               Last modified:
+#
+# Changes :  03-Aug-2009 RD: next if PZH file not available
+#
+# ----------------------------------------------------------------------------
+use strict;
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+
+use lib "$ENV{BPE}";
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my $CAMP_PTH = $$bpe{CAMP_PTH};
+  my $CAMPAIGN = $$bpe{CAMPAIGN};
+  my ($yyddd, $yy, $ddd, $ssss,$yyssss,
+      $c, $s, $u, $g, $PARAM2, $rnxPth,
+      $dirCrd, $dirTrp, $dirClb, $dirPzh,
+      $extCrd, $extTrp, $extClb, $extPzh) =
+    $bpe->getKeys(
+      '$YD+0', '$Y', '$+0','$S+0','$YSS+0',
+      'V_C','V_S','V_K','V_G','PARAM2','DIR_RXO',
+     'DIR_CRD','DIR_TRP','DIR_CLB','DIR_PZH',
+     'EXT_CRD','EXT_TRP','EXT_CLB','EXT_PZH');
+
+  my $rnxLst ="${rnxPth}hrd${yy}${ddd}.lst";
+  my $crdFil ="${dirCrd}${u}_${yy}${ssss}.${extCrd}";
+  my $obsLst ="${dirClb}${yy}${ssss}HRD.${extClb}";
+  my $OK;
+  my $sta;
+  my $rnx;
+  my $iLin=0;
+  my @staLst;
+  my @newLst;
+  my @tst;
+
+# List of stations which have estimated CRD
+# -----------------------------------------
+  open(CRD,"<$crdFil");
+  while (<CRD>) {
+      print "CRD: $_";
+      $iLin++;
+      if ($iLin>6){
+          @tst=split(" ",$_);
+          if ($#tst>0){
+              if ($_ =~ /    [A-Z]$/){
+                  push(@staLst,substr($_,5,4))} } } }
+  close CRD;
+
+# Check if HRD stations have estimated CRD or not
+# -----------------------------------------------
+  open(LST,"<$rnxLst");
+  while (<LST>) {
+      $rnx =substr($_,0,4);
+      $OK='NOK';
+      foreach $sta (@staLst){
+#          $rnx =substr($_,0,4);
+          if ($sta eq $rnx){
+              $OK='OK';
+              last;}}
+      if ($OK eq 'NOK'){
+          print "NOK: $rnx";
+          push(@newLst,$rnx);}}
+  close LST;
+
+# Ist OBS-file noch da??
+  open(OBS,">$obsLst");
+  foreach (@newLst){
+      print "STA: $_";
+      next unless -s "${dirPzh}$_${ssss}.${extPzh}";
+      print OBS "${dirPzh}$_${ssss}.${extPzh}\n";}
+  close OBS;
+
+  print "$obsLst $PARAM2\n";
+  unless ( -s $obsLst ) {
+    copyfile("${dirCrd}${u}_${yyssss}.${extCrd}","${dirCrd}${c}_${yyssss}.${extCrd}");
+    copyfile("${dirTrp}${u}_${yyssss}.${extTrp}","${dirTrp}${c}_${yyssss}.${extTrp}");
+
+    copyfile("${dirCrd}${g}_${yyssss}.${extCrd}","${dirCrd}${s}_${yyssss}.${extCrd}");
+    copyfile("${dirTrp}${g}_${yyssss}.${extTrp}","${dirTrp}${s}_${yyssss}.${extTrp}");
+
+    prtGoto($bpe,$PARAM2);
+  }
+}

@@ -1,0 +1,55 @@
+package BASEST_P;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  BASEST_P
+#
+# Purpose :  Execute GPSEST for baseline-wise analysis
+#
+# PARAMs  :  PARAM1 - temporary file for parallel processing
+#
+# Author  :  R. Dach
+# Created :  26-mar-2010
+#
+# Changes :  12-Sep-2017 RD: Switch if APL files are missing, only to be
+#                            activated if APL files are missing too long for
+#                            week submission
+#            01-Nov-2017 SS: Added GMF/VMF model switch
+#
+# ============================================================================
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+use File::Basename;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yyddd,   $ssss , $ddd , $param1 , $subPid,   $loading, $dirOut) =
+  $bpe->getKeys
+     ('$YD+0', '$S+0', '$+0', 'PARAM1', 'SUB_PID', 'V_LOADNG', 'DIR_OUT');
+
+# Set cluster number and input files
+# ----------------------------------
+  my $cluster = "$ddd$param1";
+
+  setUserVar($bpe,"CLUSTER",$cluster,"CCC",$subPid);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PSFILES","$param1$ssss");
+
+# GMF/VMF troposphere model switch
+# --------------------------------
+  my $flgFil = "${dirOut}../MSC/TRP_${yyddd}.FLG";
+  my $flgLin = -e $flgFil ? `cat $flgFil` : "VMF";
+  chomp($flgLin);
+  prtMess($bpe,"GMF/VMF troposphere model switch: $flgLin");
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSEST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

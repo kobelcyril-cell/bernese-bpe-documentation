@@ -1,0 +1,428 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! SOME KEYWORDS FOR AUTOMATIC OUTPUT
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! -------------------------------------------------------------------------
+! Title
+! -----
+TITLE 1  "ORBCMP"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+! General Constants
+! -----------------
+CONST 1  "CONST"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+
+DESCR_CONST 1  "General constants"
+
+! ERP File
+! ---------
+POLE 1  "$(ERP)$YSS+0"
+  ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; emptyallowed = true
+  ## maxfiles = 1
+
+DESCR_POLE 1  "Earth rotation parameters"
+
+! Standard Orbit File
+! -------------------
+STDORB 1  "$(STD)$YSS+0"
+  ## widget = selwin; path = DIR_STD; ext = EXT_STD; emptyallowed = true
+  ## maxfiles = 1
+
+DESCR_STDORB 1  "Standard orbits"
+
+STDORB_NEW 1  ""
+  ## widget = selwin; path = DIR_ORB; ext = EXT_ORB; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "SAT_$Y+0"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Subdaily ERP Model
+! -------------------
+SUBMOD 1  "DESAI2016"
+  ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
+
+DESCR_SUBMOD 1  "Subdaily ERP model"
+
+! Nutation Model
+! -------------------
+NUTMOD 1  "IAU2000R06"
+  ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
+
+DESCR_NUTMOD 1  "Nutation model"
+
+! Correction GPS-UTC
+! ------------------
+GPSUTC 1  "GPSUTC"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! Result File positions
+! ---------------------
+OUTPUT 1  "ORBDIFF_$(PRE)_$(SOL)_$YD+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_LST
+
+DESCR_OUTPUT 1  "Result file (positions)"
+
+! Result File velocities
+! ----------------------
+OUTPUT_VEL 1  ""
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_LST; emptyallowed = true
+
+DESCR_OUTPUT_VEL 1  "Result file (velocities)"
+
+! Program Output File
+! -------------------
+SYSODEF 1  "1"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "ORC$YSS+0"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "1"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 0
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! Input Files
+! -----------
+PREINP 1  "SCRIPT"
+  ## widget = selwin; path = DIR_PRE; ext = EXT_PRE; emptyallowed = false
+
+MSG_PREINP 1  "Precise orbit files"
+
+PREINP_TXT_COL_1 1  "Input Precise Files"
+
+! Options
+! -------
+PRTLEV 1  "SUMMARY"
+  ## widget = combobox; editable = false; cards = NONE SUMMARY RESIDUALS
+
+MSG_PRTLEV 1  "Content of the result file"
+
+ISAMP 1  "1"
+  ## widget = spinbox; range = 1 99 1
+
+MSG_ISAMP 1  "Sampling interval of coordinates"
+
+MINCOO 1  "1"
+  ## widget = spinbox; range = 1 99 1
+
+MSG_MINCOO 1  "Minimum number of common coordinates"
+
+DCOMAX 1  ""
+  ## widget = lineedit; check_type = real; check_min = 0
+
+MSG_DCOMAX 1  "Max. coordinate difference allowed"
+
+! GNSS Selection
+! --------------
+USE_G 1  "1"
+  ## widget = checkbox
+
+MSG_USE_G 1  "Consider satellites from GPS"
+
+USE_R 1  "1"
+  ## widget = checkbox
+
+MSG_USE_R 1  "Consider satellites from GLONASS"
+
+USE_E 1  "1"
+  ## widget = checkbox
+
+MSG_USE_E 1  "Consider satellites from GALILEO"
+
+USE_C 1  "1"
+  ## widget = checkbox
+
+MSG_USE_C 1  "Consider satellites from BEIDOU"
+
+USE_J 1  "1"
+  ## widget = checkbox
+
+MSG_USE_J 1  "Consider satellites from QZSS"
+
+USE_S 1  "1"
+  ## widget = checkbox
+
+MSG_USE_S 1  "Consider satellites from SBAS"
+
+USESAT 1  "EXCLUDED"
+  ## widget = combobox; editable = false; cards = INCLUDED EXCLUDED
+
+MSG_USESAT 1  "The satellites in the following list will be"
+
+SATLST 1  ""
+  ## widget = lineedit
+
+MSG_SATLST 1  "Satellite list"
+
+SYSTEM 1  "RSW"
+  ## widget = combobox; editable = false; cards = EARTH-FIXED INERTIAL RSW
+
+MSG_SYSTEM 1  "System for comparison"
+
+! Helmert Transformation Parameter
+! --------------------------------
+! Offsets
+! -------
+OFFSETX 1  "0"
+  ## widget = checkbox
+
+MSG_OFFSETX 1  "Offset in x"
+
+OFFSETY 1  "0"
+  ## widget = checkbox
+
+MSG_OFFSETY 1  "Offset in y"
+
+OFFSETZ 1  "0"
+  ## widget = checkbox
+
+MSG_OFFSETZ 1  "Offset in z"
+
+! Rotations
+! ---------
+ROTX 1  "0"
+  ## widget = checkbox
+
+MSG_ROTX 1  "Rotation about x"
+
+ROTY 1  "0"
+  ## widget = checkbox
+
+MSG_ROTY 1  "Rotation about y"
+
+ROTZ 1  "0"
+  ## widget = checkbox
+
+MSG_ROTZ 1  "Rotation about z"
+
+! Scale
+! -----
+SCALE 1  "0"
+  ## widget = checkbox
+
+MSG_SCALE 1  "Scale"
+
+! Use time window
+! ---------------
+USEWIN 1  "0"
+  ## widget = checkbox
+
+MSG_USEWIN 1  "Use comparison time window"
+
+! Observation Window
+! ------------------
+RADIO_1 1  "0"
+  ## widget = radiobutton; group = DUMMY
+  ## radiokeys = SESSION_YEAR SESSION_STRG
+
+MSG_RADIO_1 1  "Observation window defined by year and session ID"
+
+RADIO_2 1  "1"
+  ## widget = radiobutton; group = DUMMY
+
+MSG_RADIO_2 1  "Observation window defined by start and end times"
+
+! Observation Window from Session Table
+! -------------------------------------
+SESSION_YEAR 1  "$Y+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
+
+SESSION_STRG 1  "$S+0"
+  ## widget = lineedit; multilineallowed = true; emptyallowed = false
+
+MSG_SESSION_STRG 1  "Sessions defining the time window"
+
+! Observation Window from Datum
+! -----------------------------
+STADAT 1  "$YMD_STR+0"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_STADAT 1  "Start of time window (year month day)"
+
+STATIM 1  "21 30 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND STADAT / _; check_type = time
+
+MSG_STATIM 1  "Start of time window (hour min. sec.)"
+
+ENDDAT 1  "$YMD_STR+1"
+  ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
+
+MSG_ENDDAT 1  "End of time window (year month day)"
+
+ENDTIM 1  "02 30 00"
+  ## widget = lineedit; emptyallowed = false
+  ## activeif = RADIO_2 = 1 AND ENDDAT / _; check_type = time
+
+MSG_ENDTIM 1  "End of time window (hour min. sec.)"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# COMPARE PRECISE ORBITS - ORBCMP 1: Input / Output Files                      #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files  > % <                                              # SHOWGEN
+#                                                                              #
+# INPUT FILES                                                                  #
+#   Precise orbit files       > %%%%%%%%%%%% <                                 # PREINP
+#   Earth rotation parameters > %%%%%%%%%%%% <                                 # POLE
+#   Standard orbit file       > %%%%%%%%%%%% <   (new) > %%%%%%%%%%%% <        # STDORB STDORB_NEW
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Result file (positions)   > %%%%%%%%%%%% <                                 # OUTPUT
+#   Result file (velocities)  > %%%%%%%%%%%% <                                 # OUTPUT_VEL
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output        > % < use ORBCMP.Lnn            or  > %%%%%%%%%%%% < # SYSODEF SYSOUT
+#   Error messages        > % < merged to program output  or  > %%%%%%%%%%%% < # ERRMRG SYSERR
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# ORBCMP 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Subdaily ERP model      > %%%%%%%%%%%% <                                   # SUBMOD
+#   Nutation model          > %%%%%%%%%%%% <                                   # NUTMOD
+#   Satellite problems      > %%%%%%%%%%%% <                                   # SATCRUX
+#   GPS-UTC time difference > %%%%%%%%%%%% <                                   # GPSUTC
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ORBCMP 2: General Options                                                    #
+#                                                                              #
+# TITLE  > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <  # TITLE
+#                                                                              #
+# GENERAL COMPARISON SETTINGS                                                  #
+#   System for comparison                                > %%%%%%%%%%%% <      # SYSTEM
+#   Content of the result file                           > %%%%%%%%%%%% <      # PRTLEV
+#                                                                              #
+# SELECT COMPARISON EPOCHS                                                     #
+#   Sampling interval of coordinates                     > %% <                # ISAMP
+#   Minimum number of common coordinates                 > %% <                # MINCOO
+#   Use comparison time window                           > % <                 # USEWIN
+#                                                                              #
+# SATELLITE SELECTION                                                          #
+#          > % < GPS            > % < GLONASS        > % < Galileo             # USE_G USE_R USE_E
+#          > % < SBAS           > % < BeiDou         > % < QZSS                # USE_S USE_C USE_J
+#                                                                              #
+#   The satellites in the following list will be     > %%%%%%%%%%%% <          # USESAT
+#   Satellite list > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # SATLST
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL USEWIN = 1 #######################################################
+# ORBCMP 2.1: Comparison Time Window                                           #
+#                                                                              #
+# COMPARISON TIME WINDOW                                                       #
+#   > % < Defined by Year and Session identifier                               # RADIO_1
+#         Year  > %%%% <     Session > %%%% <                                  # SESSION_YEAR SESSION_STRG
+#                                                                              #
+#                                                                              #
+#   > % < Defined by Start and End times                                       # RADIO_2
+#                 yyyy mm dd     hh mm ss           yyyy mm dd     hh mm ss    #
+#         Start > %%%%%%%%%% < > %%%%%%%% <   End > %%%%%%%%%% < > %%%%%%%% <  # STADAT STATIM ENDDAT ENDTIM
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# ORBCMP 3: Helmert Transformation                                             #
+#                                                                              #
+# HELMERT TRANSFORMATION PARAMETER                                             #
+#   Offset in x        > % <        Rotation about x   > % <                   # OFFSETX ROTX
+#   Offset in y        > % <        Rotation about y   > % <                   # OFFSETY ROTY
+#   Offset in z        > % <        Rotation about z   > % <                   # OFFSETZ ROTZ
+#   Scale              > % <                                                   # SCALE
+#                                                                              #
+# OUTLIER REJECTION                                                            #
+#   Maximum coordinate difference allowed              > %%%%%%% < meters      # DCOMAX
+#                                                                              #
+# END_PANEL ####################################################################

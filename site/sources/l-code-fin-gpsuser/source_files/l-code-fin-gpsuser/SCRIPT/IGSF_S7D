@@ -1,0 +1,202 @@
+package IGSF_S7D;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  IGSF_S7D
+#
+# Purpose :  Copy all relevant results to save disk
+#
+# Programs:
+#
+# Author  :  R. Dach
+#
+# Created :  07-Dec-2007
+#
+# Changes :  21-Sep-2001/ss: Copy the file IGS_wwww.LST
+#            04-Oct-2001/mm: Use ORB_LST script to create  IGS_wwww.LST file
+#            09-Oct-2001/ss: Copy new file SAT_wwww.LST
+#            10-Oct-2001/ss: Copy GCC file
+#            04-Jan-2003/HU: Pole files in ORB instead of X/GEN
+#            09-Jan-2003/SS: Pole files in ORB savedisk subdirectories
+#            31-Mar-2003/ss: Save compressed SNX, NQ0
+#            28-Jul-2003 rd: Adapt to the new BPE (no links anymore)
+#            29-Jul-2003 rd: Replace "{]}" by "]" in path names
+#            10-Sep-2003/ss: sinex.com no longer needed
+#            03-Aug-2007/mm: V_SAV activated
+#            30-Jul-2010 DT: Correct call of prtMess (typo); bpe_util needed
+#            24-Feb-2011 SS: Save EST/TRA results
+#            26-Jun-2013 SL: Adapted w.r.t. new processing scheme
+#            04-Jul-2013 SL: Save new weekly IEP files
+#            25-Mar-2013 RD: Save NEQ-files to SOL (instead of ORB)
+#            09-Jul-2020 RD/AV: Remove 1-day solution
+#            22-Aug-2022 AV: Change savedisk for IGS20
+#            02-Dec-2022 AV: Undo temporary changes (IGS20 active)
+#            08-May-2025 EB: Short protocol generation
+#            09-Jul-2026 EB: Save also T73 TRA file
+#
+# ============================================================================
+
+use strict;
+use warnings;
+
+use lib "$ENV{BPE}";
+use bpe_util;
+use lib "$ENV{AUTO}";
+use gpsutil;
+use igs_device;
+
+sub run {
+
+  my $bpe = shift;
+
+# Define variables
+# ----------------
+  my(
+    $yyyy0,$yyyy6,$wwww,$dddp1,
+    $yydddm0, $yydddm1, $yydddm2, $yydddm3, $yydddm4, $yydddm5, $yydddm6,
+    $x,$g,$f,$r,
+    $crdInf,
+    $sav,
+    $dirOut,$extOut,
+    $dirPre,$extPre,
+    $dirErp,$extErp,
+    $dirIep,$extIep,
+    $dirNeq,$extNeq,
+    $dirSnx,$extSnx,
+    $dirCrd,$extCrd,
+    $dirGcc,$extGcc,
+    $dirLst,$extLst,
+    $dirSum,$extSum,
+    $dirEst,$extEst,
+  ) =
+  $bpe->getKeys(
+    '$Y-6','$Y+0','$W+0','$+1',
+    '$YD+0', '$YD-1', '$YD-2', '$YD-3', '$YD-4', '$YD-5', '$YD-6',
+    'V_X','V_G','V_F','V_R',
+    'V_CRDINF',
+    'V_SAV',
+    'DIR_OUT','EXT_OUT',
+    'DIR_PRE','EXT_PRE',
+    'DIR_ERP','EXT_ERP',
+    'DIR_IEP','EXT_IEP',
+    'DIR_NEQ','EXT_NEQ',
+    'DIR_SNX','EXT_SNX',
+    'DIR_CRD','EXT_CRD',
+    'DIR_GCC','EXT_GCC',
+    'DIR_LST','EXT_LST',
+    'DIR_SUM','EXT_SUM',
+    'DIR_EST','EXT_EST',
+  );
+
+# Create short protocol file
+# --------------------------
+  my $prtFilshort = "${dirOut}IGSFIN1D_SHORT.TXT";
+  system("perl $ENV{AUTO}/typ_f1d.pl -q ${dddp1} > $prtFilshort");
+
+  # Some directories
+# ----------------
+  my $savDir =  "${PATH_SAV}${CAMP_SAVIGS}";
+  if($crdInf =~ /IGSxx/){
+    $savDir = "${PATH_SAV}/IGS_I20";
+  }
+  my $dirSav0 = "$savDir/${yyyy0}/";
+  my $orbSav0 = "${dirSav0}ORB/";
+  my $outSav0 = "${dirSav0}OUT/";
+  my $staSav0 = "${dirSav0}STA/";
+  my $solSav0 = "${dirSav0}SOL/";
+  my $dirSav6 = "${savDir}/${yyyy6}/";
+  my $orbSav6 = "${dirSav6}ORB/";
+  my $outSav6 = "${dirSav6}OUT/";
+  my $staSav6 = "${dirSav6}STA/";
+  my $solSav6 = "${dirSav6}SOL/";
+  my $wwwPwd = "${PATH_WWW}code/";
+
+  if($sav eq "Y") {
+    &check_dir($orbSav0,$outSav0,$staSav0,$solSav0);
+    &check_dir($orbSav6,$outSav6,$staSav6,$solSav6);
+    &check_dir("$wwwPwd");
+  }
+
+  print " B :$b:\n";
+
+# Copy files to savedisk
+# ----------------------
+# Mandatory files
+  my @cpyLst = (
+# Final solution
+    "${dirIep}${f}${wwww}7.${extIep} ${orbSav0} _ ",
+    "${dirNeq}${g}${wwww}7.${extNeq} ${solSav0} z ",
+    "${dirGcc}${g}${wwww}7.${extGcc} ${orbSav0} _ ",
+    "${dirCrd}${g}${wwww}7.${extCrd} ${staSav0} _ ",
+    "${dirErp}${g}${wwww}7.${extErp} ${orbSav0} _ ",
+    "${dirIep}${g}${wwww}7.${extIep} ${orbSav0} _ ",
+    "${dirSnx}${g}${wwww}7.${extSnx} ${solSav0} c ",
+    "${dirEst}${g}${wwww}7.${extEst} ${solSav0} _ ",
+    "${dirLst}${g}${wwww}7.${extLst} ${solSav0} _ ",
+    "${dirOut}${g}${wwww}7.TRA ${outSav0} o ",
+    "${dirOut}${r}${wwww}7.TRA ${outSav0} o ",
+    "${dirErp}${g}N${wwww}.${extErp} ${orbSav0} _ ",
+    "${dirIep}${g}N${wwww}.${extIep} ${orbSav0} _ ",
+
+    "${dirIep}${f}${wwww}7.${extIep} ${orbSav6} _ ",
+    "${dirNeq}${g}${wwww}7.${extNeq} ${solSav6} z ",
+    "${dirGcc}${g}${wwww}7.${extGcc} ${orbSav6} _ ",
+    "${dirCrd}${g}${wwww}7.${extCrd} ${staSav6} _ ",
+    "${dirErp}${g}${wwww}7.${extErp} ${orbSav6} _ ",
+    "${dirIep}${g}${wwww}7.${extIep} ${orbSav6} _ ",
+    "${dirSnx}${g}${wwww}7.${extSnx} ${solSav6} c ",
+    "${dirEst}${g}${wwww}7.${extEst} ${solSav6} _ ",
+    "${dirLst}${g}${wwww}7.${extLst} ${solSav6} _ ",
+    "${dirOut}${g}${wwww}7.TRA ${outSav6} o ",
+    "${dirOut}${r}${wwww}7.TRA ${outSav6} o ",
+    "${dirErp}${g}N${wwww}.${extErp} ${orbSav6} _ ",
+    "${dirIep}${g}N${wwww}.${extIep} ${orbSav6} _ ",
+
+# Orbit files
+    "${dirPre}${f}${yydddm0}.${extPre} ${orbSav0} _ ",
+    "${dirPre}${f}${yydddm1}.${extPre} ${orbSav0} _ ",
+    "${dirPre}${f}${yydddm2}.${extPre} ${orbSav0} _ ",
+    "${dirPre}${f}${yydddm3}.${extPre} ${orbSav0} _ ",
+    "${dirPre}${f}${yydddm4}.${extPre} ${orbSav0} _ ",
+    "${dirPre}${f}${yydddm5}.${extPre} ${orbSav0} _ ",
+    "${dirPre}${f}${yydddm6}.${extPre} ${orbSav0} _ ",
+
+    "${dirPre}${f}${yydddm0}.${extPre} ${orbSav6} _ ",
+    "${dirPre}${f}${yydddm1}.${extPre} ${orbSav6} _ ",
+    "${dirPre}${f}${yydddm2}.${extPre} ${orbSav6} _ ",
+    "${dirPre}${f}${yydddm3}.${extPre} ${orbSav6} _ ",
+    "${dirPre}${f}${yydddm4}.${extPre} ${orbSav6} _ ",
+    "${dirPre}${f}${yydddm5}.${extPre} ${orbSav6} _ ",
+    "${dirPre}${f}${yydddm6}.${extPre} ${orbSav6} _ ",
+
+# Other files
+    "${dirSum}COD${wwww}7.${extSum} ${outSav0} _ ",
+    "${dirLst}SAT_${wwww}.${extLst} ${outSav0} _ ",
+
+    "${dirSum}COD${wwww}7.${extSum} ${outSav6} _ ",
+    "${dirLst}SAT_${wwww}.${extLst} ${outSav6} _ ",
+    "${dirLst}IGS_${wwww}.${extLst} ${outSav6} _ ",
+# Protocol
+    "${prtFilshort} ${wwwPwd}igsfin1d_short.txt _ ",
+  );
+
+  if($sav eq "Y") {
+    my(@err) = ();
+    foreach(@cpyLst) {
+      push(@err,"$_\n") if(&copy2archive(split(" ",$_)));
+    }
+    die "\n *** copy2archive failed for\n @err\n" if(@err);
+  }
+
+# Some messages
+# -------------
+  if($sav ne "Y") {
+    &prtMess($bpe,"FILES NOT SAVED");
+    print       "\nFILES NOT SAVED\n";
+  }
+
+}
+
+# ----------------------------------------------------------------------------
+
+__END__

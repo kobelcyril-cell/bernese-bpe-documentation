@@ -1,0 +1,58 @@
+# =============================================================================
+# ZDGNSS_LEONEQ.PCF
+# Create LEO NEQs to be included in ZD GNSS processing.
+# =============================================================================
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+#
+# Check LEO file
+# --------------
+001  LEO_SELECT    NO_OPT     CPU=ANY
+002  ZD_INIT_HOI   NO_OPT     CPU=ANY
+003  ZD_LEONEQ_COP NO_OPT     CPU=ANY
+004  LEO_CHECK     NO_OPT     CPU=ANY; WAIT=001 002 003
+#
+# Parallel NEQ setup
+# ------------------
+200  LEO_NEQ_P     NO_OPT     CPU=ANY; WAIT=101
+201  LEO_NEQ_E     ZD_LEONEQ  CPU=ANY; WAIT=200; PARALLEL=200
+#
+# Check existance of LEO NEQs
+# ---------------------------
+300  LEO_NEQ_CHECK NO_OPT     CPU=ANY; WAIT=201
+
+VARIABLE   DEFAULT        PARAMETERS
+V_LFILE   = *;                DESCRIPTION=LEO configuration file
+V_LFILDIR = ${HOME}/perl/LEO; DESCRIPTION=Location of LEO configuration file
+V_MAXS    = *;                DESCRIPTION=Max sigma of RD LEO solution to be included
+V_MAX_R   = *;                DESCRIPTION=Max RMS (R) RD-KN
+V_MAX_S   = *;                DESCRIPTION=Max RMS (S) RD-KN
+V_MAX_W   = *;                DESCRIPTION=Max RMS (W) RD-KN
+V_MAX_ALL = *;                DESCRIPTION=Max RMS (ALL) RD-KN
+V_CRDINF  = *;                DESCRIPTION=CRD FILE NAME
+V_B       = *;                DESCRIPTION=GNSS orbit/ERP
+V_CLK     = *;                DESCRIPTION=GNSS CLK information
+V_ORBDIR  = *;                DESCRIPTION=GNSS orbit/ERP directory
+V_CLKDIR  = *;                DESCRIPTION=GNSS clock directory
+V_OSB     = *;                DESCRIPTION=OSB file for ZD AR
+V_BLQINF  = *;                DESCRIPTION=BLQ FILE NAME, CMC CORRECTIONS
+V_STAINF  = *;                DESCRIPTION=ABB and STA FILE NAME
+V_SATINF  = *;                DESCRIPTION=SATELLITE INFORMATION
+V_PCVINF  = *;                DESCRIPTION=PCV INFORMATION
+V_PCV     = *;                DESCRIPTION=GNSS PCV MODEL
+V_PCVM    = *;                DESCRIPTION=PCV Model version
+V_SATCRX  = *;                DESCRIPTION=Earth potential coefficients
+V_SUBMOD  = *;                DESCRIPTION=Subdaily pole model
+V_NUTMOD  = *;                DESCRIPTION=Nutation model
+V_SPRD    = *;                DESCRIPTION=Sampling for RD orbit
+V_MINEL   = *;                DESCRIPTION=Elevation cut-off for observations
+V_MXCINT  = *;                DESCRIPTION=Max. clock interpolation (s)
+V_NSTC    = 80;               DESCRIPTION=Number of pseudo-stoch. par. per day
+V_CONR    = *;                DESCRIPTION=Constraint for R pseudo-stoch. par
+V_CONS    = *;                DESCRIPTION=Constraint for S pseudo-stoch. par
+V_CONW    = *;                DESCRIPTION=Constraint for W pseudo-stoch. par
+V_OBSSEL  = *;                DESCRIPTION=Observation selection
+V_USEHOI  = *;                DESCRIPTION=Use ION file
+#
+V_PCFCONFIG = LEONEQ MODEL;      DESCRIPTION=Configuration file
+

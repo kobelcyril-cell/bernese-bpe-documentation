@@ -1,0 +1,621 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 0
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! Some keywords for automatic output
+! ----------------------------------
+CAMPAIGN 0
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+SESSION_TABLE 0
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "$Y+0"
+  ## widget = comment
+
+SES_INFO 1  "$S+0"
+  ## widget = comment
+
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show general configuration"
+
+! Filename for resulting plots (output)
+! -------------------------------------
+FIGSHOW 1  "0"
+  ## widget = checkbox
+
+MSG_FIGSHOW 1  "Show resulting figure on the screen"
+
+FIGOUT 1  "HELMR1.png"
+  ## widget = lineedit; path = DIR_FIG; ext = NO_EXT; maxfiles = 1
+
+DESCR_FIGOUT 1  "Output file for plot of number of epochs"
+
+FIGRES 1  "300"
+  ## widget = lineedit; check_type = integer; check_min = 50
+
+MSG_FIGRES 1  "Resolution of the figure"
+
+FIGTYPE 1  "time_series"
+  ## widget = combobox
+  ## cards = time_series amplitude_spectrum power_spectrum normPower_spectrum
+
+MSG_FIGTYPE 1  "Type of the figure"
+
+! Input data: dataset 1
+! ---------------------
+HLMFIL_1 1  "HLMR_$(CRD)_*.OUT"
+  ## widget = selwin; path = DIR_LST; extList = EXT_LST EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+MSG_HLMFIL_1 1  "List of HLM files in Bernese format (dataset 1)"
+
+COLOR_1 1  "blue"
+  ## widget = combobox; editable = true; activeif = HLMFIL_1 / _
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_COLOR_1 1  "Color for dataset 1"
+
+SYMBOL_1 1  "circle"
+  ## widget = combobox; editable = false; activeif = HLMFIL_1 / _
+  ## cards = circle triangle_down triangle_up triangle_left triangle_right tri_down tri_up tri_left tri_right octagon square pentagon plus(filled) star hexagon1 hexagon2 plus x(filled) diamond thin_diamond
+
+MSG_SYMBOL_1 1  "Symbol for dataset 1"
+
+SSIZE_1 1  "2"
+  ## widget = spinbox; range = 1 30 1; activeif = HLMFIL_1 / _
+
+MSG_SSIZE_1 1  "Symbol size for dataset 1"
+
+LABEL_1 1  "Zero-difference"
+  ## widget = lineedit; activeif = HLMFIL_1 / _
+
+MSG_LABEL_1 1  "Legend entry for dataset 1"
+
+! Input data: dataset 2
+! ---------------------
+HLMFIL_2 1  "HLMR_F$(SOL)_*.OUT"
+  ## widget = selwin; path = DIR_LST; extList = EXT_LST EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+MSG_HLMFIL_2 1  "List of HLM files in Bernese format (dataset 2)"
+
+COLOR_2 1  "red"
+  ## widget = combobox; editable = true; activeif = HLMFIL_2 / _
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_COLOR_2 1  "Color for dataset 2"
+
+SYMBOL_2 1  "circle"
+  ## widget = combobox; editable = false; activeif = HLMFIL_2 / _
+  ## cards = circle triangle_down triangle_up triangle_left triangle_right tri_down tri_up tri_left tri_right octagon square pentagon plus(filled) star hexagon1 hexagon2 plus x(filled) diamond thin_diamond
+
+MSG_SYMBOL_2 1  "Symbol for dataset 2"
+
+SSIZE_2 1  "2"
+  ## widget = spinbox; range = 1 30 1; activeif = HLMFIL_2 / _
+
+MSG_SSIZE_2 1  "Symbol size for dataset 2"
+
+LABEL_2 1  "CODE (DD)"
+  ## widget = lineedit; activeif = HLMFIL_2 / _
+
+MSG_LABEL_2 1  "Legend entry for dataset 2"
+
+! Input data: dataset 3
+! ---------------------
+HLMFIL_3 1  ""
+  ## widget = selwin; path = DIR_LST; extList = EXT_LST EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+MSG_HLMFIL_3 1  "List of HLM files in Bernese format (dataset 3)"
+
+COLOR_3 1  "blue"
+  ## widget = combobox; editable = true; activeif = HLMFIL_3 / _
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_COLOR_3 1  "Color for dataset 3"
+
+SYMBOL_3 1  "tri_up"
+  ## widget = combobox; editable = false; activeif = HLMFIL_3 / _
+  ## cards = circle triangle_down triangle_up triangle_left triangle_right tri_down tri_up tri_left tri_right octagon square pentagon plus(filled) star hexagon1 hexagon2 plus x(filled) diamond thin_diamond
+
+MSG_SYMBOL_3 1  "Symbol for dataset 3"
+
+SSIZE_3 1  "2"
+  ## widget = spinbox; range = 1 30 1; activeif = HLMFIL_3 / _
+
+MSG_SSIZE_3 1  "Symbol size for dataset 3"
+
+LABEL_3 1  "STDDIF"
+  ## widget = lineedit; activeif = HLMFIL_3 / _
+
+MSG_LABEL_3 1  "Legend entry for dataset 3"
+
+! Input data: dataset 4
+! ---------------------
+HLMFIL_4 1  ""
+  ## widget = selwin; path = DIR_LST; extList = EXT_LST EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+MSG_HLMFIL_4 1  "List of HLM files in Bernese format (dataset 4)"
+
+COLOR_4 1  ""
+  ## widget = combobox; editable = true; activeif = HLMFIL_4 / _
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_COLOR_4 1  "Color for dataset 4"
+
+SYMBOL_4 1  ""
+  ## widget = combobox; editable = false; activeif = HLMFIL_4 / _
+  ## cards = circle triangle_down triangle_up triangle_left triangle_right tri_down tri_up tri_left tri_right octagon square pentagon plus(filled) star hexagon1 hexagon2 plus x(filled) diamond thin_diamond
+
+MSG_SYMBOL_4 1  "Symbol for dataset 4"
+
+SSIZE_4 1  "$(SSIZE_4)"
+  ## widget = spinbox; range = 1 30 1; activeif = HLMFIL_4 / _
+
+MSG_SSIZE_4 1  "Symbol size for dataset 4"
+
+LABEL_4 1  ""
+  ## widget = lineedit; activeif = HLMFIL_4 / _
+
+MSG_LABEL_4 1  "Legend entry for dataset 4"
+
+! Input data: dataset 5
+! ---------------------
+HLMFIL_5 1  ""
+  ## widget = selwin; path = DIR_LST; extList = EXT_LST EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+MSG_HLMFIL_5 1  "List of HLM files in Bernese format (dataset 5)"
+
+COLOR_5 1  ""
+  ## widget = combobox; editable = true; activeif = HLMFIL_5 / _
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_COLOR_5 1  "Color for dataset 5"
+
+SYMBOL_5 1  ""
+  ## widget = combobox; editable = false; activeif = HLMFIL_5 / _
+  ## cards = circle triangle_down triangle_up triangle_left triangle_right tri_down tri_up tri_left tri_right octagon square pentagon plus(filled) star hexagon1 hexagon2 plus x(filled) diamond thin_diamond
+
+MSG_SYMBOL_5 1  "Symbol for dataset 5"
+
+SSIZE_5 1  "$(SSIZE_5)"
+  ## widget = spinbox; range = 1 30 1; activeif = HLMFIL_5 / _
+
+MSG_SSIZE_5 1  "Symbol size for dataset 5"
+
+LABEL_5 1  ""
+  ## widget = lineedit; activeif = HLMFIL_5 / _
+
+MSG_LABEL_5 1  "Legend entry for dataset 5"
+
+! Input data: dataset 6
+! ---------------------
+HLMFIL_6 1  ""
+  ## widget = selwin; path = DIR_LST; extList = EXT_LST EXT_OUT NO_EXT
+  ## emptyallowed = true
+
+MSG_HLMFIL_6 1  "List of HLM files in Bernese format (dataset 6)"
+
+COLOR_6 1  ""
+  ## widget = combobox; editable = true; activeif = HLMFIL_6 / _
+  ## cards = red green blue yellow orange magenta cyan grey
+
+MSG_COLOR_6 1  "Color for dataset 6"
+
+SYMBOL_6 1  ""
+  ## widget = combobox; editable = false; activeif = HLMFIL_6 / _
+  ## cards = circle triangle_down triangle_up triangle_left triangle_right tri_down tri_up tri_left tri_right octagon square pentagon plus(filled) star hexagon1 hexagon2 plus x(filled) diamond thin_diamond
+
+MSG_SYMBOL_6 1  "Symbol for dataset 6"
+
+SSIZE_6 1  "$(SSIZE_6)"
+  ## widget = spinbox; range = 1 30 1; activeif = HLMFIL_6 / _
+
+MSG_SSIZE_6 1  "Symbol size for dataset 6"
+
+LABEL_6 1  ""
+  ## widget = lineedit; activeif = HLMFIL_6 / _
+
+MSG_LABEL_6 1  "Legend entry for dataset 6"
+
+! Title: new entry
+! ----------------
+TITLE 1  "Helmert transformation parameters"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+TIT_FONTSIZE 1  "large"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_TIT_FONTSIZE 1  "Font size in the title"
+
+! Size of the plot
+! ----------------
+SIZEX 1  "8"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEX 1  "Width of the plot"
+
+SIZEY 1  "8"
+  ## widget = lineedit; check_type = real
+
+MSG_SIZEY 1  "Height of the plot"
+
+! Get boundaries of the plot
+! --------------------------
+XYAUTO 1  "0"
+  ## widget = checkbox
+
+MSG_XYAUTO 1  "Auto scale to a global map"
+
+TMIN 1  "$YMD_STR-(67)"
+  ## widget = lineedit; check_type = date
+  ## activeif = XYAUTO / 1 and FIGTYPE = time_series
+
+MSG_TMIN 1  "Lower bound time axis"
+
+XMIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 and FIGTYPE / time_series
+
+MSG_XMIN 1  "Lower bound frequency"
+
+Y1MIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_RMS = 1
+
+MSG_Y1MIN 1  "Lower bound RMS"
+
+Y2MIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_TX = 1
+
+MSG_Y2MIN 1  "Lower bound X-translation"
+
+Y3MIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_TY = 1
+
+MSG_Y3MIN 1  "Lower bound Y-translation"
+
+Y4MIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_TZ = 1
+
+MSG_Y4MIN 1  "Lower bound Z-translation"
+
+Y5MIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_RX = 1
+
+MSG_Y5MIN 1  "Lower bound X-rotation"
+
+Y6MIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_RY = 1
+
+MSG_Y6MIN 1  "Lower bound Y-rotation"
+
+Y7MIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_RZ = 1
+
+MSG_Y7MIN 1  "Lower bound Z-rotation"
+
+Y8MIN 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_SC = 1
+
+MSG_Y8MIN 1  "Lower bound scale"
+
+TMAX 1  "$YMD_STR+1"
+  ## widget = lineedit; check_type = date
+  ## activeif = XYAUTO / 1 and FIGTYPE = time_series
+
+MSG_TMAX 1  "Upper bound time axis"
+
+XMAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 and FIGTYPE / time_series
+
+MSG_XMAX 1  "Upper bound frequency"
+
+Y1MAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_RMS = 1
+
+MSG_Y1MAX 1  "Upper bound RMS"
+
+Y2MAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_TX = 1
+
+MSG_Y2MAX 1  "Upper bound X-translation"
+
+Y3MAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_TY = 1
+
+MSG_Y3MAX 1  "Upper bound Y-translation"
+
+Y4MAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_TZ = 1
+
+MSG_Y4MAX 1  "Upper bound Z-translation"
+
+Y5MAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_RX = 1
+
+MSG_Y5MAX 1  "Upper bound X-rotation"
+
+Y6MAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_RY = 1
+
+MSG_Y6MAX 1  "Upper bound Y-rotation"
+
+Y7MAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_RZ = 1
+
+MSG_Y7MAX 1  "Upper bound Z-rotation"
+
+Y8MAX 1  ""
+  ## widget = lineedit; check_type = real
+  ## activeif = XYAUTO / 1 AND PLOT_SC = 1
+
+MSG_Y8MAX 1  "Upper bound scale"
+
+PLOT_RMS 1  "1"
+  ## widget = checkbox
+
+MSG_PLOT_RMS 1  "Plot RMS"
+
+PLOT_TX 1  "1"
+  ## widget = checkbox
+
+MSG_PLOT_TX 1  "Plot X-translation"
+
+PLOT_TY 1  "1"
+  ## widget = checkbox
+
+MSG_PLOT_TY 1  "Plot Y-translation"
+
+PLOT_TZ 1  "1"
+  ## widget = checkbox
+
+MSG_PLOT_TZ 1  "Plot Z-translation"
+
+PLOT_RX 1  "1"
+  ## widget = checkbox
+
+MSG_PLOT_RX 1  "Plot X-rotation"
+
+PLOT_RY 1  "1"
+  ## widget = checkbox
+
+MSG_PLOT_RY 1  "Plot Y-rotation"
+
+PLOT_RZ 1  "1"
+  ## widget = checkbox
+
+MSG_PLOT_RZ 1  "Plot Z-rotation"
+
+PLOT_SC 1  "1"
+  ## widget = checkbox
+
+MSG_PLOT_SC 1  "Plot scale"
+
+LABEL_X 1  "Day"
+  ## widget = lineedit
+
+MSG_LABEL_X 1  "Label for the time axis"
+
+LABEL_Y1 1  "RMS"
+  ## widget = lineedit; activeif = PLOT_RMS = 1
+
+MSG_LABEL_Y1 1  "Label for the RMS"
+
+LABEL_Y2 1  "T X"
+  ## widget = lineedit; activeif = PLOT_TX = 1
+
+MSG_LABEL_Y2 1  "Label for the X-translation"
+
+LABEL_Y3 1  "T Y"
+  ## widget = lineedit; activeif = PLOT_TY = 1
+
+MSG_LABEL_Y3 1  "Label for the Y-translation"
+
+LABEL_Y4 1  "T Z"
+  ## widget = lineedit; activeif = PLOT_TZ = 1
+
+MSG_LABEL_Y4 1  "Label for the Z-translation"
+
+LABEL_Y5 1  "R X"
+  ## widget = lineedit; activeif = PLOT_RX = 1
+
+MSG_LABEL_Y5 1  "Label for the X-rotation"
+
+LABEL_Y6 1  "R Y"
+  ## widget = lineedit; activeif = PLOT_RY = 1
+
+MSG_LABEL_Y6 1  "Label for the Y-rotation"
+
+LABEL_Y7 1  "R Z"
+  ## widget = lineedit; activeif = PLOT_RZ = 1
+
+MSG_LABEL_Y7 1  "Label for the Z-rotation"
+
+LABEL_Y8 1  "Scale"
+  ## widget = lineedit; activeif = PLOT_SC = 1
+
+MSG_LABEL_Y8 1  "Label for the scale"
+
+LABEL_FONTSIZE 1  "small"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_LABEL_FONTSIZE 1  "Font size in the labels"
+
+BGCOLOR 1  "white"
+  ## widget = combobox; editable = true
+  ## cards = white red green blue yellow orange magenta cyan grey
+
+MSG_BGCOLOR 1  "Plot background color"
+
+! Specify the legend characteristics
+! ----------------------------------
+LEGEND 1  "1"
+  ## widget = checkbox
+
+MSG_LEGEND 1  "Plot a legend"
+
+LEG_POS 1  "best"
+  ## widget = combobox; activeif = LEGEND = 1
+  ## cards = right center/left upper/right lower/right best center lower/left center/right upper/left upper/center lower/center
+
+MSG_LEG_POS 1  "Position of the legend"
+
+LEG_ANCHOR_X 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1; check_type = real
+
+MSG_LEG_ANCHOR_X 1  "Anchor point for legend position"
+
+LEG_ANCHOR_Y 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1; check_type = real
+
+MSG_LEG_ANCHOR_Y 1  "Anchor point for legend position"
+
+LEG_PLOT 1  "RMS"
+  ## widget = combobox; activeif = LEGEND = 1
+  ## cards = RMS transX transY transZ rotatX rotatY rotatZ scale
+
+MSG_LEG_PLOT 1  "Position of the legend"
+
+LEG_NCOLS 1  "1"
+  ## widget = spinbox; activeif = LEGEND = 1; range = 1 10 1
+
+MSG_LEG_NCOLS 1  "Position of the legend"
+
+LEG_FRAME 1  "1"
+  ## widget = checkbox; activeif = LEGEND = 1
+
+MSG_LEG_FRAME 1  "Plot a legend with a frame"
+
+LEG_TITLE 1  ""
+  ## widget = lineedit; activeif = LEGEND = 1
+
+MSG_LEG_TITLE 1  "Title of the legend"
+
+LEG_FONTSIZE 1  "small"
+  ## widget = combobox
+  ## cards = xx-small x-small small medium large x-large xx-large
+
+MSG_LEG_FONTSIZE 1  "Font size in the legend"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# PLOT HELMERT-TRANSFORMATION RESULTS - plotHELMR1 1: Input/output files       #
+#                                                                              #
+# GENERAL CONFIGURATION                                                        #
+#   Show general configuration        > % <                                    # SHOWGEN
+#                                                                              #
+# RESULT FILE                                                                  #
+#   Show figure on the screen         > % <                                    # FIGSHOW
+#   Name of the output file           > %%%%%%%%%%%%%%%%%%%%%%%% <             # FIGOUT
+#                                       (extension defines the format)         #
+#   Resolution of the figure          > %%%% < dpi                             # FIGRES
+#                                                                              #
+# TYPE OF PLOT:                       > %%%%%%%%%%%%%%%%%% <                   # FIGTYPE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# plotHELMR1 1.1: General Configuration                                        #
+#                                                                              #
+# FONT DEFINITIONS                                                             #
+#   Title                        > %%%%%%%%%%%% <                              # TIT_FONTSIZE
+#   Labels                       > %%%%%%%%%%%% <                              # LABEL_FONTSIZE
+#   Legend                       > %%%%%%%%%%%% <                              # LEG_FONTSIZE
+#                                                                              #
+# COLOR DEFINITIONS                                                            #
+#   Background color of the plot > %%%%%%%%%%%% <                              # BGCOLOR
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #########################################################
+# plotHELMR1 2: Plot layout                                                        #
+#                                                                                  #
+# PLOT LAYOUT SPECIFICATION                                                        #
+#   Size of the plot:  width > %%%%%%%%%% <    height  > %%%%%%%%%% <              # SIZEX SIZEY
+#                                                                                  #
+# PLOT AXIS SPECIFICATION                  Boundaries: > % < auto or               # XYAUTO
+#              Labels at                                 Min         Max           #
+#              epoch axis    > %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# LABEL_X TMIN TMAX
+#              frequency                               > %%%%%%%%%% <> %%%%%%%%%% <#         XMIN XMAX
+#   Plot  > % <RMS of transf.> %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# PLOT_RMS LABEL_Y1 Y1MIN Y1MAX
+#         > % <X-translation > %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# PLOT_TX LABEL_Y2 Y2MIN Y2MAX
+#         > % <Y-translation > %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# PLOT_TY LABEL_Y3 Y3MIN Y3MAX
+#         > % <Z-translation > %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# PLOT_TZ LABEL_Y4 Y4MIN Y4MAX
+#         > % <X-rotation    > %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# PLOT_RX LABEL_Y5 Y5MIN Y5MAX
+#         > % <Y-rotation    > %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# PLOT_RY LABEL_Y6 Y6MIN Y6MAX
+#         > % <Z-rotation    > %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# PLOT_RZ LABEL_Y7 Y7MIN Y7MAX
+#         > % <scale         > %%%%%%%%%%%%%%%%%%%%% < > %%%%%%%%%% <> %%%%%%%%%% <# PLOT_SC LABEL_Y8 Y8MIN Y8MAX
+#                                                                                  #
+# CONTENT OF THE PLOT                                                              #
+#   Title > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <     # TITLE
+#                                                                                  #
+# END_PANEL ########################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #########################################################
+# plotHELMR1 3: Time series for plotting                                           #
+#                                                                                  #
+#     Filename             color         symbol        size      label             #
+# 1.> %%%%%%%%%%%% <     > %%%%%%%% <  > %%%%%%%% <  > %%% <   > %%%%%%%%%%%%%%%% <# HLMFIL_1 COLOR_1 SYMBOL_1 SSIZE_1 LABEL_1
+# 2.> %%%%%%%%%%%% <     > %%%%%%%% <  > %%%%%%%% <  > %%% <   > %%%%%%%%%%%%%%%% <# HLMFIL_2 COLOR_2 SYMBOL_2 SSIZE_2 LABEL_2
+# 3.> %%%%%%%%%%%% <     > %%%%%%%% <  > %%%%%%%% <  > %%% <   > %%%%%%%%%%%%%%%% <# HLMFIL_3 COLOR_3 SYMBOL_3 SSIZE_3 LABEL_3
+# 4.> %%%%%%%%%%%% <     > %%%%%%%% <  > %%%%%%%% <  > %%% <   > %%%%%%%%%%%%%%%% <# HLMFIL_4 COLOR_4 SYMBOL_4 SSIZE_4 LABEL_4
+# 5.> %%%%%%%%%%%% <     > %%%%%%%% <  > %%%%%%%% <  > %%% <   > %%%%%%%%%%%%%%%% <# HLMFIL_5 COLOR_5 SYMBOL_5 SSIZE_5 LABEL_5
+# 6.> %%%%%%%%%%%% <     > %%%%%%%% <  > %%%%%%%% <  > %%% <   > %%%%%%%%%%%%%%%% <# HLMFIL_6 COLOR_6 SYMBOL_6 SSIZE_6 LABEL_6
+#                                                                                  #
+# END_PANEL ########################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# plotHELMR1 4: Legend layout                                                  #
+#                                                                              #
+# LEGEND LAYOUT SPECIFICATION                                                  #
+# > % <  Legend:                                                               # LEGEND
+#        Position  > %%%%%%%%%%%% <  X-off > %%%%% <  Y-off > %%%%% <          # LEG_POS LEG_ANCHOR_X LEG_ANCHOR_Y
+#                    with respect to plot  > %%%%% <  component                # LEG_PLOT
+#        Frame     > % <                       Num. Columns  > % <             # LEG_FRAME LEG_NCOLS
+#        Title     > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <       # LEG_TITLE
+#                                                                              #
+# END_PANEL ####################################################################

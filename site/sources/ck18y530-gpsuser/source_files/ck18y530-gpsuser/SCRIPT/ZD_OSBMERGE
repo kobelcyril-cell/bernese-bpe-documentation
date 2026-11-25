@@ -1,0 +1,103 @@
+package OSBMERGE;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  OSBMERGE
+#
+# Purpose :  Merge multiple OSB observation files into a single
+#
+# Author  :  E. Calero
+# Created :  xx-xxx-20xx
+#
+# Changes :  23-Apr-2026 ck: Reformatted and cleaned
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use File::Copy;
+use Tie::File;
+
+#
+# ---------- Subroutine: run ------------
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $yyssss,
+      $v_c,
+      $dirOsb,
+      $extOsb
+  ) = $bpe->getKeys(
+      '$YSS+0',
+      'V_CBIA',
+      'DIR_OSB',
+      'EXT_OSB'
+  );
+
+  # ---------- Define input/output OSB files ------------
+  my $inOSB   = "${dirOsb}${v_c}_${yyssss}.${extOsb}";
+  my @inOSB_R = glob("${dirOsb}${v_c}S${yyssss}[0-9][0-9][0-9].${extOsb}");
+  my $outOSB  = "${dirOsb}${v_c}S${yyssss}.${extOsb}";
+
+  # ---------- Initialize output file ------------
+  copy($inOSB, $outOSB);
+
+  # ---------- Remove trailing blank line ------------
+  open(my $fh, "+<", $outOSB) or die "can't update $outOSB: $!";
+  my $addr;
+  while (<$fh>) {
+    $addr = tell($fh) unless eof($fh);
+  }
+  truncate($fh, $addr) or die "can't truncate $outOSB: $!";
+  close($fh);
+
+  open(my $fhOut, '>>', $outOSB)
+    or die "Could not open file '$outOSB': $!";
+
+  # ---------- Merge split OSB files and remove redundant stations ------------
+  my (@uni_sta,@red_sta);
+
+  foreach my $file (@inOSB_R) {
+
+    open(my $fhIn, '<', $file)
+      or die "Could not open file '$file': $!";
+
+    my ($count,$prevSta,$isRed) = (0,'',1);
+
+    while (<$fhIn>) {
+
+      chomp;
+      $count++;
+
+      next if $count <= 11;   # skip header
+      last if $_ eq '';
+
+      my $currSta = substr($_,16,20);
+      my $isNew   = ($currSta ne $prevSta);
+      $prevSta    = $currSta;
+
+      if ($isNew) {
+
+        if (grep(/^$currSta$/, @uni_sta)) {
+
+          push(@red_sta,$currSta)
+            unless grep(/^$currSta$/, @red_sta);
+
+          $isRed = 1;
+
+        } else {
+          push(@uni_sta,$currSta);
+          $isRed = 0;
+        }
+      }
+
+      print $fhOut "$_\n" unless $isRed;
+    }
+
+    close($fhIn);
+  }
+
+  close($fhOut);
+}

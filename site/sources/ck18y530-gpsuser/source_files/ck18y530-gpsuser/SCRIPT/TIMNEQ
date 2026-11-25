@@ -1,0 +1,52 @@
+package TIMNEQ;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  TIMNEQ 
+#
+# Purpose :  Parallel run of ADDNEQ to solve for the GLONASS OSB
+#
+# Programs:  ADDNEQ2
+#
+# Author  :  E. Calero
+# Created :  xx-???-20??
+#
+# Changes : 
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($param1, $subPid, $yyddd, $ssss, $dirIon, $extIon, $B, $I) =
+    $bpe->getKeys('PARAM1', 'SUB_PID', '$YD+0', '$S+0' ,'DIR_ION', 'EXT_ION',
+                  'V_B',    'V_I');
+
+
+# Initialize $D4 variable with subpid
+# -----------------------------------
+  setUserVar($bpe,"CCC",$subPid);
+
+# Print the selected files to the log file
+# ----------------------------------------
+  print "Current NEQ file: $param1\n";
+
+# Run program: ADDNEQ2
+# --------------------
+# Eliminate CMDA biases
+  my $PGMNAM = "ADDNEQ2";
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","INPFILE", '$C$S+0$(CCC)_');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","DCBOUT", '$CS$YSS+0$(CCC)');
+  $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SYSOUT", '$CS$YSS+0$(CCC)');
+  $bpe->RUN_PGMS($PGMNAM);
+
+  }
+

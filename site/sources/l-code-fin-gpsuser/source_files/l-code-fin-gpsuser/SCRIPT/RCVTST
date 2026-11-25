@@ -1,0 +1,53 @@
+package RCVTST;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  RCVTST
+#
+# Purpose :  Get receiver performance statistics concerning code measurement
+#            quality
+#
+# Programs:  RCVTST
+#
+# Author  :  R. Dach
+# Created :  12-Dec-2007               Last modified: __-___-____
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+
+use lib "$ENV{AUTO}";
+use gpsutil;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ($yy,  $ddd, $dirOut) = $bpe->getKeys(
+      '$Y','$+0','DIR_OUT');
+
+# Run program
+# -----------
+  my $PGMNAM = "RCVTST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+# Check whether the result file exits
+# -----------------------------------
+  if ( -e $$bpe{SYSOUT} ) {
+    copyfile($$bpe{SYSOUT},"$dirOut/RCVTST.{yy}_${ddd}");
+  } else {
+    prtErr($bpe,basename($$bpe{SYSOUT}) . "NOT FOUND");
+    die();
+  }
+
+  $bpe->putKey("$ENV{U}/PAN/RCVTST.INP","ARSUM","AMB?????");
+
+  $PGMNAM = "RCVTST";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}

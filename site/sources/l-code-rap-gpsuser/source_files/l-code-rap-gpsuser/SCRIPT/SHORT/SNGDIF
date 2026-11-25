@@ -1,0 +1,43 @@
+package SNGDIF;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  SNGDIF
+#
+# Purpose :  Create baselines
+#
+# Programs:  SNGDIF
+#
+# Author  :  M. Meindl
+# Created :  30-Jul-2003               Last modified: 10-Feb-2005
+#
+# Changes :  10-Feb-2005 mm: Old date variables removed
+#
+# ----------------------------------------------------------------------------
+use lib $ENV{BPE};
+use bpe_util;
+
+
+sub run {
+  my $bpe = shift;
+
+
+# Define variables
+# ----------------
+  my ($ssss,$yyddd,$obsDir,$clbDir) =
+         $bpe->getKeys('$S+0','$YD+0',"DIR_PSH","DIR_CLB");
+
+
+# Delete single difference files
+# ------------------------------
+  unlink(glob("${obsDir}????${ssss}.?S?"));
+  unlink(glob("${clbDir}${yyddd}_??.CLB"));
+
+
+# Run program
+# -----------
+  my $PGMNAM = "SNGDIF";
+  $bpe->RUN_PGMS($PGMNAM);
+
+
+}

@@ -1,0 +1,404 @@
+# Procedure Control File (PCF)
+# All comment lines start with a #
+#               13-Jun-2000/SS: Script OBS_SAV added
+#               20-Jun-2000/SS: Script IGSF_S1D added
+#               05-Sep-2000/SS: Script IGSF_D1D added
+#               22-Aug-2001/SS: Use script ADDNEQ2 instead of ADDNEQ2T
+#               04-Oct-2001/MM: Script ORB_VER added
+#               09-Oct-2001/MM: New option directories for GPSAMBAP and GPSQIFAP
+#               30-Nov-2001/SS: GCC ADDNEQ2 run (generating small Q1 (Q1N) NQ0) added
+#               06-Mar-2002/SS: V_CAMP added
+#               13-Mar-2002/MM: SNGDIFC activated (in preparation for Mel-Wuebb)
+#               14-Mar-2002/MM: Activate Mel.-Wuebb.-strategy
+#               16-Mar-2002/SS: CPU_AR, CPU_WAIT, EXPRESS introduced
+#               18-Mar-2002/MM: Completely revised ambiguity resolution implementation
+#               30-Mar-2002/SS: Wuebb DCB results
+#               28-May-2002/SS: P1C1 implemented
+#               22-Jul-2002/SS: RNXSMT executed
+#               16-Jan-2003/SS: PARAM1 no longer needed for STDPRE calls
+#               27-Jan-2003/SS: COOVEL added
+#               05-Feb-2003/SS: RCVTST added
+#               06-Feb-2003/SS: CRDCHK added
+#               29-Apr-2004/SS: PHA_ONLY added
+#               31-Aug-2004/rd: Adapt to the new CPU file
+#               04-Apr-2005/ss: BPE_BYE as last process added
+#               17-Jul-2006/ss: RAP_BRDC added
+#               03-Aug-2007/mm: V_UPD, V_SAV, V_DEL, V_DIS introduced
+#               15-Aug-2007/ss: MAUPRP replaced by BASMPR sequence
+#               08-Jul-2008/rd: WAIT_BPE added; BASMPR->MAUPRP
+#               22-Jul-2008/rd,ps: prepared for reprocessing
+#               24-Jul-2008/rd,ps: V_SATCRX for satellite problem file
+#               04-Aug-2008/ps: Added comparisons with operational products
+#               08-Jan-2009/rd,ps: V_STAINF for satellite problem file
+#               23-Sep-2010/ss: AMBVER sequence added
+#               06-Oct-2010/ss: QIF_WAIT renamed to ION_WAIT
+#               07-Oct-2010/ss: INIT_VMF added
+#               02-Mar-2011/ss: Ambiguity resolution revised and extended to GLONASS
+#               10-Mar-2011/ss: V_SYSCRX added
+#               20-Apr-2011/ss: Switch from IGS05 to IGS08
+#               23-Feb-2012/ss: INIT_APL added
+#               24-Sep-2012/ss: Completely redesigned final ADDNEQ2 sequence
+#               10-Oct-2012/ss: Switch from IGS08 to IGb08
+#               17-Oct-2012/dt: Adapt WAIT_BPE (PID 700) to new structure (740->810)
+#               24-Oct-2012/ss: SNX_LOOP added
+#               02-Nov-2012/ss: COOVEL and CRDMERGE added
+#               13-Nov-2012/eo: CONT_ERR added on PID 881
+#               11-Jun-2013 SL: IGSF_D1D and V_DEL reactivated
+#               27-Jun-2013 SL: POLXTR for final daily IEP file added
+#               18-Jul-2013/rd,hb: V_SATINF: SAT_1452->SAT_NONE
+#               18-Jul-2013/rd,lp: V_OBSSEL added
+#               17-Mar-2015/ss,rd: System-specific ERP/GCC added (see F1I=Individual)
+#               04-Jul-2015/lp: Run AMBXTR with CPU LONG
+#               26-Jul-2015 RD: Add V_DTSTC: Min. interval between maneuver and pulse
+#               20-May-2016/ss/av: Modified due to OSB implementation
+#               21-Sep-2016/av: V_PSDINF introduced
+#               22-Sep-2016 AV/RD: V_CRDEPO introduced
+#               01-Nov-2016 SS: Added BASEST/BAS_RMS baseline verification#
+#               02-Feb-2017 AV/RD: Switch to IGS14
+#               04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced
+#               07-May-2019 RD: V_LOADNG added (to switch between TU VIenna and GFZ)
+#               03-Jun-2019 RD: Separate copy scripts for repro and operational
+#               04-Jun-2019 RD: Skip test solutions F1H, F1T, and F1I for repro
+#               22-Jul-2019 IS: Add CRDREPCH to compare with last REPRO
+#               12-Aug-2019 RD: CONT_ERR for ORB_VER jobs (PID 882..884) added
+#               21-Aug-2019 RD: Add V_BLQINF, V_ATLINF, V_MEANPL, V_SUBMOD, V_NUTMOD
+#               31-Aug-2019 RD: Add OBSXTR program
+#               07-Feb-2020 RD: Switch from FES2004 to FES2014b
+#               02-Apr-2020 RD: Jump back in case of MPRXTR problem
+#               06-Apr-2020 AV: Replace old NAV merge with INIT_BRD
+#               16-Apr-2020 RD: V_SP3INT added (sampling in STDPRE)
+#               20-May-2020 MK: Switched to IGb14
+#               14-Jan-2021 RD: ATTXTR added
+#               05-May-2021 AV: Change from Compatibility to Macromodel
+#               05-Jul-2021 LP: Add V_TRPMOD
+#               01-Sep-2021 RD: Transform into the new PCF format
+#               01-Sep-2021 RD/ST/LP: Reorder BPE server variables for reporting
+#               28-Nov-2021 LP: Remove V_MACMOD
+#               28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+#               29-Mar-2022 AV: Modified keywords
+#               04-Jul-2022 RD: V_ATTINT added (sampling in ATTXTR)
+#               06-Jul-2022 RD: Increase sampling for V_ATTINT 900->30
+#               18-Aug-2022 AV: Add V_ANTAZI
+#               17-Nov-2022 SS: Changed V_SP3INT from 900 to 300
+#               01-Dec-2022 AV: Change to IGS20
+#               06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+#               18-Jan-2023 SS: Changed RXOBV3 ANTMETH from NONE to ADOPTED from GPS
+#               28-Mar-2023 RD/EB: Put parallel jobs with CPU=SHORT to CPU=QUICK/FOX
+#               12-May-2023 LP: Add V_GRAVMOD
+#               18-Sep-2023 SS: CRD_CHK renamed to COMPAR2
+#               19-Sep-2023 SS: Implemented CRD_CHK
+#               20-Sep-2023 SS: Updated V_GRAVMOD to COSTG_FSM_2303
+#               12-Dec-2023 DA: Removed CONT_ERR for PID 882 (ORB_VER)
+#               12-Jan-2024 LP: Updated V_GRAVMOD to COSTG_FSM_2309
+#               16-Jan-2024 SS: Added SMA_CHK
+#               03-Sep-2024 SS: Updated V_GRAVMOD to COSTG_FSM_2312
+#               22-Oct-2024 MK: Updated V_GRAVMOD to COSTG_FSM_2406
+#               02-Feb-2025 EB: Change from IGS20 to IGB20
+#               14-Feb-2025 EB: RNXGRA/RXOBV3GP on MEGA->LOCAL (stable processing time)
+#               26-May-2025 rd: Run BASEST only for operational nor for reprocessing mode
+#               03-Sep-2025 SS: Updated V_GRAVMOD to COSTG_FSM_2412
+#               19-Sep-2025 EB: Updated V_GRAVMOD to COSTG_FSM_2503, add 90-days ADDNEQ combi
+#               15-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20
+#               28-Jan-2026 SS: Added BPE_INI with V_INI=Y
+#               13-Feb-2026 SS: Changed from from I20_2401 to I20_2405=I20
+#               26-Feb-2026 EB: Updated V_GRAVMOD to COSTG_FSM_2509
+#               09-Jul-2026 SS: Updated V_GRAVMOD to COSTG_FSM_2603
+#               25-Aug-2026 RD: Correct syntax for CARDS ("/"->" " between elements)
+#
+# ============================================================================
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+000  BPE_INI   NO_OPT    CPU=LOCAL; SCR_PATH=${AIUB}/BPE_SCR
+#
+# Copy data, prepare orbits
+001  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=000; PARAM1=101
+010  REPF_D1D  NO_OPT    CPU=LOCAL; WAIT=001; PARAM1=DELETE
+011  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=010; NEXTJOB=013
+012  IGSF_COP  IGSF_A1   CPU=LOCAL; WAIT=011
+013  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=012; NEXTJOB=_ 015
+014  REPF_COP  IGSF_A1   CPU=LOCAL; WAIT=013
+015  COOVEL    IGSF_A    CPU=LOCAL; WAIT=014
+016  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=015; NEXTJOB=100
+020  INIT_BRD  IGSF_NAV  CPU=SHORT; WAIT=016
+021  DEFSTD_B  IGSF_A    CPU=SHORT; WAIT=020
+#
+# Preprocess and import RINEX
+100  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=021; PARAM1=301
+# 101 and 102 are no longer skipped
+101  RNXSMTAP  NO_OPT    CPU=LOCAL; WAIT=100
+102  RNXSMT_P  IGSF_A    CPU=QUICK; WAIT=101; PARALLEL=101
+103  PHA_ONLY  NO_OPT    CPU=LOCAL; WAIT=102
+#
+# RNXGRA: exclusion of
+120  RXOBV3GP  IGSF_A    CPU=LOCAL; WAIT=103
+121  RXOBV3_P  IGSF_A    CPU=QUICK; WAIT=120; PARALLEL=120
+130  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=121; NEXTJOB=_ 140
+131  MKCLUS    IGSF_GEN  CPU=SHORT; WAIT=130
+# STOP HERE -> check DEL-List
+#
+# Preprocess code
+140  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=012 131; PARAM1=301
+160  CODSPPAP  NO_OPT    CPU=LOCAL; WAIT=140
+161  CODSPP_P  IGSF_A    CPU=QUICK; WAIT=160; PARALLEL=160
+162  CODXTR    IGSF_A    CPU=LOCAL; WAIT=161
+#
+# 1st ITERATION: improve broadcast orbits (2 RPR par, no ERPs)
+# SKIP if good (rapid) orbits are available
+#
+200  RAP_DONE  IGSF_A    CPU=LOCAL; WAIT=162
+210  MGX_DONE  IGSF_A    CPU=LOCAL; WAIT=200
+# 220 SNGDIF   IGSF_F            SHORT    1 210
+# 240 MAUPRPAP IGSF_F            LOCAL    1 220
+# 241 MAUPRP_P IGSF_F            SHORT    1 240
+# 242 MPRXTR   IGSF_F            LOCAL    1 241
+# 260 GPSESTAP NO_OPT            LOCAL    1 242
+# 261 GPSEST_P IGSF_F            SHORT    1 260
+# 262 GPSXTR   IGSF_A            LOCAL    1 261
+# 280 ADDNEQ2  IGSF_F            SHORT    1 262
+# 281 UPDSTD   IGSF_F            SHORT    1 280
+#
+# 2nd ITERATION: data cleaning with RESRMS (5 RPR par)
+#
+300  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=210; PARAM1=510
+301  DEFSTD    IGSF_F0   CPU=SHORT; WAIT=300
+310  SNGDIF    IGSF_G    CPU=MEGA;  WAIT=301
+311  SNGDIFC   IGSF_A    CPU=MEGA;  WAIT=310
+320  MAUPRPAP  IGSF_G    CPU=LOCAL; WAIT=310
+321  MAUPRP_P  IGSF_G    CPU=QUICK; WAIT=320; PARALLEL=320
+322  MPRXTR    IGSF_G    CPU=LOCAL; WAIT=321; NEXTJOB=310
+323  OBSXTR    IGSF_G    CPU=SHORT; WAIT=322
+340  GPSESTAP  NO_OPT    CPU=LOCAL; WAIT=322 323
+341  GPSEST_P  IGSF_G    CPU=QUICK; WAIT=340; PARALLEL=340
+342  GPSXTR    IGSF_A    CPU=LOCAL; WAIT=341
+360  ADDNEQ2   IGSF_G    CPU=SHORT; WAIT=342
+361  CRD_CHK   IGSF_G    CPU=LOCAL; WAIT=360; NEXTJOB=310
+362  SMA_CHK   NO_OPT    CPU=LOCAL; WAIT=361; PARAM1=Z; PARAM2=SMT
+363  UPDSTD    IGSF_G    CPU=SHORT; WAIT=362
+364  STDPRE    IGSF_G    CPU=SHORT; WAIT=363
+380  GPSEDTAP  NO_OPT    CPU=LOCAL; WAIT=311 364
+381  GPSEDT_P  IGSF_EDT  CPU=SHORT; WAIT=380; PARALLEL=380
+382  EDTXTR    IGSF_A    CPU=SHORT; WAIT=381
+383  OBSXTR    IGSF_EDT  CPU=SHORT; WAIT=381
+400  IGSF_CHK  IGSF_A    CPU=MEGA; WAIT=382 383; NEXTJOB=500 120 200
+#
+# 3rd ITERATION: good solution with amb. free. (5 RPR par)
+#
+500  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=400; PARAM1=710
+510  GPSESTAP  NO_OPT    CPU=LOCAL; WAIT=500
+511  GPSEST_P  IGSF_H    CPU=QUICK; WAIT=510; PARALLEL=510
+512  GPSXTR    IGSF_A    CPU=LOCAL; WAIT=511
+520  ADDNEQ2   IGSF_H    CPU=SHORT; WAIT=511
+521  UPDSTD    IGSF_H    CPU=SHORT; WAIT=520
+522  STDPRE    IGSF_H    CPU=SHORT; WAIT=521
+523  ORB_CHK   IGSF_ORH  CPU=BIG; WAIT=522; CONT_ERR; PARAM2=U
+#
+# AMBIGUITY FIXING (Mel-Wuebb, L53, QIF, L12)
+#
+# Mel-Wuebb AR
+545  INIT_AR   IGSF_ARX  CPU=SHORT; WAIT=522
+550  GNSAMBAP  IGSF_AMB  CPU=LOCAL; WAIT=545
+551  GPSAMB_P  IGSF_AMB  CPU=FOX; WAIT=550; PARALLEL=550
+555  GOTO_AR   NO_OPT    CPU=LOCAL; WAIT=523 551; NEXTJOB=510 557
+557  BIANEQAP  IGSF_BNQ  CPU=SHORT; WAIT=555
+558  BIANEQ_P  IGSF_BNQ  CPU=FOX; WAIT=557; PARALLEL=557
+559  ADDNEQ2   IGSF_BIA  CPU=SHORT; WAIT=558
+#
+# L53 AR
+560  ION_WAIT  NO_OPT    CPU=LOCAL; WAIT=559
+570  GNSL53AP  IGSF_L53  CPU=LOCAL; WAIT=560
+571  GNSL53_P  IGSF_L53  CPU=FOX; WAIT=570; PARALLEL=570
+#
+# QIF AR
+580  GNSQIFAP  IGSF_QIF  CPU=LOCAL; WAIT=571
+581  GNSQIF_P  IGSF_QIF  CPU=FOX; WAIT=580; PARALLEL=580
+#
+# L12 AR
+590  GNSL12AP  IGSF_L12  CPU=LOCAL; WAIT=581
+591  GNSL12_P  IGSF_L12  CPU=FOX; WAIT=590; PARALLEL=590
+#
+# Ambiguity verification
+595  AMBVERAP  IGSF_ARV  CPU=LOCAL; WAIT=591
+596  AMBVER_P  IGSF_ARV  CPU=MEGA; WAIT=595; PARALLEL=595
+#
+600  AMBXTR    IGSF_ARX  CPU=LONG; WAIT=596
+601  RCVTST    IGSF_AMB  CPU=SHORT; WAIT=600; SKIP
+602  OBSXTR    IGSF_AMB  CPU=SHORT; WAIT=600
+#
+# LAST ITERATION: last solution amb. fix. with NEQ-file (all setup)
+#
+700  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=601 602; PARAM1=810
+710  DEFSTD    IGSF_Q0   CPU=SHORT; WAIT=700
+711  ION_WAIT  NO_OPT    CPU=LOCAL; WAIT=710
+712  INIT_VMF  NO_OPT    CPU=LOCAL; WAIT=711
+713  INIT_APL  NO_OPT    CPU=LOCAL; WAIT=712
+720  GPSCLUAP  NO_OPT    CPU=LOCAL; WAIT=713
+721  GPSCLU_P  IGSF_Q    CPU=LOCAL; WAIT=720; PARALLEL=720
+722  GPSXTR    IGSF_A    CPU=LOCAL; WAIT=721
+#
+# Generation of F1 final solution results
+# ---------------------------------------
+# A=Addition of 4 cluster NEQs
+# R=Reduction of full NEQ (in terms of troposphere and orbit parameters)
+# C=Coordinates computed using default FIX list
+# P=Product generation (for coordinates, troposphere, orbit, ERP)
+# S=SINEX generation
+# G=GCC computation
+# T=TRA computation
+# FLA= 90 day long ADDNEQ
+800  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=722; PARAM1=910
+801  WAIT_JOB  NO_OPT    CPU=LOCAL; WAIT=800; SKIP
+810  ADDNEQ2   IGSF_F1A  CPU=BIG; WAIT=801
+811  ADDNEQ2   IGSF_F1O  CPU=MEGA; WAIT=810
+812  ADDNEQ2   IGSF_F1R  CPU=BIG; WAIT=811
+# START POINT:
+821  INIT_FIX  NO_OPT    CPU=LOCAL; WAIT=812; PARAM1=K
+822  STA2STA   NO_OPT    CPU=LOCAL; WAIT=812; PARAM1=IGS_CRX
+823  STA2STA   NO_OPT    CPU=LOCAL; WAIT=812; PARAM1=IGS_SNX; PARAM2=RNX_CRX
+824  ADDNEQ2L  IGSF_FLA  CPU=LOCAL; WAIT=821 822 823
+830  ADDNEQ2   IGSF_F1C  CPU=LOCAL; WAIT=821 822 823
+831  FIX_CHK   IGSF_F1C  CPU=LOCAL; WAIT=830; NEXTJOB=830
+840  ADDNEQ2   IGSF_F1P  CPU=BIG; WAIT=831
+841  UPDSTD    IGSF_F1P  CPU=SHORT; WAIT=840
+842  STDPRE    IGSF_F1P  CPU=SHORT; WAIT=841
+843  FIX_CHK   IGSF_F1P  CPU=LOCAL; WAIT=840
+844  COMPAR    IGSF_F1P  CPU=LOCAL; WAIT=840
+845  TROTRO    IGSF_F1P  CPU=LOCAL; WAIT=840
+846  COOVEL    IGSF_F1P  CPU=LOCAL; WAIT=840
+847  POLXTR    IGSF_F1P  CPU=LOCAL; WAIT=840
+848  ATTXTR    IGSF_F1P  CPU=LOCAL; WAIT=841
+850  ADDNEQ2   IGSF_F1S  CPU=LOCAL; WAIT=831
+851  ADDNEQ2   IGSF_F1G  CPU=SHORT; WAIT=831
+852  SNX_LOOP  IGSF_F1L  CPU=SHORT; WAIT=840 850; PARAM1=K
+859  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=831; NEXTJOB=890
+860  ADDNEQ2   IGSF_F1H  CPU=BIG; WAIT=859
+861  UPDSTD    IGSF_F1H  CPU=SHORT; WAIT=860
+862  STDPRE    IGSF_F1H  CPU=SHORT; WAIT=861
+869  TRA_CHK   IGSF_I1T  CPU=SHORT; WAIT=859
+870  ADDNEQ2   IGSF_F1T  CPU=BIG; WAIT=859 869
+871  UPDSTD    IGSF_F1T  CPU=SHORT; WAIT=870
+872  STDPRE    IGSF_F1T  CPU=SHORT; WAIT=871
+875  ADDNEQ2   IGSF_F1I  CPU=BIG; WAIT=859 869
+876  UPDSTD    IGSF_F1I  CPU=SHORT; WAIT=870 875
+877  STDPRE    IGSF_F1I  CPU=SHORT; WAIT=876
+880  COMPAR2   IGSF_AUX  CPU=LOCAL; WAIT=840; PARAM1=-34
+881  ORB_CHK   IGSF_F1O  CPU=LOCAL; WAIT=842; CONT_ERR; PARAM2=K
+882  ORB_VER   IGSF_V1P  CPU=LOCAL; WAIT=842
+883  ORB_VER   IGSF_V1H  CPU=LOCAL; WAIT=862; CONT_ERR
+884  ORB_VER   IGSF_V1T  CPU=LOCAL; WAIT=872; CONT_ERR
+890  FIX_CHK   IGSF_AUX  CPU=LOCAL; WAIT=840; PARAM3=APRIORI
+891  FIX_CHK   IGSF_F1N  CPU=LOCAL; WAIT=890; PARAM3=F1C-F1_
+892  FIX_CHK   IGSF_F1S  CPU=LOCAL; WAIT=850 891; PARAM3=F1S-F1_
+893  COOVEL    IGSF_AUX  CPU=LOCAL; WAIT=890
+894  CRDMERGE  IGSF_AUX  CPU=LOCAL; WAIT=893
+898  DUMMY     NO_OPT    CPU=LOCAL; WAIT=843 824 844 845 846 847 848 850 851
+899  DUMMY     NO_OPT    CPU=LOCAL; WAIT=898 852 877 880 881 882 883 884
+#
+900  WAIT_BPE  NO_OPT    CPU=LOCAL; WAIT=899; PARAM1=999
+901  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=900; NEXTJOB=952
+902  BASESTAP  IGSF_RMS  CPU=LOCAL; WAIT=901
+903  BASEST_P  IGSF_RMS  CPU=FOX; WAIT=902; PARALLEL=902
+904  BAS_RMS   IGSF_RMS  CPU=SHORT; WAIT=903
+911  OBS_SAV   NO_OPT    CPU=LOCAL; WAIT=904
+912  IGSF_P1D  NO_OPT    CPU=LOCAL; WAIT=911
+913  IGSF_S1D  NO_OPT    CPU=LOCAL; WAIT=912
+914  IGSF_D1D  NO_OPT    CPU=LOCAL; WAIT=913
+951  GOTO_REP  NO_OPT    CPU=LOCAL; WAIT=914; NEXTJOB=_ 999
+952  ORBCMP    IGSF_Q    CPU=SHORT; WAIT=951
+953  ORBCMPCH  IGSF_COL  CPU=SHORT; WAIT=952; PARAM1=yyddd; PARAM2=F1_,A1_; PARAM3=F1_,H1_; PARAM4=F1_,MGX
+954  CRDREPCH  IGSF_COL  CPU=LOCAL; WAIT=952
+961  BPE_LOG   NO_OPT    CPU=LOCAL; WAIT=952 953 954
+962  OBS_SAV   NO_OPT    CPU=LOCAL; WAIT=961
+963  REPF_P1D  NO_OPT    CPU=LOCAL; WAIT=961
+964  REPF_S1D  NO_OPT    CPU=LOCAL; WAIT=963
+965  REPF_D1D  NO_OPT    CPU=LOCAL; WAIT=962 964
+#
+999  BPE_BYE   NO_OPT    CPU=LOCAL; WAIT=965
+#
+# additional parameters required for PID's
+#
+
+VARIABLE   DEFAULT         PARAMETERS
+#
+# Solution IDs used in the BPE:
+# ----------------------------
+V_O      = B1;             DESCRIPTION=A priori orbit (broadcast/rapid)
+V_A      = Z1;             DESCRIPTION=Ionosphere model ID
+V_X      = A1;             DESCRIPTION=One-day orbit from 1. iteration
+V_Z      = G1;             DESCRIPTION=One-day orbit from 2. iteration
+V_U      = H1;             DESCRIPTION=One-day orbit from 3. iteration
+V_V      = I1;             DESCRIPTION=A priori one-day orbit for NEQ-files
+V_K      = F1;             DESCRIPTION=ID for final one-day solutions
+V_B      = W1;             DESCRIPTION=WUEBB DCB results
+V_E      = R1;             DESCRIPTION=Test NEQs
+#
+# Reference frame and station related files:
+# -----------------------------------------
+V_CRDINF = IGC20;          DESCRIPTION=CRD/VEL/FIX master file name
+V_PSDINF = IGC20;          DESCRIPTION=PSD corrections
+V_CRDEPO = 2020 01 01;     DESCRIPTION=CRD reference epoch
+#
+V_STAINF = CODE;           DESCRIPTION=Station information file
+#
+# General and model files:
+# -----------------------
+V_OBSSEL = OBSERV_COD;     DESCRIPTION=Observation selection file
+V_SATINF = SATELLIT;       DESCRIPTION=Satellite information file
+V_PCVINF = ANT_COD;        DESCRIPTION=PCV information file
+V_PCV    = I20_2444;       DESCRIPTION=GNSS PCV model
+V_ANTAZI = YES;            DESCRIPTION=Consider antenna rotations (YES|NO)
+V_SATCRX = SAT;            DESCRIPTION=Satellite problem file
+V_SYSCRX = SAT_GNSS;       DESCRIPTION=Satellite problem file for data import
+#
+V_MEANPL  = IERS2010_v1.2.0; DESCRIPTION=Mean pole model
+V_SUBMOD  = DESAI2016;       DESCRIPTION=Subdaily pole model
+V_NUTMOD  = IAU2000R06;      DESCRIPTION=Nutation model
+V_GRAVMOD = COSTG_FSM_2603; DESCRIPTION=Gravity field model
+#
+V_TRPMOD = VMF31;          DESCRIPTION=Default troposphere model
+#
+V_LOADNG = GFZ;            DESCRIPTION=Loading models; CARDS=NONE VAPL GFZ
+V_BLQINF = FES2014b;       DESCRIPTION=BLQ file name, CMC corrections
+V_ATLINF = VAPL;           DESCRIPTION=ATL file name, CMC corrections
+#
+# Ambiguity resolution:
+# --------------------
+V_GNSSAR = GRE;            DESCRIPTION=GNSS for ambiguity resolution (RINEX system char.)
+V_ARITER = 2;              DESCRIPTION=Number of iterations for WUEBB AR
+V_BL_AMB = 6000;           DESCRIPTION=Max baseline length (km) for WUEBB AR
+V_BL_QIF = 2000;           DESCRIPTION=Max baseline length (km) for QIF AR
+V_BL_L53 = 200;            DESCRIPTION=Max baseline length (km) for L53 AR
+V_BL_L12 = 20;             DESCRIPTION=Max baseline length (km) for L12 AR
+#
+# Processing options used in the BPE:
+# ----------------------------------
+V_GNSS   = GRE;            DESCRIPTION=GNSS selection (RINEX system char.)
+#
+V_BOXWNG = BOXWING_I20;    DESCRIPTION=Boxwing model file
+V_SP3INT = 300;            DESCRIPTION=Sampling in archived precise files
+V_ATTINT = 30;             DESCRIPTION=Sampling in attitude reporting files
+V_DTSTC  = 05 59 00;       DESCRIPTION=Min. interval between pulse and maneuver
+#
+V_CLU    = 20;             DESCRIPTION=Maximum number of files per cluster
+#
+V_REQ_CAMP = IGSFINAL;     DESCRIPTION=Campaign to be used
+V_RERUN  = 1;              DESCRIPTION=Number of reruns in case of failure
+V_PLUS   = +0;             DESCRIPTION=Plus  days
+V_MINUS  = -0;             DESCRIPTION=Minus days
+#
+V_SNXINF = SINEX_COF;      DESCRIPTION=SINEX information skeleton
+V_BIAINF = SINEX_BIA_COD;  DESCRIPTION=BIAS SINEX information skeleton
+#
+# Variables related to reprocessing:
+# ---------------------------------
+V_REPERP = C04_$Y+0;       DESCRIPTION=A priori pole file for reprocessing
+V_PRC    = F1_;            DESCRIPTION=Summary of BPE log files
+#
+# Other variables:
+# ---------------
+V_OBSTAR = FIN;            DESCRIPTION=Name of the archive with observation files
+V_INI    = Y;              DESCRIPTION=BPE initalization mode (Y/N/Verified)
+V_XTR    = Y;              DESCRIPTION=Automatic program extraction (GPSXTR)
+V_UPD    = Y;              DESCRIPTION=Update general files?
+V_SAV    = Y;              DESCRIPTION=Save results?
+V_DEL    = Y;              DESCRIPTION=Delete results?
+V_DIS    = Y;              DESCRIPTION=Distribute results?

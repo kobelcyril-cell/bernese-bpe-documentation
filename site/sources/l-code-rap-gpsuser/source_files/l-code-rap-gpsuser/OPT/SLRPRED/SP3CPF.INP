@@ -1,0 +1,418 @@
+
+! Environment Variables
+! ---------------------
+ENVIRONMENT 1  "" "${}"
+  ## widget = initmenu; pointer = ENVIR_LIST
+
+! General Setup: Title
+! --------------------
+TITLE 1  "Convert SP3 to CPF for ILRS"
+  ## widget = lineedit
+
+MSG_TITLE 1  "Title line"
+
+! Some title information
+! ----------------------
+USR_INFO 1  "${USER}"
+  ## widget = comment
+
+SESSION_TABLE 1  "${PAN}/SESSIONS.SES"
+  ## widget = initmenu; pointer = SESSION_TABLE
+
+DESCR_SESSION_TABLE 1  "Session table"
+
+YR4_INFO 1  "1980"
+  ## widget = comment
+  # $Y+0
+
+SES_INFO 1  "0060"
+  ## widget = comment
+  # $S+0
+
+! Active Campaign
+! ---------------
+CAMPAIGN 1  "./DUMMY"
+  ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
+
+! General Constants
+! -----------------
+! Show general files
+! ------------------
+SHOWGEN 1  "1"
+  ## widget = checkbox
+
+MSG_SHOWGEN 1  "Show all general files"
+
+CONST 1  "${MODEL}/CONST.BSW"
+  ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
+  # CONST
+
+DESCR_CONST 1  "General constants"
+
+! Local Geodetic Datum
+! --------------------
+DATUM 1  "${CONFIG}/DATUM.BSW"
+  ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
+  # DATUM
+
+DESCR_DATUM 1  "Geodetic datum"
+
+! Difference of GPS-TIME - UTC-TIME
+! ---------------------------------
+GPSUTC 1  "${CONFIG}/GPSUTC.BSW"
+  ## widget = selwin; path = PTH_GPSUTC; ext = EXT_GPSUTC; maxfiles = 1
+  # GPSUTC
+
+DESCR_GPSUTC 1  "GPS-UTC time difference"
+
+! Satellite Information
+! ---------------------
+SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+  ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
+  # $(SATINF)_$(PCV)
+
+DESCR_SATELL 1  "Satellite information"
+
+! Satellite Problems
+! ------------------
+SATCRUX 1  "${CONFIG}/SAT_1980.CRX"
+  ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
+  ## emptyallowed = true
+  # SAT_$Y+0
+
+DESCR_SATCRUX 1  "Satellite problems"
+
+! Input File: PRE files
+! ---------------------
+PREFIL 1  "./DUMMY/ORB/COD_5D.PRE"
+  ## widget = selwin; path = DIR_PRE; ext = EXT_PRE; maxfiles = 1
+  # COD_5D
+
+MSG_PREFIL 1  "Precise orbit file"
+
+PREFIL_TXT_COL_1 1  "Precise orbit file"
+
+! File extensions and path
+! ------------------------
+EXT_CPF 1  "CPF"
+  ## widget = initmenu; pointer = EXT_CPF
+
+DIR_CPF 1  "./DUMMY/ORB/"
+  ## widget = initmenu; pointer = DIR_CPF
+
+! Program Output File
+! -------------------
+SYSODEF 1  "0"
+  ## widget = checkbox
+
+MSG_SYSODEF 1  "Program output"
+
+SYSOUT 1  "./DUMMY/OUT/S2C80006.OUT"
+  ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
+  ## activeif = SYSODEF == 0; emptyallowed = false
+  # S2C$YD+0
+
+DESCR_SYSOUT 1  "Program output"
+
+! Error Message File
+! ------------------
+ERRMRG 1  "0"
+  ## widget = checkbox
+
+MSG_ERRMRG 1  "Error message"
+
+SYSERR 1  "${U}/WORK/ERROR.MSG"
+  ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
+  ## activeif = ERRMRG == 0; emptyallowed = false
+  # ERROR
+
+DESCR_SYSERR 1  "Error message"
+
+! Subroutine/function debug output
+! --------------------------------
+DEBUG_STKLOG 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_STKLOG 1  "Debug stack log output"
+
+DEBUG_SUMMARY 0
+  ## widget = lineedit; path = PTH_DBG; ext = EXT_DBG; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_DEBUG_SUMMARY 1  "Debug summary output"
+
+DEBUG_INTERVAL 1  "00 01 00"
+  ## widget = lineedit; check_type = time
+
+MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
+
+! List of satellites
+! ------------------
+SATST 90
+  "G035" "1993-054A" "3535" "22779" "gps35" "G0580006"
+  "G036" "1994-016A" "3636" "23027" "gps36" "G0680006"
+  "G082" "2026-017A" "5082" "67588" "gps082" "G08280006"
+  "G083" "2026-087A" "5083" "68791" "gps083" "G08380006"
+  "R714" "2005-050A" "9100" "28915" "glonass100" "R0080006"
+  "R715" "2006-062C" "9101" "29672" "glonass101" "R0180006"
+  "R716" "2006-062A" "9102" "29670" "glonass102" "R0280006"
+  "R717" "2006-062B" "9103" "29671" "glonass103" "R0380006"
+  "R718" "2007-052C" "9104" "32277" "glonass104" "R0480006"
+  "R719" "2007-052B" "9105" "32276" "glonass105" "R0580006"
+  "R720" "2007-052A" "9106" "32275" "glonass106" "R0680006"
+  "R721" "2007-065A" "9107" "32393" "glonass107" "R0780006"
+  "R722" "2007-065B" "9108" "32394" "glonass108" "R0880006"
+  "R723" "2007-065C" "9109" "32395" "glonass109" "R0980006"
+  "R724" "2008-046A" "9110" "33378" "glonass110" "R1080006"
+  "R725" "2008-046B" "9111" "33379" "glonass111" "R1180006"
+  "R726" "2008-046C" "9112" "33380" "glonass112" "R1280006"
+  "R727" "2008-067A" "9113" "33466" "glonass113" "R1380006"
+  "R728" "2008-067C" "9114" "33468" "glonass114" "R1480006"
+  "R729" "2008-067B" "9115" "33467" "glonass115" "R1580006"
+  "R730" "2009-070A" "9116" "36111" "glonass116" "R1680006"
+  "R733" "2009-070B" "9117" "36112" "glonass117" "R1780006"
+  "R734" "2009-070C" "9118" "36113" "glonass118" "R1880006"
+  "R731" "2010-007A" "9119" "36400" "glonass119" "R1980006"
+  "R732" "2010-007C" "9120" "36402" "glonass120" "R2080006"
+  "R735" "2010-007B" "9121" "36401" "glonass121" "R2180006"
+  "R736" "2010-041C" "9122" "37139" "glonass122" "R2280006"
+  "R737" "2010-041B" "9123" "37138" "glonass123" "R2380006"
+  "R738" "2010-041A" "9124" "37137" "glonass124" "R2480006"
+  "R801" "2011-009A" "9125" "37372" "glonass125" "R2580006"
+  "R742" "2011-055A" "9126" "37829" "glonass126" "R2680006"
+  "R743" "2011-064C" "9127" "37869" "glonass127" "R2780006"
+  "R744" "2011-064A" "9128" "37867" "glonass128" "R2880006"
+  "R745" "2011-064B" "9129" "37868" "glonass129" "R2980006"
+  "R746" "2011-071A" "9130" "37938" "glonass130" "R3080006"
+  "R747" "2013-019A" "9131" "39155" "glonass131" "R3180006"
+  "R854" "2014-012A" "9132" "39620" "glonass132" "R3280006"
+  "R855" "2014-032A" "9133" "40001" "glonass133" "R3380006"
+  "R802" "2014-075A" "9134" "40315" "glonass134" "R3480006"
+  "R851" "2016-008A" "9135" "41330" "glonass135" "R3580006"
+  "R853" "2016-032A" "9136" "41554" "glonass136" "R3680006"
+  "R852" "2017-055A" "9137" "42939" "glonass137" "R3780006"
+  "R856" "2018-053A" "9138" "43508" "glonass138" "R3880006"
+  "R857" "2018-086A" "9139" "43687" "glonass139" "R3980006"
+  "R858" "2019-030A" "9140" "44299" "glonass140" "R4080006"
+  "R859" "2019-088A" "9141" "44850" "glonass141" "R4180006"
+  "R860" "2020-018A" "9142" "45358" "glonass142" "R4280006"
+  "R805" "2020-075A" "9143" "46805" "glonass143" "R4380006"
+  "R806" "2022-075A" "9144" "52984" "glonass144" "R4480006"
+  "R807" "2022-130A" "9145" "54031" "glonass145" "R4580006"
+  "R861" "2022-161A" "9146" "54377" "glonass146" "R4680006"
+  "R803" "2023-114A" "9147" "57517" "glonass147" "R4780006"
+  "R804" "2025-042A" "9148" "63130" "glonass148" "R4880006"
+  "R808" "2025-206B" "9149" "65590" "glonass149" "R4980006"
+  "R813" "2026-194A" "9150" "100460" "glonass150" "R5080006"
+  "R809" "2026-216A" "9151" "100744" "glonass151" "R5180006"
+  "E101" "2011-060A" "7101" "37846" "galileo101" "E10180006"
+  "E102" "2011-060B" "7102" "37847" "galileo102" "E10280006"
+  "E103" "2012-055A" "7103" "38857" "galileo103" "E10380006"
+  "E104" "2012-055B" "7104" "38858" "galileo104" "E10480006"
+  "E201" "2014-050A" "7201" "40128" "galileo201" "E20180006"
+  "E202" "2014-050B" "7202" "40129" "galileo202" "E20280006"
+  "E203" "2015-017A" "7203" "40544" "galileo203" "E20380006"
+  "E204" "2015-017B" "7204" "40545" "galileo204" "E20480006"
+  "E205" "2015-045A" "7205" "40889" "galileo205" "E20580006"
+  "E206" "2015-045B" "7206" "40890" "galileo206" "E20680006"
+  "E207" "2016-069A" "7207" "41859" "galileo207" "E20780006"
+  "E208" "2015-079B" "7208" "41175" "galileo208" "E20880006"
+  "E209" "2015-079A" "7209" "41174" "galileo209" "E20980006"
+  "E211" "2016-030A" "7211" "41549" "galileo211" "E21180006"
+  "E210" "2016-030B" "7210" "41550" "galileo210" "E21080006"
+  "E212" "2016-069B" "7212" "41860" "galileo212" "E21280006"
+  "E213" "2016-069C" "7213" "41861" "galileo213" "E21380006"
+  "E214" "2016-069D" "7214" "41862" "galileo214" "E21480006"
+  "E215" "2017-079A" "7215" "43055" "galileo215" "E21580006"
+  "E216" "2017-079B" "7216" "43056" "galileo216" "E21680006"
+  "E217" "2017-079C" "7217" "43057" "galileo217" "E21780006"
+  "E218" "2017-079D" "7218" "43058" "galileo218" "E21880006"
+  "E219" "2018-060C" "7219" "43566" "galileo219" "E21980006"
+  "E220" "2018-060D" "7220" "43567" "galileo220" "E22080006"
+  "E221" "2018-060A" "7221" "43564" "galileo221" "E22180006"
+  "E222" "2018-060B" "7222" "43565" "galileo222" "E22280006"
+  "E223" "2021-116A" "7223" "49809" "galileo223" "E22380006"
+  "E224" "2021-116B" "7224" "49810" "galileo224" "E22480006"
+  "E225" "2024-079A" "7225" "59598" "galileo225" "E22580006"
+  "E226" "2024-167B" "7226" "61183" "galileo226" "E22680006"
+  "E227" "2024-079C" "7227" "59600" "galileo227" "E22780006"
+  "E232" "2024-167A" "7232" "61182" "galileo232" "E23280006"
+  "E233" "2025-302A" "7233" "67160" "galileo233" "E23380006"
+  "E234" "2025-302C" "7234" "67162" "galileo234" "E23480006"
+  ## widget = uniline; check_type.3 = integer; check_min.3 = 1
+  ## check_max.3 = 9999; check_type.4 = integer; check_min.4 = 1
+  ## check_max.4 = 99999; numlines = 20
+  # "G035" "1993-054A" "3535" "22779" "gps35" "G05$YD+0"
+  # "G036" "1994-016A" "3636" "23027" "gps36" "G06$YD+0"
+  # "G082" "2026-017A" "5082" "67588" "gps082" "G082$YD+0"
+  # "G083" "2026-087A" "5083" "68791" "gps083" "G083$YD+0"
+  # "R714" "2005-050A" "9100" "28915" "glonass100" "R00$YD+0"
+  # "R715" "2006-062C" "9101" "29672" "glonass101" "R01$YD+0"
+  # "R716" "2006-062A" "9102" "29670" "glonass102" "R02$YD+0"
+  # "R717" "2006-062B" "9103" "29671" "glonass103" "R03$YD+0"
+  # "R718" "2007-052C" "9104" "32277" "glonass104" "R04$YD+0"
+  # "R719" "2007-052B" "9105" "32276" "glonass105" "R05$YD+0"
+  # "R720" "2007-052A" "9106" "32275" "glonass106" "R06$YD+0"
+  # "R721" "2007-065A" "9107" "32393" "glonass107" "R07$YD+0"
+  # "R722" "2007-065B" "9108" "32394" "glonass108" "R08$YD+0"
+  # "R723" "2007-065C" "9109" "32395" "glonass109" "R09$YD+0"
+  # "R724" "2008-046A" "9110" "33378" "glonass110" "R10$YD+0"
+  # "R725" "2008-046B" "9111" "33379" "glonass111" "R11$YD+0"
+  # "R726" "2008-046C" "9112" "33380" "glonass112" "R12$YD+0"
+  # "R727" "2008-067A" "9113" "33466" "glonass113" "R13$YD+0"
+  # "R728" "2008-067C" "9114" "33468" "glonass114" "R14$YD+0"
+  # "R729" "2008-067B" "9115" "33467" "glonass115" "R15$YD+0"
+  # "R730" "2009-070A" "9116" "36111" "glonass116" "R16$YD+0"
+  # "R733" "2009-070B" "9117" "36112" "glonass117" "R17$YD+0"
+  # "R734" "2009-070C" "9118" "36113" "glonass118" "R18$YD+0"
+  # "R731" "2010-007A" "9119" "36400" "glonass119" "R19$YD+0"
+  # "R732" "2010-007C" "9120" "36402" "glonass120" "R20$YD+0"
+  # "R735" "2010-007B" "9121" "36401" "glonass121" "R21$YD+0"
+  # "R736" "2010-041C" "9122" "37139" "glonass122" "R22$YD+0"
+  # "R737" "2010-041B" "9123" "37138" "glonass123" "R23$YD+0"
+  # "R738" "2010-041A" "9124" "37137" "glonass124" "R24$YD+0"
+  # "R801" "2011-009A" "9125" "37372" "glonass125" "R25$YD+0"
+  # "R742" "2011-055A" "9126" "37829" "glonass126" "R26$YD+0"
+  # "R743" "2011-064C" "9127" "37869" "glonass127" "R27$YD+0"
+  # "R744" "2011-064A" "9128" "37867" "glonass128" "R28$YD+0"
+  # "R745" "2011-064B" "9129" "37868" "glonass129" "R29$YD+0"
+  # "R746" "2011-071A" "9130" "37938" "glonass130" "R30$YD+0"
+  # "R747" "2013-019A" "9131" "39155" "glonass131" "R31$YD+0"
+  # "R854" "2014-012A" "9132" "39620" "glonass132" "R32$YD+0"
+  # "R855" "2014-032A" "9133" "40001" "glonass133" "R33$YD+0"
+  # "R802" "2014-075A" "9134" "40315" "glonass134" "R34$YD+0"
+  # "R851" "2016-008A" "9135" "41330" "glonass135" "R35$YD+0"
+  # "R853" "2016-032A" "9136" "41554" "glonass136" "R36$YD+0"
+  # "R852" "2017-055A" "9137" "42939" "glonass137" "R37$YD+0"
+  # "R856" "2018-053A" "9138" "43508" "glonass138" "R38$YD+0"
+  # "R857" "2018-086A" "9139" "43687" "glonass139" "R39$YD+0"
+  # "R858" "2019-030A" "9140" "44299" "glonass140" "R40$YD+0"
+  # "R859" "2019-088A" "9141" "44850" "glonass141" "R41$YD+0"
+  # "R860" "2020-018A" "9142" "45358" "glonass142" "R42$YD+0"
+  # "R805" "2020-075A" "9143" "46805" "glonass143" "R43$YD+0"
+  # "R806" "2022-075A" "9144" "52984" "glonass144" "R44$YD+0"
+  # "R807" "2022-130A" "9145" "54031" "glonass145" "R45$YD+0"
+  # "R861" "2022-161A" "9146" "54377" "glonass146" "R46$YD+0"
+  # "R803" "2023-114A" "9147" "57517" "glonass147" "R47$YD+0"
+  # "R804" "2025-042A" "9148" "63130" "glonass148" "R48$YD+0"
+  # "R808" "2025-206B" "9149" "65590" "glonass149" "R49$YD+0"
+  # "R813" "2026-194A" "9150" "100460" "glonass150" "R50$YD+0"
+  # "R809" "2026-216A" "9151" "100744" "glonass151" "R51$YD+0"
+  # "E101" "2011-060A" "7101" "37846" "galileo101" "E101$YD+0"
+  # "E102" "2011-060B" "7102" "37847" "galileo102" "E102$YD+0"
+  # "E103" "2012-055A" "7103" "38857" "galileo103" "E103$YD+0"
+  # "E104" "2012-055B" "7104" "38858" "galileo104" "E104$YD+0"
+  # "E201" "2014-050A" "7201" "40128" "galileo201" "E201$YD+0"
+  # "E202" "2014-050B" "7202" "40129" "galileo202" "E202$YD+0"
+  # "E203" "2015-017A" "7203" "40544" "galileo203" "E203$YD+0"
+  # "E204" "2015-017B" "7204" "40545" "galileo204" "E204$YD+0"
+  # "E205" "2015-045A" "7205" "40889" "galileo205" "E205$YD+0"
+  # "E206" "2015-045B" "7206" "40890" "galileo206" "E206$YD+0"
+  # "E207" "2016-069A" "7207" "41859" "galileo207" "E207$YD+0"
+  # "E208" "2015-079B" "7208" "41175" "galileo208" "E208$YD+0"
+  # "E209" "2015-079A" "7209" "41174" "galileo209" "E209$YD+0"
+  # "E211" "2016-030A" "7211" "41549" "galileo211" "E211$YD+0"
+  # "E210" "2016-030B" "7210" "41550" "galileo210" "E210$YD+0"
+  # "E212" "2016-069B" "7212" "41860" "galileo212" "E212$YD+0"
+  # "E213" "2016-069C" "7213" "41861" "galileo213" "E213$YD+0"
+  # "E214" "2016-069D" "7214" "41862" "galileo214" "E214$YD+0"
+  # "E215" "2017-079A" "7215" "43055" "galileo215" "E215$YD+0"
+  # "E216" "2017-079B" "7216" "43056" "galileo216" "E216$YD+0"
+  # "E217" "2017-079C" "7217" "43057" "galileo217" "E217$YD+0"
+  # "E218" "2017-079D" "7218" "43058" "galileo218" "E218$YD+0"
+  # "E219" "2018-060C" "7219" "43566" "galileo219" "E219$YD+0"
+  # "E220" "2018-060D" "7220" "43567" "galileo220" "E220$YD+0"
+  # "E221" "2018-060A" "7221" "43564" "galileo221" "E221$YD+0"
+  # "E222" "2018-060B" "7222" "43565" "galileo222" "E222$YD+0"
+  # "E223" "2021-116A" "7223" "49809" "galileo223" "E223$YD+0"
+  # "E224" "2021-116B" "7224" "49810" "galileo224" "E224$YD+0"
+  # "E225" "2024-079A" "7225" "59598" "galileo225" "E225$YD+0"
+  # "E226" "2024-167B" "7226" "61183" "galileo226" "E226$YD+0"
+  # "E227" "2024-079C" "7227" "59600" "galileo227" "E227$YD+0"
+  # "E232" "2024-167A" "7232" "61182" "galileo232" "E232$YD+0"
+  # "E233" "2025-302A" "7233" "67160" "galileo233" "E233$YD+0"
+  # "E234" "2025-302C" "7234" "67162" "galileo234" "E234$YD+0"
+
+MSG_SATST 1  "List of satellites with ILRS numbers"
+
+! Agency
+! ------
+AGENCY 1  "COD"
+  ## widget = lineedit
+
+MSG_AGENCY 1  "Agency"
+
+! Sampling interval
+! -------------
+SAMPLE 1  "900"
+  ## widget = lineedit; check_type = integer; check_min = 0
+
+MSG_SAMPLE 1  "Sampling interval"
+
+! Version of CPF orbit file
+! -------------------------
+VCPF 1  "$(VCPF)"
+  ## widget = spinbox; range = 1 2 1
+
+MSG_VCPF 1  "Version of CPF format"
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# CONVERT PRECISE ORBITS TO CPF FILES - SP3CPF 1: Files                        #
+#                                                                              #
+# GENERAL FILES                                                                #
+#   Show all general files   > % <                                             # SHOWGEN
+#                                                                              #
+# INPUT FILE                                                                   #
+#   SP3 file                 > %%%%%%%%%%%% <                                  # PREFIL
+#                                                                              #
+# GENERAL OUTPUT FILES                                                         #
+#   Program output       > % < use SP3CPF.Lnn            or > %%%%%%%%%%%% <   # SYSODEF SYSOUT
+#   Error messages       > % < merged to program output  or > %%%%%%%%%%%% <   # ERRMRG SYSERR
+#                                                                              #
+# TITLE > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # TITLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 ######################################################
+# SP3CPF 1.1: General Files                                                    #
+#                                                                              #
+# GENERAL INPUT FILES                                                          #
+#   General constants       > %%%%%%%%%%%% <                                   # CONST
+#   Geodetic datum          > %%%%%%%%%%%% <                                   # DATUM
+#   Satellite information   > %%%%%%%%%%%% <                                   # SATELL
+#   Satellite problems      > %%%%%%%%%%%% <                                   # SATCRUX
+#   GPS-UTC time difference > %%%%%%%%%%%% <                                   # GPSUTC
+#                                                                              #
+# MENU SETTINGS                                                                #
+#   Selected campaign       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # CAMPAIGN
+#   Selected session          year> %%%% <  session> %%%% <                    # YR4_INFO SES_INFO
+#   Session table           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <   # SESSION_TABLE
+#                                                                              #
+# END_PANEL ####################################################################
+
+
+# BEGIN_PANEL NO_CONDITION #####################################################
+# SP3CPF 2: Input Options                                                      #
+#                                                                              #
+# Agency                         > %%% <                                       # AGENCY
+# Sampling interval for CPF file > %%%% <seconds                               # SAMPLE
+#                                                                              #
+# Version of CPF format          > %%% <                                       # VCPF
+#                                                                              #
+# Create CPF files for the following satellites                                #
+# For all satellites:                                                          #
+#     COSPAR, SIC, NORAD, and Name are extracted from the ILRS CB page         #
+#     (go to missions subpage > current / future / past in the left submenu)   #
+# For GNSS satellites:                                                         #
+#     Name and Filename are related to the SIC-ID (NOT from the PRNs)          #
+# For GLONASS satellites:                                                      #
+#     Append further satellites and increase the SIC-ID by one                 #
+#     Derive Name and Filename from this SIC number                            #
+#                                                                              #
+# > SVN_ COSPAR____ SIC_ NORAD Name_________ File.CPF       <                  # SATST
+#                                                                              #
+#                                                                              #
+# END_PANEL ####################################################################

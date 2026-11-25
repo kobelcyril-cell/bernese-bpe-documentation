@@ -1,0 +1,92 @@
+package MRKOBS_P;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  MRKOBS_P
+#
+# Purpose :  Mark observations corresponding to an edit file
+#
+# Programs:  SATMRK
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005               Last modified: __-___-____
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{U}/SCRIPT";
+use RetryHelper qw(run_with_retry);
+
+sub run {
+  my $bpe = shift;
+
+
+# Get variables
+# -------------
+  my ($file,   $param2, $param3, $param4, $param5, $param6,
+      $subPid,  $u) =
+      $bpe->getKeys(
+      'PARAM1','PARAM1','PARAM3','PARAM4','PARAM5','PARAM6',
+      'SUB_PID','U');
+
+
+# Initialize $D4 variable with subpid
+# -----------------------------------
+  setUserVar($bpe,"D4",$subPid);
+
+
+# Get the "to do" list from all parameters
+# ----------------------------------------
+  my @todo = ();
+  push @todo,$$bpe{PARAM2} if ("$$bpe{PARAM2}" ne "");
+  push @todo,$$bpe{PARAM3} if ("$$bpe{PARAM3}" ne "");
+  push @todo,$$bpe{PARAM4} if ("$$bpe{PARAM4}" ne "");
+  push @todo,$$bpe{PARAM5} if ("$$bpe{PARAM5}" ne "");
+  push @todo,$$bpe{PARAM6} if ("$$bpe{PARAM6}" ne "");
+
+
+# All tasks of the todo-list
+# --------------------------
+  foreach my $task (@todo) {
+
+    # Edit file or Synchronization
+    if ($task eq "SYNCHRO") {
+      $bpe->putKey("$u/PAN/SATMRK.INP","WHATTODO","SYNCHRONIZE");
+    } else {
+      $bpe->putKey("$u/PAN/SATMRK.INP","WHATTODO","EDIT_FILE");
+    }
+
+    # Either code or phase
+    if ($task eq "CODE" || $task eq "PHASE") {
+      $bpe->putKey("$u/PAN/SATMRK.INP","BOTHZERO","0");
+    }
+
+    # Select code observation files
+    if ($task eq "PHASE") {
+      $bpe->putKey("$u/PAN/SATMRK.INP","CZHFIL","");
+    } else {
+      replaceSel($bpe,"SATMRK","CZHFIL",$file);
+    }
+
+    # Select phase observation files
+    if ($task eq "CODE") {
+      $bpe->putKey("$u/PAN/SATMRK.INP","PZHFIL","");
+    } else {
+      replaceSel($bpe,"SATMRK","PZHFIL",$file);
+    }
+
+    $bpe->putKey("$u/PAN/SATMRK.INP","SYSOUT","SATMRK${subPid}");
+
+    # Run program
+    my $PGMNAM = "SATMRK";
+    run_with_retry($bpe, $PGMNAM);
+#    $bpe->RUN_PGMS($PGMNAM);
+
+  }
+
+
+}

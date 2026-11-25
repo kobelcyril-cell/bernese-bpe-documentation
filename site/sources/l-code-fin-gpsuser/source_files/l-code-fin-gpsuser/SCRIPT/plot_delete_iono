@@ -1,0 +1,46 @@
+package plot_delete_iono;
+@ISA = ("RUNBPE");
+# ----------------------------------------------------------------------------
+#
+# Name    :  plot_delete_iono
+#
+# Purpose :  Delete files from plotting in campaign $P/PLOTS/
+#
+# Programs:  plot_delete_iono
+#
+# Author  :  R. Dach   
+# Created :  23-Jan-2024
+#
+# Changes :  __-___-____ __:
+#
+# ----------------------------------------------------------------------------
+
+use strict;
+
+use File::Basename;
+use lib $ENV{EXE};
+use Gps_Date;
+use lib $ENV{AUTO};
+use igs_device;
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my ( $dirInx ) = 
+      $bpe->getKeys(
+      'DIR_INX');
+
+
+
+# Delete png files not needed on the web-page
+# -------------------------------------------
+  unlink glob("$dirInx/../FIG/inxMap_days_DiffRapFin_[0-9][0-9][0-9].png");
+  unlink glob("$dirInx/../FIG/inxSig_days_DiffRapFin_[0-9][0-9][0-9].png");
+  unlink glob("$dirInx/../FIG/inxMap_days_final_[0-9][0-9].png");
+  unlink glob("$dirInx/../FIG/inxMap_days_rapid_[0-9][0-9].png");
+
+}

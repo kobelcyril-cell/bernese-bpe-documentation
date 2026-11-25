@@ -1,0 +1,145 @@
+package REPF_C3D;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  REPF_C3D
+#
+# Purpose :  Copy required files for IGSFIN3D.PCF in reprocessing mode
+#
+# PARAMs  :
+#
+# Author  :  P. Steigenberger
+# Created :  29-Jul-2008
+#
+# Changes :  15-Jan-2009, PS: Added staInf
+#            29-Jul-2011, PS: Added POLUPD
+#            07-Feb-2012, PS: V_REPERP for a priori ERP (reprocessing)
+#            21-Jun-2013, PS: Copy $KN NEQs, FIX file, uncompressed B1 clocks 
+#            22-Sep-2016, AV/RD: Add PSD to copyRef
+#            15-Jul-2019, IS: Copy IGS_CRX.STA
+#            26-May-2025: rd: correct keyword: V_SATCRX->V_STACRX
+#
+# ============================================================================
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+use lib "$ENV{AUTO}";
+use igs_device;
+use gpsutil;
+
+
+sub run {
+  my $bpe = shift;
+
+
+
+# Get variables
+# -------------
+ our  ($yyddd, $yydddm1, $yydddp1, $yyyy, $yyyym1, $yyyyp1,
+      $yyssss, $v_k, $v_o, $v_repErp, $crdInf, $psdInf, $staInf, $staCrx,
+      $dirClk, $dirCrd, $dirErp, $dirNq0, $dirPre, $dirRpr,
+      $extClk, $extCrd, $extErp, $extNq0, $extPre, $extRpr,
+      $dirStd, $dirSta, $dirFix, $dirClk, $dirPsd, $dirVel,
+      $extStd, $extSta, $extFix, $extClk, $extPsd, $extVel
+      ) =
+    $bpe->getKeys(
+      '$YD+0','$YD-1','$YD+1','$Y+0','$Y-1','$Y+1',
+      '$YSS+0', 'V_K', 'V_O', 'V_REPERP','V_CRDINF','V_PSDINF','V_STAINF','V_STACRX',
+      'DIR_CLK','DIR_CRD','DIR_ERP','DIR_NEQ','DIR_PRE','DIR_RPR',
+      'EXT_CLK','EXT_CRD','EXT_ERP','EXT_NEQ','EXT_PRE','EXT_RPR',
+      'DIR_STD','DIR_STA','DIR_FIX','DIR_CLK','DIR_PSD','DIR_VEL',
+      'EXT_STD','EXT_STA','EXT_FIX','EXT_CLK','EXT_PSD','EXT_VEL'
+      );
+
+# Prepare reference files
+# -----------------------
+  my $psdFil = $psdInf eq ""? "":"$psdInf.$extPsd";
+  system("$ENV{AUTO}/copyRef.pl ${dirCrd}.. $crdInf $psdFil REF$yyssss");
+
+  my $copyFrom = "$PATH_SAV/$CAMP_SAVREP";
+  my $copyFrom = "$dirStd/../../";
+
+  print("$copyFrom/${yyyy}/OUT/F1I${yyddd}.OUT\n");
+  if (-e "$copyFrom/${yyyy}/OUT/F1I${yyddd}.OUT_") {
+    prtGoto($bpe,"999");
+  } else {
+  copyfile("$copyFrom/${yyyy}/STA/${crdInf}_$yyddd.${extCrd}","$dirCrd/$crdInf.${extCrd}");
+  copyfile("$copyFrom/${yyyy}/STA/${crdInf}_$yyddd.${extVel}","$dirVel/$crdInf.${extVel}");
+
+
+# Copy orbits and ERPs
+# --------------------
+  copyfile3("$copyFrom","${v_k}_",$extErp,$dirErp);
+  copyfile3("$copyFrom","${v_k}_",$extPre,$dirPre);
+  copyfile3("$copyFrom","I1_",$extRpr,$dirRpr);
+  copyfile3("$copyFrom","I1_",$extStd,$dirStd);
+#  copyfile3("$copyFrom","B1_","$extClk.Z",$dirClk);
+
+# Copy station information file
+# -----------------------------
+  copyfile("$ENV{REF}/$staInf.${extSta}",$dirSta);
+
+# Copy station IGS_CRX.STA
+# -------------------------
+  copyfile("$copyFrom/$yyyy/STA/${staCrx}.${extSta}",${dirSta});
+  
+# Copy 1-d FIX file
+# ------------------
+  copyfile("$copyFrom/$yyyy/STA/${v_k}_$yyddd.${extFix}",$dirFix); 
+
+# Copy B1 clocks
+# ------------------
+  copyfile("$copyFrom/$yyyy/ORB/${v_o}_$yyddd.${extClk}",$dirClk); 
+
+# Copy NEQs
+# ---------
+  copyfile3("$copyFrom","${v_k}_","${extNq0}.gz",$dirNq0);
+  copyfile3("$copyFrom","${v_k}N","${extNq0}.gz",$dirNq0);
+  
+# Create a priori ERP file for ADDNEQ
+  copyfile("$ENV{REF}/${v_repErp}.${extErp}","${dirErp}");
+  my $PGMNAM = "POLUPD";
+  $bpe->RUN_PGMS($PGMNAM);
+
+}
+
+
+# copy +/-  1 day files for 3-day solution
+# ----------------------------------------
+
+sub copyfile3 {
+
+   my $copyFrom = $_[0];  # Directory where to copy from
+   my $filTyp = $_[1];  # 3-character file type, e.g. Q1_
+   my $extTyp = $_[2];  # file extension
+   my $dir    = $_[3];  # directory where to copy
+
+   our ($yyddd,$yydddm1, $yydddp1, $yyyy, $yyyym1, $yyyyp1);
+   my $filnam;
+
+   my $subDir=substr($dir,-4);
+
+   copyfile("$copyFrom/$yyyym1/$subDir/$filTyp$yydddm1.$extTyp" ,"$dir");
+   copyfile("$copyFrom/$yyyy/$subDir/$filTyp$yyddd.$extTyp" ,"$dir");
+   copyfile("$copyFrom/$yyyyp1/$subDir/$filTyp$yydddp1.$extTyp" ,"$dir");
+
+
+# uncompress gzip files
+   if (substr($extTyp,-2) eq "gz")
+    {
+      foreach  ( glob "$dir/$filTyp?????.???.gz")
+         { uncompress("-z gunzip",$_); }
+    }
+
+# uncompress Z files
+   if (substr($extTyp,-1) eq "Z")
+    {
+      foreach  ( glob "$dir/$filTyp?????.???.Z")
+         { uncompress($_); }
+    }
+  }
+}
+
+
+
+

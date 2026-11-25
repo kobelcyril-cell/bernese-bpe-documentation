@@ -1,0 +1,90 @@
+package MRKOB__P;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  MRKOB__P
+#
+# Purpose :  Prepare and distribute parallel SATMRK processing runs.
+#
+# Author  :  R. Dach
+# Created :  17-Nov-2005
+#
+# Changes :  19-May-2009 rd: Session dependent parallelization filenames
+#===========================================================
+
+use strict;
+use lib $ENV{BPE};
+use bpe_util;
+
+# ---------- Subroutine: run ------------
+sub run {
+  my $bpe = shift;
+
+  # ---------- Get variables ------------
+  my (
+      $ddd,
+      $dm1,
+      $dm2,
+      $ssss,
+      $numClu,
+      $param2,
+      $param3,
+      $param4,
+      $param5,
+      $param6,
+      $dirPzh,
+      $dirCzh,
+      $bpeDir,
+      $dirOut,
+      $extPzh,
+      $extCzh,
+      $extOut
+  ) = $bpe->getKeys(
+      '$+0',
+      '$-1',
+      '$-2',
+      '$S+0',
+      'V_NCLU',
+      'PARAM2',
+      'PARAM3',
+      'PARAM4',
+      'PARAM5',
+      'PARAM6',
+      "DIR_PZH",
+      "DIR_CZH",
+      "DIR_BPEPRT",
+      "DIR_OUT",
+      "EXT_PZH",
+      "EXT_CZH",
+      "EXT_OUT"
+  );
+
+  # ---------- Define BPE file base and observation selection ------------
+  my $bpeFil = "${bpeDir}MRK${ssss}";
+  unlink(glob("${bpeFil}???.BPE"));
+
+  my @obsFil;
+
+  if ("${param2}${param3}${param4}${param5}${param6}" eq "CODE") {
+    @obsFil = glob("${dirCzh}????${ssss}.${extCzh}");
+  } else {
+    @obsFil = glob("${dirPzh}????${ssss}.${extPzh}");
+  }
+
+  # ---------- Build argument list ------------
+  my @args;
+  push @args, $param2 unless $param2 eq "";
+  push @args, $param3 unless $param3 eq "";
+  push @args, $param4 unless $param4 eq "";
+  push @args, $param5 unless $param5 eq "";
+  push @args, $param6 unless $param6 eq "";
+
+  # ---------- Initialize parallel processing ------------
+  if ($numClu ne "") {
+    initPar_Cl($bpe,$bpeFil,@obsFil,$numClu,0,0,@args);
+  }
+  else {
+    @obsFil = map { substr(basename($_),0,4) } @obsFil;
+    initPar_Bl($bpe,@obsFil,@args);
+  }
+}
