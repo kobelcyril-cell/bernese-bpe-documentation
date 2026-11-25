@@ -1,6 +1,6 @@
 
 ! -------------------------------------------------------------------------
-! PHACOR input panel - private Bernese menu integration test
+! PHACOR input panel
 ! -------------------------------------------------------------------------
 ! Environment variables
 ! ---------------------
@@ -27,8 +27,6 @@ USR_INFO 1  "${USER}"
 ! -------------------------------------------------------------------------
 ! General Bernese input files
 ! -------------------------------------------------------------------------
-! Use the same Bernese constants file as GPSEST; PHACOR maps each NLB
-! observable code to its constellation-specific carrier frequency from this file.
 CONST 1  "CONST"
   ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
 
@@ -36,8 +34,12 @@ DESCR_CONST 1  "General constants and GNSS carrier frequencies"
 
 ! -------------------------------------------------------------------------
 ! PHACOR input files
-! The path and extension definitions follow the STDDIF.INP convention.
 ! -------------------------------------------------------------------------
+TITLE_LINE 1  "Phase bias correction: $YSS+0"
+  ## widget = lineedit
+
+TITLE_LINE_TXT_COL_1 1  "Title line written to the PHACOR output"
+
 LOGFILES 1  "*$S+0_NLB"
   ## widget = selwin; path = DIR_OUT; ext = EXT_OUT; maxfiles = 9999
 
@@ -71,22 +73,22 @@ DESCR_BIAFILE 1  "Satellite bias file"
 BIAFILE_MOD 1  "NL_$YSS+0_mod"
   ## widget = lineedit; path = DIR_ORB; ext = EXT_BIA
 
-DESCR_BIAFILE_MOD 1  "Output file for modified satellite bias data"
+DESCR_BIAFILE_MOD 1  "Output file for modified satellite bias"
 
 OSBFILE_MOD 1  "NL_$YSS+0_mod"
   ## widget = lineedit; path = DIR_ORB; ext = EXT_OSB
 
-DESCR_OSBFILE_MOD 1  "Output file for modified observable-specific bias data"
+DESCR_OSBFILE_MOD 1  "Output file for modified observable-specific bias"
 
 CLKFILE_MOD 1  "$(APR)_$YSS+0_mod"
   ## widget = lineedit; path = DIR_ORB; ext = EXT_CLK
 
-DESCR_CLKFILE_MOD 1  "Output file for modified satellite clock data"
+DESCR_CLKFILE_MOD 1  "Output file for modified satellite clocks"
 
 ORBITFILE_MOD 1  "$(APR)_$YSS+0_mod"
   ## widget = lineedit; path = DIR_ORB; ext = EXT_PRE
 
-DESCR_ORBITFILE_MOD 1  "Output file for modified orbit data"
+DESCR_ORBITFILE_MOD 1  "Output file for modified orbit"
 
 SYSODEF 1  "0"
   ## widget = checkbox
@@ -112,7 +114,7 @@ SYSERR 0
 DESCR_SYSERR 1  "Error message"
 
 ! -------------------------------------------------------------------------
-! GNSS system selection (same USE_* names as GPSEST.INP)
+! GNSS system selection
 ! -------------------------------------------------------------------------
 USE_G 1  "1"
   ## widget = checkbox
@@ -124,7 +126,7 @@ USE_E 1  "1"
 
 MSG_USE_E 1  "Use Galileo"
 
-USE_C 1  "0"
+USE_C 1  "1"
   ## widget = checkbox
 
 MSG_USE_C 1  "Use BeiDou"
@@ -137,18 +139,19 @@ MSG_USE_J 1  "Use QZSS"
 ! -------------------------------------------------------------------------
 ! Debugging
 ! -------------------------------------------------------------------------
-DEBUG_PHACOR 1  "1"
+DEBUG_PHACOR 1  "0"
   ## widget = checkbox
 
 MSG_DEBUG_PHACOR 1  "Write detailed PHACOR trace to a separate output file"
 
-DEBUG_OUT 1  "PHACOR_DEBUG$YSS+0"
+DEBUG_OUT 0
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = DEBUG_PHACOR == 1; emptyallowed = false
+  # PHACOR_DEBUG$YSS+0
 
 DESCR_DEBUG_OUT 1  "Separate output file for the detailed trace"
 
-CHECK_PHASE_JUMPS 1  "1"
+CHECK_PHASE_JUMPS 1  "0"
   ## widget = checkbox
 
 INTEGER_CLOCK 1  "1"
@@ -206,19 +209,22 @@ RADIAL_CONSTRAINT_SIGMA 1  "0.50"
 # BEGIN_PANEL NO_CONDITION #####################################################
 # PHACOR 1: Input and Output Files                                             #
 #                                                                              #
+#   Title                    > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <      # TITLE_LINE
+#                                                                              #
 # INPUT FILES                                                                  #
-#   General constants       > %%%%%%%%%%%% <                                   # CONST
-#   GPSEST output files      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # LOGFILES
-#   Reference orbit file     > %%%%%%%%%%%% <                                  # ORBITFILE
-#   Station coordinate file  > %%%%%%%%%%%% <                                  # COORDFILE
-#   Satellite clock file     > %%%%%%%%%%%% <                                  # CLKFILE
-#   Observable-specific bias > %%%%%%%%%%%% <                                  # OSBFILE
-#   Satellite bias file      > %%%%%%%%%%%% <                                  # BIAFILE
+#   General constants        > %%%%%%%%%%%%%%%%% <                             # CONST
+#   GPSEST output files      > %%%%%%%%%%%%%%%%% <                             # LOGFILES
+#   Reference orbit file     > %%%%%%%%%%%%%%%%% <                             # ORBITFILE
+#   Station coordinate file  > %%%%%%%%%%%%%%%%% <                             # COORDFILE
+#   Satellite clock file     > %%%%%%%%%%%%%%%%% <                             # CLKFILE
+#   Observable-specific bias > %%%%%%%%%%%%%%%%% <                             # OSBFILE
+#   Satellite bias file      > %%%%%%%%%%%%%%%%% <                             # BIAFILE
+#                                                                              #
 # OUTPUT FILES                                                                 #
-#   Modified bias file       > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # BIAFILE_MOD
-#   Modified OSB file        > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # OSBFILE_MOD
-#   Modified clock file      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # CLKFILE_MOD
-#   Modified orbit file      > %%%%%%%%%%%%%%%%%%%%%%%%%%%%% <                 # ORBITFILE_MOD
+#   Modified bias file       > %%%%%%%%%%%%%%%%% <                             # BIAFILE_MOD
+#   Modified OSB file        > %%%%%%%%%%%%%%%%% <                             # OSBFILE_MOD
+#   Modified clock file      > %%%%%%%%%%%%%%%%% <                             # CLKFILE_MOD
+#   Modified orbit file      > %%%%%%%%%%%%%%%%% <                             # ORBITFILE_MOD
 #                                                                              #
 # GENERAL OUTPUT FILES                                                         #
 #   Program output         > % < use PHACOR.Lnn            or  > %%%%%%%%%%%% <# SYSODEF SYSOUT
@@ -229,11 +235,9 @@ RADIAL_CONSTRAINT_SIGMA 1  "0.50"
 
 # BEGIN_PANEL NO_CONDITION #####################################################
 # PHACOR 2: Settings                                                           #
-#   Satellite systems                                                         #
-#     GPS                     > % <                                           # USE_G
-#     Galileo                 > % <                                           # USE_E
-#     BeiDou                  > % <                                           # USE_C
-#     QZSS                    > % <                                           # USE_J
+#                                                                              #
+#   GNSS SELECTION                                                             #
+#      > % < GPS      > % < Galileo      > % < BeiDou      > % < QZSS          # USE_G USE_E USE_C USE_J
 #                                                                              #
 #   Check phase jumps            > % <                                         # CHECK_PHASE_JUMPS
 #   Integer clock output         > % <                                         # INTEGER_CLOCK

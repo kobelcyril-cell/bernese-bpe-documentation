@@ -27,16 +27,14 @@ sub run {
       $ssss,
       $yyyy,
       $yyssss,
-      $V_fin,
-      $V_large
+      $V_fin
   ) = $bpe->getKeys(
       'DIR_OUT',
       '$YD+0',
       '$S+0',
       '$Y+0',
       '$YSS+0',
-      'V_FIN',
-      'V_LARGE'
+      'V_FIN'
   );
 
   # ---------- MSC directory ------------
@@ -48,7 +46,7 @@ sub run {
   my $outfile = "$mscDir/PROCESSING_$yyddd";
 
   # ---------- Input file ------------
-  my $infile = "${dirOut}/${V_fin}${V_large}XTR${yyssss}.SUM";
+  my $infile = "${dirOut}/${V_fin}XTR${yyssss}.SUM";
   die "Cannot find input file $infile" unless -f $infile;
 
   print "Extract from: $infile\n";

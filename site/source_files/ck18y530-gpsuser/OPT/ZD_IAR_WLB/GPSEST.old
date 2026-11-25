@@ -903,7 +903,7 @@ USE_C 1  "1"
 MSG_USE_C 1  "Use BeiDou"
 
 ! QZSS
-USE_J 1  "1"
+USE_J 1  "0"
   ## widget = checkbox
 
 MSG_USE_J 1  "Use QZSS"
@@ -1380,6 +1380,13 @@ SCALE 1  "1"
   ## widget = checkbox; activeif = PRTHELM = 1
 
 MSG_SCALE 1  "Helmert: Scale"
+
+! Serve coffee
+! ---------------------
+COFFEE 1  "0"
+  ## widget = checkbox
+
+MSG_COFFEE 1  "Serve coffee"
 
 ! ----------------------------------------------------------------------
 ! Ambiguity resolution: Search
@@ -5703,7 +5710,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 # GENERAL INPUT FILES                                                          #
 #   General constants           > %%%%%%%%%%%% <                               # CONST
 #   Geodetic datum              > %%%%%%%%%%%% <                               # DATUM
-#   Antenna corrections         > %%%%%%%%%%%% <  > % < Consider ant. rotations# PHASECC USE_ANTAZI
+#   Antenna corrections         > %%%%%%%%%%%% < > % < Consider ant. rotations # PHASECC USE_ANTAZI
 #   Observation selection       > %%%%%%%%%%%% <                               # OBSSEL
 #   Satellite information       > %%%%%%%%%%%% <                               # SATELL
 #   Satellite problems          > %%%%%%%%%%%% <                               # SATCRUX
@@ -5924,6 +5931,8 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Coordinate system for transformation                   > %%%%%%%%%%%% <    # COORDSYS
 #   Rotation                                               > % <               # ROTXYZ
 #   Scale                                                  > % <               # SCALE
+#                                                                              #
+# SERVE COFFEE                                             > % <               # COFFEE
 # END_PANEL ####################################################################
 
 

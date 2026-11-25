@@ -32,7 +32,7 @@ MSG_SHOWGEN 1  "Show all general files"
 
 ! Clock RINEX input file name
 ! -----------------------------
-RCLKINP 1  "$(ORB)_$YYYD+0"
+RCLKINP 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_RXC; ext = EXT_RXC
 
 RCLKINP_TXT_COL_1 1  "Clock rinex input files"
@@ -65,7 +65,7 @@ DESCR_STAINFO 1  "Station information"
 
 ! Clock RINEX output file name
 ! -----------------------------
-RCLKOUT 1  "$(ORB)_$YYYSS+0"
+RCLKOUT 1  "$(ORB)_$YSS+0"
   ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC
 
 DESCR_RCLKOUT 1  "Combined clock RINEX file"
@@ -331,7 +331,7 @@ RADIO_F 1  "1"
 
 MSG_RADIO_F 1  "Retain the reference clock from an input file"
 
-RCLKREF 1  "$(ORB)_$YYYD+0"
+RCLKREF 1  "$(ORB)_$YSS+0"
   ## widget = selwin; activeif = CMERGE / CONCATENATE; path = DIR_RXC
   ## ext = EXT_RXC; maxfiles = 1; emptyallowed = true; pointer = RCLKINP
 

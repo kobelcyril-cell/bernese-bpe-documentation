@@ -1,0 +1,76 @@
+package ZD_CHECK_MIN_STA;
+@ISA = ("RUNBPE");
+#===========================================================
+# Name    : ZD_CHECK_MIN_STA
+# Purpose : Check the number of PZH files for the current day.
+#           Continue only if the count is larger than V_MINC.
+#
+# Author  : C. Kobel
+# Created : 06-Nov-2026
+#===========================================================
+
+use strict;
+use warnings;
+use File::Spec;
+
+sub run {
+    my $bpe = shift;
+
+    # ---------- Get BPE variables ------------
+    # $S+0 identifies the session/day in station filenames.
+    my ($dirOut, $extPzh, $dirPzh, $yyddd, $ssss, $minCount) = $bpe->getKeys(
+        'DIR_OUT', 'EXT_PZH', 'DIR_PZH', '$YD+0', '$S+0', 'V_MINC'
+    );
+
+    # ---------- Open the daily PROCESSING log ------------
+    my $mscDir = File::Spec->catdir($dirOut, '..', 'MSC', "MSC_${yyddd}");
+    unless (-d $mscDir) {
+        mkdir $mscDir or die "Cannot create directory $mscDir: $!\n";
+    }
+    my $logfile = File::Spec->catfile($mscDir, "PROCESSING_${yyddd}");
+    open(my $LOG, '>>', $logfile)
+        or die "Cannot open log file $logfile: $!\n";
+    print {$LOG} "\n=== ZD_CHECK_MIN_STA started ===\n";
+
+    # Log input/read errors as well as an insufficient station count.
+    my $count = eval {
+        die "V_MINC must be a non-negative integer.\n"
+            unless defined $minCount && $minCount =~ /\A[0-9]+\z/;
+        die "Session identifier (\$S+0) is missing or invalid.\n"
+            unless defined $ssss && $ssss =~ /\A[0-9]+\z/;
+        die "DIR_PZH is missing.\n"
+            unless defined $dirPzh && length $dirPzh;
+
+        opendir(my $DIR, $dirPzh)
+            or die "Cannot read directory $dirPzh: $!\n";
+        my $n = 0;
+        while (my $name = readdir($DIR)) {
+            next unless $name =~ /\Q$ssss\E\.$extPzh\z/i;
+            ++$n if -f File::Spec->catfile($dirPzh, $name);
+        }
+        closedir($DIR) or die "Cannot close directory $dirPzh: $!\n";
+        $n;
+    };
+    if (my $error = $@) {
+        print {$LOG} "ERROR: $error";
+        print {$LOG} "=== ZD_CHECK_MIN_STA failed ===\n";
+        close($LOG);
+        die $error;
+    }
+
+    print {$LOG} "Number of station observation files for session $ssss: $count; V_MINC: $minCount.\n";
+
+    # The comparison is strictly larger: equality also stops BPE.
+    if ($count <= $minCount) {
+        my $message = "Number of stations ($count) is not larger than the minimum specified by V_MINC ($minCount).";
+        print {$LOG} "ERROR: $message\n";
+        print {$LOG} "=== ZD_CHECK_MIN_STA stopped ===\n";
+        close($LOG) or die "Cannot close log file $logfile: $!\n";
+        die "$message\n";
+    }
+
+    print {$LOG} "Station count is larger than V_MINC.\n";
+    print {$LOG} "=== ZD_CHECK_MIN_STA finished ===\n";
+    close($LOG) or die "Cannot close log file $logfile: $!\n";
+    print "ZD_CHECK_MIN_STA done. Log: $logfile\n";
+}

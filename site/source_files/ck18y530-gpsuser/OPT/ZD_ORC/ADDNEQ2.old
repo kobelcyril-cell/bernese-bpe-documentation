@@ -40,7 +40,7 @@ IS_V10_SLR 1  "0"
 
 MSG_IS_V10_SLR 1  "SLR NEQs v10"
 
-INPFILE 1  "$B$S+0???"
+INPFILE 1  "$(CSCR)$S+0???"
   ## widget = selwin; path = DIR_NEQ; ext = EXT_NEQ
 
 MSG_INPFILE 1  "Normal equations"
@@ -62,7 +62,7 @@ DESCR_COVCOMI 1  "Variance rescaling factors"
 
 ! Station coordinates
 ! -------------------
-COORD 1  "$A_$YSS+0"
+COORD 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
 
 DESCR_COORD 1  "Station coordinates"
@@ -147,7 +147,7 @@ DESCR_RGBINP 1  "SLR biases, CoM"
 
 ! Earth rotation parameters
 ! -------------------------
-POLE 1  "$A_$YSS+0"
+POLE 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
   ## emptyallowed = true
 
@@ -218,7 +218,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -318,7 +318,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "$B_$S+0"
+SYSOUT 1  "$(CSCR)_$S+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -398,7 +398,7 @@ MSG_SINEX_SLR 1  "Write SLR SINEX"
 
 ! Station coordinates
 ! -------------------
-COORDRS 1  "$B_$YSS+0"
+COORDRS 1  "$(CSCR)_$YSS+0"
   ## widget = lineedit; path = DIR_CRD; ext = EXT_CRD
 
 DESCR_COORDRS 1  "Station coordinate results"
@@ -468,7 +468,7 @@ DESCR_BIASSNX 1  "BIAS SINEX"
 
 ! Orbital elements
 ! ----------------
-ELEFILE 1  "$B_$YSS+0"
+ELEFILE 1  "$(CSCR)_$YSS+0"
   ## widget = lineedit; path = DIR_ELE; ext = EXT_ELE
 
 DESCR_ELEFILE 1  "Orbital elements"
@@ -482,7 +482,7 @@ MSG_ELEAPD 1  "Append STD name"
 
 ! Bernese ERP file
 ! ----------------
-POLERS 1  "$B_$YSS+0"
+POLERS 1  "$(CSCR)_$YSS+0"
   ## widget = lineedit; path = DIR_ERP; ext = EXT_ERP
 
 DESCR_POLERS 1  "Bernese ERP file"
@@ -561,20 +561,20 @@ DESCR_PARAMRS 1  "Parameter estimate results"
 
 ! Gravity field coefficients
 ! --------------------------
-GRVOUT 0
+GRVOUT 1  ""
   ## widget = lineedit; path = DIR_GRV; ext = EXT_GRV
 
 DESCR_GRVOUT 1  "Gravity field results"
 
 ! VCE file (out) for VCE in ADDNEQ2
 ! ---------------------------------
-VCE_FILE 0
+VCE_FILE 1  ""
   ## widget = lineedit; path = DIR_VCE; ext = EXT_VCE; maxfiles = 1
   ## emptyallowed = true
 
 DESCR_VCE_FILE 1  "Variance components (out)"
 
-WGT_FILE_OUT 0
+WGT_FILE_OUT 1  ""
   ## widget = lineedit; path = DIR_WGT; ext = EXT_WGT; maxfiles = 1
   ## emptyallowed = true
 
@@ -585,7 +585,7 @@ DESCR_WGT_FILE_OUT 1  "Weight file (out)"
 ! =========================================================================
 ! Title
 ! -----
-TITLE 1  "Orbit generation: $B"
+TITLE 1  "Orbit generation: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -752,13 +752,13 @@ MSG_SETUP_GCC 1  "Set up Geocenter coordinates"
 
 ! Additional parameters: gravity field
 ! ------------------------------------
-GRA_ELIM 0
+GRA_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_GRA_ELIM 1  "Gravity field coefficients"
 
-GRA_EXCP 0
+GRA_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GRA_ELIM == BEFORE_STACKING OR GRA_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1843,7 +1843,7 @@ MSG_TRP_EXFLG 1  "Selection for station exceptions from flag: troposphere ZPDs"
 
 ! Atmospheric parameters: Troposphere gradient
 ! --------------------------------------------
-GRD_ELIM 1  "NO"
+GRD_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
@@ -1901,7 +1901,7 @@ GIM_EXCP 1  ""
 
 MSG_GIM_EXCP 1  "Except for files: Global ionosphere parameters"
 
-HOI_ELIM 1  "NO"
+HOI_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
@@ -3060,7 +3060,7 @@ POL_XY 1  "0.0"
 
 MSG_POL_XY 1  "X and Y pole components"
 
-POL_XYD 0
+POL_XYD 1  ""
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_POL_XYD 1  "X and Y pole drifts"

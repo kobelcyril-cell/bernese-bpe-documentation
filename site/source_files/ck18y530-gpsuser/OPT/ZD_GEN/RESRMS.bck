@@ -51,7 +51,7 @@ DESCR_ABBREV 1  "Abbreviation table"
 
 ! Residual Input File
 ! -------------------
-RESFIL 1  "$I$S+0???"
+RESFIL 1  "$(CWGT)$S+0???"
   ## widget = selwin; path = DIR_RES; ext = EXT_RES
 
 DESCR_RESFIL 1  "Residual files"
@@ -81,7 +81,7 @@ DESCR_HISTOGRAM 1  "Residual histogram"
 
 ! Station observation sigmas
 ! --------------------------
-STAWGTRS 1  "$I_$YSS+0"
+STAWGTRS 1  "$(CWGT)_$YSS+0"
   ## widget = lineedit; path = DIR_SOS; ext = EXT_SOS
 
 DESCR_STAWGTRS 1  "Station observation sigma file"
@@ -133,7 +133,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title Line
 ! ----------
-TITLE 1  "RESIDUAL CHECK $YD+0"
+TITLE 1  "Residual check: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"

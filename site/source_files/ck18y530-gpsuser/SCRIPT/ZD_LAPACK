@@ -1,0 +1,46 @@
+package ZD_LAPACK;
+@ISA = ("RUNBPE");
+#===========================================================
+# Name    :  ZD_LAPACK
+#
+# Purpose :  Jump to PARAM2 if V_LAPA is NO and V_OLAP
+#            is NO, empty, or undefined
+#
+# Author  :  C. Kobel
+# Created :  18-Nov-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use warnings;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+  # ---------- Check V_LAPA ------------
+  my ($lapa) = $bpe->getKeys('V_LAPA');
+
+  return if !defined($lapa) || $lapa eq "" || $lapa eq "YES";
+
+  if ($lapa ne "NO") {
+    die "Invalid value for V_LAPA: '$lapa'. Use YES, NO, or leave it empty.\n";
+  }
+
+  # ---------- Check V_OLAP and jump to PARAM2 ------------
+  my ($olap, $param2) = $bpe->getKeys('V_OLAP', 'PARAM2');
+  $olap = "" unless defined($olap);
+
+  if ($olap eq "YES") {
+    die "The combination V_OLAP=YES and V_LAPA=NO is not allowed.\n";
+  }
+
+  if ($olap ne "" && $olap ne "NO") {
+    die "Invalid value for V_OLAP: '$olap'. Use NO or leave it empty when V_LAPA is NO.\n";
+  }
+
+  prtMess($bpe, "Jumping to PID $param2");
+  prtGoto($bpe, $param2);
+}

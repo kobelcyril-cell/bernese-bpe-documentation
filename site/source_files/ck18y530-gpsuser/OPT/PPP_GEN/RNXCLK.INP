@@ -36,7 +36,7 @@ MSG_SHOWGEN 1  "Show all general files"
 ! -----------------------------
 RCLKINP 1  "./DUMMY/OUT/$(ORB)_19800060.CLK"
   ## widget = selwin; path = DIR_RXC; ext = EXT_RXC
-  # $(ORB)_$YYYSS+0
+  # $(ORB)_$YSS+0
 
 RCLKINP_TXT_COL_1 1  "Clock rinex input files"
 

@@ -132,7 +132,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title line for satellite clock file
 ! -----------------------------------
-TITLE 1  "Clock concatenation final solution ($(FIN))"
+TITLE 1  "Clock concatenation: $YD+0"
   ## widget = lineedit; check_strlen = 80
 
 MSG_TITLE 1  "Title line"
@@ -570,14 +570,14 @@ MSG_UPDSTANAM 1  "Update station names using STA file v1.02"
 
 ! Header of the new RINEX file: RUNBY
 ! -----------------------------------
-RUNBY 1  "AIUB"
+RUNBY 1  "CK"
   ## widget = lineedit; check_strlen = 20
 
 MSG_RUNBY 1  "Run by"
 
 ! Header of the new RINEX file: AC
 ! --------------------------------
-AC 1  "CK"
+AC 1  "CODE"
   ## widget = lineedit; check_strlen = 3
 
 MSG_AC 1  "AC"
@@ -591,10 +591,7 @@ MSG_ACNAME 1  "AC name"
 
 ! Header of the new RINEX file: Comments
 ! --------------------------------------
-COMMENT 3
-  "CODE final GPS clock information for day $+0, $Y+0, 3D-sol $(SOL)"
-  "Clock information consistent with phase and P1/P2 code data"
-  "Satellite/receiver clock values at intervals of 300 sec"
+COMMENT 1  "Final GNSS clock information for day $+0, $Y+0"
   ## widget = uniline; check_strlen.1 = 60; numlines = 10
 
 MSG_COMMENT 1  "Comment lines"

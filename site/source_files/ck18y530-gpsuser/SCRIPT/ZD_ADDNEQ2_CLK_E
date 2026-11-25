@@ -28,7 +28,8 @@ sub run {
       $yyssss,
       $yyddd,
       $dirFix,
-      $extFix
+      $extFix,
+      $GCC
   ) = $bpe->getKeys(
       'PARAM1',
       'V_FIN',
@@ -36,13 +37,14 @@ sub run {
       '$YSS+0',
       '$YD+0',
       'DIR_FIX',
-      'EXT_FIX'
+      'EXT_FIX',
+      'V_GCC'
   );
 
   # ---------- Initialize variables ------------
   setUserVar($bpe, "D4", $subPid,"SOL",$param2);
 
-  # ---------- Run program ------------
+  # ---------- Define Input NEQs ------------
   $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "INPFILE", $param1);
   $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP", "CLKS_ELIM", "NO");
 
@@ -64,6 +66,15 @@ sub run {
     prtMess($bpe, "UPDATE FIX FILE");
   }
 
+  # ---------- Setup geocenter coordinates? ------------
+  if ($GCC eq 'YES') {
+     $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SETUP_GCC",'1');
+     }
+  elsif ($GCC eq 'NO') {
+     $bpe->putKey("$ENV{U}/PAN/ADDNEQ2.INP","SETUP_GCC",'0');
+     }
+
+  # ---------- Run program ------------
   my $PGMNAM = "ADDNEQ2";
   $bpe->RUN_PGMS($PGMNAM);
 }

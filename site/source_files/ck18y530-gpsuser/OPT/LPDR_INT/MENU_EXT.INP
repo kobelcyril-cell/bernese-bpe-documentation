@@ -228,7 +228,7 @@ EXT_LOVNUM 1  "LOV"
 MSG_EXT_LOVNUM 1  "Love numbers: extension"
 
 ! Airdrag model data
-PTH_AIRMOD 1  "${X}/GEN"
+PTH_AIRMOD 1  "${MODEL}"
   ## widget = lineedit; keepvariables = true
 
 MSG_PTH_AIRMOD 1  "Airdrag model data"

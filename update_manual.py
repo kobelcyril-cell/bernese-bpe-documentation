@@ -132,6 +132,8 @@ SIMPLE_ASSIGN_RE = re.compile(
     r"my\s+\$([A-Za-z0-9_]+)\s*=\s*(\".*?\"|'.*?'|q\{.*?\}|qq\{.*?\});",
     re.DOTALL,
 )
+SYMBOLIC_VAR_RE = re.compile(r"\$\{([A-Za-z0-9_]+)\}|\$([A-Za-z0-9_]+)")
+MAX_SYMBOLIC_EXPR_LENGTH = 16_384
 OPEN_RE = re.compile(
     r"\bopen\s*\(\s*(?:my\s+\$[A-Za-z0-9_]+|[A-Z]+|[A-Za-z0-9_]+)\s*,\s*([\'\"])([<>]{1,2})\1\s*,\s*(.+?)\s*\)",
     re.DOTALL,
@@ -706,6 +708,33 @@ def strip_string_literal(expr: str) -> str:
     return expr
 
 
+def expand_symbolic_vars(expr: str, symbolic: Dict[str, str]) -> str:
+    original = expr
+    for _ in range(6):
+        parts: List[str] = []
+        end = 0
+        length = 0
+        for match in SYMBOLIC_VAR_RE.finditer(expr):
+            name = match.group(1) or match.group(2)
+            replacement = symbolic.get(name, match.group(0))
+            length += match.start() - end + len(replacement)
+            # Check before joining because repeated references can multiply the output.
+            if length > MAX_SYMBOLIC_EXPR_LENGTH:
+                return original
+            parts.extend((expr[end:match.start()], replacement))
+            end = match.end()
+        if not parts:
+            break
+        if length + len(expr) - end > MAX_SYMBOLIC_EXPR_LENGTH:
+            return original
+        parts.append(expr[end:])
+        updated = "".join(parts)
+        if updated == expr:
+            break
+        expr = updated
+    return expr
+
+
 def build_symbolic_var_map(text: str) -> Dict[str, str]:
     compact = re.sub(r"\s+", " ", text)
     symbolic: Dict[str, str] = {}
@@ -718,25 +747,11 @@ def build_symbolic_var_map(text: str) -> Dict[str, str]:
         for var_name, key_value in zip(var_names, key_values):
             symbolic[var_name] = key_value.strip()
 
-    def resolve_expr(expr: str) -> str:
-        expr = strip_string_literal(expr)
-
-        def replace_var(match: re.Match[str]) -> str:
-            var_name = match.group(1) or match.group(2)
-            return symbolic.get(var_name, match.group(0))
-
-        for _ in range(6):
-            updated = re.sub(r"\$\{([A-Za-z0-9_]+)\}|\$([A-Za-z0-9_]+)", replace_var, expr)
-            if updated == expr:
-                break
-            expr = updated
-        return expr
-
     for _ in range(6):
         changed = False
         for match in SIMPLE_ASSIGN_RE.finditer(compact):
             var_name = match.group(1)
-            resolved = resolve_expr(match.group(2))
+            resolved = expand_symbolic_vars(strip_string_literal(match.group(2)), symbolic)
             if symbolic.get(var_name) != resolved:
                 symbolic[var_name] = resolved
                 changed = True
@@ -748,17 +763,7 @@ def build_symbolic_var_map(text: str) -> Dict[str, str]:
 
 def expand_file_expr(expr: str, symbolic: Dict[str, str]) -> str:
     expr = strip_string_literal(expr)
-
-    def replace_var(match: re.Match[str]) -> str:
-        var_name = match.group(1) or match.group(2)
-        return symbolic.get(var_name, match.group(0))
-
-    for _ in range(6):
-        updated = re.sub(r"\$\{([A-Za-z0-9_]+)\}|\$([A-Za-z0-9_]+)", replace_var, expr)
-        if updated == expr:
-            break
-        expr = updated
-    return normalize_file_expr(expr)
+    return normalize_file_expr(expand_symbolic_vars(expr, symbolic))
 
 
 def collect_file_flows(text: str, symbolic: Optional[Dict[str, str]] = None) -> tuple[List[str], List[str], List[str], List[str]]:

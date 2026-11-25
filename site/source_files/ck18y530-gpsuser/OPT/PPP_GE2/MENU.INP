@@ -7,11 +7,7 @@ USER_INFO 1  "${DOC}/USER.TXT"
 
 ! List of Remaining Menu Input Files (full Pathes)
 ! ------------------------------------------------
-MENU_BAR_INP 1  "${PAN}/MENU_BAR.json"
-
-MSG_MENU_BAR_INP 1  "Menu bar configuration"
-
-MENU_CMP_INP 1  "${PAN}/AIUB_CMP.INP"
+MENU_CMP_INP 1  "${PAN}/MENU_CMP.INP"
 
 MSG_MENU_CMP_INP 1  "Edit list of campaigns"
 
@@ -29,36 +25,37 @@ MSG_MENU_PGM_INP 1  "Program names"
 
 ! Active Campaign
 ! ---------------
-ACTIVE_CAMPAIGN 1  "${K}/CK_ZDGNSS"
+ACTIVE_CAMPAIGN 1  "${U}"
 
 ! Modified Julian Date
 ! --------------------
-MODJULDATE 1  "61113.000000"
+MODJULDATE 1  "58527.000000"
 
 ! Session (only the last character is relevant)
 ! ---------------------------------------------
 SESSION_CHAR 1  "0"
 
-SESSION_TABLE 1  "SESSIONS"
+SESSION_TABLE 1  "./DUMMY/STA/SESSIONS.SES"
   ## widget = selwin; path = DIR_SES; ext = EXT_SES; maxfiles = 1
+  # SESSIONS
 
 ! Job character
 ! -------------
-JOB_ID 1  ""
+JOB_ID 0
 
 ! Size of the Main Window
 ! -----------------------
-MAIN_WIDTH 1  "1280"
+MAIN_WIDTH 1  "1100"
 
-MAIN_HEIGHT 1  "729"
+MAIN_HEIGHT 1  "650"
 
 ! Colors (RGB Button + RGB Background)
 ! ------------------------------------
-MAIN_PALETTE 1  "170 85 255 255 170 0"
+MAIN_PALETTE 0
 
 ! Font Types and Font Sizes
 ! -------------------------
-FONTTYPE_BASE 1  "Source Code Pro Medium"
+FONTTYPE_BASE 1  "Helvetica"
 
 FONTSIZE_BASE 1  "12"
 
@@ -70,9 +67,9 @@ FONTSTRIKEOUT_BASE 1  "0"
 
 FONTUNDERLINE_BASE 1  "0"
 
-FONTTYPE_LARGE 1  "URW Bookman [urw]"
+FONTTYPE_LARGE 1  "Courier"
 
-FONTSIZE_LARGE 1  "10"
+FONTSIZE_LARGE 1  "14"
 
 FONTBOLD_LARGE 1  "0"
 
@@ -82,11 +79,11 @@ FONTSTRIKEOUT_LARGE 1  "0"
 
 FONTUNDERLINE_LARGE 1  "0"
 
-FONTTYPE_SMALL 1  "URW Gothic [urw]"
+FONTTYPE_SMALL 1  "Courier"
 
 FONTSIZE_SMALL 1  "12"
 
-FONTBOLD_SMALL 1  "1"
+FONTBOLD_SMALL 1  "0"
 
 FONTITALIC_SMALL 1  "0"
 

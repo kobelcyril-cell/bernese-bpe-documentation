@@ -40,7 +40,7 @@ DESCR_CONST 1  "General constants"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -443,6 +443,7 @@ MSG_STANAM 1  "Gather station names from"
 ! ----------------------------------------------
 STAINFO 1  ""
   ## widget = selwin; path = DIR_STA; ext = EXT_STA; emptyallowed = true
+  ## maxfiles = 1
 
 DESCR_STAINFO 1  "Station information"
 

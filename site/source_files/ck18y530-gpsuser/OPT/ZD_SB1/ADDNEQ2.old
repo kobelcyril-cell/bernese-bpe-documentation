@@ -47,7 +47,7 @@ MSG_INPFILE 1  "Normal equations"
 
 INPFILE_TXT_COL_1 1  "Name"
 
-INPFILE_CONSTR 0
+INPFILE_CONSTR 1  ""
   ## widget = selwin; path = DIR_NEQ; ext = EXT_NEQ; emptyallowed = true
 
 MSG_INPFILE_CONSTR 1  "Normal equations with constraints"
@@ -62,7 +62,7 @@ DESCR_COVCOMI 1  "Variance rescaling factors"
 
 ! Station coordinates
 ! -------------------
-COORD 1  "$B_$YSS+0"
+COORD 1  "$(CSCR)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
 
 DESCR_COORD 1  "Station coordinates"
@@ -85,13 +85,13 @@ DESCR_STAINFO 1  "Station information"
 
 ! RP2 file
 ! --------
-RP2INP 0
+RP2INP 1  ""
   ## widget = selwin; path = DIR_ORB; ext = EXT_RP2; maxfiles = 1
   ## emptyallowed = true
 
 DESCR_RP2INP 1  "RP2 file"
 
-STDORB_NEW 0
+STDORB_NEW 1  ""
   ## widget = selwin; path = DIR_ORB; ext = EXT_ORB; maxfiles = 1
   ## emptyallowed = true
 
@@ -147,7 +147,7 @@ DESCR_RGBINP 1  "SLR biases, CoM"
 
 ! Earth rotation parameters
 ! -------------------------
-POLE 1  "$B_$YSS+0"
+POLE 1  "$(CSCR)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
   ## emptyallowed = true
 
@@ -218,7 +218,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -249,19 +249,19 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Earth Potential
 ! ---------------
-POTCOE 0
+POTCOE 1  ""
   ## widget = selwin; path = PTH_POTCOE; ext = EXT_POTCOE; maxfiles = 1
   ## emptyallowed = true
 
 DESCR_POTCOE 1  "Earth potential coefficients"
 
-CS2021 0
+CS2021 1  ""
   ## widget = selwin; path = PTH_CS2021; ext = EXT_CS2021; maxfiles = 1
   ## emptyallowed = true
 
 DESCR_CS2021 1  "Time-variable C20,C21,S21"
 
-ZONALS 0
+ZONALS 1  ""
   ## widget = selwin; path = PTH_ZONALS; ext = EXT_ZONALS; maxfiles = 1
   ## emptyallowed = true
 
@@ -318,7 +318,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "$C_$YSS+0"
+SYSOUT 1  "$(CBIA)_$YSS+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -373,7 +373,7 @@ MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
 
 ! Normal equations
 ! ----------------
-NEQOUT 1  "$C_$YSS+0"
+NEQOUT 1  "$(CBIA)_$YSS+0"
   ## widget = lineedit; path = DIR_NEQ; ext = EXT_NEQ
 
 DESCR_NEQOUT 1  "Resulting normal equations"
@@ -561,20 +561,20 @@ DESCR_PARAMRS 1  "Parameter estimate results"
 
 ! Gravity field coefficients
 ! --------------------------
-GRVOUT 0
+GRVOUT 1  ""
   ## widget = lineedit; path = DIR_GRV; ext = EXT_GRV
 
 DESCR_GRVOUT 1  "Gravity field results"
 
 ! VCE file (out) for VCE in ADDNEQ2
 ! ---------------------------------
-VCE_FILE 0
+VCE_FILE 1  ""
   ## widget = lineedit; path = DIR_VCE; ext = EXT_VCE; maxfiles = 1
   ## emptyallowed = true
 
 DESCR_VCE_FILE 1  "Variance components (out)"
 
-WGT_FILE_OUT 0
+WGT_FILE_OUT 1  ""
   ## widget = lineedit; path = DIR_WGT; ext = EXT_WGT; maxfiles = 1
   ## emptyallowed = true
 
@@ -585,7 +585,7 @@ DESCR_WGT_FILE_OUT 1  "Weight file (out)"
 ! =========================================================================
 ! Title
 ! -----
-TITLE 1  "CODE'S RAPID CODE BIAS (OSB) RESULTS FOR DAY $+0, $Y+0"
+TITLE 1  "OSB results: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -752,13 +752,13 @@ MSG_SETUP_GCC 1  "Set up Geocenter coordinates"
 
 ! Additional parameters: gravity field
 ! ------------------------------------
-GRA_ELIM 0
+GRA_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_GRA_ELIM 1  "Gravity field coefficients"
 
-GRA_EXCP 0
+GRA_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GRA_ELIM == BEFORE_STACKING OR GRA_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1971,13 +1971,13 @@ MSG_ORB_EXCP 1  "Except for files: Orbital elements"
 
 ! Satellite-related plate scaling parameters
 ! ------------------------------------------
-SCL_ELIM 0
+SCL_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_SCL_ELIM 1  "Orbital plate scaling param."
 
-SCL_EXCP 0
+SCL_EXCP 1  ""
   ## widget = lineedit
   ## activeif = ORB_ELIM == BEFORE_STACKING OR ORB_ELIM == EXCEPT_FOR_BOUNDARIES
 

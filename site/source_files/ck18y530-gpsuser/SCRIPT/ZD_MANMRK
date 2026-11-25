@@ -31,14 +31,14 @@ sub run {
       $yyyy,
       $ymdstr,
       $extCrx,
-      $dirSta,
+      $dirCrx,
       $yyddd
   ) = $bpe->getKeys(
       'V_SATCRX',
       '$Y+0',
       '$YMD_STR+0',
-      'EXT_CRX',
-      'DIR_STA',
+      'EXT_SATCRUX',
+      'PTH_SATCRUX',
       '$YD+0'
   );
 
@@ -50,8 +50,8 @@ sub run {
   my $exception = "";
   my $date      = "";
 
-  my $localCrx = "${dirSta}${satcrx}.${extCrx}";
-  open(my $FH, '<', $localCrx) or die $!;
+  my $Crx = "${dirCrx}${satcrx}.${extCrx}";
+  open(my $FH, '<', $Crx) or die $!;
 
   while (my $line = <$FH>) {
 
@@ -97,59 +97,22 @@ sub run {
     $bpe->RUN_PGMS($PGMNAM);
   }
 
-  if ($yyddd eq "26100") {
+     #Exclude 128 always
+     my $msg = "SATELLITE 128 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
 
-    prtMess($bpe, "SATELLITE 450 MANUALLY EXCLUDED");
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","128");
+     $bpe->RUN_PGMS($PGMNAM);
 
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", "450");
+     #Exclude 450 always
+     my $msg = "SATELLITE 450 MANUALLY EXCLUDED";
+     prtMess($bpe,$msg);
 
-    $bpe->RUN_PGMS($PGMNAM);
-  }
-
-  if ($yyddd eq "26101") {
-
-    prtMess($bpe, "SATELLITE 450 MANUALLY EXCLUDED");
-
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", "450");
-
-    $bpe->RUN_PGMS($PGMNAM);
-  }
-
-  if ($yyddd eq "26102") {
-
-    prtMess($bpe, "SATELLITE 450 MANUALLY EXCLUDED");
-
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", "450");
-
-    $bpe->RUN_PGMS($PGMNAM);
-  }
-
-  if ($yyddd eq "26103") {
-
-    prtMess($bpe, "SATELLITE 450 MANUALLY EXCLUDED");
-
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", "450");
-
-    $bpe->RUN_PGMS($PGMNAM);
-  }
-
-  if ($yyddd eq "26104") {
-
-    prtMess($bpe, "SATELLITE 450 MANUALLY EXCLUDED");
-
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", "450");
-
-    $bpe->RUN_PGMS($PGMNAM);
-  }
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","STADAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","ENDDAT",'$YMD_STR+0');
+     $bpe->putKey("$ENV{U}/PAN/SATMRK.INP","SATNUM","450");
+     $bpe->RUN_PGMS($PGMNAM);
 
 }

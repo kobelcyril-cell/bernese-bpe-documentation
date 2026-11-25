@@ -87,7 +87,7 @@ unlink(glob("${dirRxo}/../*/AIRA???0.??O")); ##########################
 unlink(glob("${dirRxo}/../*/MAO0???0.??O")); # Apparently, one of these
 unlink(glob("${dirRxo}/../*/AMU2???0.??O")); # stations may degrade the
 unlink(glob("${dirRxo}/../*/CUT0???0.??O")); # reference frame.
-unlink(glob("${dirRxo}/../*/MAYG???0.??O")); # Then, they are removed
+unlink(glob("${dirRxo}/../*/MAYG???0.??O")); # Delete this crap.
 unlink(glob("${dirRxo}/../*/NYA2???0.??O")); ##########################
 
 }

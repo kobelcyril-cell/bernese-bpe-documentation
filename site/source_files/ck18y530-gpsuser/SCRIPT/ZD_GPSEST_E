@@ -75,6 +75,18 @@ if (-e $noHydl) {
    $bpe->putKey( "$ENV{U}/PAN/GPSEST.INP", "HLOAD_FILES", ' ' );
    prtMess( $bpe, "HYDL disabled: no_HYDL exists" ); }
 
+# Select processed GNSS systems
+# -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
+
+# Select processed GNSS systems (AR)
+# ----------------------------------
+  my ($v_gnssar) = $bpe->getKeys('V_GNSSAR');
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnssar);
+  my ($v_gnssar) = $bpe->getKeys('V_GNSSAR');
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USEAR_",$v_gnssar);
+
 # ---------- Run GPSEST ------------
   my $PGMNAM = "GPSEST";
   $bpe->RUN_PGMS($PGMNAM);

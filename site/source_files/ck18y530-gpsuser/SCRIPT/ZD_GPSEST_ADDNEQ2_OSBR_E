@@ -73,6 +73,12 @@ sub run {
   my $PGMNAM = "GPSEST";
   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT", "${V_CBIA}\$S+0\$(CCC)_");
   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","NEQUARS", "${V_CBIA}\$S+0\$(CCC)_");
+
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
+  
   $bpe->RUN_PGMS($PGMNAM);
 
   # ---------- Run ADDNEQ2 (normal equation manipulation, no inversion) ------------

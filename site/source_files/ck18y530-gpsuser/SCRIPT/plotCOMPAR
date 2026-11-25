@@ -1,0 +1,30 @@
+package plotCOMPAR;
+@ISA = ("RUNBPE");
+
+use strict;
+
+sub run {
+  my $bpe = shift;
+  my ($out,$fig,$crd,$figname) = $bpe->getKeys('DIR_OUT','DIR_FIG','V_CRD','V_COMPAR');
+
+  die "DIR_FIG is not configured\n"
+    unless defined($fig) && length($fig);
+
+  my $python = 'python3';
+  my $plotDir = "$ENV{HOME}/ZDGNSS_RUN/python/validation_plot";
+
+  my @command = (
+    "$plotDir/plot_compar2.py",
+    '--out-dir', $out,
+    '--pattern', "COMPAR2${crd}*.OUT",
+    '--unit', 'mm',
+    '--output', "$fig/compar2_$figname"
+  );
+
+  my $status = system($python, @command);
+
+  die "Cannot start $python: $!\n" if $status == -1;
+  die "Validation plot failed (status $status)\n" if $status != 0;
+}
+
+1;

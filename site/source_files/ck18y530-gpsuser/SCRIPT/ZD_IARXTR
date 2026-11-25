@@ -52,39 +52,8 @@ sub run {
   my $outFil = "${dirOut}TMP_${yyyyssss}.${extOut}";
   unlink $outFil;
 
-# Run program
-# -----------
-  my $PGMNAM = "GPSXTR";
-
-  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
-
-# Code-Based Widelane (WL) Ambiguity Resolution
-# ---------------------------------------------
-  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT","WLI_\$YYYSS+0_????");
-  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$tmpFil);
-
-  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","WL");
-  $bpe->RUN_PGMS($PGMNAM);
-  if (-s $tmpFil) {
-     appFile(" Code-Based Widelane (WL) Ambiguity Resolution",
-       0,$tmpFil,$sumFil,1);
-    unlink $tmpFil }
-
-# Code-Based Narrowlane (NL) Ambiguity Resolution
-# -----------------------------------------------
-  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT","NLI_\$YYYSS+0_????");
-
-  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","NL");
-  $bpe->RUN_PGMS($PGMNAM);
-  if (-s $tmpFil) {
-     appFile(" Code-Based Narrowlane (NL) Ambiguity Resolution",
-       0,$tmpFil,$sumFil,1);
-    unlink $tmpFil }
-
-
 # Set the GNSS to be used
 # -----------------------
-  $satsysAR =~ s/R//;  # Remove GLONASS
   setGNSS($bpe,"$ENV{U}/PAN/OBSXTR.INP","USE_",$satsysAR);
 
 

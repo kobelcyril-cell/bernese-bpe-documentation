@@ -62,6 +62,11 @@ sub run {
   print "-"x75,"\n";
   close $fh;
 
+  # Select processed GNSS systems
+  # -----------------------------
+#  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+#  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
+  
   # ---------- Run GPSEST ------------
   my $PGMNAM = "GPSEST";
   $bpe->RUN_PGMS($PGMNAM);

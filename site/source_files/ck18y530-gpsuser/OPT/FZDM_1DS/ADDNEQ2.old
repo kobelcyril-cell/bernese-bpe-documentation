@@ -592,7 +592,7 @@ MSG_TITLE 1  "Title line"
 
 ! Maximum number of parameters in combined NEQ
 ! --------------------------------------------
-MAXPAR 1  "75000"
+MAXPAR 1  "46000"
   ## widget = spinbox; range = 500 20000 500
 
 MSG_MAXPAR 1  "Maximum number of parameters in combined NEQ"

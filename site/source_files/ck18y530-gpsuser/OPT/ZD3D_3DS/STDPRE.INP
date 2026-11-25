@@ -35,7 +35,7 @@ DESCR_CONST 1  "General constants"
 
 ! Satellite information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
   ## emptyallowed = true
 

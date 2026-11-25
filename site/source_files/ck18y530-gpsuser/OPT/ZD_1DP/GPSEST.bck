@@ -91,7 +91,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -620,7 +620,7 @@ MSG_CONT_ERR 1  "End program normally even in case of errors"
 
 ! Ignore errors wihtin specified subroutines
 ! ------------------------------------------
-IGNORE_ERR 1  ""
+IGNORE_ERR 1  "D_PHAECC:search_off"
   ## widget = uniline; numlines = 5
 
 MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
@@ -5793,7 +5793,7 @@ MSG_SHOWMAX 1  "Define array dimensions"
 
 ! MAXLOC: Maximum number of parameters to be processed
 ! ----------------------------------------------------
-MAXLOC 1  "75000"
+MAXLOC 1  "110000"
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXLOC 1  "MAXLOC: Parameters to be processed"
@@ -5828,7 +5828,7 @@ MSG_MAXAMB 1  "MAXAMB: Ambiguities in an observation file"
 
 ! MAXPAR: Maximum number of parameters simultaneously processed
 ! -------------------------------------------------------------
-MAXPAR 1  "30000"
+MAXPAR 1  "40000"
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXPAR 1  "MAXPAR: Parameters simultaneously processed"

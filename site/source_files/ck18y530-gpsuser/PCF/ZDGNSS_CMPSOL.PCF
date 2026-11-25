@@ -1,0 +1,38 @@
+# ============================================================================
+# ZDGNSS_CMPSOL.PCF
+# ============================================================================
+# Purpose: Compare solutions
+
+PID  SCRIPT    OPT_DIR   PARAMETERS
+001  ZD_STATUS       NO_OPT       CPU=ANY; PARAM1=V_STATUSW; PARAM2=CHECK; SKIP
+100  ZD_CMP_COP      NO_OPT       CPU=ANY; WAIT=001
+201  ZD_CMP_ERPDIFF  NO_OPT       CPU=ANY; WAIT=100
+301  ZD_STDDIF       ZD_CMP_SOL   CPU=ANY; WAIT=100
+401  ZD_CMP_CLKDIFF  NO_OPT       CPU=ANY; WAIT=100
+501  ZD_COMPAR2      ZD_CMP_SOL   CPU=ANY; WAIT=100
+601  ZD_HELMR1       ZD_CMP_SOL   CPU=ANY; WAIT=100
+900  ZD_CMP_SUM      NO_OPT       CPU=ANY; WAIT=201 301 401 501 601
+901  ZD_DEL_CMP      NO_OPT       CPU=ANY; WAIT=900
+
+VARIABLE   DEFAULT        PARAMETERS
+V_DIRSOL1    = ${S}/IGS/$Y+0;      DESCRIPTION=Directory with files to solution 1
+V_NAMESOL1   = CODE_3day_final;	DESCRIPTION=Label for solution 1
+V_ERPSOL1    = F3_$YD+0;           DESCRIPTION=ERP file to be compared (solution 1)
+V_STDSOL1    = F3_$YD+0;           DESCRIPTION=STD file to be compared (solution 1)
+V_CLKSOL1    = F3H_$YSS+0;         DESCRIPTION=CLK file to be compared (solution 1)
+V_CRDSOL1    = F3_$YD+0;           DESCRIPTION=CRD file to be compared (solution 1)
+V_DIRSOL2    = ${R}/CK_ZDGNSS_R;   DESCRIPTION=Directory with files to solution 2
+V_NAMESOL2   = ZD_1day_rapid;	DESCRIPTION=Label for solution 2
+V_ERPSOL2    = R1I_$YSS+0;         DESCRIPTION=ERP file to be compared (solution 2)
+V_STDSOL2    = R1I_$YSS+0;         DESCRIPTION=STD file to be compared (solution 2)
+V_CLKSOL2    = R1I_$YSS+0;         DESCRIPTION=CLK file to be compared (solution 2)
+V_CRDSOL2    = R1I_$YSS+0;         DESCRIPTION=CRD file to be compared (solution 2)
+V_CRDINF     = IGC20;              DESCRIPTION=Coordinate Reference file
+V_SATINF     = SATELLIT;           DESCRIPTION=Satellite information
+V_PCV        = I20;                DESCRIPTION=GNSS PCV model
+V_SATCRX     = ZDR_SAT_$Y+0;       DESCRIPTION=Satellite problems
+V_NUTMOD     = IAU2000R06;         DESCRIPTION=Nutation model
+V_SUBMOD     = DESAI2016;          DESCRIPTION=Subdaily pole model
+V_DEL        = Y;                  DESCRIPTION=Delete files
+V_STATUSW    = FINISH;             DESCRIPTION=Wait for process creating this flag
+

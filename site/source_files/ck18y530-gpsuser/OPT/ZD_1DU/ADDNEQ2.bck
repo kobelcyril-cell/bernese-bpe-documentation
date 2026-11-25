@@ -218,7 +218,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -226,7 +226,7 @@ DESCR_PHASECC 1  "Antenna corrections"
 
 ! Satellite information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
   ## emptyallowed = true
 
@@ -308,6 +308,8 @@ DESCR_AUXFIL 1  "Scratch file"
 
 DELETE_FILES 1  "AUXFIL"
 
+MSG_DELETE_FILES 1  "Files to delete"
+
 ! =========================================================================
 ! ADDNEQ2 2: Output Files
 ! =========================================================================
@@ -366,7 +368,7 @@ MSG_CONT_ERR 1  "End program normally even in case of errors"
 
 ! Ignore errors wihtin specified subroutines
 ! ------------------------------------------
-IGNORE_ERR 1  ""
+IGNORE_ERR 1  "D_PHAECC:search_off"
   ## widget = uniline; numlines = 5
 
 MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
@@ -593,7 +595,7 @@ MSG_TITLE 1  "Title line"
 ! Maximum number of parameters in combined NEQ
 ! --------------------------------------------
 MAXPAR 1  "46000"
-  ## widget = spinbox; range = 500 75000 500
+  ## widget = spinbox; range = 500 20000 500
 
 MSG_MAXPAR 1  "Maximum number of parameters in combined NEQ"
 
@@ -886,7 +888,7 @@ COVMODE 1  "CRD/VEL"
   ## widget = combobox; cards = CRD/VEL CRD/CRD; editable = false
   ## activeif = COVARRS / _ OR COVTTRS / _ AND CRD_NINT = 1
 
-MSG_COVMODE 1  "Write coordinates and velocities in var-covar files as"
+MSG_COVMODE 1  "Write coords. and velocities in var-covar files as"
 
 ! Eliminate station parameters in case of equipement changes
 ! ----------------------------------------------------------
@@ -1439,14 +1441,14 @@ CRD_EXSEL 1  ""
   ## widget = combobox; activeif = CRD_ELIM /= NO AND CRD_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_CRD_EXSEL 1  "Selection for station exceptions: station coordinates"
+MSG_CRD_EXSEL 1  "Selection of station exceptions: station coords."
 
 CRD_EXMAN 1  ""
   ## widget = selwin
   ## activeif = CRD_ELIM /= NO AND CRD_EXST = 1 AND CRD_EXSEL = MANUAL
   ## pointer = STALST
 
-MSG_CRD_EXMAN 1  "Manual selection for station exceptions: station coordinates"
+MSG_CRD_EXMAN 1  "Manual sel. of station exceptions: station coords."
 
 CRD_EXFIL 0
   ## widget = selwin
@@ -1454,13 +1456,13 @@ CRD_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_CRD_EXFIL 1  "Selection for station exceptions from file: station coordinates"
+MSG_CRD_EXFIL 1  "Sel. of station except. from file: station coords."
 
 CRD_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = CRD_ELIM /= NO AND CRD_EXST = 1 AND CRD_EXSEL = WITH_FLAG
 
-MSG_CRD_EXFLG 1  "Selection for station exceptions from flag: station coordinates"
+MSG_CRD_EXFLG 1  "Sel. of station except. from flag: station coords."
 
 ! Satellite-related parameters: Observable specific code bias
 ! ---------------------------------------------------------
@@ -1474,7 +1476,7 @@ OCBS_EXCP 1  ""
   ## widget = lineedit
   ## activeif = OCBS_ELIM == BEFORE_STACKING OR OCBS_ELIM == EXCEPT_FOR_BOUNDARIES
 
-MSG_OCBS_EXCP 1  "Except for files: Observable-specific satellite code biases"
+MSG_OCBS_EXCP 1  "Except for files: Obs.-specific sat. code biases"
 
 ! Observable-specific code biases
 ! -------------------------------
@@ -1488,7 +1490,7 @@ OCB_EXCP 1  ""
   ## widget = lineedit
   ## activeif = OCB_ELIM == BEFORE_STACKING OR OCB_ELIM == EXCEPT_FOR_BOUNDARIES
 
-MSG_OCB_EXCP 1  "Except for files: Observable-spec rec. code biases"
+MSG_OCB_EXCP 1  "Except for files: Obs.-specific rec. code biases"
 
 OCB_EXST 1  "0"
   ## widget = checkbox; activeif = OCB_ELIM /= NO AND OCB_ELIM / _
@@ -1501,14 +1503,14 @@ OCB_EXSEL 1  "FROM_FILE"
   ## widget = combobox; activeif = OCB_ELIM /= NO AND OCB_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_OCB_EXSEL 1  "Selection for station exceptions: observable-specific receiver bias"
+MSG_OCB_EXSEL 1  "Sel. of station exceptions: Obs.-spec. rec. bias"
 
 OCB_EXMAN 1  ""
   ## widget = selwin
   ## activeif = OCB_ELIM /= NO AND OCB_EXST = 1 AND OCB_EXSEL = MANUAL
   ## pointer = CLKLST
 
-MSG_OCB_EXMAN 1  "Manual selection for station exceptions: observable-specific receiver bias"
+MSG_OCB_EXMAN 1  "Manual sel. of sta. except: Obs.-spec. rec. bias"
 
 OCB_EXFIL 0
   ## widget = selwin
@@ -1516,13 +1518,13 @@ OCB_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_OCB_EXFIL 1  "Selection for station exceptions from file: observable-specific receiver bias"
+MSG_OCB_EXFIL 1  "Sel of sta. except from file: Obs.-spec. rec. bias"
 
 OCB_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = OCB_ELIM /= NO AND OCB_EXST = 1 AND OSBY_EXSEL = WITH_FLAG
 
-MSG_OCB_EXFLG 1  "Selection for station exceptions from flag: observable-specific receiver bias"
+MSG_OCB_EXFLG 1  "Sel of sta. except from flag: Obs.-spec. rec. bias"
 
 ! Station-related parameters: Receiver clock bias/offsets
 ! -------------------------------------------------------
@@ -1547,14 +1549,14 @@ CLK_EXSEL 0
   ## widget = combobox; activeif = CLK_ELIM /= NO AND CLK_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_CLK_EXSEL 1  "Selection for station exceptions: receiver clock offsets"
+MSG_CLK_EXSEL 1  "Sel for station except: rec. clock offsets"
 
 CLK_EXMAN 0
   ## widget = selwin
   ## activeif = CLK_ELIM /= NO AND CLK_EXST = 1 AND CLK_EXSEL = MANUAL
   ## pointer = CLKLST
 
-MSG_CLK_EXMAN 1  "Manual selection for station exceptions: receiver clock offsets"
+MSG_CLK_EXMAN 1  "Manual sel for station except: rec. clock offsets"
 
 CLK_EXFIL 0
   ## widget = selwin
@@ -1562,13 +1564,13 @@ CLK_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_CLK_EXFIL 1  "Selection for station exceptions from file: receiver clock offsets"
+MSG_CLK_EXFIL 1  "Sel for sta. except from file: rec. clock offsets"
 
 CLK_EXFLG 0
   ## widget = lineedit
   ## activeif = CLK_ELIM /= NO AND CLK_EXST = 1 AND CLK_EXSEL = WITH_FLAG
 
-MSG_CLK_EXFLG 1  "Selection for station exceptions from flag: receiver clock offsets"
+MSG_CLK_EXFLG 1  "Sel for sta. except from flag: rec. clock offsets"
 
 ! Station-related parameters: Inter-system bias
 ! ----------------------------------------------
@@ -1593,14 +1595,14 @@ ISB_EXSEL 0
   ## widget = combobox; activeif = ISB_ELIM /= NO AND ISB_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_ISB_EXSEL 1  "Selection for station exceptions: inter-system bias"
+MSG_ISB_EXSEL 1  "Sel for station exceptions: inter-system bias"
 
 ISB_EXMAN 0
   ## widget = selwin
   ## activeif = ISB_ELIM /= NO AND ISB_EXST = 1 AND ISB_EXSEL = MANUAL
   ## pointer = CLKLST
 
-MSG_ISB_EXMAN 1  "Manual selection for station exceptions: inter-system bias"
+MSG_ISB_EXMAN 1  "Manual sel for station except: inter-system bias"
 
 ISB_EXFIL 0
   ## widget = selwin
@@ -1608,13 +1610,13 @@ ISB_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_ISB_EXFIL 1  "Selection for station exceptions from file: inter-system bias"
+MSG_ISB_EXFIL 1  "Sel for sta. except from file: inter-system bias"
 
 ISB_EXFLG 0
   ## widget = lineedit
   ## activeif = ISB_ELIM /= NO AND ISB_EXST = 1 AND ISB_EXSEL = WITH_FLAG
 
-MSG_ISB_EXFLG 1  "Selection for station exceptions from flag: inter-system bias"
+MSG_ISB_EXFLG 1  "Sel for sta. except from flag: inter-system bias"
 
 ! Station-related parameters: Receiver antenna offsets
 ! ----------------------------------------------------
@@ -1656,7 +1658,7 @@ GTRA_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GTRA_ELIM == BEFORE_STACKING OR GTRA_ELIM == EXCEPT_FOR_BOUNDARIES
 
-MSG_GTRA_EXCP 1  "Except for files: GNSS-specific station translation"
+MSG_GTRA_EXCP 1  "Except for files: GNSS-specific sta. translation"
 
 GTRA_EXST 1  "0"
   ## widget = checkbox; activeif = GTRA_ELIM /= NO AND GTRA_ELIM / _
@@ -1674,7 +1676,7 @@ GTRA_EXMAN 1  ""
   ## activeif = GTRA_ELIM /= NO AND GTRA_EXST = 1 AND GTRA_EXSEL = MANUAL
   ## pointer = GSPLST
 
-MSG_GTRA_EXMAN 1  "Manual selection for station exceptions: GNSS-spec translations"
+MSG_GTRA_EXMAN 1  "Manual sel for sta. except: GNSS-spec trans."
 
 GTRA_EXFIL 0
   ## widget = selwin
@@ -1682,13 +1684,13 @@ GTRA_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_GTRA_EXFIL 1  "Selection for station exceptions from file: GNSS-spec translations"
+MSG_GTRA_EXFIL 1  "Sel for sta. except from file: GNSS-spec trans."
 
 GTRA_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = GTRA_ELIM /= NO AND GTRA_EXST = 1 AND GTRA_EXSEL = WITH_FLAG
 
-MSG_GTRA_EXFLG 1  "Selection for station exceptions from flag: GNSS-spec translations"
+MSG_GTRA_EXFLG 1  "Sel for sta. except from flag: GNSS-spec trans."
 
 ! Station-related parameters: GNSS-specific troposphere (ZPD) biases
 ! ------------------------------------------------------------------
@@ -1713,14 +1715,14 @@ GTRP_EXSEL 1  ""
   ## widget = combobox; activeif = GTRP_ELIM /= NO AND GTRP_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_GTRP_EXSEL 1  "Selection for station exceptions: GNSS-spec ZPD bias"
+MSG_GTRP_EXSEL 1  "Sel for station exceptions: GNSS-spec ZPD bias"
 
 GTRP_EXMAN 1  ""
   ## widget = selwin
   ## activeif = GTRP_ELIM /= NO AND GTRP_EXST = 1 AND GTRP_EXSEL = MANUAL
   ## pointer = GSPLST
 
-MSG_GTRP_EXMAN 1  "Manual selection for station exceptions: GNSS-spec ZPD bias"
+MSG_GTRP_EXMAN 1  "Manual sel for sta. except: GNSS-spec ZPD bias"
 
 GTRP_EXFIL 0
   ## widget = selwin
@@ -1728,13 +1730,13 @@ GTRP_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_GTRP_EXFIL 1  "Selection for station exceptions from file: GNSS-spec ZPD bias"
+MSG_GTRP_EXFIL 1  "Sel for sta. except from file: GNSS-spec ZPD bias"
 
 GTRP_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = GTRP_ELIM /= NO AND GTRP_EXST = 1 AND GTRP_EXSEL = WITH_FLAG
 
-MSG_GTRP_EXFLG 1  "Selection for station exceptions from flag: GNSS-spec ZPD bias"
+MSG_GTRP_EXFLG 1  "Sel for sta. except from flag: GNSS-spec ZPD bias"
 
 ! Station-related parameters: GNSS-specific troposphere gradient biases
 ! ---------------------------------------------------------------------
@@ -1759,14 +1761,14 @@ GGRD_EXSEL 1  "FROM_FILE"
   ## widget = combobox; activeif = GGRD_ELIM /= NO AND GGRD_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_GGRD_EXSEL 1  "Selection for station exceptions: GNSS-spec gradient bias"
+MSG_GGRD_EXSEL 1  "Sel for sta. except: GNSS-spec gradient bias"
 
 GGRD_EXMAN 1  ""
   ## widget = selwin
   ## activeif = GGRD_ELIM /= NO AND GGRD_EXST = 1 AND GGRD_EXSEL = MANUAL
   ## pointer = GSPLST
 
-MSG_GGRD_EXMAN 1  "Manual selection for station exceptions: GNSS-spec gradient bias"
+MSG_GGRD_EXMAN 1  "Manual sel for sta. except: GNSS-spec grad. bias"
 
 GGRD_EXFIL 0
   ## widget = selwin
@@ -1774,13 +1776,13 @@ GGRD_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_GGRD_EXFIL 1  "Selection for station exceptions from file: GNSS-spec gradient bias"
+MSG_GGRD_EXFIL 1  "Sel for sta. except from file: GNSS-spec grad bias"
 
 GGRD_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = GGRD_ELIM /= NO AND GGRD_EXST = 1 AND GGRD_EXSEL = WITH_FLAG
 
-MSG_GGRD_EXFLG 1  "Selection for station exceptions from flag: GNSS-spec gradient bias"
+MSG_GGRD_EXFLG 1  "Sel for sta. except from flag: GNSS-spec grad bias"
 
 ! Station-related parameters: Range biases
 ! ----------------------------------------
@@ -1826,7 +1828,7 @@ TRP_EXMAN 1  ""
   ## activeif = TRP_ELIM /= NO AND TRP_EXST = 1 AND TRP_EXSEL = MANUAL
   ## pointer = TRPLST
 
-MSG_TRP_EXMAN 1  "Manual selection for station exceptions: troposphere ZPDs"
+MSG_TRP_EXMAN 1  "Manual sel for sta. except: troposphere ZPDs"
 
 TRP_EXFIL 0
   ## widget = selwin
@@ -1834,13 +1836,13 @@ TRP_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_TRP_EXFIL 1  "Selection for station exceptions from file: troposphere ZPDs"
+MSG_TRP_EXFIL 1  "Sel for sta. except from file: troposphere ZPDs"
 
 TRP_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = TRP_ELIM /= NO AND TRP_EXST = 1 AND TRP_EXSEL = WITH_FLAG
 
-MSG_TRP_EXFLG 1  "Selection for station exceptions from flag: troposphere ZPDs"
+MSG_TRP_EXFLG 1  "Sel for sta. except from flag: troposphere ZPDs"
 
 ! Atmospheric parameters: Troposphere gradient
 ! --------------------------------------------
@@ -1865,14 +1867,14 @@ GRD_EXSEL 1  ""
   ## widget = combobox; activeif = GRD_ELIM /= NO AND GRD_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_GRD_EXSEL 1  "Selection for station exceptions: troposphere gradients"
+MSG_GRD_EXSEL 1  "Sel for sta. except: troposphere gradients"
 
 GRD_EXMAN 1  ""
   ## widget = selwin
   ## activeif = GRD_ELIM /= NO AND GRD_EXST = 1 AND GRD_EXSEL = MANUAL
   ## pointer = TRPLST
 
-MSG_GRD_EXMAN 1  "Manual selection for station exceptions: troposphere gradients"
+MSG_GRD_EXMAN 1  "Manual sel for sta. except: troposphere gradients"
 
 GRD_EXFIL 0
   ## widget = selwin
@@ -1880,13 +1882,13 @@ GRD_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_GRD_EXFIL 1  "Selection for station exceptions from file: troposphere gradients"
+MSG_GRD_EXFIL 1  "Sel for sta. except from file: tropo. gradients"
 
 GRD_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = GRD_ELIM /= NO AND GRD_EXST = 1 AND GRD_EXSEL = WITH_FLAG
 
-MSG_GRD_EXFLG 1  "Selection for station exceptions from flag: troposphere gradients"
+MSG_GRD_EXFLG 1  "Sel for sta. except from flag: tropo. gradients"
 
 ! Atmospheric parameters: Ionosphere models
 ! -----------------------------------------
@@ -2116,14 +2118,14 @@ ALD_EXSEL 1  ""
   ## widget = combobox; activeif = ALD_ELIM /= NO AND ALD_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_ALD_EXSEL 1  "Selection for station exceptions: Atmospheric pressure loading"
+MSG_ALD_EXSEL 1  "Sel for sta. except: Atmosph. pressure loading"
 
 ALD_EXMAN 1  ""
   ## widget = selwin
   ## activeif = ALD_ELIM /= NO AND ALD_EXST = 1 AND ALD_EXSEL = MANUAL
   ## pointer = GRIDLST
 
-MSG_ALD_EXMAN 1  "Manual selection for station exceptions: Atmospheric pressure loading"
+MSG_ALD_EXMAN 1  "Manual sel for sta. except: Atmosp. press. loading"
 
 ALD_EXFIL 0
   ## widget = selwin
@@ -2131,13 +2133,13 @@ ALD_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_ALD_EXFIL 1  "Selection for station exceptions from file: Atmospheric pressure loading"
+MSG_ALD_EXFIL 1  "Sel for sta. except from file: Atm. press. loading"
 
 ALD_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = ALD_ELIM /= NO AND ALD_EXST = 1 AND ALD_EXSEL = WITH_FLAG
 
-MSG_ALD_EXFLG 1  "Selection for station exceptions from flag: Atmospheric pressure loading"
+MSG_ALD_EXFLG 1  "Sel for sta. except from flag: Atm. press. loading"
 
 ! Scaling factors for Vienna grid files: ocean non-tidal loading
 ! --------------------------------------------------------------
@@ -2162,14 +2164,14 @@ OLD_EXSEL 1  ""
   ## widget = combobox; activeif = OLD_ELIM /= NO AND OLD_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_OLD_EXSEL 1  "Selection for station exceptions: Ocean non-tidal loading"
+MSG_OLD_EXSEL 1  "Sel for sta. except: Ocean non-tidal loading"
 
 OLD_EXMAN 1  ""
   ## widget = selwin
   ## activeif = OLD_ELIM /= NO AND OLD_EXST = 1 AND OLD_EXSEL = MANUAL
   ## pointer = GRIDLST
 
-MSG_OLD_EXMAN 1  "Manual selection for station exceptions: Ocean non-tidal loading"
+MSG_OLD_EXMAN 1  "Manual sel for sta. except: Ocean non-tid. loading"
 
 OLD_EXFIL 0
   ## widget = selwin
@@ -2177,13 +2179,13 @@ OLD_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_OLD_EXFIL 1  "Selection for station exceptions from file: Ocean non-tidal loading"
+MSG_OLD_EXFIL 1  "Sel for sta. except from file: Ocean non-tid. load"
 
 OLD_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = OLD_ELIM /= NO AND OLD_EXST = 1 AND OLD_EXSEL = WITH_FLAG
 
-MSG_OLD_EXFLG 1  "Selection for station exceptions from flag: Ocean non-tidal loading"
+MSG_OLD_EXFLG 1  "Sel for sta. except from flag: Ocean non-tid. load"
 
 ! Scaling factors for Vienna grid files: Hydrostatic loading
 ! ----------------------------------------------------------
@@ -2208,14 +2210,14 @@ HLD_EXSEL 1  ""
   ## widget = combobox; activeif = HLD_ELIM /= NO AND HLD_EXST = 1
   ## cards = FIRST LAST ALL MANUAL FROM_FILE WITH_FLAG; editable = false
 
-MSG_HLD_EXSEL 1  "Selection for station exceptions: Hydrostatic pressure loading"
+MSG_HLD_EXSEL 1  "Sel for sta. except: Hydrostatic pressure loading"
 
 HLD_EXMAN 1  ""
   ## widget = selwin
   ## activeif = HLD_ELIM /= NO AND HLD_EXST = 1 AND HLD_EXSEL = MANUAL
   ## pointer = GRIDLST
 
-MSG_HLD_EXMAN 1  "Manual selection for station exceptions: Hydrostatic pressure loading"
+MSG_HLD_EXMAN 1  "Manual sel for sta. except: Hydrost. press. load"
 
 HLD_EXFIL 0
   ## widget = selwin
@@ -2223,13 +2225,13 @@ HLD_EXFIL 0
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
   # 
 
-MSG_HLD_EXFIL 1  "Selection for station exceptions from file: Hydrostatic pressure loading"
+MSG_HLD_EXFIL 1  "Sel for sta. except from file: Hydro. press. load"
 
 HLD_EXFLG 1  ""
   ## widget = lineedit
   ## activeif = HLD_ELIM /= NO AND HLD_EXST = 1 AND HLD_EXSEL = WITH_FLAG
 
-MSG_HLD_EXFLG 1  "Selection for station exceptions from flag: Hydrostatic pressure loading"
+MSG_HLD_EXFLG 1  "Sel for sta. except from flag: Hydro. press. load"
 
 ! Additional parameters: center of mass
 ! -------------------------------------
@@ -2528,7 +2530,7 @@ MSG_SPLTDYN 1  "No stacking of dynamical orbit parameters"
 DOCONVERT 1  "0"
   ## widget = checkbox; activeif = TRAFO = 1
 
-MSG_DOCONVERT 1  "Convert compatible SRP models for long-arc solutions"
+MSG_DOCONVERT 1  "Convert compatible SRP models for long-arc sol."
 
 SPLTMAC 1  "0"
   ## widget = checkbox
@@ -2864,32 +2866,32 @@ MSG_ORB_SA_S 1  "Select: Sacling factor for airdrag"
 ORB_SS_L 0
   ## widget = lineedit; activeif = ORB_SS_S = LIST AND ORB_SS / _
 
-MSG_ORB_SS_L 1  "Satellite list: Sacling factor for SRP"
+MSG_ORB_SS_L 1  "Sat. list: Sacling factor for SRP"
 
 ORB_SR_L 0
   ## widget = lineedit; activeif = ORB_SR_S = LIST AND ORB_SR / _
 
-MSG_ORB_SR_L 1  "Satellite list: Sacling factor for albedo: reflecivity"
+MSG_ORB_SR_L 1  "Sat. list: Sacling factor for albedo: reflecivity"
 
 ORB_SE_L 0
   ## widget = lineedit; activeif = ORB_SE_S = LIST AND ORB_SE / _
 
-MSG_ORB_SE_L 1  "Satellite list: Sacling factor for albedo: emissivity"
+MSG_ORB_SE_L 1  "Sat. list: Sacling factor for albedo: emissivity"
 
 ORB_SP_L 0
   ## widget = lineedit; activeif = ORB_SP_S = LIST AND ORB_SP / _
 
-MSG_ORB_SP_L 1  "Satellite list: Sacling factor for albedo"
+MSG_ORB_SP_L 1  "Sat. list: Sacling factor for albedo"
 
 ORB_SC_L 0
   ## widget = lineedit; activeif = ORB_SC_S = LIST AND ORB_SC / _
 
-MSG_ORB_SC_L 1  "Satellite list: Sacling factor for SRP and albedo"
+MSG_ORB_SC_L 1  "Sat. list: Sacling factor for SRP and albedo"
 
 ORB_SA_L 0
   ## widget = lineedit; activeif = ORB_SC_S = LIST AND ORB_SC / _
 
-MSG_ORB_SA_L 1  "Satellite list: Sacling factor for airdrag"
+MSG_ORB_SA_L 1  "Sat. list: Sacling factor for airdrag"
 
 ORBSCL 0
   ## widget = combobox; editable = false; cards = "" "SAT_INFO" "ZERO" "ONE"
@@ -3025,7 +3027,7 @@ MSG_DTSTC 1  "Min. time interval between pulse and maneuver"
 BLKRET 1  "NO"
   ## widget = combobox; cards = NO YES
 
-MSG_BLKRET 1  "Block retrograde terms in X and Y polar wobble series"
+MSG_BLKRET 1  "Block retrogr terms in X and Y polar wobble series"
 
 ! Constraints (first parameter)
 ! -----------------------------
@@ -3414,7 +3416,7 @@ GTRAFIX 1  "REF16097"
   ## widget = selwin; activeif = GTRADAT / NONE; path = DIR_FIX
   ## ext = EXT_FIX; maxfiles = 1; emptyallowed = true
 
-MSG_GTRAFIX 1  "GNSS-specific station translation: Station selection"
+MSG_GTRAFIX 1  "GNSS-specific sta. translation: Station selection"
 
 GTRASIG_N 1  ""
   ## widget = lineedit; check_type = real; check_min = 0
@@ -3634,7 +3636,7 @@ SATANTSTR 1  "" "" "" "" "" "" "" "" "" "" "" "" ""
   ## check_max.12 = 299; check_type.13 = integer; check_min.13 = 0
   ## check_max.13 = 299; numlines = 10
 
-MSG_SATANTSTR 1  "Sat.ant.offset: define the satellite groups and sigmas"
+MSG_SATANTSTR 1  "Sat.ant.offset: define the sat. groups and sigmas"
 
 SATANTSTR2 1  "" ""
   ## widget = uniline; check_type.1 = integer; check_min.1 = 1

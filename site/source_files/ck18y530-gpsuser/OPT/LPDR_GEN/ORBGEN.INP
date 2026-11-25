@@ -659,7 +659,7 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -686,7 +686,7 @@ DESCR_PLATDEF 1  "Satellite macro model"
 
 ! Planetary Ephemeris
 ! -------------------
-JPLEPH 1  "$(EPH)"
+JPLEPH 1  "$(PEPH)"
   ## widget = selwin; path = PTH_JPLEPH; ext = EXT_JPLEPH; maxfiles = 1
   ## emptyallowed = true
 
@@ -702,7 +702,7 @@ DESCR_SETIDES 1  "Solid Earth tides file"
 
 ! Ocean Tides File
 ! ----------------
-OTIDES 1  "$(OT)"
+OTIDES 1  "$(OTID)"
   ## widget = selwin; path = PTH_TID; ext = EXT_TID; maxfiles = 1
   ## emptyallowed = true
 

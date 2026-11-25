@@ -26,7 +26,15 @@ sub run {
 
     # ---------- Get variables ------------
     my ($process, $mode, $dirOut, $param3) =
-        $bpe->getKeys('PARAM1','PARAM2','DIR_OUT','PARAM3');
+        $bpe->getKeys("$$bpe{PARAM1}",'PARAM2','DIR_OUT',"$$bpe{PARAM3}");
+
+    print "DEBUG PARAM1 defined: ", defined($process) ? "yes\n" : "no\n";
+    print "DEBUG PARAM1 value:   <", defined($process) ? $process : "undef", ">\n";
+
+    if (defined $process) {
+        warn "DEBUG PARAM1 length:  ", length($process), "\n";
+        warn "DEBUG PARAM1 hex:     ", unpack('H*', $process), "\n";
+    }
 
     die "PARAM1 (process) not set!\n" unless defined($process) && $process ne '';
     die "PARAM2 (mode) not set!\n"    unless defined($mode)    && $mode ne '';

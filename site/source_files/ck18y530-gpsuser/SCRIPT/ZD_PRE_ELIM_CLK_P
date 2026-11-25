@@ -31,17 +31,28 @@ sub run {
       $yyssss,
       $yyddd,
       $sol,
+      $olap,
+      $olapgoto,
       $dirOut,
       $dirNeq,
       $extNeq
   ) = $bpe->getKeys(
       '$YSS+0',
       '$YD+0',
-      "$$bpe{PARAM2}",
+      "$$bpe{PARAM9}",
+      'V_OLAP',
+      'PARAM2',
       'DIR_OUT',
       'DIR_NEQ',
       'EXT_NEQ'
   );
+
+# ----Skip pre-elimination of clocks if only LAPACK solution is computed---
+ if ($olap eq "YES") {
+   prtGoto($bpe, $olapgoto);
+   prtMess($bpe, "Only LAPACK solution computed, pre-elimination of clocks skipped.");
+   return;
+ }
 
 # ---------- Define day-specific MSC directory ------------
 

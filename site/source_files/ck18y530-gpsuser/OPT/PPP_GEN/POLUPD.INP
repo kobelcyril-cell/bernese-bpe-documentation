@@ -73,7 +73,7 @@ IEPFIL_TXT_COL_1 1  "Input IERS ERP files"
 ! ----------------
 OUTFIL 1  "./DUMMY/ORB/$(ORB)_19800060.ERP"
   ## widget = lineedit; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
-  # $(ORB)_$YYYSS+0
+  # $(ORB)_$YSS+0
 
 DESCR_OUTFIL 1  "Bernese formatted ERP file (out)"
 

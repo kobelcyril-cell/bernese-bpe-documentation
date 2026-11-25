@@ -32,7 +32,7 @@ MSG_SHOWGEN 1  "Show all general files"
 
 ! Clock RINEX input file name
 ! -----------------------------
-RCLKINP 1  "$H$S+0???"
+RCLKINP 1  "$(CPSC)$S+0???"
   ## widget = selwin; path = DIR_RXC; ext = EXT_RXC
 
 RCLKINP_TXT_COL_1 1  "Clock rinex input files"
@@ -49,7 +49,7 @@ RCLKINP_EXT_COL_2 0
 
 ! Replace station coordinates
 ! ---------------------------
-COORD 1  "$H_$YSS+0"
+COORD 1  "$(CPSC)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
   ## emptyallowed = true
 
@@ -65,14 +65,14 @@ DESCR_STAINFO 1  "Station information"
 
 ! Clock RINEX output file name
 ! -----------------------------
-RCLKOUT 1  "$H_$YSS+0"
+RCLKOUT 1  "$(CPSC)_$YSS+0"
   ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC
 
 DESCR_RCLKOUT 1  "Combined clock RINEX file"
 
 ! Satellite clock file name (output)
 ! ----------------------------------
-SCLKOUT 1  "$H_$YSS+0"
+SCLKOUT 1  "$(CPSC)_$YSS+0"
   ## widget = lineedit; path = DIR_CLK; ext = EXT_CLK
 
 DESCR_SCLKOUT 1  "Bernese satellite clock file"
@@ -91,7 +91,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "$H_$YSS+0"
+SYSOUT 1  "$(CPSC)_$YSS+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -131,7 +131,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title line for satellite clock file
 ! -----------------------------------
-TITLE 1  "CLOCK ESTIMATION: $H"
+TITLE 1  "Clock estimation: $YD+0"
   ## widget = lineedit; check_strlen = 80
 
 MSG_TITLE 1  "Title line"
@@ -571,7 +571,7 @@ MSG_UPDSTANAM 1  "Update station names using STA file v1.02"
 
 ! Header of the new RINEX file: RUNBY
 ! -----------------------------------
-RUNBY 1  "AIUB"
+RUNBY 1  "CK"
   ## widget = lineedit; check_strlen = 20
 
 MSG_RUNBY 1  "Run by"

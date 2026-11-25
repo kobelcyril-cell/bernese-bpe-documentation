@@ -19,11 +19,11 @@
 #
 #
 
-PID  SCRIPT                     OPT_DIR   PARAMETERS
+PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Wait for status flag
 # --------------------
-001  ZD_STATUS               NO_OPT      CPU=ANY; PARAM1=PREPARATION; PARAM2=CHECK
+001  ZD_STATUS               NO_OPT      CPU=ANY; PARAM1=V_STATUSW; PARAM2=CHECK
 #
 # Start preprocessing
 # -------------------
@@ -36,7 +36,7 @@ PID  SCRIPT                     OPT_DIR   PARAMETERS
 # Compute weights for the code
 # ----------------------------
 110  ZD_GPSEST_DELOLD_P      ZD_WGT      CPU=ANY; WAIT=104; PARAM2=V_CWGT
-111  ZD_GPSESTC_E            ZD_WGT      CPU=BIG; WAIT=110; PARALLEL=110
+111  ZD_GPSESTW_E            ZD_WGT      CPU=BIG; WAIT=110; PARALLEL=110
 112  ZD_RES_CHK              ZD_WGT      CPU=ANY; WAIT=111; NEXTJOB=120 110; PARAM9=CODE
 #
 # Special code preprocessing (check satclk station-wise)
@@ -46,30 +46,36 @@ PID  SCRIPT                     OPT_DIR   PARAMETERS
 122  ZD_SATMONAP             ZD_MON      CPU=MEGA; WAIT=121; PARAM4=30
 123  ZD_SATMON_P             ZD_MON      CPU=ANY; WAIT=122; PARALLEL=122
 #
-# Checks (nothing yet)
+# Checks
 # -------------------------------------
+200  ZD_CHECK_MIN_STA        NO_OPT      CPU=ANY; WAIT=123
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS               NO_OPT      CPU=ANY; WAIT=123; PARAM1=PREPROCESSING; PARAM2=CREATE
+999  ZD_STATUS               NO_OPT      CPU=ANY; WAIT=123 200; PARAM1=V_STATUSF; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
-V_BRD    = *;             DESCRIPTION=A priori information (brd, and bull. A)
-V_APSP   = *;             DESCRIPTION=CODSPP apriori solution
-V_CWGT   = *;             DESCRIPTION=Weights for the code observations
-V_BLQINF = FES20*;        DESCRIPTION=BLQ file name, CMC corrections
-V_SATCRX = *;             DESCRIPTION=Satellite problem file for data import
-V_SATINF = *;             DESCRIPTION=Satellite information
-V_PCV    = I??;           DESCRIPTION=GNSS PCV model (absolute)
-V_PCVM   = ????;          DESCRIPTION=GNSS PCV model version
-V_SUBMOD = *;             DESCRIPTION=Subdaily pole model
-V_NUTMOD = *;             DESCRIPTION=Nutation model
-V_NCLU   = *;             DESCRIPTION=Number of clusters to be used
-V_OBSSEL = *;             DESCRIPTION=Observation selection file
-V_STAINF = *;             DESCRIPTION=Station information
-V_PCVINF = *;             DESCRIPTION=PCV information
-V_SAMPL  = *;             DESCRIPTION=Sampling rate of the GPSEST solution      CHECK_TYPE=integer
-V_USEHOI = *;             DESCRIPTION=Use HOI-file                              CARDS=YES NO
-V_TRPMOD = GMF;           DESCRIPTION=Troposphere model
+V_BRD    = *;              DESCRIPTION=A priori information (brd, and bull. A)
+V_APSP   = *;              DESCRIPTION=CODSPP apriori solution
+V_CWGT   = *;              DESCRIPTION=Weights for the code observations
+V_GNSS   = *;              DESCRIPTION=Processed GNSS Systems
+V_BLQINF = FES20*;         DESCRIPTION=BLQ file name, CMC corrections
+V_SATCRX = *;              DESCRIPTION=Satellite problem file for data import
+V_SATINF = *;              DESCRIPTION=Satellite information
+V_PCV    = I??;            DESCRIPTION=GNSS PCV model (absolute)
+V_PCVM   = ????;           DESCRIPTION=GNSS PCV model version
+V_SUBMOD = *;              DESCRIPTION=Subdaily pole model
+V_NUTMOD = *;              DESCRIPTION=Nutation model
+V_NCLU   = *;              DESCRIPTION=Number of clusters to be used
+V_OBSSEL = *;              DESCRIPTION=Observation selection file
+V_STAINF = *;              DESCRIPTION=Station information
+V_PCVINF = *;              DESCRIPTION=PCV information
+V_SAMPL  = *;              DESCRIPTION=Sampling rate of the GPSEST solution      CHECK_TYPE=integer
+V_USEHOI = *;              DESCRIPTION=Use HOI-file                              CARDS=YES NO
+V_TRPMOD = GMF;            DESCRIPTION=Troposphere model
+V_MINC   = *;              DESCRIPTION=Minimum number of stations;
+V_STATUSW = PREPARATION;   DESCRIPTION=Wait for process creating this flag
+V_STATUSF = PREPROCESSING; DESCRIPTION=Create this flag when finished
 # Configuration
 V_PCFCONFIG = MODEL SETUP_ZDGNSS;    DESCRIPTION=Configuration files
+

@@ -35,7 +35,7 @@ DESCR_CONST 1  "General constants"
 
 ! Satellite information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
   ## emptyallowed = true
 
@@ -50,7 +50,7 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! ERP File
 ! ---------
-POLE 1  "$Z_$YSS+0"
+POLE 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
 
 DESCR_POLE 1  "Earth rotation parameters"
@@ -73,7 +73,7 @@ DESCR_ATMLOAD 1  "Atmospheric tidal loading"
 
 ! Coordinate file (for geodetic datum)
 ! ------------------------------------
-CSYSTEM_CRD 1  "$Z_$YSS+0"
+CSYSTEM_CRD 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
   ## emptyallowed = false
 
@@ -103,7 +103,7 @@ DESCR_GPSUTC 1  "GPS-UTC time difference"
 
 ! Standard Orbit File
 ! -------------------
-STDORB 1  "$Z_$YSS+0"
+STDORB 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
   ## emptyallowed = true
 
@@ -117,7 +117,7 @@ DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
 
 ! Element File
 ! ------------
-IMPELE 1  "$Z_$YSS+0"
+IMPELE 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_ELE; ext = EXT_ELE; maxfiles = 1
   ## emptyallowed = true
 
@@ -125,7 +125,7 @@ DESCR_IMPELE 1  "Orbital elements file"
 
 ! Satellite Clock File
 ! --------------------
-SATCLK 1  "$Z_$YSS+0"
+SATCLK 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
   ## emptyallowed = true; activeif = RADIO_CB = 1
 
@@ -154,7 +154,7 @@ MSG_RADIO_CR 1  "RINEX clock file"
 
 ! Precise Ephem. Files
 ! --------------------
-PREOUT 1  "$Z_$YSS+0"
+PREOUT 1  "$(FIN)_$YSS+0"
   ## widget = lineedit; path = DIR_PRE; ext = EXT_PRE; maxfiles = 1
 
 DESCR_PREOUT 1  "Precise orbits output file"
@@ -166,7 +166,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "$Z_STDPRE"
+SYSOUT 1  "$(FIN)_STDPRE"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -206,7 +206,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title: new entry
 ! ----------------
-TITLE 1  ""
+TITLE 1  "Convert from STD to PRE: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -250,7 +250,7 @@ USE_E 1  "1"
 MSG_USE_E 1  "Use Galileo"
 
 ! SBAS
-USE_S 1  "1"
+USE_S 1  "0"
   ## widget = checkbox; activeif = SATSELECT == SYSTEM_WISE
 
 MSG_USE_S 1  "Use SBAS"

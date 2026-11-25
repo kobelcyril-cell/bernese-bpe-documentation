@@ -88,7 +88,7 @@ DESCR_DATUM 1  "Geodetic datum"
 ! ---------------------------
 PHASECC 1  "PCV_COD_I05"
   ## widget = selwin; path = PTH_GEN; maxfiles = 1
-  # $(PCVINF)_$(PCV)
+  # $(PCVINF)_$(PCV)_$(PCVM)
 
 DESCR_PHASECC 1  "Phase center eccentricities"
 
@@ -103,7 +103,7 @@ DESCR_OBSSEL 1  "Receiver information"
 ! ---------------------
 SATELL 1  "SAT_1452_I05"
   ## widget = selwin; path = PTH_GEN; maxfiles = 1
-  # $(SATINF)_$(PCV)
+  # $(SATINF)_$(PCV)_$(PCVM)
 
 DESCR_SATELL 1  "Satellite information"
 

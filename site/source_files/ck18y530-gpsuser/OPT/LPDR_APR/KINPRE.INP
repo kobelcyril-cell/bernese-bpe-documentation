@@ -33,7 +33,7 @@ MSG_SHOWGEN 1  "Show all general files"
 
 ! Satellite Information File
 ! --------------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"

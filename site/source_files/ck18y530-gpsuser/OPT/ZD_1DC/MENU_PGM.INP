@@ -50,7 +50,7 @@ MSG_MAXJOBNUM 1  "Maximum program output file number"
 
 ! List of Programs with special path to the executable
 ! ----------------------------------------------------
-SPECIAL_PATH 1  "" "" ""
+SPECIAL_PATH 1  "ADDNEQ2" "/storage/homefs/ck18y530/ADDNEQ2_LAPACK/EXE_IFC" ""
   ## widget = uniline; numlines = 20
 
 MSG_SPECIAL_PATH 1  "Programs executed from special paths"

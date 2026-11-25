@@ -63,7 +63,7 @@ DESCR_SATELL 1  "Satellite information"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -287,7 +287,7 @@ DELETE_FILES 3
 
 ! Title
 ! -----
-TITLE 1  "RXOBV3 WITH SMOOTHED RINEX FILES"
+TITLE 1  "Create Bernese observation files: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -319,13 +319,13 @@ USE_S 1  "0"
 MSG_USE_S 1  "Use SBAS"
 
 ! BeiDou
-USE_C 1  "0"
+USE_C 1  "1"
   ## widget = checkbox
 
 MSG_USE_C 1  "Use BeiDou"
 
 ! QZSS
-USE_J 1  "0"
+USE_J 1  "1"
   ## widget = checkbox
 
 MSG_USE_J 1  "Use QZSS"
@@ -474,7 +474,7 @@ MSG_REQEPO 1  "Minimum number of epochs required per file"
 
 ! Maximum number of ambiguities allowed per file
 ! ----------------------------------------------
-REQAMB 0
+REQAMB 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = SAVPHS = 1 AND ACCEPTCS = 1
 
@@ -503,14 +503,14 @@ MSG_REQCODONLY 1  "Allow station with only code data"
 
 ! Minimum number of satellites per file
 ! -------------------------------------
-REQSATALL 0
+REQSATALL 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_REQSATALL 1  "Minimum number of satellites"
 
 ! Minimum number of phase observations per file
 ! ---------------------------------------------
-REQPHAALL 0
+REQPHAALL 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = SAVPHS = 1
 
@@ -518,7 +518,7 @@ MSG_REQPHAALL 1  "Minimum number of phase observations"
 
 ! Minimum number of code observations per file
 ! --------------------------------------------
-REQCODALL 0
+REQCODALL 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = SAVCOD = 1
 
@@ -526,7 +526,7 @@ MSG_REQCODALL 1  "Minimum number of code observations"
 
 ! Minimum number of satellites per file for GPS
 ! ---------------------------------------------
-REQSATGPS 0
+REQSATGPS 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_G = 1
 
@@ -534,7 +534,7 @@ MSG_REQSATGPS 1  "Minimum number of satellites for GPS"
 
 ! Minimum number of phase observations per file for GPS
 ! -----------------------------------------------------
-REQPHAGPS 0
+REQPHAGPS 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_G = 1 AND SAVPHS = 1
 
@@ -542,7 +542,7 @@ MSG_REQPHAGPS 1  "Minimum number of phase observations for GPS"
 
 ! Minimum number of code observations per file for GPS
 ! ----------------------------------------------------
-REQCODGPS 0
+REQCODGPS 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_G = 1 AND SAVCOD = 1
 
@@ -550,7 +550,7 @@ MSG_REQCODGPS 1  "Minimum number of code observations for GPS"
 
 ! Minimum number of satellites per file for GLONASS
 ! -------------------------------------------------
-REQSATGLO 0
+REQSATGLO 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_R = 1
 
@@ -558,7 +558,7 @@ MSG_REQSATGLO 1  "Minimum number of satellites for GLONASS"
 
 ! Minimum number of phase observations per file for GLONASS
 ! ---------------------------------------------------------
-REQPHAGLO 0
+REQPHAGLO 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_R = 1 AND SAVPHS = 1
 
@@ -566,7 +566,7 @@ MSG_REQPHAGLO 1  "Minimum number of phase observations for GLONASS"
 
 ! Minimum number of code observations per file for GLONASS
 ! --------------------------------------------------------
-REQCODGLO 0
+REQCODGLO 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_R = 1 AND SAVCOD = 1
 
@@ -574,7 +574,7 @@ MSG_REQCODGLO 1  "Minimum number of code observations for GLONASS"
 
 ! Minimum number of satellites per file for Galileo
 ! -------------------------------------------------
-REQSATGAL 0
+REQSATGAL 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_E = 1
 
@@ -582,7 +582,7 @@ MSG_REQSATGAL 1  "Minimum number of satellites for Galileo"
 
 ! Minimum number of phase observations per file for Galileo
 ! ---------------------------------------------------------
-REQPHAGAL 0
+REQPHAGAL 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_E = 1 AND SAVPHS = 1
 
@@ -590,7 +590,7 @@ MSG_REQPHAGAL 1  "Minimum number of phase observations for Galileo"
 
 ! Minimum number of code observations per file for Galileo
 ! --------------------------------------------------------
-REQCODGAL 0
+REQCODGAL 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_E = 1 AND SAVCOD = 1
 
@@ -598,7 +598,7 @@ MSG_REQCODGAL 1  "Minimum number of code observations for Galileo"
 
 ! Minimum number of satellites per file for SBAS
 ! ----------------------------------------------
-REQSATGEO 0
+REQSATGEO 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_S = 1
 
@@ -606,7 +606,7 @@ MSG_REQSATGEO 1  "Minimum number of satellites for SBAS"
 
 ! Minimum number of phase observations per file for SBAS
 ! ------------------------------------------------------
-REQPHAGEO 0
+REQPHAGEO 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_S = 1 AND SAVPHS = 1
 
@@ -614,7 +614,7 @@ MSG_REQPHAGEO 1  "Minimum number of phase observations for SBAS"
 
 ! Minimum number of code observations per file for SBAS
 ! -----------------------------------------------------
-REQCODGEO 0
+REQCODGEO 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_S = 1 AND SAVCOD = 1
 
@@ -622,7 +622,7 @@ MSG_REQCODGEO 1  "Minimum number of code observations for SBAS"
 
 ! Minimum number of satellites per file for BeiDou
 ! ------------------------------------------------
-REQSATBEI 0
+REQSATBEI 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_C = 1
 
@@ -630,7 +630,7 @@ MSG_REQSATBEI 1  "Minimum number of satellites for BeiDou"
 
 ! Minimum number of phase observations per file for BeiDou
 ! --------------------------------------------------------
-REQPHABEI 0
+REQPHABEI 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_C = 1 AND SAVPHS = 1
 
@@ -638,7 +638,7 @@ MSG_REQPHABEI 1  "Minimum number of phase observations for BeiDou"
 
 ! Minimum number of code observations per file for BeiDou
 ! -------------------------------------------------------
-REQCODBEI 0
+REQCODBEI 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_C = 1 AND SAVCOD = 1
 
@@ -646,7 +646,7 @@ MSG_REQCODBEI 1  "Minimum number of code observations for BeiDou"
 
 ! Minimum number of satellites per file for QZSS
 ! ----------------------------------------------
-REQSATQZS 0
+REQSATQZS 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_J = 1
 
@@ -654,7 +654,7 @@ MSG_REQSATQZS 1  "Minimum number of satellites for QZSS"
 
 ! Minimum number of phase observations per file for QZSS
 ! ------------------------------------------------------
-REQPHAQZS 0
+REQPHAQZS 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_J = 1 AND SAVPHS = 1
 
@@ -662,7 +662,7 @@ MSG_REQPHAQZS 1  "Minimum number of phase observations for QZSS"
 
 ! Minimum number of code observations per file for QZSS
 ! -----------------------------------------------------
-REQCODQZS 0
+REQCODQZS 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
   ## activeif = USE_J = 1 AND SAVCOD = 1
 
@@ -814,7 +814,16 @@ ANTVER 1  "SKIP"
 
 MSG_ANTVER 1  "Check antenna correction file for antenna type"
 
-ANTMETH_LIST 0
+ANTMETH_LIST 9
+  "NONE"
+  "ADOPTED from NONE"
+  "ADOPTED from GPS"
+  "ADOPTED from group"
+  "COPIED"
+  "CONVERTED"
+  "FIELD"
+  "CHAMBER"
+  "ROBOT"
   ## widget = selwin; menuaux = MENUAUX; action = ANTMETHOD
   ## menuauxkeys = PHASECC SATELL ANTMETH
 
@@ -1044,7 +1053,7 @@ REJFAKEOBSTOL 1  "1d-4"
 
 MSG_REJFAKEOBSTOL 1  "Tolerance for fake observation rejection"
 
-REJINCONSCODTOL 0
+REJINCONSCODTOL 1  ""
   ## widget = lineedit; check_type = integer; check_min = 100
 
 MSG_REJINCONSCODTOL 1  "Tol. for rejection of inconsistent code obs."

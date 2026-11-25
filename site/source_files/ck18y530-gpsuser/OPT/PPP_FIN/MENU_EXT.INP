@@ -270,7 +270,7 @@ EXT_ATTMETA 1  "BSW"
 MSG_EXT_ATTMETA 1  "Satellite Attitude Meta Data: extension"
 
 ! Satellite Problem File (new SATCRUX)
-PTH_SATCRUX 1  "STA"
+PTH_SATCRUX 1  "${CONFIG}"
   ## widget = lineedit; keepvariables = true
 
 MSG_PTH_SATCRUX 1  "Satellite Problem File: path"

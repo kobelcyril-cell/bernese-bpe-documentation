@@ -56,7 +56,7 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -148,6 +148,7 @@ MSG_SMTFILE 1  "Smoothed RINEX observation files"
 ! ----------------------------------------------
 STAINFO 1  "$(STAINF)"
   ## widget = selwin; path = DIR_STA; ext = EXT_STA; emptyallowed = true
+  ## maxfiles = 1
 
 DESCR_STAINFO 1  "Station information"
 
@@ -835,8 +836,9 @@ MSG_ROUNDOT 1  "Rounding of fractional part of observation time"
 ! -----------------------------------------------------
 RNXINFO 1  ""
   ## widget = selwin; path = DIR_CRX; ext = EXT_CRX; emptyallowed = true
+  ## maxfiles = 1
 
-DESCR_RNXINFO 1  "Accepted station information"
+DESCR_RNXINFO 1  "Accepted station information file"
 
 ! Extensions of the Output Files
 ! ------------------------------

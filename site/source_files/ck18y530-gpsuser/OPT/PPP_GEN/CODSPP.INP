@@ -47,7 +47,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -77,7 +77,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! ERP File
 ! ---------
-POLE 1  "$(ORB)_$YYYSS+0"
+POLE 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
 
 DESCR_POLE 1  "Earth rotation parameters"
@@ -118,14 +118,14 @@ DESCR_FRQINFO 1  "Frequency information"
 
 ! Standard Orbits
 ! ---------------
-STDORB 1  "$(ORB)_$YYYSS+0"
+STDORB 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
 
 DESCR_STDORB 1  "Standard orbits"
 
 ! Satellite Clocks
 ! ----------------
-SATCLK 1  "$(ORB)_$YYYSS+0"
+SATCLK 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
 
 DESCR_SATCLK 1  "Satellite clock corrections"

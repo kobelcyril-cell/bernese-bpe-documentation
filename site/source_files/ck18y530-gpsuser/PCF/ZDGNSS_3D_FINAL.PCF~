@@ -21,7 +21,7 @@
 PID  SCRIPT    OPT_DIR   PARAMETERS
 # Wait for status flag
 # --------------------
-001  ZD_STATUS         NO_OPT      CPU=ANY; PARAM1=FINISH_F; PARAM2=CHECK; PARAM3=1
+001  ZD_STATUS         NO_OPT      CPU=ANY; PARAM1=V_STATUSW; PARAM2=CHECK; PARAM3=V_STATUSND
 #
 # Copy data and prepair input files
 # ---------------------------------
@@ -44,12 +44,14 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS         NO_OPT      CPU=ANY; WAIT=700; PARAM1=3D_F; PARAM2=CREATE
+999  ZD_STATUS         NO_OPT      CPU=ANY; WAIT=700; PARAM1=V_STATUSF; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
 V_ORBAPR = *;                DESCRIPTION=A priori Orbit and RPR
 V_APR    = *;                DESCRIPTION=A priori information (1d-sol)
 V_FIN    = *;                DESCRIPTION=Final results
+V_GNSS   = *;                DESCRIPTION=Processed GNSS Systems
+V_SOLDAY = *;                DESCRIPTION=Which day of 3-day solution is extracted (middle/last)
 V_PSDINF = IG?20;            DESCRIPTION=PSD corrections
 V_CRDINF = IG?20;            DESCRIPTION=CRD/VEL/FIX master file name
 V_SUBMOD = *;                DESCRIPTION=Subdaily pole model
@@ -63,6 +65,7 @@ V_FLUX   = *;                DESCRIPTION=Flux index
 V_POTCOE = COSTG_FSM_????;   DESCRIPTION=Gravity field model
 V_PCVINF = *;                DESCRIPTION=PCV information
 V_PCV    = I??;              DESCRIPTION=GNSS PCV model (absolute)
+V_PCVM   = ????;             DESCRIPTION=GNSS PCV model version
 V_OBSSEL = *;                DESCRIPTION=Observation selection file
 V_SATCRX = *;                DESCRIPTION=Satellite problem file for data import
 V_SATINF = *;                DESCRIPTION=Satellite information
@@ -72,6 +75,9 @@ V_BLQINF = FES20*;           DESCRIPTION=BLQ file name, CMC corrections
 V_SAVE   = *;                DESCRIPTION=Save results; CARDS=YES NO
 V_MEANPL = *;                DESCRIPTION=Mean pole model
 V_DEL    = ?;                DESCRIPTION=Delete specific files from campaign; CARDS=Y N
+V_STATUSW = *;               DESCRIPTION=Wait for process creating this flag
+V_STATUSF = *;               DESCRIPTION=Create this flag when finished
+V_STATUSND = *;               DESCRIPTION=Check for flag file for next day; CARDS=1 0
 # Configuration
-V_PCFCONFIG = MODEL SETUP_ZDGNSS 3DF;    DESCRIPTION=Configuration files
+V_PCFCONFIG = MODEL SETUP_ZDGNSS 3D;    DESCRIPTION=Configuration files
 

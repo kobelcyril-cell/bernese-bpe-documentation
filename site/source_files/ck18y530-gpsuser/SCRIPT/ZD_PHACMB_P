@@ -160,4 +160,3 @@ foreach my $file (@files) {
   print "OSB_MERGE: DONE\n";
 }
 
-1;

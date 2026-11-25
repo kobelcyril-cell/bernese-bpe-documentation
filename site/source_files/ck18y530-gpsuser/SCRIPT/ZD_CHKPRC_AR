@@ -95,8 +95,8 @@ sub check_phacor_satellite_coverage {
     next unless ($line =~ /covered epochs/i);
     $matched++;
 
-    if ($line =~ /satellite\s*=\s*(\d+).*?covered epochs\s*=\s*(\d+)/i) {
-      my ($satellite, $covered) = ($1, $2);
+    if ($line =~ /satellite\s+(\d+)\s*:.*?covered\s+epochs\s*=\s*(\d+)\s*\/\s*(\d+)/i) {
+      my ($satellite, $covered, $total) = ($1, $2, $3);
 
       if ($covered != 288) {
         print $LOG "Satellite $satellite has $covered covered epochs (expected 288): Probably decreased ambiguity-resolution rate\n";

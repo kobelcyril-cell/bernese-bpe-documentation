@@ -42,16 +42,16 @@ EXT_NUTMOD 1  "NUT"
 
 MSG_EXT_NUTMOD 1  "Nutation Model: extension"
 
-! Earth Potential Coefficients
+! Coeff. of Earth Potential
 PTH_POTCOE 1  "${MODEL}"
   ## widget = lineedit; keepvariables = true
 
-MSG_PTH_POTCOE 1  "Earth Potential Coefficients: path"
+MSG_PTH_POTCOE 1  "Coeff. of Earth potential: path"
 
 EXT_POTCOE 1  "GRV"
   ## widget = lineedit; keepvariables = true
 
-MSG_EXT_POTCOE 1  "Earth Potential Coefficients: extension"
+MSG_EXT_POTCOE 1  "Coeff. of Earth potential: extension"
 
 ! Albedo Emissivity
 PTH_ALBEMIS 1  "${MODEL}"
@@ -85,17 +85,6 @@ EXT_AIRSOLAR 1  "FLX"
   ## widget = lineedit; keepvariables = true
 
 MSG_EXT_AIRSOLAR 1  "Solar indices for JB2008 atmos. model: extension"
-
-! Solar indices for JB2008 atmos. model (ORBGEN)
-PTH_DTCVAL 1  "${MODEL}"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_DTCVAL 1  "JB2008: Geomag. storm dTc values: path"
-
-EXT_DTCVAL 1  "TXT"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_DTCVAL 1  "JB2008: Geomag. storm dTc values: extension"
 
 ! Solar F10.7 flux and geomagnetic index (ORBGEN)
 PTH_FLXAPFIL 1  "${MODEL}"
@@ -161,81 +150,15 @@ EXT_SUBPOT 1  "TID"
 
 MSG_EXT_SUBPOT 1  "Tidal potential:extension"
 
-! Time-variable C20, C21, S21
-PTH_CS2021 1  "${MODEL}"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_CS2021 1  "Time-variable C20, C21, S21: path"
-
-EXT_CS2021 1  "GRV"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_CS2021 1  "Time-variable C20, C21, S21: extension"
-
-! Time-variable zonals
-PTH_ZONALS 1  "${MODEL}"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_ZONALS 1  "Time-variable zonals: path"
-
-EXT_ZONALS 1  "GRV"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_ZONALS 1  "Time-variable zonals: extension"
-
-! Ocean admittances
-PTH_OTIDAD 1  "${MODEL}"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_OTIDAD 1  "Ocean admittances: path"
-
-EXT_OTIDAD 1  "ADM"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_OTIDAD 1  "Ocean admittances: extension"
-
-! Atmosphere tides
-PTH_ATIDES 1  "${MODEL}"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_ATIDES 1  "Atmosphere tides: path"
-
-EXT_ATIDES 1  "TID"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_ATIDES 1  "Atmosphere tides: extension"
-
-! Ocean pole tide
-PTH_OCPLTD 1  "${MODEL}"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_OCPLTD 1  "Ocean pole tide: path"
-
-EXT_OCPLTD 1  "TID"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_OCPLTD 1  "Ocean pole tide: extension"
-
-! Love numbers
-PTH_LOVNUM 1  "${MODEL}"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_LOVNUM 1  "Love numbers: path"
-
-EXT_LOVNUM 1  "LOV"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_LOVNUM 1  "Love numbers: extension"
-
 ! Airdrag model data
 PTH_AIRMOD 1  "${X}/GEN"
-  ## widget = lineedit; keepvariables = true
+  ## widget = lineedit
 
 MSG_PTH_AIRMOD 1  "Airdrag model data"
 
 ! General Files Global Configuration FILES
 ! ----------------------------------------
-GEN_DATUM_FILE 1  "DATUM."
+GEN_DATUM_FILE 1  "DATUM"
 
 PTH_DATUM 1  "${CONFIG}"
   ## widget = lineedit; keepvariables = true
@@ -258,19 +181,8 @@ EXT_SATELL 1  "SAT"
 
 MSG_EXT_SATELL 1  "Satellite information: extension"
 
-! Satellite Attitude Meta Data
-PTH_ATTMETA 1  "${CONFIG}"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_ATTMETA 1  "Satellite Attitude Meta Data: path"
-
-EXT_ATTMETA 1  "BSW"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_ATTMETA 1  "Satellite Attitude Meta Data: extension"
-
 ! Satellite Problem File (new SATCRUX)
-PTH_SATCRUX 1  "STA"
+PTH_SATCRUX 1  "${CONFIG}"
   ## widget = lineedit; keepvariables = true
 
 MSG_PTH_SATCRUX 1  "Satellite Problem File: path"
@@ -302,11 +214,11 @@ EXT_FRQ 1  "FRQ"
 
 MSG_EXT_FRQ 1  "Frequency Information (SLR) file: extension"
 
-! GPS-UTC time difference
+! Difference GPS-UTC
 PTH_GPSUTC 1  "${CONFIG}"
   ## widget = lineedit; keepvariables = true
 
-MSG_PTH_GPSUTC 1  "GPS-UTC time difference: path"
+MSG_PTH_GPSUTC 1  "Difference GPS-UTC: path"
 
 EXT_GPSUTC 1  "BSW"
   ## widget = lineedit; keepvariables = true
@@ -368,19 +280,7 @@ MSG_PTH_IONEXCF 1  "Ionex control file: path"
 EXT_IONEXCF 1  "SKL"
   ## widget = lineedit; keepvariables = true
 
-MSG_EXT_IONEXCF 1  "Ionex control file: extension"
-
-! Others: Skeleton
-! ----------------
-PTH_SLRMAILSKL 1  "GEN"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_SLRMAILSKL 1  "Skeleton file for slrmail: path"
-
-EXT_SLRMAILSKL 1  "SKL"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_SLRMAILSKL 1  "Skeleton file for slrmail: extension"
+MSG_EXT_IONEXCF 1  "Ionex contril file: extension"
 
 ! General Files exotic or internal. tbdel?
 ! ----------------------------------------
@@ -419,32 +319,12 @@ MSG_EXT_PRE 1  "Precise orbits: extension"
 DIR_STD 1  "ORB"
   ## widget = lineedit; keepvariables = true
 
-MSG_DIR_STD 1  "Standard orbits (old): directory"
+MSG_DIR_STD 1  "Standard orbits: directory"
 
 EXT_STD 1  "STD"
   ## widget = lineedit; keepvariables = true
 
-MSG_EXT_STD 1  "Standard orbits (old): extension"
-
-DIR_ORB 1  "ORB"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_ORB 1  "Standard orbits (new): directory"
-
-EXT_ORB 1  "ORB"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_ORB 1  "Standard orbits (new): extension"
-
-DIR_RP2 1  "ORB"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_RP2 1  "RP2 file: directory"
-
-EXT_RP2 1  "RP2"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_RP2 1  "RP2 file(new): extension"
+MSG_EXT_STD 1  "Standard orbits: extension"
 
 ! Orbit files: Radiation press.
 ! -----------------------------
@@ -625,17 +505,6 @@ EXT_ATT 1  "ATT"
   ## widget = lineedit; keepvariables = true
 
 MSG_EXT_ATT 1  "Attitude data: extension"
-
-! Satellite maneuver information
-DIR_MAN 1  "ORB"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_MAN 1  "Satellite maneuver information file: path"
-
-EXT_MAN 1  "MAN"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_MAN 1  "Satellite maneuver information file: extension"
 
 ! Orbit: ROT rotaion matrix format
 ! --------------------------------
@@ -919,7 +788,7 @@ DIR_RZH 1  "OBS"
 
 MSG_DIR_RZH 1  "Range observations, header: directory"
 
-EXT_RZH 1  "CZH"
+EXT_RZH 1  "RZH"
   ## widget = lineedit; keepvariables = true
 
 MSG_EXT_RZH 1  "Range observations, header: extension"
@@ -931,7 +800,7 @@ DIR_RZO 1  "OBS"
 
 MSG_DIR_RZO 1  "Range observations, data: directory"
 
-EXT_RZO 1  "CZO"
+EXT_RZO 1  "RZO"
   ## widget = lineedit; keepvariables = true
 
 MSG_EXT_RZO 1  "Range observations, data: extension"
@@ -983,18 +852,6 @@ EXT_ECC 1  "ECC"
   ## widget = lineedit; keepvariables = true
 
 MSG_EXT_ECC 1  "Station eccentricities: extension"
-
-!! Station files: Clock collocation
-! ---------------------------------
-DIR_CTI 1  "STA"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_CTI 1  "Station clock collocation: directory"
-
-EXT_CTI 1  "CTI"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_CTI 1  "Station clock collocation: extension"
 
 ! Station files: PSD corrections
 ! ------------------------------
@@ -1104,18 +961,6 @@ EXT_SOS 1  "SOS"
 
 MSG_EXT_SOS 1  "Station observation sigma factors: extension"
 
-! Station directional weighting sigma factors
-! -------------------------------------------
-DIR_DWG 1  "STA"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_DWG 1  "Station directional weighting sigma factors: directory"
-
-EXT_DWG 1  "DWG"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_DWG 1  "Station directional weighting sigma factors: extension"
-
 ! Station files: Abbr. table
 ! --------------------------
 DIR_ABB 1  "STA"
@@ -1128,29 +973,17 @@ EXT_ABB 1  "ABB"
 
 MSG_EXT_ABB 1  "Abbreviation table: extension"
 
-! Station files: Plate definition for PGM NUVELO
-! ----------------------------------------------
+! Station files: Plate definition for NUVEL1/1A
+! ---------------------------------------------
 DIR_PLD 1  "STA"
   ## widget = lineedit; keepvariables = true
 
-MSG_DIR_PLD 1  "Tectonic plate assignment (for NUVELO): directory"
+MSG_DIR_PLD 1  "Tectonic plate assignment (for NUVEL1/1A): directory"
 
 EXT_PLD 1  "PLD"
   ## widget = lineedit; keepvariables = true
 
-MSG_EXT_PLD 1  "Tectonic plate assignment (for NUVELO): extension"
-
-! Station files: Plate motion model for NUVELO
-! --------------------------------------------
-DIR_PMM 1  "STA"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_PMM 1  "Plate motion model (for NUVELO): directory"
-
-EXT_PMM 1  "PMM"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_PMM 1  "Plate motion model (for NUVELO): extension"
+MSG_EXT_PLD 1  "Tectonic plate assignment (for NUVEL1/1A): extension"
 
 ! Station files: Baseline def.
 ! ----------------------------
@@ -1296,18 +1129,6 @@ EXT_GRD 1  "GRD"
 
 MSG_EXT_GRD 1  "Vienna grid files: extension"
 
-! Atmospheric / Oceanic dealiasing files
-! --------------------------------------
-DIR_AOD 1  "AOD"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_AOD 1  "Atmosphere and Ocean Dealiasing files"
-
-EXT_AOD 1  "AOD"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_AOD 1  "AOD files: extension"
-
 ! Output: Program output
 ! ----------------------
 DIR_OUT 1  "OUT"
@@ -1404,18 +1225,6 @@ EXT_RXC 1  "CLK"
 
 MSG_EXT_RXC 1  "Clock information (clock RINEX format): extension"
 
-! Output: Receiver clock corrections
-! ----------------------------------
-DIR_RCC 1  "OUT"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_RCC 1  "Receiver clock corrections: directory"
-
-EXT_RCC 1  "RCC"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_RCC 1  "Receiver clock corrections: extension"
-
 ! Output: Covariance file
 ! -----------------------
 DIR_COV 1  "OUT"
@@ -1440,6 +1249,20 @@ EXT_WGT 1  "WGT"
 
 MSG_EXT_WGT 1  "Covariance components: extension"
 
+! Output: Sub-daily ERP Model
+! ---------------------------
+!EXT_SUB 1  "SUB"
+!  ## widget = lineedit; keepvariables = true
+!
+!MSG_EXT_SUB 1  "Sub-daily earth rotation model: extension"
+! Output: Nutation Model
+! ----------------------
+!EXT_NUT 1  "NUT"
+!  ## widget = lineedit; keepvariables = true
+!
+!MSG_EXT_NUT 1  "Nutation model: extension"
+! Output: Ant PCV (grid)
+! ----------------------
 DIR_PHG 1  "OUT"
   ## widget = lineedit; keepvariables = true
 
@@ -1485,42 +1308,6 @@ EXT_DEL 1  "DEL"
   ## widget = lineedit; keepvariables = true
 
 MSG_EXT_DEL 1  "File deletion list: extension"
-
-! Input/output Time series event list file
-! ----------------------------------------
-DIR_EVL 1  "STA"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_EVL 1  "Time series event list file: directory"
-
-EXT_EVL 1  "EVL"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_EVL 1  "Time series event list file: extension"
-
-! Input/output Gravity field estimation
-! -------------------------------------
-DIR_GRV 1  "OUT"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_GRV 1  "Gravity field: directory"
-
-EXT_GRV 1  "GRV"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_GRV 1  "Gravity field: extension"
-
-! Output VCE values
-! -------------------------------------
-DIR_VCE 1  "SOL"
-  ## widget = lineedit; keepvariables = true
-
-MSG_DIR_VCE 1  "VCE: directory"
-
-EXT_VCE 1  "VCE"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_VCE 1  "VCE: extension"
 
 ! Output: Parameter estimates
 ! ---------------------------
@@ -1676,18 +1463,6 @@ EXT_PCF 1  "PCF"
 
 MSG_EXT_PCF 1  "Processing control files: extension"
 
-! BPE: BPECFG-name
-! -------------
-PTH_BPECFG 1  "${U}/CFG"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_BPECFG 1  "BPE configuration files: path"
-
-EXT_BPECFG 1  "CFG"
-  ## widget = lineedit; keepvariables = true
-
-MSG_EXT_BPECFG 1  "BPE configuration files: extension"
-
 ! BPE: CPU-file name
 ! ------------------
 PTH_CPU 1  "${U}/PAN"
@@ -1769,7 +1544,7 @@ MSG_PTH_OPT 1  "Option directory: path"
 
 ! Others: Help
 ! ------------
-PTH_HLP 1  "${HLP}"
+PTH_HLP 1  "${X}/HLP"
   ## widget = lineedit; keepvariables = true
 
 MSG_PTH_HLP 1  "Help files: path"
@@ -1779,9 +1554,21 @@ EXT_HLP 1  "HLP"
 
 MSG_EXT_HLP 1  "Help files: extension"
 
+! Others: Skeleton
+! ----------------
+PTH_SKL 1  "${X}/GEN"
+  ## widget = lineedit; keepvariables = true
+
+MSG_PTH_SKL 1  "Skeleton files (e.g. for plot files): path"
+
+EXT_SKL 1  "SKL"
+  ## widget = lineedit; keepvariables = true
+
+MSG_EXT_SKL 1  "Skeleton files (e.g. for plot files): extension"
+
 ! Others: updpan - master and list
 ! --------------------------------
-PTH_UPDPAN 1  "${PAN}"
+PTH_UPDPAN 1  "${X}/PAN"
   ## widget = lineedit; keepvariables = true
 
 MSG_PTH_UPDPAN 1  "Program input master files: path"
@@ -1805,7 +1592,7 @@ MSG_PTH_OUT 1  "Program output files (campaign indep.): path"
 
 ! Others: User input files
 ! ------------------------
-PTH_INP 1  "${U}/INP"
+PTH_INP 1  "${U}/PAN"
   ## widget = lineedit; keepvariables = true
 
 MSG_PTH_INP 1  "Program input files: path"
@@ -1814,11 +1601,6 @@ EXT_INP 1  "INP"
   ## widget = lineedit; keepvariables = true
 
 MSG_EXT_INP 1  "Program input files: extension"
-
-PTH_PAN 1  "${U}/PAN"
-  ## widget = lineedit; keepvariables = true
-
-MSG_PTH_PAN 1  "Program input files for editing: path"
 
 ! Others: Scratch files
 ! ---------------------
@@ -1914,43 +1696,35 @@ MENUAUX_DEBUG 1  "0"
 #                                                                              #
 # FILES WITH GLOBAL MODELS                                path       extension #
 #   General constants                                 > %%%%%%%%%%%% <  > %%% <# PTH_CONST EXT_CONST
-#   Sub-daily Earth rotation model                    > %%%%%%%%%%%% <  > %%% <# PTH_SUBMOD EXT_SUBMOD
+#   Sub-daily earth rotation model                    > %%%%%%%%%%%% <  > %%% <# PTH_SUBMOD EXT_SUBMOD
 #   Nutation model                                    > %%%%%%%%%%%% <  > %%% <# PTH_NUTMOD EXT_NUTMOD
-#   Earth potential coefficients                      > %%%%%%%%%%%% <  > %%% <# PTH_POTCOE EXT_POTCOE
-#   Time-variable C20, C21, S21                       > %%%%%%%%%%%% <  > %%% <# PTH_CS2021 EXT_CS2021
-#   Time-variable zonals                              > %%%%%%%%%%%% <  > %%% <# PTH_ZONALS EXT_ZONALS
+#   Coeff. of Earth potential                         > %%%%%%%%%%%% <  > %%% <# PTH_POTCOE EXT_POTCOE
 #                                                                              #
 # FILES FOR ORBIT MODELLING                                                    #
 #   Albedo emissivity                                 > %%%%%%%%%%%% <  > %%% <# PTH_ALBEMIS EXT_ALBEMIS
 #   Albedo reflectivity                               > %%%%%%%%%%%% <  > %%% <# PTH_ALBREFL EXT_ALBREFL
+#   Solar indices for JB2008 atmos. model             > %%%%%%%%%%%% <  > %%% <# PTH_AIRSOLAR EXT_AIRSOLAR
 #   Solar F10.7 flux and geomagnetic index            > %%%%%%%%%%%% <  > %%% <# PTH_FLXAPFIL EXT_FLXAPFIL
-#   JB2008: Solar indices                             > %%%%%%%%%%%% <  > %%% <# PTH_AIRSOLAR EXT_AIRSOLAR
-#   JB2008: Geomagnetic storm dTc values              > %%%%%%%%%%%% <  > %%% <# PTH_DTCVAL EXT_DTCVAL
 #   Planetary ephemeris                               > %%%%%%%%%%%% <  > %%% <# PTH_JPLEPH EXT_JPLEPH
 #   Solid Earth tides model (accelerations)           > %%%%%%%%%%%% <  > %%% <# PTH_TPO EXT_TPO
-#   Ocean tide model@@@@@@@@(accelerations)           > %%%%%%%%%%%% <  > %%% <# PTH_TID EXT_TID
-#   Ocean admittances                                 > %%%%%%%%%%%% <  > %%% <# PTH_OTIDAD EXT_OTIDAD
-#   Ocean pole tide                                   > %%%%%%%%%%%% <  > %%% <# PTH_OCPLTD EXT_OCPLTD
-#   Atmosphere tides                                  > %%%%%%%%%%%% <  > %%% <# PTH_ATIDES EXT_ATIDES
-#   Love numbers                                      > %%%%%%%%%%%% <  > %%% <# PTH_LOVNUM EXT_LOVNUM
+#   Ocean tide model (accelerations)                  > %%%%%%%%%%%% <  > %%% <# PTH_TID EXT_TID
 #   Airdrag model data                                > %%%%%%%%%%%% <         # PTH_AIRMOD
 #                                                                              #
 # MODEL FILES FOR SPECIFIC PROGRAMS                                            #
 #   S1/S2 atmospheric loading grid (GRDS1S2)          > %%%%%%%%%%%% <  > %%% <# PTH_S1_S2_DATA EXT_S1_S2_DATA
-#   Tidal potential (ERPEST)                          > %%%%%%%%%%%% <  > %%% <# PTH_SUBPOT EXT_SUBPOT
+#   Tidal Potential (ERPEST)                          > %%%%%%%%%%%% <  > %%% <# PTH_SUBPOT EXT_SUBPOT
 #                                                                              #
 # END_PANEL ####################################################################
 
 
 # BEGIN_PANEL NO_CONDITION #####################################################
-# PATHS AND EXTENSIONS - MENU_EXT 1.2: Global Configuration                    #
+# PATHS AND EXTENSIONS - MENU_EXT 1.2: Global Configurations                   #
 #                                                                              #
 # GLOBAL CONFIGURATION FILES                              path       extension #
 #   Geodetic datum                                    > %%%%%%%%%%%% <  > %%% <# PTH_DATUM EXT_DATUM
 #                                                                              #
 #   Satellite information                             > %%%%%%%%%%%% <  > %%% <# PTH_SATELL EXT_SATELL
-#   Satellite attitude meta data                      > %%%%%%%%%%%% <  > %%% <# PTH_ATTMETA EXT_ATTMETA
-#   Satellite macro model                             > %%%%%%%%%%%% <  > %%% <# PTH_PLATDEF EXT_PLATDEF
+#   Satellite macro model (ORBGEN)                    > %%%%%%%%%%%% <  > %%% <# PTH_PLATDEF EXT_PLATDEF
 #   Satellite/station problem file                    > %%%%%%%%%%%% <  > %%% <# PTH_SATCRUX EXT_SATCRUX
 #                                                                              #
 #   SLR frequency information                         > %%%%%%%%%%%% <  > %%% <# PTH_FRQ EXT_FRQ
@@ -1963,7 +1737,7 @@ MENUAUX_DEBUG 1  "0"
 
 
 # BEGIN_PANEL NO_CONDITION #####################################################
-# PATHS AND EXTENSIONS - MENU_EXT 1.3: Campaign Specific Configuration         #
+# PATHS AND EXTENSIONS - MENU_EXT 1.3: Campaign Specific Configurations        #
 #                                                                              #
 #                                                        campaign              #
 # CAMPAIGN SPECIFIC CONFIGURATIONS                       directory   extension #
@@ -1973,7 +1747,6 @@ MENUAUX_DEBUG 1  "0"
 # SKELETON FILES                                                               #
 #   SINEX general input file                          > %%%%%%%%%%%% <  > %%% <# PTH_SINEXIN EXT_SINEXIN
 #   IONEX control file                                > %%%%%%%%%%%% <  > %%% <# PTH_IONEXCF EXT_IONEXCF
-#   Skeleton file for slrmail                         > %%%%%%%%%%%% <  > %%% <# PTH_SLRMAILSKL EXT_SLRMAILSKL
 #                                                                              #
 # END_PANEL ####################################################################
 
@@ -1984,9 +1757,7 @@ MENUAUX_DEBUG 1  "0"
 # ORBIT FILES                                      directory   extension       #
 #   Precise orbits (original)                     > %%%%%% <                   # DIR_OPR
 #   Precise orbits                                > %%%%%% <    > %%% <        # DIR_PRE EXT_PRE
-#   Standard orbits (old)                         > %%%%%% <    > %%% <        # DIR_STD EXT_STD
-#   Standard orbits (new)                         > %%%%%% <    > %%% <        # DIR_ORB EXT_ORB
-#   RP2 file (new)                                > %%%%%% <    > %%% <        # DIR_RP2 EXT_RP2
+#   Standard orbits                               > %%%%%% <    > %%% <        # DIR_STD EXT_STD
 #   Radiation pressure coefficients               > %%%%%% <    > %%% <        # DIR_RPR EXT_RPR
 #   Improved orbit elements                       > %%%%%% <    > %%% <        # DIR_ELE EXT_ELE
 #   ORBEX file (for attitude reporting)           > %%%%%% <    > %%% <        # DIR_OBX EXT_OBX
@@ -2011,7 +1782,6 @@ MENUAUX_DEBUG 1  "0"
 #                                                  campaign                    #
 # LEO FILES                                        directory   extension       #
 #   Attitude data                                 > %%%%%% <    > %%% <        # DIR_ATT EXT_ATT
-#   Maneuver data                                 > %%%%%% <    > %%% <        # DIR_MAN EXT_MAN
 #   LEO velocities (epoch-wise)                   > %%%%%% <    > %%% <        # DIR_KVL EXT_KVL
 #                                                                              #
 # END_PANEL ####################################################################
@@ -2026,7 +1796,7 @@ MENUAUX_DEBUG 1  "0"
 #   RINEX observations (standard for processing)  > %%%%%% <    > %%% <        # DIR_RBO EXT_RBO
 #   RINEX navigation@@ (original for merging)     > %%%%%% <                   # DIR_OBN
 #   RINEX navigation@@ (standard for processing)  > %%%%%% <    > %%% <        # DIR_RBN EXT_RBN
-#   RINEX meteo data                              > %%%%%% <    > %%% <        # DIR_RBM EXT_RBM
+#   RINEX meteo                                   > %%%%%% <    > %%% <        # DIR_RBM EXT_RBM
 #                                                                              #
 #   Smoothed RINEX observations                   > %%%%%% <    > %%% <        # DIR_SMT EXT_SMT
 #                                                                              #
@@ -2084,10 +1854,8 @@ MENUAUX_DEBUG 1  "0"
 #   Station selection list                        > %%%%%% <    > %%% <        # DIR_FIX EXT_FIX
 #   Station sigma file                            > %%%%%% <    > %%% <        # DIR_SIG EXT_SIG
 #   Station observation sigma factors             > %%%%%% <    > %%% <        # DIR_SOS EXT_SOS
-#   Station directional weighting sigma factors   > %%%%%% <    > %%% <        # DIR_DWG EXT_DWG
 #   Abbreviation table                            > %%%%%% <    > %%% <        # DIR_ABB EXT_ABB
-#   Tectonic plate assignment (for NUVELO)        > %%%%%% <    > %%% <        # DIR_PLD EXT_PLD
-#   Plate motion model (for NUVELO)               > %%%%%% <    > %%% <        # DIR_PMM EXT_PMM
+#   Tectonic plate assignment (for NUVEL1/1A)     > %%%%%% <    > %%% <        # DIR_PLD EXT_PLD
 #   Baseline definition                           > %%%%%% <    > %%% <        # DIR_BSL EXT_BSL
 #   Cluster definition                            > %%%%%% <    > %%% <        # DIR_CLU EXT_CLU
 #   Cluster/baseline assignment                   > %%%%%% <    > %%% <        # DIR_CLB EXT_CLB
@@ -2108,7 +1876,6 @@ MENUAUX_DEBUG 1  "0"
 #   Ionosphere maps (IONEX)                       > %%%%%% <    > %%% <        # DIR_INX EXT_INX
 #   Meteo data                                    > %%%%%% <    > %%% <        # DIR_MET EXT_MET
 #   Vienna grid files (VMF and loading maps)      > %%%%%% <    > %%% <        # DIR_GRD EXT_GRD
-#   Atmospheric / oceanic dealiasing products     > %%%%%% <    > %%% <        # DIR_AOD EXT_AOD
 #                                                                              #
 # END_PANEL ####################################################################
 
@@ -2127,16 +1894,12 @@ MENUAUX_DEBUG 1  "0"
 # BERNESE IN-/OUTPUT FILES                                                     #
 #   Residuals                                     > %%%%%% <    > %%% <        # DIR_RES EXT_RES
 #   Clock information (clock RINEX format)        > %%%%%% <    > %%% <        # DIR_RXC EXT_RXC
-#   Receiver clock corrections                    > %%%%%% <    > %%% <        # DIR_RCC EXT_RCC
 #   Covariances                                   > %%%%%% <    > %%% <        # DIR_COV EXT_COV
 #   Covariance components                         > %%%%%% <    > %%% <        # DIR_WGT EXT_WGT
 #   Antenna PCV estimates (grid)                  > %%%%%% <    > %%% <        # DIR_PHG EXT_PHG
 #   Antenna PCV estimates (harm)                  > %%%%%% <    > %%% <        # DIR_PHH EXT_PHH
 #   Observation editing information               > %%%%%% <    > %%% <        # DIR_EDT EXT_EDT
 #   File deletion list                            > %%%%%% <    > %%% <        # DIR_DEL EXT_DEL
-#   Time series event list file                   > %%%%%% <    > %%% <        # DIR_EVL EXT_EVL
-#   Gravity field coefficients                    > %%%%%% <    > %%% <        # DIR_GRV EXT_GRV
-#   VCE weights                                   > %%%%%% <    > %%% <        # DIR_VCE EXT_VCE
 #                                                                              #
 # END_PANEL ####################################################################
 
@@ -2180,7 +1943,6 @@ MENUAUX_DEBUG 1  "0"
 #                                                                              #
 # BERNESE PROCESSING ENGINE                          path     extension        #
 #   Processing control files                     > %%%%%%%%%% <> %%% <         # PTH_PCF EXT_PCF
-#   Configuration files                          > %%%%%%%%%% <> %%% <         # PTH_PBECFG EXT_BPECFG
 #   CPU control file                             > %%%%%%%%%% <> %%% <         # PTH_CPU EXT_CPU
 #   Scratch for CPU control file                 > %%%%%%%%%% <                # PTH_CPUNUM
 #   BPE script directory                         > %%%%%%%%%% <                # PTH_SCRIPT
@@ -2194,6 +1956,7 @@ MENUAUX_DEBUG 1  "0"
 #                                                                              #
 # GENERAL                                     path      extension(s)           #
 #   Help files                            > %%%%%%%%%%%% <> %%% <              # PTH_HLP EXT_HLP
+#   Skeleton files (e.g. for plot files)  > %%%%%%%%%%%% <> %%% <              # PTH_SKL EXT_SKL
 #   Directory list for panel update       > %%%%%%%%%%%% <> %%% <              # PTH_UPD EXT_UPD
 #   Program input master files            > %%%%%%%%%%%% <                     # PTH_UPDPAN
 #                                                                              #

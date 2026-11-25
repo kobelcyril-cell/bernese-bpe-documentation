@@ -897,7 +897,7 @@ USE_S 1  "0"
 MSG_USE_S 1  "Use SBAS"
 
 ! BeiDou
-USE_C 1  "0"
+USE_C 1  "1"
   ## widget = checkbox
 
 MSG_USE_C 1  "Use BeiDou"
@@ -1152,7 +1152,7 @@ MSG_AMBQCPB 1  "Consider GPS quarter-cycle biases"
 
 ! Omit AR between BeiDou subconstellations
 ! ----------------------------------------
-AMBSUB_C 1  "0"
+AMBSUB_C 1  "1"
   ## widget = checkbox
   ## activeif = AMBSTRAT / inactive AND AMBSTRAT / NONE AND AMBSTRAT / SEARCH AND USE_C = 1 AND USEAR_C = 1
 

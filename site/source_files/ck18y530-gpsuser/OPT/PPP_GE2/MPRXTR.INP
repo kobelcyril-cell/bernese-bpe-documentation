@@ -1,52 +1,50 @@
 
 ! Some keywords for automatic output
 ! ----------------------------------
-CAMPAIGN 1  "./DUMMY"
+CAMPAIGN 0
   ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
 
-SESSION_TABLE 1  "${PAN}/SESSIONS.SES"
+SESSION_TABLE 0
   ## widget = initmenu; pointer = SESSION_TABLE
 
 DESCR_SESSION_TABLE 1  "Session table"
 
-YR4_INFO 1  "1980"
+YR4_INFO 1  "$Y+0"
   ## widget = comment
-  # $Y+0
 
-SES_INFO 1  "0060"
+SES_INFO 1  "$S+0"
   ## widget = comment
-  # $S+0
 
 USR_INFO 1  "${USER}"
   ## widget = comment
 
 ! Environment variables
 ! ---------------------
-ENVIRONMENT 1  "" "${}"
+ENVIRONMENT 0
   ## widget = initmenu; pointer = ENVIR_LIST
 
-DPZH 1  "./DUMMY/OBS/"
+DPZH 0
   ## widget = initmenu; pointer = DIR_PZH
 
-EPZH 1  "PZH"
+EPZH 0
   ## widget = initmenu; pointer = EXT_PZH
 
-DPZO 1  "./DUMMY/OBS/"
+DPZO 0
   ## widget = initmenu; pointer = DIR_PZO
 
-EPZO 1  "PZO"
+EPZO 0
   ## widget = initmenu; pointer = EXT_PZO
 
-DPSH 1  "./DUMMY/OBS/"
+DPSH 0
   ## widget = initmenu; pointer = DIR_PSH
 
-EPSH 1  "PSH"
+EPSH 0
   ## widget = initmenu; pointer = EXT_PSH
 
-DPSO 1  "./DUMMY/OBS/"
+DPSO 0
   ## widget = initmenu; pointer = DIR_PSO
 
-EPSO 1  "PSO"
+EPSO 0
   ## widget = initmenu; pointer = EXT_PSO
 
 ! General constants
@@ -56,17 +54,15 @@ SHOWGEN 1  "1"
 
 MSG_SHOWGEN 1  "Show all general files"
 
-CONST 1  "${MODEL}/CONST.BSW"
+CONST 1  "CONST"
   ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
-  # CONST
 
 DESCR_CONST 1  "General constants"
 
 ! Station name abbreviations
 ! --------------------------
-ABBREV 1  "./DUMMY/STA/$(CRDINF).ABB"
+ABBREV 1  "$(CRDINF)"
   ## widget = selwin; path = DIR_ABB; ext = EXT_ABB; maxfiles = 1
-  # $(CRDINF)
 
 DESCR_ABBREV 1  "Abbreviation table"
 
@@ -82,17 +78,15 @@ RADIO_2 1  "1"
 
 MSG_RADIO_2 1  "Input files"
 
-JOBOUT 0
+JOBOUT 1  "MAUPRP.L??"
   ## widget = selwin; path = DIR_OUT; ext = NO_EXT; emptyallowed = true
-  # MAUPRP.L??
 
 MSG_JOBOUT 1  "Input files"
 
 JOBOUT_TXT_COL_1 1  "Input files"
 
-OUTPUT 0
+OUTPUT 1  "MPR_$YYYSS+0_????"
   ## widget = selwin; path = DIR_OUT; ext = EXT_OUT; emptyallowed = true
-  # MPR_$YYYSS+0_????
 
 MSG_OUTPUT 1  "Input files"
 
@@ -100,31 +94,28 @@ OUTPUT_TXT_COL_1 1  "Input files"
 
 ! MAUPRP summary
 ! --------------
-SUMMARY 1  "./DUMMY/OUT/MPR_19800060.SUM"
+SUMMARY 1  "MPR_$YSS+0"
   ## widget = lineedit; path = DIR_SUM; ext = EXT_SUM; emptyallowed = false
-  # MPR_$YYYSS+0
 
 DESCR_SUMMARY 1  "MAUPRP station summary file"
 
 ! MAUPRP SAT summary
 ! ------------------
-SUM_SAT 1  "./DUMMY/OUT/MPS_19800060.SUM"
+SUM_SAT 1  "MPS_$YSS+0"
   ## widget = lineedit; path = DIR_SUM; ext = EXT_SUM; emptyallowed = true
-  # MPS_$YYYSS+0
 
 DESCR_SUM_SAT 1  "MAUPRP satellite summary file"
 
 ! File deletion list
 ! ------------------
-DELFIL 1  "./DUMMY/OUT/MPR_19800060.DEL"
+DELFIL 1  "MPR_$YSS+0"
   ## widget = lineedit; path = DIR_DEL; ext = EXT_DEL; emptyallowed = true
-  # MPR_$YYYSS+0
 
 DESCR_DELFIL 1  "File deletion list"
 
 ! New baseline definition
 ! -----------------------
-BSLFIL 0
+BSLFIL 1  ""
   ## widget = lineedit; path = DIR_BSL; ext = EXT_BSL; emptyallowed = true
 
 DESCR_BSLFIL 1  "New baseline definition"
@@ -136,10 +127,9 @@ SYSODEF 1  "1"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "./DUMMY/OUT/MPRXTR.L00"
+SYSOUT 1  "MPRXTR"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
-  # MPRXTR
 
 DESCR_SYSOUT 1  "Program output"
 
@@ -150,10 +140,9 @@ ERRMRG 1  "0"
 
 MSG_ERRMRG 1  "Error message"
 
-SYSERR 1  "${U}/WORK/ERROR.MSG"
+SYSERR 1  "ERROR"
   ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
   ## activeif = ERRMRG == 0; emptyallowed = false
-  # ERROR
 
 DESCR_SYSERR 1  "Error message"
 
@@ -186,9 +175,8 @@ MSG_ISNGDF 1  "Include in deletion file"
 
 ! Title
 ! -----
-TITLE 1  "PPP_19800060: Extraction from phase data screening"
+TITLE 1  "PPP_$YSS+0: Extraction from phase data screening"
   ## widget = lineedit
-  # PPP_$YYYSS+0: Extraction from phase data screening
 
 MSG_TITLE 1  "Title line"
 

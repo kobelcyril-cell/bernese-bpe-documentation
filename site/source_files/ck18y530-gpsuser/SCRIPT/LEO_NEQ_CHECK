@@ -143,7 +143,7 @@ sub read_config {
     my (@leos, @exclusions, %included, %variables, %rnx, %excluded);
     my ($section, $header, $line_no) = (0, 0, 0);
     my @titles = ('', 'LEOs', 'Exclusions', 'Variables');
-    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT');
+    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT V_A');
 
     while (my $line = <$fh>) {
         ++$line_no;
@@ -196,8 +196,8 @@ sub read_config {
                 if $excluded{"$date $leo"}++;
             push @exclusions, [$date, $leo];
         } else {
-            $error->('Expected LEO name, RNX and ATT') unless @fields == 3;
-            my ($leo, $prefix, $att) = @fields;
+            $error->('Expected LEO name, RNX, ATT and V_A') unless @fields == 4;
+            my ($leo, $prefix, $att, $id) = @fields;
             $error->("Unknown LEO '$leo'") unless exists $included{$leo};
             $error->("Duplicate variables for '$leo'")
                 if exists $variables{$leo};
@@ -206,7 +206,8 @@ sub read_config {
             $error->("Duplicate RNX prefix '$prefix'") if $rnx{uc $prefix}++;
             $error->('ATT must be a basename; Bernese variables are allowed')
                 unless $att =~ /^[A-Za-z0-9_\$().+{}-]+$/;
-            $variables{$leo} = [$prefix, $att];
+            $error->('V_A must contain one uppercase letter') unless $id =~ /^[A-Z]$/;
+            $variables{$leo} = [$prefix, $att, $id];
         }
     }
     close $fh;

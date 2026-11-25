@@ -91,7 +91,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -620,7 +620,7 @@ MSG_CONT_ERR 1  "End program normally even in case of errors"
 
 ! Ignore errors wihtin specified subroutines
 ! ------------------------------------------
-IGNORE_ERR 1  ""
+IGNORE_ERR 1  "D_PHAECC:search_off"
   ## widget = uniline; numlines = 5
 
 MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
@@ -897,7 +897,7 @@ USE_S 1  "0"
 MSG_USE_S 1  "Use SBAS"
 
 ! BeiDou
-USE_C 1  "1"
+USE_C 1  "0"
   ## widget = checkbox
 
 MSG_USE_C 1  "Use BeiDou"
@@ -1152,7 +1152,7 @@ MSG_AMBQCPB 1  "Consider GPS quarter-cycle biases"
 
 ! Omit AR between BeiDou subconstellations
 ! ----------------------------------------
-AMBSUB_C 1  "0"
+AMBSUB_C 1  "1"
   ## widget = checkbox
   ## activeif = AMBSTRAT / inactive AND AMBSTRAT / NONE AND AMBSTRAT / SEARCH AND USE_C = 1 AND USEAR_C = 1
 

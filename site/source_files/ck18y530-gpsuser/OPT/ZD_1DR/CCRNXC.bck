@@ -49,7 +49,7 @@ RCLKINP_EXT_COL_2 0
 
 ! Replace station coordinates
 ! ---------------------------
-COORD 1  "$K_$YSS+0"
+COORD 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
   ## emptyallowed = true
 
@@ -65,7 +65,7 @@ DESCR_STAINFO 1  "Station information"
 
 ! Clock RINEX output file name
 ! -----------------------------
-RCLKOUT 1  "$KR$YSS+0"
+RCLKOUT 1  "$(FIN)R$YSS+0"
   ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC
 
 DESCR_RCLKOUT 1  "Combined clock RINEX file"
@@ -91,7 +91,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "$KR$YSS+0"
+SYSOUT 1  "$(FIN)R$YSS+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -131,7 +131,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title line for satellite clock file
 ! -----------------------------------
-TITLE 1  "ZDM PRECISE CLOCK ESTIMATION (CLOCK AND PHASE)"
+TITLE 1  "Precise clock estimation: $YSS+0"
   ## widget = lineedit; check_strlen = 80
 
 MSG_TITLE 1  "Title line"
@@ -490,9 +490,9 @@ MOREINEX 1  "0"
 MSG_MOREINEX 1  "Detailed setup for model function"
 
 FUNCSTR 6
-  " "0.5" "$YMD_STR-3" "00 00 00" "$YMD_STR+0" "23 59 59"
-  " "1" "$YMD_STR-2" "00 00 00" "$YMD_STR+0" "23 59 59"
-  " "2" "$YMD_STR-2" "00 00 00" "$YMD_STR+0" "23 59 59"
+  ""0.5" "$YMD_STR-3" "00 00 00" "$YMD_STR+0" "23 59 59"
+  ""1" "$YMD_STR-2" "00 00 00" "$YMD_STR+0" "23 59 59"
+  ""2" "$YMD_STR-2" "00 00 00" "$YMD_STR+0" "23 59 59"
   "0" "" "$YMD_STR-3" "00 00 00" "$YMD_STR+0" "23 59 59"
   "1" "" "$YMD_STR-3" "00 00 00" "$YMD_STR+0" "23 59 59"
   "2" "" "$YMD_STR-2" "00 00 00" "$YMD_STR+0" "23 59 59"
@@ -570,7 +570,7 @@ MSG_UPDSTANAM 1  "Update station names using STA file v1.02"
 
 ! Header of the new RINEX file: RUNBY
 ! -----------------------------------
-RUNBY 1  "AIUB"
+RUNBY 1  "CK"
   ## widget = lineedit; check_strlen = 20
 
 MSG_RUNBY 1  "Run by"
@@ -591,10 +591,7 @@ MSG_ACNAME 1  "AC name"
 
 ! Header of the new RINEX file: Comments
 ! --------------------------------------
-COMMENT 3
-  "CODE final GPS clock information for day $+0, $Y+0, 3D-sol $U"
-  "Clock information consistent with phase and P1/P2 code data"
-  "Satellite/receiver clock values at intervals of 300 sec"
+COMMENT 1  "Clock estimation"
   ## widget = uniline; check_strlen.1 = 60; numlines = 10
 
 MSG_COMMENT 1  "Comment lines"

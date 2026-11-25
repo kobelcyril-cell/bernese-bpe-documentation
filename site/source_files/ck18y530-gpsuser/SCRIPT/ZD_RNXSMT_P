@@ -61,7 +61,12 @@ sub run {
     replaceSel($bpe, "RNXSMT", "RNXFIL_SHORT", $param1);
   }
 
-# ---------- Run program ------------
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/RNXSMT.INP","USE_",$v_gnss);
+  
+  # ---------- Run program ------------
   my $PGMNAM = "RNXSMT";
   $bpe->RUN_PGMS($PGMNAM);
 

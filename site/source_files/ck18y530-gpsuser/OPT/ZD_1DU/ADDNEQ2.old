@@ -40,7 +40,7 @@ IS_V10_SLR 1  "0"
 
 MSG_IS_V10_SLR 1  "SLR NEQs v10"
 
-INPFILE 1  "$(SOL)_$S+0????"
+INPFILE 1  "$(FIN)_$S+0????"
   ## widget = selwin; path = DIR_NEQ; ext = EXT_NEQ
 
 MSG_INPFILE 1  "Normal equations"
@@ -62,7 +62,7 @@ DESCR_COVCOMI 1  "Variance rescaling factors"
 
 ! Station coordinates
 ! -------------------
-COORD 1  "$K_$YSS+0"
+COORD 1  "$(APR)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
 
 DESCR_COORD 1  "Station coordinates"
@@ -147,7 +147,7 @@ DESCR_RGBINP 1  "SLR biases, CoM"
 
 ! Earth rotation parameters
 ! -------------------------
-POLE 1  "$K_$YSS+0"
+POLE 1  "$(APR)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
   ## emptyallowed = true
 
@@ -218,7 +218,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -318,7 +318,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "$(SOL)U$YSS+0"
+SYSOUT 1  "$(FIN)U$YSS+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -373,7 +373,7 @@ MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
 
 ! Normal equations
 ! ----------------
-NEQOUT 1  "$(SOL)_$YSS+0"
+NEQOUT 1  "$(FIN)_$YSS+0"
   ## widget = lineedit; path = DIR_NEQ; ext = EXT_NEQ
 
 DESCR_NEQOUT 1  "Resulting normal equations"
@@ -585,15 +585,15 @@ DESCR_WGT_FILE_OUT 1  "Weight file (out)"
 ! =========================================================================
 ! Title
 ! -----
-TITLE 1  "CODE'S P1-C1 CODE BIAS RESULTS FOR DAY $+0, $Y+0, 3D-sol ($(SOL))"
+TITLE 1  "Combine station-wise NEQs: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
 
 ! Maximum number of parameters in combined NEQ
 ! --------------------------------------------
-MAXPAR 1  "75000"
-  ## widget = spinbox; range = 500 20000 500
+MAXPAR 1  "46000"
+  ## widget = spinbox; range = 500 75000 500
 
 MSG_MAXPAR 1  "Maximum number of parameters in combined NEQ"
 
@@ -1798,7 +1798,7 @@ MSG_RNG_EXCP 1  "Except for files: Range biases"
 
 ! Atmospheric parameters: Troposphere ZPD
 ! ---------------------------------------
-TRP_ELIM 1  "NO"
+TRP_ELIM 1  "BEFORE_STACKING"
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
@@ -1844,7 +1844,7 @@ MSG_TRP_EXFLG 1  "Selection for station exceptions from flag: troposphere ZPDs"
 
 ! Atmospheric parameters: Troposphere gradient
 ! --------------------------------------------
-GRD_ELIM 1  "NO"
+GRD_ELIM 1  "BEFORE_STACKING"
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
@@ -3061,7 +3061,7 @@ POL_XY 1  "0.0"
 
 MSG_POL_XY 1  "X and Y pole components"
 
-POL_XYD 0
+POL_XYD 1  ""
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_POL_XYD 1  "X and Y pole drifts"

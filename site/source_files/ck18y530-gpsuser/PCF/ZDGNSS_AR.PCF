@@ -23,7 +23,7 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Wait for status flag
 # --------------------
-001  ZD_STATUS        NO_OPT      CPU=ANY; PARAM1=FA; PARAM2=CHECK
+001  ZD_STATUS        NO_OPT      CPU=ANY; PARAM1=V_STATUSW; PARAM2=CHECK
 #
 # Copy a priori Information for later use
 # ---------------------------------------
@@ -54,10 +54,11 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 # Check bias estimation
 # ---------------------
 134  ZD_CHECK_AR_SAT  ZD_IAR_NLB  CPU=ANY; WAIT=133; NEXTJOB=100
+135  ZD_PHACOR_POST   NO_OPT      CPU=ANY; WAIT=134
 #
 # Update orbit and generate combined bias file
 # --------------------------------------------
-140  ZD_ORBGEN        ZD_IAR_NLB  CPU=ANY; WAIT=134
+140  ZD_ORBGEN        ZD_IAR_NLB  CPU=ANY; WAIT=135
 141  ZD_PHACMB        NO_OPT      CPU=ANY; WAIT=140; PARAM2=WL_; PARAM3=NL_; PARAM4=IAR
 #
 # Estimate NL ambiguities (save in OBS files)
@@ -79,11 +80,12 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS        NO_OPT      CPU=ANY; WAIT=900; PARAM1=AR; PARAM2=CREATE
+999  ZD_STATUS        NO_OPT      CPU=ANY; WAIT=900; PARAM1=V_STATUSF; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
 V_CBIA   = *;               DESCRIPTION=Unify inter-system/frequency biases
 V_APR    = *;               DESCRIPTION=A priori information
+V_GNSSAR = *;               DESCRIPTION=Processed GNSS Systems (AR)
 V_BLQINF = FES20*;          DESCRIPTION=BLQ file name, CMC corrections
 V_SATCRX = *;               DESCRIPTION=Satellite problem file for data import
 V_SATINF = *;               DESCRIPTION=Satellite information
@@ -106,6 +108,8 @@ V_SAMPL  = *;               DESCRIPTION=Sampling rate of the GPSEST solution;   
 V_BIAINF = *;               DESCRIPTION=Bias-SINEX information file
 V_USEHOI = *;               DESCRIPTION=Use HOI-file;                                     CARDS=YES NO
 V_TRPMOD = VMF;             DESCRIPTION=Troposphere model
+V_STATUSW = FA;             DESCRIPTION=Wait for process creating this flag
+V_STATUSF = AR;             DESCRIPTION=Create this flag when finished
 # Configuration
 V_PCFCONFIG = MODEL SETUP_ZDGNSS IA;    DESCRIPTION=Configuration files
 

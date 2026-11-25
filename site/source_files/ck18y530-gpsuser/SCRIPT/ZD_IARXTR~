@@ -1,0 +1,108 @@
+package IARXTR;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  IARXTR
+#
+# Purpose :  Create comprehensive ambiguity resolution summary
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  30-Mar-2005
+#
+# Changes :  28-Feb-2011 SS: Narrow-lane summary forced to GPS-only
+#            11-Aug-2011 RD: Updated for version 5.2
+#
+# ============================================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util qw(appFile setGNSS);
+use File::Copy;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $yyyyssss, 
+      $satsysAR,
+      $dirOut, 
+      $extOut, 
+      $dirSum, 
+      $extSum) =
+  $bpe->getKeys(
+      '$YYYSS+0',
+      'V_GNSSAR',
+      'DIR_OUT',
+      'EXT_OUT',
+      'DIR_SUM',
+      'EXT_SUM'
+      );
+
+# Initialize processing summary file
+# ----------------------------------
+  my $sumFil = "${dirSum}AMB_${yyyyssss}.${extSum}";
+  unlink $sumFil;
+  my $tmpFil = "${dirSum}TMP_${yyyyssss}.${extSum}";
+  unlink $tmpFil;
+  my $outFil = "${dirOut}TMP_${yyyyssss}.${extOut}";
+  unlink $outFil;
+
+# Run program
+# -----------
+  my $PGMNAM = "GPSXTR";
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBLOD","1");
+
+# Code-Based Widelane (WL) Ambiguity Resolution
+# ---------------------------------------------
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT","WLI_\$YYYSS+0_????");
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","QIFOUT",$tmpFil);
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","WL");
+  $bpe->RUN_PGMS($PGMNAM);
+  if (-s $tmpFil) {
+     appFile(" Code-Based Widelane (WL) Ambiguity Resolution",
+       0,$tmpFil,$sumFil,1);
+    unlink $tmpFil }
+
+# Code-Based Narrowlane (NL) Ambiguity Resolution
+# -----------------------------------------------
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","OUTPUT","NLI_\$YYYSS+0_????");
+
+  $bpe->putKey("$ENV{U}/PAN/GPSXTR.INP","AMBID","NL");
+  $bpe->RUN_PGMS($PGMNAM);
+  if (-s $tmpFil) {
+     appFile(" Code-Based Narrowlane (NL) Ambiguity Resolution",
+       0,$tmpFil,$sumFil,1);
+    unlink $tmpFil }
+
+
+# Set the GNSS to be used
+# -----------------------
+  $satsysAR =~ s/R//;  # Remove GLONASS
+  setGNSS($bpe,"$ENV{U}/PAN/OBSXTR.INP","USE_",$satsysAR);
+
+
+# Overall Ambiguity Resolution Statistics
+# ---------------------------------------
+  $bpe->putKey("$ENV{U}/PAN/OBSXTR.INP","SYSOUT",$outFil);
+  $bpe->putKey("$ENV{U}/PAN/OBSXTR.INP","SUMFIL",$tmpFil);
+
+  my $PGMNAM = "OBSXTR";
+  $bpe->RUN_PGMS($PGMNAM);
+
+  if (-s $tmpFil) {
+     appFile(" Station-wise Ambiguity Resolution Statistics",
+       0,$outFil,$sumFil,1);
+     appFile(" Satellite-wise Ambiguity Resolution Statistics",
+       0,$tmpFil,$sumFil,1);
+    unlink $tmpFil }
+
+
+
+}

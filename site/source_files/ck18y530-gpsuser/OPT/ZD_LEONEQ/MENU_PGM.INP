@@ -50,7 +50,7 @@ MSG_MAXJOBNUM 1  "Maximum program output file number"
 
 ! List of Programs with special path to the executable
 ! ----------------------------------------------------
-SPECIAL_PATH 9
+SPECIAL_PATH 10
   "GPSEST_" "${HOME}/GPSESTAR/EXE_GNU" "##"
   "GPSEST_" "${HOME}/SWARM_DEL/EXE_G95" "##"
   "GPSEST_" "/gpfs/homefs/aiub/aiub_datapool/software/BERN_HOI/PGM/EXE_G95" "##"
@@ -60,6 +60,7 @@ SPECIAL_PATH 9
   "ORBGEN_" "${HOME}/OG_POT/EXE_GNU" "##"
   "STDPRE_" "${HOME}/GETORB_TST/EXE_GNU" "##"
   "GPSEST_" "${HOME}/GPSEST_SOS3/EXE_GNU" "##"
+  "GPSEST" "${HOME}/GPSEST_CLOCK_GRID/EXE_GNU" "##"
   ## widget = uniline; numlines = 20
 
 MSG_SPECIAL_PATH 1  "Programs executed from special paths"

@@ -40,7 +40,7 @@ DESCR_CONST 1  "General constants"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -76,7 +76,7 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Rinex input file
 ! ----------------
-RNXFIL_BSW 1  "*_$YYYSS+0"
+RNXFIL_BSW 1  ""
   ## widget = selwin; path = DIR_RBO; ext = EXT_RBO; emptyallowed = true
   ## maxfiles = 999
 
@@ -90,7 +90,7 @@ RNXFIL_BSW_EXT_COL_2 0
 
 MSG_RNXFIL_BSW 1  "RINEX files, Bernese internal naming"
 
-RNXFIL_SHORT 0
+RNXFIL_SHORT 1  "????$S+0"
   ## widget = selwin; path = DIR_RXO; ext = EXT_RXO; emptyallowed = true
   ## maxfiles = 999
 
@@ -104,7 +104,7 @@ RNXFIL_SHORT_EXT_COL_2 0
 
 MSG_RNXFIL_SHORT 1  "RINEX files, RINEX2-style naming"
 
-RNXFIL_LONG 0
+RNXFIL_LONG 1  ""
   ## widget = selwin; path = DIR_RXO; ext = EXT_RNX; emptyallowed = true
   ## maxfiles = 999
 
@@ -118,7 +118,7 @@ RNXFIL_LONG_EXT_COL_2 0
 
 MSG_RNXFIL_LONG 1  "RINEX files, RINEX3-style naming"
 
-RNXFIL 0
+RNXFIL 1  ""
   ## widget = selwin; path = DIR_RXO; emptyallowed = true; maxfiles = 999
 
 RNXFIL_TXT_COL_1 1  "RINEX input files"
@@ -442,6 +442,7 @@ MSG_STANAM 1  "Gather station names from"
 ! ----------------------------------------------
 STAINFO 0
   ## widget = selwin; path = DIR_STA; ext = EXT_STA; emptyallowed = true
+  ## maxfiles = 1
 
 DESCR_STAINFO 1  "Station information"
 

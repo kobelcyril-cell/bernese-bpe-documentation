@@ -40,7 +40,7 @@ sub run {
       '$S+0',
       'PARAM1',
       'PARAM2',
-      'V_SATSYS',
+      'V_GNSS',
       'DIR_RXO',
       'EXT_RXO'
     );

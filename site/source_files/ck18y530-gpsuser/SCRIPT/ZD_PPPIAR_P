@@ -25,89 +25,129 @@ use bpe_util;
 sub run {
   my $bpe = shift;
 
-# Get variables
-# -------------
+  # Get variables
+  # -------------
   my (
-      $ssss, 
-      $yyyyssss,
-      $param1, 
-      $param2, 
-      $satsysAR, 
-      $orb, 
-      $fin
-    ) = $bpe->getKeys(
-      '$S+0', 
-      '$YYYSS+0',
-      'PARAM1', 
-      'PARAM2', 
-      'V_GNSSAR', 
-      'V_ORB', 
-      'V_FIN'
-    );
+    $ssss,
+    $yyyyssss,
+    $param1,
+    $param2,
+    $satsysAR,
+    $orb,
+    $fin
+  ) = $bpe->getKeys(
+    '$S+0',
+    '$YYYSS+0',
+    'PARAM1',
+    'PARAM2',
+    'V_GNSSAR',
+    'V_ORB',
+    'V_FIN'
+  );
 
-
-# Set cluster number and input files
-# ----------------------------------
+  # Set cluster number and input files
+  # ----------------------------------
   my $fix = "$fin";
-  if ( $param2 ne "" ) {
+  if ($param2 ne "") {
     $fix = defined $$bpe{$param2} ? $$bpe{$param2} : $param2;
   }
 
   my $cluster = "${yyyyssss}_${param1}";
-  setUserVar($bpe,"CLUSTER",$cluster,"FFFF",$param1,"FIN",$fix);
+  setUserVar($bpe, "CLUSTER", $cluster, "FFFF", $param1, "FIN", $fix);
 
-# Set the GNSS to be used
-# -----------------------
-  $satsysAR =~ s/R//;  # Remove GLONASS
-  setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_"  ,$satsysAR);
-  setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USEAR_",$satsysAR);
+  # Select one system per WL/NL pair. GLONASS remains excluded.
+  $satsysAR = uc($satsysAR);
+  $satsysAR =~ s/[R\s,]//g;
+  die "Unsupported V_GNSSAR selection: $satsysAR\n"
+    if $satsysAR =~ /[^GEC]/;
+  my @systems = grep { index($satsysAR, $_) >= 0 } qw(G E C);
+  return unless @systems;
 
-# Compute the observation file name
-# ---------------------------------
+  # Restore the original WL options before each system.
+  my $pan = "$ENV{U}/PAN/GPSEST.INP";
+  my @wlKeys = qw(FREQUENCY CORREL APRWIDE SAMPLE);
+  my @wlValues = map { $bpe->getKey($pan, $_) } @wlKeys;
+
+  # Compute the observation file name
+  # ---------------------------------
   my $obsfil = "$param1$ssss";
-  prtMess($bpe,"PROCESSING FILE $obsfil");
+  prtMess($bpe, "PROCESSING FILE $obsfil");
 
-# WL AR
-# -----
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TITLE",'$YYYSS+0_$(FFFF): WIDELANE PHASE INTEGER FIXING');
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES",$obsfil);
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES",$obsfil);
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT",'WLI_$(CLUSTER)');
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","COORDRS",'');
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SATCLK",'');
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS",'');
+  my $skipArError = qr/(
+    There\ are\ no\ observations\ in\ the\ selected\ observation\ files\.
+    |
+    Inversion\ failed:\s+degree\ of\ freedom\ is\ negative
+  )/x;
 
-  my $PGMNAM = "GPSEST";
+  SYSTEM: foreach my $sys (@systems) {
+    prtMess($bpe, "AR SYSTEM $sys FOR $obsfil");
+    setGNSS($bpe, $pan, "USE_", $sys);
+    setGNSS($bpe, $pan, "USEAR_", $sys);
+    for my $i (0 .. $#wlKeys) {
+      $bpe->putKey($pan, $wlKeys[$i], $wlValues[$i]);
+    }
 
-  eval {
-    $bpe->RUN_PGMS($PGMNAM);
-  };
-  if ($@) {
-    prtMess($bpe, "WARNING: $PGMNAM (WL AR) failed: $@");
-    return;
+    # WL AR
+    # -----
+    $bpe->putKey($pan, "TITLE", "\$YYYSS+0_\$(FFFF): $sys WIDELANE PHASE INTEGER FIXING");
+    $bpe->putKey($pan, "PZFILES", $obsfil);
+    $bpe->putKey($pan, "CZFILES", $obsfil);
+    $bpe->putKey($pan, "SYSOUT", "WLI_${sys}_\$(CLUSTER)");
+    $bpe->putKey($pan, "COORDRS", '');
+    $bpe->putKey($pan, "SATCLK", '');
+    $bpe->putKey($pan, "IONOS", '');
+
+    my $PGMNAM = "GPSEST";
+
+    eval {
+      $bpe->RUN_PGMS($PGMNAM);
+    };
+    if ($@) {
+      my $error = "$@";
+      if ($error =~ $skipArError) {
+        my $reason = $1;
+        prtMess($bpe, "SKIP WL/NL AR: $sys, $obsfil: $reason");
+        my ($dirOut, $extOut) = $bpe->getKeys('DIR_OUT', 'EXT_OUT');
+        my $failedOut = "${dirOut}WLI_${sys}_${cluster}.${extOut}";
+        unlink $failedOut if -f $failedOut;
+        next SYSTEM;
+      }
+      die "$PGMNAM (WL AR, $sys, $obsfil) failed: $error";
+    }
+
+    # NL AR
+    # -----
+    $bpe->putKey($pan, "TITLE", "\$YSS+0_\$(FFFF): $sys NARROWLANE PHASE INTEGER FIXING");
+    $bpe->putKey($pan, "SYSOUT", "NLI_${sys}_\$(CLUSTER)");
+    $bpe->putKey($pan, "COORDRS", "NLI_${sys}_\$(CLUSTER)");
+    $bpe->putKey($pan, "SATCLK", '$(ORB)_$YSS+0');
+    $bpe->putKey($pan, "IONOS", 'HOI$YD+0');
+    $bpe->putKey($pan, "FREQUENCY", "L3");
+    $bpe->putKey($pan, "CORREL", "CORRECT");
+    $bpe->putKey($pan, "APRWIDE", "1");
+
+    # Changed observation data sampling for NL AR
+    $bpe->putKey($pan, "SAMPLE", "300");
+
+    eval {
+      $bpe->RUN_PGMS($PGMNAM);
+    };
+    if ($@) {
+      my $error = "$@";
+      if ($error =~ $skipArError) {
+        my $reason = $1;
+        prtMess($bpe, "SKIP NL AR: $sys, $obsfil: $reason");
+        my ($dirOut, $extOut) = $bpe->getKeys('DIR_OUT', 'EXT_OUT');
+        my $failedOut = "${dirOut}NLI_${sys}_${cluster}.${extOut}";
+        unlink $failedOut if -f $failedOut;
+        next SYSTEM;
+      }
+      die "$PGMNAM (NL AR, $sys, $obsfil) failed: $error";
+    }
   }
 
-# NL AR
-# -----
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TITLE",'$YSS+0_$(FFFF): NARROWLANE PHASE INTEGER FIXING');
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT",'NLI_$(CLUSTER)');
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","COORDRS",'NLI_$(CLUSTER)');
-#ck
-# $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBOUT",'TEST_$(CLUSTER)');
-#ck
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SATCLK",'$(ORB)_$YYYSS+0');
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS",'$(HOIFIL)');
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","FREQUENCY","L3");
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CORREL","CORRECT");
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","1");
-# Changed observation data sampling for NL AR
-  $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SAMPLE","300");
-
-  eval {
-    $bpe->RUN_PGMS($PGMNAM);
-  };
-  if ($@) {
-    prtMess($bpe, "WARNING: $PGMNAM (NL AR) failed: $@");
-    return;
+  # Leave the WL options ready for the next invocation.
+  for my $i (0 .. $#wlKeys) {
+    $bpe->putKey($pan, $wlKeys[$i], $wlValues[$i]);
   }
 }

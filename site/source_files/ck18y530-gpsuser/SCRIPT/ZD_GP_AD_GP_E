@@ -23,9 +23,8 @@ sub run {
   my (
       $param1,
       $subPid,
-      $usehoi,
       $trpModel,
-
+      $usehoi,
       $V_CSCR
   ) = $bpe->getKeys(
       'PARAM1',
@@ -68,6 +67,12 @@ sub run {
   # ---------- Run GPSEST ------------
   my $PGMNAM = "GPSEST";
   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP", "SYSOUT", "${V_CSCR}\$S+0\$(CCC)__");
+
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
+  
   $bpe->RUN_PGMS($PGMNAM);
 
   # ---------- Run ADDNEQ2 (normal equation inversion) ------------
@@ -81,6 +86,11 @@ sub run {
   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OSBEST", "0");
   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","OBS2NEQ","0");
   $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT", "${V_CSCR}\$S+0\$(CCC)");
+
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
   
   $PGMNAM = "GPSEST";
   $bpe->RUN_PGMS($PGMNAM);

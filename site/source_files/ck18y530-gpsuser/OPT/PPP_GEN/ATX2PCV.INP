@@ -40,9 +40,9 @@ DESCR_CONST 1  "General constants"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+SATELL 1  "${CONFIG}/$(SATINF)_$(PCV)_$(PCVM).SAT"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
-  # $(SATINF)_$(PCV)
+  # $(SATINF)_$(PCV)_$(PCVM)
 
 DESCR_SATELL 1  "Satellite information"
 

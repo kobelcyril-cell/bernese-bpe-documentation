@@ -91,7 +91,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -621,7 +621,7 @@ MSG_CONT_ERR 1  "End program normally even in case of errors"
 
 ! Ignore errors wihtin specified subroutines
 ! ------------------------------------------
-IGNORE_ERR 1  ""
+IGNORE_ERR 1  "D_PHAECC:search_off"
   ## widget = uniline; numlines = 5
 
 MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"

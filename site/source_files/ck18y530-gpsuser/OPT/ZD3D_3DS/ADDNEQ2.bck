@@ -218,7 +218,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -592,8 +592,8 @@ MSG_TITLE 1  "Title line"
 
 ! Maximum number of parameters in combined NEQ
 ! --------------------------------------------
-MAXPAR 1  "20000"
-  ## widget = spinbox; range = 500 20000 500
+MAXPAR 1  "46000"
+  ## widget = spinbox; range = 500 46000 500
 
 MSG_MAXPAR 1  "Maximum number of parameters in combined NEQ"
 
@@ -711,7 +711,7 @@ MSG_USE_ONLYCONSTR 1  "Use only NEQs with constraints for VCE"
 
 ! Use LAPACK inversion
 ! ---------------------
-LPINV 1  "0"
+LPINV 1  "1"
   ## widget = checkbox
 
 MSG_LPINV 1  "Use LAPACK inversion"
@@ -1463,7 +1463,7 @@ MSG_CRD_EXFLG 1  "Selection for station exceptions from flag: station coordinate
 
 ! Satellite-related parameters: Observable specific code bias
 ! ---------------------------------------------------------
-OCBS_ELIM 1  ""
+OCBS_ELIM 1  "BEFORE_STACKING"
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
@@ -1477,7 +1477,7 @@ MSG_OCBS_EXCP 1  "Except for files: Observable-specific satellite code biases"
 
 ! Observable-specific code biases
 ! -------------------------------
-OCB_ELIM 1  ""
+OCB_ELIM 1  "BEFORE_STACKING"
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "DELETE"
 
@@ -1901,7 +1901,7 @@ GIM_EXCP 1  ""
 
 MSG_GIM_EXCP 1  "Except for files: Global ionosphere parameters"
 
-HOI_ELIM 1  ""
+HOI_ELIM 1  "BEFORE_STACKING"
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 

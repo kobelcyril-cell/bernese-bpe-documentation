@@ -23,7 +23,7 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Wait for status flag
 # --------------------
-001  ZD_STATUS           NO_OPT      CPU=ANY; PARAM1=CODESCREENING; PARAM2=CHECK
+001  ZD_STATUS           NO_OPT      CPU=ANY; PARAM1=V_STATUSW; PARAM2=CHECK
 #
 # Preprocessing (only once)
 # -------------------------
@@ -72,10 +72,11 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 # ------
 900  ZD_CHKPRC_PS        NO_OPT      CPU=ANY; WAIT=170
 901  ZD_CHECK_MAUPRP_DEL NO_OPT      CPU=ANY; WAIT=900
+902  ZD_CHECK_MIN_STA    NO_OPT      CPU=ANY; WAIT=901
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS           NO_OPT      CPU=ANY; WAIT=901; PARAM1=PHASESCREENING; PARAM2=CREATE
+999  ZD_STATUS           NO_OPT      CPU=ANY; WAIT=902; PARAM1=V_STATUSF; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
 V_APSP   = *;               DESCRIPTION=CODSPP apriori solution
@@ -84,6 +85,7 @@ V_CSCR   = *;               DESCRIPTION=Code screening
 V_CBIA   = *;               DESCRIPTION=Unify inter-system/frequency biases
 V_CLKA   = *;               DESCRIPTION=CLKEST for starting the MAUPRP
 V_CPSC   = *;               DESCRIPTION=Code+phase screening in reg. clusters
+V_GNSS   = *;               DESCRIPTION=Processed GNSS Systems
 V_CRDINF = IG?20;           DESCRIPTION=CRD/VEL/FIX master file name
 V_BLQINF = FES20*;          DESCRIPTION=BLQ file name, CMC corrections
 V_SATCRX = *;               DESCRIPTION=Satellite problem file for data import
@@ -107,6 +109,9 @@ V_PCVINF = *;               DESCRIPTION=PCV information
 V_SAMPL  = *;               DESCRIPTION=Sampling rate of the GPSEST solution      CHECK_TYPE=integer
 V_USEHOI = *;               DESCRIPTION=Use HOI-file                              CARDS=YES NO
 V_TRPMOD = VMF;             DESCRIPTION=Troposphere model
+V_MINC   = *;               DESCRIPTION=Minimum number of stations;
+V_STATUSW = CODESCREENING;  DESCRIPTION=Wait for process creating this flag
+V_STATUSF = PHASESCREENING; DESCRIPTION=Create this flag when finished
 # Configuration
 V_PCFCONFIG = MODEL SETUP_ZDGNSS;    DESCRIPTION=Configuration files
 

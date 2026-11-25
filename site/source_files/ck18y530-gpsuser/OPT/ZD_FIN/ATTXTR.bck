@@ -56,7 +56,7 @@ DESCR_NUTMOD 1  "Nutation model"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -81,14 +81,14 @@ DESCR_GPSUTC 1  "GPS-UTC time difference"
 ! ------------------------------------------------------------------
 ! Standard Orbit File
 ! -------------------
-STDORB 1  "$Z_$YSS+0"
+STDORB 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
 
 DESCR_STDORB 1  "Standard orbit"
 
 ! ERP File
 ! ---------
-POLE 1  "$Z_$YSS+0"
+POLE 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; emptyallowed = true
   ## maxfiles = 1
 
@@ -99,7 +99,7 @@ DESCR_POLE 1  "Earth rotation parameters"
 ! ------------------------------------------------------------------
 ! Quaternion file
 ! ---------------
-OUTPUT 1  "$Z_$YSS+0"
+OUTPUT 1  "$(FIN)_$YSS+0"
   ## widget = lineedit; path = DIR_OBX; ext = EXT_OBX
 
 DESCR_OUTPUT 1  "Quaternion file"
@@ -154,7 +154,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 ! ------------------------------------------------------------------
 ! Title
 ! -----
-TITLE 1  "Extract GNSS Orbit Attitude information for solution $Z for day $YSS+0"
+TITLE 1  "Extract GNSS Orbit Attitude information: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -203,7 +203,7 @@ AGENCY 1  "Experimental"
 
 MSG_AGENCY 1  "Content of the ORBEX header: Agency"
 
-INPDAT 1  "$Z_$YSS+0"
+INPDAT 1  "$(FIN)_$YSS+0"
   ## widget = lineedit
 
 MSG_INPDAT 1  "Content of the ORBEX header: Input data"

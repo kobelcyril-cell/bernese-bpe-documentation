@@ -1,126 +1,68 @@
 package CODXTR;
 @ISA = ("RUNBPE");
-# ----------------------------------------------------------------------------
+# ============================================================================
 #
 # Name    :  CODXTR
 #
-# Purpose :  Execute CODXTR; delete, if wished, rejected binary observation
-#            files
+# Purpose :  Execute CODXTR
 #
-# Programs:
+# Remark  :  reject binary observation files
+#            if the correspsonding option in CODXTR is enabled
 #
-# Author  :  H. Bock
-# Created :  06-Dec-2007               Last modified: 26-May-2009
+# PARAMs  :  Note - these are optional parameters:
+#            PARAM1: NEXTJOB to check whether the last observation file
+#                    has been deleted
+#            PARAM2: PID of the protocol script of the BPE
 #
-# Changes :  26-May-2009 rd: CODXTR: YY_DDD -> YY_SSSS
-#            23-Apr-2020 ST: Stop copy of $A_$YSS+0 to $A0$YSS+0.
+# Author  :  M. Meindl
+# Created :  20-Oct-2003
 #
-# ----------------------------------------------------------------------------
-
+# Changes :  11-Aug-2011 RD: Updated for version 5.2
+#            14-Jun-2013 RD: Call for "deleteFiles" corrected
+#            20-Dec-2013 RD/SS: Improve deletion features
+#
+# ============================================================================
 use strict;
-use File::Basename;
-use lib "$ENV{BPE}";
-use bpe_util;
-use lib "$ENV{AUTO}";
-use gpsutil;
 
-use lib "$ENV{U}/SCRIPT";
-use JumpLogger qw(logJump);
+use lib $ENV{BPE};
+use bpe_util qw(prtGoto prtMess appFile deleteFiles);
 
 sub run {
   my $bpe = shift;
 
 # Get variables
 # -------------
-  my ($yyssss,  $yy,  $ddd, $ssss,
-      $v_camp,  $param1,  $param2,
-      $dirOut,   $dirDel,   $dirDcb,   $dirClk,
-      $extOut,   $extDel,   $extDcb,   $extClk) =
-    $bpe->getKeys(
-      '$YSS+0', '$Y', '$+0', '$S+0',
-      'V_CAMP', 'PARAM1', 'PARAM2',
-      'DIR_OUT', 'DIR_DEL', 'DIR_DCB', 'DIR_CLK',
-      'EXT_OUT', 'EXT_DEL', 'EXT_DCB', 'EXT_CLK');
-
-# Delete old DEL file
-# -------------------
-  my $delFil = "${dirDel}SPP${yyssss}.${extDel}";
-  $bpe->putKey("$ENV{U}/PAN/CODXTR.INP","FILBAD",basename($delFil));
-  unlink ($delFil);
-
+  my ($ssss,
+      $param1, $param2,
+      $dirCzh, $extCzh) = 
+  $bpe->getKeys(
+      '$S+0',
+      'PARAM1','PARAM2',
+      'DIR_CZH','EXT_CZH');
 
 # Run program
 # -----------
   my $PGMNAM = "CODXTR";
   $bpe->RUN_PGMS($PGMNAM);
 
-
-# Summary of program run for Protocol
-# -----------------------------------
-  my $sumFil = "${dirOut}CODXTR.${yy}_${ssss}";
-  appFile ("CODSPP: " . timstr(localtime(time)),
-           0,"$$bpe{SYSOUT}","${sumFil}",1);
-
-  my $satDel = 0;
-  open (SYS,"< $$bpe{SYSOUT}");
-  while (<SYS>) {
-    $satDel = $satDel || (/SATELLITE\(S\) REMOVED FROM BROADCAST CLOCK FILE/);
-  }
-  close(SYS);
-
-
-# Send SMS if indicated
-# ---------------------
-  if ($v_camp eq "IGSRAPID") {
-      system("$ENV{AUTO}/pos_epoch.com $yy $ddd $$bpe{SYSOUT}");}
-
-
-# Check for and delete files with RMS larger than 999 m
-# -----------------------------------------------------
-  my $iDel=0;
-  if (-s $delFil) {
-    open (DEL,$delFil);
-    while (<DEL>) {
-      $iDel++;
-      chomp;
-      while ( /^ / ) { s/^ // }  # Remove leading blanks
-      unlink ($_);
-      prtMess($bpe,"$_ deleted") }
-    close DEL;
-    appFile ("Files excluded from processing:",0,"$delFil","$sumFil",1);
-    unlink $delFil;
+# Delete rejected binary observation files
+# ----------------------------------------
+  if ( $bpe->getKey("$ENV{U}/INP/CODXTR.INP","RMS_OPT") eq "1" ) {
+    my $delFil = $bpe->getKey("$ENV{U}/INP/CODXTR.INP","FILBAD");
+    appFile ("Files excluded from processing:",0,
+             "$delFil","$$bpe{SYSOUT}",1) if (-e $delFil);
+    deleteFiles($bpe,$delFil,1);
   }
 
-
-# Update the Observation File Table
-# ---------------------------------
-  if ($iDel > 0) {
-      system("echo $iDel FILES DELETED >> $sumFil");  }
-
-
-# GLONASS-GPS time offsets
-# ------------------------
-  my $outFil="$dirDcb/OFF$yy$ddd.$extDcb";
-  unlink("$outFil");
-
-  foreach my $inpFil (glob "$dirDcb/OFF0??.$extDcb") {
-    if (-e $outFil){
-      system("$ENV{AUTO}/filmerge.pl $outFil $inpFil ${outFil}_TMP 7");
-      rename("${outFil}_TMP","$outFil");
-    } else {
-      copyfile("$inpFil","$outFil");}
-  }
-
-# Repeat CODSPP without the removed satellites
-# --------------------------------------------
-  if ($satDel && $param1 eq "NEXTJOB") {
-
-    my $PGMNAM = "SATMRK";
-    $bpe->RUN_PGMS($PGMNAM);
-
-    logJump($bpe, $param2);
-    prtGoto($bpe,$param2) ;
-
+# If no files available, jump to the end
+# --------------------------------------
+  if ( $param1 eq "NEXTJOB" ) {
+    my @list = glob ("${dirCzh}????${ssss}.${extCzh}");
+    unless ( @list ) {
+      print "No code observation files left\n";
+      $bpe->prtMess("No code observation files left");
+      $bpe->prtGoto($param2);
+    }
   }
 
 }

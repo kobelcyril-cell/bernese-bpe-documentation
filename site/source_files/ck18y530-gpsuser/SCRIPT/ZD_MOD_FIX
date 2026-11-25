@@ -1,0 +1,59 @@
+package ZD_MOD_FIX;
+@ISA = ("RUNBPE");
+
+#===========================================================
+# Name    :  ZD_MOD_FIX
+#
+# Purpose :  Make modifications to the reference FIX file
+#
+# Author  :  C. Kobel
+# Created :  03-Nov-2026
+#
+# Changes :
+#===========================================================
+
+use strict;
+use warnings;
+use lib "$ENV{BPE}";
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+# ---------- Get variables ------------
+  my ($crdInf,
+      $dirFix,
+      $extFix
+  ) = $bpe->getKeys(
+      'V_CRDINF',
+      'DIR_FIX',
+      'EXT_FIX'
+  );
+# ---------- Get FIX file ------------
+  my $refFl = "${dirFix}${crdInf}.${extFix}";
+  my $tmpFl = "${refFl}.tmp";
+
+  my %removeStation = (
+    'CPVG' => 1,
+  );
+
+  open my $in, '<', $refFl
+    or die "Cannot open reference FIX file '$refFl': $!";
+
+  open my $out, '>', $tmpFl
+    or die "Cannot create temporary FIX file '$tmpFl': $!";
+
+  while (my $line = <$in>) {
+    if ($line =~ /^\s*([A-Z0-9]{4})\b/ && $removeStation{$1}) {
+      next;
+    }
+
+    print {$out} $line
+      or die "Cannot write temporary FIX file '$tmpFl': $!";
+  }
+
+  close $in or die "Cannot close reference FIX file '$refFl': $!";
+  close $out or die "Cannot close temporary FIX file '$tmpFl': $!";
+
+  rename $tmpFl, $refFl
+    or die "Cannot replace '$refFl' with '$tmpFl': $!";
+}

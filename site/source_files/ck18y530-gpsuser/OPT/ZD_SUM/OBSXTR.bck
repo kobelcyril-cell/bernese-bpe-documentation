@@ -46,7 +46,7 @@ DESCR_SATELL 1  "Satellite information"
 
 ! Summary File
 ! ------------
-SUMFIL 1  "OBSXTR$Z$YSS+0"
+SUMFIL 1  "OBSXTR$(FIN)$YSS+0"
   ## widget = lineedit; path = DIR_SUM; ext = EXT_SUM
 
 DESCR_SUMFIL 1  "Summary file"
@@ -107,7 +107,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "OBSXTR$Z$YSS+0"
+SYSOUT 1  "OBSXTR$(FIN)$YSS+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -148,7 +148,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title: new entry
 ! ----------------
-TITLE 1  "Extract observation statistics for ZD-processing"
+TITLE 1  "Extract observation statistics for ZD-processing: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -179,7 +179,7 @@ USE_E 1  "1"
 MSG_USE_E 1  "Include Galileo in the statistics"
 
 ! SBAS
-USE_S 1  "1"
+USE_S 1  "0"
   ## widget = checkbox
 
 MSG_USE_S 1  "Include SBAS in the statistics"

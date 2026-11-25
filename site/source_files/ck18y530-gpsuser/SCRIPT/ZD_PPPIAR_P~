@@ -1,0 +1,130 @@
+package PPPIAR_P;
+@ISA = ("RUNBPE");
+
+# ============================================================================
+# Name    :  PPPIAR_P
+#
+# Purpose :  PPP WL/NL AR and verification
+#
+# PARAMs  :
+#
+# Author  :  S. Schaer
+# Created :  21-Jun-2018
+#
+# Changes :  21-Jun-2018 SS: Derived from FILEST_P
+#            10-Aug-2018 SS: Changed observation data sampling for NL AR
+#            07-Dec-2020 RD: Add PCF variable V_TRPMOD
+#            12-Nov-2021 LP: Set USEAR_ using $satsysAR
+# ============================================================================
+
+use strict;
+
+use lib $ENV{BPE};
+use bpe_util;
+
+sub run {
+  my $bpe = shift;
+
+# Get variables
+# -------------
+  my (
+      $ssss, 
+      $yyyyssss,
+      $param1, 
+      $param2, 
+      $satsysAR, 
+      $orb, 
+      $fin
+    ) = $bpe->getKeys(
+      '$S+0', 
+      '$YYYSS+0',
+      'PARAM1', 
+      'PARAM2', 
+      'V_GNSSAR', 
+      'V_ORB', 
+      'V_FIN'
+    );
+
+
+# Set cluster number and input files
+# ----------------------------------
+  my $fix = "$fin";
+  if ( $param2 ne "" ) {
+    $fix = defined $$bpe{$param2} ? $$bpe{$param2} : $param2;
+  }
+
+  my $cluster = "${yyyyssss}_${param1}";
+  setUserVar($bpe,"CLUSTER",$cluster,"FFFF",$param1,"FIN",$fix);
+
+# Select one system per WL/NL pair. GLONASS remains excluded.
+  $satsysAR = uc($satsysAR);
+  $satsysAR =~ s/[R\s,]//g;
+  die "Unsupported V_GNSSAR selection: $satsysAR\n"
+    if $satsysAR =~ /[^GEC]/;
+  my @systems = grep { index($satsysAR, $_) >= 0 } qw(G E C);
+  return unless @systems;
+
+# NL changes these PAN options. Restore their original WL values before
+# EVERY system, rather than allowing NL options to leak into the next WL.
+  my $pan = "$ENV{U}/PAN/GPSEST.INP";
+  my @wlKeys = qw(FREQUENCY CORREL APRWIDE SAMPLE);
+  my @wlValues = map { $bpe->getKey($pan,$_) } @wlKeys;
+
+# Compute the observation file name
+# ---------------------------------
+  my $obsfil = "$param1$ssss";
+  prtMess($bpe,"PROCESSING FILE $obsfil");
+
+  foreach my $sys (@systems) {
+    prtMess($bpe,"AR SYSTEM $sys FOR $obsfil");
+    setGNSS($bpe,$pan,"USE_",$sys);
+    setGNSS($bpe,$pan,"USEAR_",$sys);
+    for my $i (0..$#wlKeys) {
+      $bpe->putKey($pan,$wlKeys[$i],$wlValues[$i]);
+    }
+
+  # WL AR
+  # -----
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TITLE","\$YYYSS+0_\$(FFFF): $sys WIDELANE PHASE INTEGER FIXING");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","PZFILES",$obsfil);
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CZFILES",$obsfil);
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT","WLI_${sys}_\$(CLUSTER)");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","COORDRS",'');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SATCLK",'');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS",'');
+
+    my $PGMNAM = "GPSEST";
+
+    eval {
+      $bpe->RUN_PGMS($PGMNAM);
+    };
+    if ($@) {
+      die "$PGMNAM (WL AR, $sys, $obsfil) failed: $@";
+    }
+
+  # NL AR
+  # -----
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","TITLE","\$YSS+0_\$(FFFF): $sys NARROWLANE PHASE INTEGER FIXING");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SYSOUT","NLI_${sys}_\$(CLUSTER)");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","COORDRS","NLI_${sys}_\$(CLUSTER)");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SATCLK",'$(ORB)_$YSS+0');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","IONOS",'HOI$YD+0');
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","FREQUENCY","L3");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","CORREL","CORRECT");
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","APRWIDE","1");
+  # Changed observation data sampling for NL AR
+    $bpe->putKey("$ENV{U}/PAN/GPSEST.INP","SAMPLE","300");
+
+    eval {
+      $bpe->RUN_PGMS($PGMNAM);
+    };
+    if ($@) {
+      die "$PGMNAM (NL AR, $sys, $obsfil) failed: $@";
+    }
+  }
+
+# Leave the WL options ready for the next invocation.
+  for my $i (0..$#wlKeys) {
+    $bpe->putKey($pan,$wlKeys[$i],$wlValues[$i]);
+  }
+}

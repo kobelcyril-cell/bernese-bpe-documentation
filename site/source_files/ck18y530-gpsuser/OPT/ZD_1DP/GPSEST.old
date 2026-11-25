@@ -1381,6 +1381,13 @@ SCALE 1  "1"
 
 MSG_SCALE 1  "Helmert: Scale"
 
+! Serve coffee
+! ---------------------
+COFFEE 1  "0"
+  ## widget = checkbox
+
+MSG_COFFEE 1  "Serve coffee"
+
 ! ----------------------------------------------------------------------
 ! Ambiguity resolution: Search
 ! ----------------------------------------------------------------------
@@ -5786,7 +5793,7 @@ MSG_SHOWMAX 1  "Define array dimensions"
 
 ! MAXLOC: Maximum number of parameters to be processed
 ! ----------------------------------------------------
-MAXLOC 1  "75000"
+MAXLOC 1  "110000"
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXLOC 1  "MAXLOC: Parameters to be processed"
@@ -5821,7 +5828,7 @@ MSG_MAXAMB 1  "MAXAMB: Ambiguities in an observation file"
 
 ! MAXPAR: Maximum number of parameters simultaneously processed
 ! -------------------------------------------------------------
-MAXPAR 1  "30000"
+MAXPAR 1  "40000"
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXPAR 1  "MAXPAR: Parameters simultaneously processed"
@@ -5939,7 +5946,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 # GENERAL INPUT FILES                                                          #
 #   General constants           > %%%%%%%%%%%% <                               # CONST
 #   Geodetic datum              > %%%%%%%%%%%% <                               # DATUM
-#   Antenna corrections         > %%%%%%%%%%%% <  > % < Consider ant. rotations# PHASECC USE_ANTAZI
+#   Antenna corrections         > %%%%%%%%%%%% < > % < Consider ant. rotations # PHASECC USE_ANTAZI
 #   Observation selection       > %%%%%%%%%%%% <                               # OBSSEL
 #   Satellite information       > %%%%%%%%%%%% <                               # SATELL
 #   Satellite problems          > %%%%%%%%%%%% <                               # SATCRUX
@@ -6160,6 +6167,8 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Coordinate system for transformation                   > %%%%%%%%%%%% <    # COORDSYS
 #   Rotation                                               > % <               # ROTXYZ
 #   Scale                                                  > % <               # SCALE
+#                                                                              #
+# SERVE COFFEE                                             > % <               # COFFEE
 # END_PANEL ####################################################################
 
 

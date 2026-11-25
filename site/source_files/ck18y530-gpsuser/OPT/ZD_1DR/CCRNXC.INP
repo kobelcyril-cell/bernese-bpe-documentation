@@ -150,13 +150,13 @@ USEWIN 1  "1"
 
 MSG_USEWIN 1  "Use time window"
 
-RADIO_1 1  "0"
+RADIO_1 1  "1"
   ## widget = radiobutton; group = DUMMY
   ## radiokeys = SESSION_YEAR SESSION_STRG
 
 MSG_RADIO_1 1  "Defined by session identifier, year and table"
 
-RADIO_2 1  "1"
+RADIO_2 1  "0"
   ## widget = radiobutton; group = DUMMY
 
 MSG_RADIO_2 1  "Defined by start and end times"

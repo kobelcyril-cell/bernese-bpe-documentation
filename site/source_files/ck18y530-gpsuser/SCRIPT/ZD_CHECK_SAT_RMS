@@ -16,12 +16,75 @@ use lib $ENV{BPE};
 use bpe_util;
 use lib "$ENV{AUTO}";
 use gpsutil;
+use File::Basename qw(basename);
+use File::Spec;
 
 # ---------- RMS limits (meters) ------------
 # Adjust the values here: above the soft limit a warning is logged;
-# above the hard limit the satellite is excluded with SATMRK.
+# above the hard limit the satellite is excluded.
 my $RMS_SOFT_LIMIT = 5.0;
 my $RMS_HARD_LIMIT = 10.0;
+
+sub _write_satcrx_entry {
+  my ($dirCrx, $satcrx, $extCrx, $date, $prn, $type, $code) = @_;
+  die "SATCRX name is missing (getKeys V_SATCRX)\n"
+    unless defined $satcrx && length $satcrx;
+  die "SATCRX directory or extension is missing (getKeys DIR_CRX, EXT_CRX)\n"
+    unless defined $dirCrx && length $dirCrx && defined $extCrx && length $extCrx;
+
+  my ($year, $month, $day);
+  if (defined $date && $date =~ /^\s*(\d{4})[-\s]?(\d\d)[-\s]?(\d\d)\s*$/) {
+    ($year, $month, $day) = ($1, $2, $3);
+  }
+  die "Cannot parse current date for SATCRX $type $code entry: '$date'\n"
+    unless defined $year && defined $month && defined $day;
+
+  my $name = basename($satcrx);
+  (my $extension = $extCrx) =~ s/^\.//;
+  $name =~ s/\.\Q$extension\E\z//i;
+  $name .= ".$extension";
+  my $satcrx_file = File::Spec->catfile($dirCrx, $name);
+  my $new_date = "$year$month$day";
+#  my $new_line = sprintf("%5d         %d         %d       %4d %02d %02d 00 00 00\n",
+#    $prn, $type, $code, $year, $month, $day);
+
+  my $new_line = sprintf("%5d         %d         %d       %4d %02d %02d 00 00 00  %4d %02d %02d 23 59 59\n",
+                         $prn, $type, $code,
+                         $year, $month, $day,
+                         $year, $month, $day);
+  
+  open my $in, '<', $satcrx_file
+    or die "Cannot read SATCRX file $satcrx_file: $!\n";
+  my @lines = <$in>;
+  close $in or die "Cannot close SATCRX file $satcrx_file after reading: $!\n";
+
+  for my $line (@lines) {
+    if ($line =~ /^\s*\Q$prn\E\s+\Q$type\E\s+\Q$code\E\s+(\d{4})\s+(\d\d)\s+(\d\d)\b/) {
+      return ($satcrx_file, 0) if "$1$2$3" eq $new_date;
+    }
+  }
+
+  my ($insert_at, $first_event_at);
+  for (my $i = $#lines; $i >= 0; --$i) {
+    if ($lines[$i] =~ /^\s*-?\d+\s+\Q$type\E\s+\Q$code\E\s+(\d{4})\s+(\d\d)\s+(\d\d)\b/) {
+      $first_event_at = $i;
+      if ("$1$2$3" le $new_date) {
+        $insert_at = $i + 1;
+        last;
+      }
+    }
+  }
+  $insert_at = defined($first_event_at) ? $first_event_at : scalar @lines
+    unless defined $insert_at;
+  splice @lines, $insert_at, 0, $new_line;
+  $lines[-1] .= "\n" if @lines && $lines[-1] !~ /[\r\n]\z/;
+
+  open my $out, '>', $satcrx_file
+    or die "Cannot rewrite SATCRX file $satcrx_file: $!\n";
+  print {$out} @lines or die "Cannot write SATCRX file $satcrx_file: $!\n";
+  close $out or die "Cannot close SATCRX file $satcrx_file: $!\n";
+  return ($satcrx_file, 1);
+}
 
 sub run {
   my $bpe = shift;
@@ -31,21 +94,33 @@ sub run {
       $dirOut,
       $yyddd,
       $ssss,
-      $yyyy
+      $yyyy,
+      $satcrx,
+      $dirCrx,
+      $extCrx,
+      $dateYmd,
+      $V_APRRMS
   ) = $bpe->getKeys(
       'DIR_OUT',
       '$YD+0',
       '$S+0',
-      '$Y+0'
+      '$Y+0',
+      'V_SATCRX',
+      'PTH_SATCRUX',
+      'EXT_SATCRUX',
+      '$YMD_STR+0',
+      'V_APRRMS'
   );
 
+  
   my $yy = substr($yyyy, -2);
 
   my $orb_file = "${dirOut}/ORBGEN_APR${ssss}.OUT";
   die "ORBGEN_APR file not found: $orb_file\n" unless -e $orb_file;
 
-  my $PGMNAM = "SATMRK";
-
+  if (defined $V_APRRMS && $V_APRRMS =~ /^\s*[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?\s*$/) {
+     $RMS_HARD_LIMIT = $V_APRRMS;
+     }
 # ---------- logfile ------------
   my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
   unless (-d $mscDir) {
@@ -117,11 +192,10 @@ sub run {
 
     next unless exists $marked_sats{$prn};
 
-# ---------- Run SATMRK ------------
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "STADAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "ENDDAT", '$YMD_STR+0');
-    $bpe->putKey("$ENV{U}/PAN/SATMRK.INP", "SATNUM", $prn);
-    $bpe->RUN_PGMS($PGMNAM);
+    my ($satcrx_file, $added) = _write_satcrx_entry(
+      $dirCrx, $satcrx, $extCrx, $dateYmd, $prn, 3, 2);
+    print $LOG "-> SATCRX 3 2 entry " . ($added ? "created" : "already present")
+      . " for satellite $prn in $satcrx_file\n";
   }
 
   close($ORB);
@@ -136,7 +210,7 @@ sub run {
   if (%marked_sats) {
     my @sat_list = sort { $a <=> $b } keys %marked_sats;
 
-    print $LOG "Satellites marked due to RMS above $RMS_HARD_LIMIT m or invalid RMS: "
+    print $LOG "Satellites excluded in SATCRX (3 2) due to RMS above $RMS_HARD_LIMIT m or invalid RMS: "
       . join(", ", @sat_list) . "\n";
     print $LOG "Total satellites marked: " . scalar(@sat_list) . "\n";
   }

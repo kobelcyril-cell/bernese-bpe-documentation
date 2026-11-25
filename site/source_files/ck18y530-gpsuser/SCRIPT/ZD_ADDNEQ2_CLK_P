@@ -24,14 +24,26 @@ sub run {
   my (
       $yyssss,
       $sol,
+      $olap,
+      $olapgoto,
       $dirNeq,
       $extNeq
   ) = $bpe->getKeys(
       '$YSS+0',
       'V_FIN',
+      'V_OLAP',
+      'PARAM2',
       'DIR_NEQ',
       'EXT_NEQ'
   );
+
+  # ----Skip solution if only LAPACK solution is computed---
+ if ($olap eq "YES") {
+   prtGoto($bpe, $olapgoto);
+   prtMess($bpe, "Only LAPACK solution computed, solution skipped.");
+   return;
+ }
+
 
   # ---------- Get NEQ files ------------
   my @NEQfl = glob("${dirNeq}${sol}??${yyssss}???.${extNeq}");

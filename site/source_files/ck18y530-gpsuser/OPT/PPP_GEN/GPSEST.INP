@@ -91,7 +91,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -106,7 +106,7 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Earth Potential
 ! ---------------
-POTCOE 1  "EGM2008_SMALL"
+POTCOE 1  "$(POTCOE)"
   ## widget = selwin; path = PTH_POTCOE; ext = EXT_POTCOE; maxfiles = 1
   ## emptyallowed = true
 
@@ -142,7 +142,7 @@ DESCR_NUTMOD 1  "Nutation model"
 
 ! SINEX General Input File
 ! ------------------------
-SINEXIN 1  "$(SNXINF)"
+SINEXIN 1  "$(BIAINF)"
   ## widget = selwin; path = PTH_SINEXIN; ext = EXT_SINEXIN; maxfiles = 1
   ## emptyallowed = true
 
@@ -295,7 +295,7 @@ DESCR_COORD 1  "Station coordinates"
 
 ! Standard Orbit
 ! --------------
-STDORB 1  "$(ORB)_$YYYSS+0"
+STDORB 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
   ## activeif = STDORB_NEW == _
 
@@ -309,14 +309,14 @@ DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
 
 ! ERP File
 ! ---------
-POLE 1  "$(ORB)_$YYYSS+0"
+POLE 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
 
 DESCR_POLE 1  "Earth rotation parameters"
 
 ! Satellite Clocks
 ! ----------------
-SATCLK 1  "$(ORB)_$YYYSS+0"
+SATCLK 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
   ## emptyallowed = true; activeif = DIFLVL = ZERO OR DIFLVL = ZERO_AR
 
@@ -346,7 +346,7 @@ MSG_VMF_FILES 1  "VMF grid file"
 
 ! Ionosphere Models
 ! -----------------
-IONOS 1  "$(HOIFIL)"
+IONOS 1  "HOI$YD+0"
   ## widget = selwin; path = DIR_ION; ext = EXT_ION; maxfiles = 1
   ## emptyallowed = true; activeif = GEOTEC = GNSS
 
@@ -362,7 +362,7 @@ DESCR_OCNLOAD 1  "Ocean tidal loading"
 
 ! Atmospheric Tidal Loading Tables
 ! --------------------------------
-ATMLOAD 1  "$(ATLINF)"
+ATMLOAD 1  "VAPL"
   ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
   ## emptyallowed = true
 
@@ -620,7 +620,7 @@ MSG_CONT_ERR 1  "End program normally even in case of errors"
 
 ! Ignore errors wihtin specified subroutines
 ! ------------------------------------------
-IGNORE_ERR 1  ""
+IGNORE_ERR 1  "D_PHAECC:search_off"
   ## widget = uniline; numlines = 5
 
 MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"

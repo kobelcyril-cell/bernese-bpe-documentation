@@ -6,10 +6,10 @@ package ADDNEQ2_LA_P;
 #
 # Purpose :  Prepare parallel ADDNEQ2
 #
-# Author  :  E. Calero
-# Created :  12-May-2021
+# Author  :  C. Kobel
+# Created :  22-Oct-2026
 #
-# Changes :  26-May-2026 CK: Revised and formatted
+# Changes :  
 #===========================================================
 
 use lib $ENV{BPE};
@@ -34,6 +34,13 @@ sub run {
 
 # ---------- Get NEQ files ------------
   my @NEQfl = glob("${dirNeq}${sol}??${yyssss}???.${extNeq}");
+
+# ---------- When only LAPACK solution was computed ------------
+  if (!@NEQfl) {
+    @NEQfl = glob("${dirNeq}${sol}_${yyssss}.${extNeq}");
+    die "Expected exactly one NEQ file matching ${dirNeq}${sol}_${yyssss}.${extNeq}, found " . scalar(@NEQfl) . "\n"
+      if @NEQfl != 1;
+  }
 
 # ---------- Populate options for parallel run ------------
   my @time;

@@ -156,7 +156,7 @@ MSG_TITLE 1  "Title line"
 
 ! New geodetic datum
 ! ------------------
-NEWDAT 1  "$(REFINF)"
+NEWDAT 1  "$(CRDINF)"
   ## widget = lineedit; check_strlen = 16
 
 MSG_NEWDAT 1  "New local geodetic datum"

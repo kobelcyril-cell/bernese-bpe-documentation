@@ -7,12 +7,15 @@ package GEN_NEQ_E;
 # Purpose :  Parallel run of GPSEST subsequent ADDNEQ2
 #
 # Author  :  E. Calero
-# Created :  
+# Created :
 #
 # Changes :  28-Apr-2026 CK: Revised and formatted
 #===========================================================
 
 use strict;
+use Fcntl qw(LOCK_EX LOCK_NB);
+use File::Spec;
+use Time::HiRes qw(sleep);
 use lib $ENV{BPE};
 use bpe_util;
 
@@ -57,7 +60,7 @@ sub run {
   }
 
   # ---------- Check GRD status files ------------
-  my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
+  my $mscDir = File::Spec->catdir($dirOut, '..', 'MSC', "MSC_$yyddd");
   # NTAL
   my $noNtal = "${mscDir}/no_NTAL";
   if (-e $noNtal) {
@@ -93,11 +96,120 @@ sub run {
     prtMess($bpe, "PULSES DISABLED");
   }
 
-  # ---------- Run GPSEST ------------
-  my $PGMNAM = "GPSEST";
-  $bpe->RUN_PGMS($PGMNAM);
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/GPSEST.INP","USE_",$v_gnss);
 
- # ---------- Run ADDNEQ2 ------------
-  $PGMNAM = "ADDNEQ2";
-  $bpe->RUN_PGMS($PGMNAM);
+  # ---------- Run GPSEST ------------
+  prtMess($bpe, "GEN_NEQ_E $param1: starting GPSEST");
+  my $run_error;
+  {
+    local $@;
+    eval { $bpe->RUN_PGMS("GPSEST"); 1 }
+      or $run_error = $@ || "GPSEST failed\n";
+  }
+
+  if (defined $run_error) {
+    my $clock_message = qr/For\s+the\s+clock\s+estimation\s+it\s+is\s+mandatory\s+to\s+select\s+one\s+or\s+more\s+reference\s+clocks\./i;
+
+    # BPE may write the diagnostic to the task log instead of the exception.
+    my $known_error = "$run_error" =~ /$clock_message/;
+    unless ($known_error) {
+      my $lookup_ok = eval {
+        $known_error = has_reference_clock_error($bpe, $clock_message);
+        1;
+      };
+      my $lookup_error = $@;
+      prtMess($bpe, "GEN_NEQ_E $param1: $lookup_error") unless $lookup_ok;
+    }
+
+    unless ($known_error) {
+      prtMess($bpe, "GEN_NEQ_E $param1: GPSEST failed: $run_error");
+      die $run_error;
+    }
+
+    prtMess($bpe, "GEN_NEQ_E $param1: GPSEST reported missing reference clocks; skipping ADDNEQ2");
+    my $cleanup_ok = eval {
+      my ($dirPzh, $ssss) = $bpe->getKeys('DIR_PZH', '$S+0');
+      die "Missing DIR_PZH, PARAM1 or session for GPSEST cleanup\n"
+        unless length($dirPzh // '') && length($param1 // '') && length($ssss // '');
+
+      my $prefix = "$param1$ssss";
+      opendir my $pzh, $dirPzh or die "Cannot open $dirPzh: $!\n";
+      while (defined(my $name = readdir $pzh)) {
+        next unless $name =~ /\A\Q$prefix\E\..{3}\z/s;
+        my $file = File::Spec->catfile($dirPzh, $name);
+        next unless -f $file || -l $file;
+        unless (unlink $file) {
+          prtMess($bpe, "GEN_NEQ_E $param1: WARNING: Cannot remove $file: $!");
+        }
+      }
+      closedir $pzh or die "Cannot close $dirPzh: $!\n";
+      1;
+    };
+    my $cleanup_error = $@;
+    unless ($cleanup_ok) {
+      prtMess($bpe, "GEN_NEQ_E $param1: WARNING: PZH cleanup incomplete: $cleanup_error");
+    }
+
+    my $message = "Station $param1 has no (valid) GPS observations and was therefore removed";
+    my $processingFile = File::Spec->catfile($mscDir, "PROCESSING_$yyddd");
+    my $logged = eval { append_processing_log($processingFile, $message); 1 };
+    my $log_error = $@;
+    unless ($logged) {
+      prtMess($bpe, "GEN_NEQ_E $param1: WARNING: Processing log entry failed: $log_error");
+    }
+
+    prtMess($bpe, $message);
+    return;
+  }
+
+  # ---------- Run ADDNEQ2 ------------
+  prtMess($bpe, "GEN_NEQ_E $param1: starting ADDNEQ2");
+  $bpe->RUN_PGMS("ADDNEQ2");
+}
+
+sub has_reference_clock_error {
+  my ($bpe, $clock_message) = @_;
+  my ($dirBpe, $taskId, $yyssss, $pid, $extLog) = $bpe->getKeys(
+    'DIR_BPELOG', 'TASKID', '$YSS+0', 'PID', 'EXT_BPELOG'
+  );
+  die "Missing BPE task log keys\n"
+    if grep { !defined $_ || !length $_ } ($dirBpe, $taskId, $yyssss, $pid, $extLog);
+  $extLog =~ s/^\.//;
+  my $taskLog = File::Spec->catfile(
+    $dirBpe, "${taskId}${yyssss}_${pid}_000.${extLog}"
+  );
+  open my $log, '<', $taskLog or die "Cannot read BPE task log $taskLog: $!\n";
+
+  my $diagnostic;
+  while (my $line = <$log>) {
+    if ($line =~ /^[ \t]*\*{3,}[ \t]+SR\b/i) {
+      $diagnostic = $line =~ /\bSR[ \t]+rdiclk,[ \t]*PG[ \t]+GPSEST\b/i ? '' : undef;
+      next;
+    }
+    next unless defined $diagnostic;
+    $diagnostic .= $line;
+    return 1 if $diagnostic =~ /$clock_message/;
+    undef $diagnostic if length($diagnostic) > 2048;
+  }
+  return 0;
+}
+
+sub append_processing_log {
+  my ($path, $message) = @_;
+  open my $processing, '>>', $path or die "Cannot append to $path: $!\n";
+
+  # Parallel station jobs share this file. Bound the wait for its lock.
+  for my $attempt (1 .. 21) {
+    if (flock $processing, LOCK_EX | LOCK_NB) {
+      print {$processing} "$message\n" or die "Cannot write to $path: $!\n";
+      close $processing or die "Cannot close $path: $!\n";
+      return;
+    }
+    die "Cannot lock $path: $!\n" unless $!{EWOULDBLOCK} || $!{EAGAIN};
+    sleep 0.1 if $attempt < 21;
+  }
+  die "Timed out waiting for the lock on $path\n";
 }

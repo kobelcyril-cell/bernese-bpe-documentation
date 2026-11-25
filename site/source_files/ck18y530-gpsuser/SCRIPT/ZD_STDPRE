@@ -23,6 +23,11 @@ use RetryHelper qw(run_with_retry);
 sub run {
   my $bpe = shift;
 
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/STDPRE.INP","USE_",$v_gnss);
+  
   # ---------- Run program ------------
   my $PGMNAM = "STDPRE";
   run_with_retry($bpe, $PGMNAM);

@@ -39,6 +39,7 @@ sub run {
 
     my (
         $yyssss,
+	$yyssssm1,
         $ddd,
 	$yyyy,
         $camp_pth,
@@ -54,12 +55,10 @@ sub run {
         $extOsb,
         $extFix,
         $extErp,
-        $extSkl,
-        $satcrx,
-        $extCrx,
-        $dirCrx
+        $extSkl
     ) = $bpe->getKeys(
         '$YSS+0',
+	'$YSS-1',
         '$+0',
 	'$Y+0',
         'CAMP_PTH',
@@ -75,10 +74,7 @@ sub run {
         'EXT_OSB',
         'EXT_FIX',
         'EXT_ERP',
-        'EXT_SINEXIN',
-        'V_SATCRX',
-        'EXT_CRX',
-        'DIR_STA'
+        'EXT_SINEXIN'
     );
 
 
@@ -89,22 +85,26 @@ sub run {
     die "ERROR: copyRef.pl failed (return code: $ret)\n"
         if $ret != 0;
 
-    my $iarFile = "$ENV{S}/IGS/${yyyy}/ORB/IAR${yyssss}.${extOsb}";
-    my $aprFile = "${dirOsb}APR${yyssss}.${extOsb}";
+    my $iarFileM1 = "${dirOsb}IAR${yyssssm1}.${extOsb}";
+    my $iarFile   = "$ENV{S}/IGS/${yyyy}/ORB/IAR${yyssss}.${extOsb}";
+    my $aprFile   = "${dirOsb}APR${yyssss}.${extOsb}";
 
-    if (-e $iarFile) {
-       print "Using file as a priori: $iarFile\n";
-       copy_required($iarFile, $aprFile);
+    if (-e $iarFileM1) {
+       print "Using file as a priori: $iarFileM1\n";
+       copy_required($iarFileM1, $aprFile);
+       }
+    elsif (-e $iarFile) {
+    	  print "Using file as a priori: $iarFile\n";
+    	  copy_required($iarFile, $aprFile);
        }
     else {
     	 my $codeFile = "${dirOsb}CODE.${extOsb}";
 
-    	 print "Appropriate file not found: $iarFile\n";
-    	 print "Using fallback file: $codeFile\n";
+    	 print "Appropriate file not found: $iarFileM1 or $iarFile\n";
+    	 print "Using fallback file as a priori: $codeFile\n";
 
     	 copy_required($codeFile, $aprFile);
-	 }
-
+    }
     # ---------- Create REF OSB (remove GLONASS) ------------
 
     my $aprosb = "${dirOsb}APR${yyssss}.${extOsb}";
@@ -123,17 +123,6 @@ sub run {
 
     close($IN);
     close($OUT);
-
-
-    # ---------- Local CRX file ------------------------------
-
-    my $localCrx = "${dirCrx}${satcrx}.${extCrx}";
-
-    copy_required(
-        "$ENV{CONFIG}/${satcrx}.${extCrx}",
-        $localCrx
-    );
-
 
     # ---------- Copy reference clock file ------------
 

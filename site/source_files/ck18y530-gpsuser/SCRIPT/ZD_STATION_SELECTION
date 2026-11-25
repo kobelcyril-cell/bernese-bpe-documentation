@@ -1,3 +1,4 @@
+
 package STATION_SELECTION;
 @ISA = ("RUNBPE");
 
@@ -9,7 +10,14 @@ package STATION_SELECTION;
 # Author  :  C. Kobel
 # Created :  21-Apr-2026
 #
-# Changes :  
+# Changes :
+# 04-Nov-2026: Added FIXED station selection mode
+#
+# V_NSTA:
+#   ALL     - Keep all stations
+#   FINAL   - Select stations from IGSFINAL CRD
+#   FIXED   - Read stations from STA_yyddd.SEL
+#   Numeric - Select stations using MATLAB
 #===========================================================
 
 use strict;
@@ -43,10 +51,9 @@ sub run {
       'EXT_FIX'
   );
 
-
 # ---------- Generate plots (Matlab script) ------------
   my $makePlots = 0;
-  
+
 # ---------- Define paths ------------
   my $python_dir = "$ENV{HOME}/ZDGNSS_RUN/python";
   my $matlab_dir = "$ENV{HOME}/ZDGNSS_RUN/matlab";
@@ -54,6 +61,7 @@ sub run {
   my $yy     = substr($yyddd, 0, 2);
   my $dirRaw = "${dirOut}../RAW";
   my $dirSta = "${dirOut}../STA";
+  my $mscDirD = "${dirOut}../MSC";
   my $mscDir = "${dirOut}../MSC/MSC_${yyddd}";
 
   unless (-d $mscDir) {
@@ -62,13 +70,19 @@ sub run {
 
 # ---------- Initialize logging ------------
   my $logfile = "$mscDir/PROCESSING_${yyddd}";
-  open(my $LOG, '>>', $logfile) or die "Cannot open log file $logfile: $!";
+
+  open(my $LOG, '>>', $logfile)
+    or die "Cannot open log file $logfile: $!";
+
   print $LOG "\n=== STATION_SELECTION started ===\n";
+  print $LOG "V_NSTA = $V_NSTA\n";
 
 # ---------- Skip if ALL stations ------------
   if ($V_NSTA eq 'ALL') {
+
     print $LOG "V_NSTA = ALL, skipping station selection\n";
     print "Station selection skipped (V_NSTA = ALL)\n";
+
     print $LOG "=== STATION_SELECTION finished ===\n";
     close($LOG);
     return;
@@ -76,8 +90,11 @@ sub run {
 
 # ---------- Define output files ------------
   my $matlab_selected = "$mscDir/selected_stations_${yyddd}.txt";
+  my $avail_file      = "$mscDir/available_stations_${yyddd}.txt";
 
-# ---------- FINAL mode ------------
+# ===========================================================
+# FINAL mode
+# ===========================================================
   if ($V_NSTA eq 'FINAL') {
 
     my $crdfile = "/storage/research/aiub_code/IGSFINAL/STA/F1_${yyddd}.CRD";
@@ -86,41 +103,250 @@ sub run {
     if (-e $crdfile) {
 
       my $cmd = "python3 $script $crdfile $matlab_selected";
+
       print $LOG "Running FINAL station extraction\n";
-      system($cmd) == 0 or die "Python get_final_stations.py failed: $!\n";
+
+      system($cmd) == 0
+        or die "Python get_final_stations.py failed: $!\n";
 
       print $LOG "FINAL mode: station list written\n";
 
     } else {
 
-      print $LOG "WARNING: CRD file not found → fallback to ALL\n";
+      print $LOG "WARNING: CRD file not found - fallback to ALL\n";
       print "Station selection skipped (V_NSTA = ALL)\n";
+
       print $LOG "=== STATION_SELECTION finished ===\n";
       close($LOG);
       return;
     }
 
-# ---------- Numeric selection mode ------------
+    # FINAL mode uses the selected station list
+    # also as the available station list.
+    $avail_file = $matlab_selected;
+
+# ===========================================================
+# FIXED mode
+# ===========================================================
+  } elsif ($V_NSTA eq 'FIXED') {
+
+    my $fixed_file = "$mscDirD/STA_${yyddd}.SEL";
+
+    print $LOG "FIXED mode activated\n";
+    print $LOG "Station selection file: $fixed_file\n";
+
+    # ---------- Check station file ------------
+    unless (-f $fixed_file) {
+
+      print $LOG "ERROR: FIXED station file not found\n";
+      close($LOG);
+
+      die "ERROR: FIXED station file not found: $fixed_file\n";
+    }
+
+    # ---------- Read fixed stations ------------
+    open(my $FIXED, '<', $fixed_file)
+      or die "Cannot open $fixed_file: $!";
+
+    my %fixed_stations;
+
+    while (my $line = <$FIXED>) {
+
+      chomp $line;
+
+      # Remove Windows line endings and whitespace
+      $line =~ s/\r$//;
+      $line =~ s/^\s+|\s+$//g;
+
+      # Ignore empty lines and comments
+      next if $line eq '';
+      next if $line =~ /^#/;
+
+      # Normalize station names
+      $line = uc($line);
+
+      # Validate station name
+      unless ($line =~ /^[A-Z0-9]{4}$/) {
+
+        print $LOG "ERROR: Invalid station code: $line\n";
+        close($FIXED);
+        close($LOG);
+
+        die "ERROR: Invalid station code '$line' in $fixed_file\n";
+      }
+
+      $fixed_stations{$line} = 1;
+    }
+
+    close($FIXED);
+
+    # ---------- Check if list is empty ------------
+    unless (keys %fixed_stations) {
+
+      print $LOG "ERROR: FIXED station list is empty\n";
+      close($LOG);
+
+      die "ERROR: FIXED station list is empty: $fixed_file\n";
+    }
+
+    my $n_fixed = scalar(keys %fixed_stations);
+
+    print $LOG "FIXED mode: $n_fixed stations loaded\n";
+    print "FIXED mode: $n_fixed stations loaded\n";
+
+    # ---------- Find available RAW observations ------------
+    opendir(my $RAW, $dirRaw)
+      or die "Cannot open RAW directory $dirRaw: $!";
+
+    my @available_files;
+
+    while (my $filename = readdir($RAW)) {
+
+      # Expected format: SSSSssss.yyO
+      # Example: TSKB1230.26O
+      if ($filename =~ /^([A-Za-z0-9]{4})\Q$ssss\E\.\Q$yy\E[oO]$/) {
+
+        my $path = "$dirRaw/$filename";
+
+        next unless -f $path;
+
+        push @available_files, {
+          station  => uc($1),
+          filename => $filename
+        };
+      }
+    }
+
+    closedir($RAW);
+
+    my $n_available = scalar(@available_files);
+
+    print $LOG "Available observation files: $n_available\n";
+
+    # ---------- Determine files to delete ------------
+    my @delete_files;
+    my %available_stations;
+    my %kept_stations;
+
+    foreach my $entry (@available_files) {
+
+      my $station = $entry->{station};
+
+      $available_stations{$station} = 1;
+
+      if ($fixed_stations{$station}) {
+        $kept_stations{$station} = 1;
+      } else {
+        push @delete_files, $entry;
+      }
+    }
+
+    my $n_delete = scalar(@delete_files);
+    my $n_keep   = scalar(keys %kept_stations);
+
+    print $LOG "Stations with observations to keep: $n_keep\n";
+    print $LOG "Observation files to delete: $n_delete\n";
+
+    # ---------- Safety check ------------
+    # Do not delete anything if no selected station
+    # is found among the available observations.
+    unless ($n_keep > 0) {
+
+      print $LOG "ERROR: No FIXED station found in RAW observations\n";
+      print $LOG "No observation files deleted\n";
+      close($LOG);
+
+      die "ERROR: No FIXED station found in RAW. "
+        . "Station selection aborted.\n";
+    }
+
+    # ---------- Write selected stations ------------
+    open(my $SELECTED, '>', $matlab_selected)
+      or die "Cannot write $matlab_selected: $!";
+
+    foreach my $station (sort keys %fixed_stations) {
+      print $SELECTED "$station\n";
+    }
+
+    close($SELECTED);
+
+    # ---------- Write available stations ------------
+    open(my $AVAIL_OUT, '>', $avail_file)
+      or die "Cannot write $avail_file: $!";
+
+    foreach my $station (sort keys %available_stations) {
+      print $AVAIL_OUT "$station\n";
+    }
+
+    close($AVAIL_OUT);
+
+    # ---------- Delete unused observation files ------------
+    my $deleted = 0;
+    my %deleted_stations;
+
+    foreach my $entry (@delete_files) {
+
+      my $station = $entry->{station};
+      my $path    = "$dirRaw/$entry->{filename}";
+
+      if (unlink($path)) {
+
+        $deleted++;
+        $deleted_stations{$station} = 1;
+
+        print $LOG "DELETED: $entry->{filename}\n";
+
+      } else {
+
+        print $LOG "ERROR: Could not delete $path: $!\n";
+        warn "Could not delete $path: $!";
+      }
+    }
+
+    # ---------- Logging summary ------------
+    print $LOG "FIXED selection summary:\n";
+    print $LOG "  Requested stations: $n_fixed\n";
+    print $LOG "  Available stations: "
+      . scalar(keys %available_stations) . "\n";
+    print $LOG "  Kept stations: $n_keep\n";
+    print $LOG "  Deleted observation files: $deleted\n";
+    print $LOG "  Deleted stations: "
+      . scalar(keys %deleted_stations) . "\n";
+
+    print $LOG "=== STATION_SELECTION finished ===\n";
+    close($LOG);
+
+    print "STATION_SELECTION FIXED done. Log: $logfile\n";
+
+    return;
+
+# ===========================================================
+# Numeric selection mode
+# ===========================================================
   } else {
 
     unless ($V_NSTA =~ /^\d+$/) {
+      print $LOG "ERROR: V_NSTA invalid: $V_NSTA\n";
+      close($LOG);
       die "ERROR: V_NSTA invalid: $V_NSTA\n";
     }
 
     # ---------- Extract available stations ------------
     my $py_script = "$python_dir/extract_geos_letters.py";
-    my $py_out    = "$mscDir/available_stations_${yyddd}.txt";
+    my $py_out    = $avail_file;
     my $obsfile   = "$ssss.${yy}O";
 
     my $cmd = "python3 $py_script $dirRaw $obsfile $py_out";
-    system($cmd) == 0 or die "Python extraction failed: $!\n";
+
+    system($cmd) == 0
+      or die "Python extraction failed: $!\n";
 
     # ---------- Run MATLAB selection ------------
     my $crdfile = "$dirSta/$V_STAINF.$extCRD";
     my $timlab_file = "${dirFix}TIMLAB.${extFix}";
-    my $gif     = "$mscDir/gnss_selection.gif";
-    my $hist    = "$mscDir/baseline_histogram.png";
-    my $LOGfileM= "$mscDir/Station_selection.log";
+    my $gif      = "$mscDir/gnss_selection.gif";
+    my $hist     = "$mscDir/baseline_histogram.png";
+    my $LOGfileM = "$mscDir/Station_selection.log";
 
     my $matlab_cmd = qq{matlab -batch "addpath('$matlab_dir'); gnss_station_selection($V_NSTA, '$crdfile', '$py_out', '$timlab_file', $makePlots, '$gif', '$hist', '$matlab_selected')" >> $LOGfileM };
 
@@ -132,30 +358,42 @@ sub run {
     print "errno     = $!\n\n\n";
   }
 
-# ---------- Compare and remove unused stations ------------
-  my $avail_file = "$mscDir/available_stations_${yyddd}.txt";
-  $avail_file = $matlab_selected if ($V_NSTA eq 'FINAL');
+# ===========================================================
+# Compare and remove unused stations
+# (FINAL and numeric modes)
+# ===========================================================
 
-  open(my $AVAIL,    '<', $avail_file)     or die "Cannot open $avail_file: $!";
-  open(my $SELECTED, '<', $matlab_selected) or die "Cannot open $matlab_selected: $!";
+  open(my $AVAIL, '<', $avail_file)
+    or die "Cannot open $avail_file: $!";
+
+  open(my $SELECTED, '<', $matlab_selected)
+    or die "Cannot open $matlab_selected: $!";
 
   my %selected;
+
   while (my $line = <$SELECTED>) {
+
     chomp $line;
     $line =~ s/^\s+|\s+$//g;
+
+    $line = uc($line);
+
     $selected{$line} = 1 if $line ne '';
   }
+
   close($SELECTED);
 
   my $deleted = 0;
   my %deleted_stations;
 
   while (my $line = <$AVAIL>) {
+
     chomp $line;
     $line =~ s/^\s+|\s+$//g;
+
     next if $line eq '';
 
-    my $station = substr($line, 0, 4);
+    my $station = uc(substr($line, 0, 4));
 
     unless ($selected{$station}) {
 
@@ -163,18 +401,29 @@ sub run {
       my $path = "$dirRaw/$file";
 
       if (-e $path) {
-        unlink($path) or warn "Could not delete $path: $!";
-        $deleted++;
-        $deleted_stations{$station} = 1;
+
+        if (unlink($path)) {
+          $deleted++;
+          $deleted_stations{$station} = 1;
+        } else {
+          warn "Could not delete $path: $!";
+          print $LOG "ERROR: Could not delete $path: $!\n";
+        }
+
       } else {
+
         print $LOG "DEBUG: File not found: $path\n";
       }
     }
   }
+
   close($AVAIL);
 
 # ---------- Logging summary ------------
-  print $LOG "Deleted observation files from " . scalar(keys %deleted_stations) . " stations\n";
+  print $LOG "Deleted observation files from "
+    . scalar(keys %deleted_stations)
+    . " stations\n";
+
   print $LOG "=== STATION_SELECTION finished ===\n";
   close($LOG);
 

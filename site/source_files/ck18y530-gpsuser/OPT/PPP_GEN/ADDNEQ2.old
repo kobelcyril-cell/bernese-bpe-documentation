@@ -1,28 +1,26 @@
 
 ! Some keywords for automatic output
 ! ----------------------------------
-CAMPAIGN 1  "./DUMMY"
+CAMPAIGN 0
   ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
 
-SESSION_TABLE 1  "${PAN}/SESSIONS.SES"
+SESSION_TABLE 0
   ## widget = initmenu; pointer = SESSION_TABLE
 
 DESCR_SESSION_TABLE 1  "Session table"
 
-YR4_INFO 1  "1980"
+YR4_INFO 1  "$Y+0"
   ## widget = comment
-  # $Y+0
 
-SES_INFO 1  "0060"
+SES_INFO 1  "$S+0"
   ## widget = comment
-  # $S+0
 
 USR_INFO 1  "${USER}"
   ## widget = comment
 
 ! Environment variables
 ! ---------------------
-ENVIRONMENT 1  "" "${}"
+ENVIRONMENT 0
   ## widget = initmenu; pointer = ENVIR_LIST
 
 ! =========================================================================
@@ -37,17 +35,26 @@ MSG_SHOWGEN 1  "Show all general files"
 
 ! Normal equations
 ! ----------------
-INPFILE 1  "./DUMMY/SOL/$(PPP)_$(CLUSTER).NQ0"
+IS_V10_SLR 1  "0"
+  ## widget = checkbox
+
+MSG_IS_V10_SLR 1  "SLR NEQs v10"
+
+INPFILE 1  "$(PPP)_$(CLUSTER)"
   ## widget = selwin; path = DIR_NEQ; ext = EXT_NEQ
-  # $(PPP)_$(CLUSTER)
 
 MSG_INPFILE 1  "Normal equations"
 
 INPFILE_TXT_COL_1 1  "Name"
 
+INPFILE_CONSTR 1  ""
+  ## widget = selwin; path = DIR_NEQ; ext = EXT_NEQ; emptyallowed = true
+
+MSG_INPFILE_CONSTR 1  "Normal equations with constraints"
+
 ! Variance rescaling factors
 ! --------------------------
-COVCOMI 0
+COVCOMI 1  ""
   ## widget = selwin; path = DIR_WGT; ext = EXT_WGT; maxfiles = 1
   ## emptyallowed = true
 
@@ -55,15 +62,14 @@ DESCR_COVCOMI 1  "Variance rescaling factors"
 
 ! Station coordinates
 ! -------------------
-COORD 1  "./DUMMY/STA/$(PPP)_$(CLUSTER).CRD"
+COORD 1  "$(PPP)_$(CLUSTER)"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
-  # $(PPP)_$(CLUSTER)
 
 DESCR_COORD 1  "Station coordinates"
 
 ! Station velocities
 ! ------------------
-VELAPR 0
+VELAPR 1  ""
   ## widget = selwin; path = DIR_VEL; ext = EXT_VEL; maxfiles = 1
   ## emptyallowed = true
 
@@ -71,16 +77,29 @@ DESCR_VELAPR 1  "Station velocities"
 
 ! Station information
 ! -------------------
-STAINFO 1  "./DUMMY/STA/$(STAINF).STA"
+STAINFO 1  "$(STAINF)"
   ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
   ## emptyallowed = true
-  # $(STAINF)
 
 DESCR_STAINFO 1  "Station information"
 
+! RP2 file
+! --------
+RP2INP 1  ""
+  ## widget = selwin; path = DIR_ORB; ext = EXT_RP2; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_RP2INP 1  "RP2 file"
+
+STDORB_NEW 1  ""
+  ## widget = selwin; path = DIR_ORB; ext = EXT_ORB; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
+
 ! Troposphere estimates
 ! ---------------------
-TROPEST 0
+TROPEST 1  ""
   ## widget = selwin; path = DIR_TRP; ext = EXT_TRP; maxfiles = 1
   ## emptyallowed = true
 
@@ -88,7 +107,7 @@ DESCR_TROPEST 1  "Estimated troposphere"
 
 ! Ionosphere master file
 ! ----------------------
-IONOS 0
+IONOS 1  ""
   ## widget = selwin; path = DIR_ION; ext = EXT_ION; maxfiles = 1
   ## emptyallowed = true
 
@@ -96,7 +115,7 @@ DESCR_IONOS 1  "Ionosphere master file"
 
 ! Observable-specific biases
 ! --------------------------
-DCBINP 0
+DCBINP 1  ""
   ## widget = selwin; path = DIR_OSB; ext = EXT_OSB; maxfiles = 1
   ## emptyallowed = true
 
@@ -112,7 +131,7 @@ MSG_OCBEXT 1  "Maximal allowed time for code bias extrapolation"
 
 ! Inter-system biases
 ! -------------------
-ISBINP 0
+ISBINP 1  ""
   ## widget = selwin; path = DIR_ISB; ext = EXT_ISB; maxfiles = 1
   ## emptyallowed = true
 
@@ -120,7 +139,7 @@ DESCR_ISBINP 1  "Inter-system biases"
 
 ! Range biases (a priori)
 ! -----------------------
-RGBINP 0
+RGBINP 1  ""
   ## widget = selwin; path = DIR_RGB; ext = EXT_RGB; maxfiles = 1
   ## emptyallowed = true
 
@@ -128,7 +147,7 @@ DESCR_RGBINP 1  "SLR biases, CoM"
 
 ! Earth rotation parameters
 ! -------------------------
-POLE 0
+POLE 1  ""
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
   ## emptyallowed = true
 
@@ -136,7 +155,7 @@ DESCR_POLE 1  "Earth rotation parameters"
 
 ! Satellite Clock File, input
 ! --------------------
-SATCLK 0
+SATCLK 1  ""
   ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
   ## emptyallowed = true; activeif = RXCLKIN = _
 
@@ -144,7 +163,7 @@ DESCR_SATCLK 1  "GNSS satellite clocks"
 
 ! Clock RINEX File
 ! ----------------
-RXCLKIN 0
+RXCLKIN 1  ""
   ## widget = selwin; path = DIR_RXC; ext = EXT_RXC; maxfiles = 1
   ## emptyallowed = true
 
@@ -152,7 +171,7 @@ DESCR_RXCLKIN 1  "Clock RINEX file"
 
 ! Geocenter coordinates
 ! ---------------------
-GCCINP 0
+GCCINP 1  ""
   ## widget = selwin; path = DIR_GCC; ext = EXT_GCC; maxfiles = 1
   ## emptyallowed = true
 
@@ -160,21 +179,21 @@ DESCR_GCCINP 1  "Geocenter coordinates"
 
 ! Covariances (Coords)
 ! --------------------
-COVARRS 0
+COVARRS 1  ""
   ## widget = lineedit; path = DIR_COV; ext = EXT_COV
 
 DESCR_COVARRS 1  "Var-covar w.r.t. coord."
 
 ! Covariances (All)
 ! -----------------
-COVTTRS 0
+COVTTRS 1  ""
   ## widget = lineedit; path = DIR_COV; ext = EXT_COV
 
 DESCR_COVTTRS 1  "Full var-covar matrix"
 
 ! Parameter estimates
 ! -------------------
-PARAMIN 0
+PARAMIN 1  ""
   ## widget = selwin; path = DIR_EST; ext = EXT_EST; maxfiles = 1
   ## emptyallowed = true
 
@@ -185,85 +204,96 @@ DESCR_PARAMIN 1  "Parameter estimates"
 ! =========================================================================
 ! General constants
 ! -----------------
-CONST 1  "${MODEL}/CONST.BSW"
+CONST 1  "CONST"
   ## widget = selwin; path = PTH_CONST; ext = EXT_CONST; maxfiles = 1
-  # CONST
 
 DESCR_CONST 1  "General constants"
 
 ! Geodetic datum
 ! --------------
-DATUM 1  "${CONFIG}/DATUM.BSW"
+DATUM 1  "DATUM"
   ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
-  # DATUM
 
 DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "${CAMP}/GEN/$(PCVINF)_$(PCV).PCV"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
-  # $(PCVINF)_$(PCV)
 
 DESCR_PHASECC 1  "Antenna corrections"
 
 ! Satellite information
 ! ---------------------
-SATELL 1  "${CONFIG}/$(SATINF)_$(PCV).SAT"
+SATELL 1  "$(SATINF)_$(PCV)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
   ## emptyallowed = true
-  # $(SATINF)_$(PCV)
 
 DESCR_SATELL 1  "Satellite information"
 
 ! Observation selection
 ! --------------------
-OBSSEL 1  "${CAMP}/GEN/$(OBSSEL).SEL"
+OBSSEL 1  "$(OBSSEL)"
   ## widget = selwin; path = PTH_OBSSEL; ext = EXT_OBSSEL; maxfiles = 1
-  # $(OBSSEL)
 
 DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite problems
 ! ------------------
-SATCRUX 1  "${CONFIG}/$(SATCRX).CRX"
+SATCRUX 1  "$(SATCRX)"
   ## widget = selwin; path = PTH_SATCRUX; ext = EXT_SATCRUX; maxfiles = 1
   ## emptyallowed = true
-  # $(SATCRX)
 
 DESCR_SATCRUX 1  "Satellite problems"
 
+! Earth Potential
+! ---------------
+POTCOE 1  ""
+  ## widget = selwin; path = PTH_POTCOE; ext = EXT_POTCOE; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_POTCOE 1  "Earth potential coefficients"
+
+CS2021 1  ""
+  ## widget = selwin; path = PTH_CS2021; ext = EXT_CS2021; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_CS2021 1  "Time-variable C20,C21,S21"
+
+ZONALS 1  ""
+  ## widget = selwin; path = PTH_ZONALS; ext = EXT_ZONALS; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_ZONALS 1  "Time-variable zonals"
+
 ! Subdaily ERP model
 ! -------------------
-SUBMOD 1  "${MODEL}/$(SUBMOD).SUB"
+SUBMOD 1  "$(SUBMOD)"
   ## widget = selwin; path = PTH_SUBMOD; ext = EXT_SUBMOD; maxfiles = 1
   ## emptyallowed = true
-  # $(SUBMOD)
 
 DESCR_SUBMOD 1  "Subdaily ERP model"
 
 ! Nutation Model
 ! -------------------
-NUTMOD 1  "${MODEL}/$(NUTMOD).NUT"
+NUTMOD 1  "$(NUTMOD)"
   ## widget = selwin; path = PTH_NUTMOD; ext = EXT_NUTMOD; maxfiles = 1
   ## emptyallowed = true
-  # $(NUTMOD)
 
 DESCR_NUTMOD 1  "Nutation model"
 
 ! Sinex header file
 ! -----------------
-SINEXIN 1  "${CAMP}/GEN/$(SNXINF).SKL"
+SINEXIN 1  "$(SNXINF)"
   ## widget = selwin; path = PTH_SINEXIN; ext = EXT_SINEXIN; maxfiles = 1
   ## emptyallowed = true
-  # $(SNXINF)
 
 DESCR_SINEXIN 1  "SINEX general input file"
 
 ! IONEX control file
 ! ------------------
-IONEXCF 0
+IONEXCF 1  ""
   ## widget = selwin; path = PTH_IONEXCF; ext = EXT_IONEXCF; maxfiles = 1
   ## emptyallowed = true
 
@@ -271,9 +301,8 @@ DESCR_IONEXCF 1  "IONEX control file"
 
 ! Scratch file
 ! ------------
-AUXFIL 1  "${U}/WORK/ADDNEQ2.SCR"
+AUXFIL 1  "ADDNEQ2$J"
   ## widget = lineedit; path = PTH_SCR; ext = EXT_SCR; emptyallowed = false
-  # ADDNEQ2$J
 
 DESCR_AUXFIL 1  "Scratch file"
 
@@ -289,10 +318,9 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "./DUMMY/OUT/$(PPP)_$(CLUSTER).OUT"
+SYSOUT 1  "$(PPP)_$(CLUSTER)"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
-  # $(PPP)_$(CLUSTER)
 
 DESCR_SYSOUT 1  "Program output"
 
@@ -303,10 +331,9 @@ ERRMRG 1  "0"
 
 MSG_ERRMRG 1  "Error message"
 
-SYSERR 1  "${U}/WORK/ERROR.MSG"
+SYSERR 1  "ERROR"
   ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
   ## activeif = ERRMRG == 0; emptyallowed = false
-  # ERROR
 
 DESCR_SYSERR 1  "Error message"
 
@@ -346,7 +373,7 @@ MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
 
 ! Normal equations
 ! ----------------
-NEQOUT 0
+NEQOUT 1  ""
   ## widget = lineedit; path = DIR_NEQ; ext = EXT_NEQ
 
 DESCR_NEQOUT 1  "Resulting normal equations"
@@ -359,131 +386,143 @@ SNXCONT 1  "COV"
 
 MSG_SNXCONT 1  "Content of SINEX"
 
-SINEXRS 0
+SINEXRS 1  ""
   ## widget = lineedit; path = DIR_SNX; ext = EXT_SNX
 
 DESCR_SINEXRS 1  "SINEX"
 
+SINEX_SLR 1  "0"
+  ## widget = checkbox; activeif = SINEXRS /= _
+
+MSG_SINEX_SLR 1  "Write SLR SINEX"
+
 ! Station coordinates
 ! -------------------
-COORDRS 0
+COORDRS 1  ""
   ## widget = lineedit; path = DIR_CRD; ext = EXT_CRD
 
 DESCR_COORDRS 1  "Station coordinate results"
 
 ! Velocities
 ! ----------
-VELORS 0
+VELORS 1  ""
   ## widget = lineedit; path = DIR_VEL; ext = EXT_VEL
 
 DESCR_VELORS 1  "Station velocity results"
 
 ! Troposphere estimates
 ! ---------------------
-TROPSAV 0
+TROPSAV 1  ""
   ## widget = lineedit; path = DIR_TRP; ext = EXT_TRP
 
 DESCR_TROPSAV 1  "Troposphere estimates"
 
 ! Troposphere SINEX
 ! -----------------
-TROPSNX 0
+TROPSNX 1  ""
   ## widget = lineedit; path = DIR_TRO; ext = EXT_TRO
 
 DESCR_TROPSNX 1  "Troposphere estimates (SINEX)"
 
 ! Ionosphere models
 ! -----------------
-IONOSRS 0
+IONOSRS 1  ""
   ## widget = lineedit; path = DIR_ION; ext = EXT_ION
 
 DESCR_IONOSRS 1  "Ionosphere models"
 
 ! IONEX
 ! -----
-IONEXRS 0
+IONEXRS 1  ""
   ## widget = lineedit; path = DIR_INX; ext = EXT_INX
 
 DESCR_IONEXRS 1  "IONEX"
 
 ! Code biases
 ! -----------
-DCBOUT 0
+DCBOUT 1  ""
   ## widget = lineedit; path = DIR_OSB; ext = EXT_OSB
 
 DESCR_DCBOUT 1  "Code bias results"
 
 ! Inter-system biases
 ! -------------------
-ISBOUT 0
+ISBOUT 1  ""
   ## widget = lineedit; path = DIR_ISB; ext = EXT_ISB
 
 DESCR_ISBOUT 1  "Inter-system biases (output)"
 
 ! Range biases
 ! ------------
-RGBOUT 0
+RGBOUT 1  ""
   ## widget = lineedit; path = DIR_RGB; ext = EXT_RGB
 
 DESCR_RGBOUT 1  "SLR biases, CoM (output)"
 
 ! BIAS SINEX
 ! ----------
-BIASSNX 0
+BIASSNX 1  ""
   ## widget = lineedit; path = DIR_BIA; ext = EXT_BIA
 
 DESCR_BIASSNX 1  "BIAS SINEX"
 
 ! Orbital elements
 ! ----------------
-ELEFILE 0
+ELEFILE 1  ""
   ## widget = lineedit; path = DIR_ELE; ext = EXT_ELE
 
 DESCR_ELEFILE 1  "Orbital elements"
 
+! Append STD name
+! ----------------
+ELEAPD 1  "0"
+  ## widget = checkbox; activeif = ELEFILE /= _
+
+MSG_ELEAPD 1  "Append STD name"
+
 ! Bernese ERP file
 ! ----------------
-POLERS 0
+POLERS 1  ""
   ## widget = lineedit; path = DIR_ERP; ext = EXT_ERP
 
 DESCR_POLERS 1  "Bernese ERP file"
 
 ! IERS ERP file
 ! -------------
-IERSPOL 0
+IERSPOL 1  ""
   ## widget = lineedit; path = DIR_IEP; ext = EXT_IEP
 
 DESCR_IERSPOL 1  "IERS ERP file"
 
 ! Geocenter coordinates
 ! ---------------------
-GCCOUT 0
+GCCOUT 1  ""
   ## widget = lineedit; path = DIR_GCC; ext = EXT_GCC
 
 DESCR_GCCOUT 1  "Geocenter coordinates"
 
 ! Station residuals
 ! -----------------
-PLOTRS 0
+PLOTRS 1  ""
   ## widget = lineedit; path = DIR_PLT; ext = EXT_PLT
 
 DESCR_PLOTRS 1  "Station residuals"
 
-PLOT_ALL 0
+PLOT_ALL 1  ""
   ## widget = lineedit; path = DIR_PLT; ext = EXT_PLT
 
 DESCR_PLOT_ALL 1  "Indiv. for all parameters"
 
 ! Weekly summary file
 ! -------------------
-WEKSUM 0
+WEKSUM 1  ""
   ## widget = lineedit; path = DIR_SUM; ext = EXT_SUM
 
 DESCR_WEKSUM 1  "Weekly summary file"
 
 ! Variance rescaling factors (output)
 ! -----------------------------------
-COVCOMO 0
+COVCOMO 1  ""
   ## widget = lineedit; path = DIR_WGT; ext = EXT_WGT; maxfiles = 1
   ## emptyallowed = true
 
@@ -493,7 +532,7 @@ DESCR_COVCOMO 1  "Variance rescaling factors"
 ! Phase center models
 ! Phase center variations (grid)
 ! ---------------------------
-PHASRSG 0
+PHASRSG 1  ""
   ## widget = lineedit; path = DIR_PHG; ext = EXT_PHG; maxfiles = 1
   ## emptyallowed = true
 
@@ -501,33 +540,53 @@ DESCR_PHASRSG 1  "Antenna model results"
 
 ! Satellite Clock File, output
 ! --------------------
-CLKSAV 0
+CLKSAV 1  ""
   ## widget = lineedit; path = DIR_CLK; ext = EXT_CLK
 
 DESCR_CLKSAV 1  "Satellite clock file"
 
 ! Clock RINEX File, output
 ! ----------------
-CLKRNX 0
+CLKRNX 1  ""
   ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC
 
 DESCR_CLKRNX 1  "clock RINEX file"
 
 ! Parameter estimates
 ! -------------------
-PARAMRS 0
+PARAMRS 1  ""
   ## widget = lineedit; path = DIR_EST; ext = EXT_EST
 
 DESCR_PARAMRS 1  "Parameter estimate results"
+
+! Gravity field coefficients
+! --------------------------
+GRVOUT 1  ""
+  ## widget = lineedit; path = DIR_GRV; ext = EXT_GRV
+
+DESCR_GRVOUT 1  "Gravity field results"
+
+! VCE file (out) for VCE in ADDNEQ2
+! ---------------------------------
+VCE_FILE 1  ""
+  ## widget = lineedit; path = DIR_VCE; ext = EXT_VCE; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_VCE_FILE 1  "Variance components (out)"
+
+WGT_FILE_OUT 1  ""
+  ## widget = lineedit; path = DIR_WGT; ext = EXT_WGT; maxfiles = 1
+  ## emptyallowed = true
+
+DESCR_WGT_FILE_OUT 1  "Weight file (out)"
 
 ! =========================================================================
 ! ADDNEQ2 3.1: Options
 ! =========================================================================
 ! Title
 ! -----
-TITLE 1  "PPP_19800060_$(FFFF)_$(FL): Single station solution"
+TITLE 1  "PPP_$YYYSS+0_$(FFFF)_$(FL): Single station solution"
   ## widget = lineedit
-  # PPP_$YYYSS+0_$(FFFF)_$(FL): Single station solution
 
 MSG_TITLE 1  "Title line"
 
@@ -553,6 +612,103 @@ NOINV 1  "0"
 
 MSG_NOINV 1  "Compute no solution"
 
+! Compute variance components of individual NEQs
+! ----------------------------------------------
+USE_VCE 1  "0"
+  ## widget = checkbox; activeif = NOINV = 0
+
+MSG_USE_VCE 1  "Compute variance components of individual NEQs"
+
+VCE_RESCALE 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 1
+
+MSG_VCE_RESCALE 1  "Rescale of sigma0"
+
+ITER_VCE 1  "10"
+  ## widget = spinbox; activeif = USE_VCE = 1; range = 1 20 1
+
+MSG_ITER_VCE 1  "Iterations for VCE"
+
+CONSTRNEQ_DYN1 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN1 1  "Write NEQ with constr for dyn par 1"
+
+CONSTRNEQ_DYN2 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN2 1  "Write NEQ with constr for dyn par 2"
+
+CONSTRNEQ_DYN3 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN3 1  "Write NEQ with constr for dyn par 3"
+
+CONSTRNEQ_DYN4 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN4 1  "Write NEQ with constr for dyn par 4"
+
+CONSTRNEQ_DYN5 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN5 1  "Write NEQ with constr for dyn par 5"
+
+CONSTRNEQ_DYN6 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN6 1  "Write NEQ with constr for dyn par 6"
+
+CONSTRNEQ_DYN7 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN7 1  "Write NEQ with constr for dyn par 7"
+
+CONSTRNEQ_DYN8 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN8 1  "Write NEQ with constr for dyn par 8"
+
+CONSTRNEQ_DYN9 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_DYN9 1  "Write NEQ with constr for dyn par 9"
+
+CONSTRNEQ_STCR 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_STCR 1  "Write NEQ with constr for st. pulses: R"
+
+CONSTRNEQ_STCA 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_STCA 1  "Write NEQ with constr for st. pulses: S"
+
+CONSTRNEQ_STCO 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_STCO 1  "Write NEQ with constr for st. pulses: W"
+
+CONSTRNEQ_STCS 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_STCS 1  "Write NEQ with constr for st. pulses: sun"
+
+CONSTRNEQ_STCX 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_STCX 1  "Write NEQ with constr for st. pulses: X"
+
+CONSTRNEQ_STCY 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 0
+
+MSG_CONSTRNEQ_STCY 1  "Write NEQ with constr for st. pulses: Y"
+
+USE_ONLYCONSTR 1  "0"
+  ## widget = checkbox; activeif = USE_VCE = 1
+
+MSG_USE_ONLYCONSTR 1  "Use only NEQs with constraints for VCE"
+
 ! Use LAPACK inversion
 ! ---------------------
 LPINV 1  "0"
@@ -570,12 +726,12 @@ MSG_INDVSOL 1  "Compute and compare individual solutions"
 
 ! Reference epoch for the coordinates
 ! -----------------------------------
-TIMREF 0
+TIMREF 1  ""
   ## widget = lineedit; activeif = NOINV = 0; check_type = date
 
 MSG_TIMREF 1  "Reference date for station coordinates"
 
-HOUREF 0
+HOUREF 1  ""
   ## widget = lineedit; activeif = NOINV = 0; check_type = time
 
 MSG_HOUREF 1  "Reference time for station coordinates"
@@ -593,6 +749,20 @@ SETUP_GCC 1  "0"
   ## widget = checkbox
 
 MSG_SETUP_GCC 1  "Set up Geocenter coordinates"
+
+! Additional parameters: gravity field
+! ------------------------------------
+GRA_ELIM 1  ""
+  ## widget = combobox; editable = false
+  ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
+
+MSG_GRA_ELIM 1  "Gravity field coefficients"
+
+GRA_EXCP 1  ""
+  ## widget = lineedit
+  ## activeif = GRA_ELIM == BEFORE_STACKING OR GRA_ELIM == EXCEPT_FOR_BOUNDARIES
+
+MSG_GRA_EXCP 1  "Except for files: Gravity field coefficients"
 
 ! =========================================================================
 ! ADDNEQ2 3.2: Options
@@ -652,6 +822,13 @@ PRT_SIG 1  "0"
   ## widget = checkbox
 
 MSG_PRT_SIG 1  "Print detailed list on usage of constraints"
+
+! Customize program output for multi-year solutions
+! -------------------------------------------------
+PRT_LONG 1  "0"
+  ## widget = checkbox
+
+MSG_PRT_LONG 1  "Customize program output for multi-year solutions"
 
 ! Regularize a priori constraint matrix
 ! -------------------------------------
@@ -1243,11 +1420,11 @@ MSG_V_SCL_4 1  "Scale 4"
 ! -----------------------------------------------
 CRD_ELIM 1  "NO"
   ## widget = combobox; editable = false
-  ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "CONST_BUT_NOT_STACKED" "DELETE"
+  ## cards =  "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "CONST_BUT_NOT_STACKED" "DELETE"
 
 MSG_CRD_ELIM 1  "Station coordinates"
 
-CRD_EXCP 0
+CRD_EXCP 1  ""
   ## widget = lineedit
   ## activeif = CRD_ELIM == BEFORE_STACKING OR CRD_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1293,7 +1470,7 @@ OCBS_ELIM 1  "BEFORE_STACKING"
 
 MSG_OCBS_ELIM 1  "Observable-specific satellite code bias"
 
-OCBS_EXCP 0
+OCBS_EXCP 1  ""
   ## widget = lineedit
   ## activeif = OCBS_ELIM == BEFORE_STACKING OR OCBS_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1307,7 +1484,7 @@ OCB_ELIM 1  "BEFORE_STACKING"
 
 MSG_OCB_ELIM 1  "Observable-specific receiver code bias"
 
-OCB_EXCP 0
+OCB_EXCP 1  ""
   ## widget = lineedit
   ## activeif = OCB_ELIM == BEFORE_STACKING OR OCB_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1441,13 +1618,13 @@ MSG_ISB_EXFLG 1  "Selection for station exceptions from flag: inter-system bias"
 
 ! Station-related parameters: Receiver antenna offsets
 ! ----------------------------------------------------
-RAO_ELIM 0
+RAO_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_RAO_ELIM 1  "Receiver antenna offsets"
 
-RAO_EXCP 0
+RAO_EXCP 1  ""
   ## widget = lineedit
   ## activeif = RAO_ELIM == BEFORE_STACKING OR RAO_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1455,13 +1632,13 @@ MSG_RAO_EXCP 1  "Except for files: Receiver antenna offsets"
 
 ! Station-related parameters: Receiver antenna pattern
 ! ----------------------------------------------------
-RAP_ELIM 0
+RAP_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_RAP_ELIM 1  "Receiver antenna pattern"
 
-RAP_EXCP 0
+RAP_EXCP 1  ""
   ## widget = lineedit
   ## activeif = RAP_ELIM == BEFORE_STACKING OR RAP_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1469,13 +1646,13 @@ MSG_RAP_EXCP 1  "Except for files: Receiver antenna pattern"
 
 ! Station-related parameters: GNSS-specific station translation
 ! -------------------------------------------------------------
-GTRA_ELIM 0
+GTRA_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "DELETE"
 
 MSG_GTRA_ELIM 1  "GNSS-specific station translation"
 
-GTRA_EXCP 0
+GTRA_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GTRA_ELIM == BEFORE_STACKING OR GTRA_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1515,13 +1692,13 @@ MSG_GTRA_EXFLG 1  "Selection for station exceptions from flag: GNSS-spec transla
 
 ! Station-related parameters: GNSS-specific troposphere (ZPD) biases
 ! ------------------------------------------------------------------
-GTRP_ELIM 0
+GTRP_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "DELETE"
 
 MSG_GTRP_ELIM 1  "GNSS-specific ZPD bias"
 
-GTRP_EXCP 0
+GTRP_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GTRP_ELIM == BEFORE_STACKING OR GTRP_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1561,13 +1738,13 @@ MSG_GTRP_EXFLG 1  "Selection for station exceptions from flag: GNSS-spec ZPD bia
 
 ! Station-related parameters: GNSS-specific troposphere gradient biases
 ! ---------------------------------------------------------------------
-GGRD_ELIM 0
+GGRD_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "DELETE"
 
 MSG_GGRD_ELIM 1  "GNSS-specific gradient bias"
 
-GGRD_EXCP 0
+GGRD_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GGRD_ELIM == BEFORE_STACKING OR GGRD_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1627,7 +1804,7 @@ TRP_ELIM 1  "NO"
 
 MSG_TRP_ELIM 1  "Troposphere zenith path delays"
 
-TRP_EXCP 0
+TRP_EXCP 1  ""
   ## widget = lineedit
   ## activeif = TRP_ELIM == BEFORE_STACKING OR TRP_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1673,7 +1850,7 @@ GRD_ELIM 1  "NO"
 
 MSG_GRD_ELIM 1  "Troposphere gradients"
 
-GRD_EXCP 0
+GRD_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GRD_ELIM == BEFORE_STACKING OR GRD_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1713,13 +1890,13 @@ MSG_GRD_EXFLG 1  "Selection for station exceptions from flag: troposphere gradie
 
 ! Atmospheric parameters: Ionosphere models
 ! -----------------------------------------
-GIM_ELIM 0
+GIM_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_GIM_ELIM 1  "Global ionosphere parameters"
 
-GIM_EXCP 0
+GIM_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GIM_ELIM == BEFORE_STACKING OR GIM_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1780,13 +1957,13 @@ MSG_SCALE_EXCP 1  "Except for files: Helmert scale"
 ! =========================================================================
 ! Satellite-related parameters: dynamical orbit parameters
 ! --------------------------------------------------------
-ORB_ELIM 0
+ORB_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_ORB_ELIM 1  "Orbital elements"
 
-ORB_EXCP 0
+ORB_EXCP 1  ""
   ## widget = lineedit
   ## activeif = ORB_ELIM == BEFORE_STACKING OR ORB_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1794,13 +1971,13 @@ MSG_ORB_EXCP 1  "Except for files: Orbital elements"
 
 ! Satellite-related plate scaling parameters
 ! ------------------------------------------
-SCL_ELIM 0
+SCL_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_SCL_ELIM 1  "Orbital plate scaling param."
 
-SCL_EXCP 0
+SCL_EXCP 1  ""
   ## widget = lineedit
   ## activeif = ORB_ELIM == BEFORE_STACKING OR ORB_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1808,13 +1985,13 @@ MSG_SCL_EXCP 1  "Except for files: Orbital plate scaling parameters"
 
 ! Satellite-related parameters: stochastic orbit parameters
 ! ---------------------------------------------------------
-STO_ELIM 0
+STO_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_STO_ELIM 1  "Stochastic pulses"
 
-STO_EXCP 0
+STO_EXCP 1  ""
   ## widget = lineedit
   ## activeif = STO_ELIM == BEFORE_STACKING OR STO_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1822,25 +1999,25 @@ MSG_STO_EXCP 1  "Except for files: Stochastic pulses"
 
 ! Satellite-related parameters: satellite antenna offsets
 ! -------------------------------------------------------
-ANT_ELIM 0
+ANT_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_ANT_ELIM 1  "Satellite antenna offsets"
 
-ANT_EXCP 0
+ANT_EXCP 1  ""
   ## widget = lineedit
   ## activeif = ANT_ELIM == BEFORE_STACKING OR ANT_ELIM == EXCEPT_FOR_BOUNDARIES
 
 MSG_ANT_EXCP 1  "Except for files: Satellite antenna offsets"
 
-ANTX_ELIM 0
+ANTX_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_ANTX_ELIM 1  "Satellite antenna offsets (XY)"
 
-ANTX_EXCP 0
+ANTX_EXCP 1  ""
   ## widget = lineedit
   ## activeif = ANTX_ELIM == BEFORE_STACKING OR ANTX_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1848,13 +2025,13 @@ MSG_ANTX_EXCP 1  "Except for files: Satellite antenna offsets (XY)"
 
 ! Satellite-related parameters: satellite antenna pattern
 ! -------------------------------------------------------
-SPV_ELIM 0
+SPV_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_SPV_ELIM 1  "Satellite antenna variations"
 
-SPV_EXCP 0
+SPV_EXCP 1  ""
   ## widget = lineedit
   ## activeif = SPV_ELIM == BEFORE_STACKING OR SPV_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1862,13 +2039,13 @@ MSG_SPV_EXCP 1  "Except for files: Satellite antenna variations"
 
 ! Earth orientation parameters (Polar motion)
 ! -------------------------------------------
-ERP_ELIM 0
+ERP_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "CONST_BUT_NOT_STACKED" "DELETE"
 
 MSG_ERP_ELIM 1  "Earth rotation parameters (Pole)"
 
-ERP_EXCP 0
+ERP_EXCP 1  ""
   ## widget = lineedit
   ## activeif = ERP_ELIM == BEFORE_STACKING OR ERP_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1876,13 +2053,13 @@ MSG_ERP_EXCP 1  "Except for files: Earth rotation parameters (Pole)"
 
 ! Earth orientation parameters (UT)
 ! ---------------------------------
-UT_ELIM 0
+UT_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "CONST_BUT_NOT_STACKED" "DELETE"
 
 MSG_UT_ELIM 1  "Earth rotation parameters (UT)"
 
-UT_EXCP 0
+UT_EXCP 1  ""
   ## widget = lineedit
   ## activeif = UT_ELIM == BEFORE_STACKING OR UT_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1890,13 +2067,13 @@ MSG_UT_EXCP 1  "Except for files: Earth rotation parameters (UT)"
 
 ! Earth orientation parameters (LOD)
 ! ---------------------------------
-LOD_ELIM 0
+LOD_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "CONST_BUT_NOT_STACKED" "DELETE"
 
 MSG_LOD_ELIM 1  "Earth rotation parameters (LOD)"
 
-LOD_EXCP 0
+LOD_EXCP 1  ""
   ## widget = lineedit
   ## activeif = LOD_ELIM == BEFORE_STACKING OR LOD_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1904,13 +2081,13 @@ MSG_LOD_EXCP 1  "Except for files: Earth rotation parameters (LOD)"
 
 ! Nutation parameters
 ! -------------------
-NUT_ELIM 0
+NUT_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "CONST_BUT_NOT_STACKED" "DELETE"
 
 MSG_NUT_ELIM 1  "Nutation parameters"
 
-NUT_EXCP 0
+NUT_EXCP 1  ""
   ## widget = lineedit
   ## activeif = NUT_ELIM == BEFORE_STACKING OR NUT_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -2056,13 +2233,13 @@ MSG_HLD_EXFLG 1  "Selection for station exceptions from flag: Hydrostatic pressu
 
 ! Additional parameters: center of mass
 ! -------------------------------------
-MSS_ELIM 0
+MSS_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_MSS_ELIM 1  "Geocenter coordinates"
 
-MSS_EXCP 0
+MSS_EXCP 1  ""
   ## widget = lineedit
   ## activeif = MSS_ELIM == BEFORE_STACKING OR MSS_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -2116,15 +2293,13 @@ MSG_RADIO_2 1  "Observation window defined by start and end times"
 
 ! Preelimination Window: defined by session
 ! -----------------------------------------
-SESSION_YEAR 1  "1980"
+SESSION_YEAR 1  "$Y+0"
   ## widget = lineedit; multilineallowed = true; emptyallowed = false
-  # $Y+0
 
 MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
 
-SESSION_STRG 1  "0060"
+SESSION_STRG 1  "$S+0"
   ## widget = lineedit; multilineallowed = true; emptyallowed = false
-  # $S+0
 
 MSG_SESSION_STRG 1  "Session defining the time window"
 
@@ -2141,9 +2316,8 @@ STATIM 0
 
 MSG_STATIM 1  "Start of time window (hour minutes seconds)"
 
-ENDDAT 1  "1980 01 06"
+ENDDAT 1  "$YMD_STR+0"
   ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
-  # $YMD_STR+0
 
 MSG_ENDDAT 1  "End of time window (year month day)"
 
@@ -2887,6 +3061,11 @@ POL_XY 0
 
 MSG_POL_XY 1  "X and Y pole components"
 
+POL_XYD 0
+  ## widget = lineedit; check_type = real; check_min = 0.0
+
+MSG_POL_XYD 1  "X and Y pole drifts"
+
 POL_UTN 0
   ## widget = lineedit; check_type = real; check_min = 0.0
 
@@ -3615,6 +3794,31 @@ COFMASS_SAT 1  "TO_ONE_GENERAL_SET"
 
 MSG_COFMASS_SAT 1  "Geocenter coordinates: transform satellite-spec."
 
+! Constraint - Gravity
+! ---------------------
+RADIOG_1 1  "1"
+  ## widget = radiobutton; group = GRAVITY
+
+MSG_RADIOG_1 1  "Gravity: Radio: no constraints"
+
+RADIOG_2 1  "0"
+  ## widget = radiobutton; group = GRAVITY
+
+MSG_RADIOG_2 1  "Gravity: Radio: C20 only"
+
+RADIOG_3 1  "0"
+  ## widget = radiobutton; group = GRAVITY
+  ## radiokeys = POTSTR POTFIX1 POTFIX2 POTFIX3 POTFIX4
+
+MSG_RADIOG_3 1  "Gravity: Radio: manual setup"
+
+POTSTR 1  "" "" ""
+  ## widget = uniline; check_type.1 = integer; check_min.1 = 1
+  ## check_max.1 = 10; check_type.2 = integer; check_min.2 = -1
+  ## check_max.2 = 10; check_type.3 = real; check_min.3 = 0.0; numlines = 24
+
+MSG_POTSTR 1  "Gravity: manual setup of special constraints"
+
 ! Constraint - Rec. Antenna Offsets
 ! ---------------------------------
 RECANTN 0
@@ -3887,8 +4091,10 @@ MSG_FLG003 1  "Type 003: Station problems"
 ! ----------------
 STALST 0
   ## widget = selwin; menuaux = MENUAUX; action = NEQ
-  ## menuauxkeys = CONST STAINFO OBSSEL USEFLG FLG001 FLG002 FLG003 CRXREC CRXANT INPFILE NO_ABC
+  ## menuauxkeys = CONST STAINFO OBSSEL USEFLG FLG001 FLG002 FLG003 CRXREC CRXANT INPFILE NO_ABC IS_V10_SLR
   ## updateifactive = FREESTA_L STATION4 STATION1 FREEVEL_L VELOCITY4 VELOCITY1 CRD_EXMAN
+
+MSG_STALST 1  "List stations from NEQ"
 
 ! List stations with receiver clock offsets
 ! -----------------------------------------
@@ -3940,10 +4146,10 @@ MSG_SCLKLST 1  "List satellite clocks"
 
 ! Directories and Extensions
 ! --------------------------
-DIR_ORB 1  "./DUMMY/ORB/"
+DIR_ORB 0
   ## widget = initmenu; pointer = DIR_ELE
 
-EXT_ELE 1  "ELE"
+EXT_ELE 0
   ## widget = initmenu; pointer = EXT_ELE
 
 
@@ -3951,63 +4157,73 @@ EXT_ELE 1  "ELE"
 # COMBINE NORMAL EQUATION SYSTEMS - ADDNEQ2 1.1: Input Files 1                 #
 #                                                                              #
 # GENERAL FILES                                                                #
-#   Show all general files      > % <                                          # SHOWGEN
+#   Show all general files         > % <                                       # SHOWGEN
 #                                                                              #
 # NORMAL EQUATION SYSTEMS                                                      #
-#   Normal equations            > %%%%%%%%%%%% <                               # INPFILE
-#   Variance rescaling factors  > %%%%%%%%%%%% <                               # COVCOMI
+#                                                                              #
+#   Normal equations               > %%%%%%%%%%%% <    > % < SLR NEQs v10      # INPFILE IS_V10_SLR
+#   Normal equations (constraints) > %%%%%%%%%%%% <                            # INPFILE_CONSTR
+#   Variance rescaling factors     > %%%%%%%%%%%% <                            # COVCOMI
 #                                                                              #
 # MAIN INPUT FILES                                                             #
-#   Station coordinates         > %%%%%%%%%%%% <                               # COORD
-#   Station velocities          > %%%%%%%%%%%% <                               # VELAPR
-#   Station information         > %%%%%%%%%%%% <                               # STAINFO
-# END_PANEL ####################################################################
-
-
-# BEGIN_PANEL NO_CONDITION #####################################################
-# ADDNEQ2 1.2: Input Files 2                                                   #
+#   Station coordinates            > %%%%%%%%%%%% <                            # COORD
+#   Station velocities             > %%%%%%%%%%%% <                            # VELAPR
+#   Station information            > %%%%%%%%%%%% <                            # STAINFO
+#   RP2 file                       > %%%%%%%%%%%% <                            # RP2INP
 #                                                                              #
-# NEW A PRIORI VALUES                                                          #
-#   Troposphere estimates          > %%%%%%%%%%% <  (parameters are eliminated)# TROPEST
-#   Observable-specific biases     > %%%%%%%%%%% <  (a priori is zero if empty)# DCBINP
-#   Earth rotation parameters      > %%%%%%%%%%% <  (mandatory if ERPs present)# POLE
-#   Geocenter coordinates          > %%%%%%%%%%% <                             # GCCINP
-#   Satellite clock corrections    > %%%%%%%%%%% <                             # SATCLK
-#   Clock RINEX file               > %%%%%%%%%%% <                             # RXCLKIN
-#   Inter-system biases            > %%%%%%%%%%% <                             # ISBINP
-#   SLR data handling (biases, CoM)> %%%%%%%%%%% <                             # RGBINP
-#   List of parameter estimates    > %%%%%%%%%%% <                             # PARAMIN
 #                                                                              #
-# HEADER AND EPOCH INFORMATION                                                 #
-#   Ionosphere master file         > %%%%%%%%%%% <                             # IONOS
+# Satellite standard orbits        > %%%%%%%%%%%% <  (under development)       # STDORB_NEW
 #                                                                              #
 # END_PANEL ####################################################################
 
 
-# BEGIN_PANEL SHOWGEN = 1 ######################################################
-# ADDNEQ2 1.3: General Files                                                   #
-#                                                                              #
-# GENERAL INPUT FILES                                                          #
-#   General constants           > %%%%%%%%%%%% <                               # CONST
-#   Geodetic datum              > %%%%%%%%%%%% <                               # DATUM
-#   Antenna corrections         > %%%%%%%%%%%% <                               # PHASECC
-#   Observation selection       > %%%%%%%%%%%% <                               # OBSSEL
-#   Satellite information       > %%%%%%%%%%%% <                               # SATELL
-#   Satellite problems          > %%%%%%%%%%%% <                               # SATCRUX
-#   Subdaily ERP model          > %%%%%%%%%%%% <                               # SUBMOD
-#   Nutation model              > %%%%%%%%%%%% <                               # NUTMOD
-#   SINEX header file           > %%%%%%%%%%%% <                               # SINEXIN
-#   IONEX control file          > %%%%%%%%%%%% <                               # IONEXCF
-#                                                                              #
-# MENU SETTINGS                                                                #
-#   Selected campaign           > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# CAMPAIGN
-#   Selected session              Year> %%%% <  Session> %%%% <                # YR4_INFO SES_INFO
-#   Session table               > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# SESSION_TABLE
-#                                                                              #
-# TEMPORARY FILES                                                              #
-#   Scratch file                > %%%%%%%%%%%% <                               # AUXFIL
-#                                                                              #
-# END_PANEL ####################################################################
+# BEGIN_PANEL NO_CONDITION ######################################################
+# ADDNEQ2 1.2: Input Files 2                                                    #
+#                                                                               #
+# NEW A PRIORI VALUES                                                           #
+#   Troposphere estimates           > %%%%%%%%%%% <  (parameters are eliminated)# TROPEST
+#   Observable-specific biases      > %%%%%%%%%%% <  (a priori is zero if empty)# DCBINP
+#   Earth rotation parameters       > %%%%%%%%%%% <  (mandatory if ERPs present)# POLE
+#   Geocenter coordinates           > %%%%%%%%%%% <                             # GCCINP
+#   Satellite clock corrections     > %%%%%%%%%%% <                             # SATCLK
+#   Clock RINEX file                > %%%%%%%%%%% <                             # RXCLKIN
+#   Inter-system biases             > %%%%%%%%%%% <                             # ISBINP
+#   SLR data handling (biases, CoM) > %%%%%%%%%%% <                             # RGBINP
+#   List of parameter estimates     > %%%%%%%%%%% <                             # PARAMIN
+#                                                                               #
+# HEADER AND EPOCH INFORMATION                                                  #
+#   Ionosphere master file          > %%%%%%%%%%% <                             # IONOS
+#                                                                               #
+# END_PANEL #####################################################################
+
+
+# BEGIN_PANEL SHOWGEN = 1 #######################################################
+# ADDNEQ2 1.3: General Files                                                    #
+#                                                                               #
+# GENERAL INPUT FILES                                                           #
+#   General constants            > %%%%%%%%%%%% <                               # CONST
+#   Geodetic datum               > %%%%%%%%%%%% <                               # DATUM
+#   Antenna corrections          > %%%%%%%%%%%% <                               # PHASECC
+#   Observation selection        > %%%%%%%%%%%% <                               # OBSSEL
+#   Satellite information        > %%%%%%%%%%%% <                               # SATELL
+#   Satellite problems           > %%%%%%%%%%%% <                               # SATCRUX
+#   Earth potential coefficients > %%%%%%%%%%%% <                               # POTCOE
+#   Time-variable C20,C21,S21    > %%%%%%%%%%%% <                               # CS2021
+#   Time-variable zonals         > %%%%%%%%%%%% <                               # ZONALS
+#   Subdaily ERP model           > %%%%%%%%%%%% <                               # SUBMOD
+#   Nutation model               > %%%%%%%%%%%% <                               # NUTMOD
+#   SINEX header file            > %%%%%%%%%%%% <                               # SINEXIN
+#   IONEX control file           > %%%%%%%%%%%% <                               # IONEXCF
+#                                                                               #
+# MENU SETTINGS                                                                 #
+#   Selected campaign            > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# CAMPAIGN
+#   Selected session               Year> %%%% <  Session> %%%% <                # YR4_INFO SES_INFO
+#   Session table                > %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% <# SESSION_TABLE
+#                                                                               #
+# TEMPORARY FILES                                                               #
+#   Scratch file                 > %%%%%%%%%%%% <                               # AUXFIL
+#                                                                               #
+# END_PANEL #####################################################################
 
 
 # BEGIN_PANEL NO_CONDITION #####################################################
@@ -4019,12 +4235,12 @@ EXT_ELE 1  "ELE"
 #                                                                              #
 # MAIN RESULT FILES                                                            #
 #   Normal equations                 > %%%%%%%%%%%% <                          # NEQOUT
-#   SINEX with> %%% <                > %%%%%%%%%%%% <                          # SNXCONT SINEXRS
+#   SINEX with> %%% <                > %%%%%%%%%%%% <  > % <SLR mode           # SNXCONT SINEXRS SINEX_SLR
 #                                                                              #
 # STATION- AND SATELLITE-RELATED RESULTS                                       #
 #   Station coordinates              > %%%%%%%%%%%% <                          # COORDRS
 #   Station velocities               > %%%%%%%%%%%% <                          # VELORS
-#   Satellite orbital elements       > %%%%%%%%%%%% <                          # ELEFILE
+#   Satellite orbital elements       > %%%%%%%%%%%% <  > % <Append STD name    # ELEFILE ELEAPD
 #   Earth rotation parameters        > %%%%%%%%%%%% <                          # POLERS
 #   Earth rotation parameters (IERS) > %%%%%%%%%%%% <                          # IERSPOL
 #                                                                              #
@@ -4048,6 +4264,9 @@ EXT_ELE 1  "ELE"
 #   Clock corrections (RINEX)          > %%%%%%%%%%%% <                        # CLKRNX
 #   Inter-system biases                > %%%%%%%%%%%% <                        # ISBOUT
 #   Data handling (biases, CoM)        > %%%%%%%%%%%% <                        # RGBOUT
+#   Gravity field coefficients         > %%%%%%%%%%%% <                        # GRVOUT
+#   Variance components                > %%%%%%%%%%%% <                        # VCE_FILE
+#   Weight file from VCE               > %%%%%%%%%%%% <                        # WGT_FILE_OUT
 #                                                                              #
 # AUXILIARY FILES                                                              #
 #   Weekly summary                     > %%%%%%%%%%%% <                        # WEKSUM
@@ -4068,6 +4287,11 @@ EXT_ELE 1  "ELE"
 # GENERAL OPTIONS                                                              #
 #   Maximum number of parameters in combined NEQ> %%%%%% <                     # MAXPAR
 #   A priori sigma of unit weight               > %%%%%%% <meters              # SIGMA0
+#                                                                              #
+#   Compute variance factors of individual NEQs  > % < iterations: > % <       # USE_VCE ITER_VCE
+#   Rescaling of sigma0                          > % <                         # VCE_RESCALE
+#   Use only NEQ with constraints in VCE         > % <                         # USE_ONLYCONSTR
+#                                                                              #
 #   Compute and compare individual solutions    > %%%%%%% <                    # INDVSOL
 #                                                 yyyy mm dd     hh mm ss      #
 #   Reference epoch for station coordinates     > %%%%%%%%%% < > %%%%%%%% <    # TIMREF HOUREF
@@ -4100,6 +4324,7 @@ EXT_ELE 1  "ELE"
 #   Notify changes due to station information file   > % <                     # CRXWARN
 #   Print detailed list of parameter manipulations   > % <                     # PRT_PAR
 #   Print detailed list on usage of constraints      > % <                     # PRT_SIG
+#   Customize program output for multi-year solutions> % <                     # PRT_LONG
 #                                                                              #
 # END_PANEL ####################################################################
 
@@ -4140,6 +4365,8 @@ EXT_ELE 1  "ELE"
 #   Universal time parameters     > %%%%%%%%%%%%%%%%%%%%% <   > %%%%%% <       # UT_ELIM UT_EXCP
 #   Nutation parameters           > %%%%%%%%%%%%%%%%%%%%% <   > %%%%%% <       # NUT_ELIM NUT_EXCP
 #   Geocenter coordinates         > %%%%%%%%%%%%%%%%%%%%% <   > %%%%%% <       # MSS_ELIM  MSS_EXCP
+#                                                                              #
+#   Gravity field                 > %%%%%%%%%%%%%%%%%%%%% <   > %%%%%% <       # GRA_ELIM  GRA_EXCP
 # END_PANEL ####################################################################
 
 
@@ -4441,16 +4668,16 @@ EXT_ELE 1  "ELE"
 #                                                                              #
 # Default (model-specific) constraining of dynamical parameters> % <           # DEFSIGMA
 #                                                                              #
-# A priori sigmas for dynamical parameters (in meters/sec**2)  Satellite list: #
-#   Parameter 1  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P1 ORB_P1_S ORB_P1_L ORB_P1_Z
-#   Parameter 2  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P2 ORB_P2_S ORB_P2_L ORB_P2_Z
-#   Parameter 3  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P3 ORB_P3_S ORB_P3_L ORB_P3_Z
-#   Parameter 4  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P4 ORB_P4_S ORB_P4_L ORB_P4_Z
-#   Parameter 5  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P5 ORB_P5_S ORB_P5_L ORB_P5_Z
-#   Parameter 6  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P6 ORB_P6_S ORB_P6_L ORB_P6_Z
-#   Parameter 7  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P7 ORB_P7_S ORB_P7_L ORB_P7_Z
-#   Parameter 8  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P8 ORB_P8_S ORB_P8_L ORB_P8_Z
-#   Parameter 9  > %%%%%%%%% <valid for> %%%%% < > %%%%%%%%%%%%%% <to zero> % <# ORB_P9 ORB_P9_S ORB_P9_L ORB_P9_Z
+# A priori sigmas (in meters/sec**2)  Satellite list:                   Write NEQ with constraints#
+#   Parameter 1> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P1 ORB_P1_S ORB_P1_L ORB_P1_Z CONSTRNEQ_DYN1
+#   Parameter 2> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P2 ORB_P2_S ORB_P2_L ORB_P2_Z CONSTRNEQ_DYN2
+#   Parameter 3> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P3 ORB_P3_S ORB_P3_L ORB_P3_Z CONSTRNEQ_DYN3
+#   Parameter 4> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P4 ORB_P4_S ORB_P4_L ORB_P4_Z CONSTRNEQ_DYN4
+#   Parameter 5> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P5 ORB_P5_S ORB_P5_L ORB_P5_Z CONSTRNEQ_DYN5
+#   Parameter 6> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P6 ORB_P6_S ORB_P6_L ORB_P6_Z CONSTRNEQ_DYN6
+#   Parameter 7> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P7 ORB_P7_S ORB_P7_L ORB_P7_Z CONSTRNEQ_DYN7
+#   Parameter 8> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P8 ORB_P8_S ORB_P8_L ORB_P8_Z CONSTRNEQ_DYN8
+#   Parameter 9> %%%%%%%%% <valid for> %%%% < > %%%%%%%%%%%%%% <to zero> % <      > % < # ORB_P9 ORB_P9_S ORB_P9_L ORB_P9_Z CONSTRNEQ_DYN9
 #                                                                              #
 #   Advanced setup (specific constraints)         > % <                        # ORB_ADV
 # END_PANEL ####################################################################
@@ -4494,7 +4721,7 @@ EXT_ELE 1  "ELE"
 
 
 # BEGIN_PANEL SCL_ELIM / _ AND ORB_SC_ADV = 1 ##################################
-# ADDNEQ2 10.5: Modification of plate scaling parameters                       #
+# ADDNEQ2 10.4.1: Modification of plate scaling parameters                     #
 #                                        <                                     #
 # > SVN/Modelname_  Plate_IDs______ New_ID     < Parameter:                    # ORB_SC_ADVSIGMA
 #                                                 identifier number in locq    #
@@ -4514,22 +4741,22 @@ EXT_ELE 1  "ELE"
 
 
 # BEGIN_PANEL STO_ELIM / _ #####################################################
-# ADDNEQ2 10.4: Options for Stochastic Orbital Parameters                      #
+# ADDNEQ2 10.5: Options for Stochastic Orbital Parameters                      #
 #                                                                              #
-# A PRIORI SIGMAS FOR STOCHASTIC PULSES                                        #
-#   Radial                             > %%%%%%%% < meters/sec                 # STC_R
-#   Along track                        > %%%%%%%% < meters/sec                 # STC_A
-#   Out of plane                       > %%%%%%%% < meters/sec                 # STC_O
-#   Direction to Sun                   > %%%%%%%% < meters/sec                 # STC_S
-#   Y-direction in satellite frame     > %%%%%%%% < meters/sec                 # STC_Y
-#   X-direction in satellite frame     > %%%%%%%% < meters/sec                 # STC_X
+# A PRIORI SIGMAS FOR STOCHASTIC PULSES               Write NEQ with constraints#
+#   Radial                          > %%%%%%%% < m/s            > % <          # STC_R CONSTRNEQ_STCR
+#   Along track                     > %%%%%%%% < m/s            > % <          # STC_A CONSTRNEQ_STCA
+#   Out of plane                    > %%%%%%%% < m/s            > % <          # STC_O CONSTRNEQ_STCO
+#   Direction to Sun                > %%%%%%%% < m/s            > % <          # STC_S CONSTRNEQ_STCS
+#   Y-direction in satellite frame  > %%%%%%%% < m/s            > % <          # STC_Y CONSTRNEQ_STCY
+#   X-direction in satellite frame  > %%%%%%%% < m/s            > % <          # STC_X CONSTRNEQ_STCX
 #                                                                              #
 # REMOVAL OF STOCHASTIC PULSES         > % <                                   # STC_DEL
 # END_PANEL ####################################################################
 
 
 # BEGIN_PANEL STO_ELIM / _ OR NUMSTC = 1 AND STC_DEL = 1 #######################
-# ADDNEQ2 10.5: Options to Reduce the Number of Stochastic Pulses              #
+# ADDNEQ2 10.6: Options to Reduce the Number of Stochastic Pulses              #
 #                                                                              #
 # NO PULSES ARE ALLOWED FOR SELECTED GNSS                                      #
 #   > % < GPS          > % < GLONASS      > % < Galileo                        # NOSTC_G NOSTC_R NOSTC_E
@@ -4557,6 +4784,7 @@ EXT_ELE 1  "ELE"
 #                                                                              #
 # A PRIORI SIGMAS (REMAINING PARAMETERS)                                       #
 #   X and Y pole components               > %%%%%%%% < milliarcseconds         # POL_XY
+#   X and Y pole drifts                   > %%%%%%%% < milliarcseconds/day     # POL_XYD
 #   UT1-UTC                               > %%%%%%%% < milliseconds            # POL_UTN
 #   LOD                                   > %%%%%%%% < milliseconds/day        # POL_LOD
 #   Delta Epsilon                         > %%%%%%%% < milliarcseconds         # POL_EPN
@@ -4570,8 +4798,8 @@ EXT_ELE 1  "ELE"
 # END_PANEL ####################################################################
 
 
-# BEGIN_PANEL MSS_ELIM / _ OR SETUP_GCC = 1 ####################################
-# ADDNEQ2 12: Options for Geocenter Coordinates                                #
+# BEGIN_PANEL MSS_ELIM / _ OR SETUP_GCC = 1 OR GRVOUT / _ ######################
+# ADDNEQ2 12: Options for Geocenter Coordinates and Gravity Field Parameters   #
 #                                                                              #
 # A PRIORI SIGMAS FOR COMPONENT                                                #
 #   Geocenter coordinates           X > %%%%%%%% < meters                      # COFMASSX
@@ -4579,6 +4807,24 @@ EXT_ELE 1  "ELE"
 #                                   Z > %%%%%%%% < meters                      # COFMASSZ
 #                                                                              #
 # Transform satellite-specific parameters        > %%%%%%%%%%%%%%%%%%% <       # COFMASS_SAT
+#                                                                              #
+#                                                                              #
+#   Earth Gravity Field  (up to degree/order 10x10)                            #
+#   > % < no constraints                                                       # RADIOG_1
+#   > % < estimation of C20 only (rest is constrained with 1.e-16)             # RADIOG_2
+#   > % < Manual setup of constraints                                          # RADIOG_3
+#                                                                              #
+#          CONSTRAINTS                                                         #
+#          > Degree Order Sigma_________      <  Example: 2 | 1 | 1.e-16       # POTSTR
+#                                                                              #
+#                                                IF ORDER == -1 then           #
+#                                                 ALL ORDERS ARE CONSTRAINED   #
+#                                                                              #
+#                                                 for example: 2 | -1 | 1.e-16 #
+#                                                                              #
+#                                                 results in:  2 |  0 | 1.e-16 #
+#                                                              2 |  1 | 1.e-16 #
+#                                                              2 |  2 | 1.e-16 #
 #                                                                              #
 # END_PANEL ####################################################################
 

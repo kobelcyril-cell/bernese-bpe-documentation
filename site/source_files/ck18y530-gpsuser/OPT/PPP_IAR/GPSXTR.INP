@@ -54,7 +54,7 @@ RADIO_3 1  "1"
 
 MSG_RADIO_3 1  "GPSEST/ADDNEQ2 output files"
 
-JOBGPS 0
+JOBGPS 1  ""
   ## widget = selwin; path = DIR_OUT; ext = NO_EXT; maxfiles = 999
   ## emptyallowed = true
 
@@ -62,7 +62,7 @@ MSG_JOBGPS 1  "GPSEST job output files"
 
 JOBGPS_TXT_COL_1 1  "GPSEST job output files"
 
-OUTPUT 0
+OUTPUT 1  "SCRIPT"
   ## widget = selwin; path = DIR_OUT; ext = EXT_OUT; maxfiles = 999
   ## emptyallowed = true
 

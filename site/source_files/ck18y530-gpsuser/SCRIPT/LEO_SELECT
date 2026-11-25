@@ -1,8 +1,8 @@
-package LEO_CHECK;
+package LEO_SELECT;
 @ISA = ("RUNBPE");
 # ============================================================================
 #
-# Name    :  LEO_CHECK
+# Name    :  LEO_SELECT
 #
 # Purpose :  Check the LEO configuration, copy it for the current YYSSSS and
 #            retain only included LEOs for which a PRE orbit file exists.
@@ -22,8 +22,8 @@ use File::Spec;
 
 sub run {
     my ($bpe) = @_;
-    my ($name, $dir_out, $yyssss, $dir_orb, $ext_pre) = $bpe->getKeys(
-        'V_LFILE', 'DIR_OUT', '$YSS+0', 'DIR_ORB', 'EXT_PRE'
+    my ($name, $dir_out, $yyssss, $dir_orb, $ext_pre, $leofildir) = $bpe->getKeys(
+        'V_LFILE', 'DIR_OUT', '$YSS+0', 'DIR_ORB', 'EXT_PRE','V_LFILDIR'
     );
 
     die "V_LFILE must be a filename without a directory\n"
@@ -38,8 +38,8 @@ sub run {
     $dir_out =~ s{[\\/]+$}{};
     $dir_orb =~ s{[\\/]+$}{};
 
-    my $file = File::Spec->catfile(dirname($dir_out), 'MSC', $name);
-    my $copy_file = $file . '_' . $yyssss;
+    my $file = File::Spec->catfile($leofildir, $name);
+    my $copy_file = File::Spec->catfile(dirname($dir_out), 'MSC', "${name}_${yyssss}");
 
     # Work exclusively on a dated copy. The original LFILE remains unchanged.
     copy($file, $copy_file)
@@ -52,7 +52,7 @@ sub run {
     my (%row_section, %row_leo);
     my ($section, $header, $line_no) = (0, 0, 0);
     my @titles = ('', 'LEOs', 'Exclusions', 'Variables');
-    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT');
+    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT V_A');
 
     while (my $raw_line = <$fh>) {
         push @source_lines, $raw_line;
@@ -106,15 +106,16 @@ sub run {
             push @exclusions, [$date, $leo];
             ($row_section{$line_no}, $row_leo{$line_no}) = (2, $leo);
         } else {
-            $error->('Expected LEO name, RNX and ATT') unless @fields == 3;
-            my ($leo, $prefix, $att) = @fields;
+            $error->('Expected LEO name, RNX, ATT and V_A') unless @fields == 4;
+            my ($leo, $prefix, $att, $id) = @fields;
             $error->("Unknown LEO '$leo'") unless exists $included{$leo};
             $error->("Duplicate variables for '$leo'") if exists $variables{$leo};
             $error->('RNX must contain four letters or digits') unless $prefix =~ /^[A-Za-z0-9]{4}$/;
             $error->("Duplicate RNX prefix '$prefix'") if $rnx{uc $prefix}++;
             $error->('ATT must be a basename; Bernese variables are allowed')
                 unless $att =~ /^[A-Za-z0-9_\$().+{}-]+$/;
-            $variables{$leo} = [$prefix, $att];
+            $error->('V_A must contain one uppercase letter') unless $id =~ /^[A-Z]$/;
+            $variables{$leo} = [$prefix, $att, $id];
             ($row_section{$line_no}, $row_leo{$line_no}) = (3, $leo);
         }
     }

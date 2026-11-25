@@ -1,0 +1,43 @@
+package COMPAR2_VS;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    : COMPAR2_VS
+# Purpose : Execute COMPAR2 with input from days 0 through -6
+# Author  : C. Kobel
+# Created : 16-Mar-2026
+# Changes : Use yyssss file names
+#
+# ============================================================================
+use strict;
+
+sub run {
+    my $bpe = shift;
+
+    # V_CRD is the prefix without a date; all local CRD files use yyssss.
+    my ($yyssss, $yyssssm1, $yyssssm2, $yyssssm3,
+        $yyssssm4, $yyssssm5, $yyssssm6, $CRD) = $bpe->getKeys(
+        '$YSS+0', '$YSS-1', '$YSS-2', '$YSS-3',
+        '$YSS-4', '$YSS-5', '$YSS-6', 'V_CRD');
+
+    my @dates = ($yyssss, $yyssssm1, $yyssssm2, $yyssssm3,
+                 $yyssssm4, $yyssssm5, $yyssssm6);
+
+    # Select coordinate files, without their extension as before.
+    my $tmpFil = "$ENV{U}/WORK/COMPAR2.lst";
+
+    open my $OUT, '>', $tmpFil or die "Cannot open $tmpFil: $!\n";
+    for my $date (@dates) {
+        my $name = "$CRD$date";
+        print "$name\n";
+        print {$OUT} "$name\n" or die "Cannot write $tmpFil: $!\n";
+    }
+    close $OUT or die "Cannot close $tmpFil: $!\n";
+
+    $bpe->putKey("$ENV{U}/PAN/COMPAR2.INP", "COOFIL", "SELECTED", "REPLACE", $tmpFil);
+
+    unlink $tmpFil or die "Cannot remove $tmpFil: $!\n";
+
+    my $PGMNAM = "COMPAR2";
+    $bpe->RUN_PGMS($PGMNAM);
+}

@@ -1,0 +1,59 @@
+package LEO_NEQ_E;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_NEQ_P
+#
+# Purpose :  Execute GPSEST for one LEO.
+#
+# Author  :  C. Kobel
+# Created :  10-Sep-2026
+#
+# Changes :
+#
+# ============================================================================
+use strict;
+use warnings;
+use lib $ENV{BPE};
+use bpe_util qw(setUserVar);
+
+sub run {
+    my ($bpe) = @_;
+    print "\n[LEO_NEQ_E] ==================================================\n";
+    print "[LEO_NEQ_E] START: execute one parallel LEO job\n";
+    print "[LEO_NEQ_E] ATT transport: PARAM1=RNX__ATT; PARAM2 is not used\n";
+    my ($job) = $bpe->getKeys('PARAM1');
+    print "[LEO_NEQ_E] PARAM1 = '" . (defined $job ? $job : '<undefined>') . "'\n";
+    die "[LEO_NEQ_E] PARAM1 is missing; GPSEST will not be started\n"
+        unless defined $job && length $job;
+    if ($job eq 'NO_LEO') {
+        print "[LEO_NEQ_E] NO_LEO: no active LEO for this day; GPSEST will not be called\n";
+        print "[LEO_NEQ_E] END: no-op job finished\n";
+        print "[LEO_NEQ_E] ==================================================\n\n";
+        return;
+    }
+    my ($rnx, $att) = $job =~ /^([A-Za-z0-9]{4})__([A-Za-z0-9][A-Za-z0-9_.-]*)$/;
+    die "[LEO_NEQ_E] Expected PARAM1=RNX__ATT, got '$job'. Update LEO_NEQ_P and rerun preparation; GPSEST will not be started\n"
+        unless defined $rnx && defined $att;
+    print "[LEO_NEQ_E][$rnx] Split PARAM1: RNX='$rnx', ATT='$att'\n";
+
+    print "[LEO_NEQ_E][$rnx] Set LEO = '$rnx': POD options use the four-character receiver code\n";
+    setUserVar($bpe, 'LEO', $rnx);
+    print "[LEO_NEQ_E][$rnx] setUserVar(LEO) returned\n";
+    print "[LEO_NEQ_E][$rnx] Set RNX = '$rnx': observation file prefix from first part of PARAM1\n";
+    setUserVar($bpe, 'RNX', $rnx);
+    print "[LEO_NEQ_E][$rnx] setUserVar(RNX) returned\n";
+    print "[LEO_NEQ_E][$rnx] Set ATT = '$att': expanded attitude file basename from second part of PARAM1\n";
+    setUserVar($bpe, 'ATT', $att);
+    print "[LEO_NEQ_E][$rnx] setUserVar(ATT) returned\n";
+
+    print "[LEO_NEQ_E][$rnx] Variables passed to setUserVar: LEO='$rnx', RNX='$rnx', ATT='$att'\n";
+    print "[LEO_NEQ_E][$rnx] GPSEST uses the option directory selected in the PCF\n";
+    print "[LEO_NEQ_E][$rnx] Call RUN_PGMS('GPSEST')\n";
+    my $PGMNAM = "GPSEST";
+    $bpe->RUN_PGMS($PGMNAM);
+    print "[LEO_NEQ_E][$rnx] RUN_PGMS('GPSEST') returned; see GPSEST output for processing details\n";
+    print "[LEO_NEQ_E][$rnx] END: execution script finished\n";
+    print "[LEO_NEQ_E] ==================================================\n\n";
+}
+

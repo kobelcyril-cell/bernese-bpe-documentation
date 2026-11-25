@@ -135,7 +135,7 @@ MSG_PSHFILES 1  "Single difference observation files"
 
 ! Coordinate file
 ! ---------------
-COORD 1  "$A_$YSS+0"
+COORD 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
 
 DESCR_COORD 1  "Station coordinates"
@@ -161,7 +161,7 @@ DESCR_CORESITE 1  "List of core sites"
 ! --------------------------------------------------------------------
 ! File with selected obs-file names
 ! ---------------------------------
-SELBSL 1  "$B$S+0"
+SELBSL 1  "$(CSCR)$S+0"
   ## widget = lineedit; path = DIR_CLB; ext = EXT_CLB
 
 MSG_SELBSL 1  "Cluster assignment files"
@@ -228,7 +228,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title
 ! -----
-TITLE 1  "If you read this, write an email to Cyril"
+TITLE 1  "Generate cluster: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"

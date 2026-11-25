@@ -151,12 +151,13 @@ sub run {
     my %quality_rejected;
 
     for my $leo (@{$config->{leos}}) {
-        my ($rnx) = @{$config->{variables}{$leo}};
+        my ($rnx, $att, $id) = @{$config->{variables}{$leo}};
 
         if ($config->{included}{$leo} ne 'Y') {
             push @results, {
                 leo      => $leo,
                 rnx      => $rnx,
+                id       => $id,
                 decision => 'NOT_EXPECTED',
                 reason   => 'Included = N',
             };
@@ -168,6 +169,7 @@ sub run {
             push @results, {
                 leo      => $leo,
                 rnx      => $rnx,
+                id       => $id,
                 decision => 'NOT_EXPECTED',
                 reason   => "Excluded for $date in the LFILE",
             };
@@ -256,6 +258,7 @@ sub run {
         push @results, {
             leo      => $leo,
             rnx      => $rnx,
+            id       => $id,
             rd_file  => $rd_file,
             rd_rms   => $rd_rms,
             cp_file  => $cp_file,
@@ -510,6 +513,8 @@ sub write_report {
             "LEO / RNX        : "
             . "$result->{leo} / $result->{rnx}\n";
 
+        print {$fh} "V_A              : $result->{id}\n";
+
         print {$fh}
             "Decision         : "
             . "$result->{decision}\n";
@@ -700,7 +705,7 @@ sub read_config {
         '',
         'Name Included (Y/N)',
         'YY/DDD LEO',
-        'LEO RNX ATT'
+        'LEO RNX ATT V_A'
     );
 
     while (my $raw_line = <$fh>) {
@@ -826,11 +831,11 @@ sub read_config {
         }
         else {
             $error->(
-                'Expected LEO name, RNX and ATT'
+                'Expected LEO name, RNX, ATT and V_A'
             )
-                unless @fields == 3;
+                unless @fields == 4;
 
-            my ($leo, $prefix, $att) =
+            my ($leo, $prefix, $att, $id) =
                 @fields;
 
             $error->("Unknown LEO '$leo'")
@@ -858,9 +863,13 @@ sub read_config {
                 unless $att =~
                     /^[A-Za-z0-9_\$().+{}-]+$/;
 
+            $error->('V_A must contain one uppercase letter')
+                unless $id =~ /^[A-Z]$/;
+
             $variables{$leo} = [
                 $prefix,
-                $att
+                $att,
+                $id
             ];
 
             $row_leo{$line_no} = $leo;

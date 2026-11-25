@@ -30,7 +30,7 @@ RADIO_P 1  "1"
 
 MSG_RADIO_P 1  "Start with precise orbits"
 
-PREFIL 1  "$(ORB)_$YYYSS+0"
+PREFIL 1  "$(ORB)_$YSS+0"
   ## widget = selwin; activeif = RADIO_P = 1; path = DIR_PRE; ext = EXT_PRE
 
 MSG_PREFIL 1  "Start with precise orbits"
@@ -556,7 +556,7 @@ DESCR_ATTIT 1  "LEO attitude information"
 
 ! ERP File
 ! ---------
-POLE 1  "$(ORB)_$YYYSS+0"
+POLE 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
 
 DESCR_POLE 1  "Earth rotation parameters"
@@ -587,7 +587,7 @@ DESCR_OCNLOAD 1  "Ocean tidal loading"
 
 ! Atmospheric loading tables
 ! --------------------------
-ATMLOAD 1  "$(ATLINF)"
+ATMLOAD 1  "VAPL"
   ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
   ## emptyallowed = true; activeif = RADIO_P == 1
 
@@ -655,7 +655,7 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -781,7 +781,7 @@ DESCR_IMPORB 1  "Orbital elements, file 1"
 
 ! Standard Orbit File
 ! -------------------
-STDOUT 1  "$(ORB)_$YYYSS+0"
+STDOUT 1  "$(ORB)_$YSS+0"
   ## widget = lineedit; path = DIR_STD; ext = EXT_STD
 
 DESCR_STDOUT 1  "Standard orbits"

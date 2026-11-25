@@ -32,7 +32,7 @@ MSG_SHOWGEN 1  "Show all general files"
 
 ! Clock RINEX input file name
 ! -----------------------------
-RCLKINP 1  "$QA$YSS+0"
+RCLKINP 1  "$(FINCLK)A$YSS+0"
   ## widget = selwin; path = DIR_RXC; ext = EXT_RXC
 
 RCLKINP_TXT_COL_1 1  "Clock rinex input files"
@@ -49,7 +49,7 @@ RCLKINP_EXT_COL_2 0
 
 ! Replace station coordinates
 ! ---------------------------
-COORD 1  "$K_$YSS+0"
+COORD 1  "$(FIN)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
   ## emptyallowed = true
 
@@ -65,14 +65,14 @@ DESCR_STAINFO 1  "Station information"
 
 ! Clock RINEX output file name
 ! -----------------------------
-RCLKOUT 1  "$Q_$YSS+0"
+RCLKOUT 1  "$(FINCLK)_$YSS+0"
   ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC
 
 DESCR_RCLKOUT 1  "Combined clock RINEX file"
 
 ! Satellite clock file name (output)
 ! ----------------------------------
-SCLKOUT 1  "$Q_$YSS+0"
+SCLKOUT 1  "$(FINCLK)_$YSS+0"
   ## widget = lineedit; path = DIR_CLK; ext = EXT_CLK
 
 DESCR_SCLKOUT 1  "Bernese satellite clock file"
@@ -132,7 +132,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title line for satellite clock file
 ! -----------------------------------
-TITLE 1  "WRITE SATELLITE CLOCK CORRECTIONS ONLY"
+TITLE 1  "Only satellite clocks: $YSS+0"
   ## widget = lineedit; check_strlen = 80
 
 MSG_TITLE 1  "Title line"
@@ -332,7 +332,7 @@ RADIO_F 1  "1"
 
 MSG_RADIO_F 1  "Retain the reference clock from an input file"
 
-RCLKREF 1  "$QA$YSS+0"
+RCLKREF 1  "$(FINCLK)A$YSS+0"
   ## widget = selwin; activeif = CMERGE / CONCATENATE; path = DIR_RXC
   ## ext = EXT_RXC; maxfiles = 1; emptyallowed = true; pointer = RCLKINP
 
@@ -570,7 +570,7 @@ MSG_UPDSTANAM 1  "Update station names using STA file v1.02"
 
 ! Header of the new RINEX file: RUNBY
 ! -----------------------------------
-RUNBY 1  "AIUB"
+RUNBY 1  "CK"
   ## widget = lineedit; check_strlen = 20
 
 MSG_RUNBY 1  "Run by"
@@ -591,11 +591,7 @@ MSG_ACNAME 1  "AC name"
 
 ! Header of the new RINEX file: Comments
 ! --------------------------------------
-COMMENT 4
-  "CODE final GPS clock information for day $+0, $Y+0, 3D-sol"
-  "Clock information consistent with phase and P1/P2 code data"
-  "Satellite clock values at intervals of 30 sec"
-  "High-rate (30 sec) clock interpolation based on phase data"
+COMMENT 1  "Final high-rate satellite clocks"
   ## widget = uniline; check_strlen.1 = 60; numlines = 10
 
 MSG_COMMENT 1  "Comment lines"

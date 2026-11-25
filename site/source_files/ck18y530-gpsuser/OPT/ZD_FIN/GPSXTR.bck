@@ -62,7 +62,7 @@ MSG_JOBGPS 1  "GPSEST job output files"
 
 JOBGPS_TXT_COL_1 1  "GPSEST job output files"
 
-OUTPUT 1  "$(FIN)$(LARGE)$YSS+0"
+OUTPUT 1  "$(FIN)$(S+0)001"
   ## widget = selwin; path = DIR_OUT; ext = EXT_OUT; maxfiles = 999
   ## emptyallowed = true
 
@@ -79,7 +79,7 @@ MSG_TITLE 1  "Title line"
 
 ! Output Summary
 ! --------------
-GPSOUT 1  "$(FIN)$(LARGE)XTR$YSS+0"
+GPSOUT 1  "$(FIN)XTR$YSS+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
 
 MSG_GPSOUT 1  "Output summary"

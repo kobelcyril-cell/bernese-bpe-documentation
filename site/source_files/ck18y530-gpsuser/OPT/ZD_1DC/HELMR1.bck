@@ -496,7 +496,7 @@ MSG_REJECT 1  "Enable outlier rejection"
 
 ! Maximal number of stations being rejected
 ! -----------------------------------------
-MAXREJ 1  "1"
+MAXREJ 1  "3"
   ## widget = spinbox; range = 0 99 1; activeif = REJECT = 1
 
 MSG_MAXREJ 1  "Maximal number of stations being rejected"

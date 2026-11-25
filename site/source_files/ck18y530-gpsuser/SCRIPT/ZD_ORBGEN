@@ -13,9 +13,16 @@ package ORBGEN;
 #===========================================================
 
 use strict;
+use lib $ENV{BPE};
+use bpe_util;
 
 sub run {
   my $bpe = shift;
+
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/ORBGEN.INP","USE_",$v_gnss);
 
 # ---------- Run program ------------
   my $PGMNAM = "ORBGEN";

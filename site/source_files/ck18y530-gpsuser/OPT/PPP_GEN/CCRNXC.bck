@@ -1,28 +1,26 @@
 
 ! Some keywords for automatic output
 ! ----------------------------------
-CAMPAIGN 1  "./DUMMY"
+CAMPAIGN 0
   ## widget = initmenu; pointer = ACTIVE_CAMPAIGN
 
-SESSION_TABLE 1  "${PAN}/SESSIONS.SES"
+SESSION_TABLE 0
   ## widget = initmenu; pointer = SESSION_TABLE
 
 DESCR_SESSION_TABLE 1  "Session table"
 
-YR4_INFO 1  "1980"
+YR4_INFO 1  "$Y+0"
   ## widget = comment
-  # $Y+0
 
-SES_INFO 1  "0060"
+SES_INFO 1  "$S+0"
   ## widget = comment
-  # $S+0
 
 USR_INFO 1  "${USER}"
   ## widget = comment
 
 ! Environment Variables
 ! ---------------------
-ENVIRONMENT 1  "" "${}"
+ENVIRONMENT 0
   ## widget = initmenu; pointer = ENVIR_LIST
 
 ! Show general files
@@ -34,9 +32,8 @@ MSG_SHOWGEN 1  "Show all general files"
 
 ! Clock RINEX input file name
 ! -----------------------------
-RCLKINP 1  "./DUMMY/OUT/$(ORB)_1980006.CLK"
+RCLKINP 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_RXC; ext = EXT_RXC
-  # $(ORB)_$YYYD+-
 
 RCLKINP_TXT_COL_1 1  "Clock rinex input files"
 
@@ -44,15 +41,15 @@ MSG_RCLKINP 1  "Clock RINEX files"
 
 RCLKINP_TXT_COL_2 1  "Bernese satellite clock files"
 
-RCLKINP_PTH_COL_2 1  "./DUMMY/ORB/"
+RCLKINP_PTH_COL_2 0
   ## widget = initmenu; pointer = DIR_CLK
 
-RCLKINP_EXT_COL_2 1  "CLK"
+RCLKINP_EXT_COL_2 0
   ## widget = initmenu; pointer = EXT_CLK
 
 ! Replace station coordinates
 ! ---------------------------
-COORD 0
+COORD 1  ""
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
   ## emptyallowed = true
 
@@ -60,31 +57,29 @@ DESCR_COORD 1  "Replace station coordinates"
 
 ! Station crux file
 ! -----------------
-STAINFO 1  "./DUMMY/STA/$(STAINF).STA"
+STAINFO 1  "$(STAINF)"
   ## widget = selwin; path = DIR_STA; ext = EXT_STA; maxfiles = 1
   ## emptyallowed = true
-  # $(STAINF)
 
 DESCR_STAINFO 1  "Station information"
 
 ! Clock RINEX output file name
 ! -----------------------------
-RCLKOUT 1  "./DUMMY/OUT/$(ORB)_19800060.CLK"
+RCLKOUT 1  "$(ORB)_$YSS+0"
   ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC
-  # $(ORB)_$YYYSS+0
 
 DESCR_RCLKOUT 1  "Combined clock RINEX file"
 
 ! Satellite clock file name (output)
 ! ----------------------------------
-SCLKOUT 0
+SCLKOUT 1  ""
   ## widget = lineedit; path = DIR_CLK; ext = EXT_CLK
 
 DESCR_SCLKOUT 1  "Bernese satellite clock file"
 
 ! Sigma file with rms of lin. fit
 ! -------------------------------
-LINFITRS 0
+LINFITRS 1  ""
   ## widget = lineedit; path = DIR_SIG; ext = EXT_SIG
 
 DESCR_LINFITRS 1  "Sigma file with linear fit RMS"
@@ -96,10 +91,9 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "./DUMMY/OUT/CLK_19800060.OUT"
+SYSOUT 1  "CLK_$YYYSS+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
-  # CLK_$YYYSS+0
 
 DESCR_SYSOUT 1  "Program output"
 
@@ -110,10 +104,9 @@ ERRMRG 1  "0"
 
 MSG_ERRMRG 1  "Error message"
 
-SYSERR 1  "${U}/WORK/ERROR.MSG"
+SYSERR 1  "ERROR"
   ## widget = lineedit; path = PTH_ERR; ext = EXT_ERR
   ## activeif = ERRMRG == 0; emptyallowed = false
-  # ERROR
 
 DESCR_SYSERR 1  "Error message"
 
@@ -138,9 +131,8 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title line for satellite clock file
 ! -----------------------------------
-TITLE 1  "PPP_19800060: Prepare clock information"
+TITLE 1  "PPP_$YYYSS+0: Prepare clock information"
   ## widget = lineedit; check_strlen = 80
-  # PPP_$YYYSS+0: Prepare clock information
 
 MSG_TITLE 1  "Title line"
 
@@ -171,23 +163,20 @@ MSG_RADIO_2 1  "Defined by start and end times"
 
 ! Observation Window from Session Table
 ! -------------------------------------
-SESSION_YEAR 1  "1980"
+SESSION_YEAR 1  "$Y+-"
   ## widget = lineedit; multilineallowed = true; emptyallowed = false
-  # $Y+-
 
 MSG_SESSION_YEAR 1  "Year for sessions def. the time window"
 
-SESSION_STRG 1  "0060"
+SESSION_STRG 1  "$S+-"
   ## widget = lineedit; multilineallowed = true; emptyallowed = false
-  # $S+-
 
 MSG_SESSION_STRG 1  "Sessions defining the time window"
 
 ! Observation Window from Datum
 ! -----------------------------
-STADAT 1  "1980 01 06"
+STADAT 1  "$YMD_STR+0"
   ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
-  # $YMD_STR+0
 
 MSG_STADAT 1  "Start of time window (year month day)"
 
@@ -197,9 +186,8 @@ STATIM 1  "00 00 00"
 
 MSG_STATIM 1  "Start of time window (hour min. sec.)"
 
-ENDDAT 1  "1980 01 06"
+ENDDAT 1  "$YMD_STR+0"
   ## widget = lineedit; activeif = RADIO_2 = 1; check_type = date
-  # $YMD_STR+0
 
 MSG_ENDDAT 1  "End of time window (year month day)"
 
@@ -211,7 +199,7 @@ MSG_ENDTIM 1  "End of time window (hour min. sec.)"
 
 ! Clock Output: Sampling interval
 ! ---------------------------
-DELTAT 0
+DELTAT 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_DELTAT 1  "Sampling interval for clocks"
@@ -244,13 +232,13 @@ SFILSAT 0
 
 MSG_SFILSAT 1  "List from file"
 
-SLSTSTA 0
+SLSTSTA 1  ""
   ## widget = selwin; emptyallowed = true; pointer = STALST
   ## activeif = SELSTA = FROM_LIST
 
 MSG_SLSTSTA 1  "Manual selection"
 
-SLSTSAT 0
+SLSTSAT 1  ""
   ## widget = selwin; emptyallowed = true; pointer = SATLST
   ## activeif = SELSAT = FROM_LIST
 
@@ -343,10 +331,9 @@ RADIO_F 1  "1"
 
 MSG_RADIO_F 1  "Retain the reference clock from an input file"
 
-RCLKREF 1  "./DUMMY/OUT/$(ORB)_1980006.CLK"
+RCLKREF 1  "$(ORB)_$YYYD+0"
   ## widget = selwin; activeif = CMERGE / CONCATENATE; path = DIR_RXC
   ## ext = EXT_RXC; maxfiles = 1; emptyallowed = true; pointer = RCLKINP
-  # $(ORB)_$YYYD+0
 
 MSG_RCLKREF 1  "Retain the reference clock from an input file"
 
@@ -381,13 +368,13 @@ MSG_SATFIL 1  "Get list from file for satellites"
 
 ! Output ref.Clk from manual list
 ! -------------------------------
-STAMAN 0
+STAMAN 1  ""
   ## widget = selwin; activeif = REFCLOCK = MANUAL; emptyallowed = true
   ## pointer = STALST
 
 MSG_STAMAN 1  "Manual selection for stations"
 
-SATMAN 0
+SATMAN 1  ""
   ## widget = selwin; activeif = REFCLOCK = MANUAL; emptyallowed = true
   ## pointer = SATLST
 
@@ -402,7 +389,7 @@ MSG_NALIGN 1  "Polynomial degree for alignment"
 
 ! Max. RMS for ref. clock alignment
 ! ---------------------------------
-MAXREF 0
+MAXREF 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXREF 1  "Maximum allowed RMS error for alignment"
@@ -599,9 +586,8 @@ MSG_ACNAME 1  "AC name"
 
 ! Header of the new RINEX file: Comments
 ! --------------------------------------
-COMMENT 1  "PPP_19800060: Clock information compilation"
+COMMENT 1  "PPP_$YYYSS+0: Clock information compilation"
   ## widget = uniline; check_strlen.1 = 60; numlines = 10
-  # PPP_$YYYSS+0: Clock information compilation
 
 MSG_COMMENT 1  "Comment lines"
 

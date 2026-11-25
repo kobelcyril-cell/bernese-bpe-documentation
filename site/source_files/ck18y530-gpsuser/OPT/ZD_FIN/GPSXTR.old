@@ -62,7 +62,7 @@ MSG_JOBGPS 1  "GPSEST job output files"
 
 JOBGPS_TXT_COL_1 1  "GPSEST job output files"
 
-OUTPUT 1  "$Z$L$YSS+0"
+OUTPUT 1  "$(FIN)$(LARGE)$YSS+0"
   ## widget = selwin; path = DIR_OUT; ext = EXT_OUT; maxfiles = 999
   ## emptyallowed = true
 
@@ -72,14 +72,14 @@ OUTPUT_TXT_COL_1 1  "GPSEST/ADDNEQ output files"
 
 ! Title
 ! -----
-TITLE 1  "Extract final ADDNEQ2 output in ZD-processing for $YSS+0"
+TITLE 1  "Extract final ADDNEQ2 output: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
 
 ! Output Summary
 ! --------------
-GPSOUT 1  "$Z$LXTR$YSS+0"
+GPSOUT 1  "$(FIN)$(LARGE)XTR$YSS+0"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_SUM; maxfiles = 1
 
 MSG_GPSOUT 1  "Output summary"

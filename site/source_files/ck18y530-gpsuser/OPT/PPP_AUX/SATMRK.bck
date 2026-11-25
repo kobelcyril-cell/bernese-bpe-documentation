@@ -46,7 +46,7 @@ DESCR_SATELL 1  "Satellite information"
 
 ! What to do in this run?
 ! -----------------------
-WHATTODO 1  "EDIT_FILE"
+WHATTODO 1  "SYNCHRONIZE"
   ## widget = combobox; editable = false
   ## cards = EDIT_FILE MARK_MANUAL SYNCHRONIZE INITIALIZE
 
@@ -289,7 +289,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title: new entry
 ! ----------------
-TITLE 1  "Mark bad observations: $YD+0"
+TITLE 1  "Synchronize observations: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -312,9 +312,10 @@ MSG_FREQ 1  "Frequency"
 
 ! Edit Information File
 ! ---------------------
-EDITFILE 1  "$(CPSC)_$YSS+0"
+EDITFILE 0
   ## widget = selwin; path = DIR_EDT; ext = EXT_EDT; maxfiles = 1
   ## emptyallowed = true; activeif = WHATTODO = EDIT_FILE
+  # $(CPSC)_$YSS+0
 
 DESCR_EDITFILE 1  "Edit information file"
 

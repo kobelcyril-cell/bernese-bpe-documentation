@@ -33,10 +33,11 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 103  ZD_INIT_HOI             NO_OPT      CPU=ANY
 104  ZD_INIT_VMF             NO_OPT      CPU=ANY
 105  ZD_CHECK_GRD_FILES      NO_OPT      CPU=ANY; WAIT=101
+106  ZD_MOD_FIX              NO_OPT      CPU=ANY; WAIT=101
 #
 # Select station network
 # ----------------------
-110  ZD_STATION_SELECTION    NO_OPT      CPU=HUGE; WAIT=100 101 102 103 104 105
+110  ZD_STATION_SELECTION    NO_OPT      CPU=HUGE; WAIT=100 101 102 103 104 105 106
 #
 # Check for station problems
 # --------------------------
@@ -48,33 +49,36 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 # --------------------------------------
 130  ZD_COOVEL               ZD_0        CPU=ANY; WAIT=122
 131  ZD_ORBGEN_APR           ZD_0        CPU=ANY; WAIT=122
+132  ZD_CHECK_SAT_RMS        ZD_RNX      CPU=ANY; WAIT=131
 #
 # Preparing the observation files
 # -------------------------------
-140  ZD_RNXSMTAP             ZD_RNX      CPU=ANY; WAIT=122
+140  ZD_RNXSMTAP             ZD_RNX      CPU=ANY; WAIT=132
 141  ZD_RNXSMT_P             ZD_RNX      CPU=ANY; WAIT=140; PARALLEL=140
 142  ZD_RXOBV3GP             ZD_RNX      CPU=ANY; WAIT=141
 143  ZD_RXOBV3_P             ZD_RNX      CPU=ANY; WAIT=142; PARALLEL=142
 #
-# Check for satellite problems
-# --------------------------
+# Check for satellite gaps
+# ------------------------
 150  ZD_CHECK_SAT_GAPS       ZD_RNX      CPU=ANY; WAIT=143
-151  ZD_CHECK_SAT_RMS        ZD_RNX      CPU=ANY; WAIT=150
-152  ZD_MANMRK               ZD_RNX      CPU=ANY; WAIT=151
+151  ZD_MANMRK               ZD_RNX      CPU=ANY; WAIT=150
 #
 # Delete stations according to predefined criteria
 # ------------------------------------------------
-160  ZD_MKCLUS               ZD_RNX      CPU=ANY; WAIT=152
+160  ZD_MKCLUS               ZD_RNX      CPU=ANY; WAIT=151
 #
-# Checks (nothing yet)
-# --------------------
+# Checks
+# ------
+200  ZD_CHECK_MIN_STA        NO_OPT      CPU=ANY; WAIT=150
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS               NO_OPT      CPU=ANY; WAIT=160; PARAM1=PREPARATION; PARAM2=CREATE
+999  ZD_STATUS               NO_OPT      CPU=ANY; WAIT=160 200; PARAM1=V_STATUSF; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
 V_BRD    = *;                DESCRIPTION=A priori information (brd, and bull. A)
+V_GNSS   = *;                DESCRIPTION=Processed GNSS Systems
+V_APRRMS = *;                DESCRIPTION=Maximum of a priori orbit RMS (exclude sat)
 V_PSDINF = IG?20;            DESCRIPTION=PSD corrections
 V_CRDINF = IG?20;            DESCRIPTION=CRD/VEL/FIX master file name
 V_BLQINF = FES20*;           DESCRIPTION=BLQ file name, CMC corrections
@@ -101,6 +105,7 @@ V_MEANPL = *;                DESCRIPTION=Mean pole model
 V_USEHOI = *;                DESCRIPTION=Use HOI-file;                                  CARDS=YES NO
 V_MINC   = *;                DESCRIPTION=Minimum number of stations;                    CHECK_MIN=50
 V_NSTA   = *;                DESCRIPTION=Number of stations used in the processing
+V_STATUSF = PREPARATION;     DESCRIPTION=Create this flag when finished
 # Configuration
 V_PCFCONFIG = MODEL SETUP_ZDGNSS;    DESCRIPTION=Configuration files
 

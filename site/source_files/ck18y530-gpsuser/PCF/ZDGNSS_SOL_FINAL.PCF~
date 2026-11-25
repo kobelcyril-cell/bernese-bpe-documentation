@@ -23,7 +23,7 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Wait for status flag
 # --------------------
-001  ZD_STATUS             NO_OPT      CPU=ANY; PARAM1=PPP; PARAM2=CHECK
+001  ZD_STATUS             NO_OPT      CPU=ANY; PARAM1=V_STATUSW; PARAM2=CHECK
 #
 # Prepare a priori orbit
 # ----------------------
@@ -44,7 +44,7 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Pre-eliminate clocks
 # --------------------
-120  ZD_PRE_ELIM_CLK_P     NO_OPT      CPU=LOCAL; WAIT=110; PARAM2=V_FIN
+120  ZD_PRE_ELIM_CLK_P     NO_OPT      CPU=LOCAL; WAIT=110; NEXTJOB=140; PARAM9=V_FIN
 121  ZD_WAIT               NO_OPT      CPU=SHORT; WAIT=120
 122  ZD_PRE_ELIM_CLK_E     ZD_1DS      CPU=HUGE; WAIT=121; PARALLEL=120
 123  ZD_ITE_PRE_CLK        NO_OPT      CPU=LOCAL; WAIT=122; NEXTJOB=130 120
@@ -55,20 +55,25 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Verification of datum definition
 # --------------------------------
-140  ZD_ADDNEQ2_DATFIL     ZD_1DC      CPU=LOCAL; WAIT=130
+140  ZD_ADDNEQ2_DATFIL     ZD_1DC      CPU=HUGE; WAIT=130
 141  ZD_FIX_CHK            ZD_1DC      CPU=LOCAL; WAIT=140; NEXTJOB=140
+#
+# Check whether large solution is to be computed
+# ----------------------------------------------
+149  ZD_LAPACK             NO_OPT      CPU=SHORT; WAIT=141; NEXTJOB=170
 #
 # Compute large solution (including all satellite clocks)
 # -------------------------------------------------------
-150  ZD_ADDNEQ2            ZD_FIN      CPU=HUGE; WAIT=141
+150  ZD_ADDNEQ2            ZD_FIN      CPU=HUGE; WAIT=149
+151  ZD_CCRNXC             ZD_FIN      CPU=SHORT; WAIT=150
 #
-# Extract statistics
-# ------------------
-160  ZD_GPSXTR             ZD_FIN      CPU=SHORT; WAIT=150
+# Eliminate clocks from large NEQ (preparation for long-arc)
+# ----------------------------------------------------------
+155  ZD_ADDNEQ2            ZD_RED      CPU=HUGE; WAIT=141
 #
 # Compute solution with pre-eliminated clocks
 # -------------------------------------------
-170  ZD_ADDNEQ2_CLK_P      NO_OPT      CPU=LOCAL; WAIT=141
+170  ZD_ADDNEQ2_CLK_P      NO_OPT      CPU=LOCAL; WAIT=141; NEXTJOB=190
 171  ZD_ADDNEQ2_CLK_E      ZD_1DS      CPU=HUGE; WAIT=170; PARALLEL=170
 #
 # Combine clocks
@@ -77,15 +82,23 @@ PID  SCRIPT    OPT_DIR   PARAMETERS
 #
 # Compute final orbits
 # --------------------
-190  ZD_ORBGENF            ZD_FIN      CPU=SHORT; WAIT=150 180
+190  ZD_ORBGENF            ZD_FIN      CPU=SHORT; WAIT=151 180
+#
+# Copy solution in case of only LAPACK solution
+# ---------------------------------------------
+200  ZD_SOLTYPE            NO_OPT      CPU=SHORT; WAIT=190
+#
+# Extract statistics
+# ------------------
+300  ZD_GPSXTR             ZD_FIN      CPU=SHORT; WAIT=200
 #
 # Checks
 # ------
-900  ZD_CHKPRC_SOL         ZD_CHK      CPU=SHORT; WAIT=190
+900  ZD_CHKPRC_SOL         ZD_CHK      CPU=SHORT; WAIT=200
 #
 # Create status flag
 # ------------------
-999  ZD_STATUS             NO_OPT      CPU=ANY; WAIT=900; PARAM1=IA_F; PARAM2=CREATE
+999  ZD_STATUS             NO_OPT      CPU=ANY; WAIT=300 900; PARAM1=V_STATUSF; PARAM2=CREATE
 
 VARIABLE   DEFAULT        PARAMETERS
 V_BRD    = *;             DESCRIPTION=A priori information (brd, and bull. A)
@@ -94,12 +107,14 @@ V_CBIA   = *;             DESCRIPTION=Unify inter-system/frequency biases
 V_APR    = *;             DESCRIPTION=A priori information
 V_FIN    = *;             DESCRIPTION=Final results
 V_LARGE  = *;             DESCRIPTION=Final results, full solution (one ADDNEQ2)
+V_GNSS   = *;             DESCRIPTION=Processed GNSS Systems
 V_CRDINF = IG?20;         DESCRIPTION=CRD/VEL/FIX master file name
 V_BLQINF = FES20*;        DESCRIPTION=BLQ file name, CMC corrections
 V_SATCRX = *;             DESCRIPTION=Satellite problem file for data import
 V_SATINF = *;             DESCRIPTION=Satellite information
 V_MAC    = *;             DESCRIPTION=Satellite Macromodel
 V_PCV    = I??;           DESCRIPTION=GNSS PCV model (absolute)
+V_PCVM   = ????;          DESCRIPTION=GNSS PCV model version
 V_SUBMOD = *;             DESCRIPTION=Subdaily pole model
 V_NUTMOD = *;             DESCRIPTION=Nutation model
 V_SETID  = *;             DESCRIPTION=Solid Earth Tides
@@ -118,8 +133,13 @@ V_TRPMOD = VMF;           DESCRIPTION=Troposphere model
 V_IAR    = *;             DESCRIPTION=Introduce fixed ambiguities;                      CARDS=YES NO
 V_PUL    = *;             DESCRIPTION=Enable orbit midnight pulses;                     CARDS=YES NO
 V_VDAT   = *;             DESCRIPTION=Verification of datum definition;                 CARDS=YES NO
+V_LAPA   = *;             DESCRIPTION=Compute LAPACK solution;                          CARDS=YES NO
+V_OLAP   = *;             DESCRIPTION=Compute only LAPACK solution;                     CARDS=YES NO
 V_ILEO   = *;             DESCRIPTION=Include LEOs;                                     CARDS=YES NO
 V_DIRLEO = ${R}/CK_LEO;   DESCRIPTION=Directory with LEO-NEQs
+V_GCC    = *;             DESCRIPTION=Estimate Geocenter coordinates
+V_STATUSW = *;            DESCRIPTION=Wait for process creating this flag
+V_STATUSF = *;            DESCRIPTION=Create this flag when finished
 # Configuration
-V_PCFCONFIG = MODEL SETUP_ZDGNSS FINAL;    DESCRIPTION=Configuration files
+V_PCFCONFIG = MODEL SETUP_ZDGNSS IA;    DESCRIPTION=Configuration files
 

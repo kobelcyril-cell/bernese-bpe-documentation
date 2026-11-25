@@ -30,6 +30,11 @@ sub run {
   # ---------- Initialize variables ------------
   setUserVar($bpe, "SOL", $sol);
 
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/ORBGEN.INP","USE_",$v_gnss);
+  
   # ---------- Run program ------------
   my $PGMNAM = "ORBGEN";
   $bpe->RUN_PGMS($PGMNAM);

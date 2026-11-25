@@ -72,7 +72,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
 
 DESCR_PHASECC 1  "Antenna corrections"
@@ -91,7 +91,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -501,7 +501,7 @@ MSG_OUTCLKTIE 1  "clock collocation file: to be implemented"
 
 ! LEO Standard Orbits
 ! -------------------
-LEOSTD 1  "ZD$(RNX)$YSS+0"
+LEOSTD 1  "SCRIPT"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
   ## activeif = LEOPROC = 1; emptyallowed = true
 
@@ -515,7 +515,7 @@ DESCR_LEOSTD_NEW 1  "Standard orbits (new)"
 
 ! LEO Dynamic partials
 ! --------------------
-LEORPR 1  "ZD$(RNX)$YSS+0"
+LEORPR 1  "SCRIPT"
   ## widget = selwin; path = DIR_RPR; ext = EXT_RPR; maxfiles = 1
   ## activeif = LEOPROC = 1; emptyallowed = true
 
@@ -616,7 +616,7 @@ MSG_CONT_ERR 1  "End program normally even in case of errors"
 
 ! Ignore errors wihtin specified subroutines
 ! ------------------------------------------
-IGNORE_ERR 1  ""
+IGNORE_ERR 1  "D_PHAECC:search_off"
   ## widget = uniline; numlines = 5
 
 MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
@@ -1154,14 +1154,14 @@ MSG_AMBSUB_C 1  "Omit AR between BeiDou subconstellations"
 
 ! Save Ambiguities
 ! ----------------
-AMBSAVE 1  "1"
+AMBSAVE 1  "0"
   ## widget = checkbox; activeif = AMBSTRAT / inactive AND AMBSTRAT / NONE
 
 MSG_AMBSAVE 1  "Save resolved ambiguities"
 
 ! Introduce Widelane
 ! ------------------
-APRWIDE 1  "1"
+APRWIDE 1  "0"
   ## widget = checkbox; activeif = AMBSTRAT / inactive
 
 MSG_APRWIDE 1  "Introduce widelane integers"
@@ -1183,7 +1183,7 @@ MSG_OBS2NEQ 1  "Stop program after NEQ saving"
 
 ! Display Extended Printing Options
 ! ---------------------------------
-PRINT 1  "1"
+PRINT 1  "0"
   ## widget = checkbox
 
 MSG_PRINT 1  "Enable extended program output"
@@ -1432,21 +1432,21 @@ MSG_MXAMBIT 1  "Maximal number of ambiguities fixed per iter. step"
 
 ! Amb-Sigma: Ambiguity Resolvable if Exactly 1 Integer within
 ! -----------------------------------------------------------
-LEAST 1  "$(NLEAST)"
+LEAST 1  "3.0"
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_LEAST 1  "Ambiguity resolvable if exactly one integer within"
 
 ! Amb-Sigma: Maximal Sigma of a Resolvable Ambiguity
 ! --------------------------------------------------
-MOST 1  "$(NMOST)"
+MOST 1  "0.05"
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_MOST 1  "Maximal sigma of a resolvable ambiguity"
 
 ! Amb-Sigma: Minimal Sigma of Ambiguity used for Tests
 ! ----------------------------------------------------
-SIGMAMIN 1  "$(NSIGMI)"
+SIGMAMIN 1  "0.05"
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_SIGMAMIN 1  "Minimal sigma for testing"
@@ -1795,7 +1795,7 @@ MSG_ORBADJL 1  "Parameter setup: LEO orbit determination"
 
 ! Orb.est: satellite type
 ! -----------------------
-ORBEST 1  "SYSTEM"
+ORBEST 1  "ALL"
   ## widget = combobox; editable = false; cards = MANUAL ALL SYSTEM
 
 MSG_ORBEST 1  "Orb.est: satellite system selection"
@@ -1848,7 +1848,7 @@ SEMIAXIS 1  "1"
 
 MSG_SEMIAXIS 1  "GNSS orb.est: Semi major axis"
 
-SIGSEMI 1  "0.0"
+SIGSEMI 1  "0.11"
   ## widget = lineedit; activeif = SEMIAXIS = 1; check_type = real
   ## check_min = 0.0
 
@@ -1861,7 +1861,7 @@ ECCENTR 1  "1"
 
 MSG_ECCENTR 1  "GNSS orb.est: eccentricity"
 
-SIGECCE 1  "0.0"
+SIGECCE 1  "0.0000011"
   ## widget = lineedit; activeif = ECCENTR = 1; check_type = real
   ## check_min = 0.0
 
@@ -1874,7 +1874,7 @@ INCLIN 1  "1"
 
 MSG_INCLIN 1  "GNSS orb.est: inclination"
 
-SIGINCL 1  "0.0"
+SIGINCL 1  "0.0011"
   ## widget = lineedit; activeif = INCLIN = 1; check_type = real
   ## check_min = 0.0
 
@@ -1887,7 +1887,7 @@ ASCNODE 1  "1"
 
 MSG_ASCNODE 1  "GNSS orb.est: ascending node"
 
-SIGASCN 1  "0.0"
+SIGASCN 1  "0.011"
   ## widget = lineedit; activeif = ASCNODE = 1; check_type = real
   ## check_min = 0.0
 
@@ -1900,7 +1900,7 @@ PERIGEE 1  "1"
 
 MSG_PERIGEE 1  "GNSS orb.est: perigee"
 
-SIGPERI 1  "0.0"
+SIGPERI 1  "0.011"
   ## widget = lineedit; activeif = PERIGEE = 1; check_type = real
   ## check_min = 0.0
 
@@ -1913,7 +1913,7 @@ ARGLAT 1  "1"
 
 MSG_ARGLAT 1  "GNSS orb.est: argument of latitude"
 
-SIGARGL 1  "0.0"
+SIGARGL 1  "0.011"
   ## widget = lineedit; activeif = ARGLAT = 1; check_type = real
   ## check_min = 0.0
 
@@ -1922,7 +1922,7 @@ MSG_SIGARGL 1  "GNSS orb.est: a priori sigma of arg. of latitude"
 ! Orb.est: Default setup
 ! ----------------------
 ! Default (MODEL-SPECIFIC) constraining of dynamical parameters parameters
-DEFSIGMA 1  "1"
+DEFSIGMA 1  "0"
   ## widget = checkbox
 
 MSG_DEFSIGMA 1  "GNSS default constraining for empirical models."
@@ -2468,7 +2468,7 @@ DEFSIGMA2 1  "0"
 
 MSG_DEFSIGMA2 1  "LEO default constraining for empirical models."
 
-PAR12 1  "1"
+PAR12 1  "0"
   ## widget = checkbox; activeif = DEFSIGMA2 /= 1
 
 MSG_PAR12 1  "LEO orb.est: parameter 1 of empirical model"
@@ -2481,7 +2481,7 @@ MSG_SIGPAR12 1  "LEO orb.est: EMP model parameter 1 sigma"
 
 ! Orb.est: Parameter 2
 ! ---------------------------
-PAR22 1  "1"
+PAR22 1  "0"
   ## widget = checkbox; activeif = DEFSIGMA2 /= 1
 
 MSG_PAR22 1  "LEO orb.est: parameter 2 of empirical model"
@@ -2494,7 +2494,7 @@ MSG_SIGPAR22 1  "LEO orb.est: EMP model parameter 2 sigma"
 
 ! Orb.est: Parameter 3
 ! ---------------------------
-PAR32 1  "1"
+PAR32 1  "0"
   ## widget = checkbox; activeif = DEFSIGMA2 /= 1
 
 MSG_PAR32 1  "LEO orb.est: parameter 3 of empirical model"
@@ -3308,7 +3308,7 @@ MSG_DIONSIGR 1  "Stoch Iono: rel a priori sigma of iono random walk"
 ! ------------------------------------------------------------------------------
 ! PARAMETER TYPE: Higher-order ionosphere scaling factors
 ! ------------------------------------------------------------------------------
-SCALHOI 1  "1"
+SCALHOI 1  "0"
   ## widget = checkbox
   ## activeif = IONOS / _ AND FREQUENCY / L1 AND FREQUENCY / L2 AND FREQUENCY / L5 AND FREQUENCY / MELWUEBB AND FREQUENCY / DTEC AND GEOTEC = GNSS
 
@@ -3381,7 +3381,7 @@ MSG_NXP 1  "ERP: Number of X-Pole par./set"
 
 ! Erp: Sigma of X-Pole
 ! --------------------
-SIGXP 1  "0.0"
+SIGXP 1  "0.001"
   ## widget = lineedit; activeif = NXP / 0 = 1; check_type = real
   ## check_min = 0.0
 
@@ -3396,7 +3396,7 @@ MSG_NYP 1  "ERP: number of Y-pole par./set"
 
 ! Erp: Sigma of Y-Pole
 ! --------------------
-SIGYP 1  "0.0"
+SIGYP 1  "0.001"
   ## widget = lineedit; activeif = NYP / 0 = 1; check_type = real
   ## check_min = 0.0
 
@@ -3411,7 +3411,7 @@ MSG_NDT 1  "ERP: number of UT1-UTC par./set"
 
 ! Erp: Sigma of UT1-UTC (1st value)
 ! ---------------------------------
-SIG1DT 1  "0.0001"
+SIG1DT 1  "0.001"
   ## widget = lineedit; emptyallowed = false; activeif = NDT / 0 = 1
   ## check_type = real; check_min = 0.0
 
@@ -3419,7 +3419,7 @@ MSG_SIG1DT 1  "ERP: sigma of UT1-UTC (1st value)"
 
 ! Erp: Sigma of UT1-UTC (other requests)
 ! --------------------------------------
-SIGDT 1  "0.0"
+SIGDT 1  "0.001"
   ## widget = lineedit; activeif = NDT / 0 = 1; check_type = real
   ## check_min = 0.0
 
@@ -4360,7 +4360,7 @@ CLOCKR 1  "1"
 
 MSG_CLOCKR 1  "Receiver clock offsets"
 
-CLOCKS 1  "0"
+CLOCKS 1  "1"
   ## widget = checkbox; activeif = DIFLVL / DOUBLE
 
 MSG_CLOCKS 1  "GNSS clock offsets"
@@ -4408,7 +4408,7 @@ MSG_RCVCLKTYP 1  "Rclk.off: Parameter setup"
 
 ! Clk est.: min. # of obs. for sta clock est.
 ! -------------------------------------------
-MINSTA 1  "5"
+MINSTA 1  "2"
   ## widget = spinbox; range = 0 10 2; activeif = CLOCKR = 1
 
 MSG_MINSTA 1  "Minimum number of obs per station clock"
@@ -4428,7 +4428,7 @@ MSG_RCOSTR 1  "Rclk.off: Time dependent inter-system bias"
 
 ! Clk est.: min. # of obs. for sat clock est.
 ! -------------------------------------------
-MINSAT 1  "4"
+MINSAT 1  "1"
   ## widget = spinbox; range = 0 10 2; activeif = CLOCKS = 1
 
 MSG_MINSAT 1  "Minimum number of obs per satellite clock"
@@ -5235,7 +5235,7 @@ MSG_PRE03 1  "Pre-elimination: GNSS or LEO orbit determination"
 
 ! Pre: Orbit Elements LEO
 ! -------------------
-PRE3L 1  "PRIOR_TO_NEQ_SAVING"
+PRE3L 1  "NO"
   ## widget = combobox; editable = false
   ## cards = NO BEFORE_INVERSION PRIOR_TO_NEQ_SAVING; activeif = ORBADJL = 1
 
@@ -5243,7 +5243,7 @@ MSG_PRE3L 1  "Pre-elimination: LEO orbit determination"
 
 ! Pre: Ambiguities
 ! ----------------
-PRE04 1  "AS_SOON_AS_POSSIBLE"
+PRE04 1  "PRIOR_TO_NEQ_SAVING"
   ## widget = combobox; editable = true
   ## cards = NO AS_SOON_AS_POSSIBLE EVERY_SESSION PRIOR_TO_NEQ_SAVING
   ## activeif = GEOTEC = GNSS
@@ -5391,14 +5391,44 @@ MSG_PRE23 1  "Pre-elimination: Receiver clock offsets"
 
 ! Pre: Satellite Clocks
 ! ---------------------
-PRE24 1  "EVERY_EPOCH"
+PRE24 1  "NO"
   ## widget = combobox; editable = false
   ## cards = NO EVERY_EPOCH EVERY_SESSION PRIOR_TO_NEQ_SAVING
   ## activeif = CLOCKS = 1
 
 MSG_PRE24 1  "Pre-elimination: GNSS clock offsets"
 
-! Pre: GNSS PCV
+! Satellite-clock epoch grid (create parameters only on grid).
+! Set PRE24 to NO before enabling. Reference is MJD in the NEQ time scale.
+CLKS_GRID 1  "1"
+  ## widget = checkbox
+
+MSG_CLKS_GRID 1  "Estimate satellite clocks only on epoch grid"
+
+CLKS_GRID_STEP 1  "300"
+  ## widget = lineedit; activeif = CLKS_GRID = 1; check_type = real
+  ## emptyallowed = false
+
+MSG_CLKS_GRID_STEP 1  "Satellite clock grid interval (seconds, positive)"
+
+CLKS_GRID_REF 1  "0"
+  ## widget = lineedit; activeif = CLKS_GRID = 1; check_type = real
+  ## emptyallowed = false
+
+MSG_CLKS_GRID_REF 1  "Grid reference MJD in parameter time scale (0: midnight-aligned for 300 s)"
+
+CLKS_GRID_TOL 1  "0.001"
+  ## widget = lineedit; activeif = CLKS_GRID = 1; check_type = real
+  ## emptyallowed = false
+
+MSG_CLKS_GRID_TOL 1  "Grid epoch tolerance (seconds, positive and less than half interval)"
+
+! Detailed satellite-clock grid diagnostics (may produce many output lines).
+CLKS_GRID_LOG 1  "0"
+  ## widget = checkbox; activeif = CLKS_GRID = 1
+
+MSG_CLKS_GRID_LOG 1  "Print created clock epochs and clocks passed to NEQ saving"
+
 ! -------------
 PRE25 1  "NO"
   ## widget = combobox; editable = false
@@ -5544,77 +5574,77 @@ ANTLSTRI 0
 ! ======================================================================
 ! Define array dimensions
 ! -----------------------
-SHOWMAX 1  "0"
+SHOWMAX 1  "1"
   ## widget = checkbox
 
 MSG_SHOWMAX 1  "Define array dimensions"
 
 ! MAXLOC: Maximum number of parameters to be processed
 ! ----------------------------------------------------
-MAXLOC 0
+MAXLOC 1  "46000"
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXLOC 1  "MAXLOC: Parameters to be processed"
 
 ! MAXFIL: Maximum number of files to be processed
 ! -----------------------------------------------
-MAXFIL 0
+MAXFIL 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXFIL 1  "MAXFIL: Files to be processed"
 
 ! MAXSTA: Maximum number of stations involved
 ! -------------------------------------------
-MAXSTA 0
+MAXSTA 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXSTA 1  "MAXSTA: Stations involved"
 
 ! MAXSAT: Maximum number of satellites involved
 ! ---------------------------------------------
-MAXSAT 0
+MAXSAT 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXSAT 1  "MAXSAT: Satellites involved"
 
 ! MAXAMB: Maximum number of ambiguities in an observation file
 ! ------------------------------------------------------------
-MAXAMB 0
+MAXAMB 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXAMB 1  "MAXAMB: Ambiguities in an observation file"
 
 ! MAXPAR: Maximum number of parameters simultaneously processed
 ! -------------------------------------------------------------
-MAXPAR 0
+MAXPAR 1  "46000"
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXPAR 1  "MAXPAR: Parameters simultaneously processed"
 
 ! MAXFLS: Maximum number of files simultaneously processed
 ! --------------------------------------------------------
-MAXFLS 0
+MAXFLS 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXFLS 1  "MAXFLS: Files simultaneously processed"
 
 ! MAXSAS: Maximum number of satellites simultaneously processed
 ! -------------------------------------------------------------
-MAXSAS 0
+MAXSAS 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXSAS 1  "MAXSAS: Satellites simultaneously processed"
 
 ! MAXAMP: Maximum number of ambiguities simultaneously processed
 ! --------------------------------------------------------------
-MAXAMP 0
+MAXAMP 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXAMP 1  "MAXAMP: Ambiguities simultaneously processed"
 
 ! MAXSNG: Maximum number of non-zero elements in one line of first design matrix
 ! ------------------------------------------------------------------------------
-MAXSNG 0
+MAXSNG 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_MAXSNG 1  "MAXSNG: Elements per line of first design matrix"
@@ -6058,6 +6088,7 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 # EPOCH PARAMETERS                                                             #
 #   Receiver clock offsets               > % <        > %%%%%%%%%%%%%%%%%%%% < # CLOCKR PRE23
 #   Satellite clock offsets              > % <        > %%%%%%%%%%%%%%%%%%%% < # CLOCKS PRE24
+#   Satellite clocks only on epoch grid  > % <                                 # CLKS_GRID
 #   Kinematic coordinates                > % <        > %%%%%%%%%%%%%%%%%%%% < # KINEST PRE21
 #   Stochastic ionosphere parameters     > % <        > %%%%%%%%%%%%%%%%%%%% < # DIFFION PRE17
 #                                                                              #
@@ -6471,6 +6502,19 @@ MSG_USESYNCR 1  "Apply clock synchronization errors"
 #   Print epoch var-covar for     > %%%%%%%%%%%%%%% <                          # QXYPRINT
 #   Store covariances in KIN file > % <                                        # IWQXX
 # END_PANEL ####################################################################
+
+
+# BEGIN_PANEL CLKS_GRID = 1 ###################################################
+# GPSEST Whatever: Satellite Clock Epoch Grid                                 #
+#                                                                             #
+# Set CLOCKS = 1 and PRE24 = NO. Off-grid clocks remain at input values.      #
+# Interval (seconds)               > %%%%%%%%%%%%%%%%%%%% <                   # CLKS_GRID_STEP
+# Reference epoch (MJD)            > %%%%%%%%%%%%%%%%%%%% <                   # CLKS_GRID_REF
+# Epoch tolerance (seconds)        > %%%%%%%%%%%%%%%%%%%% <                   # CLKS_GRID_TOL
+# Print clock epochs and final NEQ list               > % <                   # CLKS_GRID_LOG
+# MJD uses the same time scale as the observation epochs.                     #
+# Reference 0 and interval 300 s retain 00:00, 00:05, 00:10, ...              #
+# END_PANEL ##################################################################
 
 
 # BEGIN_PANEL CLOCKR = 1 OR CLOCKS = 1 #########################################

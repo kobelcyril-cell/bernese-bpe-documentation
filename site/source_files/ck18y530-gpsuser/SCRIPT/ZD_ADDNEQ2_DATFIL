@@ -23,15 +23,19 @@ sub run {
   my (
       $yyddd,
       $sol,
+      $olap,
       $crdInf,
       $dirFix,
-      $extFix
+      $extFix,
+      $u
   ) = $bpe->getKeys(
       '$YD+0',
       'V_FIN',
+      'V_OLAP',
       'V_CRDINF',
       'DIR_FIX',
-      'EXT_FIX'
+      'EXT_FIX',
+      'U'
   );
 # ---------- Initialize FIX file ------------
   my $fixFl = "${dirFix}${sol}_${yyddd}.${extFix}";
@@ -40,6 +44,12 @@ sub run {
     system("cp $refFl $fixFl");
     prtMess($bpe, "Create initial FIX file");
   }
+
+# ----When only LAPACK solution is computed change input-NEQ---
+ if ($olap eq "YES") {
+    $bpe->putKey("$u/PAN/ADDNEQ2.INP", "INPFILE", '$(FIN)_$YSS+0');
+    }
+
 # ---------- Run program ------------
   my $PGMNAM = "ADDNEQ2";
   $bpe->RUN_PGMS($PGMNAM);

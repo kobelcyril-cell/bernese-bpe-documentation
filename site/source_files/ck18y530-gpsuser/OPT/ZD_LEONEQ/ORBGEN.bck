@@ -303,7 +303,7 @@ MSG_PARSHAD 1  "Apply partial shadow model for LEOs"
 
 ! Earth Radiation Pressure
 ! ------------------------
-ERPMODFL 1  "None"
+ERPMODFL 1  "Analytical"
   ## widget = combobox; editable = false; cards = None Analytical Numerical
   ## activeif = PLATDEF / _
 
@@ -354,14 +354,14 @@ DESCR_SPROT 1  "LEO Solar Panel Rotation"
 
 ! LEO: Airdrag
 ! ------------
-AIRDRGFL 1  "0"
+AIRDRGFL 1  "1"
   ## widget = checkbox
 
 MSG_AIRDRGFL 1  "LEO: Apply air drag"
 
 ! Satellite-wise scales
 ! ----------------------
-NCSMOD 1  "NONE"
+NCSMOD 1  "SATELLITE"
   ## widget = combobox; editable = false; cards = NONE SATELLITE PLATE-WISE
   ## activeif = PLATDEF / _
 
@@ -413,14 +413,14 @@ MSG_SCLZER 1  "Initialize scaling factors to zero"
 
 ! Constraints for macro-model scaling paramter
 ! --------------------------------------------
-SIGSCL 0
+SIGSCL 1  ""
   ## widget = lineedit; check_min = 0.0; activeif = NCSMOD = SATELLITE
 
 DESCR_SIGSCL 1  "Constrain for macro-model sacling paramters"
 
 ! Atmosphere model
 ! ----------------
-AIRMODE 0
+AIRMODE 1  "DTM2013"
   ## widget = combobox; editable = false
   ## cards = MSIS-00 MSIS-00OXI JB2008 DTM2013; activeif = AIRDRGFL == 1
 
@@ -1098,12 +1098,12 @@ USE_C 1  "1"
 
 MSG_USE_C 1  "Consider satellites from BEIDOU"
 
-USE_J 1  "0"
+USE_J 1  "1"
   ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
 
 MSG_USE_J 1  "Consider satellites from QZSS"
 
-USE_S 1  "1"
+USE_S 1  "0"
   ## widget = checkbox; activeif = RADIO_E == 0 AND SATSELECT == SYSTEM_WISE
 
 MSG_USE_S 1  "Consider satellites from SBAS"

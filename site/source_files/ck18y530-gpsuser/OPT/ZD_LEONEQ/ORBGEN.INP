@@ -261,7 +261,7 @@ MSG_MAXAC 1  "Exclude sat. with acc. code exceeding"
 
 ! Solar radiation pressure
 ! ------------------------
-SRPMODFL 1  "NONE"
+SRPMODFL 1  "ALL"
   ## widget = combobox; cards = NONE ALL SELECTED; activeif = PLATDEF / _
 
 MSG_SRPMODFL 1  "Solar Radiation Pressure"
@@ -303,7 +303,7 @@ MSG_PARSHAD 1  "Apply partial shadow model for LEOs"
 
 ! Earth Radiation Pressure
 ! ------------------------
-ERPMODFL 1  "None"
+ERPMODFL 1  "Numerical"
   ## widget = combobox; editable = false; cards = None Analytical Numerical
   ## activeif = PLATDEF / _
 
@@ -354,14 +354,14 @@ DESCR_SPROT 1  "LEO Solar Panel Rotation"
 
 ! LEO: Airdrag
 ! ------------
-AIRDRGFL 1  "0"
+AIRDRGFL 1  "1"
   ## widget = checkbox
 
 MSG_AIRDRGFL 1  "LEO: Apply air drag"
 
 ! Satellite-wise scales
 ! ----------------------
-NCSMOD 1  "NONE"
+NCSMOD 1  "SATELLITE"
   ## widget = combobox; editable = false; cards = NONE SATELLITE PLATE-WISE
   ## activeif = PLATDEF / _
 
@@ -413,14 +413,14 @@ MSG_SCLZER 1  "Initialize scaling factors to zero"
 
 ! Constraints for macro-model scaling paramter
 ! --------------------------------------------
-SIGSCL 0
+SIGSCL 1  ""
   ## widget = lineedit; check_min = 0.0; activeif = NCSMOD = SATELLITE
 
 DESCR_SIGSCL 1  "Constrain for macro-model sacling paramters"
 
 ! Atmosphere model
 ! ----------------
-AIRMODE 0
+AIRMODE 1  "DTM2013"
   ## widget = combobox; editable = false
   ## cards = MSIS-00 MSIS-00OXI JB2008 DTM2013; activeif = AIRDRGFL == 1
 
@@ -505,7 +505,7 @@ DESCR_DTCVAL 1  "JB2008: Geomag. storm dTc values"
 
 ! Solar F10.7 flux and geomagnetic index
 ! --------------------------------------
-FLXAPFIL 1  ""
+FLXAPFIL 1  "FLXAP_P"
   ## widget = selwin; path = PTH_FLXAPFIL; ext = EXT_FLXAPFIL; maxfiles = 1
   ## emptyallowed = true; activeif = FLXAPDEF == 0
 

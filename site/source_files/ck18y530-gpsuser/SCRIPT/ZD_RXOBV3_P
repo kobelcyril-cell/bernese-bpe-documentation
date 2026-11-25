@@ -71,6 +71,11 @@ sub run {
     replaceSel($bpe, "RXOBV3", "SMTFILE", $param1);
   }
 
+# Select processed GNSS systems
+# -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/RXOBV3.INP","USE_",$v_gnss);
+
 # ---------- Run program ------------
   my $PGMNAM = "RXOBV3";
   $bpe->RUN_PGMS($PGMNAM);

@@ -17,11 +17,18 @@ use strict;
 use warnings;
 use File::Basename qw(basename dirname);
 use File::Spec;
+use lib $ENV{BPE};
+use bpe_util;  
 
 sub run {
   my $bpe = shift;
 
   # Run ORBGEN and check for error.
+  # Select processed GNSS systems
+  # -----------------------------
+  my ($v_gnss) = $bpe->getKeys('V_GNSS');
+  &setGNSS($bpe,"$ENV{U}/PAN/ORBGEN.INP","USE_",$v_gnss);
+
   my $PGMNAM = "ORBGEN";
   my $run_error;
   eval { $bpe->RUN_PGMS($PGMNAM); 1 } or $run_error = $@ || "ORBGEN failed";
@@ -39,15 +46,15 @@ sub run {
     $dirBpe,
     $taskId,
     $pid,
-    $extLog
+    $extLog,
   ) = $bpe->getKeys(
     'DIR_OUT',
     '$S+0',
     '$YD+0',
     '$YSS+0',
     'V_SATCRX',
-    'DIR_CRX',
-    'EXT_CRX',
+    'PTH_SATCRUX',
+    'EXT_SATCRUX',
     'DIR_BPELOG',
     'TASKID',
     'PID',
@@ -59,6 +66,7 @@ sub run {
 
   my %bad_satellites;
   my %velocity_bad_satellites;
+  my %ellipse_bad_satellites;
   my ($from, $to);
   open my $out, '<', $orb_file
     or die "Cannot read ORBGEN output $orb_file: $!\n";
@@ -107,17 +115,32 @@ sub run {
     (?:(?!It\s+does\s+not\s+look\s+like\s+a\s+satellite\s+velocity\.).)*?
     Satellite\s+number:\s*(\d+)\b
   /isx;
-  for my $sr_section (split /(?=\*{3,}\s+SR\b)/s, $task_log_text) {
-    next unless $sr_section =~ /\*{3,}\s+SR\s+deqrhs,\s*PG\s+ORBGEN\b/i;
-    while ($sr_section =~ /$velocity_error_pattern/g) {
+  for my $sr_section (split /(?=^[ \t]*\*{3,}[ \t]+SR\b)/m, $task_log_text) {
+    if ($sr_section =~ /^[ \t]*\*{3,}[ \t]+SR[ \t]+deqrhs,[ \t]*PG[ \t]+ORBGEN\b/im) {
+      while ($sr_section =~ /$velocity_error_pattern/g) {
+        my $sat = $1;
+        $velocity_bad_satellites{$sat} = 1;
+        $bad_satellites{$sat} = 1;
+      }
+    }
+
+    if ($sr_section =~ /^[ \t]*\*{3,}[ \t]+SR[ \t]+xyzEle,[ \t]*PG[ \t]+ORBGEN\b/im
+        && $sr_section =~ /Orbit\s+is\s+no\s+ellipse,\s*execution\s+stopped\b/i
+        && $sr_section =~ /Satellite\s+number:\s*(\d+)\b/i) {
       my $sat = $1;
-      $velocity_bad_satellites{$sat} = 1;
+      $ellipse_bad_satellites{$sat} = 1;
       $bad_satellites{$sat} = 1;
+      print "[ZD_ORBGEN_APR] Detected non-elliptic orbit for satellite $sat in BPE log $task_log\n";
     }
   }
 
-  die "Cannot exclude satellite(s) with ORBGEN velocity errors: date boundaries are missing\n"
-    if %velocity_bad_satellites && (!$from || !$to);
+  die "Cannot exclude satellite(s) with ORBGEN errors: date boundaries are missing\n"
+    if (%velocity_bad_satellites || %ellipse_bad_satellites) && (!$from || !$to);
+
+  print "[ZD_ORBGEN_APR] CRX write check: satellites=",
+    (%bad_satellites ? join(',', sort { $a <=> $b } keys %bad_satellites) : '(none)'),
+    ", from=", (defined $from ? $from : '(undefined)'),
+    ", to=", (defined $to ? $to : '(undefined)'), "\n";
 
   if (%bad_satellites && $from && $to) {
     my $satcrx_name = basename($satcrx);
@@ -126,11 +149,15 @@ sub run {
     $satcrx_name =~ s/\.\Q$crx_ext\E\z//i;
     $satcrx_name .= "." . $crx_ext;
     my $satcrx_file = File::Spec->catfile($dirCrx, $satcrx_name);
+    print "[ZD_ORBGEN_APR] SATCRX write target: $satcrx_file\n";
+    print "[ZD_ORBGEN_APR] SATCRX absolute target: ", File::Spec->rel2abs($satcrx_file), "\n";
+    print "[ZD_ORBGEN_APR] SATCRX file size before: ", (-e $satcrx_file ? (-s $satcrx_file) : '(file missing)'), "\n";
 
     open my $crx_in, '<', $satcrx_file
       or die "Cannot read SATCRX file $satcrx_file: $!\n";
     my @crx_lines = <$crx_in>;
     close $crx_in or die "Cannot close SATCRX file $satcrx_file after reading: $!\n";
+    print "[ZD_ORBGEN_APR] Read ", scalar(@crx_lines), " existing lines from $satcrx_file\n";
     my @new_crx_lines;
     for my $sat (sort { $a <=> $b } keys %bad_satellites) {
       my ($from_year, $from_month, $from_day) = $from =~ /^(\d{4})-(\d\d)-(\d\d)$/;
@@ -142,6 +169,7 @@ sub run {
         "%5d         3         2       %4d %02d %02d 00 00 00  %4d %02d %02d 23 59 59\n",
         $sat, $from_year, $from_month, $from_day, $to_year, $to_month, $to_day);
       push @new_crx_lines, ["$from_year$from_month$from_day", $crx_line];
+      print "[ZD_ORBGEN_APR] Prepared CRX record for satellite $sat: $crx_line";
     }
 
     # Search the 3 2 list from the bottom and insert after the last entry
@@ -160,6 +188,7 @@ sub run {
       }
       $insert_at = 0 unless defined $insert_at;
       splice @crx_lines, $insert_at, 0, $new_line;
+      print "[ZD_ORBGEN_APR] Inserted record at CRX line ", $insert_at + 1, ": $new_line";
     }
 
     if (@crx_lines && $crx_lines[-1] !~ /[\r\n]\z/) {
@@ -167,15 +196,33 @@ sub run {
     }
     open my $crx_out, '>', $satcrx_file
       or die "Cannot rewrite SATCRX file $satcrx_file: $!\n";
+    print "[ZD_ORBGEN_APR] Writing ", scalar(@crx_lines), " total lines to $satcrx_file\n";
     print {$crx_out} @crx_lines or die "Cannot write SATCRX file $satcrx_file: $!\n";
     close $crx_out or die "Cannot close SATCRX file $satcrx_file: $!\n";
+    print "[ZD_ORBGEN_APR] SATCRX write and close succeeded; file size after: ", (-s $satcrx_file), " bytes\n";
+    open my $crx_verify, '<', $satcrx_file
+      or die "Cannot verify SATCRX file $satcrx_file: $!\n";
+    my @written_crx_lines = <$crx_verify>;
+    close $crx_verify or die "Cannot close SATCRX verification read for $satcrx_file: $!\n";
+    for my $new_record (@new_crx_lines) {
+      my $expected_line = $new_record->[1];
+      my $found = scalar grep { $_ eq $expected_line } @written_crx_lines;
+      print "[ZD_ORBGEN_APR] Read-back verification for SATCRX record $expected_line",
+        ($found ? 'FOUND' : 'NOT FOUND'), " in $satcrx_file\n";
+      die "SATCRX verification failed for record: $expected_line"
+        unless $found;
+    }
 
     # Record each exclusion in the processing log.
     my $processing_file = File::Spec->catfile(
       dirname($orb_file), '..', 'MSC', "MSC_$yyddd", "PROCESSING_$yyddd");
+    print "[ZD_ORBGEN_APR] Processing log target: $processing_file\n";
+    print "[ZD_ORBGEN_APR] Processing log absolute target: ", File::Spec->rel2abs($processing_file), "\n";
     open my $processing, '>>', $processing_file
       or die "Cannot append to processing file $processing_file: $!\n";
-    print {$processing} "=== CREATE FIRST A PRIORI ORBIT started ===\n"
+    my $start_note = "=== CREATE FIRST A PRIORI ORBIT started ===\n";
+    print "[ZD_ORBGEN_APR] Writing to processing log: $start_note";
+    print {$processing} $start_note
       or die "Cannot write processing file $processing_file: $!\n";
     for my $sat (sort { $a <=> $b } keys %bad_satellites) {
       my $note = $velocity_bad_satellites{$sat}
@@ -187,12 +234,16 @@ sub run {
             "Very bad a priori orbit for satellite %d -> Excluded; entry in SAT-crx created\n",
             $sat
           );
+      print "[ZD_ORBGEN_APR] Writing to processing log: $note";
       print {$processing} $note
         or die "Cannot write processing file $processing_file: $!\n";
     }
-    print {$processing} "=== CREATE FIRST A PRIORI ORBIT finished ===\n"
+    my $finish_note = "=== CREATE FIRST A PRIORI ORBIT finished ===\n";
+    print "[ZD_ORBGEN_APR] Writing to processing log: $finish_note";
+    print {$processing} $finish_note
       or die "Cannot write processing file $processing_file: $!\n";
     close $processing or die "Cannot close processing file $processing_file: $!\n";
+    print "[ZD_ORBGEN_APR] Processing log write and close succeeded: $processing_file\n";
 
     # Re-run once with the problematic satellites excluded for this arc.
     my $retry_error;

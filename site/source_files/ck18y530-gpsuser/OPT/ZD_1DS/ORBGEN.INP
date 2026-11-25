@@ -659,14 +659,14 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
 
 ! Local Geodetic Datum
 ! --------------------
-DATUM 1  "$(DATUM)"
+DATUM 1  "DATUM"
   ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
 
 DESCR_DATUM 1  "Geodetic datum"

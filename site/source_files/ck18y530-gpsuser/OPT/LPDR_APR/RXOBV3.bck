@@ -63,7 +63,7 @@ DESCR_SATELL 1  "Satellite information"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -145,6 +145,7 @@ MSG_SMTFILE 1  "Smoothed RINEX observation files"
 ! ----------------------------------------------
 STAINFO 1  "$(STAINF)"
   ## widget = selwin; path = DIR_STA; ext = EXT_STA; emptyallowed = true
+  ## maxfiles = 1
 
 DESCR_STAINFO 1  "Station information"
 
@@ -841,8 +842,9 @@ MSG_ROUNDOT 1  "Rounding of fractional part of observation time"
 ! -----------------------------------------------------
 RNXINFO 1  ""
   ## widget = selwin; path = DIR_CRX; ext = EXT_CRX; emptyallowed = true
+  ## maxfiles = 1
 
-DESCR_RNXINFO 1  "Accepted station information"
+DESCR_RNXINFO 1  "Accepted station information file"
 
 ! Extensions of the Output Files
 ! ------------------------------

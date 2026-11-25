@@ -102,17 +102,17 @@ MSG_PRTFITRMS 1  "Print RMS after last iteration"
 
 ! Estimated Parameters
 ! --------------------
-PAR1 1  "1"
+PAR1 1  "0"
   ## widget = checkbox; activeif = DEFPAR == 0
 
 MSG_PAR1 1  "Parameter 1 of an empirical model for GNSS"
 
-PAR2 1  "1"
+PAR2 1  "0"
   ## widget = checkbox; activeif = DEFPAR == 0
 
 MSG_PAR2 1  "Parameter 2 of an empirical model for GNSS"
 
-PAR3 1  "1"
+PAR3 1  "0"
   ## widget = checkbox; activeif = DEFPAR == 0
 
 MSG_PAR3 1  "Parameter 3 of an empirical model for GNSS"
@@ -212,12 +212,12 @@ STOCH_NUMBER 1  "NONE"
 
 MSG_STOCH_NUMBER 1  "Setup of stochastic pulses"
 
-STOCH_MANUAL 0
+STOCH_MANUAL 1  ""
   ## widget = lineedit; activeif = STOCH_NUMBER = Manual AND RPROUT = _
 
 MSG_STOCH_MANUAL 1  "Satellite list for stochastic pulses"
 
-STOCH_INTER 0
+STOCH_INTER 1  ""
   ## widget = lineedit; check_type = time
   ## activeif = STOCH_NUMBER / No_setup AND STOCH_NUMBER / SATCRUX AND STOCH_NUMBER / Orbit_midnight AND STOCH_NUMBER / ELE_file AND RPROUT = _
 
@@ -261,7 +261,7 @@ MSG_MAXAC 1  "Exclude sat. with acc. code exceeding"
 
 ! Solar radiation pressure
 ! ------------------------
-SRPMODFL 1  "NONE"
+SRPMODFL 1  "ALL"
   ## widget = combobox; cards = NONE ALL SELECTED; activeif = PLATDEF / _
 
 MSG_SRPMODFL 1  "Solar Radiation Pressure"
@@ -303,7 +303,7 @@ MSG_PARSHAD 1  "Apply partial shadow model for LEOs"
 
 ! Earth Radiation Pressure
 ! ------------------------
-ERPMODFL 1  "None"
+ERPMODFL 1  "Numerical"
   ## widget = combobox; editable = false; cards = None Analytical Numerical
   ## activeif = PLATDEF / _
 
@@ -354,14 +354,14 @@ DESCR_SPROT 1  "LEO Solar Panel Rotation"
 
 ! LEO: Airdrag
 ! ------------
-AIRDRGFL 1  "0"
+AIRDRGFL 1  "1"
   ## widget = checkbox
 
 MSG_AIRDRGFL 1  "LEO: Apply air drag"
 
 ! Satellite-wise scales
 ! ----------------------
-NCSMOD 1  "NONE"
+NCSMOD 1  "SATELLITE"
   ## widget = combobox; editable = false; cards = NONE SATELLITE PLATE-WISE
   ## activeif = PLATDEF / _
 
@@ -413,14 +413,14 @@ MSG_SCLZER 1  "Initialize scaling factors to zero"
 
 ! Constraints for macro-model scaling paramter
 ! --------------------------------------------
-SIGSCL 0
+SIGSCL 1  ""
   ## widget = lineedit; check_min = 0.0; activeif = NCSMOD = SATELLITE
 
 DESCR_SIGSCL 1  "Constrain for macro-model sacling paramters"
 
 ! Atmosphere model
 ! ----------------
-AIRMODE 0
+AIRMODE 1  "DTM2013"
   ## widget = combobox; editable = false
   ## cards = MSIS-00 MSIS-00OXI JB2008 DTM2013; activeif = AIRDRGFL == 1
 
@@ -505,7 +505,7 @@ DESCR_DTCVAL 1  "JB2008: Geomag. storm dTc values"
 
 ! Solar F10.7 flux and geomagnetic index
 ! --------------------------------------
-FLXAPFIL 1  "$(FLUX)"
+FLXAPFIL 1  "FLXAP_P"
   ## widget = selwin; path = PTH_FLXAPFIL; ext = EXT_FLXAPFIL; maxfiles = 1
   ## emptyallowed = true; activeif = FLXAPDEF == 0
 
@@ -563,7 +563,7 @@ DESCR_POLE 1  "Earth rotation parameters"
 
 ! Albedo reflectivity
 ! -------------------
-ALBREFL 1  ""
+ALBREFL 1  "REFLMO$M"
   ## widget = selwin; path = PTH_ALBREFL; ext = EXT_ALBREFL; maxfiles = 1
   ## emptyallowed = true
 
@@ -571,7 +571,7 @@ DESCR_ALBREFL 1  "Albedo reflectivity"
 
 ! Albedo emissivity
 ! -----------------
-ALBEMIS 1  ""
+ALBEMIS 1  "EMITMO$M"
   ## widget = selwin; path = PTH_ALBEMIS; ext = EXT_ALBEMIS; maxfiles = 1
   ## emptyallowed = true
 
@@ -655,14 +655,14 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
 
 ! Local Geodetic Datum
 ! --------------------
-DATUM 1  "$(DATUM)"
+DATUM 1  "DATUM"
   ## widget = selwin; path = PTH_DATUM; ext = EXT_DATUM; maxfiles = 1
 
 DESCR_DATUM 1  "Geodetic datum"
@@ -682,7 +682,7 @@ DESCR_PLATDEF 1  "Satellite macro model"
 
 ! Planetary Ephemeris
 ! -------------------
-JPLEPH 1  "$(EPH)"
+JPLEPH 1  "$(PEPH)"
   ## widget = selwin; path = PTH_JPLEPH; ext = EXT_JPLEPH; maxfiles = 1
   ## emptyallowed = true
 
@@ -698,7 +698,7 @@ DESCR_SETIDES 1  "Solid Earth tides file"
 
 ! Ocean Tides File
 ! ----------------
-OTIDES 1  "$(OT)"
+OTIDES 1  "$(OTID)"
   ## widget = selwin; path = PTH_TID; ext = EXT_TID; maxfiles = 1
   ## emptyallowed = true
 

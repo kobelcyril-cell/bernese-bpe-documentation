@@ -1,0 +1,228 @@
+package LEO_NEQ_CHECK;
+@ISA = ("RUNBPE");
+# ============================================================================
+#
+# Name    :  LEO_NEQ_CHECK
+#
+# Purpose :  Check the daily NEQ output for every selected LEO and write a
+#            date-specific report into the MSC directory.
+#
+# Author  :  C. Kobel
+# Created :  16-Sep-2026
+#
+# ============================================================================
+use strict;
+use warnings;
+use File::Basename qw(dirname);
+use File::Spec;
+
+sub run {
+    my ($bpe) = @_;
+
+    my ($name, $dir_out, $dir_neq, $config_yyssss, $processing_yyddd) =
+        $bpe->getKeys('V_LFILE', 'DIR_OUT', 'DIR_NEQ', '$YSS+0', '$YD+0');
+
+    die "V_LFILE must be a filename without a directory\n"
+        unless defined $name && $name =~ /^[A-Za-z0-9][A-Za-z0-9_.-]*$/;
+    die "DIR_OUT is not set\n" unless defined $dir_out && length $dir_out;
+    die "DIR_NEQ is not set\n" unless defined $dir_neq && length $dir_neq;
+    die "\$YSS+0 must expand to YYSSSS (six digits)\n"
+        unless defined $config_yyssss && $config_yyssss =~ /^\d{6}$/;
+    die "\$YD+0 must expand to YYDDD (five digits)\n"
+        unless defined $processing_yyddd && $processing_yyddd =~ /^\d{5}$/;
+
+    $dir_out =~ s{[\\/]+$}{};
+    $dir_neq =~ s{[\\/]+$}{};
+
+    my $msc_dir = File::Spec->catdir(dirname($dir_out), 'MSC');
+    my $config_file = File::Spec->catfile(
+        $msc_dir, $name . '_' . $config_yyssss
+    );
+
+    my $config = read_config($config_file);
+    my $date = substr($processing_yyddd, 0, 2)
+             . '/'
+             . substr($processing_yyddd, 2, 3);
+
+    my %excluded_today = map { $_->[1] => 1 }
+                         grep { $_->[0] eq $date }
+                         @{$config->{exclusions}};
+
+    opendir my $neq_dh, $dir_neq
+        or die "Cannot read NEQ directory $dir_neq: $!\n";
+    my @neq_files = sort grep {
+        $_ ne '.' && $_ ne '..'
+            && -f File::Spec->catfile($dir_neq, $_)
+    } readdir $neq_dh;
+    closedir $neq_dh;
+
+    my (@created, @missing, @skipped);
+    for my $leo (@{$config->{leos}}) {
+        if ($config->{included}{$leo} ne 'Y') {
+            push @skipped, [$leo, 'Included = N'];
+            next;
+        }
+        if ($excluded_today{$leo}) {
+            push @skipped, [$leo, "excluded on $date"];
+            next;
+        }
+
+        my $rnx = $config->{variables}{$leo}[0];
+
+        # Identify the result by its four-character RNX name and the current
+        # processing day. ATT is deliberately not used for this check.
+        my @matches = grep {
+            index(uc($_), uc($rnx)) >= 0
+                && index($_, $processing_yyddd) >= 0
+        } @neq_files;
+
+        if (@matches) {
+            push @created, [$leo, $rnx, \@matches];
+        } else {
+            push @missing, [$leo, $rnx];
+        }
+    }
+
+    my $report_file = File::Spec->catfile(
+        $msc_dir, 'LEO_NEQ_REPORT_' . $processing_yyddd . '.txt'
+    );
+    open my $report, '>', $report_file
+        or die "Cannot create NEQ report $report_file: $!\n";
+
+    print {$report} "LEO NEQ report\n";
+    print {$report} "Processing date : $date ($processing_yyddd)\n";
+    print {$report} "LEO config      : $config_file\n";
+    print {$report} "NEQ directory   : $dir_neq\n";
+    print {$report} "\n";
+
+    print {$report} "NEQs created (" . scalar(@created) . ")\n";
+    print {$report} "----------------------------------------\n";
+    if (@created) {
+        for my $entry (@created) {
+            my ($leo, $rnx, $files) = @$entry;
+            print {$report} "$leo  RNX=$rnx  FILE=" . join(', ', @$files) . "\n";
+        }
+    } else {
+        print {$report} "None\n";
+    }
+
+    print {$report} "\nNEQs missing (" . scalar(@missing) . ")\n";
+    print {$report} "----------------------------------------\n";
+    if (@missing) {
+        for my $entry (@missing) {
+            my ($leo, $rnx) = @$entry;
+            print {$report} "$leo  RNX=$rnx\n";
+        }
+    } else {
+        print {$report} "None\n";
+    }
+
+    print {$report} "\nLEOs not expected (" . scalar(@skipped) . ")\n";
+    print {$report} "----------------------------------------\n";
+    if (@skipped) {
+        for my $entry (@skipped) {
+            print {$report} $entry->[0] . '  ' . $entry->[1] . "\n";
+        }
+    } else {
+        print {$report} "None\n";
+    }
+
+    close $report or die "Cannot close NEQ report $report_file: $!\n";
+
+    print "\n[LEO_NEQ_CHECK] Report written: $report_file\n";
+    print "[LEO_NEQ_CHECK] NEQs created: " . scalar(@created) . "\n";
+    print "[LEO_NEQ_CHECK] NEQs missing: " . scalar(@missing) . "\n";
+    print "[LEO_NEQ_CHECK] LEOs not expected: " . scalar(@skipped) . "\n\n";
+}
+
+sub read_config {
+    my ($file) = @_;
+    open my $fh, '<', $file
+        or die "Cannot read filtered LEO file $file: $!\n";
+
+    my (@leos, @exclusions, %included, %variables, %rnx, %excluded);
+    my ($section, $header, $line_no) = (0, 0, 0);
+    my @titles = ('', 'LEOs', 'Exclusions', 'Variables');
+    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT');
+
+    while (my $line = <$fh>) {
+        ++$line_no;
+        $line =~ s/^\xEF\xBB\xBF// if $line_no == 1;
+        $line =~ s/#.*$//;
+        $line =~ s/^\s+|\s+$//g;
+        next unless length $line;
+        my $error = sub { die "$file, line $line_no: $_[0]\n" };
+
+        if ($line =~ /^SECTION\s*([123])\s*:\s*(.+)$/i) {
+            my ($number, $title) = ($1, $2);
+            $error->('Sections must occur once, in order 1, 2, 3')
+                unless $number == $section + 1;
+            $error->("Missing column header in section $section")
+                if $section && !$header;
+            $error->("Expected section title '$titles[$number]'")
+                unless lc($title) eq lc($titles[$number]);
+            ($section, $header) = ($number, 0);
+            next;
+        }
+
+        $error->('Expected SECTION 1: LEOs') unless $section;
+        my @fields = split /\s+/, $line;
+        if (!$header) {
+            $error->("Expected column header '$headers[$section]'")
+                unless join(' ', @fields) eq $headers[$section];
+            $header = 1;
+            next;
+        }
+
+        if ($section == 1) {
+            $error->('Expected LEO name and Y or N')
+                unless @fields == 2 && $fields[1] =~ /^[YN]$/;
+            my ($leo, $flag) = @fields;
+            $error->('Invalid LEO name')
+                unless $leo =~ /^[A-Za-z0-9][A-Za-z0-9_-]*$/;
+            $error->("Duplicate LEO '$leo'") if exists $included{$leo};
+            push @leos, $leo;
+            $included{$leo} = $flag;
+        } elsif ($section == 2) {
+            $error->('Expected YY/DDD and LEO name')
+                unless @fields == 2 && $fields[0] =~ /^(\d{2})\/(\d{3})$/;
+            my ($year, $day) = (2000 + $1, 0 + $2);
+            my $max_day = ($year % 4 == 0) ? 366 : 365;
+            $error->('Invalid day of year')
+                unless $day >= 1 && $day <= $max_day;
+            my ($date, $leo) = @fields;
+            $error->("Unknown LEO '$leo'") unless exists $included{$leo};
+            $error->("Duplicate exclusion '$date $leo'")
+                if $excluded{"$date $leo"}++;
+            push @exclusions, [$date, $leo];
+        } else {
+            $error->('Expected LEO name, RNX and ATT') unless @fields == 3;
+            my ($leo, $prefix, $att) = @fields;
+            $error->("Unknown LEO '$leo'") unless exists $included{$leo};
+            $error->("Duplicate variables for '$leo'")
+                if exists $variables{$leo};
+            $error->('RNX must contain four letters or digits')
+                unless $prefix =~ /^[A-Za-z0-9]{4}$/;
+            $error->("Duplicate RNX prefix '$prefix'") if $rnx{uc $prefix}++;
+            $error->('ATT must be a basename; Bernese variables are allowed')
+                unless $att =~ /^[A-Za-z0-9_\$().+{}-]+$/;
+            $variables{$leo} = [$prefix, $att];
+        }
+    }
+    close $fh;
+
+    die "$file: all three sections and their column headers are required\n"
+        unless $section == 3 && $header;
+    die "$file: section 1 contains no LEOs\n" unless @leos;
+    for my $leo (@leos) {
+        die "$file: missing variables for '$leo'\n"
+            unless exists $variables{$leo};
+    }
+
+    return {
+        leos       => \@leos,
+        included   => \%included,
+        exclusions => \@exclusions,
+        variables  => \%variables,
+    };
+}

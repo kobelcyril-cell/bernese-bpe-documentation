@@ -47,7 +47,7 @@ MSG_INPFILE 1  "Normal equations"
 
 INPFILE_TXT_COL_1 1  "Name"
 
-INPFILE_CONSTR 0
+INPFILE_CONSTR 1  ""
   ## widget = selwin; path = DIR_NEQ; ext = EXT_NEQ; emptyallowed = true
 
 MSG_INPFILE_CONSTR 1  "Normal equations with constraints"
@@ -155,7 +155,7 @@ DESCR_POLE 1  "Earth rotation parameters"
 
 ! Satellite Clock File, input
 ! --------------------
-SATCLK 1  "FIN$YD+0"
+SATCLK 1  "$(APR)_$YSS+0"
   ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
   ## emptyallowed = true; activeif = RXCLKIN = _
 
@@ -218,7 +218,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
   ## emptyallowed = true
 
@@ -318,7 +318,7 @@ SYSODEF 1  "0"
 
 MSG_SYSODEF 1  "Program output"
 
-SYSOUT 1  "$T_$YSS+0$(D4)"
+SYSOUT 1  "$(FIN)_$YSS+0$(D4)"
   ## widget = lineedit; path = DIR_OUT; ext = EXT_OUT
   ## activeif = SYSODEF == 0; emptyallowed = false
 
@@ -468,7 +468,7 @@ DESCR_BIASSNX 1  "BIAS SINEX"
 
 ! Orbital elements
 ! ----------------
-ELEFILE 1  "$(D4)??????"
+ELEFILE 1  ""
   ## widget = lineedit; path = DIR_ELE; ext = EXT_ELE
 
 DESCR_ELEFILE 1  "Orbital elements"
@@ -540,14 +540,14 @@ DESCR_PHASRSG 1  "Antenna model results"
 
 ! Satellite Clock File, output
 ! --------------------
-CLKSAV 1  "$T$S+0$(D4)"
+CLKSAV 1  "$(FIN)$S+0$(D4)"
   ## widget = lineedit; path = DIR_CLK; ext = EXT_CLK
 
 DESCR_CLKSAV 1  "Satellite clock file"
 
 ! Clock RINEX File, output
 ! ----------------
-CLKRNX 1  "$T$S+0$(D4)"
+CLKRNX 1  "$(FIN)$S+0$(D4)"
   ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC
 
 DESCR_CLKRNX 1  "clock RINEX file"
@@ -568,13 +568,13 @@ DESCR_GRVOUT 1  "Gravity field results"
 
 ! VCE file (out) for VCE in ADDNEQ2
 ! ---------------------------------
-VCE_FILE 0
+VCE_FILE 1  ""
   ## widget = lineedit; path = DIR_VCE; ext = EXT_VCE; maxfiles = 1
   ## emptyallowed = true
 
 DESCR_VCE_FILE 1  "Variance components (out)"
 
-WGT_FILE_OUT 0
+WGT_FILE_OUT 1  ""
   ## widget = lineedit; path = DIR_WGT; ext = EXT_WGT; maxfiles = 1
   ## emptyallowed = true
 
@@ -585,15 +585,15 @@ DESCR_WGT_FILE_OUT 1  "Weight file (out)"
 ! =========================================================================
 ! Title
 ! -----
-TITLE 1  "LONG-ARC ZDM GEOMETRY FOR DAY $+0, $Y+0, 3D-sol ($T)"
+TITLE 1  "Long-arc geometry solution: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
 
 ! Maximum number of parameters in combined NEQ
 ! --------------------------------------------
-MAXPAR 1  "20000"
-  ## widget = spinbox; range = 500 20000 500
+MAXPAR 1  "46000"
+  ## widget = spinbox; range = 500 46000 500
 
 MSG_MAXPAR 1  "Maximum number of parameters in combined NEQ"
 
@@ -711,7 +711,7 @@ MSG_USE_ONLYCONSTR 1  "Use only NEQs with constraints for VCE"
 
 ! Use LAPACK inversion
 ! ---------------------
-LPINV 1  "0"
+LPINV 1  "1"
   ## widget = checkbox
 
 MSG_LPINV 1  "Use LAPACK inversion"
@@ -752,13 +752,13 @@ MSG_SETUP_GCC 1  "Set up Geocenter coordinates"
 
 ! Additional parameters: gravity field
 ! ------------------------------------
-GRA_ELIM 0
+GRA_ELIM 1  ""
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
 MSG_GRA_ELIM 1  "Gravity field coefficients"
 
-GRA_EXCP 0
+GRA_EXCP 1  ""
   ## widget = lineedit
   ## activeif = GRA_ELIM == BEFORE_STACKING OR GRA_ELIM == EXCEPT_FOR_BOUNDARIES
 
@@ -1069,7 +1069,7 @@ FREESTA_L 1  ""
 
 MSG_FREESTA_L 1  "Manual selection"
 
-FREESTA_F 1  "FIN$YD+0"
+FREESTA_F 1  "$(APR)_$YD+0"
   ## widget = selwin; activeif = FREESTA == FROM_FILE AND RADIO2_3 == 1
   ## path = DIR_FIX; ext = EXT_FIX; maxfiles = 1
 
@@ -1463,7 +1463,7 @@ MSG_CRD_EXFLG 1  "Selection for station exceptions from flag: station coordinate
 
 ! Satellite-related parameters: Observable specific code bias
 ! ---------------------------------------------------------
-OCBS_ELIM 1  ""
+OCBS_ELIM 1  "BEFORE_STACKING"
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
@@ -1477,7 +1477,7 @@ MSG_OCBS_EXCP 1  "Except for files: Observable-specific satellite code biases"
 
 ! Observable-specific code biases
 ! -------------------------------
-OCB_ELIM 1  ""
+OCB_ELIM 1  "BEFORE_STACKING"
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DO_NOT_STACK" "DELETE"
 
@@ -1901,7 +1901,7 @@ GIM_EXCP 1  ""
 
 MSG_GIM_EXCP 1  "Except for files: Global ionosphere parameters"
 
-HOI_ELIM 1  ""
+HOI_ELIM 1  "BEFORE_STACKING"
   ## widget = combobox; editable = false
   ## cards = "" "NO" "BEFORE_STACKING" "AFTER_STACKING" "EXCEPT_FOR_BOUNDARIES" "OUTSIDE_FROM_WINDOW" "DELETE"
 
@@ -3060,7 +3060,7 @@ POL_XY 1  "0.0"
 
 MSG_POL_XY 1  "X and Y pole components"
 
-POL_XYD 0
+POL_XYD 1  ""
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_POL_XYD 1  "X and Y pole drifts"

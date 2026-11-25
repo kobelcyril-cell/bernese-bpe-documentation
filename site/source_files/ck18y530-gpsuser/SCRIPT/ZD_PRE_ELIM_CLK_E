@@ -48,7 +48,7 @@ sub run {
 
 # ---------- Delay start to avoid simultaneous NEQ access ------------
 
-  my $delay = ($pid_num - 1) * 10 + 10;
+  my $delay = ($pid_num - 1) * 1 + 1;
 
 # ---------- 10s offset + slight jitter ------------
 

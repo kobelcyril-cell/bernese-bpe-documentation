@@ -72,7 +72,7 @@ DESCR_DATUM 1  "Geodetic datum"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
 
 DESCR_PHASECC 1  "Antenna corrections"
@@ -91,7 +91,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -767,7 +767,7 @@ DESCR_CLKRNX 1  "Clock RINEX"
 
 ! Receiver clock corrections (RCC file)
 ! --------------------------
-RCCFIL 0
+RCCFIL 1  ""
   ## widget = lineedit; path = DIR_RCC; ext = EXT_RCC
   ## activeif = DIFLVL = ZERO  OR DIFLVL = ZERO_AR
 
@@ -1377,7 +1377,7 @@ MSG_SCALE 1  "Helmert: Scale"
 
 ! Serve coffee
 ! ---------------------
-COFFEE 1  "0"
+COFFEE 1  "1"
   ## widget = checkbox
 
 MSG_COFFEE 1  "Serve coffee"
@@ -1603,14 +1603,14 @@ MSG_QXYPRINT 1  "Print epoch Var/Cov for coords/clocks"
 
 ! Sampling interval for re-substitution
 ! ---------------------------------
-SAMPLEPO 0
+SAMPLEPO 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_SAMPLEPO 1  "Sampling interval for resubstitution"
 
 ! Sampling interval for preelimination
 ! --------------------------------
-SAMPLEP2 0
+SAMPLEP2 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_SAMPLEP2 1  "Sampling interval for preelimination"
@@ -2336,7 +2336,7 @@ MSG_STCGROUP 1  "Stoch.forces: list of satellites"
 
 ! Satellite-wise scales
 ! ----------------------
-NCSMOD 1  "NONE"
+NCSMOD 1  "SATELLITE"
   ## widget = combobox; editable = false; cards = NONE SATELLITE PLATE-WISE
 
 MSG_NCSMOD 1  "Non-conservative scaling factor mode"
@@ -2468,7 +2468,7 @@ DEFSIGMA2 1  "0"
 
 MSG_DEFSIGMA2 1  "LEO default constraining for empirical models."
 
-PAR12 1  "1"
+PAR12 1  "0"
   ## widget = checkbox; activeif = DEFSIGMA2 /= 1
 
 MSG_PAR12 1  "LEO orb.est: parameter 1 of empirical model"
@@ -2481,7 +2481,7 @@ MSG_SIGPAR12 1  "LEO orb.est: EMP model parameter 1 sigma"
 
 ! Orb.est: Parameter 2
 ! ---------------------------
-PAR22 1  "1"
+PAR22 1  "0"
   ## widget = checkbox; activeif = DEFSIGMA2 /= 1
 
 MSG_PAR22 1  "LEO orb.est: parameter 2 of empirical model"
@@ -2494,7 +2494,7 @@ MSG_SIGPAR22 1  "LEO orb.est: EMP model parameter 2 sigma"
 
 ! Orb.est: Parameter 3
 ! ---------------------------
-PAR32 1  "1"
+PAR32 1  "0"
   ## widget = checkbox; activeif = DEFSIGMA2 /= 1
 
 MSG_PAR32 1  "LEO orb.est: parameter 3 of empirical model"
@@ -2706,7 +2706,7 @@ MSG_MANSPC 1  "Maneuver setup (global vs. individual)"
 
 ! Maneuver specific settings
 ! --------------------------
-MANGROUP 1  "" "" "" "" ""
+MANGROUP 1  "" "" "" "" "" "" "" "" "" "" "" "" "" "" "" ""
   ## widget = uniline; numlines = 7
   ## activeif = MACCEST = 1 AND MINDSETUP = 1
 
@@ -4435,7 +4435,7 @@ MSG_MINSAT 1  "Minimum number of obs per satellite clock"
 
 ! Clk est.: Ref.Stations list
 ! ---------------------------
-STATION8 0
+STATION8 1  ""
   ## widget = selwin; pointer = CENLST
   ## activeif = CLOCKR = 1 AND CLOCKS = 1 AND REFCLOCKR = MANUAL
 
@@ -4443,7 +4443,7 @@ MSG_STATION8 1  "Manual station selection"
 
 ! Clk est.: Ref.Stations list
 ! ---------------------------
-SATELLITE8 0
+SATELLITE8 1  ""
   ## widget = selwin; pointer = SATLST
   ## activeif = CLOCKR = 1 AND CLOCKS = 1 AND REFCLOCKS = MANUAL
 

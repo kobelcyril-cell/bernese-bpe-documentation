@@ -91,7 +91,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! Satellite Information
 ! ---------------------
-SATELL 1  "$(SATINF)_$(PCV)"
+SATELL 1  "$(SATINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_SATELL; ext = EXT_SATELL; maxfiles = 1
 
 DESCR_SATELL 1  "Satellite information"
@@ -106,7 +106,7 @@ DESCR_SATCRUX 1  "Satellite problems"
 
 ! Earth Potential
 ! ---------------
-POTCOE 1  "EGM2008_SMALL"
+POTCOE 1  "$(POTCOE)"
   ## widget = selwin; path = PTH_POTCOE; ext = EXT_POTCOE; maxfiles = 1
   ## emptyallowed = true
 
@@ -295,7 +295,7 @@ DESCR_COORD 1  "Station coordinates"
 
 ! Standard Orbit
 ! --------------
-STDORB 1  "$(ORB)_$YYYSS+0"
+STDORB 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
   ## activeif = STDORB_NEW == _
 
@@ -309,7 +309,7 @@ DESCR_STDORB_NEW 1  "Satellite standard orbits (new)"
 
 ! ERP File
 ! ---------
-POLE 1  "$(ORB)_$YYYSS+0"
+POLE 1  "$(ORB)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
 
 DESCR_POLE 1  "Earth rotation parameters"
@@ -362,7 +362,7 @@ DESCR_OCNLOAD 1  "Ocean tidal loading"
 
 ! Atmospheric Tidal Loading Tables
 ! --------------------------------
-ATMLOAD 1  "$(ATLINF)"
+ATMLOAD 1  "VAPL"
   ## widget = selwin; path = DIR_ATL; ext = EXT_ATL; maxfiles = 1
   ## emptyallowed = true
 
@@ -620,14 +620,14 @@ MSG_CONT_ERR 1  "End program normally even in case of errors"
 
 ! Ignore errors wihtin specified subroutines
 ! ------------------------------------------
-IGNORE_ERR 1  ""
+IGNORE_ERR 1  "D_PHAECC:search_off"
   ## widget = uniline; numlines = 5
 
 MSG_IGNORE_ERR 1  "Ignore errors within specified subroutines"
 
 ! Normal Equations
 ! ----------------
-NEQUARS 0
+NEQUARS 1  ""
   ## widget = lineedit; path = DIR_NEQ; ext = EXT_NEQ
 
 DESCR_NEQUARS 1  "Normal equations"
@@ -648,28 +648,28 @@ DESCR_COORDRS 1  "Station coordinates"
 
 ! Orbital Elements
 ! ----------------
-ORBITRS 0
+ORBITRS 1  ""
   ## widget = lineedit; path = DIR_ELE; ext = EXT_ELE
 
 DESCR_ORBITRS 1  "GNSS orbital elements"
 
 ! Earth Rotation Parameters
 ! -------------------------
-POLERS 0
+POLERS 1  ""
   ## widget = lineedit; path = DIR_ERP; ext = EXT_ERP
 
 DESCR_POLERS 1  "Earth rotation parameters (BERNESE)"
 
 ! Pole in IERS Format
 ! -------------------
-IERSPOL 0
+IERSPOL 1  ""
   ## widget = lineedit; path = DIR_IEP; ext = EXT_IEP
 
 DESCR_IERSPOL 1  "IERS ERP file"
 
 ! Troposphere Parameters
 ! ----------------------
-TROPSAV 0
+TROPSAV 1  ""
   ## widget = lineedit; path = DIR_TRP; ext = EXT_TRP
   ## activeif = GEOTEC = GNSS
 
@@ -677,7 +677,7 @@ DESCR_TROPSAV 1  "Troposphere estimates"
 
 ! Troposphere SINEX
 ! -----------------
-TROPSNX 0
+TROPSNX 1  ""
   ## widget = lineedit; path = DIR_TRO; ext = EXT_TRO
   ## activeif = GEOTEC = GNSS
 
@@ -685,7 +685,7 @@ DESCR_TROPSNX 1  "Troposphere SINEX"
 
 ! Troposphere slant delays
 ! ------------------------
-TROPSLA 0
+TROPSLA 1  ""
   ## widget = lineedit; path = DIR_TRS; ext = EXT_TRS
   ## activeif = GEOTEC = GNSS AND DIFLVL = ZERO OR DIFLVL = ZERO_AR
 
@@ -693,7 +693,7 @@ DESCR_TROPSLA 1  "Troposphere slant delays"
 
 ! Ionosphere Models
 ! -----------------
-IONOSRS 0
+IONOSRS 1  ""
   ## widget = lineedit; path = DIR_ION; ext = EXT_ION
   ## activeif = GEOTEC = GNSS
 
@@ -701,7 +701,7 @@ DESCR_IONOSRS 1  "Ionosphere models"
 
 ! Ionosphere Maps
 ! ---------------
-IONEXRS 0
+IONEXRS 1  ""
   ## widget = lineedit; path = DIR_INX; ext = EXT_INX
   ## activeif = GEOTEC = GNSS
 
@@ -709,7 +709,7 @@ DESCR_IONEXRS 1  "IONEX"
 
 ! Code Bias Output File
 ! ---------------------
-OSBOUT 0
+OSBOUT 1  ""
   ## widget = lineedit; path = DIR_OSB; ext = EXT_OSB
   ## activeif = GEOTEC = GNSS
 
@@ -717,7 +717,7 @@ DESCR_OSBOUT 1  "Observable-specific code biases"
 
 ! Bias SINEX Output File
 ! ----------------------
-BIASSNX 0
+BIASSNX 1  ""
   ## widget = lineedit; path = DIR_BIA; ext = EXT_BIA
   ## activeif = GEOTEC = GNSS
 
@@ -725,14 +725,14 @@ DESCR_BIASSNX 1  "Bias SINEX"
 
 ! Inter-system Bias Output File
 ! -----------------------------
-ISBOUT 0
+ISBOUT 1  ""
   ## widget = lineedit; path = DIR_ISB; ext = EXT_ISB
 
 DESCR_ISBOUT 1  "Inter-system biases"
 
 ! Receiver and Satellite Antenna PCV (Grid)
 ! -----------------------------------------
-PHASRSG 0
+PHASRSG 1  ""
   ## widget = lineedit; path = DIR_PHG; ext = EXT_PHG
   ## activeif = GEOTEC = GNSS
 
@@ -740,7 +740,7 @@ DESCR_PHASRSG 1  "Phase center variations (grid)"
 
 ! Receiver Antenna PCV (Harm)
 ! ---------------------------
-PHASRSH 0
+PHASRSH 1  ""
   ## widget = lineedit; path = DIR_PHH; ext = EXT_PHH
   ## activeif = GEOTEC = GNSS
 
@@ -748,14 +748,14 @@ DESCR_PHASRSH 1  "Phase center variations (harm)"
 
 ! Gravity field coefficients
 ! --------------------------
-GRVOUT 0
+GRVOUT 1  ""
   ## widget = lineedit; path = DIR_GRV; ext = EXT_GRV
 
 DESCR_GRVOUT 1  "Gravity field coefficients"
 
 ! Satellite Clock File
 ! --------------------
-CLKSAV 0
+CLKSAV 1  ""
   ## widget = lineedit; path = DIR_CLK; ext = EXT_CLK
   ## activeif = DIFLVL = ZERO OR DIFLVL = ZERO_AR
 
@@ -763,7 +763,7 @@ DESCR_CLKSAV 1  "GNSS clock corrections"
 
 ! Clock RINEX File
 ! ----------------
-CLKRNX 0
+CLKRNX 1  ""
   ## widget = lineedit; path = DIR_RXC; ext = EXT_RXC
   ## activeif = DIFLVL = ZERO  OR DIFLVL = ZERO_AR OR GEOTEC = SLR
 
@@ -771,7 +771,7 @@ DESCR_CLKRNX 1  "Clock RINEX"
 
 ! Receiver clock corrections (RCC file)
 ! --------------------------
-RCCFIL 0
+RCCFIL 1  ""
   ## widget = lineedit; path = DIR_RCC; ext = EXT_RCC
   ## activeif = DIFLVL = ZERO  OR DIFLVL = ZERO_AR
 
@@ -799,7 +799,7 @@ MSG_RCCREF_LOC 1  "Reference for receiver clock correction: LOCAL"
 
 ! Kinem. Coordinates (output)
 ! ---------------------------
-KINOUT 0
+KINOUT 1  ""
   ## widget = lineedit; path = DIR_KIN; ext = EXT_KIN
   ## activeif = GEOTEC = GNSS
 
@@ -807,7 +807,7 @@ DESCR_KINOUT 1  "Output kinematic coordinates"
 
 ! Residuals
 ! ---------
-RESIDRS 0
+RESIDRS 1  ""
   ## widget = lineedit; path = DIR_RES; ext = EXT_RES
 
 DESCR_RESIDRS 1  "Residuals"
@@ -821,14 +821,14 @@ MSG_RES_EXTEND 1  "Extended residual output"
 
 ! Covariances (All)
 ! -----------------
-COVTTRS 0
+COVTTRS 1  ""
   ## widget = lineedit; path = DIR_COV; ext = EXT_COV
 
 DESCR_COVTTRS 1  "Full covariance matrix"
 
 ! Covariances (Coords)
 ! --------------------
-COVARRS 0
+COVARRS 1  ""
   ## widget = lineedit; path = DIR_COV; ext = EXT_COV
 
 DESCR_COVARRS 1  "Coordinate covariance matrix"
@@ -1167,14 +1167,14 @@ MSG_AMBSAVE 1  "Save resolved ambiguities"
 
 ! Introduce Widelane
 ! ------------------
-APRWIDE 1  "0"
+APRWIDE 1  "1"
   ## widget = checkbox; activeif = AMBSTRAT / inactive
 
 MSG_APRWIDE 1  "Introduce widelane integers"
 
 ! Introduce L1 and L2
 ! -------------------
-APRL1L2 1  "0"
+APRL1L2 1  "1"
   ## widget = checkbox; activeif = AMBSTRAT / inactive
 
 MSG_APRL1L2 1  "Introduce L1 and L2 integers"
@@ -1569,7 +1569,7 @@ MSG_NOSATCLK 1  "Observation without an input clock value"
 
 ! Interpolation of clocks
 ! -----------------------
-SECIPL 0
+SECIPL 1  ""
   ## widget = lineedit; check_type = real; check_min = 0
   ## activeif = NORXCLKR = INTERPOLATE OR NORXCLKS = INTERPOLATE OR NOSATCLK = INTERPOLATE AND DIFLVL / DOUBLE
 
@@ -1609,21 +1609,21 @@ MSG_QXYPRINT 1  "Print epoch Var/Cov for coords/clocks"
 
 ! Sampling interval for re-substitution
 ! ---------------------------------
-SAMPLEPO 0
+SAMPLEPO 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_SAMPLEPO 1  "Sampling interval for resubstitution"
 
 ! Sampling interval for preelimination
 ! --------------------------------
-SAMPLEP2 0
+SAMPLEP2 1  ""
   ## widget = lineedit; check_type = integer; check_min = 0
 
 MSG_SAMPLEP2 1  "Sampling interval for preelimination"
 
 ! Clk est.: Edit Level
 ! --------------------
-EDTLVL 0
+EDTLVL 1  ""
   ## widget = lineedit; check_type = real; check_min = 0.0
   ## activeif = DIFLVL / DOUBLE
 
@@ -4441,7 +4441,7 @@ MSG_MINSAT 1  "Minimum number of obs per satellite clock"
 
 ! Clk est.: Ref.Stations list
 ! ---------------------------
-STATION8 0
+STATION8 1  ""
   ## widget = selwin; pointer = CENLST
   ## activeif = CLOCKR = 1 AND CLOCKS = 1 AND REFCLOCKR = MANUAL
 
@@ -4449,7 +4449,7 @@ MSG_STATION8 1  "Manual station selection"
 
 ! Clk est.: Ref.Stations list
 ! ---------------------------
-SATELLITE8 0
+SATELLITE8 1  ""
   ## widget = selwin; pointer = SATLST
   ## activeif = CLOCKR = 1 AND CLOCKS = 1 AND REFCLOCKS = MANUAL
 
@@ -4727,7 +4727,7 @@ OSBTYP 1  "SYSTEM"
 
 MSG_OSBTYP 1  "Receiver time reference system"
 
-OSBIND 0
+OSBIND 1  ""
   ## widget = lineedit; check_type = integer
   ## activeif = OSBTYP = GROUP OR OSBTYP = SATELLITE; emptyallowed = true
 
@@ -4741,7 +4741,7 @@ OSBREC_G 1  "SYSTEM"
 
 MSG_OSBREC_G 1  "GPS observable-specific code biases"
 
-OSBIND_G 0
+OSBIND_G 1  ""
   ## widget = lineedit; check_type = integer
   ## activeif = OSBEST = 1  AND USE_G = 1 AND OSBREC_G = GROUP OR  OSBREC_G = SYSTEM
   ## emptyallowed = true
@@ -4754,7 +4754,7 @@ OSBREC_R 1  "SATELLITE"
 
 MSG_OSBREC_R 1  "GLONASS observable-specific code biases"
 
-OSBIND_R 0
+OSBIND_R 1  ""
   ## widget = lineedit; check_type = integer
   ## activeif = OSBEST = 1 AND  USE_R = 1 AND OSBREC_R = GROUP OR  OSBREC_R = SYSTEM
   ## emptyallowed = true
@@ -4767,7 +4767,7 @@ OSBREC_E 1  "SYSTEM"
 
 MSG_OSBREC_E 1  "Galileo observable-specific code biases"
 
-OSBIND_E 0
+OSBIND_E 1  ""
   ## widget = lineedit; check_type = integer
   ## activeif = OSBEST = 1 AND  USE_E = 1 AND OSBREC_E = GROUP OR  OSBREC_E = SYSTEM
   ## emptyallowed = true
@@ -4780,7 +4780,7 @@ OSBREC_C 1  "SYSTEM"
 
 MSG_OSBREC_C 1  "BeiDou observable-specific code biases"
 
-OSBIND_C 0
+OSBIND_C 1  ""
   ## widget = lineedit; check_type = integer
   ## activeif = OSBEST = 1 AND  USE_C = 1 AND OSBREC_C = GROUP OR  OSBREC_C = SYSTEM
   ## emptyallowed = true
@@ -4793,7 +4793,7 @@ OSBREC_J 1  "SYSTEM"
 
 MSG_OSBREC_J 1  "QZSS observable-specific code biases"
 
-OSBIND_J 0
+OSBIND_J 1  ""
   ## widget = lineedit; check_type = integer
   ## activeif = OSBEST = 1 AND  USE_J = 1 AND OSBREC_J = GROUP OR  OSBREC_J = SYSTEM
   ## emptyallowed = true
@@ -4806,7 +4806,7 @@ OSBREC_S 1  "SYSTEM"
 
 MSG_OSBREC_S 1  "QZSS observable-specific code biases"
 
-OSBIND_S 0
+OSBIND_S 1  ""
   ## widget = lineedit; check_type = integer
   ## activeif = OSBEST = 1 AND  USE_S = 1 AND OSBREC_S = GROUP OR  OSBREC_S = SYSTEM
   ## emptyallowed = true
@@ -4822,21 +4822,21 @@ MSG_OSBINT 1  "OSB: Parameter spacing"
 
 ! Constraint - OSB satellite
 ! --------------------------
-OSBSIGS 0
+OSBSIGS 1  ""
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_OSBSIGS 1  "Satellite biases sigma"
 
 ! Constraint - OSB receiver
 ! --------------------------
-OSBSIGR 0
+OSBSIGR 1  ""
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_OSBSIGR 1  "Receiver biases sigma"
 
 ! Inter-frequency bias, alarming limit
 ! -----------------------------------
-IFBMAX 0
+IFBMAX 1  ""
   ## widget = lineedit; check_type = real; check_min = 0.0
 
 MSG_IFBMAX 1  "Alarming limit for receiver code biases"
@@ -5447,7 +5447,7 @@ MSG_PRE33 1  "Pre-elimination: Clock ties"
 
 ! Define Time Offset
 ! ------------------
-PAR_OFF 0
+PAR_OFF 1  ""
   ## widget = lineedit; emptyallowed = true
 
 MSG_PAR_OFF 1  "Time offset for Parameter intervals"

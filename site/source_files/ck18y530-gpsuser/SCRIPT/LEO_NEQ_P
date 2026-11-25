@@ -42,7 +42,7 @@ sub read_config {
     my (@leos, @exclusions, %included, %variables, %rnx, %excluded);
     my ($section, $header, $line_no) = (0, 0, 0);
     my @titles = ('', 'LEOs', 'Exclusions', 'Variables');
-    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT');
+    my @headers = ('', 'Name Included (Y/N)', 'YY/DDD LEO', 'LEO RNX ATT V_A');
 
     while (my $line = <$fh>) {
         ++$line_no;
@@ -91,15 +91,16 @@ sub read_config {
             $error->("Duplicate exclusion '$date $leo'") if $excluded{"$date $leo"}++;
             push @exclusions, [$date, $leo];
         } else {
-            $error->('Expected LEO name, RNX and ATT') unless @fields == 3;
-            my ($leo, $prefix, $att) = @fields;
+            $error->('Expected LEO name, RNX, ATT and V_A') unless @fields == 4;
+            my ($leo, $prefix, $att, $id) = @fields;
             $error->("Unknown LEO '$leo'") unless exists $included{$leo};
             $error->("Duplicate variables for '$leo'") if exists $variables{$leo};
             $error->('RNX must contain four letters or digits') unless $prefix =~ /^[A-Za-z0-9]{4}$/;
             $error->("Duplicate RNX prefix '$prefix'") if $rnx{uc $prefix}++;
             $error->('ATT must be a basename; Bernese variables are allowed')
                 unless $att =~ /^[A-Za-z0-9_\$().+{}-]+$/;
-            $variables{$leo} = [$prefix, $att];
+            $error->('V_A must contain one uppercase letter') unless $id =~ /^[A-Z]$/;
+            $variables{$leo} = [$prefix, $att, $id];
         }
     }
     close $fh;
@@ -143,11 +144,11 @@ sub run {
 
     my @jobs;
     for my $leo (@{$config->{leos}}) {
-        my ($rnx, $att) = @{$config->{variables}{$leo}};
+        my ($rnx, $att, $id) = @{$config->{variables}{$leo}};
         print "[LEO_NEQ_P] --------------------------------------------------\n";
         print "[LEO_NEQ_P] Evaluate LEO: $leo\n";
         print "[LEO_NEQ_P]   Included = '$config->{included}{$leo}' (section 1)\n";
-        print "[LEO_NEQ_P]   RNX = '$rnx', ATT = '$att' (section 3)\n";
+        print "[LEO_NEQ_P]   RNX = '$rnx', ATT = '$att', V_A = '$id' (section 3)\n";
         print "[LEO_NEQ_P]   Excluded on $date = " . ($excluded{$leo} ? 'YES' : 'NO') . "\n";
         unless ($config->{included}{$leo} eq 'Y') {
             print "[LEO_NEQ_P]   SKIP: Included is N; no job will be created\n";
@@ -162,9 +163,9 @@ sub run {
         die "[LEO_NEQ_P] Unsupported or unresolved ATT value '$att' for $leo\n"
             unless $att =~ /^[A-Za-z0-9][A-Za-z0-9_.-]*$/;
         print "[LEO_NEQ_P]   Expanded ATT = '$att'\n";
-        print "[LEO_NEQ_P]   PARAM1 <- RNX__ATT: '${rnx}__${att}'\n";
-        print "[LEO_NEQ_P]   One field carries both values; PARAM2 is not used\n";
-        push @jobs, "${rnx}__${att}";
+        print "[LEO_NEQ_P]   PARAM1 <- RNX__V_A__ATT: '${rnx}__${id}__${att}'\n";
+        print "[LEO_NEQ_P]   One field carries all three values; PARAM2 is not used\n";
+        push @jobs, "${rnx}__${id}__${att}";
         print "[LEO_NEQ_P]   Added job " . scalar(@jobs) . ": '$jobs[-1]'\n";
     }
 

@@ -1,301 +1,251 @@
 package DEL_RXO;
 @ISA = ("RUNBPE");
-
 # ============================================================================
-# Name    :  DEL_RXO
+# Name    : DEL_RXO
 #
-# Purpose :  Delete RXO files if corresponding PZH file exists
-#            or restore files depending on PARAM1 (START/END)
+# Purpose : Delete RXO files when a matching PZH exists, or restore OBS files
+#           depending on PARAM1 (START/END)
 #
-# Author  :  C. Kobel
-# Created :  15-Jun-2026
+# Author  : C. Kobel
+# Created : 15-Jun-2026
 # ============================================================================
 
 use strict;
 use warnings;
-use File::Basename;
+use File::Basename qw(basename);
 use File::Path qw(make_path);
 use File::Copy qw(move copy);
 use File::Compare qw(compare);
+use Fcntl qw(O_WRONLY O_CREAT O_EXCL);
 
 sub run {
+    my ($bpe) = @_;
+    my ($campaign_path, $campaign, $session, $year_day, $year, $mode, $aobs) =
+        $bpe->getKeys('CAMP_PTH', 'CAMPAIGN', '$S+0', '$YD+0', '$Y', 'PARAM1', 'V_AOBS');
 
-    my $bpe = shift;
+    my $campaign_dir = "$campaign_path$campaign";
+    my $obs_dir = "$campaign_dir/OBS";
+    my $archive_dir = "$obs_dir/OBS_$session";
+    my $log_file = "$campaign_dir/MSC/MSC_$year_day/PPP_DELRXO_$mode.log";
 
-
-    # ------------------------------------------------------
-    # Get campaign directory + mode
-    # ------------------------------------------------------
-    my (
-        $camp_pth,
-        $campaign,
-        $ssss,
-        $yyddd,
-        $yy,
-        $mode
-        )
-        = $bpe->getKeys(
-        'CAMP_PTH',
-        'CAMPAIGN',
-        '$S+0',
-        '$YD+0',
-        '$Y',
-        'PARAM1'
-        );
-
-
-    # ------------------------------------------------------
-    # Directories
-    # ------------------------------------------------------
-    my $pzh_dir = "$camp_pth$campaign/OBS";
-    my $raw_dir = "$camp_pth$campaign/RAW";
-
-    my $msc_dir  = "$camp_pth$campaign/MSC/MSC_${yyddd}";
-    my $log_file = "$msc_dir/PPP_DELRXO_${mode}.log";
-
-
-    open(my $LOG, '>', $log_file)
-        or die "Cannot create $log_file: $!\n";
-
-
-    print $LOG "PPP_DELRXO report for ${ssss}\n";
-    print $LOG "MODE: $mode\n";
-    print $LOG "=============================\n\n";
-
-
+    open(my $log, '>', $log_file) or die "Cannot create $log_file: $!\n";
+    print $log "PPP_DELRXO report for $session\nMODE: $mode\n";
+    print $log "=============================\n\n";
     print "\nPPP_DELRXO MODE = $mode\n";
 
-
-    # ======================================================
-    # MODE START
-    # ======================================================
-    if (defined $mode && $mode eq "START") {
-
-
-        print "\nSTART mode active\n";
-
-
-        my $obs_archive_dir = "$pzh_dir/OBS_$ssss";
-        my $archive_exists = (-d $obs_archive_dir);
-
-
-        # --------------------------------------------------
-        # Check existing OBS_$ssss archive
-        # --------------------------------------------------
-        if ($archive_exists) {
-
-
-            print "\nOBS_$ssss already exists - checking consistency\n";
-
-
-            my @obs_files = grep {
-                -f $_
-            } glob("$pzh_dir/????${ssss}.???");
-
-
-            if (@obs_files) {
-
-
-                print "Files found in OBS root. Comparing with OBS_$ssss\n";
-
-
-                foreach my $obs_file (@obs_files) {
-
-
-                    my $base = basename($obs_file);
-                    my $archive_file = "$obs_archive_dir/$base";
-
-
-                    unless (-e $archive_file) {
-
-                        die "ERROR: $base exists in OBS but not in OBS_$ssss\n";
-                    }
-
-
-                    if (compare($obs_file,$archive_file) != 0) {
-
-                        die "ERROR: Difference detected for $base between OBS and OBS_$ssss\n";
-                    }
-
-
-                    print "OK     $base identical\n";
-                    print $LOG sprintf(
-                        "%-40s IDENTICAL\n",
-                        $base
-                    );
-                }
-            }
-            else {
-
-                print "No OBS files for $ssss found. Archive already exists.\n";
-		$pzh_dir = "$pzh_dir/OBS_$ssss";
-            }
-        }
-
-
-
-        # --------------------------------------------------
-        # Read available PZH stations
-        # --------------------------------------------------
-        my %pzh_station;
-
-
-        foreach my $pzh (glob("$pzh_dir/????${ssss}.PZH")) {
-
-
-            my $base = basename($pzh);
-            my $station = uc(substr($base,0,4));
-
-
-            $pzh_station{$station}=1;
-        }
-
-
-
-        # --------------------------------------------------
-        # Delete RXO files from RAW
-        # --------------------------------------------------
-        foreach my $rxo (glob("$raw_dir/????${ssss}.${yy}O")) {
-
-
-            my $base = basename($rxo);
-            my $station = uc(substr($base,0,4));
-
-
-            if (exists $pzh_station{$station}) {
-
-
-                print "DELETE $base (PZH found for $station)\n";
-                print $LOG sprintf(
-                    "%-4s DELETE\n",
-                    $station
-                );
-
-
-                unlink($rxo)
-                    or warn "WARNING: Cannot delete $rxo: $!\n";
-            }
-            else {
-
-
-                print "KEEP   $base\n";
-                print $LOG sprintf(
-                    "%-4s KEEP\n",
-                    $station
-                );
-            }
-        }
-
-
-
-        # --------------------------------------------------
-        # Move OBS files into OBS_$ssss
-        # Move if archive does not exist OR is empty
-        # --------------------------------------------------
-
-        my @archive_files = grep {
-            -f $_
-        } glob("$obs_archive_dir/????${ssss}.???");
-
-
-        if (!$archive_exists || !@archive_files) {
-
-
-            unless (-d $obs_archive_dir) {
-
-                make_path($obs_archive_dir)
-                    or die "Cannot create directory $obs_archive_dir\n";
-            }
-
-
-            print "\nMoving OBS files containing $ssss to OBS_$ssss\n";
-
-
-            foreach my $obs_file (glob("$pzh_dir/????${ssss}.???")) {
-
-
-                next if -d $obs_file;
-
-
-                my $base = basename($obs_file);
-
-
-                next if $base eq "OBS_$ssss";
-
-
-                my $target = "$obs_archive_dir/$base";
-
-
-                print "MOVE   $base -> OBS_$ssss/\n";
-
-                print $LOG sprintf(
-                    "%-40s MOVE_TO_OBS_%s\n",
-                    $base,
-                    $ssss
-                );
-
-
-                move($obs_file,$target)
-                    or warn "WARNING: Cannot move $obs_file to $target: $!\n";
-            }
-
-        }
-        else {
-
-            print "\nOBS_$ssss already contains files. No move performed.\n";
-        }
+    if (defined $mode && $mode eq 'START') {
+        _del_rxo_start($obs_dir, $archive_dir, "$campaign_dir/RAW", $session, $year, $log);
     }
-
-
-
-    # ======================================================
-    # MODE END
-    # ======================================================
-    elsif (defined $mode && $mode eq "END") {
-
-
-        print "\nEND mode active: copying files back to $pzh_dir\n";
-
-
-        foreach my $file (glob("$pzh_dir/OBS_${ssss}/????${ssss}.???")) {
-
-
-            next if -d $file;
-
-
-            my $base = basename($file);
-            my $target = "$pzh_dir/$base";
-
-
-            next if $file eq $target;
-
-
-            print "COPY $base -> $pzh_dir/\n";
-
-            print $LOG sprintf(
-                "%-40s COPY_BACK\n",
-                $base
-            );
-
-
-            copy($file,$target)
-                or warn "WARNING: Cannot copy $file to $target: $!\n";
-        }
+    elsif (defined $mode && $mode eq 'END') {
+        my $archive_current = defined $aobs && $aobs eq 'YES';
+        _del_rxo_end($obs_dir, $archive_dir, $session, $archive_current, $log);
     }
-
-
     else {
-
         die "PARAM1 must be START or END\n";
     }
 
-
-    close($LOG);
-
-
+    close($log);
     print "\nReport written to $log_file\n";
     print "\nPPP_DELRXO successfully finished\n";
 }
 
+sub _del_rxo_start {
+    my ($obs_dir, $archive_dir, $raw_dir, $session, $year, $log) = @_;
+    my $archive_name = "OBS_$session";
+    my $obs_pattern = "????${session}.???";
+    my $archive_exists = -d $archive_dir;
 
-1;
+    print "\nSTART mode active\n";
+
+    # Compare files in OBS with their archived copies.
+    if ($archive_exists) {
+        print "\n$archive_name already exists - checking consistency\n";
+        my @obs_files = grep { -f $_ } glob("$obs_dir/$obs_pattern");
+
+        if (@obs_files) {
+            print "Files found in OBS root. Comparing with $archive_name\n";
+            foreach my $file (@obs_files) {
+                my $name = basename($file);
+                my $archive_file = "$archive_dir/$name";
+
+                unless (-e $archive_file) {
+                    my $message = "WARNING: $name exists in OBS but is missing from $archive_name\n";
+                    warn $message;
+                    print $log $message;
+                    next;
+                }
+
+                if (compare($file, $archive_file) != 0) {
+                    die "ERROR: Difference detected for $name between OBS and $archive_name\n";
+                }
+
+                print "OK     $name identical\n";
+                printf $log "%-40s IDENTICAL\n", $name;
+            }
+        }
+        else {
+            print "No OBS files for $session found. Archive already exists.\n";
+        }
+    }
+
+    # Archive OBS files before deciding which RAW files can be deleted.
+    my @archive_files = grep { -f $_ } glob("$archive_dir/$obs_pattern");
+    if ($archive_exists && @archive_files) {
+        print "\n$archive_name already contains files. No move performed.\n";
+    }
+    else {
+        make_path($archive_dir) unless -d $archive_dir;
+
+        print "\nMoving OBS files containing $session to $archive_name\n";
+        foreach my $file (glob("$obs_dir/$obs_pattern")) {
+            next if -d $file;
+            my $name = basename($file);
+            my $target = "$archive_dir/$name";
+
+            print "MOVE   $name -> $archive_name/\n";
+            printf $log "%-40s MOVE_TO_OBS_%s\n", $name, $session;
+            move($file, $target) or warn "WARNING: Cannot move $file to $target: $!\n";
+        }
+    }
+
+    # Only a PZH file in the session archive permits deletion from RAW.
+    my %archived_pzh_station;
+    foreach my $file (glob("$archive_dir/????${session}.PZH")) {
+        next unless -f $file;
+        my $station = uc substr(basename($file), 0, 4);
+        $archived_pzh_station{$station} = 1;
+    }
+
+    foreach my $file (glob("$raw_dir/????${session}.${year}O")) {
+        my $name = basename($file);
+        my $station = uc substr($name, 0, 4);
+
+        if (exists $archived_pzh_station{$station}) {
+            print "DELETE $name (PZH found for $station in $archive_name)\n";
+            printf $log "%-4s DELETE\n", $station;
+            unlink($file) or warn "WARNING: Cannot delete $file: $!\n";
+        }
+        else {
+            print "KEEP   $name\n";
+            printf $log "%-4s KEEP\n", $station;
+        }
+    }
+
+}
+
+sub _del_rxo_end {
+    my ($obs_dir, $archive_dir, $session, $archive_current, $log) = @_;
+    my @required_extensions = qw(CZH CZO PZH PZO);
+    my %station_files;
+
+    # Only restore files that were in the archive before this END run.
+    foreach my $file (glob("$archive_dir/????${session}.???")) {
+        next unless -f $file;
+        my $name = basename($file);
+        my $stem = substr($name, 0, -4);
+        my $extension = substr($name, -3);
+        $station_files{$stem}{$extension} = $file;
+    }
+
+    if ($archive_current) {
+        _del_rxo_archive_current($obs_dir, $archive_dir, $session, $log);
+    }
+
+    print "\nEND mode active: copying files back to $obs_dir\n";
+    foreach my $stem (sort keys %station_files) {
+        my $files = $station_files{$stem};
+        my @found = sort keys %{$files};
+        my @missing = grep { !exists $files->{$_} } @required_extensions;
+
+        if (@found != @required_extensions || @missing) {
+            my $message = sprintf(
+                "WARNING: %s: found %d files (%s); expected %s. Skipping copy for this station.\n",
+                $stem, scalar(@found), join(", ", @found), join(", ", @required_extensions)
+            );
+            warn $message;
+            print $log $message;
+            next;
+        }
+
+        if ($archive_current) {
+            my @existing = grep {
+                my $target = "$obs_dir/$stem.$_";
+                -e $target || -l $target;
+            } @required_extensions;
+            if (@existing) {
+                _del_rxo_warn($log, "$stem: destination files already exist in OBS ("
+                    . join(', ', @existing) . '). Skipping copy for this station.');
+                next;
+            }
+        }
+
+        foreach my $extension (@required_extensions) {
+            my $file = $files->{$extension};
+            my $name = basename($file);
+            my $target = "$obs_dir/$name";
+
+            if ($archive_current) {
+                my $error = _del_rxo_copy_new($file, $target);
+                if (defined $error) {
+                    _del_rxo_warn($log, "Cannot copy $file to $target: $error");
+                    last;
+                }
+            }
+
+            print "COPY $name -> $obs_dir/\n";
+            printf $log "%-40s COPY_BACK\n", $name;
+            unless ($archive_current) {
+                copy($file, $target) or warn "WARNING: Cannot copy $file to $target: $!\n";
+            }
+        }
+    }
+}
+
+sub _del_rxo_archive_current {
+    my ($obs_dir, $archive_dir, $session, $log) = @_;
+    my @files = grep { -f $_ } glob("$obs_dir/????${session}.{CZH,CZO,PZH,PZO}");
+    return unless @files;
+
+    make_path($archive_dir) unless -d $archive_dir;
+    foreach my $file (sort @files) {
+        my $name = basename($file);
+        my $target = "$archive_dir/$name";
+        my $error = _del_rxo_copy_new($file, $target);
+        if (defined $error) {
+            _del_rxo_warn($log, "Cannot archive $name in OBS_$session: $error. Source retained.");
+            next;
+        }
+
+        unless (unlink($file)) {
+            _del_rxo_warn($log, "Archived $name but could not remove $file: $!");
+            next;
+        }
+
+        print "MOVE   $name -> OBS_$session/\n";
+        printf $log "%-40s MOVE_TO_OBS_%s\n", $name, $session;
+    }
+}
+
+sub _del_rxo_copy_new {
+    my ($source, $target) = @_;
+    sysopen(my $out, $target, O_WRONLY | O_CREAT | O_EXCL) or return "$!";
+
+    my $error;
+    unless (binmode($out) && copy($source, $out)) {
+        $error = "$!";
+    }
+    unless (close($out)) {
+        $error //= "$!";
+    }
+    if (defined $error && !unlink($target)) {
+        $error .= "; cannot remove incomplete destination: $!";
+    }
+    return $error;
+}
+
+sub _del_rxo_warn {
+    my ($log, $message) = @_;
+    warn "WARNING: $message\n";
+    print $log "WARNING: $message\n";
+}
+

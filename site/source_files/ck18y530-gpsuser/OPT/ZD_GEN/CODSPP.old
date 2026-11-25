@@ -77,7 +77,7 @@ DESCR_OBSSEL 1  "Observation selection"
 
 ! ERP File
 ! ---------
-POLE 1  "$A_$YSS+0"
+POLE 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_ERP; ext = EXT_ERP; maxfiles = 1
 
 DESCR_POLE 1  "Earth rotation parameters"
@@ -98,7 +98,7 @@ DESCR_NUTMOD 1  "Nutation model"
 
 ! Antenna phase center corrections
 ! --------------------------------
-PHASECC 1  "$(PCVINF)_$(PCV)"
+PHASECC 1  "$(PCVINF)_$(PCV)_$(PCVM)"
   ## widget = selwin; path = PTH_PHASECC; ext = EXT_PHASECC; maxfiles = 1
 
 DESCR_PHASECC 1  "Antenna corrections"
@@ -118,14 +118,14 @@ DESCR_FRQINFO 1  "Frequency information"
 
 ! Standard Orbits
 ! ---------------
-STDORB 1  "$A_$YSS+0"
+STDORB 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_STD; ext = EXT_STD; maxfiles = 1
 
 DESCR_STDORB 1  "Standard orbits"
 
 ! Satellite Clocks
 ! ----------------
-SATCLK 1  "$A_$YSS+0"
+SATCLK 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_CLK; ext = EXT_CLK; maxfiles = 1
 
 DESCR_SATCLK 1  "Satellite clock corrections"
@@ -160,7 +160,7 @@ CODEFILE_EXT_COL_4 0
 
 ! A Priori Coordinates
 ! --------------------
-COORD 1  "$A_$YSS+0"
+COORD 1  "$(BRD)_$YSS+0"
   ## widget = selwin; path = DIR_CRD; ext = EXT_CRD; maxfiles = 1
 
 DESCR_COORD 1  "Station coordinates"
@@ -367,7 +367,7 @@ MSG_DEBUG_INTERVAL 1  "Interval for intermediate debug summary"
 
 ! Title
 ! -----
-TITLE 1  "APRIORI ESTIMATES FOR CLOCKS:  $Y-$S+- ($(D4))"
+TITLE 1  "A priori estimates for clocks: $YD+0"
   ## widget = lineedit
 
 MSG_TITLE 1  "Title line"
@@ -617,7 +617,7 @@ MSG_CRNXFORM 1  "Output format version"
 
 ! Header of the new RINEX file: RUNBY
 ! -----------------------------------
-RUNBY 1  "AIUB"
+RUNBY 1  "CK"
   ## widget = lineedit
 
 MSG_RUNBY 1  "Run by"
@@ -645,14 +645,14 @@ MSG_TIMESYS 1  "Time system"
 
 ! DCB line
 ! --------
-DCBLINE 1  "CODE.BIA @ ftp.aiub.unibe.ch/CODE/"
+DCBLINE 1  "-"
   ## widget = lineedit
 
 MSG_DCBLINE 1  "Bias line"
 
 ! Header of the new RINEX file: Comments
 ! ------------------------------------
-COMMENT 1  "APRIORI ESTIMATES FOR CLOCKS USING CODE:  $Y-$S+0 ($(D4))"
+COMMENT 1  "APRIORI ESTIMATES FOR CLOCKS:  $Y-$S+0 ($(D4))"
   ## widget = uniline
 
 MSG_COMMENT 1  "Comment lines"

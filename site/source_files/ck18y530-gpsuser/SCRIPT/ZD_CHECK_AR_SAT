@@ -1,13 +1,12 @@
 package CHECK_AR_SAT;
 @ISA = ("RUNBPE");
-
 #===========================================================
 #
 # Name    : CHECK_AR_SAT
 #
 # Purpose : Check whether ambiguity resolution failed for a
 #           satellite or whether degraded satellites require
-#           SATMRK.
+#           an AR exclusion in SATCRX.
 #
 # Author  : C. Kobel
 # Created :
@@ -22,12 +21,12 @@ package CHECK_AR_SAT;
 #                           MEDIAN and MAX values
 #
 #           13-Aug-2026 CK: Archive PHACOR_LOG as ITERx
-#                           before SATMRK processing
+#                           before processing AR exclusions
 #
 #           13-Aug-2026 CK: Maximum of 3 PHACOR iterations.
 #                           After ITER3, further required
 #                           exclusions result only in a
-#                           warning. No SATMRK and no jump
+#                           warning. No SATCRX entry and no jump
 #                           back are performed.
 #
 #===========================================================
@@ -38,6 +37,75 @@ use warnings;
 use lib $ENV{BPE};
 use bpe_util;
 use lib "$ENV{AUTO}";
+use File::Basename qw(basename);
+use File::Spec;
+
+
+sub _write_satcrx_ar_entry {
+
+    my ($dirCrx, $satcrx, $extCrx, $date, $prn) = @_;
+
+    die "SATCRX name is missing (getKeys V_SATCRX)\n"
+        unless defined $satcrx && length $satcrx;
+    die "SATCRX directory or extension is missing (getKeys DIR_CRX, EXT_CRX)\n"
+        unless defined $dirCrx && length $dirCrx
+            && defined $extCrx && length $extCrx;
+
+    my ($year, $month, $day);
+    if (defined $date && $date =~ /^\s*(\d{4})[-\s]?(\d\d)[-\s]?(\d\d)\s*$/) {
+        ($year, $month, $day) = ($1, $2, $3);
+    }
+    die "Cannot parse current date for SATCRX 5 5 entry: '$date'\n"
+        unless defined $year && defined $month && defined $day;
+
+    my $name = basename($satcrx);
+    my $extension = $extCrx;
+    $extension =~ s/^\.//;
+    $name =~ s/\.\Q$extension\E\z//i;
+    $name .= "." . $extension;
+    my $satcrx_file = File::Spec->catfile($dirCrx, $name);
+    my $new_date = "$year$month$day";
+    my $new_line = sprintf("%5d         5         5       %4d %02d %02d 00 00 00\n",
+        $prn, $year, $month, $day);
+
+    open my $in, '<', $satcrx_file
+        or die "Cannot read SATCRX file $satcrx_file: $!\n";
+    my @lines = <$in>;
+    close $in or die "Cannot close SATCRX file $satcrx_file after reading: $!\n";
+
+    for my $line (@lines) {
+        if ($line =~ /^\s*\Q$prn\E\s+5\s+0\s+(\d{4})\s+(\d\d)\s+(\d\d)\b/) {
+            return ($satcrx_file, 0)
+                if "$1$2$3" eq $new_date;
+        }
+    }
+
+    # Add 5 0 events in date order relative to the dated 4 0 / 5 0 entries.
+    my ($insert_at, $first_event_at);
+    for (my $i = $#lines; $i >= 0; --$i) {
+        if ($lines[$i] =~ /^\s*-?\d+\s+[45]\s+0\s+(\d{4})\s+(\d\d)\s+(\d\d)\b/) {
+            $first_event_at = $i;
+            my $old_date = "$1$2$3";
+            if ($old_date le $new_date) {
+                $insert_at = $i + 1;
+                last;
+            }
+        }
+    }
+    $insert_at = defined($first_event_at) ? $first_event_at : scalar @lines
+        unless defined $insert_at;
+    splice @lines, $insert_at, 0, $new_line;
+
+    if (@lines && $lines[-1] !~ /[\r\n]\z/) {
+        $lines[-1] .= "\n";
+    }
+    open my $out, '>', $satcrx_file
+        or die "Cannot rewrite SATCRX file $satcrx_file: $!\n";
+    print {$out} @lines or die "Cannot write SATCRX file $satcrx_file: $!\n";
+    close $out or die "Cannot close SATCRX file $satcrx_file: $!\n";
+
+    return ($satcrx_file, 1);
+}
 
 
 sub run {
@@ -53,18 +121,26 @@ sub run {
         $param2,
         $yyddd,
         $ssss,
-	$yyssss
+	$yyssss,
+        $satcrx,
+        $dirCrx,
+        $extCrx,
+        $dateYmd
     ) = $bpe->getKeys(
         'DIR_OUT',
         'PARAM2',
         '$YD+0',
         '$S+0',
-	'$YSS+0'
+	'$YSS+0',
+        'V_SATCRX',
+        'PTH_SATCRUX',
+        'EXT_SATCRUX',
+        '$YMD_STR+0'
     );
 
     my $mscDir = "${dirOut}/../MSC/MSC_${yyddd}";
 
-    # Maximum number of PHACOR/SATMRK iterations
+    # Maximum number of PHACOR iterations
     my $MAX_ITERATIONS = 3;
 
 
@@ -144,36 +220,16 @@ sub run {
 
 
             # -------------------------------------------------
-            # Run SATMRK
+            # Exclude satellite from ambiguity resolution
             # -------------------------------------------------
 
-            $bpe->putKey(
-                "$ENV{U}/PAN/SATMRK.INP",
-                "STADAT",
-                '$YMD_STR+0'
-            );
-
-            $bpe->putKey(
-                "$ENV{U}/PAN/SATMRK.INP",
-                "ENDDAT",
-                '$YMD_STR+0'
-            );
-
-            $bpe->putKey(
-                "$ENV{U}/PAN/SATMRK.INP",
-                "SATNUM",
-                $prn
-            );
+            my ($satcrx_file, $added) = _write_satcrx_ar_entry(
+                $dirCrx, $satcrx, $extCrx, $dateYmd, $prn);
 
             print $LOG
-                "Running SATMRK for satellite $prn\n";
-
-            my $PGMNAM = "SATMRK";
-
-            $bpe->RUN_PGMS($PGMNAM);
-
-            print $LOG
-                "SATMRK completed for satellite $prn\n";
+                "Satellite $prn excluded from AR ("
+                . ($added ? "5 5 entry created" : "5 5 entry already present")
+                . " in SATCRX file $satcrx_file)\n";
 
 
             # -------------------------------------------------
@@ -195,7 +251,9 @@ sub run {
 
             print
                 "CHECK_AR_SAT: ambiguity resolution problem detected "
-                . "for satellite $prn. SATMRK executed.\n";
+                . "for satellite $prn. "
+                . ($added ? "SATCRX 5 5 entry written" : "SATCRX 5 5 entry already present")
+                . ".\n";
 
 
             prtGoto($bpe, $param2);
@@ -224,15 +282,15 @@ sub run {
     # Rules:
     #
     #   1. DEGRADED + OBS < 100
-    #      -> SATMRK
+    #      -> SATCRX 5 0 entry
     #
     #   2. If more than one satellite is DEGRADED:
     #
     #      largest MEDIAN
-    #      -> SATMRK
+    #      -> SATCRX 5 5 entry
     #
     #      largest MAX
-    #      -> SATMRK
+    #      -> SATCRX 5 5 entry
     #
     #      The same satellite may be selected twice, but
     #      will only be processed once.
@@ -358,116 +416,95 @@ sub run {
 
 
     # =========================================================
-    # Determine degraded satellites
+    # Determine degraded satellites independently for each system
     # =========================================================
 
     my @degraded_prns = sort {
         $a <=> $b
     } keys %degraded_sat;
 
-    my $num_degraded = scalar(@degraded_prns);
-
     my @problem_prns;
+    my %system_satellites;
+
+    foreach my $prn (@degraded_prns) {
+
+        my $system = $prn < 100  ? 'GPS'
+                   : $prn >= 200 && $prn < 300 ? 'Galileo'
+                   : $prn >= 400 && $prn < 500 ? 'BeiDou'
+                   : $prn >= 500 && $prn < 600 ? 'QZSS'
+                   : 'Unknown';
+
+        push @{ $system_satellites{$system} }, $prn;
+    }
 
 
-    if ($num_degraded > 0) {
+    if (@degraded_prns) {
 
         print $LOG
-            "Found $num_degraded DEGRADED satellite(s): "
+            "Found " . scalar(@degraded_prns) . " DEGRADED satellite(s): "
             . join(", ", @degraded_prns)
             . "\n";
 
+        foreach my $system (qw(GPS Galileo BeiDou QZSS Unknown)) {
 
-        # =====================================================
-        # Rule 1:
-        #
-        # DEGRADED + OBS < 100
-        # =====================================================
+            my @system_prns = @{ $system_satellites{$system} || [] };
+            next unless @system_prns;
 
-        foreach my $prn (@degraded_prns) {
+            my $num_system_degraded = scalar(@system_prns);
 
-            my $obs = $degraded_sat{$prn}{obs};
+            print $LOG
+                "$system: found $num_system_degraded DEGRADED satellite(s): "
+                . join(", ", @system_prns)
+                . "\n";
 
-            if ($obs < 100) {
+            # Rule 1: degraded satellites with fewer than 100 observations.
+            foreach my $prn (@system_prns) {
+
+                my $obs = $degraded_sat{$prn}{obs};
+
+                if ($obs < 100) {
+
+                    print $LOG
+                        "$system satellite $prn is DEGRADED and has only "
+                        . "$obs observations (<100) -> AR exclusion required\n";
+
+                    push @problem_prns, $prn;
+                }
+            }
+
+            # Rules 2 and 3 apply within this system only.
+            if ($num_system_degraded > 1) {
+
+                my $max_median_prn = $system_prns[0];
+                foreach my $prn (@system_prns) {
+                    if ($degraded_sat{$prn}{median} >
+                        $degraded_sat{$max_median_prn}{median}) {
+                        $max_median_prn = $prn;
+                    }
+                }
 
                 print $LOG
-                    "Satellite $prn is DEGRADED and has only "
-                    . "$obs observations (<100) "
-                    . "-> SATMRK required\n";
+                    "$system DEGRADED satellite with largest MEDIAN: "
+                    . "$max_median_prn (MEDIAN="
+                    . $degraded_sat{$max_median_prn}{median}
+                    . ") -> AR exclusion required\n";
+                push @problem_prns, $max_median_prn;
 
-                push @problem_prns, $prn;
-            }
-        }
-
-
-        # =====================================================
-        # Rules 2 and 3:
-        #
-        # Only if multiple satellites are DEGRADED:
-        #
-        #   largest MEDIAN
-        #   largest MAX
-        # =====================================================
-
-        if ($num_degraded > 1) {
-
-
-            # -------------------------------------------------
-            # Find largest MEDIAN
-            # -------------------------------------------------
-
-            my $max_median_prn = $degraded_prns[0];
-
-            foreach my $prn (@degraded_prns) {
-
-                if (
-                    $degraded_sat{$prn}{median}
-                    >
-                    $degraded_sat{$max_median_prn}{median}
-                ) {
-
-                    $max_median_prn = $prn;
+                my $max_max_prn = $system_prns[0];
+                foreach my $prn (@system_prns) {
+                    if ($degraded_sat{$prn}{max} >
+                        $degraded_sat{$max_max_prn}{max}) {
+                        $max_max_prn = $prn;
+                    }
                 }
+
+                print $LOG
+                    "$system DEGRADED satellite with largest MAX: "
+                    . "$max_max_prn (MAX="
+                    . $degraded_sat{$max_max_prn}{max}
+                    . ") -> AR exclusion required\n";
+                push @problem_prns, $max_max_prn;
             }
-
-
-            print $LOG
-                "DEGRADED satellite with largest MEDIAN: "
-                . "$max_median_prn "
-                . "(MEDIAN="
-                . $degraded_sat{$max_median_prn}{median}
-                . ") -> SATMRK required\n";
-
-            push @problem_prns, $max_median_prn;
-
-
-            # -------------------------------------------------
-            # Find largest MAX
-            # -------------------------------------------------
-
-            my $max_max_prn = $degraded_prns[0];
-
-            foreach my $prn (@degraded_prns) {
-
-                if (
-                    $degraded_sat{$prn}{max}
-                    >
-                    $degraded_sat{$max_max_prn}{max}
-                ) {
-
-                    $max_max_prn = $prn;
-                }
-            }
-
-
-            print $LOG
-                "DEGRADED satellite with largest MAX: "
-                . "$max_max_prn "
-                . "(MAX="
-                . $degraded_sat{$max_max_prn}{max}
-                . ") -> SATMRK required\n";
-
-            push @problem_prns, $max_max_prn;
         }
 
 
@@ -483,7 +520,7 @@ sub run {
 
 
         # =====================================================
-        # Log satellites which do NOT require SATMRK
+        # Log satellites which do NOT require AR exclusion
         # =====================================================
 
         my %selected;
@@ -507,13 +544,13 @@ sub run {
                 "Satellite $prn is DEGRADED but has sufficient "
                 . "$obs observations (>=100), "
                 . "MEDIAN=$median, MAX=$max "
-                . "-> no SATMRK\n";
+                . "-> no AR exclusion\n";
         }
     }
 
 
     # =========================================================
-    # Process satellites requiring SATMRK
+    # Process satellites requiring AR exclusion
     # =========================================================
 
     if (@problem_prns) {
@@ -529,7 +566,7 @@ sub run {
         # ITER3 exists
         #
         # -> next iteration = 4
-        # -> no SATMRK
+        # -> no SATCRX entry
         # -> no prtGoto
         # =====================================================
 
@@ -560,7 +597,7 @@ sub run {
         #
         # IMPORTANT:
         #
-        #   NO SATMRK
+        #   NO SATCRX entry
         #   NO prtGoto()
         #
         # Only warning is written.
@@ -579,7 +616,7 @@ sub run {
                 . "\n";
 
             print $LOG
-                "WARNING: NO SATMRK will be executed.\n";
+                "WARNING: No SATCRX entry will be created.\n";
 
             print $LOG
                 "WARNING: CHECK_AR_SAT will NOT jump back "
@@ -596,7 +633,7 @@ sub run {
                 . "$MAX_ITERATIONS reached. "
                 . "Further degraded satellite(s) detected: "
                 . join(", ", @problem_prns)
-                . ". No SATMRK executed and no further iteration "
+                . ". No SATCRX entry created and no further iteration "
                 . "started.\n";
 
             return;
@@ -682,48 +719,25 @@ sub run {
 
 
             # -------------------------------------------------
-            # Run SATMRK
+            # Create SATCRX 5 5 entry
             # -------------------------------------------------
 
-            $bpe->putKey(
-                "$ENV{U}/PAN/SATMRK.INP",
-                "STADAT",
-                '$YMD_STR+0'
-            );
-
-            $bpe->putKey(
-                "$ENV{U}/PAN/SATMRK.INP",
-                "ENDDAT",
-                '$YMD_STR+0'
-            );
-
-            $bpe->putKey(
-                "$ENV{U}/PAN/SATMRK.INP",
-                "SATNUM",
-                $prn
-            );
-
+            my ($satcrx_file, $added) = _write_satcrx_ar_entry(
+                $dirCrx, $satcrx, $extCrx, $dateYmd, $prn);
 
             print $LOG
-                "Running SATMRK for satellite $prn\n";
-
-
-            my $PGMNAM = "SATMRK";
-
-            $bpe->RUN_PGMS($PGMNAM);
-
-
-            print $LOG
-                "SATMRK completed for satellite $prn\n";
+                "Satellite $prn excluded from AR ("
+                . ($added ? "5 5 entry created" : "5 5 entry already present")
+                . " in SATCRX file $satcrx_file)\n";
         }
 
 
         # =====================================================
-        # SATMRK summary
+        # SATCRX summary
         # =====================================================
 
         print $LOG
-            "SATMRK executed for "
+            "SATCRX 5 5 entry processed for "
             . scalar(@problem_prns)
             . " satellite(s): "
             . join(", ", @problem_prns)
@@ -743,8 +757,7 @@ sub run {
 
         print
             "CHECK_AR_SAT: degraded satellite(s) requiring "
-            . "SATMRK detected. "
-            . "SATMRK executed for: "
+            . "AR exclusion detected. SATCRX 5 5 entries processed for: "
             . join(", ", @problem_prns)
             . "\n";
 
@@ -760,12 +773,12 @@ sub run {
 
 
     # =========================================================
-    # Nothing requiring SATMRK
+    # Nothing requiring AR exclusion
     # =========================================================
 
     print $LOG
         "Ambiguity resolution fine for all satellites.\n"
-        . "No satellite requires SATMRK.\n";
+        . "No satellite requires an AR exclusion.\n";
 
 
     print $LOG

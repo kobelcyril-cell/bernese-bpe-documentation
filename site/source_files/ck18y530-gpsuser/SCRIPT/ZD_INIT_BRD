@@ -102,7 +102,11 @@ sub run {
 
     print "Converting BRD to PRE and CLK\n";
 
-   my $PGMNAM = "RXN2PRE";
+    # Select processed GNSS systems
+    # -----------------------------
+    my ($v_gnss) = $bpe->getKeys('V_GNSS');
+    &setGNSS($bpe,"$ENV{U}/PAN/RXN2PRE.INP","USE_",$v_gnss);
+    my $PGMNAM = "RXN2PRE";
     $bpe->RUN_PGMS($PGMNAM);
     $PGMNAM = "SATCLK2";
     $bpe->RUN_PGMS($PGMNAM);
