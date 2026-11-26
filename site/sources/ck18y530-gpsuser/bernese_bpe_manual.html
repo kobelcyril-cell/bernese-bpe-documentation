@@ -80,9 +80,13 @@
     .handbook-entry { margin-top: 1.75rem; }
     .handbook-entry h3 { margin: 0 0 .5em; font-size: 1.45rem; }
     .handbook-text { max-width: 70ch; font: 1.1rem/1.7 Georgia, 'Times New Roman', serif; }
-    .handbook-text h4 { margin: 1.25em 0 .4em; font-size: 1.1em; }
+    .handbook-text h4, .handbook-text h5, .handbook-text h6 { margin: 1.25em 0 .4em; }
+    .handbook-text h4 { font-size: 1.1em; }
+    .handbook-text h5, .handbook-text h6 { font-size: 1em; }
     .handbook-text p { margin: 0 0 .8em; }
     .handbook-text .summary { color: inherit; }
+    .handbook-text code { font-size: .85em; }
+    .handbook-text pre, .manual-comments pre { overflow-x: auto; padding: .9rem 1rem; background: #eeeae0; border-radius: 6px; line-height: 1.5; }
     .handbook-reading [id], .card[id] { scroll-margin-top: 16px; }
     .toolbar ~ * .card[id] { scroll-margin-top: 96px; }
     .pcf-details > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; font-size: 18px; font-weight: 700; color: #10223d; }
@@ -134,7 +138,7 @@
     .history-footer a:hover { text-decoration: underline; }
     @media (max-width: 1100px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 900px) { .toolbar { grid-template-columns: 1fr; position: static; } .toolbar ~ * .card[id] { scroll-margin-top: 16px; } .card-head { flex-direction: column; align-items: flex-start; } }
-    @media (max-width: 680px) { .handbook-layout { grid-template-columns: 1fr; } .handbook-toc { position: static; max-height: none; } }
+    @media (max-width: 680px) { .handbook-layout { grid-template-columns: minmax(0, 1fr); } .handbook-toc { position: static; max-height: none; } }
     @media (max-width: 560px) { .overview-grid { grid-template-columns: 1fr; } }
     @media (max-width: 560px) { .source-header dl { grid-template-columns: 1fr; } .source-header dd:not(:last-child) { margin-bottom: 6px; } }
   </style>
@@ -145,20 +149,20 @@
       <a class="gpsuser-overview" href="../../index.html">← All GPSUSERs</a>
       <h1>Bernese GNSS Software BPE Documentation</h1>
       <p>Generated from: /storage/homefs/ck18y530/GPSUSER</p>
-      <p>Updated: 2026-11-26 09:47:49</p>
+      <p>Updated: 2026-11-26 14:56:08</p>
       <nav class='nav' aria-label='Manual navigation'><a class='active' href='bernese_bpe_manual.html'>Overview</a><a class='' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
     </div>
     
     <div class="stats">
       <div class="stat"><div class="label">PCF files</div><div class="value">24</div></div>
       <div class="stat"><div class="label">PCF rows</div><div class="value">576</div></div>
-      <div class="stat"><div class="label">Script files</div><div class="value">345</div></div>
-      <div class="stat"><div class="label">Program refs</div><div class="value">199</div></div>
+      <div class="stat"><div class="label">Script files</div><div class="value">350</div></div>
+      <div class="stat"><div class="label">Program refs</div><div class="value">202</div></div>
       <div class="stat"><div class="label">INP files</div><div class="value">898</div></div>
       <div class="stat"><div class="label">OPT DIRS</div><div class="value">99</div></div>
       <div class="stat"><div class="label">INP fields</div><div class="value">231619</div></div>
-      <div class="stat"><div class="label">Handbook pages</div><div class="value">43</div></div>
-      <div class="stat"><div class="label">History entries</div><div class="value">90</div></div>
+      <div class="stat"><div class="label">Handbook pages</div><div class="value">9</div></div>
+      <div class="stat"><div class="label">History entries</div><div class="value">95</div></div>
     </div>
     
     
@@ -171,7 +175,7 @@
     </div>
     <div class='section'><div class='overview-heading'><span>DOCUMENTATION MAP</span><h2>Choose where to begin</h2><p>The links below lead from the process chain to the scripts and configuration files behind it.</p></div><div class='overview-grid'><article class='overview-card'><div class='overview-card-number'>01</div><h3>PCF pages</h3><p>Go to the PCF process chains</p><a class='overview-card-link' href='bernese_bpe_pcf.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>02</div><h3>Process explanations</h3><p>Read an automatically generated explanation of each PCF</p><a class='overview-card-link' href='bernese_bpe_stories.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>03</div><h3>Scripts</h3><p>Inspect scripts used in the BPE&#x27;s</p><a class='overview-card-link' href='bernese_bpe_scripts.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>04</div><h3>INP-files</h3><p>Inspect OPT_DIRs</p><a class='overview-card-link' href='bernese_bpe_inp.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>05</div><h3>Handbook</h3><p>Open the additional documentation</p><a class='overview-card-link' href='bernese_bpe_handbook.html'>Open page <span>-></span></a></article><article class='overview-card'><div class='overview-card-number'>06</div><h3>Change History</h3><p>Review who updated the handbook and when</p><a class='overview-card-link' href='bernese_bpe_history.html'>Open page <span>-></span></a></article></div></div>
     <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
-    <div class="history-footer">Last change: 2026-11-26T09:43:01+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
+    <div class="history-footer">Last change: 2026-11-26T14:52:27+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
   </div>
   <script>
     const q = document.getElementById('q');

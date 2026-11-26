@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-11-26 09:47:49
+Generated: 2026-11-26 14:56:08
 
 ## Overview
 
@@ -10,11 +10,11 @@ This manual is generated from one or more configured source directories containi
 
 - PCF files: 24
 - PCF process rows: 576
-- Script files: 345
-- Bernese program references: 199
+- Script files: 350
+- Bernese program references: 202
 - Script file reads: 295
-- Script file writes: 182
-- Script file deletes: 120
+- Script file writes: 184
+- Script file deletes: 122
 - File references: 648
 - INP files: 898
 - INP directories: 99
@@ -33,16 +33,19 @@ This manual is generated from one or more configured source directories containi
 The following notes belong to this GPSUSER.
 
 - Start: 3 page(s)
-- Operation: 14 page(s)
-- Perl Controller: 15 page(s)
-- Python Controller: 1 page(s)
-- Python Utilities: 9 page(s)
 - System Overview: 1 page(s)
+- Controllers: 2 page(s)
+- Operations and Tools: 3 page(s)
 
 ## Change History
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
+- 2026-11-26T14:52:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T14:52:16+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
+- 2026-11-26T14:52:16+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T09:53:45+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T09:50:21+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T09:43:01+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
 - 2026-11-26T09:43:01+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T09:42:57+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
@@ -58,11 +61,6 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 - 2026-11-26T07:47:31+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T07:39:28+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
 - 2026-11-26T07:39:28+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
-- 2026-11-26T07:39:28+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:14:25+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:13:38+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:11:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
-- 2026-11-26T07:11:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 
 ## Quick Cross-Reference
 
@@ -6022,6 +6020,40 @@ Variables:
 - File writes: `$logfile`
 - File deletes: `$file)`
 - Source file: ZD_FIND_OUTLIER_STA (download from the HTML manual)
+### ZD_FIND_OUTLIER_STA_26112026
+
+- Package: `ZD_FIND_OUTLIER_STA`
+- Name: ZD_FIND_OUTLIER_STA
+- Purpose: Run HELMR1, then screen local NEU residuals for  
+  outlier candidates using component medians/MAD.
+- Author: C. Kobel
+- Created: 06-Nov-2026
+- Bernese programs: `HELMR1`
+- INP files: `HELMR1.INP`
+- Read keys:
+  - V_ variables: `V_CSCR`
+  - PARAM parameters: `PARAM2`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`, `DIR_PZH`, `EXT_OUT`
+- File writes: `$logfile`
+- File deletes: `$file)`
+- Source file: ZD_FIND_OUTLIER_STA_26112026 (download from the HTML manual)
+### ZD_FIND_OUTLIER_STA~
+
+- Package: `ZD_FIND_OUTLIER_STA`
+- Name: ZD_FIND_OUTLIER_STA
+- Purpose: Run HELMR1, then screen local NEU residuals for  
+  outlier candidates using component medians/MAD.
+- Author: C. Kobel
+- Created: 06-Nov-2026
+- Bernese programs: `HELMR1`
+- INP files: `HELMR1.INP`
+- Read keys:
+  - V_ variables: `V_CSCR`
+  - PARAM parameters: `PARAM2`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`, `DIR_PZH`, `EXT_OUT`
+- File writes: `$logfile`
+- File deletes: `$file)`
+- Source file: ZD_FIND_OUTLIER_STA~ (download from the HTML manual)
 ### ZD_FIX_CHK
 
 - Package: `FIX_CHK`
@@ -6296,6 +6328,21 @@ Variables:
   - V_ variables: `V_CRD`
   - Other keys: `$YSS+0`, `DIR_CRD`, `EXT_CRD`
 - Source file: ZD_HELMR1_VS (download from the HTML manual)
+### ZD_HELMR1_VS~
+
+- Package: `HELMR1_VS`
+- Name: HELMR1_VS
+- Purpose: HELMR1  
+    
+  Programs:  HELMR1
+- Author: C. Kobel
+- Created: 16-Mar-2026
+- Bernese programs: `HELMR1`
+- INP files: `HELMR1.INP`
+- Read keys:
+  - V_ variables: `V_CRD`
+  - Other keys: `$YSS+0`, `DIR_CRD`, `EXT_CRD`
+- Source file: ZD_HELMR1_VS~ (download from the HTML manual)
 ### ZD_IAR_STA
 
 - Package: `IAR_STA`
@@ -6580,6 +6627,28 @@ Variables:
   - V_ variables: `V_CRDINF`
   - Other keys: `DIR_FIX`, `EXT_FIX`
 - Source file: ZD_MOD_FIX (download from the HTML manual)
+### ZD_MOD_FIX_26112026
+
+- Package: `ZD_MOD_FIX`
+- Name: ZD_MOD_FIX
+- Purpose: Make modifications to the reference FIX file
+- Author: C. Kobel
+- Created: 03-Nov-2026
+- Read keys:
+  - V_ variables: `V_CRDINF`
+  - Other keys: `DIR_FIX`, `EXT_FIX`
+- Source file: ZD_MOD_FIX_26112026 (download from the HTML manual)
+### ZD_MOD_FIX~
+
+- Package: `ZD_MOD_FIX`
+- Name: ZD_MOD_FIX
+- Purpose: Make modifications to the reference FIX file
+- Author: C. Kobel
+- Created: 03-Nov-2026
+- Read keys:
+  - V_ variables: `V_CRDINF`
+  - Other keys: `DIR_FIX`, `EXT_FIX`
+- Source file: ZD_MOD_FIX~ (download from the HTML manual)
 ### ZD_MOD_OSBFIL
 
 - Package: `MOD_OSBFIL`
@@ -8095,7 +8164,7 @@ Variables:
 | $f | - | - | CHECK_AR_SAT, CLEANUP, ZD_CHECK_AR_SAT | - |
 | $fil | - | - | - | LEOITER |
 | $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_CHKPRC_PS, ZD_CMP_ERPDIFF, ZD_INIT_BRD, ZD_OSBMERGE, ZD_OSBMERGE~, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_CMP, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD | - |
-| $file) | - | - | ZD_ADD_LEO, ZD_DEL_RXO, ZD_FIND_OUTLIER_STA | - |
+| $file) | - | - | ZD_ADD_LEO, ZD_DEL_RXO, ZD_FIND_OUTLIER_STA, ZD_FIND_OUTLIER_STA_26112026, ZD_FIND_OUTLIER_STA~ | - |
 | $file) if -e $file | - | - | ZD_CODSPP_E | - |
 | $file) { prtMess(DIR_BPELOG, "GEN_NEQ_E PARAM1: WARNING: Cannot remove $file: $!" | - | - | ZD_GEN_NEQ_E | - |
 | $file)) { $deleted++ | - | - | ZD_CHKPRC_SOL | - |
@@ -8105,7 +8174,7 @@ Variables:
 | $inpFil | ZD_CODXTR | - | - | - |
 | $line | - | - | ZD_RES_CHK | - |
 | $loc | - | INIT_BRD, ZD_INIT_BRD | - | - |
-| $logfile | - | ZD_CHECK_MIN_STA, ZD_CHKPRC_AR, ZD_CHKPRC_PS, ZD_CHKPRC_SOL, ZD_FIND_OUTLIER_STA | - | - |
+| $logfile | - | ZD_CHECK_MIN_STA, ZD_CHKPRC_AR, ZD_CHKPRC_PS, ZD_CHKPRC_SOL, ZD_FIND_OUTLIER_STA, ZD_FIND_OUTLIER_STA_26112026, ZD_FIND_OUTLIER_STA~ | - | - |
 | $lst | - | - | RXOBV3GP, ZD_RXOBV3GP | - |
 | $marker | - | STATUS, ZD_STATUS | - | - |
 | $OSB_R_file | OSBMERGE | - | - | - |

@@ -80,9 +80,13 @@
     .handbook-entry { margin-top: 1.75rem; }
     .handbook-entry h3 { margin: 0 0 .5em; font-size: 1.45rem; }
     .handbook-text { max-width: 70ch; font: 1.1rem/1.7 Georgia, 'Times New Roman', serif; }
-    .handbook-text h4 { margin: 1.25em 0 .4em; font-size: 1.1em; }
+    .handbook-text h4, .handbook-text h5, .handbook-text h6 { margin: 1.25em 0 .4em; }
+    .handbook-text h4 { font-size: 1.1em; }
+    .handbook-text h5, .handbook-text h6 { font-size: 1em; }
     .handbook-text p { margin: 0 0 .8em; }
     .handbook-text .summary { color: inherit; }
+    .handbook-text code { font-size: .85em; }
+    .handbook-text pre, .manual-comments pre { overflow-x: auto; padding: .9rem 1rem; background: #eeeae0; border-radius: 6px; line-height: 1.5; }
     .handbook-reading [id], .card[id] { scroll-margin-top: 16px; }
     .toolbar ~ * .card[id] { scroll-margin-top: 96px; }
     .pcf-details > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; font-size: 18px; font-weight: 700; color: #10223d; }
@@ -134,7 +138,7 @@
     .history-footer a:hover { text-decoration: underline; }
     @media (max-width: 1100px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 900px) { .toolbar { grid-template-columns: 1fr; position: static; } .toolbar ~ * .card[id] { scroll-margin-top: 16px; } .card-head { flex-direction: column; align-items: flex-start; } }
-    @media (max-width: 680px) { .handbook-layout { grid-template-columns: 1fr; } .handbook-toc { position: static; max-height: none; } }
+    @media (max-width: 680px) { .handbook-layout { grid-template-columns: minmax(0, 1fr); } .handbook-toc { position: static; max-height: none; } }
     @media (max-width: 560px) { .overview-grid { grid-template-columns: 1fr; } }
     @media (max-width: 560px) { .source-header dl { grid-template-columns: 1fr; } .source-header dd:not(:last-child) { margin-bottom: 6px; } }
   </style>
@@ -145,20 +149,20 @@
       <a class="gpsuser-overview" href="../../index.html">← All GPSUSERs</a>
       <h1>PCF Overview</h1>
       <p>Generated from: /storage/homefs/ck18y530/GPSUSER</p>
-      <p>Updated: 2026-11-26 09:47:49</p>
+      <p>Updated: 2026-11-26 14:56:08</p>
       <nav class='nav' aria-label='Manual navigation'><a class='' href='bernese_bpe_manual.html'>Overview</a><a class='active' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
     </div>
     
     <div class="stats">
       <div class="stat"><div class="label">PCF files</div><div class="value">24</div></div>
       <div class="stat"><div class="label">PCF rows</div><div class="value">576</div></div>
-      <div class="stat"><div class="label">Script files</div><div class="value">345</div></div>
-      <div class="stat"><div class="label">Program refs</div><div class="value">199</div></div>
+      <div class="stat"><div class="label">Script files</div><div class="value">350</div></div>
+      <div class="stat"><div class="label">Program refs</div><div class="value">202</div></div>
       <div class="stat"><div class="label">INP files</div><div class="value">898</div></div>
       <div class="stat"><div class="label">OPT DIRS</div><div class="value">99</div></div>
       <div class="stat"><div class="label">INP fields</div><div class="value">231619</div></div>
-      <div class="stat"><div class="label">Handbook pages</div><div class="value">43</div></div>
-      <div class="stat"><div class="label">History entries</div><div class="value">90</div></div>
+      <div class="stat"><div class="label">Handbook pages</div><div class="value">9</div></div>
+      <div class="stat"><div class="label">History entries</div><div class="value">95</div></div>
     </div>
     
     
@@ -187,7 +191,7 @@
     <article class="card" data-kind="pcf" id="pcf-cmpsol-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">CMPSOL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-cmpsol-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/4900b661e3e1027c7263da1dce86482e025455b99a7e1d9e5339bf6130af5c2c.enc" data-download-name="CMPSOL.PCF">CMPSOL.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">CMPSOL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-cmpsol-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/f1c4f1fcf4995b388b0c7b472f95a13271e0d3cb25d8d3e46722eb807129b9a6.enc" data-download-name="CMPSOL.PCF">CMPSOL.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 17</li><li>Variables: 20</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Purpose</dt><dd>Compare solution to routine products</dd></dl></section><h4>Process Table</h4>
@@ -213,7 +217,7 @@
     <article class="card" data-kind="pcf" id="pcf-fzdmgnss-orig-ec-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">FZDMGNSS_ORIG_EC.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-fzdmgnss-orig-ec-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/99b4a7e978cdf625ee18c1ede8335ecb1a16bc4a4407293008d7cd6b7b4f91f7.enc" data-download-name="FZDMGNSS_ORIG_EC.PCF">FZDMGNSS_ORIG_EC.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">FZDMGNSS_ORIG_EC.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-fzdmgnss-orig-ec-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/c831fea32a77b8f0827af8b3f62ce81d1a7712c87b00e3110535deac8b831a7a.enc" data-download-name="FZDMGNSS_ORIG_EC.PCF">FZDMGNSS_ORIG_EC.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 140</li><li>Variables: 36</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Final-like (1-day arcs) GNSS solution in
@@ -245,7 +249,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>E. Calero</dd><dt>Created</dt><dd>20-Apr-202
     <article class="card" data-kind="pcf" id="pcf-leopod-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">LEOPOD.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-leopod-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/0bc201def8fb4b2eaf35aaf3d3f39b586f07497ba53200cddc2264b66e0ef602.enc" data-download-name="LEOPOD.PCF">LEOPOD.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">LEOPOD.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-leopod-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/97e3111a88f7d01761911af3724f609a15ddaade3cad65a7bebed125a65b2330.enc" data-download-name="LEOPOD.PCF">LEOPOD.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 44</li><li>Variables: 69</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Purpose</dt><dd>PRECISE ORBIT DETERMINATION FOR LOW EARTH ORBITER
@@ -276,7 +280,7 @@ ${U}/PCF/LEOPOD.README    (UNIX/Linux)
     <article class="card" data-kind="pcf" id="pcf-validate-solution-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">VALIDATE_SOLUTION.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-validate-solution-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/62766963f0da2d55d025337a8153cc00b7fbdf31f3d7170dac7c963f8fc2762d.enc" data-download-name="VALIDATE_SOLUTION.PCF">VALIDATE_SOLUTION.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">VALIDATE_SOLUTION.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-validate-solution-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/6628f96ad859930b0063838337da22d8c95ef68094764aef7e07e7162cc4865c.enc" data-download-name="VALIDATE_SOLUTION.PCF">VALIDATE_SOLUTION.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 6</li><li>Variables: 11</li></ul>
           <div class='body'><h4>Process Table</h4>
@@ -302,7 +306,7 @@ ${U}/PCF/LEOPOD.README    (UNIX/Linux)
     <article class="card" data-kind="pcf" id="pcf-zdgnss-3d-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_3D.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-3d-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/bc7b33dad66995fe0d38aae403641e48c501cba802b0bfca27ee359e6c096043.enc" data-download-name="ZDGNSS_3D.PCF">ZDGNSS_3D.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_3D.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-3d-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/9a9590cd15843f52c8ff4f5d506f353f325b5d516bd02af9c1b592005d0bd642.enc" data-download-name="ZDGNSS_3D.PCF">ZDGNSS_3D.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 12</li><li>Variables: 33</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Final (3-day arcs) ZD GNSS solution</dd><dt>Comments</dt><dd>Variables  :
@@ -330,7 +334,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>26-May-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-3d-final-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_3D_FINAL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-3d-final-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/67c5b0d8dd9f1c57cd3a3af8391a64742f2f525989b08a1827253142bded6af1.enc" data-download-name="ZDGNSS_3D_FINAL.PCF">ZDGNSS_3D_FINAL.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_3D_FINAL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-3d-final-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/779bad3d2cf9a6f7d550ce2d93c8c7c79b04483b91bdc97cb182aa60c53f172f.enc" data-download-name="ZDGNSS_3D_FINAL.PCF">ZDGNSS_3D_FINAL.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 12</li><li>Variables: 33</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Final (3-day arcs) ZD GNSS solution</dd><dt>Comments</dt><dd>Variables  :
@@ -358,7 +362,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>26-May-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-ar-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_AR.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-ar-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/c35277618883e487e2afc2f39a0a094c96e3c0931c9e5ba660bd9bff4c0edc25.enc" data-download-name="ZDGNSS_AR.PCF">ZDGNSS_AR.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_AR.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-ar-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/7a39ba3ad70eae043b2f756d226613f3fd0d8e20c7fe2b7a3e0ae67bc810329c.enc" data-download-name="ZDGNSS_AR.PCF">ZDGNSS_AR.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 22</li><li>Variables: 28</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>AR for ZD-processing</dd><dt>Comments</dt><dd>Variables  :
@@ -386,7 +390,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>31-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-clkden-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_CLKDEN.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-clkden-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/9b7e9b306a8022aeb78805bb4e0f96381c765002a8d48715a05205168740852f.enc" data-download-name="ZDGNSS_CLKDEN.PCF">ZDGNSS_CLKDEN.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_CLKDEN.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-clkden-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/d67c1bf31959668d15e0fd2f673be1848ab9256464eb8509a3fce79222f01d70.enc" data-download-name="ZDGNSS_CLKDEN.PCF">ZDGNSS_CLKDEN.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 13</li><li>Variables: 23</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Clock densification for zero-difference solution</dd><dt>Comments</dt><dd>PCF mainly based on legacy FCLKGNSS
@@ -416,7 +420,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>06-Jul-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-clkden-final-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_CLKDEN_FINAL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-clkden-final-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/62bc470fe9d7e39aff50c9ef4c6b4c551921ea1ff64688d211cda8bd04768eb0.enc" data-download-name="ZDGNSS_CLKDEN_FINAL.PCF">ZDGNSS_CLKDEN_FINAL.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_CLKDEN_FINAL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-clkden-final-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/e66c9055f114dda686a58cf7751ee42d0e7231fdb5252a24c07d9442483d010d.enc" data-download-name="ZDGNSS_CLKDEN_FINAL.PCF">ZDGNSS_CLKDEN_FINAL.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 13</li><li>Variables: 23</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Clock densification for zero-difference solution</dd><dt>Comments</dt><dd>PCF mainly based on legacy FCLKGNSS
@@ -446,7 +450,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>06-Jul-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-cmpsol-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_CMPSOL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-cmpsol-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/1287edf8f800b89ea34d3f8ce515e36ef87b62ed39232d14e8e649641308484f.enc" data-download-name="ZDGNSS_CMPSOL.PCF">ZDGNSS_CMPSOL.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_CMPSOL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-cmpsol-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/707abf7537eb0f82e9cf9fd079f74848e97c4a295fe4d07050f843fb066c99f0.enc" data-download-name="ZDGNSS_CMPSOL.PCF">ZDGNSS_CMPSOL.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 9</li><li>Variables: 20</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Purpose</dt><dd>Compare solutions</dd></dl></section><h4>Process Table</h4>
@@ -472,7 +476,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>06-Jul-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-codescreening-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_CODESCREENING.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-codescreening-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/4d9ad940896c27528b5282b25d32ed3c78413a9a64e13b47db764623597c2773.enc" data-download-name="ZDGNSS_CODESCREENING.PCF">ZDGNSS_CODESCREENING.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_CODESCREENING.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-codescreening-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/b0817d7686e23cc72652c4673bd552c33d53adc2922fba29ddf1b4738dc5a443.enc" data-download-name="ZDGNSS_CODESCREENING.PCF">ZDGNSS_CODESCREENING.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 25</li><li>Variables: 33</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Screening of code observations</dd><dt>Comments</dt><dd>Variables  :
@@ -500,7 +504,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>31-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-finish-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_FINISH.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-finish-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/e995aa400cc92db4ab95c1343c727053375bf23d3e51c3e2ef17c78e45431bc7.enc" data-download-name="ZDGNSS_FINISH.PCF">ZDGNSS_FINISH.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_FINISH.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-finish-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/8e8a802cf38fdc109ce80adcea659d3449440010b9c1b50c7dafd1f38969824e.enc" data-download-name="ZDGNSS_FINISH.PCF">ZDGNSS_FINISH.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 16</li><li>Variables: 25</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Create final products and summaries of ZD processing</dd><dt>Comments</dt><dd>Variables  :
@@ -528,7 +532,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>31-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-finish-final-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_FINISH_FINAL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-finish-final-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/c5e3062e93d4a24003c4c2abfae7b5bf4333a0a5644a59fd45da77a72a4efe4b.enc" data-download-name="ZDGNSS_FINISH_FINAL.PCF">ZDGNSS_FINISH_FINAL.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_FINISH_FINAL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-finish-final-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/bc5908608d0975d77ad1bf78002ba3705e5d6cd5f1376d760a55b0a81c5a5a55.enc" data-download-name="ZDGNSS_FINISH_FINAL.PCF">ZDGNSS_FINISH_FINAL.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 16</li><li>Variables: 25</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Create final products and summaries of ZD processing</dd><dt>Comments</dt><dd>Variables  :
@@ -556,7 +560,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>31-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-leoneq-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_LEONEQ.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-leoneq-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/fbed530e3409d4d5e0540789e5da04a11577670520c86c2f808665ac0c77b0c6.enc" data-download-name="ZDGNSS_LEONEQ.PCF">ZDGNSS_LEONEQ.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_LEONEQ.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-leoneq-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/122be6bbaec9b17fef7d12e2be0582ae90619bff6f30f96ecb88ef925db7f1ee.enc" data-download-name="ZDGNSS_LEONEQ.PCF">ZDGNSS_LEONEQ.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 7</li><li>Variables: 32</li></ul>
           <div class='body'><h4>Process Table</h4>
@@ -582,7 +586,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>31-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-phasescreening-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_PHASESCREENING.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-phasescreening-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/a61d307d81bfee7eac3e78178b033c6b381d92cfc743c927fcfff7e6b38ece8a.enc" data-download-name="ZDGNSS_PHASESCREENING.PCF">ZDGNSS_PHASESCREENING.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_PHASESCREENING.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-phasescreening-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/6a4f22a37051555e81fabc347cc08cacf457117cf1d500ede8fcc6330b3f8599.enc" data-download-name="ZDGNSS_PHASESCREENING.PCF">ZDGNSS_PHASESCREENING.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 24</li><li>Variables: 34</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Screening of phase observations</dd><dt>Comments</dt><dd>Variables  :
@@ -610,7 +614,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>31-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-ppp-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_PPP.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-ppp-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/364623600ed5d15b450b21afe07da73e6b5167a35a89d3616f19f924878c4f54.enc" data-download-name="ZDGNSS_PPP.PCF">ZDGNSS_PPP.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_PPP.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-ppp-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/4de19fed21d2ee28b80d2268b3250966fc61a945514710eafbf3d842b413bf4c.enc" data-download-name="ZDGNSS_PPP.PCF">ZDGNSS_PPP.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 39</li><li>Variables: 31</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Purpose</dt><dd>PRECISE POINT POSITIONING (PPP)</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>12-Nov-2026</dd></dl></section><h4>Process Table</h4>
@@ -636,7 +640,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>31-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-preparation-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_PREPARATION.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-preparation-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/762b26bece7487e26dd7aa7dd09efc55f45677ee9d0968b57a6a86782c2ace01.enc" data-download-name="ZDGNSS_PREPARATION.PCF">ZDGNSS_PREPARATION.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_PREPARATION.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-preparation-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/6186e51791027d8047061e1f7992eebbbd4cbf469b3b09d4424ea0628594134c.enc" data-download-name="ZDGNSS_PREPARATION.PCF">ZDGNSS_PREPARATION.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 24</li><li>Variables: 31</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Perform inital step for ZD-processing</dd><dt>Comments</dt><dd>Copy observation, necessary files, a priori information
@@ -667,7 +671,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>30-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-preprocessing-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_PREPROCESSING.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-preprocessing-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/e965a93e9d65923c9c75c3d6ddb0ee64072f917e9daa87396a0b1edcabf764b3.enc" data-download-name="ZDGNSS_PREPROCESSING.PCF">ZDGNSS_PREPROCESSING.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_PREPROCESSING.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-preprocessing-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/707a0bca9e02c4d06d6a18b4fd87062f4b4c35c1dbbaf1100af5143d82f96c07.enc" data-download-name="ZDGNSS_PREPROCESSING.PCF">ZDGNSS_PREPROCESSING.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 15</li><li>Variables: 22</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Preprocessing of ZD</dd><dt>Comments</dt><dd>Variables  :
@@ -695,7 +699,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>31-Mar-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-sol-fa-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_SOL_FA.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-sol-fa-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/d70ae37991c78f95d626848c67e38600e74ae3183bf2c9dc9370cbc33564a446.enc" data-download-name="ZDGNSS_SOL_FA.PCF">ZDGNSS_SOL_FA.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_SOL_FA.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-sol-fa-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/ad775c68ff9d62337362a15a2cdc2a7d9e96f81ba8d24ee629060b044610c2bf.enc" data-download-name="ZDGNSS_SOL_FA.PCF">ZDGNSS_SOL_FA.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 25</li><li>Variables: 40</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Compute ZD-solution</dd><dt>Comments</dt><dd>Variables  :
@@ -723,7 +727,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>18-Jun-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-sol-final-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_SOL_FINAL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-sol-final-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/9b9dcfb56770645052953c5b67cdc632342628635df67f277320b8899e8e2999.enc" data-download-name="ZDGNSS_SOL_FINAL.PCF">ZDGNSS_SOL_FINAL.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_SOL_FINAL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-sol-final-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/c9c3403314b8722cdd5b9fc056d6a67c93ae9e5e4d09cd6cb0e0d72b8373db74.enc" data-download-name="ZDGNSS_SOL_FINAL.PCF">ZDGNSS_SOL_FINAL.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 25</li><li>Variables: 40</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Compute ZD-solution</dd><dt>Comments</dt><dd>Variables  :
@@ -751,7 +755,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>18-Jun-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-sol-ia-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_SOL_IA.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-sol-ia-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/be662b81d2e29b063fbec19fd10fbe5aa268144869052b38172924d9a84f3686.enc" data-download-name="ZDGNSS_SOL_IA.PCF">ZDGNSS_SOL_IA.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_SOL_IA.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-sol-ia-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/961156cced17214e98d4570512eb4e7cb0619ee635aad0ea7953c6aa32cfae7b.enc" data-download-name="ZDGNSS_SOL_IA.PCF">ZDGNSS_SOL_IA.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 25</li><li>Variables: 40</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Compute ZD-solution</dd><dt>Comments</dt><dd>Variables  :
@@ -779,7 +783,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>18-Jun-2026
     <article class="card" data-kind="pcf" id="pcf-zdgnss-valsol-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDGNSS_VALSOL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-valsol-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/89598a0526c3e94743152bbcc4ab302807294047745fbdfee160ac6a7abdc02e.enc" data-download-name="ZDGNSS_VALSOL.PCF">ZDGNSS_VALSOL.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDGNSS_VALSOL.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdgnss-valsol-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/1969bda867f786247b5a2322123cf7f5b59fff3497574234edd654b90357aaa1.enc" data-download-name="ZDGNSS_VALSOL.PCF">ZDGNSS_VALSOL.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 19</li><li>Variables: 37</li></ul>
           <div class='body'><h4>Process Table</h4>
@@ -805,7 +809,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>C. Kobel</dd><dt>Created</dt><dd>18-Jun-2026
     <article class="card" data-kind="pcf" id="pcf-zdmclkden-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDMCLKDEN.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdmclkden-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/0ae7ce18393963e1d21d1e29ed2ddfc8f599839db3c866ae04a399bc3f384af8.enc" data-download-name="ZDMCLKDEN.PCF">ZDMCLKDEN.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDMCLKDEN.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdmclkden-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/6e60d00a35a8769597ed98f23fb601810aab3c6257071c9d3e6522d485e0ad4a.enc" data-download-name="ZDMCLKDEN.PCF">ZDMCLKDEN.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 16</li><li>Variables: 16</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Clock densification for zero-difference solution</dd><dt>Comments</dt><dd>PCF mainly based on legacy FCLKGNSS
@@ -835,7 +839,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>E. Calero</dd><dt>Created</dt><dd>02-Jun-202
     <article class="card" data-kind="pcf" id="pcf-zdmfin3d-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">ZDMFIN3D.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdmfin3d-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/fe4d4d7f10482fe94ef50ef9824a4323ac708046ab2350cf39095303e3d7a67d.enc" data-download-name="ZDMFIN3D.PCF">ZDMFIN3D.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">ZDMFIN3D.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-zdmfin3d-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/1805cd3fb9f35f21b46ba339cde4de845412b682f12eb5d4ae1894716ed99ec7.enc" data-download-name="ZDMFIN3D.PCF">ZDMFIN3D.PCF</a></summary>
           
           <ul class="summary"><li>Source: ck18y530/GPSUSER</li><li>PCF rows: 12</li><li>Variables: 17</li></ul>
           <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Final-like (3-day arcs) GNSS solution in
@@ -866,7 +870,7 @@ Flags (MSC):</dd><dt>Author</dt><dd>E. Calero</dd><dt>Created</dt><dd>10-May-202
     </div>
     
     <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
-    <div class="history-footer">Last change: 2026-11-26T09:43:01+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
+    <div class="history-footer">Last change: 2026-11-26T14:52:27+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
   </div>
   <script>
     const q = document.getElementById('q');

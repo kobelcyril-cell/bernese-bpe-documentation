@@ -1263,12 +1263,6 @@ def clean_markdown_line(line: str) -> str:
     return text.strip()
 
 
-def strip_simple_markdown(text: str) -> str:
-    text = text.replace("**", "").replace("==", "")
-    text = re.sub(r"`([^`]*)`", r"\1", text)
-    return text
-
-
 def excerpt_markdown(path: Path, limit: int = 6) -> List[str]:
     lines = read_text(path).splitlines()
     excerpt: List[str] = []
@@ -1304,7 +1298,10 @@ def handbook_group_label(group_key: str) -> str:
     return " / ".join(part.replace("_", " ") for part in parts)
 
 
-WIKILINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
+HANDBOOK_INLINE_RE = re.compile(
+    r"\[\[(?P<target>[^\]|]+)(?:\|(?P<label>[^\]]+))?\]\]"
+    r"|`(?P<code>[^`]+)`|\*\*(?P<strong>[^*]+)\*\*|==(?P<mark>[^=]+)=="
+)
 
 
 def scan_handbook_doc(path: Path, root: Path) -> HandbookDocument:
@@ -1331,62 +1328,89 @@ def render_simple_markdown_body(
 ) -> str:
     lines = read_text(path).splitlines()
     parts: List[str] = []
-    bullets: List[str] = []
+    items: List[str] = []
+    list_tag = ""
+    paragraph: List[str] = []
+    code_lines: Optional[List[str]] = None
     first_heading_seen = False
 
     def render_inline(text: str) -> str:
-        if link_resolver is None:
-            return esc(text)
         rendered: List[str] = []
         last = 0
-        for match in WIKILINK_RE.finditer(text):
+        for match in HANDBOOK_INLINE_RE.finditer(text):
             rendered.append(esc(text[last:match.start()]))
-            target = match.group(1).strip()
-            label = (match.group(2) or target).strip()
-            href = link_resolver(target)
-            if href:
-                rendered.append(f'<a class="ref-link" href="{esc(href)}">{esc(label)}</a>')
+            if match.group("code"):
+                rendered.append(f"<code>{esc(match.group('code'))}</code>")
+            elif match.group("strong"):
+                rendered.append(f"<strong>{render_inline(match.group('strong'))}</strong>")
+            elif match.group("mark"):
+                rendered.append(f"<mark>{render_inline(match.group('mark'))}</mark>")
             else:
-                rendered.append(esc(label))
+                target = match.group("target").strip()
+                label = (match.group("label") or target).strip()
+                href = link_resolver(target) if link_resolver else ""
+                rendered.append(link_html(href, label) if href else esc(label))
             last = match.end()
         rendered.append(esc(text[last:]))
         return "".join(rendered)
 
-    def flush_bullets() -> None:
-        nonlocal bullets
-        if bullets:
-            parts.append("<ul class='summary'>" + "".join(f"<li>{render_inline(item)}</li>" for item in bullets) + "</ul>")
-            bullets = []
+    def flush_text() -> None:
+        if paragraph:
+            parts.append(f"<p>{render_inline(' '.join(paragraph))}</p>")
+            paragraph.clear()
+        if items:
+            content = "".join(f"<li>{render_inline(item)}</li>" for item in items)
+            parts.append(f"<{list_tag} class='summary'>{content}</{list_tag}>")
+            items.clear()
+
+    def render_code(code: List[str]) -> None:
+        parts.append("<pre><code>" + esc("\n".join(code)) + "</code></pre>")
 
     for raw in lines:
         line = raw.strip()
-        if not line:
-            flush_bullets()
-            continue
         if line.startswith("```"):
-            flush_bullets()
+            flush_text()
+            if code_lines is None:
+                code_lines = []
+            else:
+                render_code(code_lines)
+                code_lines = None
             continue
-        if line.startswith("#"):
-            flush_bullets()
-            heading = strip_simple_markdown(line.lstrip("#").strip())
+        if code_lines is not None:
+            code_lines.append(raw)
+            continue
+        if not line:
+            flush_text()
+            continue
+        heading = re.match(r"^(#{1,6})\s+(.+)$", line)
+        if heading:
+            flush_text()
             if skip_first_heading and not first_heading_seen:
                 first_heading_seen = True
                 continue
             first_heading_seen = True
-            if heading:
-                parts.append(f"<h4>{render_inline(heading)}</h4>")
+            level = min(6, len(heading.group(1)) + 2)
+            parts.append(f"<h{level}>{render_inline(heading.group(2))}</h{level}>")
             continue
-        if line.startswith(("- ", "* ")):
-            bullets.append(strip_simple_markdown(line[2:]).strip())
+        item = re.match(r"^([-*]|\d+[.)])\s+(.+)$", line)
+        if item:
+            tag = "ol" if item.group(1)[0].isdigit() else "ul"
+            if paragraph or tag != list_tag:
+                flush_text()
+            list_tag = tag
+            items.append(item.group(2))
             continue
         if re.match(r"^[A-Za-z][A-Za-z0-9 _/-]*:\s*$", line):
-            flush_bullets()
+            flush_text()
             parts.append(f"<h4>{render_inline(line[:-1].strip())}</h4>")
             continue
-        flush_bullets()
-        parts.append(f"<p>{render_inline(strip_simple_markdown(line))}</p>")
+        if items:
+            flush_text()
+        paragraph.append(line)
 
-    flush_bullets()
+    flush_text()
+    if code_lines is not None:
+        render_code(code_lines)
     return "".join(parts)
 
 
@@ -2482,9 +2506,13 @@ def manual_html(
     .handbook-entry {{ margin-top: 1.75rem; }}
     .handbook-entry h3 {{ margin: 0 0 .5em; font-size: 1.45rem; }}
     .handbook-text {{ max-width: 70ch; font: 1.1rem/1.7 Georgia, 'Times New Roman', serif; }}
-    .handbook-text h4 {{ margin: 1.25em 0 .4em; font-size: 1.1em; }}
+    .handbook-text h4, .handbook-text h5, .handbook-text h6 {{ margin: 1.25em 0 .4em; }}
+    .handbook-text h4 {{ font-size: 1.1em; }}
+    .handbook-text h5, .handbook-text h6 {{ font-size: 1em; }}
     .handbook-text p {{ margin: 0 0 .8em; }}
     .handbook-text .summary {{ color: inherit; }}
+    .handbook-text code {{ font-size: .85em; }}
+    .handbook-text pre, .manual-comments pre {{ overflow-x: auto; padding: .9rem 1rem; background: #eeeae0; border-radius: 6px; line-height: 1.5; }}
     .handbook-reading [id], .card[id] {{ scroll-margin-top: 16px; }}
     .toolbar ~ * .card[id] {{ scroll-margin-top: 96px; }}
     .pcf-details > summary {{ list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; font-size: 18px; font-weight: 700; color: #10223d; }}
@@ -2536,7 +2564,7 @@ def manual_html(
     .history-footer a:hover {{ text-decoration: underline; }}
     @media (max-width: 1100px) {{ .overview-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
     @media (max-width: 900px) {{ .toolbar {{ grid-template-columns: 1fr; position: static; }} .toolbar ~ * .card[id] {{ scroll-margin-top: 16px; }} .card-head {{ flex-direction: column; align-items: flex-start; }} }}
-    @media (max-width: 680px) {{ .handbook-layout {{ grid-template-columns: 1fr; }} .handbook-toc {{ position: static; max-height: none; }} }}
+    @media (max-width: 680px) {{ .handbook-layout {{ grid-template-columns: minmax(0, 1fr); }} .handbook-toc {{ position: static; max-height: none; }} }}
     @media (max-width: 560px) {{ .overview-grid {{ grid-template-columns: 1fr; }} }}
     @media (max-width: 560px) {{ .source-header dl {{ grid-template-columns: 1fr; }} .source-header dd:not(:last-child) {{ margin-bottom: 6px; }} }}
   </style>

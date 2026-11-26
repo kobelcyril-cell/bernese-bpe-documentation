@@ -1,1 +1,0 @@
-This tool serves to identify unused Option-directories and Scripts. It is possible to just make an analysis of the GPSUSER or to clean (moving unused things).
