@@ -122,7 +122,7 @@
     <div class="hero">
       <h1>Handbook</h1>
       <p>Generated from: /storage/homefs/ck18y530/GPSUSER</p>
-      <p>Updated: 2026-11-25 14:46:24</p>
+      <p>Updated: 2026-11-26 08:49:49</p>
       <nav class='nav'><a class='' href='bernese_bpe_manual.html'>Overview</a><a class='' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='active' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
     </div>
     
@@ -135,7 +135,7 @@
       <div class="stat"><div class="label">OPT DIRS</div><div class="value">99</div></div>
       <div class="stat"><div class="label">INP fields</div><div class="value">231619</div></div>
       <div class="stat"><div class="label">Handbook pages</div><div class="value">43</div></div>
-      <div class="stat"><div class="label">History entries</div><div class="value">49</div></div>
+      <div class="stat"><div class="label">History entries</div><div class="value">82</div></div>
     </div>
     
     
@@ -600,7 +600,7 @@
     </div>
     
     <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
-    <div class="history-footer">Last change: 2026-11-25T14:39:33+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
+    <div class="history-footer">Last change: 2026-11-26T08:44:59+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
   </div>
   <script>
     const q = document.getElementById('q');
@@ -642,13 +642,77 @@
       visible.forEach(card => card.parentElement.appendChild(card));
     }
     function focusTargetFromHash() {
-      const id = decodeURIComponent((window.location.hash || '').replace('#', ''));
-      if (!id) return;
-      const target = document.getElementById(id);
-      if (target) {
-        target.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      let id;
+      try {
+        id = decodeURIComponent(window.location.hash.slice(1));
+      } catch {
+        return;
       }
+      const target = document.getElementById(id);
+      if (!target) return;
+      for (let node = target; node; node = node.parentElement) {
+        if (node.classList?.contains('card')) node.classList.remove('hidden');
+        if (node instanceof HTMLDetailsElement) node.open = true;
+      }
+      if (target.classList.contains('card')) {
+        target.querySelector(':scope > details')?.setAttribute('open', '');
+        target.querySelector('.handbook-text')?.setAttribute('open', '');
+      }
+      target.scrollIntoView({ block: 'start' });
     }
+
+    async function downloadSource(link) {
+      if (!window.crypto?.subtle) {
+        window.alert('Open the manual over HTTPS or localhost to download files.');
+        return;
+      }
+      const password = window.prompt('Password for ' + link.dataset.downloadName);
+      if (!password) return;
+      let payload;
+      try {
+        const response = await fetch(link.href);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        payload = new Uint8Array(await response.arrayBuffer());
+      } catch {
+        window.alert('The download file could not be loaded.');
+        return;
+      }
+      let plaintext;
+      try {
+        const material = await crypto.subtle.importKey(
+          'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']
+        );
+        const key = await crypto.subtle.deriveKey(
+          { name: 'PBKDF2', hash: 'SHA-256', salt: payload.subarray(0, 16), iterations: 600000 },
+          material, { name: 'AES-GCM', length: 256 }, false, ['decrypt']
+        );
+        plaintext = await crypto.subtle.decrypt(
+          { name: 'AES-GCM', iv: payload.subarray(16, 28) }, key, payload.subarray(28)
+        );
+      } catch {
+        window.alert('Incorrect password or damaged download file.');
+        return;
+      }
+      const file = document.createElement('a');
+      file.href = URL.createObjectURL(new Blob([plaintext], { type: 'application/octet-stream' }));
+      file.download = link.dataset.downloadName;
+      document.body.appendChild(file);
+      file.click();
+      file.remove();
+      setTimeout(() => URL.revokeObjectURL(file.href), 30000);
+    }
+
+    document.addEventListener('click', event => {
+      const link = event.target.closest('a[href]');
+      if (!link) return;
+      if (link.dataset.downloadName) {
+        event.preventDefault();
+        downloadSource(link);
+      } else if (link.href === window.location.href && window.location.hash) {
+        event.preventDefault();
+        focusTargetFromHash();
+      }
+    });
     if (q && kind && sort) {
       q.addEventListener('input', refresh);
       kind.addEventListener('change', refresh);

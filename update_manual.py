@@ -33,11 +33,13 @@ import stat
 import subprocess
 import sys
 import getpass
+import hashlib
 from collections import defaultdict
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Callable, Dict, List, Optional
+from urllib.parse import quote
 
 
 ROOT = Path(__file__).resolve().parent
@@ -52,7 +54,6 @@ def load_manual_config() -> Dict[str, object]:
         "output_dir": "output/manual",
         "source_list_file": "manual_sources.txt",
         "default_comment_title": "Additional note",
-        "handbook_import_dir": "manual_additions/import",
         "handbook_full_top_levels": [],
         "handbook_group_descriptions": {},
     }
@@ -79,8 +80,7 @@ def configured_path(key: str, fallback: str) -> Path:
     return path if path.is_absolute() else ROOT / path
 
 
-HANDBOOK_IMPORT_DIR = configured_path("handbook_import_dir", "manual_additions/import")
-HANDBOOK_DIR = ROOT / "manual_additions" / "handbook"
+HANDBOOKS_DIR = ROOT / "manual_additions" / "handbooks"
 HISTORY_DIR = ROOT / "manual_additions" / "history"
 HISTORY_LOG_FILE = HISTORY_DIR / "handbook_history.jsonl"
 OUTPUT_DIR = configured_path("output_dir", "output/manual")
@@ -89,6 +89,9 @@ SOURCE_LIST_FILE = configured_path("source_list_file", "manual_sources.txt")
 ACTIVE_SOURCE_LABEL = ""
 ACTIVE_USER_NAME = ""
 PUBLISHED_SOURCE_FILES: Dict[str, Path] = {}
+DOWNLOAD_PASSWORD_ENV = "DOCBUILDER_DOWNLOAD_PASSWORD"
+DOWNLOAD_KDF_ROUNDS = 600_000
+DOWNLOAD_MARKER = b"Bernese protected downloads"
 MANUAL_INDEX_FILE = "bernese_bpe_manual.html"
 OVERVIEW_PAGE_FILE = "index.html"
 PCF_PAGE_FILE = "bernese_bpe_pcf.html"
@@ -98,7 +101,6 @@ INP_PAGE_FILE = "bernese_bpe_inp.html"
 HANDBOOK_PAGE_FILE = "bernese_bpe_handbook.html"
 HISTORY_PAGE_FILE = "bernese_bpe_history.html"
 STORY_PAGE_FILE = "bernese_bpe_stories.html"
-HANDBOOK_SELECTED_RELATIVE_PATHS: List[str] = []
 HANDBOOK_FULL_TOP_LEVELS = set(MANUAL_CONFIG.get("handbook_full_top_levels", []))
 HANDBOOK_GROUP_DESCRIPTIONS = dict(MANUAL_CONFIG.get("handbook_group_descriptions", {}))
 
@@ -240,15 +242,6 @@ class HandbookHistoryRecord:
     path: str = ""
 
 
-def rel_link(target: Path, base: Optional[Path] = None) -> str:
-    published_target = PUBLISHED_SOURCE_FILES.get(str(target.resolve()))
-    if published_target is not None:
-        target = published_target
-    if base is None:
-        base = OUTPUT_DIR
-    return Path(os.path.relpath(target, base)).as_posix()
-
-
 def read_text(path: Path) -> str:
     return path.read_text(encoding="utf-8", errors="replace")
 
@@ -260,6 +253,9 @@ def write_text(path: Path, text: str) -> None:
 
 
 def comment_file(kind: str, target: str) -> Path:
+    if kind == "handbook":
+        source, _, entry = target.partition("/")
+        return COMMENTS_DIR / kind / slugify(source) / f"{slugify(entry)}.md"
     return COMMENTS_DIR / kind / f"{slugify(target)}.md"
 
 
@@ -311,10 +307,11 @@ def ensure_history_store() -> None:
     HISTORY_DIR.mkdir(parents=True, exist_ok=True)
 
 
-def load_handbook_history() -> List[HandbookHistoryRecord]:
+def load_handbook_history(source: Path) -> List[HandbookHistoryRecord]:
     if not HISTORY_LOG_FILE.exists():
         return []
     records: List[HandbookHistoryRecord] = []
+    source_id = source_slug(source)
     for raw_line in read_text(HISTORY_LOG_FILE).splitlines():
         line = raw_line.strip()
         if not line:
@@ -322,6 +319,16 @@ def load_handbook_history() -> List[HandbookHistoryRecord]:
         try:
             payload = json.loads(line)
         except json.JSONDecodeError:
+            continue
+        path = str(payload.get("path", ""))
+        if path.startswith("handbooks/"):
+            if not path.startswith(f"handbooks/{source_id}/"):
+                continue
+        elif path.startswith("manual_additions/comments/handbook/"):
+            if not path.startswith(f"manual_additions/comments/handbook/{source_id}/"):
+                continue
+        elif path and not path.startswith("manual_additions/comments/"):
+            # Legacy handbook entries have no GPSUSER assignment.
             continue
         records.append(
             HandbookHistoryRecord(
@@ -425,25 +432,35 @@ def choose_startup_action() -> str:
     return choice if choice in valid_actions else default_action
 
 
-def handbook_category_choices() -> List[str]:
-    categories = sorted(
-        {
-            *HANDBOOK_FULL_TOP_LEVELS,
-            *[path.relative_to(HANDBOOK_DIR).parts[0] for path in gather_handbook_files(HANDBOOK_DIR) if path.relative_to(HANDBOOK_DIR).parts],
-        }
-    )
-    return categories
+def handbook_dir(source: Path) -> Path:
+    return HANDBOOKS_DIR / source_slug(source)
+
+
+def handbook_category_choices(root: Path) -> List[str]:
+    return sorted(HANDBOOK_FULL_TOP_LEVELS | {
+        handbook_category(path.relative_to(root)) for path in gather_handbook_files(root)
+    })
 
 
 def handbook_entry_relpath(path: Path) -> str:
-    try:
-        return path.relative_to(HANDBOOK_DIR).as_posix()
-    except ValueError:
-        return path.as_posix()
+    return path.relative_to(HANDBOOKS_DIR.parent).as_posix()
 
 
-def add_handbook_entry_interactively() -> bool:
-    categories = handbook_category_choices()
+def handbook_comment_target(path: Path) -> str:
+    return path.relative_to(HANDBOOKS_DIR).as_posix()
+
+
+def handbook_category_dir(root: Path, category: str) -> Path:
+    if not category or category in {".", ".."} or any(char in category for char in '/\\:'):
+        raise ValueError("Enter a single handbook category folder name.")
+    target = root / category
+    if root.resolve() not in target.resolve().parents:
+        raise ValueError("The category must be inside the selected GPSUSER handbook.")
+    return target
+
+
+def add_handbook_entry_interactively(root: Path) -> bool:
+    categories = handbook_category_choices(root)
     print("\nAdd handbook entry")
     for index, category in enumerate(categories, start=1):
         print(f"{index}. {category}")
@@ -470,7 +487,11 @@ def add_handbook_entry_interactively() -> bool:
     if not summary:
         summary = f"Created handbook entry {title}"
 
-    target_dir = HANDBOOK_DIR / category
+    try:
+        target_dir = handbook_category_dir(root, category)
+    except ValueError as exc:
+        print(exc)
+        return False
     target_dir.mkdir(parents=True, exist_ok=True)
     target_path = target_dir / f"{safe_handbook_filename(title)}.md"
     if target_path.exists():
@@ -491,10 +512,10 @@ def add_handbook_entry_interactively() -> bool:
     return True
 
 
-def edit_handbook_entry_interactively() -> bool:
-    handbook_docs = [doc for docs in gather_handbook_sections(HANDBOOK_DIR).values() for doc in docs]
+def edit_handbook_entry_interactively(root: Path) -> bool:
+    handbook_docs = [doc for docs in gather_handbook_sections(root).values() for doc in docs]
     targets = [
-        (f"{doc.path.relative_to(HANDBOOK_DIR).as_posix()} - {doc.title}", doc.path)
+        (f"{doc.path.relative_to(root).as_posix()} - {doc.title}", doc.path)
         for doc in handbook_docs
     ]
     selected = select_from_numbered_list("\nEdit handbook entry", targets)
@@ -509,10 +530,10 @@ def edit_handbook_entry_interactively() -> bool:
     return True
 
 
-def remove_handbook_entry_interactively() -> bool:
-    handbook_docs = [doc for docs in gather_handbook_sections(HANDBOOK_DIR).values() for doc in docs]
+def remove_handbook_entry_interactively(root: Path) -> bool:
+    handbook_docs = [doc for docs in gather_handbook_sections(root).values() for doc in docs]
     targets = [
-        (f"{doc.path.relative_to(HANDBOOK_DIR).as_posix()} - {doc.title}", doc.path)
+        (f"{doc.path.relative_to(root).as_posix()} - {doc.title}", doc.path)
         for doc in handbook_docs
     ]
     selected = select_from_numbered_list("\nRemove handbook entry", targets)
@@ -1113,7 +1134,7 @@ def group_handbook_by_category(
 ) -> Dict[str, List[HandbookDocument]]:
     grouped: Dict[str, List[HandbookDocument]] = defaultdict(list)
     for doc in handbook_docs:
-        grouped[handbook_group_key(doc.path)].append(doc)
+        grouped[doc.category].append(doc)
     for group_key in grouped:
         grouped[group_key].sort(key=lambda doc: doc.title.lower())
     return dict(sorted(grouped.items(), key=lambda item: item[0].lower()))
@@ -1200,66 +1221,13 @@ def ref_key(text: str) -> str:
     return re.sub(r"[^a-z0-9]+", "", text.lower())
 
 
-def ensure_handbook_source() -> bool:
-    """Import the hand-written handbook once, then keep using the editable copy."""
-    if HANDBOOK_DIR.exists():
-        return False
-    if not HANDBOOK_IMPORT_DIR.exists():
-        return False
-
-    HANDBOOK_DIR.mkdir(parents=True, exist_ok=True)
-    imported = 0
-    for source_path in HANDBOOK_IMPORT_DIR.rglob("*.md"):
-        if not handbook_is_selected(source_path):
-            continue
-        relative = source_path.relative_to(HANDBOOK_IMPORT_DIR)
-        target_path = HANDBOOK_DIR / relative
-        target_path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(source_path, target_path)
-        imported += 1
-
-    if imported:
-        marker = HANDBOOK_DIR / ".imported-from-configured-source"
-        write_text(
-            marker,
-            "# Handbook source\n\n"
-            "These Markdown files were imported automatically from the configured "
-            "handbook import directory. Edit them here; `update_manual.py` will "
-            "preserve the changes on every rebuild.\n",
-        )
-    return imported > 0
-
-
 def gather_handbook_files(root: Path) -> List[Path]:
     if not root.exists():
         return []
-    return sorted(root.rglob("*.md"), key=lambda path: path.relative_to(root).as_posix().lower())
-
-
-def handbook_is_selected(path: Path) -> bool:
-    try:
-        rel = path.relative_to(HANDBOOK_DIR).as_posix()
-    except ValueError:
-        try:
-            rel = path.relative_to(HANDBOOK_IMPORT_DIR).as_posix()
-        except ValueError:
-            return False
-    try:
-        path.relative_to(HANDBOOK_DIR)
-        is_handbook_file = True
-    except ValueError:
-        is_handbook_file = False
-    if is_handbook_file:
-        return True
-    top_level = rel.split("/", 1)[0]
-    if top_level in HANDBOOK_FULL_TOP_LEVELS:
-        return True
-    return rel in HANDBOOK_SELECTED_RELATIVE_PATHS
-
-
-def gather_handbook_selected_files(root: Path) -> List[Path]:
-    files = [path for path in gather_handbook_files(root) if handbook_is_selected(path)]
-    return sorted(files, key=lambda path: path.relative_to(root).as_posix().lower())
+    return sorted(
+        (path for path in root.rglob("*.md") if path.is_file() and not path.is_symlink()),
+        key=lambda path: path.relative_to(root).as_posix().lower(),
+    )
 
 
 def clean_markdown_line(line: str) -> str:
@@ -1302,16 +1270,8 @@ def excerpt_markdown(path: Path, limit: int = 6) -> List[str]:
     return excerpt
 
 
-def handbook_category(path: Path) -> str:
-    parts = path.relative_to(HANDBOOK_DIR).parts
-    if not parts:
-        return "Handbook"
-    return parts[0]
-
-
-def handbook_group_key(path: Path) -> str:
-    parts = path.relative_to(HANDBOOK_DIR).parts
-    return parts[0] if parts else "Handbook"
+def handbook_category(relative_path: Path) -> str:
+    return relative_path.parts[0] if len(relative_path.parts) > 1 else "Handbook"
 
 
 def handbook_group_label(group_key: str) -> str:
@@ -1326,20 +1286,20 @@ def handbook_group_label(group_key: str) -> str:
 WIKILINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
 
 
-def scan_handbook_doc(path: Path) -> HandbookDocument:
+def scan_handbook_doc(path: Path, root: Path) -> HandbookDocument:
     return HandbookDocument(
         path=path,
         name=path.name,
         title=path.stem,
-        category=handbook_category(path),
+        category=handbook_category(path.relative_to(root)),
         excerpt=excerpt_markdown(path),
     )
 
 
 def gather_handbook_sections(root: Path) -> Dict[str, List[HandbookDocument]]:
     grouped: Dict[str, List[HandbookDocument]] = defaultdict(list)
-    for path in gather_handbook_selected_files(root):
-        doc = scan_handbook_doc(path)
+    for path in gather_handbook_files(root):
+        doc = scan_handbook_doc(path, root)
         grouped[doc.category].append(doc)
     for category in grouped:
         grouped[category].sort(key=lambda doc: doc.title.lower())
@@ -1495,7 +1455,7 @@ def manual_markdown(
     out.append("## Handwritten Documentation")
     out.append("")
     out.append(
-        "The following notes are imported from the configured handbook source and mirror the manually written project guide."
+        "The following notes belong to this GPSUSER."
     )
     out.append("")
     handbook_groups = group_handbook_by_category(handbook_docs)
@@ -1546,7 +1506,7 @@ def manual_markdown(
             out.append(f"- Comments: {'; '.join(doc.comments)}")
         if doc.changes:
             out.append(f"- Changes: {doc.changes}")
-        out.append(f"- Source: [{doc.path.name}]({rel_link(doc.path)})")
+        out.append(f"- Source file: {doc.path.name} (download from the HTML manual)")
         out.append("")
         out.append("Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`")
         out.append("")
@@ -1617,7 +1577,7 @@ def manual_markdown(
             out.append(f"- File deletes: {format_flow_items(doc.file_deletes)}")
         if doc.file_globs:
             out.append(f"- File patterns: {format_flow_items(doc.file_globs)}")
-        out.append(f"- Source: [{doc.path.name}]({rel_link(doc.path)})")
+        out.append(f"- Source file: {doc.path.name} (download from the HTML manual)")
     out.append("")
 
     out.append("## File Registry")
@@ -1650,7 +1610,7 @@ def manual_markdown(
             if len(doc.sections) > 10:
                 out.append(f"- ... and {len(doc.sections) - 10} more sections")
         out.append(f"- Fields: {len(doc.fields)}")
-        out.append(f"- Source: [{doc.path.name}]({rel_link(doc.path)})")
+        out.append(f"- Source file: {doc.path.name} (download from the HTML manual)")
         out.append("")
         out.append("| Key | Type | Value | Section |")
         out.append("| --- | --- | --- | --- |")
@@ -1674,7 +1634,7 @@ def manual_markdown(
         out.append(f"### {dir_name}")
         out.append("")
         for doc in docs:
-            out.append(f"- [{doc.name}]({rel_link(doc.path)})")
+            out.append(f"- {doc.name}")
         out.append("")
 
     return "\n".join(out)
@@ -1695,9 +1655,11 @@ def card_html(
     summary_html = "".join(f"<li>{esc(line)}</li>" for line in summary_lines if line)
     lead_html = f"<p class='lead'>{esc(lead)}</p>" if lead else ""
     body_html = f"<div class='body'>{body}</div>" if body else ""
+    published = PUBLISHED_SOURCE_FILES.get(str(source.resolve())) if source else None
     source_html = (
-        f'<a class="source-link" href="{esc(rel_link(source, OUTPUT_DIR))}">{esc(source.name)}</a>'
-        if source
+        f'<a class="source-link" href="{esc(quote(published.as_posix()))}" '
+        f'data-download-name="{esc(source.name)}">{esc(source.name)}</a>'
+        if published is not None
         else ""
     )
     action_html = (
@@ -1801,12 +1763,18 @@ def manual_html(
     # Use the resolved path for anchors so sources outside the builder folder work too.
     inp_cards = {rel_key(doc.path): anchor_id("inp", rel_key(doc.path)) for doc in inp_docs}
     file_cards = {item: anchor_id("file", item) for item in file_registry}
-    handbook_cards = {rel_key(doc.path): anchor_id("handbook", doc.path.relative_to(HANDBOOK_DIR).as_posix()) for doc in handbook_docs}
+    handbook_by_rel = {
+        "/".join(doc.path.relative_to(HANDBOOKS_DIR).parts[1:]).casefold(): doc
+        for doc in handbook_docs
+    }
+    handbook_cards = {
+        rel_key(doc.path): anchor_id("handbook", relative)
+        for relative, doc in handbook_by_rel.items()
+    }
     inp_group_cards = {directory: anchor_id("inp-group", directory) for directory in inp_groups}
-    handbook_by_rel = {rel_key(doc.path): doc for doc in handbook_docs}
     handbook_by_key: Dict[str, List[HandbookDocument]] = defaultdict(list)
     for doc in handbook_docs:
-        rel_path = doc.path.relative_to(HANDBOOK_DIR).as_posix()
+        rel_path = "/".join(doc.path.relative_to(HANDBOOKS_DIR).parts[1:])
         for candidate in {
             doc.name,
             doc.path.stem,
@@ -1861,11 +1829,9 @@ def manual_html(
         else:
             candidate_paths.append(f"{cleaned}.md")
         for candidate in candidate_paths:
-            candidate_path = HANDBOOK_DIR / candidate
-            if candidate_path.exists() and candidate_path.is_file():
-                doc = handbook_by_rel.get(rel_key(candidate_path))
-                if doc:
-                    return page_href(HANDBOOK_PAGE_FILE, handbook_cards[rel_key(doc.path)])
+            doc = handbook_by_rel.get(candidate.casefold())
+            if doc:
+                return page_href(HANDBOOK_PAGE_FILE, handbook_cards[rel_key(doc.path)])
         key = ref_key(cleaned)
         matches = handbook_by_key.get(key, [])
         if matches:
@@ -2254,7 +2220,7 @@ def manual_html(
                 full_text = render_simple_markdown_body(doc.path, resolve_handbook_target)
                 body_parts = [
                     f"<details class='handbook-text'><summary>Show full text</summary>{full_text}</details>",
-                    manual_comment_html("handbook", doc.path.relative_to(HANDBOOK_DIR).as_posix(), resolve_handbook_target),
+                    manual_comment_html("handbook", handbook_comment_target(doc.path), resolve_handbook_target),
                 ]
                 doc_cards.append(
                     card_html(
@@ -2587,13 +2553,77 @@ def manual_html(
       visible.forEach(card => card.parentElement.appendChild(card));
     }}
     function focusTargetFromHash() {{
-      const id = decodeURIComponent((window.location.hash || '').replace('#', ''));
-      if (!id) return;
-      const target = document.getElementById(id);
-      if (target) {{
-        target.scrollIntoView({{ block: 'start', behavior: 'smooth' }});
+      let id;
+      try {{
+        id = decodeURIComponent(window.location.hash.slice(1));
+      }} catch {{
+        return;
       }}
+      const target = document.getElementById(id);
+      if (!target) return;
+      for (let node = target; node; node = node.parentElement) {{
+        if (node.classList?.contains('card')) node.classList.remove('hidden');
+        if (node instanceof HTMLDetailsElement) node.open = true;
+      }}
+      if (target.classList.contains('card')) {{
+        target.querySelector(':scope > details')?.setAttribute('open', '');
+        target.querySelector('.handbook-text')?.setAttribute('open', '');
+      }}
+      target.scrollIntoView({{ block: 'start' }});
     }}
+
+    async function downloadSource(link) {{
+      if (!window.crypto?.subtle) {{
+        window.alert('Open the manual over HTTPS or localhost to download files.');
+        return;
+      }}
+      const password = window.prompt('Password for ' + link.dataset.downloadName);
+      if (!password) return;
+      let payload;
+      try {{
+        const response = await fetch(link.href);
+        if (!response.ok) throw new Error('HTTP ' + response.status);
+        payload = new Uint8Array(await response.arrayBuffer());
+      }} catch {{
+        window.alert('The download file could not be loaded.');
+        return;
+      }}
+      let plaintext;
+      try {{
+        const material = await crypto.subtle.importKey(
+          'raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']
+        );
+        const key = await crypto.subtle.deriveKey(
+          {{ name: 'PBKDF2', hash: 'SHA-256', salt: payload.subarray(0, 16), iterations: {DOWNLOAD_KDF_ROUNDS} }},
+          material, {{ name: 'AES-GCM', length: 256 }}, false, ['decrypt']
+        );
+        plaintext = await crypto.subtle.decrypt(
+          {{ name: 'AES-GCM', iv: payload.subarray(16, 28) }}, key, payload.subarray(28)
+        );
+      }} catch {{
+        window.alert('Incorrect password or damaged download file.');
+        return;
+      }}
+      const file = document.createElement('a');
+      file.href = URL.createObjectURL(new Blob([plaintext], {{ type: 'application/octet-stream' }}));
+      file.download = link.dataset.downloadName;
+      document.body.appendChild(file);
+      file.click();
+      file.remove();
+      setTimeout(() => URL.revokeObjectURL(file.href), 30000);
+    }}
+
+    document.addEventListener('click', event => {{
+      const link = event.target.closest('a[href]');
+      if (!link) return;
+      if (link.dataset.downloadName) {{
+        event.preventDefault();
+        downloadSource(link);
+      }} else if (link.href === window.location.href && window.location.hash) {{
+        event.preventDefault();
+        focusTargetFromHash();
+      }}
+    }});
     if (q && kind && sort) {{
       q.addEventListener('input', refresh);
       kind.addEventListener('change', refresh);
@@ -2615,7 +2645,6 @@ def collect_data(source_dir: Path | List[Path]) -> tuple[
     Dict[str, List[str]],
     Dict[str, Dict[str, List[str]]],
 ]:
-    ensure_handbook_source()
     if isinstance(source_dir, list):
         source_dirs = source_dir
     else:
@@ -2652,8 +2681,11 @@ def collect_data(source_dir: Path | List[Path]) -> tuple[
     annotate_identical_sources(pcf_docs)
     annotate_identical_sources(script_docs)
     annotate_identical_sources(inp_docs)
-    handbook_sections = gather_handbook_sections(HANDBOOK_DIR)
-    handbook_docs = [doc for docs in handbook_sections.values() for doc in docs]
+    handbook_docs = [
+        doc for source in source_dirs
+        for docs in gather_handbook_sections(handbook_dir(source)).values()
+        for doc in docs
+    ]
     refs = build_cross_refs(pcf_docs, script_docs)
     file_registry = build_file_registry(script_docs)
     return pcf_docs, script_docs, inp_docs, handbook_docs, refs, file_registry
@@ -2764,8 +2796,8 @@ def add_gpsuser_interactively(configured_sources: List[Path]) -> tuple[List[Path
     if not ok:
         print(f"Cannot add this GPSUSER: {reason}")
         return configured_sources, None
-    if path in configured_sources:
-        print("This GPSUSER is already configured.")
+    if any(source_slug(path) == source_slug(source) for source in configured_sources):
+        print("A GPSUSER with the same handbook folder name is already configured.")
         return configured_sources, None
     configured_sources = configured_sources + [path]
     write_configured_sources(configured_sources)
@@ -2800,6 +2832,8 @@ def remove_source_branch(output_dir: Path, source: Path) -> None:
     branch_dir = source_branch_dir(output_dir, source)
     if not branch_dir.is_dir():
         return
+    if branch_dir.resolve().parent != output_dir.resolve() / "sources":
+        raise ValueError(f"GPSUSER branch resolves outside its output directory: {branch_dir}")
 
     def remove_readonly(func: Callable[..., object], path: str, _exc_info: object) -> None:
         try:
@@ -2817,19 +2851,6 @@ def remove_source_branch(output_dir: Path, source: Path) -> None:
             "Warning: could not completely remove the GPSUSER branch "
             f"(it may be locked by OneDrive or another application): {branch_dir}"
         )
-
-
-def copy_source_branch_to_root(output_dir: Path, source: Path) -> None:
-    branch_dir = source_branch_dir(output_dir, source)
-    clear_multi_source_root(output_dir)
-    if not branch_dir.is_dir():
-        return
-    for item in branch_dir.iterdir():
-        destination = output_dir / item.name
-        if item.is_dir():
-            shutil.copytree(item, destination, dirs_exist_ok=True)
-        else:
-            shutil.copy2(item, destination)
 
 
 def rebuild_selected_source_branch(
@@ -2854,24 +2875,78 @@ def source_display_label(path: Path) -> str:
     return f"{path.parent.name}/{path.name}"
 
 
-def publish_source_files(sources: List[Path], output_dir: Path) -> None:
-    """Copy source files into the generated site so Pages can serve the links."""
-    global PUBLISHED_SOURCE_FILES
-    PUBLISHED_SOURCE_FILES = {}
-    source_root = output_dir / "source_files"
+def download_cipher(password: str, salt: bytes):
+    from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+
+    key = hashlib.pbkdf2_hmac("sha256", password.encode("utf-8"), salt, DOWNLOAD_KDF_ROUNDS)
+    return AESGCM(key)
+
+
+def publish_source_files(sources: List[Path], output_dir: Path, password: str) -> None:
+    """Publish authenticated ciphertext, never the original source files."""
+    PUBLISHED_SOURCE_FILES.clear()
+    download_dir = output_dir / "downloads"
+    download_dir.mkdir(parents=True, exist_ok=True)
+    try:
+        (download_dir / ".protected").unlink()
+    except FileNotFoundError:
+        pass
+    salt = os.urandom(16)
+    cipher = download_cipher(password, salt)
+
+    def encrypt(data: bytes) -> bytes:
+        nonce = os.urandom(12)
+        return salt + nonce + cipher.encrypt(nonce, data, None)
+
     for source in sources:
         for folder_name in ("PCF", "SCRIPT", "OPT"):
             folder = source / folder_name
-            if not folder.is_dir():
-                continue
             for path in folder.rglob("*"):
                 if not path.is_file() or is_metadata_path(path, folder):
                     continue
-                relative = path.relative_to(source)
-                target = source_root / source_slug(source) / relative
-                target.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(path, target)
-                PUBLISHED_SOURCE_FILES[str(path.resolve())] = target
+                encrypted = encrypt(path.read_bytes())
+                filename = hashlib.sha256(encrypted).hexdigest() + ".enc"
+                (download_dir / filename).write_bytes(encrypted)
+                PUBLISHED_SOURCE_FILES[str(path.resolve())] = Path("downloads") / filename
+
+    # The finished build prunes obsolete ciphertext after writing the new pages.
+    (download_dir / ".protected.pending").write_bytes(encrypt(DOWNLOAD_MARKER))
+
+
+def finish_protected_downloads(output_dir: Path) -> None:
+    download_dir = output_dir / "downloads"
+    active_names = {path.name for path in PUBLISHED_SOURCE_FILES.values()}
+    for path in download_dir.glob("*.enc"):
+        if path.name not in active_names:
+            path.unlink()
+    (download_dir / ".protected.pending").replace(download_dir / ".protected")
+
+
+def branch_matches_password(output_dir: Path, source: Path, password: str) -> bool:
+    from cryptography.exceptions import InvalidTag
+
+    if not source_branch_ready(output_dir, source):
+        return False
+    marker = (source_branch_dir(output_dir, source) / "downloads" / ".protected").read_bytes()
+    try:
+        return download_cipher(password, marker[:16]).decrypt(marker[16:28], marker[28:], None) == DOWNLOAD_MARKER
+    except (InvalidTag, ValueError):
+        return False
+
+
+def remove_legacy_downloads(output_dir: Path) -> None:
+    """Remove the former plaintext download directories from generated output."""
+    root = output_dir.resolve()
+    owners = [root]
+    branches = root / "sources"
+    if branches.is_dir() and branches.resolve().parent == root:
+        owners.extend(path for path in branches.iterdir() if path.is_dir() and not path.is_symlink())
+    for owner in owners:
+        legacy = owner / "source_files"
+        if legacy.is_symlink():
+            legacy.unlink()
+        elif legacy.is_dir() and legacy.resolve().parent == owner and root in legacy.resolve().parents:
+            shutil.rmtree(legacy)
 
 
 def source_branch_dir(output_dir: Path, source: Path) -> Path:
@@ -2879,23 +2954,8 @@ def source_branch_dir(output_dir: Path, source: Path) -> Path:
 
 
 def source_branch_ready(output_dir: Path, source: Path) -> bool:
-    return (source_branch_dir(output_dir, source) / MANUAL_INDEX_FILE).is_file()
-
-
-def copy_single_source_output(output_dir: Path, source: Path) -> bool:
-    branch_dir = source_branch_dir(output_dir, source)
-    if source_branch_ready(output_dir, source):
-        return False
-    branch_dir.mkdir(parents=True, exist_ok=True)
-    for item in output_dir.iterdir():
-        if item.name == "sources":
-            continue
-        destination = branch_dir / item.name
-        if item.is_dir():
-            shutil.copytree(item, destination, dirs_exist_ok=True)
-        else:
-            shutil.copy2(item, destination)
-    return True
+    branch = source_branch_dir(output_dir, source)
+    return (branch / MANUAL_INDEX_FILE).is_file() and (branch / "downloads" / ".protected").is_file()
 
 
 def build_single_source_branch(source: Path, output_dir: Path) -> int:
@@ -2965,7 +3025,7 @@ def write_multi_source_index(
     cards = []
     for source in sources:
         folder = source_slug(source)
-        if source_branch_ready(output_dir, source):
+        if clear_root and source_branch_ready(output_dir, source):
             href = f"sources/{esc(folder)}/{MANUAL_INDEX_FILE}"
             link_label = "Open GPSUSER manual"
         elif len(sources) == 1:
@@ -2977,7 +3037,7 @@ def write_multi_source_index(
         cards.append(
             f"<article class='source-card'>"
             f"<div class='source-number'>{len(cards) + 1:02d}</div>"
-            f"<div><h2>{esc(source.name)}</h2>"
+            f"<div><h2>{esc(source_display_label(source))}</h2>"
             f"<p class='source-path'>{esc(str(source))}</p>"
             f"<a class='source-link' href='{href}'>{link_label} <span aria-hidden='true'>-&gt;</span></a>"
             f"</div></article>"
@@ -3024,6 +3084,7 @@ main{{max-width:1120px;margin:0 auto;padding:clamp(24px,6vw,72px) 22px 64px}}
 
 
 def write_multi_source_overview(output_dir: Path, sources: List[Path]) -> None:
+    remove_legacy_downloads(output_dir)
     write_multi_source_index(output_dir, sources)
     write_text(
         output_dir / "bernese_bpe_manual.md",
@@ -3086,7 +3147,7 @@ def add_comment_interactively(
         targets = [(f"{doc.path.parent.name}/{doc.name}", f"{doc.path.parent.name}/{doc.name}") for doc in inp_docs]
     elif kind_choice == "4":
         kind = "handbook"
-        targets = [(doc.title, doc.path.relative_to(HANDBOOK_DIR).as_posix()) for doc in handbook_docs]
+        targets = [(doc.title, handbook_comment_target(doc.path)) for doc in handbook_docs]
     else:
         print("Unknown component type.")
         return False
@@ -3234,6 +3295,11 @@ def main() -> int:
         help="Real Bernese user directory containing PCF/, SCRIPT/, and OPT/",
     )
     parser.add_argument(
+        "--update-source",
+        type=Path,
+        help="Update this configured GPSUSER and refresh the common overview",
+    )
+    parser.add_argument(
         "--add-comment",
         action="store_true",
         help="Interactively add a comment, then rebuild the manual",
@@ -3266,6 +3332,7 @@ def main() -> int:
     startup_action = "a"
     if not args.no_prompts and not any(
         (
+            args.update_source,
             args.add_comment,
             args.delete_comment,
             args.add_handbook_entry,
@@ -3296,10 +3363,9 @@ def main() -> int:
         )
 
     configured_sources = [path.resolve() for path in args.source_dir] if args.source_dir else read_configured_sources()
-    sources_before_menu = list(configured_sources)
     added_source: Optional[Path] = None
     removed_source: Optional[Path] = None
-    updated_source: Optional[Path] = None
+    updated_source = args.update_source.expanduser().resolve() if args.update_source else None
     selected_action_source: Optional[Path] = None
     if startup_action == "b1":
         configured_sources, added_source = add_gpsuser_interactively(configured_sources)
@@ -3307,6 +3373,8 @@ def main() -> int:
         configured_sources, removed_source = remove_gpsuser_interactively(configured_sources)
     elif startup_action == "b3":
         updated_source = update_gpsuser_interactively(configured_sources)
+        if updated_source is None:
+            return 0
     elif (
         not args.source_dir
         and (
@@ -3323,21 +3391,45 @@ def main() -> int:
         )
         if selected_action_source is None:
             return 0
+    if updated_source is not None:
+        if updated_source not in configured_sources:
+            parser.error(f"GPSUSER source is not configured: {updated_source}")
+        ok, reason = source_is_readable(updated_source)
+        if not ok:
+            parser.error(f"GPSUSER source is not readable: {updated_source} ({reason})")
     if args.source_dir:
         for path in configured_sources:
             ok, reason = source_is_readable(path)
             if not ok:
                 parser.error(f"GPSUSER source is not readable: {path} ({reason})")
-    sources = configured_sources
+    sources = list(dict.fromkeys(configured_sources))
+    if len({source_slug(source) for source in sources}) != len(sources):
+        parser.error("GPSUSER paths must have distinct handbook folder names (parent and directory name).")
     output_dir = args.output_dir.resolve() if args.output_dir else OUTPUT_DIR
     output_dir = output_dir.resolve()
     output_dir.mkdir(parents=True, exist_ok=True)
 
     if not sources:
+        if removed_source is not None:
+            remove_source_branch(output_dir, removed_source)
+        remove_legacy_downloads(output_dir)
         clear_multi_source_root(output_dir)
         write_single_source_overview(output_dir, sources)
         print(f"Wrote GPSUSER overview: {output_dir / OVERVIEW_PAGE_FILE}")
         return 0
+
+    password = os.environ.get(DOWNLOAD_PASSWORD_ENV)
+    if not password and sys.stdin.isatty():
+        password = getpass.getpass("Shared download password: ")
+    if not password:
+        parser.error(f"Set {DOWNLOAD_PASSWORD_ENV} or enter the shared password in a terminal.")
+    try:
+        import cryptography
+    except ImportError:
+        parser.error("Install cryptography before building: python -m pip install cryptography")
+    os.environ[DOWNLOAD_PASSWORD_ENV] = password
+    if updated_source is not None:
+        print(f"Updating GPSUSER: {updated_source}", flush=True)
 
     append_handbook_history(
         "built",
@@ -3345,25 +3437,23 @@ def main() -> int:
         f"Generated manual from {len(sources)} source(s)",
     )
 
+    handbook_action = args.add_handbook_entry or args.edit_handbook_entry or startup_action == "d2"
+    if handbook_action and selected_action_source is None:
+        selected_action_source = sources[0] if len(sources) == 1 else choose_gpsuser_interactively(sources)
+        if selected_action_source is None:
+            return 0
     if args.add_handbook_entry:
-        if not add_handbook_entry_interactively():
+        if not add_handbook_entry_interactively(handbook_dir(selected_action_source)):
             print("No handbook entry was added.")
     if args.edit_handbook_entry:
-        if not edit_handbook_entry_interactively():
+        if not edit_handbook_entry_interactively(handbook_dir(selected_action_source)):
             print("No handbook entry was edited.")
     if startup_action == "d2":
-        if not remove_handbook_entry_interactively():
+        if not remove_handbook_entry_interactively(handbook_dir(selected_action_source)):
             print("No handbook entry was removed.")
-    handbook_changed = args.add_handbook_entry or args.edit_handbook_entry or startup_action == "d2"
 
-    if startup_action == "b2" and removed_source is not None and len(sources) <= 1:
+    if len(sources) == 1 and removed_source is not None:
         remove_source_branch(output_dir, removed_source)
-        if len(sources) == 1:
-            copy_source_branch_to_root(output_dir, sources[0])
-        else:
-            clear_multi_source_root(output_dir)
-        print(f"Sources: {', '.join(str(path) for path in sources) or 'none'}")
-        return 0
 
     if len(sources) > 1:
         if not args.no_prompts and (args.add_comment or args.delete_comment):
@@ -3379,11 +3469,24 @@ def main() -> int:
             )
         source_output = output_dir / "sources"
         source_output.mkdir(parents=True, exist_ok=True)
-        if startup_action == "b1" and added_source is not None:
-            if len(sources_before_menu) == 1:
-                copy_single_source_output(output_dir, sources_before_menu[0])
+        if updated_source is not None:
+            result = build_single_source_branch(updated_source, source_branch_dir(output_dir, updated_source))
+            if result != 0:
+                return result
             for source in sources:
-                if source_branch_ready(output_dir, source):
+                if source == updated_source or branch_matches_password(output_dir, source, password):
+                    continue
+                print(f"Preparing GPSUSER branch for the shared password: {source}", flush=True)
+                result = build_single_source_branch(source, source_branch_dir(output_dir, source))
+                if result != 0:
+                    return result
+            write_multi_source_overview(output_dir, sources)
+            print(f"Updated GPSUSER branch: {updated_source}")
+            print(f"Wrote GPSUSER overview: {output_dir / OVERVIEW_PAGE_FILE}")
+            return 0
+        if startup_action == "b1" and added_source is not None:
+            for source in sources:
+                if branch_matches_password(output_dir, source, password):
                     continue
                 result = build_single_source_branch(source, source_output / source_slug(source))
                 if result != 0:
@@ -3395,47 +3498,19 @@ def main() -> int:
 
         if startup_action == "b2" and removed_source is not None:
             remove_source_branch(output_dir, removed_source)
-            if len(sources) == 1:
-                copy_source_branch_to_root(output_dir, sources[0])
+
+        incremental = removed_source is not None or selected_action_source is not None
+        branches_ready = incremental and all(branch_matches_password(output_dir, source, password) for source in sources)
+        if startup_action == "b2" and removed_source is not None and branches_ready:
             write_multi_source_overview(output_dir, sources)
             print(f"Sources: {', '.join(str(path) for path in sources)}")
             print(f"Wrote GPSUSER overview: {output_dir / OVERVIEW_PAGE_FILE}")
             return 0
 
-        if startup_action == "b3" and updated_source is not None:
-            result = rebuild_selected_source_branch(output_dir, updated_source, sources)
+        if selected_action_source is not None and branches_ready:
+            result = rebuild_selected_source_branch(output_dir, selected_action_source, sources)
             if result != 0:
                 return result
-            print(f"Updated GPSUSER branch: {updated_source}")
-            print(f"Wrote GPSUSER overview: {output_dir / OVERVIEW_PAGE_FILE}")
-            return 0
-
-        if handbook_changed:
-            for source in sources:
-                result = build_single_source_branch(
-                    source,
-                    output_dir / "sources" / source_slug(source),
-                )
-                if result != 0:
-                    return result
-            write_multi_source_overview(output_dir, sources)
-            print(f"Synchronized handbook in {len(sources)} GPSUSER branch(es).")
-            print(f"Wrote GPSUSER overview: {output_dir / OVERVIEW_PAGE_FILE}")
-            return 0
-
-        if selected_action_source is not None:
-            if source_branch_ready(output_dir, selected_action_source):
-                result = build_single_source_branch(
-                    selected_action_source,
-                    output_dir / "sources" / source_slug(selected_action_source),
-                )
-                if result != 0:
-                    return result
-            else:
-                result = rebuild_selected_source_branch(output_dir, selected_action_source, sources)
-                if result != 0:
-                    return result
-            write_multi_source_overview(output_dir, sources)
             print(f"Updated GPSUSER branch: {selected_action_source}")
             print(f"Wrote GPSUSER overview: {output_dir / OVERVIEW_PAGE_FILE}")
             return 0
@@ -3462,9 +3537,8 @@ def main() -> int:
     OUTPUT_DIR = output_dir
 
     ACTIVE_SOURCE_LABEL = ", ".join(str(path) for path in sources)
-    publish_source_files(sources, output_dir)
+    publish_source_files(sources, output_dir, password)
     pcf_docs, script_docs, inp_docs, handbook_docs, refs, file_registry = collect_data(sources)
-    history_records = load_handbook_history()
     if not args.no_prompts and (args.add_comment or args.delete_comment):
         collect_manual_comments(
             pcf_docs,
@@ -3474,6 +3548,7 @@ def main() -> int:
             direct_mode=args.add_comment,
             delete_mode=args.delete_comment,
         )
+    history_records = load_handbook_history(sources[0])
     script_index = build_script_index(script_docs)
     generated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
@@ -3512,6 +3587,8 @@ def main() -> int:
     }
     write_text(index_path, json.dumps(index, indent=2))
     write_single_source_overview(output_dir, sources)
+    finish_protected_downloads(output_dir)
+    remove_legacy_downloads(output_dir)
 
     print(f"Wrote {md_path}")
     for filename in pages:

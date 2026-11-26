@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-11-25 15:41:00
+Generated: 2026-11-26 08:55:06
 
 ## Overview
 
@@ -30,39 +30,33 @@ This manual is generated from one or more configured source directories containi
 
 ## Handwritten Documentation
 
-The following notes are imported from the configured handbook source and mirror the manually written project guide.
+The following notes belong to this GPSUSER.
 
-- Operation: 14 page(s)
-- Perl Controller: 15 page(s)
-- Python Controller: 1 page(s)
-- Python Utilities: 9 page(s)
-- Start: 3 page(s)
-- System Overview: 1 page(s)
 
 ## Change History
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
-- 2026-11-25T15:38:13+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-11-25T15:38:13+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-25T15:32:43+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-25T15:32:41+01:00 | l_code_rap | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-11-25T14:49:57+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-25T14:39:33+01:00 | Cyril Kobel | Built | manual | Generated manual from 2 source(s)
-- 2026-11-25T14:39:33+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-25T14:39:32+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
-- 2026-11-25T13:45:19+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-25T13:45:18+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
-- 2026-11-25T13:08:22+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-25T13:08:21+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
-- 2026-11-18T11:46:47+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
-- 2026-11-18T11:46:47+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-10-20T14:11:26+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-10-20T14:11:25+02:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
-- 2026-10-20T14:03:38+02:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
-- 2026-10-20T14:03:38+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-10-05T16:17:56+02:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-10-05T16:17:53+02:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-11-26T08:52:36+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T08:44:59+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T08:44:58+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-11-26T08:44:58+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T07:51:42+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:47:31+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:39:28+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-11-26T07:39:28+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T07:39:28+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:14:25+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:13:38+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:11:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T07:11:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:11:26+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
+- 2026-11-26T07:11:12+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T07:11:12+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:11:10+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
+- 2026-11-26T07:10:31+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:08:18+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T07:06:50+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
 
 ## Quick Cross-Reference
 
@@ -840,7 +834,7 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 
 - Author: S. Schaer
 - Created: 21-Dec-2011
-- Source: [DCBIONO.PCF](source_files/l-code-rap-gpsuser/PCF/DCBIONO.PCF)
+- Source file: DCBIONO.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -955,7 +949,7 @@ _... 5 more variables omitted in this summary._
 
 ### DEBUG_SS.PCF
 
-- Source: [DEBUG_SS.PCF](source_files/l-code-rap-gpsuser/PCF/DEBUG_SS.PCF)
+- Source file: DEBUG_SS.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -978,7 +972,7 @@ Variables:
 
 ### IGSRAPID.PCF
 
-- Source: [IGSRAPID.PCF](source_files/l-code-rap-gpsuser/PCF/IGSRAPID.PCF)
+- Source file: IGSRAPID.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1251,7 +1245,7 @@ _... 25 more variables omitted in this summary._
 
 ### IGSULTRA.PCF
 
-- Source: [IGSULTRA.PCF](source_files/l-code-rap-gpsuser/PCF/IGSRAPID.PCF)
+- Source file: IGSULTRA.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1528,7 +1522,7 @@ Generate a series of plots based on RAPID products using the
 
 - Author: R. Dach
 - Created: 23-Jan-2024
-- Source: [PLOTS_RAPID.PCF](source_files/l-code-rap-gpsuser/PCF/PLOTS_RAPID.PCF)
+- Source file: PLOTS_RAPID.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1632,7 +1626,7 @@ Determination of undifferenced widelane (WL) and narrowlane (NL) phase biases an
 
 - Author: S. Schaer
 - Created: 14-May-2018
-- Source: [PPPAR.PCF](source_files/l-code-rap-gpsuser/PCF/PPPAR.PCF)
+- Source file: PPPAR.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1719,7 +1713,7 @@ Determination of undifferenced widelane (WL) and narrowlane (NL) phase biases an
 
 - Author: S. Schaer
 - Created: 14-May-2018
-- Source: [PPPAR1.PCF](source_files/l-code-rap-gpsuser/PCF/PPPAR1.PCF)
+- Source file: PPPAR1.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1803,7 +1797,7 @@ _... 6 more variables omitted in this summary._
 ### RAPIONO.PCF
 
 - Created: 22-Apr-2002/SS
-- Source: [RAPIONO.PCF](source_files/l-code-rap-gpsuser/PCF/RAPIONO.PCF)
+- Source file: RAPIONO.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -1892,7 +1886,7 @@ _... 3 more variables omitted in this summary._
 
 - Author: R. Dach
 - Created: 13-May-2009
-- Source: [RCLKGNSS.PCF](source_files/l-code-rap-gpsuser/PCF/RCLKGNSS.PCF)
+- Source file: RCLKGNSS.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -2077,7 +2071,7 @@ _... 8 more variables omitted in this summary._
 Compute predictions for GPS/GLONASS for ILRS (CPF)
 
 - Author: C. Urschl
-- Source: [SLRPRED.PCF](source_files/l-code-rap-gpsuser/PCF/SLRPRED.PCF)
+- Source file: SLRPRED.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -2122,7 +2116,7 @@ This is a skeleton for the SUPERBPE. The SUPERBPE runs a
 
 - Author: R. Dach
 - Created: 17-Oct-2003
-- Source: [SUPERBPE.PCF](source_files/l-code-rap-gpsuser/PCF/SUPERBPE.PCF)
+- Source file: SUPERBPE.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
 
@@ -2145,24 +2139,24 @@ Variables:
 
 ### .gmtcommands4
 
-- Source: [.gmtcommands4](source_files/l-code-rap-gpsuser/SCRIPT/.gmtcommands4)
+- Source file: .gmtcommands4 (download from the HTML manual)
 ### .gmtdefaults4
 
-- Source: [.gmtdefaults4](source_files/l-code-rap-gpsuser/SCRIPT/.gmtdefaults4)
+- Source file: .gmtdefaults4 (download from the HTML manual)
 ### ADDNEQ2
 
 - Purpose: Combine NQ0-files Programs:  ADDNEQ2, GPSXTR
 - Bernese programs: `ADDNEQ2`, `GPSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RAPIONO.PCF, RCLKGNSS.PCF
 - INP files: `ADDNEQ2.INP`, `GPSXTR.INP`
-- Source: [ADDNEQ2](source_files/l-code-rap-gpsuser/SCRIPT/ADDNEQ2)
+- Source file: ADDNEQ2 (download from the HTML manual)
 ### ADDNEQ2L
 
 - Purpose: Compare bernese neqs of last 90 days Programs:  ADDNEQ2
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ADDNEQ2.INP`
-- Source: [ADDNEQ2L](source_files/l-code-rap-gpsuser/SCRIPT/ADDNEQ2L)
+- Source file: ADDNEQ2L (download from the HTML manual)
 ### ADDNEQ2M
 
 - Purpose: Combine NQ0 files to generate a n-day solution Programs:  ADDNEQ2, GPSXTR
@@ -2173,7 +2167,7 @@ Variables:
   - V_ variables: `V_XTR`
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `$YD+0`, `DAYWEEK`, `DIR_ELE`, `DIR_OUT`, `EXT_ELE`, `PCFFIL`
-- Source: [ADDNEQ2M](source_files/l-code-rap-gpsuser/SCRIPT/ADDNEQ2M)
+- Source file: ADDNEQ2M (download from the HTML manual)
 ### ADDNEQ2N
 
 - Purpose: Combine NQ0 files to generate a n-day solution Programs:  ADDNEQ2, GPSXTR
@@ -2185,7 +2179,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `$YD+0`, `DAYWEEK`, `DIR_ELE`, `DIR_OUT`, `EXT_ELE`, `PCFFIL`
 - File patterns: `"DIR_ELE${sol2}DAYWEEK*.EXT_ELE"`, `DIR_ELE${sol2}DAYWEEK*.EXT_ELE`
-- Source: [ADDNEQ2N](source_files/l-code-rap-gpsuser/SCRIPT/ADDNEQ2N)
+- Source file: ADDNEQ2N (download from the HTML manual)
 ### ADDNEQ2T
 
 - Purpose: Combine NQ0 files to generate a n-day solution Programs:  ADDNEQ2, GPSXTR
@@ -2196,7 +2190,7 @@ Variables:
   - V_ variables: `V_XTR`
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `$YD+0`, `DAYWEEK`, `DIR_ELE`, `DIR_OUT`, `EXT_ELE`, `PCFFIL`
-- Source: [ADDNEQ2T](source_files/l-code-rap-gpsuser/SCRIPT/ADDNEQ2T)
+- Source file: ADDNEQ2T (download from the HTML manual)
 ### ADDNEQ2U
 
 - Purpose: Combine NQ0 files to generate a n-day solution (ultra-mode) Programs:  ADDNEQ2, GPSXTR
@@ -2207,7 +2201,7 @@ Variables:
   - V_ variables: `V_H`, `V_K`, `V_XTR`
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `$JD+0`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_ERP`, `DIR_NEQ`, `DIR_RPR`, `DIR_STD`, `EXT_ERP`, `EXT_NEQ`, `EXT_RPR`, `EXT_STD`, `PCFFIL`
-- Source: [ADDNEQ2U](source_files/l-code-rap-gpsuser/SCRIPT/ADDNEQ2U)
+- Source file: ADDNEQ2U (download from the HTML manual)
 ### AMBVER_P
 
 - Purpose: Perform ambiguity verification
@@ -2221,7 +2215,7 @@ Variables:
 - File writes: `$$bpe{SYSOUT}_`
 - File deletes: `DIR_OUTPARAM1$+0Q.EXT_OUT`, `DIR_OUTPARAM1$+0V.EXT_OUT`
 - File patterns: `"DIR_OUTPARAM1$+0?.EXT_OUT"`, `DIR_OUTPARAM1$+0?.EXT_OUT`
-- Source: [AMBVER_P](source_files/l-code-rap-gpsuser/SCRIPT/AMBVER_P)
+- Source file: AMBVER_P (download from the HTML manual)
 ### AMBVERAP
 
 - Purpose: Prepare parallel ambiguity verification process for a set of baselines selected by BASLST
@@ -2233,7 +2227,7 @@ Variables:
   - Other keys: `$+0`, `$YD+0`, `DIR_BSL`, `DIR_OUT`, `EXT_OUT`
 - File deletes: `DIR_BSLVER$YD+0.SEL`, `DIR_OUTVER$YD+0.PRC`
 - File patterns: `"DIR_OUT????$+0V.EXT_OUT"`, `DIR_OUT????$+0V.EXT_OUT`
-- Source: [AMBVERAP](source_files/l-code-rap-gpsuser/SCRIPT/AMBVERAP)
+- Source file: AMBVERAP (download from the HTML manual)
 ### AMBXTR
 
 - Purpose: Generate summary of the paralel ambiguity fixing Programs:  GPSXTR
@@ -2243,14 +2237,14 @@ Variables:
 - Read keys:
   - Other keys: `$YD+0`, `DIR_OUT`, `DIR_SUM`
 - File deletes: `DIR_SUMMLWXTR.SUM`, `DIR_SUMAMBXTR.SUM`
-- Source: [AMBXTR](source_files/l-code-rap-gpsuser/SCRIPT/AMBXTR)
+- Source file: AMBXTR (download from the HTML manual)
 ### ARC_CHK
 
 - Purpose: Programs:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y`, `$Y+0`, `EXT_SATCRUX`, `PTH_SATCRUX`
-- Source: [ARC_CHK](source_files/l-code-rap-gpsuser/SCRIPT/ARC_CHK)
+- Source file: ARC_CHK (download from the HTML manual)
 ### ARCFIT_P
 
 - Package: `RCFIT_P`
@@ -2260,14 +2254,14 @@ Variables:
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`, `STDPRE.INP`
 - Read keys:
   - Other keys: `$YD+0`, `PTH_PLATDEF`
-- Source: [ARCFIT_P](source_files/l-code-rap-gpsuser/SCRIPT/ARCFIT_P)
+- Source file: ARCFIT_P (download from the HTML manual)
 ### ARCFITAP
 
 - Purpose: Programs:  Prepare parallel ORBGEN runs for 1 to $V_ARCFIT days
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$JD+0`, `DIR_OUT`, `DIR_PRE`
-- Source: [ARCFITAP](source_files/l-code-rap-gpsuser/SCRIPT/ARCFITAP)
+- Source file: ARCFITAP (download from the HTML manual)
 ### ATL_REF
 
 - Purpose: Execute GRDS1S2 and update created file in REF if indicated
@@ -2277,7 +2271,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_ATLINF`, `V_CRDINF`
   - Other keys: `DIR_CRD`, `EXT_CRD`
-- Source: [ATL_REF](source_files/l-code-rap-gpsuser/SCRIPT/ATL_REF)
+- Source file: ATL_REF (download from the HTML manual)
 ### ATTXTR
 
 - Purpose: Report the attitude in ORBEX format Programs:  ATTXTR
@@ -2286,7 +2280,7 @@ Variables:
 - INP files: `ATTXTR.INP`, `ATTXTR.INP`
 - Read keys:
   - Other keys: `$JD+0`, `CAMPAIGN`
-- Source: [ATTXTR](source_files/l-code-rap-gpsuser/SCRIPT/ATTXTR)
+- Source file: ATTXTR (download from the HTML manual)
 ### ATX2EPN
 
 - Purpose: Update PCV_COD.E08 using ATX2PCV
@@ -2297,7 +2291,7 @@ Variables:
   - V_ variables: `V_NADIR`, `V_PCV`, `V_PCVE`, `V_PCVINF`, `V_SATINF`, `V_STAINF`
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `DIR_OUT`, `DIR_PHG`, `DIR_STA`, `EXT_PHASECC`, `EXT_PHG`, `PTH_PHASECC`
-- Source: [ATX2EPN](source_files/l-code-rap-gpsuser/SCRIPT/ATX2EPN)
+- Source file: ATX2EPN (download from the HTML manual)
 ### ATX2IGS
 
 - Purpose: Update PCV_COD.I08 using ATX2PCV
@@ -2308,7 +2302,7 @@ Variables:
   - V_ variables: `V_NADIR`, `V_PCV`, `V_PCVINF`, `V_SATINF`, `V_STAINF`
   - PARAM parameters: `PARAM1`
   - Other keys: `DIR_OUT`, `DIR_PHG`, `DIR_STA`, `EXT_PHASECC`, `EXT_PHG`, `PTH_PHASECC`
-- Source: [ATX2IGS](source_files/l-code-rap-gpsuser/SCRIPT/ATX2IGS)
+- Source file: ATX2IGS (download from the HTML manual)
 ### BPE_BYE
 
 - Purpose: Create BPE-specific BYE file for extra process watcher
@@ -2316,7 +2310,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
   - Other keys: `$WD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `PCFFIL`, `TASKID`
-- Source: [BPE_BYE](source_files/l-code-rap-gpsuser/SCRIPT/BPE_BYE)
+- Source file: BPE_BYE (download from the HTML manual)
 ### BPE_CLN
 
 - Purpose: Clean BPE subdirectory
@@ -2324,14 +2318,14 @@ Variables:
 - Read keys:
   - Other keys: `$S-(15)`, `$S-(90)`, `$YSS-(15)`, `$YSS-(90)`, `DIR_BPELOG`, `DIR_BPEPRT`, `EXT_BPELOG`, `EXT_BPEPRT`, `TASKID`
 - File patterns: `$_)) } }`, `$_`
-- Source: [BPE_CLN](source_files/l-code-rap-gpsuser/SCRIPT/BPE_CLN)
+- Source file: BPE_CLN (download from the HTML manual)
 ### CCRNXC
 
 - Purpose: Concatinate and combine clock RINEX files Programs:  CCRNXC
 - Bernese programs: `CCRNXC`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CCRNXC.INP`
-- Source: [CCRNXC](source_files/l-code-rap-gpsuser/SCRIPT/CCRNXC)
+- Source file: CCRNXC (download from the HTML manual)
 ### CCRNXO_P
 
 - Purpose: Parallel CCRNXO Programs:  CCRNXO
@@ -2343,7 +2337,7 @@ Variables:
 - File reads: `$file[0]`
 - File writes: `DIR_RXO/$sta$+00.$YO`
 - File deletes: `$_`, `$PARAM1`, `$file[0]`
-- Source: [CCRNXO_P](source_files/l-code-rap-gpsuser/SCRIPT/CCRNXO_P)
+- Source file: CCRNXO_P (download from the HTML manual)
 ### CCRNXOAP
 
 - Purpose: Prepare merging of hourly files Programs:
@@ -2352,7 +2346,7 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$+0`, `$Y`, `$Y+0`, `DIR_OUT`, `DIR_OXO`, `DIR_RXO`
 - File patterns: `"DIR_OUT*_MERGE.CLU"`, `DIR_OXO*???$+0?.$YO`, `DIR_OXO*_?_$Y+0$+0*O.{rnx,RNX}`, `DIR_OXO*_$Y+0$+0?.{rxo,RXO}`, `DIR_OUT*_MERGE.CLU`
-- Source: [CCRNXOAP](source_files/l-code-rap-gpsuser/SCRIPT/CCRNXOAP)
+- Source file: CCRNXOAP (download from the HTML manual)
 ### CLK_PRED
 
 - Package: `CCRNXC`
@@ -2362,7 +2356,7 @@ Variables:
 - INP files: `CCRNXC.INP`
 - Read keys:
   - Other keys: `CAMPAIGN`, `CAMP_PTH`
-- Source: [CLK_PRED](source_files/l-code-rap-gpsuser/SCRIPT/CLK_PRED)
+- Source file: CLK_PRED (download from the HTML manual)
 ### CLKESTCB
 
 - Package: `CLKEST`
@@ -2373,7 +2367,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `DIR_CLB`, `EXT_CLB`, `U`
 - File patterns: `EXT_CLBU$YD+0??.${extClb}`
-- Source: [CLKESTCB](source_files/l-code-rap-gpsuser/SCRIPT/CLKESTCB)
+- Source file: CLKESTCB (download from the HTML manual)
 ### CLKP_CHK
 
 - Purpose: Checks the existence of the clock prediction TPPyyddd for day -2 Programs: PARAMx:
@@ -2382,7 +2376,7 @@ Variables:
   - V_ variables: `V_U`
   - PARAM parameters: `PARAM2`
   - Other keys: `$YD-2`, `DIR_CLK`, `EXT_CLK`
-- Source: [CLKP_CHK](source_files/l-code-rap-gpsuser/SCRIPT/CLKP_CHK)
+- Source file: CLKP_CHK (download from the HTML manual)
 ### CLN_ION
 
 - Purpose: Clean up all files from cluster ionosphere analysis.
@@ -2392,14 +2386,14 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_CRD`, `DIR_CZH`, `DIR_ION`, `DIR_NEQ`, `DIR_OUT`, `DIR_RES`, `DIR_TRP`, `EXT_CRD`, `EXT_CZH`, `EXT_ION`, `EXT_NEQ`, `EXT_OUT`, `EXT_RES`, `EXT_TRP`
 - File patterns: `"DIR_OUTGIM$+0[0-9][0-9][0-9].EXT_OUT"`, `"DIR_RESGIM$+0[0-9][0-9][0-9].EXT_RES"`, `"DIR_CRDGIM$+0[0-9][0-9][0-9].EXT_CRD"`, `"DIR_TRPGIM$+0[0-9][0-9][0-9].EXT_TRP"`, `"DIR_IONGIM$+0[0-9][0-9][0-9].EXT_ION"`, `"DIR_NEQGIM$+0[0-9][0-9][0-9].EXT_NEQ"`, `"DIR_OUT${es_}$+0[0-9][0-9][0-9].EXT_OUT"`, `"DIR_NEQ${es_}$+0[0-9][0-9][0-9].EXT_NEQ"`, `"DIR_OUTGIM$+0????.EXT_OUT"`, `"DIR_RESGIM$+0????.EXT_RES"`, `"DIR_CRDGIM$+0????.EXT_CRD"`, `"DIR_TRPGIM$+0????.EXT_TRP"` and 20 more
-- Source: [CLN_ION](source_files/l-code-rap-gpsuser/SCRIPT/CLN_ION)
+- Source file: CLN_ION (download from the HTML manual)
 ### CODCHK
 
 - Purpose: check code observations using a polynomial screening Programs:  CODCHK
 - Bernese programs: `CODCHK`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `CODCHK.INP`
-- Source: [CODCHK](source_files/l-code-rap-gpsuser/SCRIPT/CODCHK)
+- Source file: CODCHK (download from the HTML manual)
 ### CODSPP_P
 
 - Purpose: Parallel CODSPP run Programs:  CODSPP
@@ -2411,7 +2405,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y`, `DIR_OUT`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [CODSPP_P](source_files/l-code-rap-gpsuser/SCRIPT/CODSPP_P)
+- Source file: CODSPP_P (download from the HTML manual)
 ### CODSPPAP
 
 - Purpose: Prepare parallel CODSPP run Programs:
@@ -2422,7 +2416,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_OUT`, `DIR_RXC`, `DIR_SMC`, `DIR_SME`, `EXT_CZH`, `EXT_OUT`, `EXT_RXC`, `EXT_SMC`, `EXT_SME`
 - File deletes: `DIR_SMC${spp}$YSS+0.EXT_SMC`, `DIR_SME${spp}$YSS+0.EXT_SME`
 - File patterns: `"DIR_RXC${spp}$S+0???.EXT_RXC"`, `"DIR_OUT${spp}$S+0???.EXT_OUT") } else { unlink glob("DIR_RXC${spp}$+0????.EXT_RXC"`, `"DIR_OUT${spp}$+0????.EXT_OUT") }`, `"DIR_BPEPRTSPP$S+0???.BPE"`, `DIR_RXC${spp}$S+0???.EXT_RXC`, `DIR_OUT${spp}$S+0???.EXT_OUT`, `DIR_RXC${spp}$+0????.EXT_RXC`, `DIR_OUT${spp}$+0????.EXT_OUT`, `DIR_BPEPRTSPP$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`
-- Source: [CODSPPAP](source_files/l-code-rap-gpsuser/SCRIPT/CODSPPAP)
+- Source file: CODSPPAP (download from the HTML manual)
 ### CODSPPCP
 
 - Purpose: Prepare parallel CODSPP run using MKCLUS to select a subset of stations to be used for CODSPP Programs:  MKCLUS
@@ -2435,7 +2429,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_CLB`, `DIR_CZH`, `DIR_OUT`, `DIR_RXC`, `DIR_SMC`, `DIR_SME`, `EXT_CLB`, `EXT_CZH`, `EXT_OUT`, `EXT_RXC`, `EXT_SMC`, `EXT_SME`
 - File deletes: `DIR_SMC${spp}$YSS+0.EXT_SMC`, `DIR_SME${spp}$YSS+0.EXT_SME`
 - File patterns: `"DIR_RXC${spp}$S+0???.EXT_RXC"`, `"DIR_OUT${spp}$S+0???.EXT_OUT") } else { unlink glob("DIR_RXC${spp}$+0????.EXT_RXC"`, `"DIR_OUT${spp}$+0????.EXT_OUT") }`, `"DIR_BPEPRTSPP$S+0???.BPE"`, `"DIR_CLB${spp}$S+00*.EXT_CLB"`, `DIR_RXC${spp}$S+0???.EXT_RXC`, `DIR_OUT${spp}$S+0???.EXT_OUT`, `DIR_RXC${spp}$+0????.EXT_RXC`, `DIR_OUT${spp}$+0????.EXT_OUT`, `DIR_BPEPRTSPP$S+0???.BPE`, `DIR_CLB${spp}$S+00*.EXT_CLB`
-- Source: [CODSPPCP](source_files/l-code-rap-gpsuser/SCRIPT/CODSPPCP)
+- Source file: CODSPPCP (download from the HTML manual)
 ### CODXTR
 
 - Purpose: Execute CODXTR; delete, if wished, rejected binary observation files Programs:
@@ -2449,7 +2443,7 @@ Variables:
 - File reads: `$inpFil`
 - File writes: `DIR_DCB/OFF$Y$+0.EXT_DCB`
 - File deletes: `DIR_DELSPP$YSS+0.EXT_DEL`, `$_`, `DIR_DCB/OFF$Y$+0.EXT_DCB`
-- Source: [CODXTR](source_files/l-code-rap-gpsuser/SCRIPT/CODXTR)
+- Source file: CODXTR (download from the HTML manual)
 ### COMB_BIA
 
 - Purpose: Perform monthly and accumulated bias combination runs using ADDNEQ2. Programs:  ADDNEQ2
@@ -2461,7 +2455,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$JD+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_BIA`, `DIR_NEQ`, `DIR_OSB`, `DIR_OUT`, `EXT_BIA`, `EXT_NEQ`, `EXT_OSB`, `EXT_OUT`, `EXT_SATELL`, `PCFFIL`, `PTH_PHASECC`
 - File deletes: `$fil`, `DIR_OUT../MSC/ERROR_${sol}.FLG`, `$set) if -e DIR_OUT../MSC/RESET.FLG }`, `$outR) if -s $outR`, `DIR_OUT../MSC/ERROR_${sol}.FLG) if @badSet == 0`, `DIR_NEQ${sol}_REST.EXT_NEQ`, `$out`, `$fil) if -s $fil`, `DIR_OUT../MSC/ALL.FLG`, `DIR_OUT../MSC/RESET.FLG`
-- Source: [COMB_BIA](source_files/l-code-rap-gpsuser/SCRIPT/COMB_BIA)
+- Source file: COMB_BIA (download from the HTML manual)
 ### COMB_BIA_07022026_CK
 
 - Package: `COMB_BIA`
@@ -2473,7 +2467,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$JD+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_BIA`, `DIR_NEQ`, `DIR_OSB`, `DIR_OUT`, `EXT_BIA`, `EXT_NEQ`, `EXT_OSB`, `EXT_OUT`, `EXT_SATELL`, `PCFFIL`, `PTH_PHASECC`
 - File deletes: `$fil`, `DIR_OUT../MSC/ERROR_${sol}.FLG`, `$set) if -e DIR_OUT../MSC/RESET.FLG }`, `$outR) if -s $outR`, `DIR_OUT../MSC/ERROR_${sol}.FLG) if @badSet == 0`, `DIR_NEQ${sol}_REST.EXT_NEQ`, `$out`, `$fil) if -s $fil`, `DIR_OUT../MSC/ALL.FLG`, `DIR_OUT../MSC/RESET.FLG`
-- Source: [COMB_BIA_07022026_CK](source_files/l-code-rap-gpsuser/SCRIPT/COMB_BIA_07022026_CK)
+- Source file: COMB_BIA_07022026_CK (download from the HTML manual)
 ### COMB_DCB
 
 - Purpose: Compute 30-day sliding (or monthly) DCB combination
@@ -2485,7 +2479,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$JD+0`, `$YSS+0`, `DIR_DCB`, `DIR_OUT`
 - File deletes: `DIR_DCBPARAM1${yyddd}.DCB`, `DIR_DCBPARAM1$YSS+0.DCB`
-- Source: [COMB_DCB](source_files/l-code-rap-gpsuser/SCRIPT/COMB_DCB)
+- Source file: COMB_DCB (download from the HTML manual)
 ### COMPAR2
 
 - Purpose: Compare bernese coordinate files of last 7 days Programs:  COMPAR2
@@ -2494,7 +2488,7 @@ Variables:
 - INP files: `COMPAR2.INP`
 - Read keys:
   - V_ variables: `V_SKIP3D`
-- Source: [COMPAR2](source_files/l-code-rap-gpsuser/SCRIPT/COMPAR2)
+- Source file: COMPAR2 (download from the HTML manual)
 ### COMPARL
 
 - Purpose: Compare bernese coordinate files of last 48 days Programs:  COMPAR2
@@ -2503,14 +2497,14 @@ Variables:
 - INP files: `COMPAR2.INP`
 - Read keys:
   - V_ variables: `V_SKIP3D`
-- Source: [COMPARL](source_files/l-code-rap-gpsuser/SCRIPT/COMPARL)
+- Source file: COMPARL (download from the HTML manual)
 ### COOVEL
 
 - Purpose: Programs:  COOVEL
 - Bernese programs: `COOVEL`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `COOVEL.INP`
-- Source: [COOVEL](source_files/l-code-rap-gpsuser/SCRIPT/COOVEL)
+- Source file: COOVEL (download from the HTML manual)
 ### CPF_AFTP
 
 - Purpose: Copy actual CPF to anonymous FTP, delete CPFs Authors:   D. Thaller
@@ -2519,7 +2513,7 @@ Variables:
   - V_ variables: `V_VCPF`
 - File deletes: `$_`, `$_) }`
 - File patterns: `${CAMP_PTH}${CAMPAIGN}/ORB/g*_cpf_${yymmdd}_????.cod`, `${CAMP_PTH}${CAMPAIGN}/ORB/g*_cpf_${yymmdd}_?????.cod`, `${CAMP_PTH}${CAMPAIGN}/ORB/g*_cpf_${yymmdd_mi}_????.cod`, `${CAMP_PTH}${CAMPAIGN}/ORB/g*_cpf_${yymmdd_mi}_?????.cod`, `$ENV{'PATH_AFTP'}slr/cpf/g*_cpf_${yymmdd_mi}_????.cod`, `$ENV{'PATH_AFTP'}slr/cpf/g*_cpf_${yymmdd_mi}_?????.cod`, `${CAMP_PTH}${CAMPAIGN}/ORB/g*_cpf_${yymmdd_3}_????.cod`, `$ENV{'PATH_AFTP'}slr/cpf/g*_cpf_${yymmdd_3}_????.cod`
-- Source: [CPF_AFTP](source_files/l-code-rap-gpsuser/SCRIPT/CPF_AFTP)
+- Source file: CPF_AFTP (download from the HTML manual)
 ### CPF_DEL
 
 - Purpose: Delete old files concerning SLRPRED.PCF Authors:   C. Urschl
@@ -2527,7 +2521,7 @@ Variables:
 - Read keys:
   - Other keys: `$S-(10)`, `$S-(30)`, `$Y-(30)`, `$YD-(30)`
 - File patterns: `$_)), " files deleted/n"`, `$_`
-- Source: [CPF_DEL](source_files/l-code-rap-gpsuser/SCRIPT/CPF_DEL)
+- Source file: CPF_DEL (download from the HTML manual)
 ### CRD_CHK
 
 - Purpose: Check all station coordinate corrections/improvements in order to remove the corresponding station in case of significant deviations or to initiate a BPE stop. Programs:  HELMR1 Remark  :
@@ -2539,7 +2533,7 @@ Variables:
   - Other keys: `$JD+0`, `$S+0`, `$WD+0`, `$YD+0`, `$YSS+0`, `$YYYSS+0`, `DIR_FIX`, `DIR_OUT`, `DIR_PZH`, `EXT_FIX`, `EXT_OUT`, `PCFFIL`, `STARTCOUNT`
 - File deletes: `DIR_FIXCRD_CHK_DOW${d}.EXT_FIX`, `$_) } @filObs`
 - File patterns: `DIR_PZH${sta4}$S+0.?Z?`
-- Source: [CRD_CHK](source_files/l-code-rap-gpsuser/SCRIPT/CRD_CHK)
+- Source file: CRD_CHK (download from the HTML manual)
 ### CRD_REF
 
 - Purpose: Create sorted CRD and VEL master file
@@ -2549,14 +2543,14 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRDINF`
   - Other keys: `DIR_CRD`, `DIR_VEL`, `EXT_CRD`, `EXT_VEL`
-- Source: [CRD_REF](source_files/l-code-rap-gpsuser/SCRIPT/CRD_REF)
+- Source file: CRD_REF (download from the HTML manual)
 ### CRDMERGE
 
 - Purpose: Merge coordinate files Programs:  CRDMERGE
 - Bernese programs: `CRDMERGE`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CRDMERGE.INP`
-- Source: [CRDMERGE](source_files/l-code-rap-gpsuser/SCRIPT/CRDMERGE)
+- Source file: CRDMERGE (download from the HTML manual)
 ### CRTEXT
 
 - Purpose: Create extrapolated (EXT) PRE info (for orbit initialization) Programs:  CCPREORB, ORBGEN, STDPRE
@@ -2566,7 +2560,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$WD+0`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_ERP`, `DIR_PRE`, `EXT_ERP`, `EXT_PRE`
 - File deletes: `DIR_PRE${ch4}$S+0.EXT_PRE`, `DIR_ERP${ch4}$S+0.EXT_ERP`
-- Source: [CRTEXT](source_files/l-code-rap-gpsuser/SCRIPT/CRTEXT)
+- Source file: CRTEXT (download from the HTML manual)
 ### CRTM00
 
 - Purpose: Create rapid orbit submission.
@@ -2575,7 +2569,7 @@ Variables:
 - INP files: `PREWEI.INP`
 - Read keys:
   - Other keys: `$YD+0`, `$YD-1`, `DIR_OUT`, `DIR_PRE`, `EXT_PRE`
-- Source: [CRTM00](source_files/l-code-rap-gpsuser/SCRIPT/CRTM00)
+- Source file: CRTM00 (download from the HTML manual)
 ### CRTPRE
 
 - Purpose: Create PRE file Programs:  STDPRE, PREWEI
@@ -2584,7 +2578,7 @@ Variables:
 - INP files: `PREWEI.INP`, `STDPRE.INP`
 - Read keys:
   - Other keys: `$YD+0`, `CAMPAIGN`, `CAMP_PTH`
-- Source: [CRTPRE](source_files/l-code-rap-gpsuser/SCRIPT/CRTPRE)
+- Source file: CRTPRE (download from the HTML manual)
 ### CRTRAP
 
 - Purpose: Create rapid orbit submission.
@@ -2596,7 +2590,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `DIR_CLK`, `DIR_OUT`, `DIR_PRE`, `EXT_CLK`, `EXT_PRE`, `PCFFIL`
 - File deletes: `DIR_OUT../MSC/CRTRAP$YD+0.FLG`
-- Source: [CRTRAP](source_files/l-code-rap-gpsuser/SCRIPT/CRTRAP)
+- Source file: CRTRAP (download from the HTML manual)
 ### CRTRAP3
 
 - Package: `CRTRAP`
@@ -2610,7 +2604,7 @@ Variables:
 - File reads: `DIR_PRE/RT_WCLK.EXT_PRE.gz`
 - File writes: `$PATH_AFTP/CODE/BKG/COD_IP_wCLK.EPH.gz`
 - File deletes: `DIR_PRE/RT_WCLK.EXT_PRE.gz`
-- Source: [CRTRAP3](source_files/l-code-rap-gpsuser/SCRIPT/CRTRAP3)
+- Source file: CRTRAP3 (download from the HTML manual)
 ### CRTULT
 
 - Package: `CRTULT_U`
@@ -2622,7 +2616,7 @@ Variables:
   - V_ variables: `V_DOI_U`, `V_GNSS`
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$Y+0`, `$YD+0`, `$YD+1`, `$YD-1`, `CAMPAIGN`, `CAMP_PTH`, `DIR_IEP`, `EXT_IEP`
-- Source: [CRTULT](source_files/l-code-rap-gpsuser/SCRIPT/CRTULT)
+- Source file: CRTULT (download from the HTML manual)
 ### DCB_AUX
 
 - Purpose: Perform auxiliary tasks concerning DCBIONO
@@ -2631,7 +2625,7 @@ Variables:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`, `V_UPD`
   - Other keys: `$JD+0`, `$WD+0`, `$WD+1`, `$WD+2`, `$YD+0`, `$YD+1`, `$YD+2`, `DIR_DCB`, `DIR_ION`, `DIR_OUT`, `PTH_OBSSEL`
 - File patterns: `$PATH_SAV${CAMP_SAVIGS}/2???/ORB/P1C1????.DCB`, `$PATH_SAV${CAMP_SAVIGS}/2???/ORB/P1P2????${all}.DCB`, `$PATH_SAV$CAMP_SAVIGS/????/ORB/${sol}[0-9]????.DCB`
-- Source: [DCB_AUX](source_files/l-code-rap-gpsuser/SCRIPT/DCB_AUX)
+- Source file: DCB_AUX (download from the HTML manual)
 ### DEFCLU
 
 - Purpose: Define "V_DEFCLU" clusters Programs:
@@ -2640,7 +2634,7 @@ Variables:
   - Other keys: `$YD+0`, `DIR_CLB`
 - File deletes: `DIR_CLB$YD+0.CLB`, `@clusters`
 - File patterns: `DIR_CLB$YD+0_0[1-9].CLB`, `DIR_CLB$YD+0_???.BPE`
-- Source: [DEFCLU](source_files/l-code-rap-gpsuser/SCRIPT/DEFCLU)
+- Source file: DEFCLU (download from the HTML manual)
 ### DEFSTD
 
 - Purpose: Generate standard orbit with orbgen (from tabular or precise orbits) Programs:  ORBGEN, DEFXTR
@@ -2649,7 +2643,7 @@ Variables:
 - INP files: `DEFXTR.INP`, `DEFXTR.INP`, `ORBGEN.INP`
 - Read keys:
   - Other keys: `$+0`, `$JD+0`, `DIR_OUT`, `DIR_PRE`
-- Source: [DEFSTD](source_files/l-code-rap-gpsuser/SCRIPT/DEFSTD)
+- Source file: DEFSTD (download from the HTML manual)
 ### DIST_BIA
 
 - Purpose: Distribute bias information
@@ -2659,7 +2653,7 @@ Variables:
   - Other keys: `$JD+0`, `$WD+0`, `$YD+0`, `DIR_BIA`, `DIR_OSB`, `DIR_OUT`
 - File deletes: `$ftpSum`
 - File patterns: `$PATH_SAV$CAMP_SAVIGS/2???/ORB/A1R_????.OSB`
-- Source: [DIST_BIA](source_files/l-code-rap-gpsuser/SCRIPT/DIST_BIA)
+- Source file: DIST_BIA (download from the HTML manual)
 ### DIST_ION
 
 - Purpose: Distribute predicted ionosphere information
@@ -2669,7 +2663,7 @@ Variables:
   - Other keys: `$+0`, `$+1`, `$+2`, `$+5`, `$JD+0`, `$WD+0`, `$WD+1`, `$WD+2`, `$WD+5`, `$Y+0`, `$Y+1`, `$Y+2`, `$Y+5`, `$YD+0`, `$YD+1`, `$YD+2`, `$YD+5`, `DIR_ION`, `DIR_OUT`, `DIR_RXN`
 - File deletes: `$ftpSum`
 - File patterns: `$PATH_AFTP/CODE/IONO/P?/2026/*${ssss}*.*`, `$PATH_AFTP/CODE/IONO/PRD/*${yyyyddd}*.*`, `$PATH_AFTP/CODE/IONO/P?*/2026/*${ssss}*.*`, `$PATH_AFTP/CODE/IONO/PRD/COD0OPSP[014]D_${yyyyddd}0000_01D_01H_GIM.INX.gz`
-- Source: [DIST_ION](source_files/l-code-rap-gpsuser/SCRIPT/DIST_ION)
+- Source file: DIST_ION (download from the HTML manual)
 ### DNI_AUX
 
 - Purpose: Perform auxiliary tasks concerning DCBIONO
@@ -2677,7 +2671,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`, `V_UPD`
   - Other keys: `$JD+0`, `$WD+0`, `$WD+1`, `$WD+2`, `$YD+0`, `$YD+1`, `$YD+2`, `DIR_DCB`, `DIR_ION`, `DIR_OUT`
-- Source: [DNI_AUX](source_files/l-code-rap-gpsuser/SCRIPT/DNI_AUX)
+- Source file: DNI_AUX (download from the HTML manual)
 ### DNI_COP
 
 - Purpose: Copy reference files for DCBIONO BPE process
@@ -2686,13 +2680,13 @@ Variables:
   - V_ variables: `V_CRDINF`, `V_PSDINF`
   - Other keys: `$YSS+0`, `DIR_OUT`, `PTH_SINEXIN`
 - File deletes: `DIR_OUTDNI$YSS+0.PRC`
-- Source: [DNI_COP](source_files/l-code-rap-gpsuser/SCRIPT/DNI_COP)
+- Source file: DNI_COP (download from the HTML manual)
 ### DNI_EXE
 
 - Purpose: Copy EXE files from project environment to $XG
 - Used in PCFs: DCBIONO.PCF
 - File patterns: `$ENV{HOME}/DCBIONO/EXE_G95/*`
-- Source: [DNI_EXE](source_files/l-code-rap-gpsuser/SCRIPT/DNI_EXE)
+- Source file: DNI_EXE (download from the HTML manual)
 ### DO_PPPAR
 
 - Purpose: Start PPPAR BPE for session $YSS+0 PCF Variables:
@@ -2702,7 +2696,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM4`
   - Other keys: `$+0`, `$Y+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BPEPRT`, `DIR_OUT`, `EXT_BPEPRT`, `PCFFIL`
 - File deletes: `CAMP_PTH/CAMPAIGN/MSC/IAR$YSS+0.FLG) if PARAM1 ne "NEXTJOB"`, `CAMP_PTH/CAMPAIGN/MSC/EXIT.FLG`
-- Source: [DO_PPPAR](source_files/l-code-rap-gpsuser/SCRIPT/DO_PPPAR)
+- Source file: DO_PPPAR (download from the HTML manual)
 ### DSB_CHK
 
 - Purpose: Check whether list of DSB observation types unchanged and release SMS in case of any change.
@@ -2710,12 +2704,12 @@ Variables:
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`, `V_UPD`
   - Other keys: `$JD+0`, `$YD+0`, `DIR_OSB`, `DIR_OUT`, `EXT_OSB`
-- Source: [DSB_CHK](source_files/l-code-rap-gpsuser/SCRIPT/DSB_CHK)
+- Source file: DSB_CHK (download from the HTML manual)
 ### DUMMY
 
 - Purpose: Do nothing Programs:
 - Used in PCFs: DCBIONO.PCF, IGSRAPID.PCF, IGSULTRA.PCF, PLOTS_RAPID.PCF, PPPAR.PCF, PPPAR1.PCF, RAPIONO.PCF, RCLKGNSS.PCF, SUPERBPE.PCF
-- Source: [DUMMY](source_files/l-code-rap-gpsuser/SCRIPT/DUMMY)
+- Source file: DUMMY (download from the HTML manual)
 ### EDTXTR
 
 - Purpose: GENERATE SUMMARY OF THE PARALEL CODSPP RUNS Programs:
@@ -2727,10 +2721,10 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$Y`, `DIR_OUT`, `DIR_SUM`, `SUB_PID`
 - File reads: `$$bpe{SYSOUT}`
 - File writes: `$ENV{T}`
-- Source: [EDTXTR](source_files/l-code-rap-gpsuser/SCRIPT/EDTXTR)
+- Source file: EDTXTR (download from the HTML manual)
 ### Entries
 
-- Source: [Entries](source_files/l-code-rap-gpsuser/SCRIPT/CVS/Entries)
+- Source file: Entries (download from the HTML manual)
 ### EUR_STA
 
 - Purpose: Download euref.snx and convert it into EUREF.STA and EUREF_RED.STA Programs:
@@ -2740,7 +2734,7 @@ Variables:
 - Read keys:
   - Other keys: `$YD+0`, `DIR_SNX`, `DIR_STA`
 - File deletes: `DIR_SNXEUREF.SNX`
-- Source: [EUR_STA](source_files/l-code-rap-gpsuser/SCRIPT/EUR_STA)
+- Source file: EUR_STA (download from the HTML manual)
 ### FILEST_P
 
 - Purpose: Station-wise zero-difference data screening: 1. GPSEST to create a residual files 2. RESRMS to screen residual files 3. RESCHK To detect bad stations 4. SATMRK to mark outliers
@@ -2752,7 +2746,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`
   - Other keys: `$YD+0`, `DAYYEAR`, `DIR_CZH`, `DIR_CZO`, `DIR_DEL`, `DIR_ION`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_RES`, `EXT_CZH`, `EXT_CZO`, `EXT_DEL`, `EXT_ION`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_RES`, `PCFFIL`, `SESSION`
 - File patterns: `"DIR_OUTPARAM1DAYYEAR?.*"`, `DIR_OUTPARAM1DAYYEAR?.*`
-- Source: [FILEST_P](source_files/l-code-rap-gpsuser/SCRIPT/FILEST_P)
+- Source file: FILEST_P (download from the HTML manual)
 ### FILESTAP
 
 - Purpose: Station-wise zero-difference data screening Programs:
@@ -2762,7 +2756,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`
   - Other keys: `$+0`, `$S+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_EDT`, `DIR_LST`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `DIR_SUM`, `EXT_CZH`, `EXT_EDT`, `EXT_LST`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`, `EXT_SUM`
 - File patterns: `"DIR_OUT????$+0"."[12345S].EXT_OUT"`, `"DIR_RES????$+0"."[12345].EXT_RES"`, `"DIR_EDT????$+0"."[12345].EXT_EDT"`, `"DIR_LST????$+0"."[12345].EXT_LST"`, `"DIR_SUM????$+0"."[12345].EXT_SUM"`, `DIR_OUT????$+0"."[12345S].EXT_OUT`, `DIR_RES????$+0"."[12345].EXT_RES`, `DIR_EDT????$+0"."[12345].EXT_EDT`, `DIR_LST????$+0"."[12345].EXT_LST`, `DIR_SUM????$+0"."[12345].EXT_SUM`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZH????$S+0.EXT_CZH`
-- Source: [FILESTAP](source_files/l-code-rap-gpsuser/SCRIPT/FILESTAP)
+- Source file: FILESTAP (download from the HTML manual)
 ### FIX_CHK
 
 - Purpose: Execute HELMR1 Remark  :  This script permits automatic verification of a given set of fiducial stations. In case of discrepancies, a modified FIX file can be output by HELMR1 and thus used to directly repeat the last ADDNEQ2 run, finally considering a reduced set of fiducial stations accepted for consistent datum definition.
@@ -2773,7 +2767,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`
   - Other keys: `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_FIX`, `DIR_OUT`, `EXT_FIX`, `EXT_OUT`, `PCFFIL`, `PID`, `RERUN_COUNT`, `STARTCOUNT`
 - File deletes: `DIR_FIXBAD$YD+0.EXT_FIX) if PARAM2 ne ""`, `DIR_FIXBAD$YD+0.EXT_FIX) if PARAM3 ne ""`
-- Source: [FIX_CHK](source_files/l-code-rap-gpsuser/SCRIPT/FIX_CHK)
+- Source file: FIX_CHK (download from the HTML manual)
 ### FRQ_LST
 
 - Purpose: Create FRQ.LST and notify potential GLONASS frequency channel search anomalies
@@ -2782,7 +2776,7 @@ Variables:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`, `V_UPD`
   - Other keys: `$JD+0`, `$YD+0`, `$YYYSS+0`, `DIR_DCB`, `DIR_ION`, `DIR_OUT`, `TASKID`
 - File deletes: `$ENV{T}/plot_${now}.tmp`
-- Source: [FRQ_LST](source_files/l-code-rap-gpsuser/SCRIPT/FRQ_LST)
+- Source file: FRQ_LST (download from the HTML manual)
 ### FTP_CLN
 
 - Purpose: Clean $PATH_AFTP/CODE/ directory (if necessary) Programs:
@@ -2791,7 +2785,7 @@ Variables:
   - V_ variables: `V_DEL`
   - Other keys: `$YSS+0`, `DIR_OUT`, `PCFFIL`
 - File patterns: `$PATH_AFTP/CODE/*.*`
-- Source: [FTP_CLN](source_files/l-code-rap-gpsuser/SCRIPT/FTP_CLN)
+- Source file: FTP_CLN (download from the HTML manual)
 ### GET_NANU
 
 - Purpose: Download NANU files and create extra SAT CRX file Programs:
@@ -2800,11 +2794,11 @@ Variables:
   - V_ variables: `V_SAVDSK`
   - Other keys: `$Y+0`, `$YD+0`, `PTH_SATCRUX`
 - File deletes: `PTH_SATCRUX/GPSNANU.CRX_tmp`
-- Source: [GET_NANU](source_files/l-code-rap-gpsuser/SCRIPT/GET_NANU)
+- Source file: GET_NANU (download from the HTML manual)
 ### GIM_CHK
 
 - Used in PCFs: RAPIONO.PCF
-- Source: [GIM_CHK](source_files/l-code-rap-gpsuser/SCRIPT/GIM_CHK)
+- Source file: GIM_CHK (download from the HTML manual)
 ### GIMCLU_P
 
 - Purpose: Execute GPSEST (parallel mode)
@@ -2815,7 +2809,7 @@ Variables:
   - V_ variables: `V_CLU`
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y+0`, `$YD+0`, `SUB_PID`
-- Source: [GIMCLU_P](source_files/l-code-rap-gpsuser/SCRIPT/GIMCLU_P)
+- Source file: GIMCLU_P (download from the HTML manual)
 ### GIMCLUAP
 
 - Purpose: Prepare parallel GPSEST run
@@ -2825,15 +2819,15 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CRD`, `DIR_CZH`, `DIR_ION`, `DIR_NEQ`, `DIR_OUT`, `DIR_RES`, `DIR_TRP`, `EXT_CRD`, `EXT_CZH`, `EXT_ION`, `EXT_NEQ`, `EXT_OUT`, `EXT_RES`, `EXT_TRP`
 - File patterns: `"DIR_OUTGIM$+0[0-9][0-9][0-9].EXT_OUT"`, `"DIR_RESGIM$+0[0-9][0-9][0-9].EXT_RES"`, `"DIR_CRDGIM$+0[0-9][0-9][0-9].EXT_CRD"`, `"DIR_TRPGIM$+0[0-9][0-9][0-9].EXT_TRP"`, `"DIR_IONGIM$+0[0-9][0-9][0-9].EXT_ION"`, `"DIR_NEQGIM$+0[0-9][0-9][0-9].EXT_NEQ"`, `"DIR_OUT${es_}$+0[0-9][0-9][0-9].EXT_OUT"`, `"DIR_NEQ${es_}$+0[0-9][0-9][0-9].EXT_NEQ"`, `"DIR_OUTGIM$+0????.EXT_OUT"`, `"DIR_RESGIM$+0????.EXT_RES"`, `"DIR_CRDGIM$+0????.EXT_CRD"`, `"DIR_TRPGIM$+0????.EXT_TRP"` and 21 more
-- Source: [GIMCLUAP](source_files/l-code-rap-gpsuser/SCRIPT/GIMCLUAP)
+- Source file: GIMCLUAP (download from the HTML manual)
 ### GIMEDT_P
 
 - Used in PCFs: RAPIONO.PCF
-- Source: [GIMEDT_P](source_files/l-code-rap-gpsuser/SCRIPT/GIMEDT_P)
+- Source file: GIMEDT_P (download from the HTML manual)
 ### GIMEDTAP
 
 - Used in PCFs: RAPIONO.PCF
-- Source: [GIMEDTAP](source_files/l-code-rap-gpsuser/SCRIPT/GIMEDTAP)
+- Source file: GIMEDTAP (download from the HTML manual)
 ### GIR_DIS
 
 - Purpose: Distribute rapid GIM results Authors:    S. Schaer
@@ -2843,7 +2837,7 @@ Variables:
   - Other keys: `$+0`, `$WD+0`, `$Y`, `$Y+0`, `$YD+0`, `$YD-1`, `DIR_BIA`, `DIR_DCB`, `DIR_INX`, `DIR_ION`, `DIR_OUT`, `EXT_BIA`, `EXT_DCB`, `EXT_INX`, `EXT_ION`
 - File deletes: `ed COD?OPSPRD files`
 - File patterns: `"$PATH_AFTP$CAMP_CODE/COPG$+00.$YI*"`, `"$PATH_AFTP$CAMP_CODE/COD?OPSP?D_$Y+0$+0*GIM.INX*"`, `"$PATH_AFTP$CAMP_CODE/COD$WD+0.ION_P*"`, `"$PATH_AFTP$CAMP_CODE/COD?OPSP?D_$Y+0$+0*GIM.ION*"`, `$PATH_AFTP$CAMP_CODE/COPG$+00.$YI*`, `$PATH_AFTP$CAMP_CODE/COD?OPSP?D_$Y+0$+0*GIM.INX*`, `$PATH_AFTP$CAMP_CODE/COD$WD+0.ION_P*`, `$PATH_AFTP$CAMP_CODE/COD?OPSP?D_$Y+0$+0*GIM.ION*`
-- Source: [GIR_DIS](source_files/l-code-rap-gpsuser/SCRIPT/GIR_DIS)
+- Source file: GIR_DIS (download from the HTML manual)
 ### GIR_FTP
 
 - Purpose: Upload rapid GIM IONEX data to CDDIS Authors:    S. Schaer
@@ -2851,7 +2845,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_I`, `V_Z`
   - Other keys: `$+0`, `$Y`, `$YD+0`, `$YD-1`, `$YD-2`, `DIR_INX`, `DIR_OUT`, `EXT_INX`
-- Source: [GIR_FTP](source_files/l-code-rap-gpsuser/SCRIPT/GIR_FTP)
+- Source file: GIR_FTP (download from the HTML manual)
 ### GIR_SAV
 
 - Purpose: Save rapid GIM results Authors:    S. Schaer
@@ -2860,7 +2854,7 @@ Variables:
   - V_ variables: `V_I`, `V_U`, `V_Z`
   - Other keys: `$+0`, `$WD+0`, `$Y`, `$Y+0`, `$YD+0`, `$YD-1`, `DIR_BIA`, `DIR_INX`, `DIR_ION`, `DIR_NEQ`, `DIR_OSB`, `DIR_OUT`, `EXT_BIA`, `EXT_INX`, `EXT_ION`, `EXT_NEQ`, `EXT_OSB`
 - File patterns: `"${out}*"`, `${out}*`
-- Source: [GIR_SAV](source_files/l-code-rap-gpsuser/SCRIPT/GIR_SAV)
+- Source file: GIR_SAV (download from the HTML manual)
 ### GIR_UPD
 
 - Purpose: Update rapid GIM ION and INX files Authors:    S. Schaer
@@ -2868,7 +2862,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_I`, `V_U`, `V_Z`
   - Other keys: `$+0`, `$WD+0`, `$Y`, `$Y+0`, `$YD+0`, `$YD-1`, `DIR_BIA`, `DIR_INX`, `DIR_ION`, `DIR_OSB`, `DIR_OUT`, `EXT_BIA`, `EXT_INX`, `EXT_ION`, `EXT_OSB`
-- Source: [GIR_UPD](source_files/l-code-rap-gpsuser/SCRIPT/GIR_UPD)
+- Source file: GIR_UPD (download from the HTML manual)
 ### GIRXTR
 
 - Purpose: Generate RAPIONO processing summary file Programs:  GPSXTR
@@ -2879,7 +2873,7 @@ Variables:
   - V_ variables: `V_I`, `V_U`
   - Other keys: `$S+0`, `$Y`, `$YD+0`, `DIR_OUT`, `DIR_SUM`
 - File deletes: `DIR_OUTGIMXTR.$Y_$S+0`
-- Source: [GIRXTR](source_files/l-code-rap-gpsuser/SCRIPT/GIRXTR)
+- Source file: GIRXTR (download from the HTML manual)
 ### GLOEST_P
 
 - Purpose: Parallel run of GPSEST using code and phase data Programs:  GPSEST
@@ -2890,7 +2884,7 @@ Variables:
   - V_ variables: `V_IAR`
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [GLOEST_P](source_files/l-code-rap-gpsuser/SCRIPT/GLOEST_P)
+- Source file: GLOEST_P (download from the HTML manual)
 ### GLOESTAP
 
 - Purpose: Prepare parallel GPSEST run using MKCLUS for clustering Programs:  MKCLUS
@@ -2903,7 +2897,7 @@ Variables:
   - Other keys: `$$bpe{PARAM2}`, `$+0`, `$S+0`, `$Y`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CLB`, `DIR_DEL`, `DIR_NEQ`, `DIR_OUT`, `DIR_RES`, `DIR_RXC`, `EXT_CLB`, `EXT_DEL`, `EXT_NEQ`, `EXT_OUT`, `EXT_RES`, `EXT_RXC`
 - File deletes: `DIR_DELDEL$YD+0.{extDel}`, `$_`, `$del`
 - File patterns: `"DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ"`, `"DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT"`, `"DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES"`, `"DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC"`, `"DIR_CLB$YD+0*.EXT_CLB"`, `DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ`, `DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT`, `DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES`, `DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC`, `DIR_CLB$YD+0*.EXT_CLB`
-- Source: [GLOESTAP](source_files/l-code-rap-gpsuser/SCRIPT/GLOESTAP)
+- Source file: GLOESTAP (download from the HTML manual)
 ### GNSAMB_P
 
 - Purpose: Execute GPSEST for WL/NL ambiguity resolution
@@ -2915,7 +2909,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_CSH`, `DIR_OUT`, `EXT_CSH`, `EXT_OUT`
 - File deletes: `DIR_OUTPARAM1$+0C.RES`
-- Source: [GNSAMB_P](source_files/l-code-rap-gpsuser/SCRIPT/GNSAMB_P)
+- Source file: GNSAMB_P (download from the HTML manual)
 ### GNSAMBAP
 
 - Purpose: Prepare parallel WL/NL ambiguity resolution process for a set of baselines selected by BASLST
@@ -2927,7 +2921,7 @@ Variables:
   - Other keys: `$+0`, `$YD+0`, `DIR_BSL`, `DIR_EDT`, `DIR_OUT`, `DIR_RES`, `DIR_SUM`, `EXT_EDT`, `EXT_OUT`, `EXT_RES`, `EXT_SUM`
 - File deletes: `DIR_BSLAMB${yyssss}.SEL`
 - File patterns: `"DIR_OUT????${ssss}_C.EXT_OUT"`, `"DIR_RES????${ssss}_C.EXT_RES"`, `"DIR_EDT????${ssss}_C.EXT_EDT"`, `"DIR_SUM????${ssss}_C.EXT_SUM"`, `"DIR_OUT????${ssss}_W.EXT_OUT"`, `"DIR_OUT????${ssss}_N.EXT_OUT"`, `"DIR_OUT????$+0C.EXT_OUT"`, `"DIR_RES????$+0C.EXT_RES"`, `"DIR_EDT????$+0C.EXT_EDT"`, `"DIR_SUM????$+0C.EXT_SUM"`, `"DIR_OUT????$+0W.EXT_OUT"`, `"DIR_OUT????$+0N.EXT_OUT"` and 12 more
-- Source: [GNSAMBAP](source_files/l-code-rap-gpsuser/SCRIPT/GNSAMBAP)
+- Source file: GNSAMBAP (download from the HTML manual)
 ### GNSQIF_P
 
 - Purpose: Execute GPSEST for QIF ambiguity resolution
@@ -2938,7 +2932,7 @@ Variables:
   - V_ variables: `V_GNSSAR`
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`
-- Source: [GNSQIF_P](source_files/l-code-rap-gpsuser/SCRIPT/GNSQIF_P)
+- Source file: GNSQIF_P (download from the HTML manual)
 ### GNSQIFAP
 
 - Purpose: Prepare parallel QIF ambiguity resolution process for a set of baselines selected by BASLST
@@ -2950,13 +2944,13 @@ Variables:
   - Other keys: `$+0`, `$YD+0`, `DIR_BSL`, `DIR_OUT`, `EXT_OUT`
 - File deletes: `DIR_BSLQIF${yyssss}.SEL`
 - File patterns: `"DIR_OUT????${ssss}_Q.EXT_OUT"`, `"DIR_OUT????$+0Q.EXT_OUT"`, `"DIR_OUT????$+00.RES"`, `DIR_OUT????${ssss}_Q.EXT_OUT`, `DIR_OUT????$+0Q.EXT_OUT`, `DIR_OUT????$+00.RES`
-- Source: [GNSQIFAP](source_files/l-code-rap-gpsuser/SCRIPT/GNSQIFAP)
+- Source file: GNSQIFAP (download from the HTML manual)
 ### GOTO
 
 - Package: `GPSEST`
 - Purpose: Jump to specified PID
 - Used in PCFs: RCLKGNSS.PCF
-- Source: [GOTO](source_files/l-code-rap-gpsuser/SCRIPT/GOTO)
+- Source file: GOTO (download from the HTML manual)
 ### GOTO_REP
 
 - Purpose: Execute a GOTO statement with the target depending from flag files goto PARAM2: in case of reprocessing goto PARAM3: no flag file goto PARAM4: if all GLONASS data are processed in one cluster
@@ -2964,14 +2958,14 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `CAMPAIGN`, `CAMP_PTH`
-- Source: [GOTO_REP](source_files/l-code-rap-gpsuser/SCRIPT/GOTO_REP)
+- Source file: GOTO_REP (download from the HTML manual)
 ### GOTOTEST
 
 - Purpose: Go to specific PID (PARAM2 or PARAM3) Programs:
 - Used in PCFs: DEBUG_SS.PCF
 - Read keys:
   - V_ variables: `V_GOTO`
-- Source: [GOTOTEST](source_files/l-code-rap-gpsuser/SCRIPT/GOTOTEST)
+- Source file: GOTOTEST (download from the HTML manual)
 ### GPSCLU_P
 
 - Purpose: Parallel run for parameter estimation and NEQ-file generation (cluster _00 will be run with baselinewise correlations) Programs:  GPSEST
@@ -2982,7 +2976,7 @@ Variables:
   - V_ variables: `V_ANTAZI`, `V_GTRA`, `V_TRPMOD`
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `$YD+0`, `DIR_OUT`, `EXT_OUT`, `PID`, `SUB_PID`
-- Source: [GPSCLU_P](source_files/l-code-rap-gpsuser/SCRIPT/GPSCLU_P)
+- Source file: GPSCLU_P (download from the HTML manual)
 ### GPSCLUAP
 
 - Purpose: Prepare parallel GPSEST run (cluster solution) Programs:
@@ -2990,7 +2984,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `DIR_CLB`, `DIR_NEQ`, `DIR_OUT`
 - File patterns: `"DIR_OUTEST$S+0???.OUT"`, `"DIR_OUTEST$S+0???.RES"`, `"DIR_NEQEST$S+0???.NQ0"`, `DIR_CLB$YD+0_??.CLB`, `DIR_OUTEST$S+0???.OUT`, `DIR_OUTEST$S+0???.RES`, `DIR_NEQEST$S+0???.NQ0`
-- Source: [GPSCLUAP](source_files/l-code-rap-gpsuser/SCRIPT/GPSCLUAP)
+- Source file: GPSCLUAP (download from the HTML manual)
 ### GPSEDT_P
 
 - Purpose: Parallel run for residual screening: 1. GPSEST to create F(irst) residual files 2. RESRMS to screen residual files 3. SATMRK to mark outliers 4. GPSEST to create L(ast) residual files (for RESCHK)
@@ -3002,7 +2996,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [GPSEDT_P](source_files/l-code-rap-gpsuser/SCRIPT/GPSEDT_P)
+- Source file: GPSEDT_P (download from the HTML manual)
 ### GPSEDTAP
 
 - Purpose: Prepare parallel GPSEST run with residual screening Programs:
@@ -3011,7 +3005,7 @@ Variables:
   - V_ variables: `V_CLU`, `V_NCLU`
   - Other keys: `$+0`, `$S+0`, `DIR_BPEPRT`, `DIR_EDT`, `DIR_NEQ`, `DIR_OUT`, `DIR_PSH`, `DIR_RES`, `EXT_EDT`, `EXT_NEQ`, `EXT_OUT`, `EXT_PSH`, `EXT_RES`
 - File patterns: `"DIR_OUTED[FL]${cluster}.EXT_OUT"`, `"DIR_RESED[FL]${cluster}.EXT_RES"`, `"DIR_EDTEDT${cluster}.EXT_EDT"`, `DIR_OUTED[FL]${cluster}.EXT_OUT`, `DIR_RESED[FL]${cluster}.EXT_RES`, `DIR_EDTEDT${cluster}.EXT_EDT`, `DIR_PSH????$S+0.EXT_PSH`
-- Source: [GPSEDTAP](source_files/l-code-rap-gpsuser/SCRIPT/GPSEDTAP)
+- Source file: GPSEDTAP (download from the HTML manual)
 ### GPSEST_P
 
 - Purpose: Parallel run for parameter estimation and NEQ-file generation Programs:  GPSEST
@@ -3023,7 +3017,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `DIR_OUT`, `EXT_OUT`, `PID`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [GPSEST_P](source_files/l-code-rap-gpsuser/SCRIPT/GPSEST_P)
+- Source file: GPSEST_P (download from the HTML manual)
 ### GPSESTAP
 
 - Purpose: Prepare parallel GPSEST run Programs:
@@ -3033,7 +3027,7 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$+0`, `$S+0`, `DIR_BPEPRT`, `DIR_EDT`, `DIR_NEQ`, `DIR_OUT`, `DIR_PSH`, `DIR_RES`, `EXT_EDT`, `EXT_NEQ`, `EXT_OUT`, `EXT_PSH`, `EXT_RES`
 - File patterns: `"DIR_OUT${est}$S+0???.EXT_OUT"`, `"DIR_RES${est}$S+0???.EXT_RES"`, `"DIR_NEQ${est}$S+0???.EXT_NEQ") } else { unlink glob("DIR_OUT${est}$+0????.EXT_OUT"`, `"DIR_RES${est}$+0????.EXT_RES"`, `"DIR_NEQ${est}$+0????.EXT_NEQ") }`, `"DIR_BPEPRTEST$S+0???.BPE"`, `DIR_OUT${est}$S+0???.EXT_OUT`, `DIR_RES${est}$S+0???.EXT_RES`, `DIR_NEQ${est}$S+0???.EXT_NEQ`, `DIR_OUT${est}$+0????.EXT_OUT`, `DIR_RES${est}$+0????.EXT_RES`, `DIR_NEQ${est}$+0????.EXT_NEQ` and 2 more
-- Source: [GPSESTAP](source_files/l-code-rap-gpsuser/SCRIPT/GPSESTAP)
+- Source file: GPSESTAP (download from the HTML manual)
 ### GPSXTR
 
 - Purpose: Generate summary of the paralel GPSEST runs Programs:  GPSXTR
@@ -3043,7 +3037,7 @@ Variables:
 - Read keys:
   - Other keys: `$+0`, `DIR_OUT`, `DIR_SUM`
 - File deletes: `DIR_SUMGPSXTR.SUM`, `DIR_SUMGPSCMP.SUM`, `DIR_SUMGPSWKS.SUM`
-- Source: [GPSXTR](source_files/l-code-rap-gpsuser/SCRIPT/GPSXTR)
+- Source file: GPSXTR (download from the HTML manual)
 ### HCCRNXCB
 
 - Purpose: Merge Clock RINEX files, Programs:  CCRNXC Authors:   H. Bock
@@ -3052,7 +3046,7 @@ Variables:
 - INP files: `CCRNXC.INP`, `CCRNXC.INP`
 - Read keys:
   - Other keys: `$$bpe{PARAM1}`, `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `PCFFIL`, `U`
-- Source: [HCCRNXCB](source_files/l-code-rap-gpsuser/SCRIPT/HCCRNXCB)
+- Source file: HCCRNXCB (download from the HTML manual)
 ### HIRAPRE
 
 - Purpose: CREATE EXTRA HIGH-RATE PRE FILE FOR REAL-TIME APPLICATION (IP) Programs:  STDPRE
@@ -3065,14 +3059,14 @@ Variables:
 - File reads: `DIR_PREREALTIME.EXT_PRE.gz`
 - File writes: `${PATH_AFTP}/CODE/BKG/COD_IP.EPH.gz`
 - File deletes: `DIR_PREREALTIME.EXT_PRE.gz`
-- Source: [HIRAPRE](source_files/l-code-rap-gpsuser/SCRIPT/HIRAPRE)
+- Source file: HIRAPRE (download from the HTML manual)
 ### HRX_FTP
 
 - Purpose: Start get_nrtdata.com for list of data centers Programs:  -
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `CAMPAIGN`
-- Source: [HRX_FTP](source_files/l-code-rap-gpsuser/SCRIPT/HRX_FTP)
+- Source file: HRX_FTP (download from the HTML manual)
 ### IAR_COP
 
 - Purpose: Copy files for PPPAR.PCF
@@ -3081,7 +3075,7 @@ Variables:
   - V_ variables: `V_A`, `V_B`, `V_C`, `V_HOIINF`, `V_MODE`, `V_VMFINF`
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BIA`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_GRD`, `DIR_ION`, `DIR_OSB`, `DIR_OUT`, `DIR_STD`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`
 - File deletes: `glob "DIR_OUT????$S+0_[WN]L?.EXT_OUT"`, `glob "DIR_OUT????$S+0_FIX.EXT_OUT"`, `glob "DIR_CRD????$S+0_[WN]L?.EXT_CRD"`, `glob "DIR_CRD????$S+0_FIX.EXT_CRD"`
-- Source: [IAR_COP](source_files/l-code-rap-gpsuser/SCRIPT/IAR_COP)
+- Source file: IAR_COP (download from the HTML manual)
 ### IAR_DEL
 
 - Purpose: Delete files for PPPAR.PCF
@@ -3090,7 +3084,7 @@ Variables:
   - V_ variables: `V_A`, `V_B`, `V_C`, `V_DEL`, `V_MODE`
   - Other keys: `$S+0`, `$S-(30)`, `$YSS+0`, `$YSS-(30)`, `$YSS-(90)`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BIA`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_OSB`, `DIR_OUT`, `DIR_STD`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`, `EXT_FIX`
 - File deletes: `glob "DIR_OUT*.J_lk"`, `glob "DIR_CRDV_A$YSS+0.EXT_CRD"`, `glob "DIR_STDV_B$YSS+0.EXT_STD"`, `glob "DIR_ERPV_B$YSS+0.EXT_ERP"`, `glob "DIR_CLKV_B$YSS+0.EXT_CLK"`, `glob "DIR_OSBV_C$YSS+0.EXT_OSB"`, `glob "DIR_BIAV_C$YSS+0.EXT_BIA"`, `glob "DIR_OUT????$S+0_[WN]L?.EXT_OUT"`, `glob "DIR_OUT????$S+0_FIX.EXT_OUT"`, `glob "DIR_CRD????$S+0_[WN]L?.EXT_CRD"`, `glob "DIR_CRD????$S+0_FIX.EXT_CRD"`, `glob "DIR_BIA[WN]L?$YSS+0.EXT_BIA"` and 14 more
-- Source: [IAR_DEL](source_files/l-code-rap-gpsuser/SCRIPT/IAR_DEL)
+- Source file: IAR_DEL (download from the HTML manual)
 ### IAR_PRC
 
 - Purpose: Generate summary of ZERO_AR ambiguity fixing Programs:  GPSXTR, CRDMERGE, HELMR1
@@ -3102,7 +3096,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BIA`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PZH`, `DIR_SUM`, `EXT_BIA`, `EXT_CRD`, `EXT_OSB`, `EXT_OUT`, `EXT_PZH`, `EXT_SUM`, `PCFFIL`
 - File deletes: `DIR_SUMIAR$YSS+0.PRC) if $iarRun==0`, `DIR_SUMFIX$YSS+0.EXT_SUM,DIR_SUMAMB$YSS+0.EXT_SUM`
 - File patterns: `"DIR_OUT../OBS/????$S+0.FPZ"`, `"DIR_OUT???$YSS+0.AMB"`, `"DIR_CRD????$S+0_NLB.EXT_CRD"`, `"DIR_CRD????$S+0_NLI.EXT_CRD"`, `"DIR_CRD????$S+0_FIX.EXT_CRD"`, `"DIR_CRD????$S+0_???.EXT_CRD"`, `DIR_OUT../OBS/????$S+0.FPZ`, `DIR_OUT???$YSS+0.AMB`, `DIR_CRD????$S+0_NLB.EXT_CRD`, `DIR_CRD????$S+0_NLI.EXT_CRD`, `DIR_CRD????$S+0_FIX.EXT_CRD`, `DIR_CRD????$S+0_???.EXT_CRD`
-- Source: [IAR_PRC](source_files/l-code-rap-gpsuser/SCRIPT/IAR_PRC)
+- Source file: IAR_PRC (download from the HTML manual)
 ### IAR_SAV
 
 - Purpose: Save result files for PPPAR.PCF
@@ -3111,7 +3105,7 @@ Variables:
   - V_ variables: `V_MODE`, `V_PCC4MWGF`, `V_REPRO`, `V_SAV`
   - Other keys: `$JD+0`, `$S+0`, `$Y+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BIA`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_OSB`, `DIR_OUT`, `DIR_PRE`, `DIR_PZH`, `DIR_STD`, `EXT_BIA`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`, `EXT_OSB`
 - File patterns: `"DIR_OUT????$S+0_???.EXT_OUT"`, `DIR_OUT????$S+0_???.EXT_OUT`
-- Source: [IAR_SAV](source_files/l-code-rap-gpsuser/SCRIPT/IAR_SAV)
+- Source file: IAR_SAV (download from the HTML manual)
 ### IAR_VER
 
 - Purpose: Add ZERO_AR verification summary to IARyyssss.PRC Programs:  GPSXTR
@@ -3123,7 +3117,7 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BIA`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PZH`, `DIR_SUM`, `EXT_BIA`, `EXT_CRD`, `EXT_OSB`, `EXT_OUT`, `EXT_PZH`, `EXT_SUM`, `PCFFIL`
 - File deletes: `DIR_SUMFIX$YSS+0.EXT_SUM,DIR_SUMAMB$YSS+0.EXT_SUM`
 - File patterns: `"DIR_OUT????$S+0_NLI.EXT_OUT"`, `"DIR_CRD????$S+0_NLI.EXT_CRD"`, `DIR_OUT????$S+0_NLI.EXT_OUT`, `DIR_CRD????$S+0_NLI.EXT_CRD`
-- Source: [IAR_VER](source_files/l-code-rap-gpsuser/SCRIPT/IAR_VER)
+- Source file: IAR_VER (download from the HTML manual)
 ### IFBNEQ
 
 - Package: `ADDNEQ2`
@@ -3137,7 +3131,7 @@ Variables:
   - Other keys: `$S+0`, `$YSS+0`, `DIR_ABB`, `DIR_SUM`, `EXT_ABB`, `EXT_SUM`, `STARTCOUNT`
 - File reads: `$sumFil`
 - File writes: `$sumFil.STARTCOUNT`
-- Source: [IFBNEQ](source_files/l-code-rap-gpsuser/SCRIPT/IFBNEQ)
+- Source file: IFBNEQ (download from the HTML manual)
 ### IGS_STA
 
 - Purpose: Download igs.snx and convert it into IGS.STA and IGS_RED.STA Programs:
@@ -3149,7 +3143,7 @@ Variables:
 - File reads: `$chkFil`
 - File writes: `$ENV{REF}/CODE_V52.STA`
 - File deletes: `DIR_SNXIGS.SNX`
-- Source: [IGS_STA](source_files/l-code-rap-gpsuser/SCRIPT/IGS_STA)
+- Source file: IGS_STA (download from the HTML manual)
 ### IGSR_CHK
 
 - Purpose: Check GPSEDT summary for bad satellites resp. maneuvers and restart the IGS(ULTRA)RAPID
@@ -3163,7 +3157,7 @@ Variables:
 - File reads: `$resOutFile`, `DIR_BSL/V_E_$YD+0.EXT_BSL`, `DIR_PRE/V_E_$YD+0.EXT_PRE`
 - File writes: `DIR_OUT/RESCHK.$Y_$S+0`, `DIR_BSL/APR$YD+0.EXT_BSL`, `DIR_PRE/APR$YD+0.EXT_PRE`
 - File deletes: `$_`, `DIR_OUT/$YD+0.CHK`, `DIR_BSL/APR$YD+0.EXT_BSL`, `${dirMsc}/STOP.FLG`
-- Source: [IGSR_CHK](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_CHK)
+- Source file: IGSR_CHK (download from the HTML manual)
 ### IGSR_COP
 
 - Purpose: Copy required files for IGSRPAID Based on BSD script IGSR_COP
@@ -3174,7 +3168,7 @@ Variables:
 - File reads: `$ENV{REF}/VLBI_TROPO.FIX`, `DIR_OSB/CODE.EXT_OSB`, `DIR_ERP/RAP_$Y+0.EXT_ERP`, `${PATH_SAV}/${CAMP_SAVRAP}/$Y+0/ORB//RP_$YD+0.EXT_PRE.Z`, `DIR_ERP/RAP$YD+0.EXT_ERP`, `$PATH_SAV/$CAMP_SAVRAP/$Y+0/ATM/RA_$YD+0.ION`, `$PATH_SAV/$CAMP_SAVRAP/$Y+0/ORB/RQ_$YD+0.PRE.Z`, `$PATH_SAV/$CAMP_SAVRAP/{$Y+0}/ORB/RQ_$YD+0.ERP`, `$ENV{REF}/BULLET_A.ERP`, `$_`
 - File writes: `DIR_FIX/VLBI_TROPO.EXT_FIX`, `DIR_OSB/APR$YD+0.EXT_OSB`, `DIR_ERP/RAP$YD+0.EXT_ERP`, `DIR_PRE/V_O_$YD+0.EXT_PRE.Z`, `DIR_ERP/V_O_$YD+0.EXT_ERP`, `DIR_ION/RA_$YD+0.EXT_ION`, `DIR_PRE/RP_$YD+0.EXT_PRE.Z`, `DIR_ERP/RP_$YD+0.EXT_ERP`, `DIR_ERP/CODE$S+0.EXT_ERP`, `DIR_RXO/../ORX//`
 - File deletes: `DIR_PRE/../MSC/ULT$YD+0.FLG`, `glob "DIR_PSH/????$+0?.???*"`, `glob "DIR_RXO/????$+0?.???*"`, `glob "DIR_RXO/?????????_$Y+0$+0?.RXO*"`, `glob "DIR_RXO/../ORX//????$+0?.???*"`, `glob "DIR_RXO/../ORX//?????????_?_$Y+0$+0????_*.rnx"`, `glob "DIR_RXO/../ORX//?????????_$Y+0$+0?.RXO*"`, `glob "DIR_RXO/../ORX//?????????_$Y+0$+0?.RXN*"`, `glob "DIR_RXO/../ORX2//????$+0?.???*"`, `glob "DIR_RXO/../ORX2//?????????_?_$Y+0$+0????_*.rnx"`, `glob "DIR_RXO/../ORX2//?????????_$Y+0$+0?.RXO*"`, `glob "DIR_RXO/../ORX2//?????????_$Y+0$+0?.RXN*"` and 32 more
-- Source: [IGSR_COP](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_COP)
+- Source file: IGSR_COP (download from the HTML manual)
 ### IGSR_DEL
 
 - Purpose: Deletion script for IGSRAPID process.
@@ -3185,7 +3179,7 @@ Variables:
   - Other keys: `$+0`, `$-(15)`, `$-(360)`, `$-(90)`, `$-2`, `$-8`, `$S-(15)`, `$S-(30)`, `$S-(360)`, `$S-2`, `$S-8`, `$W-(360)`, `$WD+0`, `$WD-(15)`, `$WD-(30)`, `$WD-(360)`, `$Y+0`, `$Y-(30)`, `$Y-(360)`, `$Y-(90)`
 - File deletes: `$f`
 - File patterns: `$_`
-- Source: [IGSR_DEL](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_DEL)
+- Source file: IGSR_DEL (download from the HTML manual)
 ### IGSR_DI2
 
 - Package: `IGSR_DIS`
@@ -3196,7 +3190,7 @@ Variables:
   - Other keys: `$+0`, `$+1`, `$+2`, `$-1`, `$WD+0`, `$WD+1`, `$WD+2`, `$WD-1`, `$WD-2`, `$WD-3`, `$Y`, `$Y+0`, `$Y+1`, `$Y+2`, `$Y-1`, `$YD+0`, `$YD+1`, `$YD+2`, `$YSS+0`, `DIR_ERP`
 - File deletes: `DIR_ERPU$T$WD+0.EXT_ERP_V52`, `${log}`, `${log}2`, `${log}_ERR`, `$ENV{T}/rob_upload/$file`
 - File patterns: `${PATH_AFTP}/${CAMP_CODE}/COD$WD+0.BIA_?.Z`, `${PATH_AFTP}/${CAMP_CODE}/COD?OPSRAP_$Y+0$+00000_01D_01D_OSB.BIA.gz`
-- Source: [IGSR_DI2](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_DI2)
+- Source file: IGSR_DI2 (download from the HTML manual)
 ### IGSR_DIS
 
 - Purpose: Submit results of rapid/ultra solution Redesign of IGSR_FTP Authors:    A. Villiger
@@ -3206,23 +3200,23 @@ Variables:
   - Other keys: `$+0`, `$+1`, `$+2`, `$-1`, `$WD+0`, `$WD+1`, `$WD+2`, `$WD-1`, `$WD-2`, `$WD-3`, `$Y`, `$Y+0`, `$Y+1`, `$Y+2`, `$Y-1`, `$YD+0`, `$YD+1`, `$YD+2`, `$YSS+0`, `DIR_ERP`
 - File deletes: `DIR_ERPU$T$WD+0.EXT_ERP_V52`, `${log}`, `${log}2`, `${log}_ERR`
 - File patterns: `${PATH_AFTP}/${CAMP_CODE}/COD$WD+0.BIA_?.Z`, `${PATH_AFTP}/${CAMP_CODE}/COD$WD+0.BIA_?.gz`
-- Source: [IGSR_DIS](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_DIS)
+- Source file: IGSR_DIS (download from the HTML manual)
 ### IGSR_EUM
 
 - Purpose: Copy GEN files for EUMETSAT to SFTP server, remove LEOs from sat. info. file Programs:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
-- Source: [IGSR_EUM](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_EUM)
+- Source file: IGSR_EUM (download from the HTML manual)
 ### IGSR_EXT
 
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
-- Source: [IGSR_EXT](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_EXT)
+- Source file: IGSR_EXT (download from the HTML manual)
 ### IGSR_INI
 
 - Purpose: Perform extra initialization procedures Programs:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$YD+0`
-- Source: [IGSR_INI](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_INI)
+- Source file: IGSR_INI (download from the HTML manual)
 ### IGSR_LPT
 
 - Purpose: Post COD.EPH_U to AFTP for swisstopo (LPT) Programs:
@@ -3230,7 +3224,7 @@ Variables:
 - Read keys:
   - Other keys: `$W+0`, `$W+1`, `$W-8`, `$WD+0`, `$WD+1`, `$WD-8`, `$Y+0`, `$Y+1`, `$YD+0`, `DIR_OUT`, `DIR_PRE`, `EXT_PRE`, `EXT_SATCRUX`, `PTH_SATCRUX`
 - File patterns: `"$ENV{PATH_AFTP}/CODE/LPT/$W-8_out_of_service/igu$WD-8_??.sp3.Z"`, `$ENV{PATH_AFTP}/CODE/LPT/$W-8_out_of_service/igu$WD-8_??.sp3.Z`
-- Source: [IGSR_LPT](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_LPT)
+- Source file: IGSR_LPT (download from the HTML manual)
 ### IGSR_MID
 
 - Purpose: Save PRE/ERP of middle day Programs:
@@ -3241,14 +3235,14 @@ Variables:
 - File reads: `DIR_OUT/../MSC/ULT$YD+0.FLG`, `DIR_PRE/V_IM1$-1.EXT_PRE`
 - File writes: `DIR_OUT/../MSC/RM_$YD-1.FLG`, `DIR_PRE/V_Z_$YD-1.EXT_PRE`
 - File deletes: `DIR_OUT/../MSC/RM_$YD-1.FLG) }`
-- Source: [IGSR_MID](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_MID)
+- Source file: IGSR_MID (download from the HTML manual)
 ### IGSR_PLT
 
 - Purpose: PLOT IGSRAPID PRC FILES FOR WWW
 - Used in PCFs: PLOTS_RAPID.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`
-- Source: [IGSR_PLT](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_PLT)
+- Source file: IGSR_PLT (download from the HTML manual)
 ### IGSR_PRC
 
 - Purpose: MAKE A "PROTOCOL" OF THE RAPID SOLUTION
@@ -3257,7 +3251,7 @@ Variables:
   - V_ variables: `V_A`, `V_B`, `V_E`, `V_H`, `V_I`, `V_K`, `V_O`, `V_RELAX`, `V_SKIP3D`, `V_X`, `V_Z`
   - Other keys: `$+0`, `$S+0`, `$WD+0`, `$WD-1`, `$Y`, `$YD+0`, `$YD-1`, `CAMPAIGN`, `CAMP_PTH`, `DIR_LST`, `DIR_OUT`, `DIR_RPR`, `DIR_SMT`, `DIR_STD`, `DIR_SUM`, `EXT_LST`, `EXT_OUT`, `EXT_RPR`, `EXT_SMT`, `EXT_STD`
 - File deletes: `DIR_OUTRAP$YD+0.PRC`
-- Source: [IGSR_PRC](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_PRC)
+- Source file: IGSR_PRC (download from the HTML manual)
 ### IGSR_SA2
 
 - Purpose: Save results produced by IGSRAPID.PCF
@@ -3269,7 +3263,7 @@ Variables:
 - File writes: `${PATH_SAV}/${CAMP_SAVRAP}/COD0OPSULT.SP3`, `${PATH_SAV}/${CAMP_SAVRAP}/COD0OPSULT.ERP`, `${PATH_SAV}/${CAMP_SAVRAP}/COD0OPSULT.SUM`
 - File deletes: `gob("${ftpCod}/DATA_USED_UP_TO_????"`
 - File patterns: `"$trg*"`, `$trg*`
-- Source: [IGSR_SA2](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_SA2)
+- Source file: IGSR_SA2 (download from the HTML manual)
 ### IGSR_SAV
 
 - Purpose: Save results produced by IGSRAPID.PCF
@@ -3279,7 +3273,7 @@ Variables:
   - Other keys: `$+0`, `$-1`, `$-2`, `$D`, `$M`, `$S+0`, `$W-7`, `$WD+0`, `$Y`, `$Y+0`, `$YD+0`, `$YD+1`, `$YD+2`, `$YD-1`, `$YYYD+0`, `$YYYSS+0`, `DIR_CLK`, `DIR_CRD`, `DIR_ELE`, `DIR_ERP`
 - File deletes: `DIR_OUTIGSRAPID.$Y_$+0`, `$ENV{CONFIG}/SAT_$Y+0.CRX) if V_SAV eq "Y"`
 - File patterns: `"DIR_PREAPR$YD+0.EXT_PRE*")) if ($uc eq "c" && ! -d DIR_PREAPR$YD+0.EXT_PRE`, `"DIR_PREAPR$YD+0.EXT_PRE*")) if ($uc eq "g" && ! -d DIR_PREAPR$YD+0.EXT_PRE`, `DIR_PREAPR$YD+0.EXT_PRE*`
-- Source: [IGSR_SAV](source_files/l-code-rap-gpsuser/SCRIPT/IGSR_SAV)
+- Source file: IGSR_SAV (download from the HTML manual)
 ### INIT_FIX
 
 - Purpose: Create a priori FIX file
@@ -3288,7 +3282,7 @@ Variables:
   - V_ variables: `V_CRDINF`
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$W+0`, `$YD+0`, `DIR_FIX`, `EXT_FIX`
-- Source: [INIT_FIX](source_files/l-code-rap-gpsuser/SCRIPT/INIT_FIX)
+- Source file: INIT_FIX (download from the HTML manual)
 ### INIT_HOI
 
 - Purpose: Initialization concerning HOI setup Programs:
@@ -3297,7 +3291,7 @@ Variables:
   - V_ variables: `V_HOI`, `V_SAVDSK`
   - Other keys: `$Y+0`, `$YD+0`, `DIR_ION`, `DIR_OUT`, `EXT_ION`, `PCFFIL`
 - File deletes: `DIR_IONHOI$YD+0.EXT_ION`
-- Source: [INIT_HOI](source_files/l-code-rap-gpsuser/SCRIPT/INIT_HOI)
+- Source file: INIT_HOI (download from the HTML manual)
 ### INIT_IAR
 
 - Purpose: Perform initialization for PPPAR BPE (doing ZERO_AR) Programs:  SATMRK
@@ -3308,7 +3302,7 @@ Variables:
   - V_ variables: `V_IAR`, `V_SAV`
   - Other keys: `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OSB`, `DIR_OUT`, `EXT_OSB`, `EXT_OUT`
 - File deletes: `$CAMP_PTH$CAMPAIGN/MSC/IAR$YSS+0.FLG`, `DIR_OSBIAR$YSS+0.EXT_OSB`, `DIR_OUTIAR$YSS+0.PRC`
-- Source: [INIT_IAR](source_files/l-code-rap-gpsuser/SCRIPT/INIT_IAR)
+- Source file: INIT_IAR (download from the HTML manual)
 ### INIT_VMF
 
 - Purpose: Initialization concerning VMF setup Programs:
@@ -3317,7 +3311,7 @@ Variables:
   - V_ variables: `V_TRPMOD`
   - Other keys: `$+0`, `$Y+0`, `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`, `PCFFIL`, `TASKID`
 - File deletes: `DIR_GRDVMF$YD+0.EXT_GRD`, `DIR_OUT../MSC/TRP_$YD+0.FLG`, `DIR_OUT../MSC/TRP_$YD+0.FLG) } } if (PCFFIL eq "CLKFINAL") {  = "$CDIR_FIN/GRD/VMF$YD+0.EXT_GRD"`, `DIR_OUT../MSC/TRP_$YD+0.FLG) } }`
-- Source: [INIT_VMF](source_files/l-code-rap-gpsuser/SCRIPT/INIT_VMF)
+- Source file: INIT_VMF (download from the HTML manual)
 ### ION_AUX
 
 - Purpose: Perform auxiliary tasks concerning DCBIONO
@@ -3325,7 +3319,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`, `V_UPD`
   - Other keys: `$JD+0`, `$WD+0`, `$WD+1`, `$WD+2`, `$YD+0`, `$YD+1`, `$YD+2`, `DIR_DCB`, `DIR_ION`, `DIR_OUT`
-- Source: [ION_AUX](source_files/l-code-rap-gpsuser/SCRIPT/ION_AUX)
+- Source file: ION_AUX (download from the HTML manual)
 ### ION_LST
 
 - Purpose: Create LIS/SEL file of complete ION file time series
@@ -3334,7 +3328,7 @@ Variables:
   - V_ variables: `V_B`
   - PARAM parameters: `PARAM1`
   - Other keys: `$JD+0`, `$Y+0`, `$YSS+0`, `DIR_ION`, `DIR_OUT`
-- Source: [ION_LST](source_files/l-code-rap-gpsuser/SCRIPT/ION_LST)
+- Source file: ION_LST (download from the HTML manual)
 ### ION_LSTR
 
 - Purpose: Create LIS/SEL file of complete ION file time series (for REPRO_ION series)
@@ -3343,7 +3337,7 @@ Variables:
   - V_ variables: `V_B`
   - PARAM parameters: `PARAM1`
   - Other keys: `$JD+0`, `$YSS+0`, `DIR_ION`, `DIR_OUT`
-- Source: [ION_LSTR](source_files/l-code-rap-gpsuser/SCRIPT/ION_LSTR)
+- Source file: ION_LSTR (download from the HTML manual)
 ### JUMP_BIA
 
 - Purpose: Delete specific monthly bias NEWs in case if added bias jump events.
@@ -3354,11 +3348,11 @@ Variables:
   - Other keys: `$JD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`, `EXT_SATCRUX`, `PTH_SATCRUX`
 - File deletes: `$neqFil`, `DIR_OUT../MSC/ADDED_JUMPS.FLG`
 - File patterns: `DIR_NEQ[A-Z]??_${yymm}.EXT_NEQ`
-- Source: [JUMP_BIA](source_files/l-code-rap-gpsuser/SCRIPT/JUMP_BIA)
+- Source file: JUMP_BIA (download from the HTML manual)
 ### LIMEST
 
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
-- Source: [LIMEST](source_files/l-code-rap-gpsuser/SCRIPT/LIMEST)
+- Source file: LIMEST (download from the HTML manual)
 ### LSC_CHK
 
 - Purpose: Linearity of satellite clocks (LSC) for CLKEST clock alignment: Check satellite clock characteristics and decide whether poorly behaving satellite shall be excluded from a priori information. Programs:
@@ -3370,7 +3364,7 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CLK`, `DIR_OUT`, `DIR_SIG`, `PCFFIL`
 - File deletes: `DIR_OUT/LSC$YSS+0.LST`
-- Source: [LSC_CHK](source_files/l-code-rap-gpsuser/SCRIPT/LSC_CHK)
+- Source file: LSC_CHK (download from the HTML manual)
 ### LSC_INI
 
 - Purpose: Linearity of satellite clocks (LSC) for CLKEST clock alignment: Remove satellites included in MSC/LSC_INI.LST from BRD CLK file. Programs:
@@ -3378,7 +3372,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_A`
   - Other keys: `$JD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CLK`, `DIR_OUT`, `PCFFIL`
-- Source: [LSC_INI](source_files/l-code-rap-gpsuser/SCRIPT/LSC_INI)
+- Source file: LSC_INI (download from the HTML manual)
 ### MAKE_BIM
 
 - Purpose: Make broadcast ionosphere model information
@@ -3390,7 +3384,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$JD+0`, `$YD+0`, `DIR_ION`, `DIR_OUT`, `DIR_RXN`
 - File deletes: `$ftpSum`
-- Source: [MAKE_BIM](source_files/l-code-rap-gpsuser/SCRIPT/MAKE_BIM)
+- Source file: MAKE_BIM (download from the HTML manual)
 ### MAKE_CKM
 
 - Purpose: Make CODE Klobuchar-style model information
@@ -3403,7 +3397,7 @@ Variables:
   - Other keys: `$JD+0`, `$YD+0`, `DIR_ION`, `DIR_OUT`, `DIR_OXN`, `DIR_RXN`
 - File deletes: `$ftpSum`
 - File patterns: `"$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N*"`, `"$PATH_AFTP$CAMP_CODE/COD?OPS???_${yyyy}${ddd}*GIM.RNX*"`, `"$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N_P*"`, `"$PATH_AFTP$CAMP_CODE/COD?OPSP??_${yyyy}${ddd}*GIM.RNX*"`, `$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N*`, `$PATH_AFTP$CAMP_CODE/COD?OPS???_${yyyy}${ddd}*GIM.RNX*`, `$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N_P*`, `$PATH_AFTP$CAMP_CODE/COD?OPSP??_${yyyy}${ddd}*GIM.RNX*`
-- Source: [MAKE_CKM](source_files/l-code-rap-gpsuser/SCRIPT/MAKE_CKM)
+- Source file: MAKE_CKM (download from the HTML manual)
 ### MAKE_UIF
 
 - Purpose: Make ultra-rapid ionosphere file (UIF)
@@ -3411,7 +3405,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`
   - Other keys: `$JD+0`, `$Y+0`, `$YD+0`, `$YD+1`, `$YD+2`, `DIR_ION`, `DIR_OUT`
-- Source: [MAKE_UIF](source_files/l-code-rap-gpsuser/SCRIPT/MAKE_UIF)
+- Source file: MAKE_UIF (download from the HTML manual)
 ### MAKERCKM
 
 - Package: `MAKE_CKM`
@@ -3425,7 +3419,7 @@ Variables:
   - Other keys: `$JD+0`, `$YD+0`, `DIR_ION`, `DIR_OUT`, `DIR_OXN`, `DIR_RXN`
 - File deletes: `$ftpSum`
 - File patterns: `"$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N*"`, `"$PATH_AFTP$CAMP_CODE/COD?OPS???_${yyyy}${ddd}*GIM.RNX*"`, `"$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N_P*"`, `"$PATH_AFTP$CAMP_CODE/COD?OPSP??_${yyyy}${ddd}*GIM.RNX*"`, `$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N*`, `$PATH_AFTP$CAMP_CODE/COD?OPS???_${yyyy}${ddd}*GIM.RNX*`, `$PATH_AFTP$CAMP_CODE/CGIM${ddd}0.${yy}N_P*`, `$PATH_AFTP$CAMP_CODE/COD?OPSP??_${yyyy}${ddd}*GIM.RNX*`
-- Source: [MAKERCKM](source_files/l-code-rap-gpsuser/SCRIPT/MAKERCKM)
+- Source file: MAKERCKM (download from the HTML manual)
 ### MAUPRP_P
 
 - Purpose: Parallel run for automatic cleaning of double difference phase observations Programs:  MAUPRP
@@ -3437,7 +3431,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [MAUPRP_P](source_files/l-code-rap-gpsuser/SCRIPT/MAUPRP_P)
+- Source file: MAUPRP_P (download from the HTML manual)
 ### MAUPRPAP
 
 - Purpose: Prepare parallel MAUPRP run Programs:
@@ -3447,7 +3441,7 @@ Variables:
   - PARAM parameters: `PARAM2`
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_OUT`, `DIR_PSH`, `DIR_PZH`, `EXT_OUT`, `EXT_PSH`, `EXT_PZH`
 - File patterns: `"DIR_OUT${mpr}$S+0???.EXT_OUT") } else { unlink glob("DIR_OUT${mpr}$+0????.EXT_OUT") }`, `"DIR_BPEPRTMPR$S+0???.BPE"`, `DIR_OUT${mpr}$S+0???.EXT_OUT`, `DIR_OUT${mpr}$+0????.EXT_OUT`, `DIR_BPEPRTMPR$S+0???.BPE`, `DIR_PSH????$S+0.EXT_PSH`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [MAUPRPAP](source_files/l-code-rap-gpsuser/SCRIPT/MAUPRPAP)
+- Source file: MAUPRPAP (download from the HTML manual)
 ### MEANTEC
 
 - Purpose: Execute IONANA for creation of MEANTEC files
@@ -3457,7 +3451,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`, `V_UPD`
   - Other keys: `$YSS+0`, `DIR_OUT`
-- Source: [MEANTEC](source_files/l-code-rap-gpsuser/SCRIPT/MEANTEC)
+- Source file: MEANTEC (download from the HTML manual)
 ### MEANTECR
 
 - Purpose: Execute IONANA for creation of MEANTEC files (for REPRO_ION)
@@ -3467,7 +3461,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`, `V_UPD`
   - Other keys: `$YSS+0`, `DIR_OUT`
-- Source: [MEANTECR](source_files/l-code-rap-gpsuser/SCRIPT/MEANTECR)
+- Source file: MEANTECR (download from the HTML manual)
 ### MGEX_BIA
 
 - Purpose: Perform monthly and accumulated bias combination runs using ADDNEQ2. Programs:  ADDNEQ2
@@ -3479,7 +3473,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$JD+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_BIA`, `DIR_NEQ`, `DIR_OSB`, `DIR_OUT`, `EXT_BIA`, `EXT_NEQ`, `EXT_OSB`, `EXT_OUT`, `EXT_SATELL`, `PCFFIL`, `PTH_SATELL`
 - File deletes: `$fil`, `DIR_OUT../MSC/ERROR_${sol}.FLG`, `$set) if -e DIR_OUT../MSC/RESET.FLG }`, `$out) if -s $out`, `DIR_OUT../MSC/ERROR_${sol}.FLG) if @badSet == 0`, `DIR_NEQ${sol}_REST.EXT_NEQ`, `$out`, `$fil) if -s $fil`, `DIR_OUT../MSC/ALL.FLG`, `DIR_OUT../MSC/RESET.FLG`
-- Source: [MGEX_BIA](source_files/l-code-rap-gpsuser/SCRIPT/MGEX_BIA)
+- Source file: MGEX_BIA (download from the HTML manual)
 ### MKCLUS
 
 - Purpose: Run MKCLUS Programs:  MKCLUS Authors:   R. Dach
@@ -3490,7 +3484,7 @@ Variables:
   - Other keys: `$S+0`, `$YSS+0`, `DIR_CLB`, `DIR_FIX`, `DIR_OUT`, `DIR_SMC`, `EXT_CLB`, `EXT_FIX`, `EXT_OUT`, `EXT_SMC`, `U`
 - File deletes: `$_ } close (DEL`, `if ("" ne ""`
 - File patterns: `EXT_CLBU$YSS+0??.DIR_OUT`
-- Source: [MKCLUS](source_files/l-code-rap-gpsuser/SCRIPT/MKCLUS)
+- Source file: MKCLUS (download from the HTML manual)
 ### MOD_EST
 
 - Purpose: Modify .EST file for ADDNEQ2 run.
@@ -3498,7 +3492,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_EST`, `DIR_OUT`, `EXT_EST`, `EXT_OUT`
-- Source: [MOD_EST](source_files/l-code-rap-gpsuser/SCRIPT/MOD_EST)
+- Source file: MOD_EST (download from the HTML manual)
 ### MPRXTR
 
 - Purpose: GENERATE SUMMARY OF THE PARALEL MAUPRP RUNS IN CASE OF BAD FILES DELETE ZERO AND SINGLE FILES AND UPDATE TABLES Programs:
@@ -3511,7 +3505,7 @@ Variables:
 - File reads: `DIR_OUT/MPR$YSS+0.SUM`
 - File writes: `DIR_OUT/MPRXTR.$Y_$S+0`
 - File deletes: `DIR_OUT/MPR$YSS+0.SUM`, `DIR_OUT/MPR$YSS+0.DEL`, `DIR_OUT/MPR$YSS+0.BSL`, `$_`
-- Source: [MPRXTR](source_files/l-code-rap-gpsuser/SCRIPT/MPRXTR)
+- Source file: MPRXTR (download from the HTML manual)
 ### MRG_ION
 
 - Purpose: Create master ION file based on a set of cluster ION files. Programs:
@@ -3519,7 +3513,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$YD+0`, `DIR_ION`, `DIR_NEQ`, `EXT_ION`, `EXT_NEQ`, `PCFFIL`
-- Source: [MRG_ION](source_files/l-code-rap-gpsuser/SCRIPT/MRG_ION)
+- Source file: MRG_ION (download from the HTML manual)
 ### MRKOBS_P
 
 - Purpose: Mark observations corresponding to an edit file Programs:  SATMRK
@@ -3530,7 +3524,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [MRKOBS_P](source_files/l-code-rap-gpsuser/SCRIPT/MRKOBS_P)
+- Source file: MRKOBS_P (download from the HTML manual)
 ### MRKOBSAP
 
 - Purpose: Prepare parallel SATMRK runs Programs:
@@ -3540,7 +3534,7 @@ Variables:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
   - Other keys: `$+0`, `$-1`, `$-2`, `$S+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_OUT`, `DIR_PZH`, `EXT_CZH`, `EXT_OUT`, `EXT_PZH`
 - File patterns: `"DIR_BPEPRTMRK$S+0???.BPE"`, `DIR_BPEPRTMRK$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`
-- Source: [MRKOBSAP](source_files/l-code-rap-gpsuser/SCRIPT/MRKOBSAP)
+- Source file: MRKOBSAP (download from the HTML manual)
 ### NAV2CLK
 
 - Purpose: Execute NAV2CLK
@@ -3553,7 +3547,7 @@ Variables:
 - File reads: `$src`
 - File writes: `${destUncompressed}`
 - File patterns: `${srcTpl}{,.Z,.gz}`
-- Source: [NAV2CLK](source_files/l-code-rap-gpsuser/SCRIPT/NAV2CLK)
+- Source file: NAV2CLK (download from the HTML manual)
 ### NAVDEL
 
 - Purpose: Remove the source navigation RINEX files which were used for the merges Programs:
@@ -3562,7 +3556,7 @@ Variables:
   - Other keys: `$+0`, `$Y`, `$Y+0`, `DIR_ORX`, `DIR_RNX`
 - File deletes: `@fileList`
 - File patterns: `DIR_ORX????${ddd}?.$Y[NG] DIR_ORX?????????_?_$Y+0${ddd}????_???_*?N.[Rr][Nn][Xx] DIR_ORX?????????_$Y+0${ddd}?_*?.[Rr][Xx][Nn]`
-- Source: [NAVDEL](source_files/l-code-rap-gpsuser/SCRIPT/NAVDEL)
+- Source file: NAVDEL (download from the HTML manual)
 ### NAVMRG2
 
 - Purpose: Merge hourly rinex observation and navigation files Programs:  CCRNXN
@@ -3572,14 +3566,14 @@ Variables:
 - Read keys:
   - Other keys: `$+0`, `$Y`, `$Y+0`, `DIR_ORX`, `DIR_RNX`
 - File patterns: `DIR_RNXCODE${ddd}?.$Y[NG] DIR_RNXCODE?????_?_$Y+0${ddd}????_???_*?N.[Rr][Nn][Xx] DIR_RNXCODE?????_$Y+0${ddd}?_*?.[Rr][Xx][Nn]`, `DIR_ORX????${ddd}?.$Y[NG] DIR_ORX?????????_?_$Y+0${ddd}????_???_*?N.[Rr][Nn][Xx] DIR_ORX?????????_$Y+0${ddd}?_*?.[Rr][Xx][Nn]`
-- Source: [NAVMRG2](source_files/l-code-rap-gpsuser/SCRIPT/NAVMRG2)
+- Source file: NAVMRG2 (download from the HTML manual)
 ### NUVELO
 
 - Purpose: Execute NUVELO
 - Bernese programs: `NUVELO`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `NUVELO.INP`
-- Source: [NUVELO](source_files/l-code-rap-gpsuser/SCRIPT/NUVELO)
+- Source file: NUVELO (download from the HTML manual)
 ### NUVELO_L
 
 - Purpose: Find best fitting tectonic plate for all sites (on the basis of the $(CRDINF).VEL master file).
@@ -3589,7 +3583,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_CRDINF`
   - Other keys: `$YS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CRD`, `DIR_OUT`, `PCFFIL`
-- Source: [NUVELO_L](source_files/l-code-rap-gpsuser/SCRIPT/NUVELO_L)
+- Source file: NUVELO_L (download from the HTML manual)
 ### OBS2SAT
 
 - Purpose: Create SAT_yyyyssss.LST on the basis of OBS_yyyyssss.LST and release SMS in case of GNSS (GRECJS) constellation change.
@@ -3598,7 +3592,7 @@ Variables:
   - V_ variables: `V_DIS`, `V_SAV`, `V_UPD`
   - Other keys: `$JD+0`, `$YD+0`, `DIR_OUT`
 - File patterns: `DIR_OUTOBS_???????0.LST`
-- Source: [OBS2SAT](source_files/l-code-rap-gpsuser/SCRIPT/OBS2SAT)
+- Source file: OBS2SAT (download from the HTML manual)
 ### OBS_SAV
 
 - Purpose: Save the observation file into an archive Programs:
@@ -3606,28 +3600,28 @@ Variables:
 - Read keys:
   - V_ variables: `V_GNSS`, `V_SAV`
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CZH`, `DIR_CZO`, `DIR_PZH`, `DIR_PZO`, `EXT_CZH`, `EXT_CZO`, `EXT_PZH`, `EXT_PZO`
-- Source: [OBS_SAV](source_files/l-code-rap-gpsuser/SCRIPT/OBS_SAV)
+- Source file: OBS_SAV (download from the HTML manual)
 ### OBSFMT
 
 - Purpose: Execute OBSFMT
 - Bernese programs: `OBSFMT`
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF
 - INP files: `OBSFMT.INP`
-- Source: [OBSFMT](source_files/l-code-rap-gpsuser/SCRIPT/OBSFMT)
+- Source file: OBSFMT (download from the HTML manual)
 ### OBSXTR
 
 - Purpose: Programs:  OBSXTR
 - Bernese programs: `OBSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `OBSXTR.INP`
-- Source: [OBSXTR](source_files/l-code-rap-gpsuser/SCRIPT/OBSXTR)
+- Source file: OBSXTR (download from the HTML manual)
 ### ORB_5D_C
 
 - Purpose: Get 5-day orbit predictions and ERPs
 - Used in PCFs: SLRPRED.PCF
 - Read keys:
   - Other keys: `$WD+0`, `$YYYD-1`, `CAMPAIGN`, `CAMP_PTH`
-- Source: [ORB_5D_C](source_files/l-code-rap-gpsuser/SCRIPT/ORB_5D_C)
+- Source file: ORB_5D_C (download from the HTML manual)
 ### ORB_CHK0
 
 - Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN) 2-DAY OVERLAP WITH ARC-SPLITTING CHECK
@@ -3640,7 +3634,7 @@ Variables:
 - File reads: `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
 - File writes: `DIR_OUT/ORBCHK0.$Y_$S+0`, `DIR_OUT/ASPLIT.$Y_$S+0`
 - File deletes: `DIR_OUT/DEFXTR.SUM`, `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
-- Source: [ORB_CHK0](source_files/l-code-rap-gpsuser/SCRIPT/ORB_CHK0)
+- Source file: ORB_CHK0 (download from the HTML manual)
 ### ORB_CHK1
 
 - Purpose: CHECK 2-DAY ORBIT OVERLAP FOR ARC SPLITTING
@@ -3652,7 +3646,7 @@ Variables:
 - File reads: `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
 - File writes: `DIR_OUT/ORBCHK1.$Y_$S+0`, `DIR_OUT/ASPLIT.$Y_$S+0`
 - File deletes: `DIR_OUT/DEFXTR.SUM`, `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
-- Source: [ORB_CHK1](source_files/l-code-rap-gpsuser/SCRIPT/ORB_CHK1)
+- Source file: ORB_CHK1 (download from the HTML manual)
 ### ORB_CHK2
 
 - Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN) 2-DAY OVERLAP WITH ARC-SPLITTING CHECK
@@ -3665,7 +3659,7 @@ Variables:
 - File reads: `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
 - File writes: `DIR_OUT/ORBCHK2.$Y_$S+0`, `DIR_OUT/ASPLIT.$Y_$S+0`
 - File deletes: `DIR_OUT/DEFXTR.SUM`, `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
-- Source: [ORB_CHK2](source_files/l-code-rap-gpsuser/SCRIPT/ORB_CHK2)
+- Source file: ORB_CHK2 (download from the HTML manual)
 ### ORB_CHK3
 
 - Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN) DAY BOUNDARY OVERLAP        (STDELE) Programs:  STDPRE
@@ -3678,7 +3672,7 @@ Variables:
 - File reads: `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`, `$$bpe{SYSOUT}`
 - File writes: `DIR_OUT/V_IG$WD+0.LST`, `DIR_OUT/ASPLIT.$Y_$S+0`, `DIR_OUT/V_I_$WD+0.CMP`
 - File deletes: `DIR_OUT/DEFXTR.SUM`, `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
-- Source: [ORB_CHK3](source_files/l-code-rap-gpsuser/SCRIPT/ORB_CHK3)
+- Source file: ORB_CHK3 (download from the HTML manual)
 ### ORB_CHK4
 
 - Purpose: ORBIT QUALITY CHECK CONCERNING MIDDLE-DAY SOLUTION Programs:
@@ -3691,7 +3685,7 @@ Variables:
 - File reads: `DIR_PRE/V_IM1$-1.EXT_PRE`, `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
 - File writes: `DIR_PRE/V_Z_$YD-1.EXT_PRE`, `DIR_OUT/ORBCHK4.$Y_$S+0`, `DIR_OUT/ASPLIT.$Y_$S+0`
 - File deletes: `DIR_OUT/DEFXTR.SUM`, `DIR_OUT/DEFWKS.SUM`, `DIR_OUT/ASPLIT.SUM`
-- Source: [ORB_CHK4](source_files/l-code-rap-gpsuser/SCRIPT/ORB_CHK4)
+- Source file: ORB_CHK4 (download from the HTML manual)
 ### ORB_V3D
 
 - Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:
@@ -3700,7 +3694,7 @@ Variables:
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
 - Read keys:
   - Other keys: `$+0`, `$W-1`, `$WD+0`, `$WD-1`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`
-- Source: [ORB_V3D](source_files/l-code-rap-gpsuser/SCRIPT/ORB_V3D)
+- Source file: ORB_V3D (download from the HTML manual)
 ### ORB_V3M
 
 - Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:
@@ -3710,7 +3704,7 @@ Variables:
 - Read keys:
   - Other keys: `$-1`, `$-2`, `$-3`, `$W-2`, `$WD-1`, `$WD-2`, `$YD+0`, `$YD-1`, `$YD-2`, `CAMPAIGN`, `CAMP_PTH`
 - File deletes: `CAMP_PTHCAMPAIGN/ORB/RAM1$-1.ERP`, `CAMP_PTHCAMPAIGN/ORB/RAM1$-2.ERP`, `CAMP_PTHCAMPAIGN/ORB/RAM1$-3.ERP`
-- Source: [ORB_V3M](source_files/l-code-rap-gpsuser/SCRIPT/ORB_V3M)
+- Source file: ORB_V3M (download from the HTML manual)
 ### ORB_VER
 
 - Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:
@@ -3720,7 +3714,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM2`
   - Other keys: `$+0`, `$W-1`, `$WD+0`, `$WD-1`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `PTH_PLATDEF`
-- Source: [ORB_VER](source_files/l-code-rap-gpsuser/SCRIPT/ORB_VER)
+- Source file: ORB_VER (download from the HTML manual)
 ### ORBDIF
 
 - Purpose: Execute ORBGEN and STDDIF for determination of time and velocity change of satellite repositionings. Programs:  ORBGEN, STDDIF
@@ -3730,7 +3724,7 @@ Variables:
 - Read keys:
   - Other keys: `$YD+0`, `$YD-1`, `DIR_ERP`, `DIR_OUT`, `DIR_PRE`
 - File deletes: `DIR_PREINI$YD-1.PRE`, `$CAMP_PTH$CAMPAIGN/MSC/REPOSITIONING.FLG) }`
-- Source: [ORBDIF](source_files/l-code-rap-gpsuser/SCRIPT/ORBDIF)
+- Source file: ORBDIF (download from the HTML manual)
 ### ORBDIF0
 
 - Package: `ORBDIF`
@@ -3741,7 +3735,7 @@ Variables:
 - Read keys:
   - Other keys: `$YD+0`, `$YD-1`, `DIR_ERP`, `DIR_OUT`, `DIR_PRE`
 - File deletes: `DIR_PREINI$YD-1.PRE`, `$CAMP_PTH$CAMPAIGN/MSC/REPOSITIONING.FLG) }`
-- Source: [ORBDIF0](source_files/l-code-rap-gpsuser/SCRIPT/ORBDIF0)
+- Source file: ORBDIF0 (download from the HTML manual)
 ### ORBFIT
 
 - Purpose: Verify whether PRE orbit positions can be fitted adequately. Programs:  ORBGEN, DEFXTR
@@ -3751,7 +3745,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$WD+0`, `$YD+0`, `DIR_OUT`
-- Source: [ORBFIT](source_files/l-code-rap-gpsuser/SCRIPT/ORBFIT)
+- Source file: ORBFIT (download from the HTML manual)
 ### ORBMRG
 
 - Purpose: PERFORM CCPREORB RUN TO MERGE 1-DAY PREDICTED ORBITS WITH BROADCAST ORBITS Programs:
@@ -3763,14 +3757,14 @@ Variables:
   - Other keys: `$S+0`, `$WD-1`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_ERP`, `DIR_PRE`, `EXT_ERP`, `EXT_PRE`
 - File reads: `DIR_PREV_O_$YD+0.EXT_PRE`, `DIR_PRECODE$S+0.EXT_PRE`, `DIR_PREAPR$YD+0.EXT_PRE`, `DIR_ERPULT$WD-1.EXT_ERP`
 - File writes: `DIR_PRECODE$S+0.EXT_PRE`, `DIR_PREORBMRG_1.EXT_PRE`, `DIR_PREORBMRG_2.EXT_PRE`, `DIR_ERPCODE$S+0.EXT_ERP`
-- Source: [ORBMRG](source_files/l-code-rap-gpsuser/SCRIPT/ORBMRG)
+- Source file: ORBMRG (download from the HTML manual)
 ### ORX_FTP
 
 - Purpose: Execute get_obsdata.com in RAPID mode Programs:  -
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y+0`, `CAMPAIGN`
-- Source: [ORX_FTP](source_files/l-code-rap-gpsuser/SCRIPT/ORX_FTP)
+- Source file: ORX_FTP (download from the HTML manual)
 ### PCV_VER
 
 - Purpose: Verify whether SATELLIT.I08 and I08.ATX posted to BSWUSER52/GEN are consistent with each other.
@@ -3781,14 +3775,14 @@ Variables:
   - V_ variables: `V_NADIR`, `V_PCV`, `V_PCVINF`, `V_SATINF`, `V_STAINF`
   - PARAM parameters: `PARAM1`
   - Other keys: `DIR_OUT`, `DIR_PHG`, `DIR_STA`, `EXT_PHG`
-- Source: [PCV_VER](source_files/l-code-rap-gpsuser/SCRIPT/PCV_VER)
+- Source file: PCV_VER (download from the HTML manual)
 ### PHA_ONLY
 
 - Purpose: Copy phase-only RINEX observation files to SMT files
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$S+0`, `DIR_OUT`, `DIR_RXO`, `DIR_SMT`, `EXT_RXO`, `EXT_SMT`
-- Source: [PHA_ONLY](source_files/l-code-rap-gpsuser/SCRIPT/PHA_ONLY)
+- Source file: PHA_ONLY (download from the HTML manual)
 ### PHABIA
 
 - Purpose: Execute PHABIA
@@ -3798,7 +3792,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$YSS+0`, `CAMPAIGN`, `DIR_OSB`, `EXT_OSB`
-- Source: [PHABIA](source_files/l-code-rap-gpsuser/SCRIPT/PHABIA)
+- Source file: PHABIA (download from the HTML manual)
 ### PHACMB
 
 - Purpose: Execute PHACMB
@@ -3807,14 +3801,14 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$YSS+0`, `DIR_OSB`, `DIR_OUT`, `EXT_OSB`
 - File deletes: `DIR_OSB/".substr(PARAM4,0,2)."_$YSS+0.EXT_OSB`
-- Source: [PHACMB](source_files/l-code-rap-gpsuser/SCRIPT/PHACMB)
+- Source file: PHACMB (download from the HTML manual)
 ### PLOT_BIA
 
 - Purpose: Generate plots for realigned daily bias results. results.
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - Other keys: `$WD+0`, `$Y+0`, `$YD+0`
-- Source: [PLOT_BIA](source_files/l-code-rap-gpsuser/SCRIPT/PLOT_BIA)
+- Source file: PLOT_BIA (download from the HTML manual)
 ### plot_copy
 
 - Purpose: Copy files for plotting to  campaign $P/PLOTS/ Programs:  plot_copy
@@ -3826,14 +3820,14 @@ Variables:
 - File writes: `DIR_ELE${eleFil}.EXT_ELE`, `DIR_CRDV_MAPCRD.EXT_CRD`, `DIR_CRDV_MAPHLM.EXT_CRD`, `DIR_CRDV_STANUM_${thisDate}.EXT_CRD`, `DIR_PREV_SATNUM_${thisDate}.EXT_PRE.Z`, `DIR_SUM${sumFil}_${thisDate}.EXT_SUM`
 - File deletes: `DIR_ELE${eleFil}.EXT_ELE`, `DIR_CRDV_MAPCRD.EXT_CRD`, `DIR_CRDV_MAPCRD.V_MAPHLM`, `DIR_SUM${sumFil}_${thisDate}.EXT_SUM unless -s DIR_SUM${sumFil}_${thisDate}.EXT_SUM`
 - File patterns: `"DIR_CRDV_STANUM_*.EXT_CRD"`, `"DIR_PREV_SATNUM_*.EXT_PRE"`, `"DIR_SUM${sumFil}*.EXT_SUM"`, `${PATH_SAV}/${CAMP_SAVRAP}/20??/ORB/RQ_V_DATE.ELE`, `${PATH_SAV}/${CAMP_SAVRAP}/20??/STA/RA_V_DATE.CRD`, `DIR_CRDV_STANUM_*.EXT_CRD`, `DIR_PREV_SATNUM_*.EXT_PRE`, `${PATH_SAV}/${CAMP_SAVRAP}/20??/ORB/RM_V_DATE.PRE.Z`, `DIR_SUM/V_GPSXTR_clk*.EXT_SUM`, `DIR_SUM${sumFil}*.EXT_SUM`, `${saveDisk}/20??/OUT/${source}.${myDateSum}`
-- Source: [plot_copy](source_files/l-code-rap-gpsuser/SCRIPT/plot_copy)
+- Source file: plot_copy (download from the HTML manual)
 ### POLUPD
 
 - Purpose: Execute POLUPD
 - Bernese programs: `POLUPD`
 - Used in PCFs: SLRPRED.PCF
 - INP files: `POLUPD.INP`
-- Source: [POLUPD](source_files/l-code-rap-gpsuser/SCRIPT/POLUPD)
+- Source file: POLUPD (download from the HTML manual)
 ### POLXTR_M
 
 - Purpose: Create offical code rapid ERP file (for middle day) Programs:  POLXTR
@@ -3842,7 +3836,7 @@ Variables:
 - INP files: `POLXTR.INP`
 - Read keys:
   - Other keys: `$WD-1`, `DIR_IEP`
-- Source: [POLXTR_M](source_files/l-code-rap-gpsuser/SCRIPT/POLXTR_M)
+- Source file: POLXTR_M (download from the HTML manual)
 ### POLXTR_R
 
 - Purpose: Create offical code rapid ERP file Programs:  POLXTR
@@ -3851,7 +3845,7 @@ Variables:
 - INP files: `POLXTR.INP`
 - Read keys:
   - Other keys: `$WD+0`, `DIR_IEP`
-- Source: [POLXTR_R](source_files/l-code-rap-gpsuser/SCRIPT/POLXTR_R)
+- Source file: POLXTR_R (download from the HTML manual)
 ### POLXTR_U
 
 - Package: `POLXTR_T`
@@ -3862,7 +3856,7 @@ Variables:
 - Read keys:
   - Other keys: `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_ERP`, `DIR_IEP`, `DIR_LST`, `EXT_ERP`, `EXT_IEP`, `EXT_LST`
 - File deletes: `$tmp`
-- Source: [POLXTR_U](source_files/l-code-rap-gpsuser/SCRIPT/POLXTR_U)
+- Source file: POLXTR_U (download from the HTML manual)
 ### PRED_ION
 
 - Purpose: Execute IONANA and IONINX
@@ -3872,7 +3866,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$Y`
-- Source: [PRED_ION](source_files/l-code-rap-gpsuser/SCRIPT/PRED_ION)
+- Source file: PRED_ION (download from the HTML manual)
 ### PREDNEW
 
 - Purpose: Generate orbit prediction (using middle days if possible) Programs:  POLXTR, ORBGEN, DEFXTR
@@ -3885,7 +3879,7 @@ Variables:
 - File reads: `$$bpe{SYSOUT}`, `$source`
 - File writes: `DIR_OUTECLIPSING.OUT`, `CAMP_PTHCAMPAIGN/POL/${file}_$YD+0_${h_end}`
 - File deletes: `DIR_SUMDEFXTR.{EXT_SUM}`, `DIR_SUMDEFWKS.{EXT_SUM}`
-- Source: [PREDNEW](source_files/l-code-rap-gpsuser/SCRIPT/PREDNEW)
+- Source file: PREDNEW (download from the HTML manual)
 ### RAP_BIA
 
 - Purpose: Perform clock-iono bias combination runs using ADDNEQ2 Programs:  ADDNEQ2 Remarks :  This script must be executed in RCLKGNSS process/campaign.
@@ -3896,7 +3890,7 @@ Variables:
   - V_ variables: `V_DIS`, `V_SAV`, `V_UPD`
   - Other keys: `$Y+0`, `$YD+0`, `$YSS+0`, `$YSS-1`, `DIR_BIA`, `DIR_NEQ`, `DIR_OSB`, `DIR_OUT`, `EXT_BIA`, `EXT_NEQ`, `EXT_OSB`, `EXT_OUT`, `PCFFIL`
 - File deletes: `DIR_OUT../MSC/BIA$YSS+0.FLG`, `$out`, `DIR_NEQA1S$YSS+0.EXT_NEQ`
-- Source: [RAP_BIA](source_files/l-code-rap-gpsuser/SCRIPT/RAP_BIA)
+- Source file: RAP_BIA (download from the HTML manual)
 ### RCLK1DEL
 
 - Purpose: Clean up the campaign (delete all files with a delay of 5 sessions)
@@ -3920,7 +3914,7 @@ Variables:
  if ( ${v_del} eq `, `$+0`, `$-5`, `$S+0`, `$S-5`, `$Y+0`, `$YD+0`, `$YD-5`, `$YSS+0`, `$YSS-5`, `DIR_BIA`, `DIR_BPELOG`, `DIR_BPEPRT`, `DIR_CLB`, `DIR_CLK`, `DIR_CRD`, `DIR_CZH`, `DIR_CZO`
 - File deletes: `${dirSatcrx}/CLK$YSS-5.EXT_SATCRUX`, `glob "DIR_OUT*.J_lk"`
 - File patterns: `"DIR_TRP??_$YSS-5.EXT_TRP"`, `"DIR_IONHOI$YD-5.EXT_ION"`, `"DIR_BPELOGTASKID$YSS-5_???_???.EXT_BPELOG"`, `"DIR_BPEPRTTASKID$YSS-5_???_???.EXT_BPEPRT"`, `"DIR_GRD???$YD-5.EXT_GRD"`, `"DIR_CZH????$S-5.EXT_CZH"`, `"DIR_CZO????$S-5.EXT_CZO"`, `"DIR_PZH????$S-5.EXT_PZH"`, `"DIR_PZO????$S-5.EXT_PZO"`, `"DIR_ERPV_K_$YSS-5.EXT_ERP"`, `"DIR_PREV_K_$YSS-5.EXT_PRE"`, `"DIR_STDV_K_$YSS-5.EXT_STD"` and 298 more
-- Source: [RCLK1DEL](source_files/l-code-rap-gpsuser/SCRIPT/RCLK1DEL)
+- Source file: RCLK1DEL (download from the HTML manual)
 ### RCLK1PRC
 
 - Package: `RCLK_PRC`
@@ -3932,7 +3926,7 @@ Variables:
 - File reads: `DIR_CLKV_U_$YSS+0.EXT_CLK`, `$alles`, `DIR_OUTRCLKGNSS_SHORT.TXT`
 - File writes: `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/V_U_$YD+0.EXT_CLK`, `${PATH_WWW}/code/rclkgnss.txt`, `${PATH_WWW}/code/rclkgnss_short.txt`
 - File deletes: `DIR_OUTCLK$YSS+0.PRC`, `DIR_LSTORB$YSS+0.EXT_LST`, `U/WORK/rclk_prc.tmp`, `$alles`
-- Source: [RCLK1PRC](source_files/l-code-rap-gpsuser/SCRIPT/RCLK1PRC)
+- Source file: RCLK1PRC (download from the HTML manual)
 ### RCLK1SAV
 
 - Purpose: Copy result files into the archive Programs:
@@ -3942,7 +3936,7 @@ Variables:
   - Other keys: `$S+0`, `$Y`, `$Y+0`, `$YD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BIA`, `DIR_CLB`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_NEQ`, `DIR_OSB`, `DIR_OUT`, `DIR_RXC`, `DIR_STD`, `DIR_TRP`, `EXT_BIA`, `EXT_CLB`
 - File reads: `DIR_CLKV_Q_$YSS+0.EXT_CLK`
 - File writes: `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/V_Q_$YD+0.EXT_CLK`
-- Source: [RCLK1SAV](source_files/l-code-rap-gpsuser/SCRIPT/RCLK1SAV)
+- Source file: RCLK1SAV (download from the HTML manual)
 ### RCLK_CHK
 
 - Purpose: Checks residuals from rapid clock estimation for bad stations Programs:  RESCHK
@@ -3953,7 +3947,7 @@ Variables:
   - PARAM parameters: `PARAM3`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YD+0`, `DIR_DEL`, `DIR_OUT`, `EXT_DEL`, `STARTCOUNT`, `U`
 - File deletes: `DIR_DEL$YD+0.EXT_DEL`, `$_`
-- Source: [RCLK_CHK](source_files/l-code-rap-gpsuser/SCRIPT/RCLK_CHK)
+- Source file: RCLK_CHK (download from the HTML manual)
 ### RCLK_COP
 
 - Purpose: Copy required files for CLKRAPID.PCF
@@ -3966,7 +3960,7 @@ Variables:
 - File writes: `PTH_SATCRUX/CLK$YSS+0.EXT_SATCRUX`, `DIR_OSBAPR$YSS+0.EXT_OSB`, `DIR_OSBP1C1.DCB`
 - File deletes: `glob "DIR_OUT*.$Y_$S+0"`, `glob "DIR_RXO????$S+0.EXT_RXO"`, `glob "DIR_RXN????$S+0.EXT_RXN"`, `DIR_SUMV_CS$YSS+0_.EXT_SUM`, `DIR_RXO/VESL$S+0.$YO`, `DIR_RXO/SPT0$S+0.$YO`, `DIR_RXO/BAKO$S+0.$YO`, `DIR_RXO/ADIS$S+0.$YO`, `DIR_RXO/UNTR$S+0.$YO`, `DIR_RXO/GLSV$S+0.$YO`, `DIR_RXO/LHAZ0990.10O`, `DIR_RXO/LHAZ1000.10O` and 83 more
 - File patterns: `"CAMP_PTHCAMPAIGN/TMP$YD+0/ORX/*"`, `CAMP_PTHCAMPAIGN/TMP$YD+0/ORX/*`
-- Source: [RCLK_COP](source_files/l-code-rap-gpsuser/SCRIPT/RCLK_COP)
+- Source file: RCLK_COP (download from the HTML manual)
 ### RCLKWAIT
 
 - Purpose: Coordinates the IGSRAPID and the corresponding clock job Programs:
@@ -3980,7 +3974,7 @@ Variables:
 - File reads: `$ENV{PATH_SAV}$ENV{CAMP_SAVRAP}/$Y+0/ORB/RM_$YD+0.EXT_PRE.Z`, `$ENV{PATH_SAV}$ENV{CAMP_SAVRAP}/$Y+0/ORB/RM_$YD+0.EXT_ERP`, `$ENV{PATH_SAV}$ENV{CAMP_SAVRAP}/$Y+0/STA/RA_$YD+1.EXT_CRD`, `$ENV{PATH_SAV}$ENV{CAMP_SAVRAP}/$Y+0/ATM/RM_$YD+0.EXT_TRP`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/V_A_$YD+0.CLK`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/MSC/RM_$YD+0.FLG`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/RM_$YD+0.STD`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/RM_$YD+0.ERP`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/RM_$YD+0.PRE`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/RM_$YD+0.ELE`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/RM_$YD+0.IEP`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/COM$WD+0.ERP` and 13 more
 - File writes: `DIR_PREV_K_$YSS+0.EXT_PRE.Z`, `DIR_ERPV_K_$YSS+0.EXT_ERP`, `DIR_CRDV_K_$YSS+0.EXT_CRD`, `DIR_TRPV_K_$YSS+0.EXT_TRP`, `DIR_CLKV_A_$YSS+0.EXT_CLK`, `DIR_CLKV_A_$YD+0.EXT_CLK`, `CAMP_PTHCAMPAIGN/MSC/MID$YD+0.FLG`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/MSC/MID$YD+0.FLG`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/MID$YD+0.STD`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/MID$YD+0.ERP`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/MID$YD+0.PRE`, `$ENV{PATH_RAP}$ENV{CAMP_RAP}/ORB/MID$YD+0.ELE` and 12 more
 - File deletes: `DIR_GRDVMF$YD+0.EXT_GRD`, `DIR_OUT../MSC/TRP_$YD+0.FLG) } copyfile($CDIR_RAP/GRD/VMF$YD+0.EXT_GRD,DIR_GRDVMF$YD+0.EXT_GRD) if -s $CDIR_RAP/GRD/VMF$YD+0.EXT_GRD && substr(V_TRPMOD,0,3) eq "VMF"`
-- Source: [RCLKWAIT](source_files/l-code-rap-gpsuser/SCRIPT/RCLKWAIT)
+- Source file: RCLKWAIT (download from the HTML manual)
 ### RCVTST
 
 - Purpose: Create receiver performance statistics wrt code measurement quality Programs:  RCVTST
@@ -3990,7 +3984,7 @@ Variables:
 - Read keys:
   - Other keys: `$+0`, `$Y`, `DIR_OUT`
 - File deletes: `DIR_OUTRCVTST.OUT`
-- Source: [RCVTST](source_files/l-code-rap-gpsuser/SCRIPT/RCVTST)
+- Source file: RCVTST (download from the HTML manual)
 ### REALIG_P
 
 - Purpose: Execute ADDNEQ2
@@ -4001,14 +3995,14 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$Y+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
 - File deletes: `$out`, `DIR_NEQ${sol}${yyddd}0.EXT_NEQ`
-- Source: [REALIG_P](source_files/l-code-rap-gpsuser/SCRIPT/REALIG_P)
+- Source file: REALIG_P (download from the HTML manual)
 ### REALIGAP
 
 - Purpose: Prepare parallel ADDNEQ2 runs for realignment of daily bias results.
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - Other keys: `$WD+0`, `$Y+0`, `$YD+0`
-- Source: [REALIGAP](source_files/l-code-rap-gpsuser/SCRIPT/REALIGAP)
+- Source file: REALIGAP (download from the HTML manual)
 ### REALIX_P
 
 - Purpose: Execute ADDNEQ2
@@ -4019,7 +4013,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$Y+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
 - File deletes: `$out`
-- Source: [REALIX_P](source_files/l-code-rap-gpsuser/SCRIPT/REALIX_P)
+- Source file: REALIX_P (download from the HTML manual)
 ### REPC_DEL
 
 - Purpose: Delete all files from the current session for clock reprocessing
@@ -4029,7 +4023,7 @@ Variables:
   - Other keys: `$S+0`, `$Y`, `$YSS+0`, `DIR_CLB`, `DIR_CLK`, `DIR_CRD`, `DIR_CZH`, `DIR_CZO`, `DIR_DCB`, `DIR_DEL`, `DIR_EDT`, `DIR_ERP`, `DIR_LST`, `DIR_NEQ`, `DIR_OUT`, `DIR_PRE`, `DIR_PZH`, `DIR_PZO`, `DIR_RES`, `DIR_RXC`
 - File deletes: `glob "DIR_OUT*.J_lk"`
 - File patterns: `"PTH_SATCRUX/CLK$YSS+0.EXT_SATCRUX"`, `"DIR_TRP??_$YSS+0.EXT_TRP"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_ERPV_K_$YSS+0.EXT_ERP"`, `"DIR_PREV_K_$YSS+0.EXT_PRE"`, `"DIR_STDV_K_$YSS+0.EXT_STD"`, `"DIR_CLKV_A_$YSS+0.EXT_CLK"`, `"DIR_CLKV_W1$YSS+0.EXT_CLK"`, `"DIR_CLKV_E_$YSS+0.EXT_CLK"` and 288 more
-- Source: [REPC_DEL](source_files/l-code-rap-gpsuser/SCRIPT/REPC_DEL)
+- Source file: REPC_DEL (download from the HTML manual)
 ### REPC_SAV
 
 - Purpose: Copy result files into the archive (from clock reprocessing) Programs:
@@ -4037,17 +4031,17 @@ Variables:
 - Read keys:
   - V_ variables: `V_C`, `V_GNSS`, `V_Q`, `V_QQ`, `V_SAV`, `V_U`, `V_UU`
   - Other keys: `$S+0`, `$Y`, `$Y+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_CLB`, `DIR_CLK`, `DIR_DCB`, `DIR_NEQ`, `DIR_OUT`, `DIR_RXC`, `EXT_CLB`, `EXT_CLK`, `EXT_DCB`, `EXT_NEQ`, `EXT_OUT`, `EXT_RXC`
-- Source: [REPC_SAV](source_files/l-code-rap-gpsuser/SCRIPT/REPC_SAV)
+- Source file: REPC_SAV (download from the HTML manual)
 ### Repository
 
-- Source: [Repository](source_files/l-code-rap-gpsuser/SCRIPT/CVS/Repository)
+- Source file: Repository (download from the HTML manual)
 ### RESRMS
 
 - Purpose: Programs:  RESRMS
 - Bernese programs: `RESRMS`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `RESRMS.INP`
-- Source: [RESRMS](source_files/l-code-rap-gpsuser/SCRIPT/RESRMS)
+- Source file: RESRMS (download from the HTML manual)
 ### RNX2DSB
 
 - Purpose: Generate intra-frequency GNSS OSB results using RNX2OSB
@@ -4060,7 +4054,7 @@ Variables:
   - Other keys: `$JD+0`, `$YSS+0`, `DIR_BIA`, `DIR_NEQ`, `DIR_OSB`, `DIR_OUT`, `DIR_RXO`
 - File deletes: `$filNeq`, `$filObs) } } } }`, `$tmpOsb`
 - File patterns: `"DIR_RXO?????????_${yyyy}${ssss}.RXO"`, `"DIR_RXOSYOG?????_20261670.RXO"`, `"DIR_RXOTLSE?????_20261680.RXO"`, `"DIR_OSBV_H$YSS+0_*.OSB"`, `"DIR_BIAV_H$YSS+0_*.BIA"`, `"DIR_OUTV_H$YSS+0_*.OUT"`, `"DIR_NEQV_H$YSS+0_*.NQ0"`, `"DIR_OSB${sol}?$YSS+0_*.OSB_*"`, `"DIR_RXO?????????_${yyyy}${ssss}.RXO")) if $mjd1-$mjd0<-8`, `"DIR_RXO?????????_${yyyy}${ssss}.RXO")) if $yyyy<2022`, `DIR_RXO?????????_${yyyy}${ssss}.RXO`, `DIR_RXOSYOG?????_20261670.RXO` and 14 more
-- Source: [RNX2DSB](source_files/l-code-rap-gpsuser/SCRIPT/RNX2DSB)
+- Source file: RNX2DSB (download from the HTML manual)
 ### RNX2FRQ
 
 - Purpose: Perform GLONASS frequency channel search using RNXSMT for data verification purposes
@@ -4072,7 +4066,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$JD+0`, `$YSS+0`, `DIR_DCB`, `DIR_OUT`, `DIR_RXO`, `DIR_SMT`
 - File patterns: `"DIR_SMT?????????_${yyyy}${ssss}.SMT"`, `DIR_RXO?????????_${yyyy}${ssss}.RXO`, `DIR_SMT????${ssss}.SMT`, `DIR_SMT?????????_${yyyy}${ssss}.SMT`
-- Source: [RNX2FRQ](source_files/l-code-rap-gpsuser/SCRIPT/RNX2FRQ)
+- Source file: RNX2FRQ (download from the HTML manual)
 ### RNXGRA
 
 - Purpose: Create a "pseudo" graphic of rinex observations Programs:  RNXGRA
@@ -4081,7 +4075,7 @@ Variables:
 - INP files: `RNXGRA.INP`
 - Read keys:
   - V_ variables: `V_GNSS`
-- Source: [RNXGRA](source_files/l-code-rap-gpsuser/SCRIPT/RNXGRA)
+- Source file: RNXGRA (download from the HTML manual)
 ### RNXSMT_P
 
 - Purpose: Parallel RNXSMT run Programs:  RNXSMT
@@ -4093,7 +4087,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [RNXSMT_P](source_files/l-code-rap-gpsuser/SCRIPT/RNXSMT_P)
+- Source file: RNXSMT_P (download from the HTML manual)
 ### RNXSMTAP
 
 - Purpose: Prepare parallel RNXSMT run Programs:
@@ -4102,17 +4096,17 @@ Variables:
   - V_ variables: `V_CLU`, `V_NCLU`
   - Other keys: `$+0`, `$S+0`, `$YSS+0`, `DIR_BPEPRT`, `DIR_OUT`, `DIR_RXO`, `DIR_SMT`, `EXT_OUT`, `EXT_RXO`, `EXT_SMT`
 - File patterns: `"DIR_SMT*$S+0.EXT_SMT"`, `"DIR_OUTSMT$S+0???.EXT_OUT") } else { unlink glob("DIR_OUTSMT$+0????.EXT_OUT") }`, `DIR_SMT*$S+0.EXT_SMT`, `DIR_OUTSMT$S+0???.EXT_OUT`, `DIR_OUTSMT$+0????.EXT_OUT`, `DIR_RXO????$S+0.EXT_RXO`, `DIR_RXO?????????_??$YSS+0.RXO`
-- Source: [RNXSMTAP](source_files/l-code-rap-gpsuser/SCRIPT/RNXSMTAP)
+- Source file: RNXSMTAP (download from the HTML manual)
 ### Root
 
-- Source: [Root](source_files/l-code-rap-gpsuser/SCRIPT/CVS/Root)
+- Source file: Root (download from the HTML manual)
 ### RXN2PRE
 
 - Purpose: Execute RXN2PRE
 - Bernese programs: `RXN2PRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `RXN2PRE.INP`
-- Source: [RXN2PRE](source_files/l-code-rap-gpsuser/SCRIPT/RXN2PRE)
+- Source file: RXN2PRE (download from the HTML manual)
 ### RXO_DEL
 
 - Purpose: Delete ?????????_yyyyssss.RXO files (from current session and, if requested, back to PARAM1)
@@ -4123,7 +4117,7 @@ Variables:
   - Other keys: `$JD+0`, `$YSS+0`, `DIR_RXO`
 - File deletes: `@filRxo`
 - File patterns: `DIR_RXO?????????_${yyyyssss}.RXO`
-- Source: [RXO_DEL](source_files/l-code-rap-gpsuser/SCRIPT/RXO_DEL)
+- Source file: RXO_DEL (download from the HTML manual)
 ### RXOBV3_P
 
 - Purpose: Parallel RXOBV3 run Programs:  RXOBV3
@@ -4135,7 +4129,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$+0`, `$S+0`, `$Y`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
 - File deletes: `PARAM1`
-- Source: [RXOBV3_P](source_files/l-code-rap-gpsuser/SCRIPT/RXOBV3_P)
+- Source file: RXOBV3_P (download from the HTML manual)
 ### RXOBV3GP
 
 - Purpose: A priori script to prepare parallel running of RXOBV3 (use RNXGRA to find a list of the best stations) Programs:  RNXGRA
@@ -4148,7 +4142,7 @@ Variables:
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
 - File deletes: `$del`, `$lst`
 - File patterns: `"DIR_BPEPRTOBS$S+0???.BPE"`, `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT") } else { unlink glob("DIR_OUTOBS$+0????.EXT_OUT") }`, `DIR_BPEPRTOBS$S+0???.BPE`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO`, `DIR_OUTOBS$S+0???.EXT_OUT` and 1 more
-- Source: [RXOBV3GP](source_files/l-code-rap-gpsuser/SCRIPT/RXOBV3GP)
+- Source file: RXOBV3GP (download from the HTML manual)
 ### RXOBVSAP
 
 - Purpose: Prepare parallel RXOBV3 run (for SMT files) Programs:
@@ -4158,7 +4152,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `$+0`, `$S+0`, `$YD+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_CZO`, `DIR_OUT`, `DIR_PZH`, `DIR_PZO`, `DIR_SMT`, `EXT_CZH`, `EXT_CZO`, `EXT_OUT`, `EXT_PZH`, `EXT_PZO`, `EXT_SMT`, `T`
 - File patterns: `"DIR_CZH????$S+0.EXT_CZH"`, `"DIR_PZH????$S+0.EXT_PZH"`, `"DIR_CZO????$S+0.EXT_CZO"`, `"DIR_PZO????$S+0.EXT_PZO"`, `"DIR_OUTOBS$S+0???.EXT_OUT") } else { unlink glob("DIR_OUTOBS$+0????.EXT_OUT") }`, `"DIR_BPEPRTOBS$S+0???.BPE"`, `DIR_CZH????$S+0.EXT_CZH`, `DIR_PZH????$S+0.EXT_PZH`, `DIR_CZO????$S+0.EXT_CZO`, `DIR_PZO????$S+0.EXT_PZO`, `DIR_OUTOBS$S+0???.EXT_OUT`, `DIR_OUTOBS$+0????.EXT_OUT` and 2 more
-- Source: [RXOBVSAP](source_files/l-code-rap-gpsuser/SCRIPT/RXOBVSAP)
+- Source file: RXOBVSAP (download from the HTML manual)
 ### SAT_INI
 
 - Purpose: Compute a priori orbits on the basis of DD code observations Programs:  ORBGEN, GPSEST, STDPRE, STDDIF
@@ -4168,21 +4162,21 @@ Variables:
 - Read keys:
   - Other keys: `$+0`, `$Y`, `$Y+0`, `$YD-1`, `DIR_OUT`, `DIR_STD`, `EXT_SATCRUX`, `PTH_SATCRUX`
 - File deletes: `$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.PRE) if gps_date("-t -o %U") - (stat($CAMP_PTH$CAMPAIGN/ORB/SAT_INI.PRE))[9] > 86400`, `PTH_SATCRUX/SAT_$Y+0.EXT_SATCRUX_$$`, `$CAMP_PTH$CAMPAIGN/MSC/REPOSITIONING.FLG`, `$CAMP_PTH$CAMPAIGN/ORB/TMP$Y$+0.PRE`, `$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.PRE`, `$CAMP_PTH$CAMPAIGN/ORB/SAT_INI.ERP`, `$CAMP_PTH$CAMPAIGN/MSC/SAT_INI.FLG`, `$CAMP_PTH$CAMPAIGN/MSC/EXIT.FLG`
-- Source: [SAT_INI](source_files/l-code-rap-gpsuser/SCRIPT/SAT_INI)
+- Source file: SAT_INI (download from the HTML manual)
 ### SATCLK2
 
 - Purpose: Execute SATCLK2
 - Bernese programs: `SATCLK2`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SATCLK2.INP`
-- Source: [SATCLK2](source_files/l-code-rap-gpsuser/SCRIPT/SATCLK2)
+- Source file: SATCLK2 (download from the HTML manual)
 ### SATGRA
 
 - Purpose: A run f the program SATGRA Programs:  SATGRA
 - Bernese programs: `SATGRA`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SATGRA.INP`
-- Source: [SATGRA](source_files/l-code-rap-gpsuser/SCRIPT/SATGRA)
+- Source file: SATGRA (download from the HTML manual)
 ### SATMON_P
 
 - Purpose: Execute SATMARK
@@ -4193,7 +4187,7 @@ Variables:
   - PARAM parameters: `PARAM1`
   - Other keys: `$Y+0`, `DIR_OUT`
 - File patterns: `"DIR_OUTCLKSCREEN$station.EDT"`, `DIR_OUTCLKSCREEN$station.EDT`
-- Source: [SATMON_P](source_files/l-code-rap-gpsuser/SCRIPT/SATMON_P)
+- Source file: SATMON_P (download from the HTML manual)
 ### SATMONAP
 
 - Purpose: Extract satellite clock estimates (as seen by each station) and eliminate observations using satmark Programs:
@@ -4206,14 +4200,14 @@ Variables:
 - File writes: `DIR_OUTCLK$YD+0_tmp.SUM`
 - File deletes: `DIR_OUTCLK$YD+0_tmp.SUM`, `DIR_EDTCLKSCREEN$sta.EXT_EDT`, `DIR_CZH$sta$S+0.???`
 - File patterns: `"DIR_OUTCLKSCREEN????.EDT"`, `"DIR_OUTFIL$+0????.OUT"`, `"DIR_CLKFIL$+0????.CLK"`, `"DIR_OUTFIL$+0????.CLK"`, `DIR_OUTCLKSCREEN????.EDT`, `DIR_OUTFIL$+0????.OUT`, `DIR_CLKFIL$+0????.CLK`, `DIR_OUTFIL$+0????.CLK`
-- Source: [SATMONAP](source_files/l-code-rap-gpsuser/SCRIPT/SATMONAP)
+- Source file: SATMONAP (download from the HTML manual)
 ### SATMRK
 
 - Purpose: Execute SATMRK
 - Bernese programs: `SATMRK`
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF, RCLKGNSS.PCF
 - INP files: `SATMRK.INP`
-- Source: [SATMRK](source_files/l-code-rap-gpsuser/SCRIPT/SATMRK)
+- Source file: SATMRK (download from the HTML manual)
 ### SATUNMRK
 
 - Purpose: Execute SATMRK to unmark observation data for a particular satellite.
@@ -4222,7 +4216,7 @@ Variables:
 - INP files: `SATMRK.INP`
 - Read keys:
   - Other keys: `$JD+0`, `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_OUT`, `PCFFIL`
-- Source: [SATUNMRK](source_files/l-code-rap-gpsuser/SCRIPT/SATUNMRK)
+- Source file: SATUNMRK (download from the HTML manual)
 ### SATWEEK
 
 - Purpose: Execute SATWEEK and check maneuver entries of current GPS week in SAT.CRX file. Programs:  SATWEEK Remark  :
@@ -4234,7 +4228,7 @@ Variables:
   - Other keys: `$JD+0`, `$WD+0`, `$Y+0`, `$YSS+0`, `$YYYSS+0`, `DIR_OUT`, `EXT_OUT`, `PCFFIL`
 - File deletes: `$filSum`
 - File patterns: `$ENV{CONFIG}/SAT_[12][90][0-9][0-9].CRX`
-- Source: [SATWEEK](source_files/l-code-rap-gpsuser/SCRIPT/SATWEEK)
+- Source file: SATWEEK (download from the HTML manual)
 ### SBPE_P
 
 - Purpose: Starts a server for a parallel running BPE (SUPERBPE)
@@ -4242,27 +4236,27 @@ Variables:
 - Read keys:
   - V_ variables: `V_SUBDIR`
   - Other keys: `PTH_CPU`, `PTH_OPT`, `PTH_PCF`, `PTH_SCRIPT`
-- Source: [SBPE_P](source_files/l-code-rap-gpsuser/SCRIPT/SBPE_P)
+- Source file: SBPE_P (download from the HTML manual)
 ### SBPEAP
 
 - Purpose: Prepares a parallel running BPE (SUPERBPE)
 - Used in PCFs: SUPERBPE.PCF
-- Source: [SBPEAP](source_files/l-code-rap-gpsuser/SCRIPT/SBPEAP)
+- Source file: SBPEAP (download from the HTML manual)
 ### SKIP_AR
 
 - Purpose: Skip QIF AR (LIMEST, GPSQIFAP, GPSQIF_P) if max. baseline length (V_BL_QIF) is 0 or if SKIP_AR flag exists Programs:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
-- Source: [SKIP_AR](source_files/l-code-rap-gpsuser/SCRIPT/SKIP_AR)
+- Source file: SKIP_AR (download from the HTML manual)
 ### SKIP_JOB
 
 - Purpose: Skip jobs if "SKIP_JOB.FLG" exists (used for script: skip_jobs.com) Programs:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
-- Source: [SKIP_JOB](source_files/l-code-rap-gpsuser/SCRIPT/SKIP_JOB)
+- Source file: SKIP_JOB (download from the HTML manual)
 ### SKIP_SOL
 
 - Purpose: Skip 3-day solution if indicated Programs:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
-- Source: [SKIP_SOL](source_files/l-code-rap-gpsuser/SCRIPT/SKIP_SOL)
+- Source file: SKIP_SOL (download from the HTML manual)
 ### SKIP_WL
 
 - Purpose: Skip WL AR if indicated Programs:  SATMRK
@@ -4271,14 +4265,14 @@ Variables:
 - INP files: `SATMRK.INP`
 - Read keys:
   - Other keys: `$YSS+0`
-- Source: [SKIP_WL](source_files/l-code-rap-gpsuser/SCRIPT/SKIP_WL)
+- Source file: SKIP_WL (download from the HTML manual)
 ### SLEEP
 
 - Purpose: Wait n sec
 - Used in PCFs: DEBUG_SS.PCF, IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
-- Source: [SLEEP](source_files/l-code-rap-gpsuser/SCRIPT/SLEEP)
+- Source file: SLEEP (download from the HTML manual)
 ### SLR_MAIL
 
 - Purpose: Send CPF via email: protocol file, warning message, error message Authors:   C. Urschl
@@ -4287,7 +4281,7 @@ Variables:
   - V_ variables: `V_VCPF`
 - File deletes: `$cpffil`
 - File patterns: `$CAMP_PTH$CAMPAIGN/ORB/$cpfPattern`, `???${yyddd}.CPF`, `????${yyddd}.CPF`
-- Source: [SLR_MAIL](source_files/l-code-rap-gpsuser/SCRIPT/SLR_MAIL)
+- Source file: SLR_MAIL (download from the HTML manual)
 ### SMA_CHK
 
 - Purpose: Check semi-major axis correction and RMS values for all involved satellites (PRNs) and release SMS message in case of anomalies. Programs: Remark  :
@@ -4296,7 +4290,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
   - Other keys: `$+0`, `$JD+0`, `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `$YYYSS+0`, `DIR_OUT`, `EXT_OUT`, `PCFFIL`
 - File deletes: `DIR_OUTSMT_CHK.LST_$$`, `$ENV{CONFIG}/SAT_$Y+0.CRX_$$`
-- Source: [SMA_CHK](source_files/l-code-rap-gpsuser/SCRIPT/SMA_CHK)
+- Source file: SMA_CHK (download from the HTML manual)
 ### SNGDIF
 
 - Purpose: Create baselines Programs:  SNGDIF
@@ -4306,7 +4300,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `DIR_CLB`, `DIR_PSH`
 - File patterns: `"DIR_PSH????$S+0.?S?"`, `"DIR_CLB$YD+0_??.CLB"`, `DIR_PSH????$S+0.?S?`, `DIR_CLB$YD+0_??.CLB`
-- Source: [SNGDIF](source_files/l-code-rap-gpsuser/SCRIPT/SNGDIF)
+- Source file: SNGDIF (download from the HTML manual)
 ### SNGDIFA
 
 - Purpose: Create baselines Programs:  SNGDIF
@@ -4316,7 +4310,7 @@ Variables:
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `DIR_BSL`, `DIR_CLB`, `DIR_PSH`
 - File patterns: `"DIR_PSH????$S+0.?S?"`, `"DIR_CLB$YD+0_??.CLB"`, `DIR_PSH????$S+0.?S?`, `DIR_CLB$YD+0_??.CLB`
-- Source: [SNGDIFA](source_files/l-code-rap-gpsuser/SCRIPT/SNGDIFA)
+- Source file: SNGDIFA (download from the HTML manual)
 ### SNGDIFC
 
 - Purpose: Create baselines from code observations  (no delete/clean-up) Programs:  SNGDIF
@@ -4326,7 +4320,7 @@ Variables:
 - Read keys:
   - Other keys: `DIR_CZH`
 - File patterns: `"DIR_CZH/../OBS_TMP//????????.???"`, `DIR_CZH/../OBS_TMP//????????.???`, `DIR_CZH/????$SESSION.CS?`
-- Source: [SNGDIFC](source_files/l-code-rap-gpsuser/SCRIPT/SNGDIFC)
+- Source file: SNGDIFC (download from the HTML manual)
 ### SNX_LOOP
 
 - Purpose: Import exported SNX file and verify re-computed CRD results Programs:  SNX2NQ0, ADDNEQ2, HELMR1
@@ -4338,7 +4332,7 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
   - Other keys: `$W+0`, `$YD+0`, `DAYWEEK`, `DIR_FIX`, `DIR_OUT`, `DIR_SNX`, `EXT_FIX`, `EXT_OUT`, `EXT_SNX`, `PCFFIL`
 - File deletes: `DIR_FIX${sol}DAYWEEK_BAD.EXT_FIX`
-- Source: [SNX_LOOP](source_files/l-code-rap-gpsuser/SCRIPT/SNX_LOOP)
+- Source file: SNX_LOOP (download from the HTML manual)
 ### SOSUPDAT
 
 - Package: `SOSMERGE`
@@ -4349,7 +4343,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_I`, `V_W`
   - Other keys: `$YSS+0`, `DIR_SIG`, `DIR_SOS`, `EXT_SIG`, `EXT_SOS`
-- Source: [SOSUPDAT](source_files/l-code-rap-gpsuser/SCRIPT/SOSUPDAT)
+- Source file: SOSUPDAT (download from the HTML manual)
 ### SP3CPF
 
 - Purpose: Execute SP3CPF
@@ -4358,7 +4352,7 @@ Variables:
 - INP files: `SP3CPF.INP`
 - Read keys:
   - V_ variables: `V_VCPF`
-- Source: [SP3CPF](source_files/l-code-rap-gpsuser/SCRIPT/SP3CPF)
+- Source file: SP3CPF (download from the HTML manual)
 ### STA2STA
 
 - Purpose: Create extra STA file for SINEX generation
@@ -4367,7 +4361,7 @@ Variables:
   - V_ variables: `V_STAINF`
   - PARAM parameters: `PARAM1`, `PARAM2`
   - Other keys: `DIR_STA`, `EXT_STA`
-- Source: [STA2STA](source_files/l-code-rap-gpsuser/SCRIPT/STA2STA)
+- Source file: STA2STA (download from the HTML manual)
 ### STAMERGE
 
 - Purpose: Execute STAMERGE
@@ -4376,14 +4370,14 @@ Variables:
 - INP files: `MENU_PGM.INP`, `STAMERGE.INP`
 - Read keys:
   - Other keys: `DIR_OUT`, `DIR_STA`, `EXT_STA`
-- Source: [STAMERGE](source_files/l-code-rap-gpsuser/SCRIPT/STAMERGE)
+- Source file: STAMERGE (download from the HTML manual)
 ### STDPRE
 
 - Purpose: Convert standard orbit to precise orbit file format Programs:  STDPRE
 - Bernese programs: `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `STDPRE.INP`
-- Source: [STDPRE](source_files/l-code-rap-gpsuser/SCRIPT/STDPRE)
+- Source file: STDPRE (download from the HTML manual)
 ### STDPRE_R
 
 - Purpose: Generate PRE-files for all days of the n-day solution (currently only for +0 and -2 useable) Programs:  STDPRE
@@ -4392,14 +4386,14 @@ Variables:
 - INP files: `STDPRE.INP`, `STDPRE.INP`
 - Read keys:
   - Other keys: `$+0`, `$-1`, `$-2`, `$S-1`, `$S-2`, `$Y`, `$Y-1`, `$Y-2`
-- Source: [STDPRE_R](source_files/l-code-rap-gpsuser/SCRIPT/STDPRE_R)
+- Source file: STDPRE_R (download from the HTML manual)
 ### STOP_ULT
 
 - Purpose: Check whether ULTyyddd.ULT is justified Programs:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$Y+0`, `$YD+0`, `$YD-1`, `$YD-2`, `DIR_OUT`, `PCFFIL`
-- Source: [STOP_ULT](source_files/l-code-rap-gpsuser/SCRIPT/STOP_ULT)
+- Source file: STOP_ULT (download from the HTML manual)
 ### SYS_CHK
 
 - Purpose: Perform various relevant checks concerning: - $PAN/AIUB_CMP.INP (counter) - ANTEX model (number) - gravitational model (validity) Programs:
@@ -4408,7 +4402,7 @@ Variables:
   - V_ variables: `V_CMPINF`, `V_CRDINF`, `V_GRAVMOD`, `V_PCV`, `V_PCVINF`
   - Other keys: `$JD+0`, `$WD+0`, `$YD+0`, `$YD-1`, `$YSS+0`, `DIR_OUT`, `PCFFIL`
 - File patterns: `$ENV{MODEL}/V_GRAVMOD.GRV`, `$ENV{REF}/$atxStr`
-- Source: [SYS_CHK](source_files/l-code-rap-gpsuser/SCRIPT/SYS_CHK)
+- Source file: SYS_CHK (download from the HTML manual)
 ### TIMEST_A
 
 - Package: `TIMEST_P`
@@ -4420,7 +4414,7 @@ Variables:
   - V_ variables: `V_B`, `V_I`
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMEST_A](source_files/l-code-rap-gpsuser/SCRIPT/TIMEST_A)
+- Source file: TIMEST_A (download from the HTML manual)
 ### TIMEST_C
 
 - Package: `TIMEST_P`
@@ -4431,7 +4425,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMEST_C](source_files/l-code-rap-gpsuser/SCRIPT/TIMEST_C)
+- Source file: TIMEST_C (download from the HTML manual)
 ### TIMEST_P
 
 - Purpose: Parallel run of GPSEST using code and phase data Programs:  GPSEST
@@ -4441,7 +4435,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `DIR_ION`, `EXT_ION`, `SUB_PID`
-- Source: [TIMEST_P](source_files/l-code-rap-gpsuser/SCRIPT/TIMEST_P)
+- Source file: TIMEST_P (download from the HTML manual)
 ### TIMESTAP
 
 - Purpose: Prepare parallel GPSEST run using MKCLUS for clustering Programs:  MKCLUS
@@ -4453,21 +4447,21 @@ Variables:
   - Other keys: `$$bpe{PARAM2}`, `$+0`, `$S+0`, `$Y`, `$YD+0`, `DIR_CLB`, `DIR_DEL`, `DIR_NEQ`, `DIR_OUT`, `DIR_RES`, `DIR_RXC`, `EXT_CLB`, `EXT_DEL`, `EXT_NEQ`, `EXT_OUT`, `EXT_RES`, `EXT_RXC`
 - File deletes: `DIR_DELDEL$YD+0.{extDel}`, `$_`, `$del`
 - File patterns: `"DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ"`, `"DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT"`, `"DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES"`, `"DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC"`, `"DIR_CLB$YD+0*.EXT_CLB"`, `DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ`, `DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT`, `DIR_RES$$bpe{PARAM2}$S+0*.EXT_RES`, `DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC`, `DIR_CLB$YD+0*.EXT_CLB`
-- Source: [TIMESTAP](source_files/l-code-rap-gpsuser/SCRIPT/TIMESTAP)
+- Source file: TIMESTAP (download from the HTML manual)
 ### TROTRO
 
 - Purpose: Remove non-IGS stations from code tro sinex file Programs:  TROTRO
 - Bernese programs: `TROTRO`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `TROTRO.INP`
-- Source: [TROTRO](source_files/l-code-rap-gpsuser/SCRIPT/TROTRO)
+- Source file: TROTRO (download from the HTML manual)
 ### TRPL2C
 
 - Purpose: Convert new (linear) into old (constant) TRP file Programs:  TRPL2C
 - Bernese programs: `TRPL2C`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `TRPL2C.INP`
-- Source: [TRPL2C](source_files/l-code-rap-gpsuser/SCRIPT/TRPL2C)
+- Source file: TRPL2C (download from the HTML manual)
 ### TRPMERGE
 
 - Purpose: Merges TRP files Programs: PARAMx:    PARAM1: filename of the merged TRP file PARAM2: filename of the "master" TRP file where to start from (may be empty) PARAM3: filename(s) of the TRP file(s) to be merged in (e.g., "TP_$YD+0" or even "????$S+0"; wildcards only for PARAM3)
@@ -4478,7 +4472,7 @@ Variables:
 - File reads: `$trp`, `$outFile`
 - File writes: `$outFile`, `U/WORK/trpmerge.$$`
 - File patterns: `${dirTrp}/PARAM1.${extTrp}`, `${dirTrp}/PARAM2.${extTrp}`, `${dirTrp}/PARAM3.${extTrp}`
-- Source: [TRPMERGE](source_files/l-code-rap-gpsuser/SCRIPT/TRPMERGE)
+- Source file: TRPMERGE (download from the HTML manual)
 ### U30_FTP
 
 - Purpose: Create and submit next ULTRA_06 submission Authors:    M. Meindl, S. Schaer
@@ -4486,7 +4480,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_I`, `V_O`
   - Other keys: `$+1`, `$WD+1`, `$Y+1`, `$YD+0`, `$YD+1`, `DIR_IEP`, `DIR_OUT`, `DIR_PRE`, `DIR_STD`, `EXT_IEP`, `EXT_PRE`, `EXT_STD`
-- Source: [U30_FTP](source_files/l-code-rap-gpsuser/SCRIPT/U30_FTP)
+- Source file: U30_FTP (download from the HTML manual)
 ### UBLOX
 
 - Purpose: - Extracts the 15-day-prediction for ublox, - Performs a validation - Generates a protocol - Submits the data IP restriction on ublox-side (open for sedna antlia2) U-Blox contact (in case of problems): svc-team-support-list@u-blox.com Programs:   STDPRE, PREWEI, ORBCMP Authors:    R. Dach
@@ -4498,7 +4492,7 @@ Variables:
   - Other keys: `$JD-2`, `$WD+0`, `$WD+1`, `$WD-(30)`, `$Y+0`, `$YD+0`, `$YD+1`, `$YD-(30)`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BPELOG`, `DIR_BPEPRT`, `DIR_PLT`, `DIR_PRE`, `EXT_PLT`, `EXT_PRE`, `EXT_SATCRUX`, `PTH_SATCRUX`
 - File reads: `$cmpfil`
 - File writes: `$arcfil`
-- Source: [UBLOX](source_files/l-code-rap-gpsuser/SCRIPT/UBLOX)
+- Source file: UBLOX (download from the HTML manual)
 ### ULT_CHK
 
 - Purpose: Compare ultra-rapid precise orbit solution files with respect to most recent update(s) for acceptance control Instructions: How to react in an emergency case? 1. Find the cause of the problem why ULT_ERR.FLG was finally set. Some suggestions and ideas: a. grep posteriori $outf/RA_yy???.OUT (for long-arc issue) b. grep posteriori $outf/RQ_yy???.OUT (for AR issue) c. grep posteriori $outf/RH_yy???.OUT d. grep posteriori $outf/RG_yy???.OUT e. grep posteriori $outf/RF_yy???.OUT f. Study an affected ADDNEQ2 output in detail (especially in terms of maximum parameter improvement/correction). g. Alternatively, the cause could be a recently activated software or model change. 2. Fix the identified cause. 3. a. For unlocking, remove ULT_ERR.FLG by executing manually: mv $mscr/ULT_ERR.FLG $mscr/ULT_ERR.FLG_yyyyddmm b. Add a command line below (in this script) to temporarily increase $tol (in order to prevent another emergency stop). 4. Restart the IGSULTRA/IGSRAPID BPE (or repeat the affected processing steps). 5. Carefully check the latest analysis solutions. See also: $outr/ULT_CHK.LST Programs:  ORBCMP
@@ -4507,7 +4501,7 @@ Variables:
 - INP files: `ORBCMP.INP`, `ORBCMP.INP`
 - Read keys:
   - Other keys: `$JD+0`, `$WD+0`, `$WD+1`, `$WD-1`, `$YD+0`, `DIR_OUT`, `DIR_PRE`, `EXT_PRE`, `PCFFIL`, `STARTCOUNT`, `TASKID`
-- Source: [ULT_CHK](source_files/l-code-rap-gpsuser/SCRIPT/ULT_CHK)
+- Source file: ULT_CHK (download from the HTML manual)
 ### ULTIONO
 
 - Purpose: CREATE EXTRA ULT OSB FILE TO GET LIST OF GPS/GLONASS STATIONS USED Programs:
@@ -4518,7 +4512,7 @@ Variables:
   - Other keys: `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_DCB`, `DIR_OSB`, `EXT_DCB`, `EXT_OSB`
 - File reads: `$inpFil`
 - File writes: `$outFil`
-- Source: [ULTIONO](source_files/l-code-rap-gpsuser/SCRIPT/ULTIONO)
+- Source file: ULTIONO (download from the HTML manual)
 ### ULTPRE
 
 - Purpose: CREATE EXTRA ULTRA RAPID PRE FILE FOR PREDICTION PURPOSES Programs:
@@ -4530,14 +4524,14 @@ Variables:
   - Other keys: `$-1`, `$YD+0`, `$YD-1`, `CAMPAIGN`, `CAMP_PTH`, `DIR_ERP`, `DIR_IEP`, `DIR_PRE`, `EXT_ERP`, `EXT_IEP`, `EXT_PRE`
 - File reads: `DIR_PRE/ULT$YD+0.EXT_PRE`, `DIR_ERP/V_I_$YD+0.EXT_ERP`, `DIR_IEP/V_I_$YD+0.EXT_IEP`, `DIR_PRE/V_IM1$-1.EXT_PRE`
 - File writes: `DIR_PRE/PRD$YD+0.EXT_PRE`, `DIR_ERP/PRD$YD+0.EXT_ERP`, `DIR_IEP/PRD$YD+0.EXT_IEP`, `DIR_PRE/PRD$YD-1.EXT_PRE`, `DIR_ERP/PRD$YD-1.EXT_ERP`, `DIR_IEP/PRD$YD-1.EXT_IEP`
-- Source: [ULTPRE](source_files/l-code-rap-gpsuser/SCRIPT/ULTPRE)
+- Source file: ULTPRE (download from the HTML manual)
 ### ULTWEI
 
 - Purpose: Execute ultra_prewei.com for generation of ultra-rapid orbit accuracy codes Programs:  -
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$+0`, `$YD+0`
-- Source: [ULTWEI](source_files/l-code-rap-gpsuser/SCRIPT/ULTWEI)
+- Source file: ULTWEI (download from the HTML manual)
 ### UPDSTD_2
 
 - Purpose: Update standard orbits and find repositioning time Programs:  ORBGEN, STDDIF
@@ -4546,7 +4540,7 @@ Variables:
 - INP files: `ORBGEN.INP`, `STDDIF.INP`
 - Read keys:
   - Other keys: `DIR_OUT`
-- Source: [UPDSTD_2](source_files/l-code-rap-gpsuser/SCRIPT/UPDSTD_2)
+- Source file: UPDSTD_2 (download from the HTML manual)
 ### UPDSTD_R
 
 - Purpose: Generate STD-files for all days of the n-day solution (currently only useable for +0 and -2) Programs:  ORBGEN
@@ -4555,7 +4549,7 @@ Variables:
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
 - Read keys:
   - Other keys: `$-1`, `$-2`, `$YD+0`
-- Source: [UPDSTD_R](source_files/l-code-rap-gpsuser/SCRIPT/UPDSTD_R)
+- Source file: UPDSTD_R (download from the HTML manual)
 ### UPDSTD_T
 
 - Purpose: Generate standard orbit from ele-file.
@@ -4565,7 +4559,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `PTH_PLATDEF`
-- Source: [UPDSTD_T](source_files/l-code-rap-gpsuser/SCRIPT/UPDSTD_T)
+- Source file: UPDSTD_T (download from the HTML manual)
 ### UPDSTD_U
 
 - Purpose: Generate standard orbit from ele-file using ORBGEN (update standard orbit) Programs:  ORBGEN
@@ -4575,7 +4569,7 @@ Variables:
 - Read keys:
   - V_ variables: `V_MINUS`, `V_PLUS`
   - Other keys: `$YD+0`, `CAMPAIGN`, `CAMP_PTH`
-- Source: [UPDSTD_U](source_files/l-code-rap-gpsuser/SCRIPT/UPDSTD_U)
+- Source file: UPDSTD_U (download from the HTML manual)
 ### VERI_BIA
 
 - Purpose: Verificate CODE.OSB (and CODE.BIA) used at CODE
@@ -4583,14 +4577,14 @@ Variables:
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`
   - Other keys: `$JD+0`, `$YSS+0`, `DIR_BIA`, `DIR_OUT`
-- Source: [VERI_BIA](source_files/l-code-rap-gpsuser/SCRIPT/VERI_BIA)
+- Source file: VERI_BIA (download from the HTML manual)
 ### VERI_ERP
 
 - Purpose: Verification of RAPyyddd.ERP (i.e. RAP_yyyy.ERP) Programs:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$YD+0`, `DIR_ERP`, `DIR_OUT`, `EXT_ERP`, `PCFFIL`, `TASKID`
-- Source: [VERI_ERP](source_files/l-code-rap-gpsuser/SCRIPT/VERI_ERP)
+- Source file: VERI_ERP (download from the HTML manual)
 ### WAIT
 
 - Purpose: Wait if WAIT.FLG found
@@ -4598,7 +4592,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$S+0`, `CAMPAIGN`, `CAMP_PTH`, `PCFFIL`, `PID`, `TASKID`
-- Source: [WAIT](source_files/l-code-rap-gpsuser/SCRIPT/WAIT)
+- Source file: WAIT (download from the HTML manual)
 ### WAIT_BIA
 
 - Package: `WAIT_ION`
@@ -4607,7 +4601,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$Y+0`, `$YD+0`
-- Source: [WAIT_BIA](source_files/l-code-rap-gpsuser/SCRIPT/WAIT_BIA)
+- Source file: WAIT_BIA (download from the HTML manual)
 ### WAIT_BPE
 
 - Purpose: Waits until a BPE script (see PID IN PARAM1) of the previous day has been finished Programs:
@@ -4615,7 +4609,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$YSS-1`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BPEPRT`, `EXT_BPEPRT`, `TASKID`
-- Source: [WAIT_BPE](source_files/l-code-rap-gpsuser/SCRIPT/WAIT_BPE)
+- Source file: WAIT_BPE (download from the HTML manual)
 ### WAIT_ION
 
 - Purpose: Wait for rapid ION file
@@ -4623,7 +4617,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`
   - Other keys: `$Y+0`, `$YD+0`
-- Source: [WAIT_ION](source_files/l-code-rap-gpsuser/SCRIPT/WAIT_ION)
+- Source file: WAIT_ION (download from the HTML manual)
 ### WAIT_JOB
 
 - Purpose: Wait for particular file (indicating particular job completion)
@@ -4631,7 +4625,7 @@ Variables:
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`, `PARAM7`
   - Other keys: `$YSS+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_BPEPRT`, `EXT_BPEPRT`, `TASKID`
-- Source: [WAIT_JOB](source_files/l-code-rap-gpsuser/SCRIPT/WAIT_JOB)
+- Source file: WAIT_JOB (download from the HTML manual)
 
 ## File Registry
 
@@ -6498,7 +6492,7 @@ Variables:
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6559,7 +6553,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6607,7 +6601,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6669,7 +6663,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6730,7 +6724,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6755,7 +6749,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6765,7 +6759,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6813,7 +6807,7 @@ _... 256 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6875,7 +6869,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6936,7 +6930,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -6962,7 +6956,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Rinex input file, Show general files, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Normal equation output file, Observable-specific bias output file, Observable-specific bias SINEX output file, Program Output File
 - ... and 32 more sections
 - Fields: 199
-- Source: [RNX2OSB.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/RNX2OSB.INP)
+- Source file: RNX2OSB.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7024,7 +7018,7 @@ _... 149 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), Satellite Problems, Rinex input file
 - ... and 37 more sections
 - Fields: 185
-- Source: [RNXSMT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/RNXSMT.INP)
+- Source file: RNXSMT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7086,7 +7080,7 @@ _... 135 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, DCB input, DCB output, Graphics of residuals, Graphics of satellite DCBs, Graphics of receiver DCBs, Graphics of satellite ACF
 - ... and 26 more sections
 - Fields: 84
-- Source: [DCBEST.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/DCBEST.INP)
+- Source file: DCBEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7147,7 +7141,7 @@ _... 34 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7195,7 +7189,7 @@ _... 34 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7257,7 +7251,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7318,7 +7312,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7344,7 +7338,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7405,7 +7399,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7453,7 +7447,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7515,7 +7509,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7576,7 +7570,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7601,7 +7595,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7611,7 +7605,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7659,7 +7653,7 @@ _... 256 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7721,7 +7715,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7782,7 +7776,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7808,7 +7802,7 @@ _... 256 more fields omitted in this summary._
 - Sections: SOME KEYWORDS FOR AUTOMATIC OUTPUT, Environment Variables, Title, Program Output File, Error Message File, Subroutine/function debug output, Selection of Observation Files, Zero diff., Code, Zero diff., Phase, Zero diff., Code=Phase
 - ... and 5 more sections
 - Fields: 114
-- Source: [OBSFMT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/OBSFMT.INP)
+- Source file: OBSFMT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7870,7 +7864,7 @@ _... 64 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7932,7 +7926,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input files, Coordinates or velocities, Coordinate files, Velocity files, Output files, Coordinate file, Velocity file, Station selection file
 - ... and 12 more sections
 - Fields: 60
-- Source: [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/CRDMERGE.INP)
+- Source file: CRDMERGE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -7994,7 +7988,7 @@ _... 10 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8056,7 +8050,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8117,7 +8111,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8165,7 +8159,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8227,7 +8221,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8288,7 +8282,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8313,7 +8307,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8324,7 +8318,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1509
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8385,7 +8379,7 @@ _... 1459 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8433,7 +8427,7 @@ _... 1459 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8495,7 +8489,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8556,7 +8550,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8581,7 +8575,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8629,7 +8623,7 @@ _... 256 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8691,7 +8685,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8752,7 +8746,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8778,7 +8772,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8839,7 +8833,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8850,7 +8844,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1509
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8911,7 +8905,7 @@ _... 1459 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -8959,7 +8953,7 @@ _... 1459 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9021,7 +9015,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9082,7 +9076,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9108,7 +9102,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/PHABIA.INP)
+- Source file: PHABIA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9163,7 +9157,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9174,7 +9168,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1509
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9235,7 +9229,7 @@ _... 1459 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9283,7 +9277,7 @@ _... 1459 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9345,7 +9339,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9406,7 +9400,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9432,7 +9426,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/PHABIA.INP)
+- Source file: PHABIA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9487,7 +9481,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9498,7 +9492,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1509
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9559,7 +9553,7 @@ _... 1459 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9607,7 +9601,7 @@ _... 1459 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9669,7 +9663,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9730,7 +9724,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9756,7 +9750,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/PHABIA.INP)
+- Source file: PHABIA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9811,7 +9805,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9822,7 +9816,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1509
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9883,7 +9877,7 @@ _... 1459 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9931,7 +9925,7 @@ _... 1459 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -9993,7 +9987,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10054,7 +10048,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10080,7 +10074,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/PHABIA.INP)
+- Source file: PHABIA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10135,7 +10129,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10146,7 +10140,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, GPS-UTC file, Title, Files, List of Input Files, Program Output File, Error Message File, Subroutine/function debug output, Scratch File
 - ... and 6 more sections
 - Fields: 97
-- Source: [CCPREORB.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CCPREORB.INP)
+- Source file: CCPREORB.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10208,7 +10202,7 @@ _... 47 more fields omitted in this summary._
 - Sections: Bernese GPS Software Version 5.0, Input Panel: Code check, Program:     CODCHK, Created:     26-Oct-2001, Copyright:   Astronomical Institute, University of Berne, Switzerland, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Environment variables, INPUTFILES                                                         |
 - ... and 8 more sections
 - Fields: 38
-- Source: [CODCHK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CODCHK.INP)
+- Source file: CODCHK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10256,7 +10250,7 @@ _... 47 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CODSPP.INP)
+- Source file: CODSPP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10318,7 +10312,7 @@ _... 139 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, List of INPUT FILES (CODSPP program output), Broadcast clock input, Program Output File, Error Message File, Subroutine/function debug output, Do rms check, Broadcast clock output, Good file list
 - ... and 4 more sections
 - Fields: 59
-- Source: [CODXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CODXTR.INP)
+- Source file: CODXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10380,7 +10374,7 @@ _... 9 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Coordinate File Names (input), Epoch of Ref. Coord. (output), Velocity according to Ref.Coo., Approx. velocities at ref. epoch, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, Station list without PSD corrections (output)
 - ... and 7 more sections
 - Fields: 49
-- Source: [COOVEL.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/COOVEL.INP)
+- Source file: COOVEL.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10439,7 +10433,7 @@ _... 9 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input files, Coordinates or velocities, Coordinate files, Velocity files, Output files, Coordinate file, Velocity file, Station selection file
 - ... and 12 more sections
 - Fields: 61
-- Source: [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CRDMERGE.INP)
+- Source file: CRDMERGE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10501,7 +10495,7 @@ _... 11 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10563,7 +10557,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Geodetic datum, Coordinate File Names (input), S1/S2 loading grid file (input), S1/S2 loading grid file (output), Program Output File, Error Message File, Subroutine/function debug output, Coefficients for CMC corrections
 - ... and 1 more sections
 - Fields: 63
-- Source: [GRDS1S2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/GRDS1S2.INP)
+- Source file: GRDS1S2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10624,7 +10618,7 @@ _... 13 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10672,7 +10666,7 @@ _... 13 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10734,7 +10728,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10795,7 +10789,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10821,7 +10815,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Local geodetic datum, Coordinate file, Update file, Plate definition file, Plate motion model file
 - ... and 12 more sections
 - Fields: 47
-- Source: [NUVELO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/NUVELO.INP)
+- Source file: NUVELO.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10878,7 +10872,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Title, Show general files, General Constants, ERP File, Standard Orbit File, Satellite Problems, Subdaily ERP Model, Nutation Model
 - ... and 16 more sections
 - Fields: 104
-- Source: [ORBCMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/ORBCMP.INP)
+- Source file: ORBCMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -10940,7 +10934,7 @@ _... 54 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/RESCHK.INP)
+- Source file: RESCHK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11002,7 +10996,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11064,7 +11058,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), List of RINEX Input Files, List of Smoothed RINEX Input Files, Measurement Type, Frequencies, Minimum s/n-ratio
 - ... and 38 more sections
 - Fields: 156
-- Source: [RNXGRA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/RNXGRA.INP)
+- Source file: RNXGRA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11126,7 +11120,7 @@ _... 106 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), Satellite Problems, Rinex input file
 - ... and 37 more sections
 - Fields: 185
-- Source: [RNXSMT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/RNXSMT.INP)
+- Source file: RNXSMT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11188,7 +11182,7 @@ _... 135 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, General Constants, Satellite Information File, Satellite problem file, Select obs type, Zero diff., Code, Zero diff., Phase, Zero diff., Code=Phase
 - ... and 13 more sections
 - Fields: 99
-- Source: [SATGRA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/SATGRA.INP)
+- Source file: SATGRA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11250,7 +11244,7 @@ _... 49 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11312,7 +11306,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite information, Station name abbreviations, A priori coordinates, Eccentricities
 - ... and 42 more sections
 - Fields: 153
-- Source: [SNGDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/SNGDIF.INP)
+- Source file: SNGDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11374,7 +11368,7 @@ _... 103 more fields omitted in this summary._
 - Sections: =========================================================================, Bernese GPS Software Version 5.0, Input Panel: Convert a BERNESE troposphere file from piecewise linear, to piecewise constant, Program    : TRPL2C, Created    : 07-May-2003, Author     : M. Meindl, Copyright  : Astronomical Institute, University of Berne, Switzerland
 - ... and 10 more sections
 - Fields: 16
-- Source: [TRPL2C.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/TRPL2C.INP)
+- Source file: TRPL2C.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11400,7 +11394,7 @@ _... 103 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11461,7 +11455,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11509,7 +11503,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11571,7 +11565,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11632,7 +11626,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11658,7 +11652,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11719,7 +11713,7 @@ _... 343 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11730,7 +11724,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Observation selection, Title, Input File: External Phase Center File (ANTEX file), Check SINEX code wrt SAT info file, Conversion abs2rel, Input File: Bernese phase file
 - ... and 35 more sections
 - Fields: 119
-- Source: [ATX2PCV.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/ATX2PCV.INP)
+- Source file: ATX2PCV.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11792,7 +11786,7 @@ _... 69 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, Title, Agency Running Program, Comment Lines, Options, Sampling Interval (sec)    0: Take all observations, Offset to full minute (sec), Sampling tolerance (sec)
 - ... and 23 more sections
 - Fields: 238
-- Source: [CCRNXO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/CCRNXO.INP)
+- Source file: CCRNXO.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11854,7 +11848,7 @@ _... 188 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11915,7 +11909,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -11963,7 +11957,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12025,7 +12019,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12086,7 +12080,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12112,7 +12106,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12174,7 +12168,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12235,7 +12229,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12283,7 +12277,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12345,7 +12339,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12406,7 +12400,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12432,7 +12426,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12494,7 +12488,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Active Campaign, General Constants, Show general files, Difference of GPS-TIME - UTC-TIME, Satellite Problems, Satellite Information, Antenna phase center corrections, Station Name Abbreviations
 - ... and 86 more sections
 - Fields: 327
-- Source: [RXOBV3.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/RXOBV3.INP)
+- Source file: RXOBV3.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12555,7 +12549,7 @@ _... 277 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12566,7 +12560,7 @@ _... 277 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, Input files, general files, General constants, Local geodetic datum, Abbreviation table, Input files, Measurement type, Single difference files (code), Single difference files (phase)
 - ... and 21 more sections
 - Fields: 71
-- Source: [BASLST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/BASLST.INP)
+- Source file: BASLST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12628,7 +12622,7 @@ _... 21 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12690,7 +12684,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12751,7 +12745,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12799,7 +12793,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12861,7 +12855,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12922,7 +12916,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -12948,7 +12942,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/OBSXTR.INP)
+- Source file: OBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13010,7 +13004,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Bernese GPS Software Version 5.0, Input Panel: Testing receiver performance, Program: RCVTST, Created:, Copyright: Astronomical Institute, University of Berne, Switzerland, Some keywords for automatic output, Environment variables, INPUTFILES                                                         |
 - ... and 12 more sections
 - Fields: 39
-- Source: [RCVTST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/RCVTST.INP)
+- Source file: RCVTST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13059,7 +13053,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13121,7 +13115,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, General Constants, Satellite Information File, Satellite problem file, Select obs type, Zero diff., Code, Zero diff., Phase, Zero diff., Code=Phase
 - ... and 13 more sections
 - Fields: 99
-- Source: [SATGRA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/SATGRA.INP)
+- Source file: SATGRA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13183,7 +13177,7 @@ _... 49 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13244,7 +13238,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13254,7 +13248,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13302,7 +13296,7 @@ _... 66 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13364,7 +13358,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13425,7 +13419,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13451,7 +13445,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13513,7 +13507,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13575,7 +13569,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, Input files, general files, General constants, Local geodetic datum, Abbreviation table, Input files, Measurement type, Single difference files (code), Single difference files (phase)
 - ... and 21 more sections
 - Fields: 71
-- Source: [BASLST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/BASLST.INP)
+- Source file: BASLST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13637,7 +13631,7 @@ _... 21 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13698,7 +13692,7 @@ _... 1449 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13746,7 +13740,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13808,7 +13802,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13869,7 +13863,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13895,7 +13889,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -13957,7 +13951,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14019,7 +14013,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14080,7 +14074,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14128,7 +14122,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14190,7 +14184,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14251,7 +14245,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14277,7 +14271,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14339,7 +14333,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14400,7 +14394,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14448,7 +14442,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14510,7 +14504,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14571,7 +14565,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14597,7 +14591,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14659,7 +14653,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14720,7 +14714,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14768,7 +14762,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14830,7 +14824,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14891,7 +14885,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14917,7 +14911,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14978,7 +14972,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -14989,7 +14983,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15050,7 +15044,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15098,7 +15092,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15160,7 +15154,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15221,7 +15215,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15247,7 +15241,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15309,7 +15303,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15370,7 +15364,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15418,7 +15412,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15480,7 +15474,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15541,7 +15535,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15566,7 +15560,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15614,7 +15608,7 @@ _... 257 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15676,7 +15670,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15737,7 +15731,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15763,7 +15757,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Title, Show general files, General Constants, ERP File, Standard Orbit File, Satellite Problems, Subdaily ERP Model, Nutation Model
 - ... and 16 more sections
 - Fields: 104
-- Source: [ORBCMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/ORBCMP.INP)
+- Source file: ORBCMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15825,7 +15819,7 @@ _... 54 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15886,7 +15880,7 @@ _... 1449 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15934,7 +15928,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -15996,7 +15990,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16057,7 +16051,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16083,7 +16077,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/OBSXTR.INP)
+- Source file: OBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16145,7 +16139,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16207,7 +16201,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16268,7 +16262,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16279,7 +16273,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Observation selection, Title, Input File: External Phase Center File (ANTEX file), Check SINEX code wrt SAT info file, Conversion abs2rel, Input File: Bernese phase file
 - ... and 35 more sections
 - Fields: 119
-- Source: [ATX2PCV.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/ATX2PCV.INP)
+- Source file: ATX2PCV.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16340,7 +16334,7 @@ _... 69 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16388,7 +16382,7 @@ _... 69 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16450,7 +16444,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16511,7 +16505,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16537,7 +16531,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, GPS-UTC file, Title, Files, List of Input Files, Program Output File, Error Message File, Subroutine/function debug output, Scratch File
 - ... and 6 more sections
 - Fields: 97
-- Source: [CCPREORB.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/CCPREORB.INP)
+- Source file: CCPREORB.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16599,7 +16593,7 @@ _... 47 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Coordinate File Names (input), Epoch of Ref. Coord. (output), Velocity according to Ref.Coo., Approx. velocities at ref. epoch, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, Station list without PSD corrections (output)
 - ... and 7 more sections
 - Fields: 49
-- Source: [COOVEL.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/COOVEL.INP)
+- Source file: COOVEL.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16657,7 +16651,7 @@ _... 47 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16705,7 +16699,7 @@ _... 47 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16767,7 +16761,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16828,7 +16822,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16854,7 +16848,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16916,7 +16910,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -16978,7 +16972,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17039,7 +17033,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17050,7 +17044,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17112,7 +17106,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17174,7 +17168,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17236,7 +17230,7 @@ _... 42 more fields omitted in this summary._
 - Sections: Environment Variables, Information for the title, Show general files, General Constants, Geodetic Datum, Satellite Information, Satellite Problems, ERP File, Subdaily Pole Model, Nutation Model
 - ... and 91 more sections
 - Fields: 232
-- Source: [MAUPRP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MAUPRP.INP)
+- Source file: MAUPRP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17297,7 +17291,7 @@ _... 182 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17345,7 +17339,7 @@ _... 182 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17407,7 +17401,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17468,7 +17462,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17494,7 +17488,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, General constants, Station name abbreviations, Input files, MAUPRP summary, MAUPRP SAT summary, File deletion list, New baseline definition, Program output file
 - ... and 4 more sections
 - Fields: 57
-- Source: [MPRXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MPRXTR.INP)
+- Source file: MPRXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17556,7 +17550,7 @@ _... 7 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17618,7 +17612,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite information, Station name abbreviations, A priori coordinates, Eccentricities
 - ... and 42 more sections
 - Fields: 153
-- Source: [SNGDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/SNGDIF.INP)
+- Source file: SNGDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17680,7 +17674,7 @@ _... 103 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/STDDIF.INP)
+- Source file: STDDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17742,7 +17736,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17803,7 +17797,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17814,7 +17808,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17875,7 +17869,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17923,7 +17917,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -17985,7 +17979,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18046,7 +18040,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18072,7 +18066,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18133,7 +18127,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18144,7 +18138,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18206,7 +18200,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18267,7 +18261,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18315,7 +18309,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18377,7 +18371,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18438,7 +18432,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18464,7 +18458,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18526,7 +18520,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18587,7 +18581,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18635,7 +18629,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18697,7 +18691,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18758,7 +18752,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18784,7 +18778,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18846,7 +18840,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18907,7 +18901,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -18955,7 +18949,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19017,7 +19011,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19078,7 +19072,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19104,7 +19098,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some title information, Active Campaign, Title, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Observation selection, Satellite information, Subdaily ERP Model
 - ... and 26 more sections
 - Fields: 108
-- Source: [SNX2NQ0.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/SNX2NQ0.INP)
+- Source file: SNX2NQ0.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19166,7 +19160,7 @@ _... 58 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19227,7 +19221,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19275,7 +19269,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19337,7 +19331,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19398,7 +19392,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19424,7 +19418,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19485,7 +19479,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19496,7 +19490,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19557,7 +19551,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19605,7 +19599,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19667,7 +19661,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19728,7 +19722,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19754,7 +19748,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19815,7 +19809,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19826,7 +19820,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Correction GPS-UTC
 - ... and 16 more sections
 - Fields: 85
-- Source: [ATTXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/ATTXTR.INP)
+- Source file: ATTXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19888,7 +19882,7 @@ _... 35 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Coordinate Input File Names, Station information file, A priori Coordinate File, A priori Velocity File, PSD corrections for ITRF2014
 - ... and 20 more sections
 - Fields: 82
-- Source: [COMPAR2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/COMPAR2.INP)
+- Source file: COMPAR2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -19950,7 +19944,7 @@ _... 32 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20011,7 +20005,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20059,7 +20053,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20121,7 +20115,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20182,7 +20176,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20208,7 +20202,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20270,7 +20264,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/STDDIF.INP)
+- Source file: STDDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20332,7 +20326,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20393,7 +20387,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Environment Variables, General Files, General Constants, Input/Output Files, Input Troposphere Sinex, Output Troposphere Sinex, Program Output File, Error Message File, Subroutine/function debug output
 - Fields: 33
-- Source: [TROTRO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/TROTRO.INP)
+- Source file: TROTRO.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20436,7 +20430,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20497,7 +20491,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20508,7 +20502,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20569,7 +20563,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20617,7 +20611,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20679,7 +20673,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20740,7 +20734,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20766,7 +20760,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20827,7 +20821,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20838,7 +20832,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20899,7 +20893,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -20947,7 +20941,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21009,7 +21003,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21070,7 +21064,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21096,7 +21090,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21157,7 +21151,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21168,7 +21162,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21229,7 +21223,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21277,7 +21271,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21339,7 +21333,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21400,7 +21394,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21426,7 +21420,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21487,7 +21481,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21498,7 +21492,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21559,7 +21553,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21607,7 +21601,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21669,7 +21663,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21730,7 +21724,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21756,7 +21750,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21817,7 +21811,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21828,7 +21822,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21889,7 +21883,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21937,7 +21931,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -21999,7 +21993,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22060,7 +22054,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22085,7 +22079,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22095,7 +22089,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22143,7 +22137,7 @@ _... 256 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22205,7 +22199,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22266,7 +22260,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22293,7 +22287,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22355,7 +22349,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/STDDIF.INP)
+- Source file: STDDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22417,7 +22411,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22479,7 +22473,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22541,7 +22535,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22602,7 +22596,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22650,7 +22644,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22712,7 +22706,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22773,7 +22767,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22799,7 +22793,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22860,7 +22854,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22871,7 +22865,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22932,7 +22926,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -22980,7 +22974,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23042,7 +23036,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23103,7 +23097,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23129,7 +23123,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some title information, Active Campaign, Title, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Observation selection, Satellite information, Subdaily ERP Model
 - ... and 26 more sections
 - Fields: 108
-- Source: [SNX2NQ0.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/SNX2NQ0.INP)
+- Source file: SNX2NQ0.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23191,7 +23185,7 @@ _... 58 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23253,7 +23247,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Coordinate File Names (input), Epoch of Ref. Coord. (output), Velocity according to Ref.Coo., Approx. velocities at ref. epoch, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, Station list without PSD corrections (output)
 - ... and 7 more sections
 - Fields: 49
-- Source: [COOVEL.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/COOVEL.INP)
+- Source file: COOVEL.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23312,7 +23306,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23374,7 +23368,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23435,7 +23429,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23483,7 +23477,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23545,7 +23539,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23606,7 +23600,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23632,7 +23626,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 74
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23693,7 +23687,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: Environment Variables, General Files, General Constants, Input/Output Files, Input Troposphere Sinex, Output Troposphere Sinex, Program Output File, Error Message File, Subroutine/function debug output
 - Fields: 33
-- Source: [TROTRO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/TROTRO.INP)
+- Source file: TROTRO.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23736,7 +23730,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23797,7 +23791,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23845,7 +23839,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23907,7 +23901,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23968,7 +23962,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -23994,7 +23988,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24055,7 +24049,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24066,7 +24060,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Coordinate Input File Names, Station information file, A priori Coordinate File, A priori Velocity File, PSD corrections for ITRF2014
 - ... and 20 more sections
 - Fields: 82
-- Source: [COMPAR2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/COMPAR2.INP)
+- Source file: COMPAR2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24128,7 +24122,7 @@ _... 32 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24190,7 +24184,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24251,7 +24245,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24299,7 +24293,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24361,7 +24355,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24422,7 +24416,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24448,7 +24442,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24510,7 +24504,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 74
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24572,7 +24566,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24633,7 +24627,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Environment Variables, General Files, General Constants, Input/Output Files, Input Troposphere Sinex, Output Troposphere Sinex, Program Output File, Error Message File, Subroutine/function debug output
 - Fields: 33
-- Source: [TROTRO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/TROTRO.INP)
+- Source file: TROTRO.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24676,7 +24670,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24737,7 +24731,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24748,7 +24742,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24809,7 +24803,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24857,7 +24851,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24919,7 +24913,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -24980,7 +24974,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25006,7 +25000,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25067,7 +25061,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25078,7 +25072,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25139,7 +25133,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25187,7 +25181,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25249,7 +25243,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25310,7 +25304,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25336,7 +25330,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25398,7 +25392,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25459,7 +25453,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25507,7 +25501,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25569,7 +25563,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25630,7 +25624,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25656,7 +25650,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25718,7 +25712,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25779,7 +25773,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25827,7 +25821,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25889,7 +25883,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25950,7 +25944,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -25977,7 +25971,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26039,7 +26033,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Leap Second File, Nutation Model, Subdaily ERP Model, Input ERP Files (IERS), ERP File, Pole IERS Format
 - ... and 11 more sections
 - Fields: 53
-- Source: [POLINT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/POLINT.INP)
+- Source file: POLINT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26101,7 +26095,7 @@ _... 3 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 76
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26163,7 +26157,7 @@ _... 26 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26225,7 +26219,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, Constants, Local Geodetic Datum, Coordinate and Velocity Files, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, What to do with the other stations
 - ... and 17 more sections
 - Fields: 92
-- Source: [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/HELMR1.INP)
+- Source file: HELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26286,7 +26280,7 @@ _... 42 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26334,7 +26328,7 @@ _... 42 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26396,7 +26390,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26457,7 +26451,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26483,7 +26477,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some title information, Active Campaign, Title, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Observation selection, Satellite information, Subdaily ERP Model
 - ... and 26 more sections
 - Fields: 108
-- Source: [SNX2NQ0.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/SNX2NQ0.INP)
+- Source file: SNX2NQ0.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26545,7 +26539,7 @@ _... 58 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1267
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26606,7 +26600,7 @@ _... 1217 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26617,7 +26611,7 @@ _... 1217 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26678,7 +26672,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26726,7 +26720,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26788,7 +26782,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26849,7 +26843,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26875,7 +26869,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Coordinate Input File Names, Station information file, A priori Coordinate File, A priori Velocity File, PSD corrections for ITRF2014
 - ... and 20 more sections
 - Fields: 82
-- Source: [COMPAR2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/COMPAR2.INP)
+- Source file: COMPAR2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26936,7 +26930,7 @@ _... 32 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -26984,7 +26978,7 @@ _... 32 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27046,7 +27040,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27107,7 +27101,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27133,7 +27127,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27195,7 +27189,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27257,7 +27251,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27319,7 +27313,7 @@ _... 23 more fields omitted in this summary._
 - Sections: Environment Variables, Information for the title, Show general files, General Constants, Geodetic Datum, Satellite Information, Satellite Problems, ERP File, Subdaily Pole Model, Nutation Model
 - ... and 91 more sections
 - Fields: 232
-- Source: [MAUPRP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MAUPRP.INP)
+- Source file: MAUPRP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27380,7 +27374,7 @@ _... 182 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27428,7 +27422,7 @@ _... 182 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27490,7 +27484,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27551,7 +27545,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27577,7 +27571,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, General constants, Station name abbreviations, Input files, MAUPRP summary, MAUPRP SAT summary, File deletion list, New baseline definition, Program output file
 - ... and 4 more sections
 - Fields: 57
-- Source: [MPRXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MPRXTR.INP)
+- Source file: MPRXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27639,7 +27633,7 @@ _... 7 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/OBSXTR.INP)
+- Source file: OBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27701,7 +27695,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27763,7 +27757,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, General Constants, Satellite Information File, Satellite problem file, Select obs type, Zero diff., Code, Zero diff., Phase, Zero diff., Code=Phase
 - ... and 13 more sections
 - Fields: 99
-- Source: [SATGRA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/SATGRA.INP)
+- Source file: SATGRA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27825,7 +27819,7 @@ _... 49 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite information, Station name abbreviations, A priori coordinates, Eccentricities
 - ... and 42 more sections
 - Fields: 153
-- Source: [SNGDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/SNGDIF.INP)
+- Source file: SNGDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27887,7 +27881,7 @@ _... 103 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/STDDIF.INP)
+- Source file: STDDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -27949,7 +27943,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28011,7 +28005,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28073,7 +28067,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28134,7 +28128,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28182,7 +28176,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28244,7 +28238,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28305,7 +28299,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28331,7 +28325,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28393,7 +28387,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28454,7 +28448,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28502,7 +28496,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28564,7 +28558,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28625,7 +28619,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28651,7 +28645,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28713,7 +28707,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28774,7 +28768,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28822,7 +28816,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28884,7 +28878,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28945,7 +28939,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -28971,7 +28965,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29033,7 +29027,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29094,7 +29088,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29142,7 +29136,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29204,7 +29198,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29265,7 +29259,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29291,7 +29285,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29352,7 +29346,7 @@ _... 1449 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29400,7 +29394,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29462,7 +29456,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29523,7 +29517,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29549,7 +29543,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29611,7 +29605,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29673,7 +29667,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29735,7 +29729,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29796,7 +29790,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29844,7 +29838,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29906,7 +29900,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29967,7 +29961,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -29992,7 +29986,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30040,7 +30034,7 @@ _... 257 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30102,7 +30096,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30163,7 +30157,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30189,7 +30183,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/RESCHK.INP)
+- Source file: RESCHK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30251,7 +30245,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30313,7 +30307,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30375,7 +30369,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30437,7 +30431,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30498,7 +30492,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30546,7 +30540,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30608,7 +30602,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30669,7 +30663,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30695,7 +30689,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30757,7 +30751,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30818,7 +30812,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30866,7 +30860,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30928,7 +30922,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -30989,7 +30983,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31015,7 +31009,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31076,7 +31070,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31087,7 +31081,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31149,7 +31143,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31210,7 +31204,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31258,7 +31252,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31320,7 +31314,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31381,7 +31375,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31407,7 +31401,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31469,7 +31463,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/STDDIF.INP)
+- Source file: STDDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31531,7 +31525,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31593,7 +31587,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1498
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31655,7 +31649,7 @@ _... 1448 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31716,7 +31710,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31764,7 +31758,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31826,7 +31820,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31887,7 +31881,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31912,7 +31906,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -31960,7 +31954,7 @@ _... 257 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32022,7 +32016,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32083,7 +32077,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32109,7 +32103,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32170,7 +32164,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32181,7 +32175,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Leap Seconds, Title, Agency Running Program, Comment Lines, Options, Epoch Window
 - ... and 19 more sections
 - Fields: 168
-- Source: [CCRNXN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/CCRNXN.INP)
+- Source file: CCRNXN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32242,7 +32236,7 @@ _... 118 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32290,7 +32284,7 @@ _... 118 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32352,7 +32346,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32413,7 +32407,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32438,7 +32432,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32486,7 +32480,7 @@ _... 256 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32548,7 +32542,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32609,7 +32603,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32635,7 +32629,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Satellite Information, Epoch Window, List of Input Files, Output files
 - ... and 23 more sections
 - Fields: 214
-- Source: [RXN2PRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/RXN2PRE.INP)
+- Source file: RXN2PRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32696,7 +32690,7 @@ _... 164 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32707,7 +32701,7 @@ _... 164 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Leap Seconds, Title, Agency Running Program, Comment Lines, Options, Epoch Window
 - ... and 19 more sections
 - Fields: 168
-- Source: [CCRNXN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/CCRNXN.INP)
+- Source file: CCRNXN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32768,7 +32762,7 @@ _... 118 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32816,7 +32810,7 @@ _... 118 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32878,7 +32872,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32939,7 +32933,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -32965,7 +32959,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Satellite Information, Epoch Window, List of Input Files, Output files
 - ... and 23 more sections
 - Fields: 214
-- Source: [RXN2PRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/RXN2PRE.INP)
+- Source file: RXN2PRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33027,7 +33021,7 @@ _... 164 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants Input File, Satellite Problems, Title, Remove bad satellites, Epoch Window, Precise Ephemeris Input Files, Satellite Clock Output File
 - ... and 5 more sections
 - Fields: 57
-- Source: [SATCLK2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/SATCLK2.INP)
+- Source file: SATCLK2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33089,7 +33083,7 @@ _... 7 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33150,7 +33144,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33198,7 +33192,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33260,7 +33254,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33321,7 +33315,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33347,7 +33341,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33409,7 +33403,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33470,7 +33464,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33518,7 +33512,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33580,7 +33574,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33641,7 +33635,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33667,7 +33661,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33729,7 +33723,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33790,7 +33784,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33838,7 +33832,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33900,7 +33894,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33961,7 +33955,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -33987,7 +33981,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34049,7 +34043,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34110,7 +34104,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34158,7 +34152,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34220,7 +34214,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34281,7 +34275,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34307,7 +34301,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34369,7 +34363,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34430,7 +34424,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34478,7 +34472,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34540,7 +34534,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34601,7 +34595,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34627,7 +34621,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34689,7 +34683,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34751,7 +34745,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34812,7 +34806,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34860,7 +34854,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34922,7 +34916,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -34983,7 +34977,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35009,7 +35003,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35071,7 +35065,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35132,7 +35126,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35180,7 +35174,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35242,7 +35236,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35303,7 +35297,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35329,7 +35323,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35391,7 +35385,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Planetary Ephemeris
 - ... and 16 more sections
 - Fields: 71
-- Source: [STDELE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/STDELE.INP)
+- Source file: STDELE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35453,7 +35447,7 @@ _... 21 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35514,7 +35508,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35562,7 +35556,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35624,7 +35618,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35685,7 +35679,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35711,7 +35705,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35773,7 +35767,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35834,7 +35828,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35882,7 +35876,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -35944,7 +35938,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36005,7 +35999,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36031,7 +36025,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36093,7 +36087,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 74
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36154,7 +36148,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36164,7 +36158,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36212,7 +36206,7 @@ _... 24 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36274,7 +36268,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36335,7 +36329,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36361,7 +36355,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36423,7 +36417,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/STDDIF.INP)
+- Source file: STDDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36485,7 +36479,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36546,7 +36540,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36594,7 +36588,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36656,7 +36650,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36717,7 +36711,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36743,7 +36737,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36805,7 +36799,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/STDDIF.INP)
+- Source file: STDDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36867,7 +36861,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36928,7 +36922,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -36939,7 +36933,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37000,7 +36994,7 @@ _... 1449 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37048,7 +37042,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37110,7 +37104,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37171,7 +37165,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37196,7 +37190,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37207,7 +37201,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, Input files, general files, General constants, Local geodetic datum, Abbreviation table, Input files, Measurement type, Single difference files (code), Single difference files (phase)
 - ... and 21 more sections
 - Fields: 71
-- Source: [BASLST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/BASLST.INP)
+- Source file: BASLST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37269,7 +37263,7 @@ _... 21 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37330,7 +37324,7 @@ _... 1449 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37378,7 +37372,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37440,7 +37434,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37501,7 +37495,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37526,7 +37520,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37536,7 +37530,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37584,7 +37578,7 @@ _... 257 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37646,7 +37640,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37707,7 +37701,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37733,7 +37727,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37795,7 +37789,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37857,7 +37851,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables!, General Constants, Satellite Problems, Input Files, Output Summary, Weekly Summ. Form, Split Arc Info, Program Output File, Error Message File
 - ... and 4 more sections
 - Fields: 81
-- Source: [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/DEFXTR.INP)
+- Source file: DEFXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37918,7 +37912,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -37966,7 +37960,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38028,7 +38022,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38089,7 +38083,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38115,7 +38109,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38176,7 +38170,7 @@ _... 343 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38186,7 +38180,7 @@ _... 343 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38234,7 +38228,7 @@ _... 343 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38296,7 +38290,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38357,7 +38351,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38383,7 +38377,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38444,7 +38438,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38454,7 +38448,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38502,7 +38496,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38564,7 +38558,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38625,7 +38619,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38651,7 +38645,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38713,7 +38707,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38775,7 +38769,7 @@ _... 99 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38836,7 +38830,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38847,7 +38841,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1494
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38908,7 +38902,7 @@ _... 1444 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -38956,7 +38950,7 @@ _... 1444 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39018,7 +39012,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39079,7 +39073,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39105,7 +39099,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39167,7 +39161,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Bernese GPS Software Version 5.0, Input Panel: Generate satellite summary, Program: SATWEEK, Created:, Copyright: Astronomical Institute, University of Berne, Switzerland, Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files
 - ... and 16 more sections
 - Fields: 42
-- Source: [SATWEEK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/SATWEEK.INP)
+- Source file: SATWEEK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39219,7 +39213,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite information, Station name abbreviations, A priori coordinates, Eccentricities
 - ... and 42 more sections
 - Fields: 153
-- Source: [SNGDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/SNGDIF.INP)
+- Source file: SNGDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39281,7 +39275,7 @@ _... 103 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Input Files, Show general files, General Constants, Subdaily ERP Model, Nutation Model, Satellite Information, Satellite Problems, Orbit and Clock Input Files
 - ... and 21 more sections
 - Fields: 89
-- Source: [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/STDDIF.INP)
+- Source file: STDDIF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39343,7 +39337,7 @@ _... 39 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39404,7 +39398,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39414,7 +39408,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39462,7 +39456,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39524,7 +39518,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39585,7 +39579,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39611,7 +39605,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39673,7 +39667,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General Constants, Header files for which amb should be checked, OUTPUTFILES                                                        |, Station information file, Program Output File, Error Message File
 - ... and 3 more sections
 - Fields: 45
-- Source: [SNX2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/SNX2STA.INP)
+- Source file: SNX2STA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39728,7 +39722,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, Show general files, Station information files, RINEX inconsistency files, Program Output File, Error Message File, Subroutine/function debug output, Title line, Output format
 - ... and 1 more sections
 - Fields: 41
-- Source: [STA2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/STA2STA.INP)
+- Source file: STA2STA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39779,7 +39773,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 148
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39840,7 +39834,7 @@ _... 98 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39850,7 +39844,7 @@ _... 98 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39898,7 +39892,7 @@ _... 98 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -39960,7 +39954,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40021,7 +40015,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40047,7 +40041,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40109,7 +40103,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General Constants, Header files for which amb should be checked, OUTPUTFILES                                                        |, Station information file, Program Output File, Error Message File
 - ... and 3 more sections
 - Fields: 45
-- Source: [SNX2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/SNX2STA.INP)
+- Source file: SNX2STA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40164,7 +40158,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, Show general files, Station information files, RINEX inconsistency files, Program Output File, Error Message File, Subroutine/function debug output, Title line, Output format
 - ... and 1 more sections
 - Fields: 41
-- Source: [STA2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/STA2STA.INP)
+- Source file: STA2STA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40215,7 +40209,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 148
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40276,7 +40270,7 @@ _... 98 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40286,7 +40280,7 @@ _... 98 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40334,7 +40328,7 @@ _... 98 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40396,7 +40390,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40457,7 +40451,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40483,7 +40477,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40545,7 +40539,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 148
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40606,7 +40600,7 @@ _... 98 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40616,7 +40610,7 @@ _... 98 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40664,7 +40658,7 @@ _... 98 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40726,7 +40720,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40787,7 +40781,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40813,7 +40807,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40875,7 +40869,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 148
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40936,7 +40930,7 @@ _... 98 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40946,7 +40940,7 @@ _... 98 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -40994,7 +40988,7 @@ _... 98 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41056,7 +41050,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41117,7 +41111,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41144,7 +41138,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 76
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41206,7 +41200,7 @@ _... 26 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41268,7 +41262,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41329,7 +41323,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41339,7 +41333,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41387,7 +41381,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41449,7 +41443,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41510,7 +41504,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41537,7 +41531,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 76
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41599,7 +41593,7 @@ _... 26 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41661,7 +41655,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41722,7 +41716,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41732,7 +41726,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41780,7 +41774,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41842,7 +41836,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41903,7 +41897,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41930,7 +41924,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 76
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -41992,7 +41986,7 @@ _... 26 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42054,7 +42048,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42115,7 +42109,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42125,7 +42119,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42173,7 +42167,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42235,7 +42229,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42296,7 +42290,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42323,7 +42317,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 76
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42385,7 +42379,7 @@ _... 26 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42447,7 +42441,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42508,7 +42502,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42518,7 +42512,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42566,7 +42560,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42628,7 +42622,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42689,7 +42683,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 17
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42716,7 +42710,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, Show general files, Input ERP Files (IERS) (POLXTR reads list of files in RECLIST!), ERP File, ERP IERS Format, ERP Bernese Format, Plot File, Program Output File
 - ... and 19 more sections
 - Fields: 76
-- Source: [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/POLXTR.INP)
+- Source file: POLXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42778,7 +42772,7 @@ _... 26 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42840,7 +42834,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42901,7 +42895,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42911,7 +42905,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -42959,7 +42953,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43021,7 +43015,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43082,7 +43076,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43108,7 +43102,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Title, Show general files, General Constants, ERP File, Standard Orbit File, Satellite Problems, Subdaily ERP Model, Nutation Model
 - ... and 16 more sections
 - Fields: 104
-- Source: [ORBCMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/ORBCMP.INP)
+- Source file: ORBCMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43170,7 +43164,7 @@ _... 54 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, INPUTFILES                                                         |, Show general files, General Constants, Satellite Problems, ORBGEN List File, List of Input Files, OUTPUTFILES                                                        |, List of Output Files
 - ... and 14 more sections
 - Fields: 74
-- Source: [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/PREWEI.INP)
+- Source file: PREWEI.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43232,7 +43226,7 @@ _... 24 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 148
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43294,7 +43288,7 @@ _... 98 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43356,7 +43350,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1497
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43417,7 +43411,7 @@ _... 1447 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43465,7 +43459,7 @@ _... 1447 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43527,7 +43521,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43588,7 +43582,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43614,7 +43608,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, ERP File, Ocean loading tables, Atmospheric loading tables, Coordinate file (for geodetic datum), Subdaily ERP Model, Nutation Model
 - ... and 41 more sections
 - Fields: 149
-- Source: [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/STDPRE.INP)
+- Source file: STDPRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43675,7 +43669,7 @@ _... 99 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43723,7 +43717,7 @@ _... 99 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43785,7 +43779,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43846,7 +43840,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43872,7 +43866,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43933,7 +43927,7 @@ _... 343 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -43981,7 +43975,7 @@ _... 343 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44043,7 +44037,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44104,7 +44098,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44130,7 +44124,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44191,7 +44185,7 @@ _... 343 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44202,7 +44196,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Observation selection, Title, Input File: External Phase Center File (ANTEX file), Check SINEX code wrt SAT info file, Conversion abs2rel, Input File: Bernese phase file
 - ... and 35 more sections
 - Fields: 119
-- Source: [ATX2PCV.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/ATX2PCV.INP)
+- Source file: ATX2PCV.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44263,7 +44257,7 @@ _... 69 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44311,7 +44305,7 @@ _... 69 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44373,7 +44367,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44434,7 +44428,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44460,7 +44454,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44522,7 +44516,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, Show general files, Station information files, RINEX inconsistency files, Program Output File, Error Message File, Subroutine/function debug output, Title line, Output format
 - ... and 1 more sections
 - Fields: 41
-- Source: [STA2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/STA2STA.INP)
+- Source file: STA2STA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44573,7 +44567,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, PANEL 2: Input files, PANEL 1: Input files, Output files, Program Output File, Error Message File, Subroutine/function debug output, PANEL 3: Action options, Title line, Sort master file
 - ... and 8 more sections
 - Fields: 69
-- Source: [STAMERGE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/STAMERGE.INP)
+- Source file: STAMERGE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44635,7 +44629,7 @@ _... 19 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, RINEX navigation data, Include DCB information, DCB input, IONEX output file, Program Output File, Error Message File
 - ... and 2 more sections
 - Fields: 42
-- Source: [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/BIMINX.INP)
+- Source file: BIMINX.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44686,7 +44680,7 @@ _... 19 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44734,7 +44728,7 @@ _... 19 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44796,7 +44790,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44857,7 +44851,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44883,7 +44877,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, RINEX navigation data, Include DCB information, DCB input, IONEX output file, Program Output File, Error Message File
 - ... and 2 more sections
 - Fields: 42
-- Source: [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/BIMINX.INP)
+- Source file: BIMINX.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44935,7 +44929,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, IONEX file(s), Include a priori information, Navigation file(s), Navigation file (output), Program Output File, Error Message File
 - ... and 15 more sections
 - Fields: 68
-- Source: [INXFIT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/INXFIT.INP)
+- Source file: INXFIT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -44996,7 +44990,7 @@ _... 18 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45044,7 +45038,7 @@ _... 18 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45106,7 +45100,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45167,7 +45161,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45192,7 +45186,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45203,7 +45197,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, Ionosphere maps, Ionosphere map (output), Data output, Graphics: SMTSER, Graphics: SMTACF, Graphics: PRESER
 - ... and 47 more sections
 - Fields: 125
-- Source: [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/IONANA.INP)
+- Source file: IONANA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45264,7 +45258,7 @@ _... 75 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45312,7 +45306,7 @@ _... 75 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45374,7 +45368,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45435,7 +45429,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45461,7 +45455,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: MENTEC plot/summary files, Options for the MEANTEC curve, Title: new entry, Size of the plot, Get boundaries of the plot, Program Output File
 - ... and 1 more sections
 - Fields: 55
-- Source: [plotMeantec.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/plotMeantec.INP)
+- Source file: plotMeantec.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45523,7 +45517,7 @@ _... 5 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, RINEX navigation data, Include DCB information, DCB input, IONEX output file, Program Output File, Error Message File
 - ... and 2 more sections
 - Fields: 42
-- Source: [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/BIMINX.INP)
+- Source file: BIMINX.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45575,7 +45569,7 @@ _... 5 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, IONEX file(s), Include a priori information, Navigation file(s), Navigation file (output), Program Output File, Error Message File
 - ... and 15 more sections
 - Fields: 68
-- Source: [INXFIT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/INXFIT.INP)
+- Source file: INXFIT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45637,7 +45631,7 @@ _... 18 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, Ionosphere maps, Ionosphere map (output), Data output, Graphics: SMTSER, Graphics: SMTACF, Graphics: PRESER
 - ... and 47 more sections
 - Fields: 125
-- Source: [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/IONANA.INP)
+- Source file: IONANA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45699,7 +45693,7 @@ _... 75 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, ION input file, DCB input, IONEX output, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 2 more sections
 - Fields: 42
-- Source: [IONINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/IONINX.INP)
+- Source file: IONINX.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45750,7 +45744,7 @@ _... 75 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45798,7 +45792,7 @@ _... 75 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45860,7 +45854,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45921,7 +45915,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45947,7 +45941,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, RINEX navigation data, Include DCB information, DCB input, IONEX output file, Program Output File, Error Message File
 - ... and 2 more sections
 - Fields: 42
-- Source: [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/BIMINX.INP)
+- Source file: BIMINX.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -45999,7 +45993,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, IONEX file(s), Include a priori information, Navigation file(s), Navigation file (output), Program Output File, Error Message File
 - ... and 15 more sections
 - Fields: 68
-- Source: [INXFIT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/INXFIT.INP)
+- Source file: INXFIT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46061,7 +46055,7 @@ _... 18 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, Ionosphere maps, Ionosphere map (output), Data output, Graphics: SMTSER, Graphics: SMTACF, Graphics: PRESER
 - ... and 47 more sections
 - Fields: 125
-- Source: [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/IONANA.INP)
+- Source file: IONANA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46123,7 +46117,7 @@ _... 75 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, ION input file, DCB input, IONEX output, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 2 more sections
 - Fields: 42
-- Source: [IONINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/IONINX.INP)
+- Source file: IONINX.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46174,7 +46168,7 @@ _... 75 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46222,7 +46216,7 @@ _... 75 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46284,7 +46278,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46345,7 +46339,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46371,7 +46365,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, RINEX navigation data, Include DCB information, DCB input, IONEX output file, Program Output File, Error Message File
 - ... and 2 more sections
 - Fields: 42
-- Source: [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/BIMINX.INP)
+- Source file: BIMINX.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46423,7 +46417,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, IONEX file(s), Include a priori information, Navigation file(s), Navigation file (output), Program Output File, Error Message File
 - ... and 15 more sections
 - Fields: 68
-- Source: [INXFIT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/INXFIT.INP)
+- Source file: INXFIT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46485,7 +46479,7 @@ _... 18 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, Ionosphere maps, Ionosphere map (output), Data output, Graphics: SMTSER, Graphics: SMTACF, Graphics: PRESER
 - ... and 47 more sections
 - Fields: 125
-- Source: [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/IONANA.INP)
+- Source file: IONANA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46547,7 +46541,7 @@ _... 75 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, ION input file, DCB input, IONEX output, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 2 more sections
 - Fields: 42
-- Source: [IONINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/IONINX.INP)
+- Source file: IONINX.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46598,7 +46592,7 @@ _... 75 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46646,7 +46640,7 @@ _... 75 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46708,7 +46702,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46769,7 +46763,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46795,7 +46789,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, General Constants, IONEX Control File, Ionosphere maps, Ionosphere map (output), Data output, Graphics: SMTSER, Graphics: SMTACF, Graphics: PRESER
 - ... and 47 more sections
 - Fields: 125
-- Source: [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/IONANA.INP)
+- Source file: IONANA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46856,7 +46850,7 @@ _... 75 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46904,7 +46898,7 @@ _... 75 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -46966,7 +46960,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47027,7 +47021,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47053,7 +47047,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: MENTEC plot/summary files, Options for the MEANTEC curve, Title: new entry, Size of the plot, Get boundaries of the plot, Program Output File
 - ... and 1 more sections
 - Fields: 55
-- Source: [plotMeantec.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/plotMeantec.INP)
+- Source file: plotMeantec.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47114,7 +47108,7 @@ _... 5 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47162,7 +47156,7 @@ _... 5 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47224,7 +47218,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47285,7 +47279,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47311,7 +47305,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 14
-- Source: [SETDAY.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/SETDAY.INP)
+- Source file: SETDAY.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47334,7 +47328,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47382,7 +47376,7 @@ _... 257 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47444,7 +47438,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47505,7 +47499,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47531,7 +47525,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 81
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47592,7 +47586,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47640,7 +47634,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47702,7 +47696,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47763,7 +47757,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47789,7 +47783,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 81
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47850,7 +47844,7 @@ _... 31 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47898,7 +47892,7 @@ _... 31 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -47960,7 +47954,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48021,7 +48015,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48047,7 +48041,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 80
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48108,7 +48102,7 @@ _... 30 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48156,7 +48150,7 @@ _... 30 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48218,7 +48212,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48279,7 +48273,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48305,7 +48299,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 78
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48366,7 +48360,7 @@ _... 28 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48414,7 +48408,7 @@ _... 28 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48476,7 +48470,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48537,7 +48531,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48563,7 +48557,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 78
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48624,7 +48618,7 @@ _... 28 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48634,7 +48628,7 @@ _... 28 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48682,7 +48676,7 @@ _... 28 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48744,7 +48738,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48805,7 +48799,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48831,7 +48825,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 80
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48892,7 +48886,7 @@ _... 30 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48902,7 +48896,7 @@ _... 30 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -48950,7 +48944,7 @@ _... 30 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49012,7 +49006,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49073,7 +49067,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49099,7 +49093,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), CCRNXC Program Output File Names (reference), Filename for resulting plotz (output), Title: new entry
 - ... and 17 more sections
 - Fields: 166
-- Source: [plotCCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/plotCCRNXC.INP)
+- Source file: plotCCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49161,7 +49155,7 @@ _... 116 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Satellite information, Coordinate File Names (input), Plotting options for GPS, Plotting options for GLONASS, Plotting options for Galileo, Plotting options for SBAS
 - ... and 18 more sections
 - Fields: 197
-- Source: [plotConstellations.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/plotConstellations.INP)
+- Source file: plotConstellations.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49223,7 +49217,7 @@ _... 147 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Coordinate File Names (input), Filename for resulting plotz (output), Title: new entry, Size of the plot, Define colormap, Plotting options for GPS, Plotting options for GLONASS
 - ... and 6 more sections
 - Fields: 74
-- Source: [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/plotSTDELE.INP)
+- Source file: plotSTDELE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49284,7 +49278,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49294,7 +49288,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49342,7 +49336,7 @@ _... 24 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49404,7 +49398,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49465,7 +49459,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49491,7 +49485,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 143
-- Source: [plotAMBXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotAMBXTR.INP)
+- Source file: plotAMBXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49553,7 +49547,7 @@ _... 93 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Coordinate File Names (input), Filename for resulting plotz (output), Title: new entry, Size of the plot, Get boundaries of the plot, Layout of the map, Map projection
 - ... and 7 more sections
 - Fields: 129
-- Source: [plotCRDmap.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotCRDmap.INP)
+- Source file: plotCRDmap.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49615,7 +49609,7 @@ _... 79 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5, Input data: dataset 6
 - ... and 4 more sections
 - Fields: 182
-- Source: [plotHELMR1.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotHELMR1.INP)
+- Source file: plotHELMR1.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49677,7 +49671,7 @@ _... 132 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: list of precise files, Options for all satellites, Options for GPS satellites, Options for GLO satellites, Options for GAL satellites, Options for SBS satellites
 - ... and 7 more sections
 - Fields: 123
-- Source: [plotSatnum.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotSatnum.INP)
+- Source file: plotSatnum.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49739,7 +49733,7 @@ _... 73 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: list of coordinate files, Options for all stations, Options for stations with GPS, Options for stations with GLONASS, Options for stations with GAL, Options for stations with SBAS
 - ... and 8 more sections
 - Fields: 131
-- Source: [plotStanum.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotStanum.INP)
+- Source file: plotStanum.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49800,7 +49794,7 @@ _... 81 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49848,7 +49842,7 @@ _... 81 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49910,7 +49904,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49971,7 +49965,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -49997,7 +49991,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 142
-- Source: [plotAMBXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/plotAMBXTR.INP)
+- Source file: plotAMBXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50058,7 +50052,7 @@ _... 92 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50068,7 +50062,7 @@ _... 92 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50116,7 +50110,7 @@ _... 92 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50178,7 +50172,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50239,7 +50233,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50265,7 +50259,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), CCRNXC Program Output File Names (reference), Filename for resulting plotz (output), Title: new entry
 - ... and 17 more sections
 - Fields: 166
-- Source: [plotCCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/plotCCRNXC.INP)
+- Source file: plotCCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50327,7 +50321,7 @@ _... 116 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Satellite information, Coordinate File Names (input), Plotting options for GPS, Plotting options for GLONASS, Plotting options for Galileo, Plotting options for SBAS
 - ... and 18 more sections
 - Fields: 197
-- Source: [plotConstellations.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/plotConstellations.INP)
+- Source file: plotConstellations.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50389,7 +50383,7 @@ _... 147 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Coordinate File Names (input), Filename for resulting plotz (output), Title: new entry, Size of the plot, Define colormap, Plotting options for GPS, Plotting options for GLONASS
 - ... and 6 more sections
 - Fields: 74
-- Source: [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/plotSTDELE.INP)
+- Source file: plotSTDELE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50450,7 +50444,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50460,7 +50454,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50508,7 +50502,7 @@ _... 24 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50570,7 +50564,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50631,7 +50625,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50657,7 +50651,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), CCRNXC Program Output File Names (reference), Filename for resulting plotz (output), Title: new entry
 - ... and 17 more sections
 - Fields: 166
-- Source: [plotCCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/plotCCRNXC.INP)
+- Source file: plotCCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50719,7 +50713,7 @@ _... 116 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Satellite information, Coordinate File Names (input), Plotting options for GPS, Plotting options for GLONASS, Plotting options for Galileo, Plotting options for SBAS
 - ... and 18 more sections
 - Fields: 197
-- Source: [plotConstellations.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/plotConstellations.INP)
+- Source file: plotConstellations.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50781,7 +50775,7 @@ _... 147 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Coordinate File Names (input), Filename for resulting plotz (output), Title: new entry, Size of the plot, Define colormap, Plotting options for GPS, Plotting options for GLONASS
 - ... and 6 more sections
 - Fields: 74
-- Source: [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/plotSTDELE.INP)
+- Source file: plotSTDELE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50842,7 +50836,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50890,7 +50884,7 @@ _... 24 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -50952,7 +50946,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51013,7 +51007,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51039,7 +51033,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 78
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51100,7 +51094,7 @@ _... 28 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51148,7 +51142,7 @@ _... 28 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51210,7 +51204,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51271,7 +51265,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51297,7 +51291,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 78
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51358,7 +51352,7 @@ _... 28 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51406,7 +51400,7 @@ _... 28 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51468,7 +51462,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51529,7 +51523,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51555,7 +51549,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 80
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51616,7 +51610,7 @@ _... 30 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51664,7 +51658,7 @@ _... 30 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51726,7 +51720,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51787,7 +51781,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51813,7 +51807,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 146
-- Source: [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/plotGPSXTR.INP)
+- Source file: plotGPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51874,7 +51868,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51922,7 +51916,7 @@ _... 96 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -51984,7 +51978,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52045,7 +52039,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52071,7 +52065,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 146
-- Source: [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/plotGPSXTR.INP)
+- Source file: plotGPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52133,7 +52127,7 @@ _... 96 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, HELMR1 program output File Names (input), Coordinate File Names (input), Filename for resulting plotz (output), Dataset 1, Dataset 2, Dataset 3, Dataset 4
 - ... and 7 more sections
 - Fields: 143
-- Source: [plotHLMmap.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/plotHLMmap.INP)
+- Source file: plotHLMmap.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52194,7 +52188,7 @@ _... 93 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52242,7 +52236,7 @@ _... 93 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52304,7 +52298,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52365,7 +52359,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52391,7 +52385,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 146
-- Source: [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/plotGPSXTR.INP)
+- Source file: plotGPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52452,7 +52446,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52500,7 +52494,7 @@ _... 96 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52562,7 +52556,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52623,7 +52617,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52649,7 +52643,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 79
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52710,7 +52704,7 @@ _... 29 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52758,7 +52752,7 @@ _... 29 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52820,7 +52814,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52881,7 +52875,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52907,7 +52901,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 79
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -52968,7 +52962,7 @@ _... 29 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53016,7 +53010,7 @@ _... 29 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53078,7 +53072,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53139,7 +53133,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53165,7 +53159,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 79
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53226,7 +53220,7 @@ _... 29 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53274,7 +53268,7 @@ _... 29 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53336,7 +53330,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53397,7 +53391,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53423,7 +53417,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 78
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53485,7 +53479,7 @@ _... 28 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Coordinate File Names (input), Filename for resulting plotz (output), Title: new entry, Size of the plot, Define colormap, Plotting options for GPS, Plotting options for GLONASS
 - ... and 6 more sections
 - Fields: 74
-- Source: [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/plotSTDELE.INP)
+- Source file: plotSTDELE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53546,7 +53540,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53594,7 +53588,7 @@ _... 24 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53656,7 +53650,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53717,7 +53711,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53743,7 +53737,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 78
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53805,7 +53799,7 @@ _... 28 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Coordinate File Names (input), Filename for resulting plotz (output), Title: new entry, Size of the plot, Define colormap, Plotting options for GPS, Plotting options for GLONASS
 - ... and 6 more sections
 - Fields: 74
-- Source: [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/plotSTDELE.INP)
+- Source file: plotSTDELE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53866,7 +53860,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53914,7 +53908,7 @@ _... 24 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -53976,7 +53970,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54037,7 +54031,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54063,7 +54057,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Satellite information, Satellite Problems, Select the content of the plot, How to sort the satellites, CCRNXC Program Output File Names (input), Filename for resulting plotz (output), Title: new entry
 - ... and 11 more sections
 - Fields: 80
-- Source: [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/plotOBSXTR.INP)
+- Source file: plotOBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54125,7 +54119,7 @@ _... 30 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Coordinate File Names (input), Filename for resulting plotz (output), Title: new entry, Size of the plot, Define colormap, Plotting options for GPS, Plotting options for GLONASS
 - ... and 6 more sections
 - Fields: 74
-- Source: [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/plotSTDELE.INP)
+- Source file: plotSTDELE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54186,7 +54180,7 @@ _... 24 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54234,7 +54228,7 @@ _... 24 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54296,7 +54290,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54357,7 +54351,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54383,7 +54377,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 146
-- Source: [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/plotGPSXTR.INP)
+- Source file: plotGPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54444,7 +54438,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54492,7 +54486,7 @@ _... 96 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54554,7 +54548,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54615,7 +54609,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54641,7 +54635,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 146
-- Source: [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/plotGPSXTR.INP)
+- Source file: plotGPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54702,7 +54696,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54750,7 +54744,7 @@ _... 96 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54812,7 +54806,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54873,7 +54867,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54899,7 +54893,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 146
-- Source: [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/plotGPSXTR.INP)
+- Source file: plotGPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -54960,7 +54954,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55008,7 +55002,7 @@ _... 96 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55070,7 +55064,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55131,7 +55125,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55157,7 +55151,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 146
-- Source: [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/plotGPSXTR.INP)
+- Source file: plotGPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55218,7 +55212,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55266,7 +55260,7 @@ _... 96 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55328,7 +55322,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55389,7 +55383,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55415,7 +55409,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Show general files, Filename for resulting plots (output), Input data: dataset 0, Input data: dataset 1, Input data: dataset 2, Input data: dataset 3, Input data: dataset 4, Input data: dataset 5
 - ... and 5 more sections
 - Fields: 146
-- Source: [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/plotGPSXTR.INP)
+- Source file: plotGPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55476,7 +55470,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55486,7 +55480,7 @@ _... 96 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55534,7 +55528,7 @@ _... 96 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55596,7 +55590,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55657,7 +55651,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55683,7 +55677,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55745,7 +55739,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55806,7 +55800,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55816,7 +55810,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55864,7 +55858,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55926,7 +55920,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -55987,7 +55981,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56013,7 +56007,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56074,7 +56068,7 @@ _... 129 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56122,7 +56116,7 @@ _... 129 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56184,7 +56178,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56245,7 +56239,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56271,7 +56265,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56332,7 +56326,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56343,7 +56337,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56405,7 +56399,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56466,7 +56460,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56514,7 +56508,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56576,7 +56570,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56637,7 +56631,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56663,7 +56657,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56725,7 +56719,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/RESCHK.INP)
+- Source file: RESCHK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56787,7 +56781,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56849,7 +56843,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56910,7 +56904,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56921,7 +56915,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -56983,7 +56977,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57045,7 +57039,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57106,7 +57100,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57154,7 +57148,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57216,7 +57210,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57277,7 +57271,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57303,7 +57297,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57365,7 +57359,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/OBSXTR.INP)
+- Source file: OBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57427,7 +57421,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/RESCHK.INP)
+- Source file: RESCHK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57489,7 +57483,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57551,7 +57545,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57612,7 +57606,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57623,7 +57617,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57685,7 +57679,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Input File for CLKEST, Environment Variables, Show general files, General Constants, Local Geodetic Datum, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Observation selection
 - ... and 66 more sections
 - Fields: 217
-- Source: [CLKEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CLKEST.INP)
+- Source file: CLKEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57747,7 +57741,7 @@ _... 167 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CODSPP.INP)
+- Source file: CODSPP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57809,7 +57803,7 @@ _... 139 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, List of INPUT FILES (CODSPP program output), Broadcast clock input, Program Output File, Error Message File, Subroutine/function debug output, Do rms check, Broadcast clock output, Good file list
 - ... and 4 more sections
 - Fields: 59
-- Source: [CODXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CODXTR.INP)
+- Source file: CODXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57871,7 +57865,7 @@ _... 9 more fields omitted in this summary._
 - Sections: Environment Variables, Some keywords for automatic output, Coordinate File Names (input), Epoch of Ref. Coord. (output), Velocity according to Ref.Coo., Approx. velocities at ref. epoch, PSD corrections for ITRF2014, Periodic corrections for ITRF2014, Loading corrections for DTRF2014, Station list without PSD corrections (output)
 - ... and 7 more sections
 - Fields: 49
-- Source: [COOVEL.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/COOVEL.INP)
+- Source file: COOVEL.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57930,7 +57924,7 @@ _... 9 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input files, Coordinates or velocities, Coordinate files, Velocity files, Output files, Coordinate file, Velocity file, Station selection file
 - ... and 12 more sections
 - Fields: 61
-- Source: [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CRDMERGE.INP)
+- Source file: CRDMERGE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -57992,7 +57986,7 @@ _... 11 more fields omitted in this summary._
 - Sections: Environment Variables, Information for the title, Show general files, General Constants, Geodetic Datum, Satellite Information, Satellite Problems, ERP File, Subdaily Pole Model, Nutation Model
 - ... and 91 more sections
 - Fields: 232
-- Source: [MAUPRP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MAUPRP.INP)
+- Source file: MAUPRP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58053,7 +58047,7 @@ _... 182 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58101,7 +58095,7 @@ _... 182 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58163,7 +58157,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58224,7 +58218,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58250,7 +58244,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58312,7 +58306,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, General constants, Station name abbreviations, Input files, MAUPRP summary, MAUPRP SAT summary, File deletion list, New baseline definition, Program output file
 - ... and 4 more sections
 - Fields: 57
-- Source: [MPRXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MPRXTR.INP)
+- Source file: MPRXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58374,7 +58368,7 @@ _... 7 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input Precise Files, Extension of the ERP Files, Use general ERP file, Check consistency of PCV model, Update Modus, PARAMETER TYPE: Satellite yaw attitude, ===============, True yaw attitude modelling of satellites
 - ... and 109 more sections
 - Fields: 393
-- Source: [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/ORBGEN.INP)
+- Source file: ORBGEN.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58436,7 +58430,7 @@ _... 343 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58498,7 +58492,7 @@ _... 37 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants, Local Geodetic Datum, Leap Seconds, Satellite Information, Epoch Window, List of Input Files, Output files
 - ... and 23 more sections
 - Fields: 214
-- Source: [RXN2PRE.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/RXN2PRE.INP)
+- Source file: RXN2PRE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58560,7 +58554,7 @@ _... 164 more fields omitted in this summary._
 - Sections: Environment Variables, Some Keywords for Automatic Output, Show general files, General Constants Input File, Satellite Problems, Title, Remove bad satellites, Epoch Window, Precise Ephemeris Input Files, Satellite Clock Output File
 - ... and 5 more sections
 - Fields: 57
-- Source: [SATCLK2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/SATCLK2.INP)
+- Source file: SATCLK2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58622,7 +58616,7 @@ _... 7 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58684,7 +58678,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58745,7 +58739,7 @@ _... 129 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58793,7 +58787,7 @@ _... 129 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58855,7 +58849,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58916,7 +58910,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -58942,7 +58936,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59003,7 +58997,7 @@ _... 129 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59051,7 +59045,7 @@ _... 129 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59113,7 +59107,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59174,7 +59168,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59199,7 +59193,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59210,7 +59204,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59271,7 +59265,7 @@ _... 129 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59319,7 +59313,7 @@ _... 129 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59381,7 +59375,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59442,7 +59436,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59467,7 +59461,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59478,7 +59472,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59540,7 +59534,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Input File for CLKEST, Environment Variables, Show general files, General Constants, Local Geodetic Datum, ERP File, Subdaily ERP Model, Nutation Model, Satellite Information, Observation selection
 - ... and 66 more sections
 - Fields: 216
-- Source: [CLKEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/CLKEST.INP)
+- Source file: CLKEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59601,7 +59595,7 @@ _... 166 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59649,7 +59643,7 @@ _... 166 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59711,7 +59705,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59772,7 +59766,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59798,7 +59792,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59859,7 +59853,7 @@ _... 77 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59907,7 +59901,7 @@ _... 77 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -59969,7 +59963,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60030,7 +60024,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60056,7 +60050,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 116
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60117,7 +60111,7 @@ _... 66 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60128,7 +60122,7 @@ _... 66 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60189,7 +60183,7 @@ _... 1449 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60237,7 +60231,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60299,7 +60293,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60360,7 +60354,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60386,7 +60380,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60447,7 +60441,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60495,7 +60489,7 @@ _... 65 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60557,7 +60551,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60618,7 +60612,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60644,7 +60638,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60705,7 +60699,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60716,7 +60710,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input files, Coordinates or velocities, Coordinate files, Velocity files, Output files, Coordinate file, Velocity file, Station selection file
 - ... and 12 more sections
 - Fields: 60
-- Source: [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/CRDMERGE.INP)
+- Source file: CRDMERGE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60778,7 +60772,7 @@ _... 10 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1509
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60840,7 +60834,7 @@ _... 1459 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60901,7 +60895,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -60949,7 +60943,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61011,7 +61005,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61072,7 +61066,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61098,7 +61092,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Information, Satellite Problems, Sinex header file, GPSEST Input Files, Output window, Title, AMB PHASE BIAS
 - ... and 6 more sections
 - Fields: 46
-- Source: [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/PHABIA.INP)
+- Source file: PHABIA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61154,7 +61148,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61216,7 +61210,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/CODSPP.INP)
+- Source file: CODSPP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61277,7 +61271,7 @@ _... 139 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61325,7 +61319,7 @@ _... 139 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61387,7 +61381,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61448,7 +61442,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61474,7 +61468,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61536,7 +61530,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61597,7 +61591,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61608,7 +61602,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Input files, Coordinates or velocities, Coordinate files, Velocity files, Output files, Coordinate file, Velocity file, Station selection file
 - ... and 12 more sections
 - Fields: 61
-- Source: [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/CRDMERGE.INP)
+- Source file: CRDMERGE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61670,7 +61664,7 @@ _... 11 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61731,7 +61725,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61779,7 +61773,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61841,7 +61835,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61902,7 +61896,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61927,7 +61921,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -61938,7 +61932,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, Show general files, Clock RINEX input file name, Replace station coordinates, Station crux file, Clock RINEX output file name, Satellite clock file name (output), Sigma file with rms of lin. fit, Program Output File
 - ... and 46 more sections
 - Fields: 179
-- Source: [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/CCRNXC.INP)
+- Source file: CCRNXC.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62000,7 +61994,7 @@ _... 129 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Local Geodetic Datum, Satellite Information, Satellite Problems, Station crux file, Observation selection, ERP File
 - ... and 67 more sections
 - Fields: 189
-- Source: [CODSPP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/CODSPP.INP)
+- Source file: CODSPP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62062,7 +62056,7 @@ _... 139 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62124,7 +62118,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62185,7 +62179,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62233,7 +62227,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62295,7 +62289,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62356,7 +62350,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62382,7 +62376,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62444,7 +62438,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, Summary File, Switch of observation type, Zero diff., Phase, Single diff., Phase, Program Output File
 - ... and 12 more sections
 - Fields: 75
-- Source: [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/OBSXTR.INP)
+- Source file: OBSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62506,7 +62500,7 @@ _... 25 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62567,7 +62561,7 @@ _... 37 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62577,7 +62571,7 @@ _... 37 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62625,7 +62619,7 @@ _... 37 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62687,7 +62681,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62748,7 +62742,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62774,7 +62768,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62836,7 +62830,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), List of RINEX Input Files, List of Smoothed RINEX Input Files, Measurement Type, Frequencies, Minimum s/n-ratio
 - ... and 38 more sections
 - Fields: 156
-- Source: [RNXGRA.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/RNXGRA.INP)
+- Source file: RNXGRA.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62898,7 +62892,7 @@ _... 106 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information, Observation selection by new RECEIVER file, Print RINEX observation statistics and selection results, Print extended OBSSEL warnings (debugging), Satellite Problems, Rinex input file
 - ... and 37 more sections
 - Fields: 185
-- Source: [RNXSMT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/RNXSMT.INP)
+- Source file: RNXSMT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -62960,7 +62954,7 @@ _... 135 more fields omitted in this summary._
 - Sections: Environment Variables, Some title information, Active Campaign, General Constants, Show general files, Difference of GPS-TIME - UTC-TIME, Satellite Problems, Satellite Information, Antenna phase center corrections, Station Name Abbreviations
 - ... and 86 more sections
 - Fields: 327
-- Source: [RXOBV3.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/RXOBV3.INP)
+- Source file: RXOBV3.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63022,7 +63016,7 @@ _... 277 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63083,7 +63077,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63094,7 +63088,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63155,7 +63149,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63203,7 +63197,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63265,7 +63259,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63326,7 +63320,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63352,7 +63346,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63413,7 +63407,7 @@ _... 1218 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63424,7 +63418,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63486,7 +63480,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63547,7 +63541,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63595,7 +63589,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63657,7 +63651,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63718,7 +63712,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63744,7 +63738,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63806,7 +63800,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63868,7 +63862,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63929,7 +63923,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -63977,7 +63971,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64039,7 +64033,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64100,7 +64094,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64126,7 +64120,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64188,7 +64182,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64249,7 +64243,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64297,7 +64291,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64359,7 +64353,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64420,7 +64414,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64446,7 +64440,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64508,7 +64502,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64569,7 +64563,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64617,7 +64611,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64679,7 +64673,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64740,7 +64734,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64766,7 +64760,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, =========================================================================, ADDNEQ2 1: Input Files, Show all general files, Normal equations, Variance rescaling factors, Station coordinates, Station velocities, Station information
 - ... and 244 more sections
 - Fields: 1268
-- Source: [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/ADDNEQ2.INP)
+- Source file: ADDNEQ2.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64828,7 +64822,7 @@ _... 1218 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64889,7 +64883,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64937,7 +64931,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -64999,7 +64993,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 306
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65060,7 +65054,7 @@ _... 256 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65086,7 +65080,7 @@ _... 256 more fields omitted in this summary._
 - Sections: Environment Variables, SOME KEYWORDS FOR AUTOMATIC OUTPUT, Show general files, General Constants, Satellite Information File, What to do in this run?, Reset ambiguities, Select obs type, Zero diff., Code, Zero diff., Phase
 - ... and 15 more sections
 - Fields: 115
-- Source: [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/SATMRK.INP)
+- Source file: SATMRK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65147,7 +65141,7 @@ _... 65 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65158,7 +65152,7 @@ _... 65 more fields omitted in this summary._
 - Sections: Environment Variables, General options and processing mode, Spce geodetic technique, Differencing level, LEO processing, Show general files, General files, General Constants, Local Geodetic Datum, Antenna phase center corrections
 - ... and 556 more sections
 - Fields: 1499
-- Source: [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/GPSEST.INP)
+- Source file: GPSEST.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65220,7 +65214,7 @@ _... 1449 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, GPSEST/ADDNEQ Input Files, Title, Output Summary, Coordinate Summary, Kinematic Summary, Ionosphere Summary, Clock Summary
 - ... and 13 more sections
 - Fields: 73
-- Source: [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/GPSXTR.INP)
+- Source file: GPSXTR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65281,7 +65275,7 @@ _... 23 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65329,7 +65323,7 @@ _... 23 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65391,7 +65385,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65452,7 +65446,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65478,7 +65472,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment variables, INPUTFILES                                                         |, Show general files, General constants, Geodetic datum, Satellite Information, Satellite Problems, Observation type, All observation files: Zero difference
 - ... and 36 more sections
 - Fields: 127
-- Source: [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MKCLUS.INP)
+- Source file: MKCLUS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65540,7 +65534,7 @@ _... 77 more fields omitted in this summary._
 - Sections: Some keywords for automatic output, Environment Variables, General Constants, Satellite Problems, Abbreviation Table, ARCSPLIT SUMMARY FILE, CODSPP SUMMARY FILE, RESRMS SUMMARY FILE, List of stations to be deleted, Path to the obs. files
 - ... and 21 more sections
 - Fields: 79
-- Source: [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/RESCHK.INP)
+- Source file: RESCHK.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65602,7 +65596,7 @@ _... 29 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, General Constants, Satellite Information, Station Name Abbreviations, Residual Input File, Summary File, Maximal Residuals, Residual histogram, Station observation sigmas
 - ... and 17 more sections
 - Fields: 87
-- Source: [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/RESRMS.INP)
+- Source file: RESRMS.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65663,7 +65657,7 @@ _... 37 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Paths), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 38
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65711,7 +65705,7 @@ _... 37 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 145 more sections
 - Fields: 652
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65773,7 +65767,7 @@ _... 602 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 29 more sections
 - Fields: 307
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65834,7 +65828,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65859,7 +65853,7 @@ _... 257 more fields omitted in this summary._
 
 - Sections: List of Subdirectories, List of Files to be copied
 - Fields: 3
-- Source: [NEWCAMP.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/NEWCAMP.INP)
+- Source file: NEWCAMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65872,7 +65866,7 @@ _... 257 more fields omitted in this summary._
 - Sections: Client Script, Environment File, PCF File, CPU File, Campaign, Year, Session, Output File, Has to be unmarked!!!, Debug Options, Various Variables
 - ... and 8 more sections
 - Fields: 106
-- Source: [RUNBPE.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/RUNBPE.INP)
+- Source file: RUNBPE.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65934,7 +65928,7 @@ _... 56 more fields omitted in this summary._
 - Sections: Input File for SETDAY, Environment Variables, Doy, empty or zero: current day, negative: relative to current day, Year, empty or -1: current year, Files, Leap seconds, Output MS-DOS (do not modify), Output VAX (do not modify), Output UNIX-SH (do not modify), Output UNIX-CSH (do not modify)
 - ... and 3 more sections
 - Fields: 14
-- Source: [SETDAY.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/SETDAY.INP)
+- Source file: SETDAY.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65957,7 +65951,7 @@ _... 56 more fields omitted in this summary._
 
 - Sections: List of Campaigns
 - Fields: 1
-- Source: [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/AIUB_CMP.INP)
+- Source file: AIUB_CMP.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -65967,7 +65961,7 @@ _... 56 more fields omitted in this summary._
 
 - Sections: Release Information Notes, List of Remaining Menu Input Files (full Pathes), Active Campaign, Modified Julian Date, Session (only the last character is relevant), Job character, Size of the Main Window, Colors (RGB Button + RGB Background), Font Types and Font Sizes
 - Fields: 36
-- Source: [MENU.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/MENU.INP)
+- Source file: MENU.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -66013,7 +66007,7 @@ _... 56 more fields omitted in this summary._
 - Sections: No path/no extension, General Files Files with Global MODELS, General Constants File, Sub-daily Earth Rotation Model, Nutation Model, Earth Potential Coefficients, Albedo Emissivity, Albedo Reflectivity, Solar indices for JB2008 atmos. model (ORBGEN), Solar F10.7 flux and geomagnetic index (ORBGEN)
 - ... and 144 more sections
 - Fields: 648
-- Source: [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/MENU_EXT.INP)
+- Source file: MENU_EXT.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -66075,7 +66069,7 @@ _... 598 more fields omitted in this summary._
 - Sections: Command to Run the Fortran Program, CPU File, List of Programs with special path to the executable, Names of Programs/Input Files, Configure, Campaign, Station files, RINEX to Bernese, Cut/concatenate RINEX, RINEX utilities
 - ... and 27 more sections
 - Fields: 279
-- Source: [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/MENU_PGM.INP)
+- Source file: MENU_PGM.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -66136,7 +66130,7 @@ _... 229 more fields omitted in this summary._
 
 - Sections: Predefined variables, 2-digit year, Month, Day of month, Job ID, Active campaign via $(CAMP), Ranges of $-Variables, User-defined Variables, List of Environment Variables
 - Fields: 16
-- Source: [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/MENU_VAR.INP)
+- Source file: MENU_VAR.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -66162,7 +66156,7 @@ _... 229 more fields omitted in this summary._
 - Sections: Environment Variables, Show general files, Pole Offset Coefficients, Leap Second File, Input ERP Files Bernese Format, Input ERP Files Foreign Format, Output ERP File, Program Output File, Error Message File, Subroutine/function debug output
 - ... and 10 more sections
 - Fields: 70
-- Source: [POLUPD.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/POLUPD.INP)
+- Source file: POLUPD.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -66224,7 +66218,7 @@ _... 20 more fields omitted in this summary._
 - Sections: Environment Variables, General Setup: Title, Some title information, Active Campaign, General Constants, Show general files, Local Geodetic Datum, Difference of GPS-TIME - UTC-TIME, Satellite Information, Satellite Problems
 - ... and 9 more sections
 - Fields: 47
-- Source: [SP3CPF.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/SP3CPF.INP)
+- Source file: SP3CPF.INP (download from the HTML manual)
 
 | Key | Type | Value | Section |
 | --- | --- | --- | --- |
@@ -66280,1665 +66274,1665 @@ _... 20 more fields omitted in this summary._
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/DCB_BIA
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/ADDNEQ2.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/DCB_BIA/MENU_VAR.INP)
+- ADDNEQ2.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/DCB_EST
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/MENU_VAR.INP)
-- [RNX2OSB.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/RNX2OSB.INP)
-- [RNXSMT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_EST/RNXSMT.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- RNX2OSB.INP
+- RNXSMT.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/DCB_GEN
 
-- [DCBEST.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/DCBEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/DCB_GEN/MENU_VAR.INP)
+- DCBEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/DCB_REA
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/ADDNEQ2.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/DCB_REA/MENU_VAR.INP)
+- ADDNEQ2.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IAR_AMB
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/MENU_VAR.INP)
-- [OBSFMT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/OBSFMT.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IAR_AMB/SATMRK.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- OBSFMT.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IAR_CHK
 
-- [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/CRDMERGE.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/GPSXTR.INP)
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_CHK/MENU_VAR.INP)
+- CRDMERGE.INP
+- GPSXTR.INP
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IAR_FIX
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_FIX/MENU_VAR.INP)
+- AIUB_CMP.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IAR_L12
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/MENU_VAR.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IAR_L12/SATMRK.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IAR_NLB
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/MENU_VAR.INP)
-- [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLB/PHABIA.INP)
+- AIUB_CMP.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PHABIA.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IAR_NLI
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/MENU_VAR.INP)
-- [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/IAR_NLI/PHABIA.INP)
+- AIUB_CMP.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PHABIA.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IAR_WLB
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/MENU_VAR.INP)
-- [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLB/PHABIA.INP)
+- AIUB_CMP.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PHABIA.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IAR_WLI
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/MENU_VAR.INP)
-- [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/IAR_WLI/PHABIA.INP)
+- AIUB_CMP.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PHABIA.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_A
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/AIUB_CMP.INP)
-- [CCPREORB.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CCPREORB.INP)
-- [CODCHK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CODCHK.INP)
-- [CODSPP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CODSPP.INP)
-- [CODXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CODXTR.INP)
-- [COOVEL.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/COOVEL.INP)
-- [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/CRDMERGE.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/GPSXTR.INP)
-- [GRDS1S2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/GRDS1S2.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/MENU_VAR.INP)
-- [NUVELO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/NUVELO.INP)
-- [ORBCMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/ORBCMP.INP)
-- [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/RESCHK.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/RESRMS.INP)
-- [RNXGRA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/RNXGRA.INP)
-- [RNXSMT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/RNXSMT.INP)
-- [SATGRA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/SATGRA.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/SATMRK.INP)
-- [SNGDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/SNGDIF.INP)
-- [TRPL2C.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A/TRPL2C.INP)
+- AIUB_CMP.INP
+- CCPREORB.INP
+- CODCHK.INP
+- CODSPP.INP
+- CODXTR.INP
+- COOVEL.INP
+- CRDMERGE.INP
+- GPSXTR.INP
+- GRDS1S2.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- NUVELO.INP
+- ORBCMP.INP
+- RESCHK.INP
+- RESRMS.INP
+- RNXGRA.INP
+- RNXSMT.INP
+- SATGRA.INP
+- SATMRK.INP
+- SNGDIF.INP
+- TRPL2C.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_A1
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A1/ORBGEN.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_A2
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/AIUB_CMP.INP)
-- [ATX2PCV.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/ATX2PCV.INP)
-- [CCRNXO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/CCRNXO.INP)
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_A2/ORBGEN.INP)
+- AIUB_CMP.INP
+- ATX2PCV.INP
+- CCRNXO.INP
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_AA
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/ORBGEN.INP)
-- [RXOBV3.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AA/RXOBV3.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- RXOBV3.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_AMB
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/AIUB_CMP.INP)
-- [BASLST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/BASLST.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/MENU_VAR.INP)
-- [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/OBSXTR.INP)
-- [RCVTST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/RCVTST.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/RESRMS.INP)
-- [SATGRA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/SATGRA.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_AMB/SATMRK.INP)
+- AIUB_CMP.INP
+- BASLST.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- OBSXTR.INP
+- RCVTST.INP
+- RESRMS.INP
+- SATGRA.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_ARC
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/ORBGEN.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARC/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_ARV
 
-- [BASLST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/BASLST.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/MENU_VAR.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ARV/SATMRK.INP)
+- BASLST.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_BIE
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIE/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_BIF
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIF/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_BIG
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIG/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_BIR
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIR/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_BIS
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_BIS/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_CHK
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/MENU_VAR.INP)
-- [ORBCMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_CHK/ORBCMP.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBCMP.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_EDT
 
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/MENU_VAR.INP)
-- [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/OBSXTR.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/RESRMS.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EDT/SATMRK.INP)
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- OBSXTR.INP
+- RESRMS.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_EPN
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/AIUB_CMP.INP)
-- [ATX2PCV.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/ATX2PCV.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EPN/MENU_VAR.INP)
+- AIUB_CMP.INP
+- ATX2PCV.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_EXT
 
-- [CCPREORB.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/CCPREORB.INP)
-- [COOVEL.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/COOVEL.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/ORBGEN.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_EXT/STDPRE.INP)
+- CCPREORB.INP
+- COOVEL.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/GPSXTR.INP)
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/HELMR1.INP)
-- [MAUPRP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MAUPRP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MENU_VAR.INP)
-- [MPRXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/MPRXTR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/ORBGEN.INP)
-- [SNGDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/SNGDIF.INP)
-- [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F/STDDIF.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSEST.INP
+- GPSXTR.INP
+- HELMR1.INP
+- MAUPRP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MPRXTR.INP
+- ORBGEN.INP
+- SNGDIF.INP
+- STDDIF.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1A
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1A/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1C
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/GPSXTR.INP)
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1C/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1G
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1G/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1L
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/ADDNEQ2.INP)
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/MENU_VAR.INP)
-- [SNX2NQ0.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1L/SNX2NQ0.INP)
+- ADDNEQ2.INP
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SNX2NQ0.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1N
 
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1N/MENU_VAR.INP)
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1O
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1O/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1P
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/AIUB_CMP.INP)
-- [ATTXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/ATTXTR.INP)
-- [COMPAR2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/COMPAR2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/ORBGEN.INP)
-- [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/STDDIF.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/STDPRE.INP)
-- [TROTRO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1P/TROTRO.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- ATTXTR.INP
+- COMPAR2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDDIF.INP
+- STDPRE.INP
+- TROTRO.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1R
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1R/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F1S
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F1S/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F31
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F31/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3A
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3A/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3C
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3C/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3E
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/ORBGEN.INP)
-- [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/STDDIF.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3E/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDDIF.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3G
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3G/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3L
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/AIUB_CMP.INP)
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/MENU_VAR.INP)
-- [SNX2NQ0.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3L/SNX2NQ0.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SNX2NQ0.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3M
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/ADDNEQ2.INP)
-- [COOVEL.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/COOVEL.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/GPSXTR.INP)
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/MENU_VAR.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/POLXTR.INP)
-- [TROTRO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3M/TROTRO.INP)
+- ADDNEQ2.INP
+- COOVEL.INP
+- GPSXTR.INP
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- POLXTR.INP
+- TROTRO.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3N
 
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3N/MENU_VAR.INP)
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3P
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/AIUB_CMP.INP)
-- [COMPAR2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/COMPAR2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/GPSXTR.INP)
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/ORBGEN.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/POLXTR.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/STDPRE.INP)
-- [TROTRO.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3P/TROTRO.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- COMPAR2.INP
+- GPSXTR.INP
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- POLXTR.INP
+- STDPRE.INP
+- TROTRO.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3R
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3R/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3S
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3S/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3T
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3T/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3U
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/ORBGEN.INP)
-- [POLINT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/POLINT.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3U/POLXTR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- POLINT.INP
+- POLXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_F3V
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/ADDNEQ2.INP)
-- [HELMR1.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/HELMR1.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/MENU_VAR.INP)
-- [SNX2NQ0.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_F3V/SNX2NQ0.INP)
+- ADDNEQ2.INP
+- HELMR1.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SNX2NQ0.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_FLA
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLA/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_FLP
 
-- [COMPAR2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/COMPAR2.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_FLP/MENU_VAR.INP)
+- COMPAR2.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_G
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/ADDNEQ2.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/GPSXTR.INP)
-- [MAUPRP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MAUPRP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MENU_VAR.INP)
-- [MPRXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/MPRXTR.INP)
-- [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/OBSXTR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/ORBGEN.INP)
-- [SATGRA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/SATGRA.INP)
-- [SNGDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/SNGDIF.INP)
-- [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/STDDIF.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_G/STDPRE.INP)
+- ADDNEQ2.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MAUPRP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MPRXTR.INP
+- OBSXTR.INP
+- ORBGEN.INP
+- SATGRA.INP
+- SNGDIF.INP
+- STDDIF.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GI2
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI2/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GI3
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GI3/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GIA
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIA/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GIB
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIB/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GID
 
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/MENU_VAR.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/RESRMS.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GID/SATMRK.INP)
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- RESRMS.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GII
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GII/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GIK
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/MENU_VAR.INP)
-- [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/RESCHK.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIK/RESRMS.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- RESCHK.INP
+- RESRMS.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GIM
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/ADDNEQ2.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIM/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_GIP
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_GIP/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_H
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/ORBGEN.INP)
-- [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/STDDIF.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_H/STDPRE.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDDIF.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_LIM
 
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_LIM/MENU_VAR.INP)
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_M00
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/MENU_VAR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_M00/PREWEI.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PREWEI.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_NA2
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/AIUB_CMP.INP)
-- [CCRNXN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/CCRNXN.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NA2/MENU_VAR.INP)
+- AIUB_CMP.INP
+- CCRNXN.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_NAA
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/MENU_VAR.INP)
-- [RXN2PRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAA/RXN2PRE.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- RXN2PRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_NAV
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/AIUB_CMP.INP)
-- [CCRNXN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/CCRNXN.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/MENU_VAR.INP)
-- [RXN2PRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/RXN2PRE.INP)
-- [SATCLK2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_NAV/SATCLK2.INP)
+- AIUB_CMP.INP
+- CCRNXN.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- RXN2PRE.INP
+- SATCLK2.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_O1D
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O1D/ORBGEN.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_O3D
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3D/ORBGEN.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_O3M
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_O3M/ORBGEN.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_OR0
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR0/ORBGEN.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_OR1
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/ORBGEN.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR1/STDPRE.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_OR2
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR2/ORBGEN.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_OR3
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/ORBGEN.INP)
-- [STDELE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR3/STDELE.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDELE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_OR4
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_OR4/ORBGEN.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_P
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/ORBGEN.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_P/POLXTR.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- POLXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_PM
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/ORBGEN.INP)
-- [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/STDDIF.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDDIF.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_PM0
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/ORBGEN.INP)
-- [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/STDDIF.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_PM0/STDPRE.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STDDIF.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_Q
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_Q/MENU_VAR.INP)
+- AIUB_CMP.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_QIF
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/AIUB_CMP.INP)
-- [BASLST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/BASLST.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_QIF/MENU_VAR.INP)
+- AIUB_CMP.INP
+- BASLST.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_RAP
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/MENU_VAR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RAP/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_RPR
 
-- [DEFXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/DEFXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RPR/ORBGEN.INP)
+- DEFXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_RT
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/MENU_VAR.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_RT2
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/MENU_VAR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_RT2/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_SAT
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/ORBGEN.INP)
-- [SATWEEK.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/SATWEEK.INP)
-- [SNGDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/SNGDIF.INP)
-- [STDDIF.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/STDDIF.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_SAT/STDPRE.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- SATWEEK.INP
+- SNGDIF.INP
+- STDDIF.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_TM1
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/MENU_VAR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/PREWEI.INP)
-- [SNX2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/SNX2STA.INP)
-- [STA2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/STA2STA.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM1/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PREWEI.INP
+- SNX2STA.INP
+- STA2STA.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_TM2
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/MENU_VAR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/PREWEI.INP)
-- [SNX2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/SNX2STA.INP)
-- [STA2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/STA2STA.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM2/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PREWEI.INP
+- SNX2STA.INP
+- STA2STA.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_TM3
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/MENU_VAR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM3/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_TM4
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/MENU_VAR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_TM4/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_U06
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/MENU_VAR.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/POLXTR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U06/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- POLXTR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_U12
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/MENU_VAR.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/POLXTR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U12/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- POLXTR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_U18
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/MENU_VAR.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/POLXTR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U18/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- POLXTR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_U24
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/MENU_VAR.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/POLXTR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U24/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- POLXTR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_U30
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/MENU_VAR.INP)
-- [POLXTR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/POLXTR.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_U30/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- POLXTR.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_UBX
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/MENU_VAR.INP)
-- [ORBCMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/ORBCMP.INP)
-- [PREWEI.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/PREWEI.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_UBX/STDPRE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBCMP.INP
+- PREWEI.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_ULT
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/ADDNEQ2.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/MENU_VAR.INP)
-- [STDPRE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_ULT/STDPRE.INP)
+- ADDNEQ2.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- STDPRE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_V3D
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3D/ORBGEN.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_V3M
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_V3M/ORBGEN.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IGSR_VER
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/AIUB_CMP.INP)
-- [ATX2PCV.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/ATX2PCV.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/MENU_VAR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/ORBGEN.INP)
-- [STA2STA.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/STA2STA.INP)
-- [STAMERGE.INP](source_files/l-code-rap-gpsuser/OPT/IGSR_VER/STAMERGE.INP)
+- AIUB_CMP.INP
+- ATX2PCV.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- ORBGEN.INP
+- STA2STA.INP
+- STAMERGE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IONO_BIM
 
-- [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/BIMINX.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_BIM/MENU_VAR.INP)
+- BIMINX.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IONO_CKM
 
-- [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/BIMINX.INP)
-- [INXFIT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/INXFIT.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_CKM/MENU_VAR.INP)
+- BIMINX.INP
+- INXFIT.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IONO_GEN
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/AIUB_CMP.INP)
-- [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/IONANA.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/MENU_VAR.INP)
-- [plotMeantec.INP](source_files/l-code-rap-gpsuser/OPT/IONO_GEN/plotMeantec.INP)
+- AIUB_CMP.INP
+- IONANA.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotMeantec.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IONO_P1
 
-- [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/BIMINX.INP)
-- [INXFIT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/INXFIT.INP)
-- [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/IONANA.INP)
-- [IONINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/IONINX.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P1/MENU_VAR.INP)
+- BIMINX.INP
+- INXFIT.INP
+- IONANA.INP
+- IONINX.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IONO_P2
 
-- [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/BIMINX.INP)
-- [INXFIT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/INXFIT.INP)
-- [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/IONANA.INP)
-- [IONINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/IONINX.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P2/MENU_VAR.INP)
+- BIMINX.INP
+- INXFIT.INP
+- IONANA.INP
+- IONINX.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IONO_P5
 
-- [BIMINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/BIMINX.INP)
-- [INXFIT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/INXFIT.INP)
-- [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/IONANA.INP)
-- [IONINX.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/IONINX.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_P5/MENU_VAR.INP)
+- BIMINX.INP
+- INXFIT.INP
+- IONANA.INP
+- IONINX.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/IONO_REP
 
-- [IONANA.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/IONANA.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/MENU_VAR.INP)
-- [plotMeantec.INP](source_files/l-code-rap-gpsuser/OPT/IONO_REP/plotMeantec.INP)
+- IONANA.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotMeantec.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/NO_OPT
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/MENU_VAR.INP)
-- [SETDAY.INP](source_files/l-code-rap-gpsuser/OPT/NO_OPT/SETDAY.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SETDAY.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_EDTclkGAL
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGAL/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_EDTclkGLO
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGLO/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_EDTclkGPS
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTclkGPS/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_EDTorbGAL
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGAL/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_EDTorbGLO
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGLO/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_EDTorbGPS
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_EDTorbGPS/plotOBSXTR.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_GAL
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/MENU_VAR.INP)
-- [plotCCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/plotCCRNXC.INP)
-- [plotConstellations.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/plotConstellations.INP)
-- [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GAL/plotSTDELE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotCCRNXC.INP
+- plotConstellations.INP
+- plotSTDELE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_GEN
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/MENU_VAR.INP)
-- [plotAMBXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotAMBXTR.INP)
-- [plotCRDmap.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotCRDmap.INP)
-- [plotHELMR1.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotHELMR1.INP)
-- [plotSatnum.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotSatnum.INP)
-- [plotStanum.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GEN/plotStanum.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotAMBXTR.INP
+- plotCRDmap.INP
+- plotHELMR1.INP
+- plotSatnum.INP
+- plotStanum.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_GENclk
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/MENU_VAR.INP)
-- [plotAMBXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GENclk/plotAMBXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotAMBXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_GLO
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/MENU_VAR.INP)
-- [plotCCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/plotCCRNXC.INP)
-- [plotConstellations.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/plotConstellations.INP)
-- [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GLO/plotSTDELE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotCCRNXC.INP
+- plotConstellations.INP
+- plotSTDELE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_GPS
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/MENU_VAR.INP)
-- [plotCCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/plotCCRNXC.INP)
-- [plotConstellations.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/plotConstellations.INP)
-- [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_GPS/plotSTDELE.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotCCRNXC.INP
+- plotConstellations.INP
+- plotSTDELE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_MPRorbGAL
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGAL/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_MPRorbGLO
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGLO/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_MPRorbGPS
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_MPRorbGPS/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBS1
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/MENU_VAR.INP)
-- [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS1/plotGPSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotGPSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBS3
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/MENU_VAR.INP)
-- [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/plotGPSXTR.INP)
-- [plotHLMmap.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBS3/plotHLMmap.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotGPSXTR.INP
+- plotHLMmap.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBSclk
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/MENU_VAR.INP)
-- [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclk/plotGPSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotGPSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBSclkGAL
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGAL/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBSclkGLO
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGLO/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBSclkGPS
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSclkGPS/plotOBSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBSorbGAL
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/plotOBSXTR.INP)
-- [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGAL/plotSTDELE.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
+- plotSTDELE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBSorbGLO
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/plotOBSXTR.INP)
-- [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGLO/plotSTDELE.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
+- plotSTDELE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_OBSorbGPS
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/MENU_VAR.INP)
-- [plotOBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/plotOBSXTR.INP)
-- [plotSTDELE.INP](source_files/l-code-rap-gpsuser/OPT/PLT_OBSorbGPS/plotSTDELE.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotOBSXTR.INP
+- plotSTDELE.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_PAR1
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/MENU_VAR.INP)
-- [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR1/plotGPSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotGPSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_PAR3
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/MENU_VAR.INP)
-- [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PAR3/plotGPSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotGPSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_PARclk
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/MENU_VAR.INP)
-- [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_PARclk/plotGPSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotGPSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_RMS1
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/MENU_VAR.INP)
-- [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMS1/plotGPSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotGPSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/PLT_RMSclk
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/MENU_VAR.INP)
-- [plotGPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/PLT_RMSclk/plotGPSXTR.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- plotGPSXTR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_9
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/MENU_VAR.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_9/SATMRK.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_BIA
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_BIA/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_CHK
 
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/CCRNXC.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_CHK/MENU_VAR.INP)
+- CCRNXC.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_COD
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/MKCLUS.INP)
-- [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/RESCHK.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/RESRMS.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_COD/SATMRK.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
+- RESCHK.INP
+- RESRMS.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_EDT
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/AIUB_CMP.INP)
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/CCRNXC.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/MKCLUS.INP)
-- [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/OBSXTR.INP)
-- [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/RESCHK.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/RESRMS.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_EDT/SATMRK.INP)
+- AIUB_CMP.INP
+- CCRNXC.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
+- OBSXTR.INP
+- RESCHK.INP
+- RESRMS.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_GEN
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/AIUB_CMP.INP)
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CCRNXC.INP)
-- [CLKEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CLKEST.INP)
-- [CODSPP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CODSPP.INP)
-- [CODXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CODXTR.INP)
-- [COOVEL.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/COOVEL.INP)
-- [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/CRDMERGE.INP)
-- [MAUPRP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MAUPRP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MKCLUS.INP)
-- [MPRXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/MPRXTR.INP)
-- [ORBGEN.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/ORBGEN.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/RESRMS.INP)
-- [RXN2PRE.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/RXN2PRE.INP)
-- [SATCLK2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/SATCLK2.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_GEN/SATMRK.INP)
+- AIUB_CMP.INP
+- CCRNXC.INP
+- CLKEST.INP
+- CODSPP.INP
+- CODXTR.INP
+- COOVEL.INP
+- CRDMERGE.INP
+- MAUPRP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
+- MPRXTR.INP
+- ORBGEN.INP
+- RESRMS.INP
+- RXN2PRE.INP
+- SATCLK2.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_HR1
 
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/CCRNXC.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR1/MENU_VAR.INP)
+- CCRNXC.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_HR2
 
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/CCRNXC.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR2/MENU_VAR.INP)
+- CCRNXC.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_HR3
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/AIUB_CMP.INP)
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/CCRNXC.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HR3/MENU_VAR.INP)
+- AIUB_CMP.INP
+- CCRNXC.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_HRC
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/AIUB_CMP.INP)
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/CCRNXC.INP)
-- [CLKEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/CLKEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_HRC/MKCLUS.INP)
+- AIUB_CMP.INP
+- CCRNXC.INP
+- CLKEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_IAR
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/MENU_VAR.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_IAR/SATMRK.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_MON
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/GPSEST.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/MENU_VAR.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_MON/SATMRK.INP)
+- AIUB_CMP.INP
+- GPSEST.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_NEW
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/MENU_VAR.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NEW/SATMRK.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_NLI
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/AIUB_CMP.INP)
-- [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/CRDMERGE.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/MENU_VAR.INP)
-- [PHABIA.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_NLI/PHABIA.INP)
+- AIUB_CMP.INP
+- CRDMERGE.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- PHABIA.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_PRD
 
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/CCRNXC.INP)
-- [CODSPP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/CODSPP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_PRD/MKCLUS.INP)
+- CCRNXC.INP
+- CODSPP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_RE2
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/AIUB_CMP.INP)
-- [CRDMERGE.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/CRDMERGE.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RE2/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- CRDMERGE.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_RES
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/AIUB_CMP.INP)
-- [CCRNXC.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/CCRNXC.INP)
-- [CODSPP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/CODSPP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/MKCLUS.INP)
-- [OBSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/OBSXTR.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RES/RESRMS.INP)
+- AIUB_CMP.INP
+- CCRNXC.INP
+- CODSPP.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
+- OBSXTR.INP
+- RESRMS.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_RNX
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/MKCLUS.INP)
-- [RNXGRA.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/RNXGRA.INP)
-- [RNXSMT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/RNXSMT.INP)
-- [RXOBV3.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_RNX/RXOBV3.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
+- RNXGRA.INP
+- RNXSMT.INP
+- RXOBV3.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_SB1
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/AIUB_CMP.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB1/MENU_VAR.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_SB2
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/ADDNEQ2.INP)
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SB2/MKCLUS.INP)
+- ADDNEQ2.INP
+- AIUB_CMP.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_SBF
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBF/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_SBG
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBG/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_SBR
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBR/MENU_VAR.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_SBS
 
-- [ADDNEQ2.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/ADDNEQ2.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/MENU_VAR.INP)
-- [SATMRK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_SBS/SATMRK.INP)
+- ADDNEQ2.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- SATMRK.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/RCLK_WGT
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/AIUB_CMP.INP)
-- [GPSEST.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/GPSEST.INP)
-- [GPSXTR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/GPSXTR.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MENU_VAR.INP)
-- [MKCLUS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/MKCLUS.INP)
-- [RESCHK.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/RESCHK.INP)
-- [RESRMS.INP](source_files/l-code-rap-gpsuser/OPT/RCLK_WGT/RESRMS.INP)
+- AIUB_CMP.INP
+- GPSEST.INP
+- GPSXTR.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- MKCLUS.INP
+- RESCHK.INP
+- RESRMS.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/SBPE_OPT
 
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/MENU_VAR.INP)
-- [NEWCAMP.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/NEWCAMP.INP)
-- [RUNBPE.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/RUNBPE.INP)
-- [SETDAY.INP](source_files/l-code-rap-gpsuser/OPT/SBPE_OPT/SETDAY.INP)
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- NEWCAMP.INP
+- RUNBPE.INP
+- SETDAY.INP
 
 ### /storage/homefs/l_code_rap/GPSUSER/OPT/SLRPRED
 
-- [AIUB_CMP.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/AIUB_CMP.INP)
-- [MENU.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/MENU.INP)
-- [MENU_EXT.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/MENU_EXT.INP)
-- [MENU_PGM.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/MENU_PGM.INP)
-- [MENU_VAR.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/MENU_VAR.INP)
-- [POLUPD.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/POLUPD.INP)
-- [SP3CPF.INP](source_files/l-code-rap-gpsuser/OPT/SLRPRED/SP3CPF.INP)
+- AIUB_CMP.INP
+- MENU.INP
+- MENU_EXT.INP
+- MENU_PGM.INP
+- MENU_VAR.INP
+- POLUPD.INP
+- SP3CPF.INP

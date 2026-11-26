@@ -1,0 +1,1 @@
+This tool is like "tkbpe", but it can be used for every campaign.

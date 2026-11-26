@@ -12,6 +12,22 @@ echo "Dieses Skript pusht das bereits gebaute site/-Verzeichnis nach GitHub."
   exit 2
 }
 
+if [[ -n "$(find site -name source_files -print -quit)" ]]; then
+  echo "Fehler: site/ enthält alte unverschlüsselte Downloads. Zuerst das gesamte Manual neu erstellen."
+  exit 2
+fi
+
+while IFS= read -r -d '' page; do
+  # With multiple GPSUSERs the builder writes the same overview to both root pages.
+  if [[ "$page" == site/bernese_bpe_manual.html ]] && cmp -s "$page" site/index.html; then
+    continue
+  fi
+  if [[ ! -f "${page%/*}/downloads/.protected" ]]; then
+    echo "Fehler: Die verschlüsselten Downloads für $page fehlen. Zuerst das gesamte Manual neu erstellen."
+    exit 2
+  fi
+done < <(find site -name bernese_bpe_manual.html -type f -print0)
+
 if [[ ! -d .git ]]; then
   echo "Kein lokales Git-Repository gefunden."
   if [[ -t 0 ]]; then

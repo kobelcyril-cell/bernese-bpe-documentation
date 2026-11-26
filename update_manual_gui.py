@@ -9,7 +9,7 @@ import subprocess
 import sys
 import threading
 import tkinter as tk
-from tkinter import filedialog, messagebox, ttk
+from tkinter import filedialog, messagebox, simpledialog, ttk
 from pathlib import Path
 from datetime import datetime
 
@@ -42,6 +42,7 @@ class ManualGUI:
         self.handbook_map = {}
         self.comment_map = {}
         self.target_map = {}
+        self.comment_target_request = None
 
         outer = ttk.Frame(root, padding=14)
         outer.pack(fill="both", expand=True)
@@ -97,10 +98,12 @@ class ManualGUI:
         self.source_map = {str(path): path for path in manual.read_configured_sources()}
         return list(self.source_map.keys())
 
-    def handbook_choices(self):
-        paths = manual.gather_handbook_files(manual.HANDBOOK_DIR)
-        self.handbook_map = {"{} — {}".format(path.relative_to(manual.HANDBOOK_DIR).as_posix(), self.handbook_title(path)): path for path in paths}
-        return list(self.handbook_map.keys())
+    def handbook_choices(self, root):
+        self.handbook_map = {
+            "{} — {}".format(path.relative_to(root).as_posix(), self.handbook_title(path)): path
+            for path in manual.gather_handbook_files(root)
+        }
+        return list(self.handbook_map)
 
     @staticmethod
     def handbook_title(path):
@@ -109,6 +112,7 @@ class ManualGUI:
 
     def show_form(self, _event=None):
         self.clear_form()
+        self.comment_target_request = None
         action = self.action.get()
         if action == "Only rebuild the manual":
             ttk.Label(self.action_frame, text="Rebuild all configured GPSUSER manuals.").pack(anchor="w")
@@ -145,41 +149,59 @@ class ManualGUI:
             self.path_var.set(selected)
 
     def build_handbook_form(self, action):
-        row = 0
+        ttk.Label(self.action_frame, text="Configured GPSUSER").grid(row=0, column=0, sticky="w")
+        self.source_var = tk.StringVar()
+        source_box = ttk.Combobox(self.action_frame, textvariable=self.source_var,
+                                  values=self.source_choices(), state="readonly", width=90)
+        source_box.grid(row=1, column=0, sticky="ew")
+        self.handbook_form = ttk.Frame(self.action_frame)
+        self.handbook_form.grid(row=2, column=0, sticky="nsew", pady=(8, 0))
+        self.action_frame.columnconfigure(0, weight=1)
+        self.action_frame.rowconfigure(2, weight=1)
+        source_box.bind("<<ComboboxSelected>>", lambda _event: self.build_handbook_fields(action))
+
+    def build_handbook_fields(self, action):
+        root = manual.handbook_dir(self.source_map[self.source_var.get()])
+        form = self.handbook_form
+        for widget in form.winfo_children():
+            widget.destroy()
+        self.handbook_map.clear()
+        ttk.Label(form, text=str(root)).grid(row=0, column=0, columnspan=2, sticky="w")
+        row = 1
         if action != "Add handbook entry":
-            ttk.Label(self.action_frame, text="Handbook entry").grid(row=row, column=0, sticky="w")
+            ttk.Label(form, text="Handbook entry").grid(row=row, column=0, sticky="w")
             self.handbook_var = tk.StringVar()
-            self.handbook_box = ttk.Combobox(self.action_frame, textvariable=self.handbook_var, values=self.handbook_choices(), state="readonly", width=90)
+            self.handbook_box = ttk.Combobox(form, textvariable=self.handbook_var, values=self.handbook_choices(root), state="readonly", width=90)
             self.handbook_box.grid(row=row + 1, column=0, columnspan=3, sticky="ew")
             self.handbook_box.bind("<<ComboboxSelected>>", self.load_handbook_entry)
             row += 2
-        ttk.Label(self.action_frame, text="Category").grid(row=row, column=0, sticky="w")
+        ttk.Label(form, text="Category").grid(row=row, column=0, sticky="w")
         self.category_var = tk.StringVar()
-        categories = manual.handbook_category_choices()
-        self.category_box = ttk.Combobox(self.action_frame, textvariable=self.category_var, values=categories, width=26)
+        categories = manual.handbook_category_choices(root)
+        self.category_box = ttk.Combobox(form, textvariable=self.category_var, values=categories, width=26)
         self.category_box.grid(row=row + 1, column=0, sticky="ew", padx=(0, 8))
-        ttk.Label(self.action_frame, text="Title").grid(row=row, column=1, sticky="w")
+        ttk.Label(form, text="Title").grid(row=row, column=1, sticky="w")
         self.title_var = tk.StringVar()
-        ttk.Entry(self.action_frame, textvariable=self.title_var, width=45).grid(row=row + 1, column=1, sticky="ew")
+        ttk.Entry(form, textvariable=self.title_var, width=45).grid(row=row + 1, column=1, sticky="ew")
         row += 2
-        ttk.Label(self.action_frame, text="Change history summary").grid(row=row, column=0, columnspan=2, sticky="w", pady=(6, 0))
+        ttk.Label(form, text="Change history summary").grid(row=row, column=0, columnspan=2, sticky="w", pady=(6, 0))
         self.summary_var = tk.StringVar()
-        ttk.Entry(self.action_frame, textvariable=self.summary_var).grid(row=row + 1, column=0, columnspan=2, sticky="ew")
+        ttk.Entry(form, textvariable=self.summary_var).grid(row=row + 1, column=0, columnspan=2, sticky="ew")
         row += 2
-        ttk.Label(self.action_frame, text="Markdown content").grid(row=row, column=0, columnspan=2, sticky="w", pady=(6, 0))
+        ttk.Label(form, text="Markdown content").grid(row=row, column=0, columnspan=2, sticky="w", pady=(6, 0))
         row += 1
-        editor_frame = ttk.Frame(self.action_frame)
+        editor_frame = ttk.Frame(form)
         editor_frame.grid(row=row, column=0, columnspan=2, sticky="nsew")
         self.editor = tk.Text(editor_frame, wrap="word", undo=True)
         scroll = ttk.Scrollbar(editor_frame, orient="vertical", command=self.editor.yview)
         self.editor.configure(yscrollcommand=scroll.set)
         self.editor.pack(side="left", fill="both", expand=True)
         scroll.pack(side="right", fill="y")
-        self.action_frame.rowconfigure(row, weight=1)
-        self.action_frame.columnconfigure(1, weight=1)
+        form.rowconfigure(row, weight=1)
+        form.columnconfigure(1, weight=1)
         row += 1
         label = "Save entry and rebuild" if action != "Remove handbook entry" else "Remove entry and rebuild"
-        self.button(label, self.run_selected_action, row=row)
+        self.button(label, self.run_selected_action, row=row, parent=form)
         self.selected_handbook_path = None
         if action in ("Edit handbook entry", "Remove handbook entry"):
             self.category_box.configure(state="disabled")
@@ -191,7 +213,8 @@ class ManualGUI:
         if path is None:
             return
         self.selected_handbook_path = path
-        self.category_var.set(path.relative_to(manual.HANDBOOK_DIR).parts[0])
+        root = manual.handbook_dir(self.source_map[self.source_var.get()])
+        self.category_var.set(manual.handbook_category(path.relative_to(root)))
         self.title_var.set(self.handbook_title(path))
         self.summary_var.set("Updated handbook entry " + path.stem)
         if self.action.get() != "Remove handbook entry":
@@ -222,10 +245,14 @@ class ManualGUI:
         self.action_frame.rowconfigure(5, weight=1)
         self.action_frame.columnconfigure(1, weight=1)
         self.button("Save comment and rebuild", self.run_selected_action, row=6)
+        self.comment_source = tk.StringVar()
+        self.comment_source_box = ttk.Combobox(
+            self.action_frame, textvariable=self.comment_source, values=self.source_choices(),
+            state="readonly", width=55,
+        )
+        self.comment_source_box.bind("<<ComboboxSelected>>", lambda _event: self.load_comment_targets())
 
-    def comment_targets(self):
-        sources = self._target_sources
-        kind = self._target_kind
+    def comment_targets(self, kind, sources):
         found = {}
         for source in sources:
             if kind == "PCF":
@@ -238,23 +265,39 @@ class ManualGUI:
                 for path in manual.gather_inp_files(source / "OPT"):
                     key = "{}/{}".format(path.parent.name, path.name)
                     found[key] = key
-        if kind == "Handbook page":
-            for docs in manual.gather_handbook_sections(manual.HANDBOOK_DIR).values():
-                for doc in docs:
-                    found["{} — {}".format(doc.title, doc.path.relative_to(manual.HANDBOOK_DIR).as_posix())] = doc.path.relative_to(manual.HANDBOOK_DIR).as_posix()
+            elif kind == "Handbook page":
+                root = manual.handbook_dir(source)
+                for docs in manual.gather_handbook_sections(root).values():
+                    for doc in docs:
+                        label = "{} — {}".format(doc.title, doc.path.relative_to(root).as_posix())
+                        found[label] = manual.handbook_comment_target(doc.path)
         return found
 
     def load_comment_targets(self):
-        self.target_box.configure(values=("Loading targets…",))
-        self.target_var.set("Loading targets…")
-        self._target_kind = self.comment_kind.get()
-        self._target_sources = manual.read_configured_sources()
-        threading.Thread(target=self.comment_target_worker, daemon=True).start()
+        self.comment_target_request = None
+        self.target_map = {}
+        self.target_var.set("")
+        self.target_box.configure(values=())
+        kind = self.comment_kind.get()
+        if kind == "Handbook page":
+            self.comment_source_box.grid(row=0, column=1, sticky="ew", padx=8)
+            source = self.source_map.get(self.comment_source.get())
+            if source is None:
+                self.status.set("Select a GPSUSER for the handbook comment.")
+                return
+            sources = [source]
+        else:
+            self.comment_source_box.grid_remove()
+            sources = manual.read_configured_sources()
 
-    def comment_target_worker(self):
+        self.target_var.set("Loading targets…")
+        request = object()
+        self.comment_target_request = request
+        threading.Thread(target=self.comment_target_worker, args=(request, kind, sources), daemon=True).start()
+
+    def comment_target_worker(self, request, kind, sources):
         try:
-            found = self.comment_targets()
-            self.events.put(("targets", found))
+            self.events.put(("targets", (request, self.comment_targets(kind, sources))))
         except Exception as exc:
             self.events.put(("error", str(exc)))
 
@@ -279,6 +322,14 @@ class ManualGUI:
             if action == "Only publish to GitHub":
                 self.start_operation(publish_only=True)
                 return
+            password = os.environ.get(manual.DOWNLOAD_PASSWORD_ENV)
+            if not password:
+                password = simpledialog.askstring(
+                    "Download password", "Shared password for all GPSUSER downloads",
+                    show="*", parent=self.root,
+                )
+                if not password:
+                    return
             manual.ACTIVE_USER_NAME = self.user_name.get().strip() or manual.current_user_name()
             action_codes = {
                 "Only rebuild the manual": "a", "Add GPSUSER": "b1", "Remove GPSUSER": "b2",
@@ -308,7 +359,7 @@ class ManualGUI:
                 self.remove_handbook_entry()
             else:
                 return
-            self.start_operation()
+            self.start_operation(password=password)
         except ValueError as exc:
             messagebox.showerror("Check the details", str(exc))
         except OSError as exc:
@@ -325,8 +376,8 @@ class ManualGUI:
         if not ok:
             raise ValueError("This GPSUSER cannot be used: " + reason)
         sources = manual.read_configured_sources()
-        if path in sources:
-            raise ValueError("This GPSUSER is already configured.")
+        if any(manual.source_slug(path) == manual.source_slug(source) for source in sources):
+            raise ValueError("A GPSUSER with the same handbook folder name is already configured.")
         manual.write_configured_sources(sources + [path])
         return path
 
@@ -397,6 +448,8 @@ class ManualGUI:
         manual.append_handbook_history("deleted", "comment:" + target, "Deleted manual comment: " + title, str(path.relative_to(manual.ROOT)).replace(os.sep, "/"))
 
     def save_handbook_entry(self, action):
+        source = self.require_source()
+        root = manual.handbook_dir(source)
         category = self.category_var.get().strip()
         title = self.title_var.get().strip()
         if not category or not title:
@@ -406,7 +459,7 @@ class ManualGUI:
             if target is None:
                 raise ValueError("Select a handbook entry to edit.")
         else:
-            target = manual.HANDBOOK_DIR / category / (manual.safe_handbook_filename(title) + ".md")
+            target = manual.handbook_category_dir(root, category) / (manual.safe_handbook_filename(title) + ".md")
             if target.exists():
                 raise ValueError("This handbook entry already exists: " + str(target))
         body = self.editor.get("1.0", "end-1c")
@@ -418,6 +471,7 @@ class ManualGUI:
         manual.append_handbook_history("added" if action == "Add handbook entry" else "updated", rel, self.summary_var.get().strip() or default, rel)
 
     def remove_handbook_entry(self):
+        self.require_source()
         target = self.handbook_map.get(self.handbook_var.get())
         if target is None:
             raise ValueError("Select a handbook entry to remove.")
@@ -426,6 +480,7 @@ class ManualGUI:
         rel = manual.handbook_entry_relpath(target)
         target.unlink()
         manual.append_handbook_history("deleted", rel, "Removed handbook entry " + target.stem, rel)
+        self.build_handbook_fields(self.action.get())
 
     def append_log(self, text):
         self.log.configure(state="normal")
@@ -433,14 +488,14 @@ class ManualGUI:
         self.log.see("end")
         self.log.configure(state="disabled")
 
-    def start_operation(self, publish_only=False):
+    def start_operation(self, publish_only=False, password=None):
         self.publish_requested = publish_only or self.publish_var.get()
         self.active_user_name = self.user_name.get().strip() or manual.current_user_name()
         self.status.set("Publishing to GitHub…" if publish_only else "Building manual…")
         self.progress.start(12)
         if not publish_only:
             self.append_log("\n--- Build started ---\n")
-        self.worker = threading.Thread(target=self.run_operation, args=(publish_only,), daemon=True)
+        self.worker = threading.Thread(target=self.run_operation, args=(publish_only, password), daemon=True)
         self.worker.start()
 
     def run_process(self, command, env):
@@ -452,20 +507,16 @@ class ManualGUI:
     def build_manual(self, env):
         command = [sys.executable, "-u", str(Path(manual.__file__).resolve()), "--no-prompts"]
         update_source = getattr(self, "selected_update_source", None)
-        configured = manual.read_configured_sources()
-        if update_source is None or len(configured) <= 1:
-            return self.run_process(command, env)
-        branch = manual.OUTPUT_DIR / "sources" / manual.source_slug(update_source)
-        command.extend(["--source-dir", str(update_source), "--output-dir", str(branch)])
-        result = self.run_process(command, env)
-        if result == 0:
-            manual.write_multi_source_overview(manual.OUTPUT_DIR, configured)
-        return result
+        if update_source is not None:
+            command.extend(["--update-source", str(update_source)])
+        return self.run_process(command, env)
 
-    def run_operation(self, publish_only):
+    def run_operation(self, publish_only, password):
         env = os.environ.copy()
         env["DOCBUILDER_USER"] = self.active_user_name
         env["PYTHONUNBUFFERED"] = "1"
+        if password is not None:
+            env[manual.DOWNLOAD_PASSWORD_ENV] = password
         try:
             result = 0 if publish_only else self.build_manual(env)
             if result == 0 and self.publish_requested:
@@ -476,6 +527,7 @@ class ManualGUI:
                 if not publish_only:
                     self.events.put(("status", "Build complete. Publishing to GitHub…"))
                 self.events.put(("line", "\n--- GitHub publish started ---\n"))
+                env.pop(manual.DOWNLOAD_PASSWORD_ENV, None)
                 result = self.run_process(["bash", str(script)], env)
             self.events.put(("publish_done" if publish_only else "done", result))
         except Exception as exc:
@@ -490,8 +542,11 @@ class ManualGUI:
                     if value.strip() in ("Publishing source files...", "Scanning PCF, SCRIPT, OPT and handbook files...", "Rendering manual pages...", "Writing overview and final index..."):
                         self.status.set(value.strip())
                 elif kind == "targets":
-                    self.target_map = value
-                    labels = list(value.keys())
+                    request, targets = value
+                    if request is not self.comment_target_request:
+                        continue
+                    self.target_map = targets
+                    labels = list(targets)
                     self.target_box.configure(values=labels)
                     self.target_var.set(labels[0] if labels else "")
                     if not labels:
