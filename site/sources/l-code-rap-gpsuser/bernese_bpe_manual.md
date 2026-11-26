@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-11-26 08:55:06
+Generated: 2026-11-26 09:52:45
 
 ## Overview
 
@@ -37,6 +37,14 @@ The following notes belong to this GPSUSER.
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
+- 2026-11-26T09:50:21+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T09:43:01+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T09:43:01+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T09:42:57+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-11-26T09:34:14+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T09:34:14+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T09:34:13+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-11-26T08:56:36+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T08:52:36+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T08:44:59+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T08:44:58+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
@@ -49,14 +57,6 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 - 2026-11-26T07:14:25+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T07:13:38+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T07:11:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
-- 2026-11-26T07:11:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:11:26+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-11-26T07:11:12+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
-- 2026-11-26T07:11:12+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:11:10+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-11-26T07:10:31+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:08:18+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:06:50+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
 
 ## Quick Cross-Reference
 
@@ -830,10 +830,83 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 
 ### DCBIONO.PCF
 
-- Perform daily P1-C1 and P2-C2 DCB estimation
-
+- Description: - Perform daily P1-C1 and P2-C2 DCB estimation  
+  - Compute monthly DCB combinations for all regularly  
+  generated DCB products  
+  - Perform 1-day and 2-day ionosphere prediction  
+  - Create mean TEC plots  
+  - Create various ionosphere map plots  
+  - Generate CKMG IONEX product  
+  - Generate GPSG IONEX product  
+    
+  DCBIONO BPE processing summary file name: DNIyyssss.PRC
 - Author: S. Schaer
 - Created: 21-Dec-2011
+- Changes: 22-Dec-2011/ss: PRED_ION implemented  
+  04-Jan-2012/ss: DUMMY jobs added  
+  06-Jan-2012/ss: Reordered DCB jobs  
+  24-Aug-2012/ss: MAKE_UIF implemented  
+  28-Aug-2012/ss: DIST_ION implemented  
+  30-Aug-2012/ss: DNI_AUX implemented  
+  09-Oct-2012/ss: Switch from IGS08 to IGb08  
+  27-Nov-2012/ss: DNI_EXE skipped  
+  04-Mar-2013/ss: FRQ_LST implemented  
+  19-Jul-2013/rd,hb: V_OBSSEL added  
+  01-Nov-2013/rd,eo: SAT_1452 -&gt; SAT_NONE for V_SATINF  
+  18-Jul-2014/lp: CPU of MEANTEC changed to LONG  
+  05-Nov-2014/ss: Changed from Z3N to Z1N  
+  02-Jul-2015/lp: CPU of RNX2DCB changed to LONG  
+  24-Aug-2016/ss: COMB_OSB added  
+  15-Sep-2016/ss: COMB_BIA added  
+  30-Jan-2017 RD: V_PSDINF introduced  
+  30-Jan-2017 RD: Switch from IGB08 to IGS14  
+  03-May-2017 SS: V_BIACRX used for COMB_BIA  
+  15-Jun-2017 SS: REALIG sequence added  
+  16-Jun-2017 SS: MGEX_BIA added  
+  22-Jun-2017 SS: ION_LSTR and MEANTEC2 added (for REPRO_ION)  
+  29-Jun-2017 SS: JUMP_BIA added  
+  17-Aug-2017 SS: PLOT_BIA added  
+  04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced  
+  07-Feb-2018 SS: Start of MGEX_BIA after completion of BPE_BYE  
+  03-Oct-2018 SS: DIST_BIA added  
+  09-Oct-2018 SS: COMB_DCB running on LOCAL (to get DCB.Z)  
+  03-Jul-2019 SS: MAKERCKM added (for reprocessed results)  
+  21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD  
+  26-Sep-2019 SS: Modified COMB_BIA for inclusion of GRE rapid  
+                  results as of wk 2072  
+  01-Oct-2019 SS: WAIT_BIA added  
+  03-Feb-2020 RD: Switch from FES2004 to FES2014b  
+  18-May-2020 SS: Switched to IGb14  
+  24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna  
+  02-Dec-2020 AV: Run CDDIS-HTTPS on local (DIST_ION, MAKE_CKM,  
+                  MAKERCKM, MAKE_BIM)  
+  28-Jan-2021 SS: VERI_BIA added  
+  11-Apr-2021 ST: Switched CPU of PID 802 from LONG to EVER  
+  09-Sep-2021 ST/LP: Transform into the new PCF format  
+  09-Sep-2021 ST/LP: Reorder BPE server variables for reporting  
+  04-Nov-2021 SS: Added RNX2BIA  
+  28-Nov-2021 LP: Remove V_MACMOD  
+  27-Jan-2022 SS: Introduced RNX2DSB, RNX2FRQ, RXO_DEL, and  
+                  V_H = D1_  
+  31-Jan-2022 SS: Prepared for transition to new D1_yyssss.OSB  
+                  (relying on D11yyssss.DCB and D12yyssss.DCB)  
+  17-Mar-2022 SS: Removed RNX2DCB processes  
+  28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.  
+  29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF  
+  30-Mar-2022 SS: Changed SATCRX, SYSCRX  
+  27-Oct-2022 SS: Introduced V_PCC4MWGF  
+  06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC  
+  16-Jun-2023 RD: REALIIG_P and REALIX_P run on LONG (old LOCAL)  
+  27-Jun-2023 SS: Implemented OBS2SAT  
+  28-Jun-2023 SS: Implemented DSB_CHK  
+  02-Jul-2023 RD: REALIIG_P and REALIX_P run on EVER (old LONG)  
+  14-Jun-2024 SS: Added V_OBSSEL_C1C  
+  02-Feb-2025 EB: Change from IGS20 to IGB20  
+  26-Nov-2025 SS: Added V_DOI  
+  12-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20  
+  28-Jan-2026 SS: Added BPE_INI with V_INI=Y (PARAM1=-nopcv)  
+  19-May-2026 RD: Update V_DOIs  
+  21-May-2026 SS: Reactivated REALIGAP and start PLOT_BIA earlier
 - Source file: DCBIONO.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -1518,10 +1591,13 @@ _... 25 more variables omitted in this summary._
 
 ### PLOTS_RAPID.PCF
 
-Generate a series of plots based on RAPID products using the
-
+- Description: Generate a series of plots based on RAPID products using the  
+  pyPLT-tools  
+    
+  The results are located as eps and png in $P/PLOTS/FIG
 - Author: R. Dach
 - Created: 23-Jan-2024
+- Changes: 17-Jan-2025 EB: historical GMT rapid plots added
 - Source file: PLOTS_RAPID.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -1622,10 +1698,47 @@ Variables:
 
 ### PPPAR.PCF
 
-Determination of undifferenced widelane (WL) and narrowlane (NL) phase biases and resolution of undifferenced WL and NL phase ambiguities: - determination of WL phase biases - resolution of WL phase biases - determination of NL phase biases (using WL integers) - resolution of NL phase biases (using WL integers) - verification of ambiguity-fixed PPP solution - generation of a common WL/NL-combined bias file (containing a consistent set of code and phase biases)
-
+- Purpose: Determination of undifferenced widelane (WL) and narrowlane  
+  (NL) phase biases and resolution of undifferenced WL and NL  
+  phase ambiguities:  
+  - determination of WL phase biases  
+  - resolution of WL phase biases  
+  - determination of NL phase biases (using WL integers)  
+  - resolution of NL phase biases (using WL integers)  
+  - verification of ambiguity-fixed PPP solution  
+  - generation of a common WL/NL-combined bias file  
+  (containing a consistent set of code and phase biases)  
+    
+  PPPAR BPE processing summary file name: IARyyssss.PRC  
+    
+  Remark:
 - Author: S. Schaer
 - Created: 14-May-2018
+- Changes: 15-May-2018/ss: Changed IZD to IAR  
+  22-May-2018/ss: Added SKIP_WL  
+  30-May-2018/ss: Redefined V_A, V_B, V_C  
+  05-Jun-2018/ss: Used V_SAMPLE for NL AR (and verification)  
+  08-Jun-2018/ss: Used V_MINEL  
+  04-Jul-2018/ss: Added WAIT (for manual interaction)  
+  07-Aug-2018/ss: Added V_HOIINF and V_VMFINF  
+  22-Aug-2018/ss: Added V_BIAINF  
+  21-Aug-2019 RD: Add V_BLQINF, V_ATLINF, V_MEANPL, V_SUBMOD, V_NUTMOD  
+  03-Feb-2020 RD: Switch from FES2004 to FES2014b  
+  21-Oct-2020 AV: Add V_REPRO for alternative savedisk  
+  22-Oct-2020 AV: V_MODE: Processing scheme identifier  
+  07-Dec-2020 RD: Add PCF variable V_TRPMOD  
+  11-Jul-2021 LP: Switch TRPMOD GMF-&gt;GPT3  
+  16-Sep-2021 ST: Transform into the new PCF format  
+                  Reorder BPE server variables for reporting  
+  28-Nov-2021 LP: Remove V_MACMOD  
+  28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.  
+  29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF, BOXWING  
+  03-Nov-2022 SS: Introduced V_PCC4MWGF  
+  06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC  
+  09-Dec-2022 LP: Switch to IGS20; add V_STAINF  
+  20-Mar-2023 ST: Put parallel jobs with CPU=SHORT to CPU=FOX.  
+  27-Nov-2025 SS: Introduced V_DOI  
+  25-Aug-2026 RD: Correct syntax for CARDS (&quot;/&quot;-&gt;&quot; &quot; between elements)
 - Source file: PPPAR.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -1709,10 +1822,45 @@ _... 3 more variables omitted in this summary._
 
 ### PPPAR1.PCF
 
-Determination of undifferenced widelane (WL) and narrowlane (NL) phase biases and resolution of undifferenced WL and NL phase ambiguities: - determination of WL phase biases - resolution of WL phase biases - determination of NL phase biases (using WL integers) - resolution of NL phase biases (using WL integers) - verification of ambiguity-fixed PPP solution - generation of a common WL/NL-combined bias file (containing a consistent set of code and phase biases)
-
+- Purpose: Determination of undifferenced widelane (WL) and narrowlane  
+  (NL) phase biases and resolution of undifferenced WL and NL  
+  phase ambiguities:  
+  - determination of WL phase biases  
+  - resolution of WL phase biases  
+  - determination of NL phase biases (using WL integers)  
+  - resolution of NL phase biases (using WL integers)  
+  - verification of ambiguity-fixed PPP solution  
+  - generation of a common WL/NL-combined bias file  
+  (containing a consistent set of code and phase biases)  
+    
+  PPPAR BPE processing summary file name: IAR_yyyyssss.PRC  
+    
+  Remark:
 - Author: S. Schaer
 - Created: 14-May-2018
+- Changes: 15-May-2018/ss: Changed IZD to IAR  
+  22-May-2018/ss: Added SKIP_WL  
+  30-May-2018/ss: Redefined V_A, V_B, V_C  
+  05-Jun-2018/ss: Used V_SAMPLE for NL AR (and verification)  
+  08-Jun-2018/ss: Used V_MINEL  
+  04-Jul-2018/ss: Added WAIT (for manual interaction)  
+  07-Aug-2018/ss: Added V_HOIINF and V_VMFINF  
+  22-Aug-2018/ss: Added V_BIAINF  
+  21-Aug-2019 RD: Add V_BLQINF, V_ATLINF, V_MEANPL, V_SUBMOD, V_NUTMOD  
+  07-Feb-2020 RD: Switch from FES2004 to FES2014b  
+  07-Feb-2020 RD: V_MACMOD: Compatibility -&gt; Macromodel  
+  21-Oct-2020 AV: Add V_REPRO for alternative savedisk  
+  22-Oct-2020 AV: V_MODE: Processing scheme identifier  
+  05-Jul-2021 LP: Add V_TRPMOD  
+  16-Sep-2021 ST: Transform into the new PCF format  
+  Reorder BPE server variables for reporting  
+  28-Nov-2021 LP: Remove option V_MACMOD  
+  28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.  
+  29-Mar-2022 AV: Modified variables  
+  03-Nov-2022 SS: Introduced V_PCC4MWGF  
+  06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC  
+  08-Dec-2022 LP: Switch to IGS20; add V_STAINF  
+  28-Mar-2023 RD/EB: Put parallel jobs with CPU=SHORT to CPU=QUICK/FOX
 - Source file: PPPAR1.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -1797,6 +1945,48 @@ _... 6 more variables omitted in this summary._
 ### RAPIONO.PCF
 
 - Created: 22-Apr-2002/SS
+- Notes: 03-Feb-2003/SS: Rapid ionosphere estimation outsourced  
+  31-Aug-2004/RD: Adapt to the new CPU file  
+  09-Sep-2004/SS: Upload IONEX results to CDDIS (GIR_FTP)  
+  04-Apr-2005/SS: BPE_BYE as last process added  
+  03-Aug-2007/MM: V_UPD, V_SAV, V_DEL, V_DIS introduced  
+  19-May-2009/RD: V_NCLU introduced  
+  18-Apr-2011/SS: Switch from IGS05 to IGS08  
+  09-Oct-2012/ss: Switch from IGS08 to IGb08  
+  19-Jul-2013/rd,hb: V_OBSSEL added  
+  01-Nov-2013/rd,eo: SAT_1452 -&gt; SAT_NONE for V_SATINF  
+  10-Jun-2014/ss: Introduced V_SNXINF  
+  16-Oct-2014/ss: Rewritten IONMRG (derived from IONMRG.BDS)  
+  22-Oct-2014/ss: Redesigned using GIMCLU, MRG_ION, CLN_ION, etc.  
+  17-Sep-2015/ss: Added GIRXTR  
+  22-Apr-2016/ss: Added ADDNEQ2 NEQ reduction step in GIMCLU  
+  18-May-2016/ss: Modifications due to OSB parameterization  
+  24-May-2016/ss: Added GIR_UPD  
+  25-May-2016/ss: Added additional bias solutions (ADDNEQ2)  
+  21-Sep-2016/av: V_PSDINF introduced  
+  30-Jan-2017 RD: Switch from IGB08 to IGS14  
+  04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced  
+  21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD  
+  23-Sep-2019 SS: Enabled GRE in GPSEST of GIMEDT_P and GIMCLU_P  
+  03-Feb-2020 RD: Switch from FES2004 to FES2014b  
+  18-May-2020 SS: Switched to IGb14  
+  24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna  
+  02-Dec-2020 AV: Run CDDIS-HTTPS on local (GIR_FTP)  
+  09-Sep-2021 ST/LP: Transform into the new PCF format  
+  09-Sep-2021 ST/LP: Reorder BPE server variables for reporting  
+  28-Nov-2021 LP: Remove V_MACMOD  
+  28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.  
+  29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF, BOXWING  
+  26-Oct-2022 SS: Introduced V_PCC4MWGF  
+  02-Nov-2022 SS: Redefined V_GNSS from GR to GRE  
+  06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC  
+  20-Mar-2023 ST: Put CPU=LOCAL for GIMEDTAP.  
+                  Put CPU=QUICK for GIMEDT_P.  
+  02-Feb-2025 EB: Change from IGS20 to IGB20  
+  26-Nov-2025 SS: Added V_DOI  
+  12-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20  
+  28-Jan-2026 SS: Added BPE_INI with V_INI=Y (PARAM1=-nopcv)  
+  19-May-2026 RD: Update V_DOIs
 - Source file: RAPIONO.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -1882,10 +2072,103 @@ _... 3 more variables omitted in this summary._
 
 ### RCLKGNSS.PCF
 
-- Computes the receiver and satellite clock corrections
-
+- Description: - Computes the receiver and satellite clock corrections  
+    based on the observation data from a global GNSS network.  
+  - The orbits, ERPs, and (as far as available) station  
+    coordinates are taken from the IGSRAPID campaign.  
+  - The results are provided in clock RINEX format.  
+    In addition, the SP3 file in the IGSRAPID campaign is  
+    completed by the satellite clock corrections.  
+    
+  RCLKGNSS BPE processing summary file name: CLKyyssss.PRC
+- Comments: - BPEs may run in parallel for several sessions  
+    (WAIT_BPE makes sure that the BPEs keep the order of  
+    the sessions where it is necessary)  
+    
+  Flag files :  REPROCESSING.FLG  
+  - runs a single day independent from all other days  
+  - the input data are taken from $CAMP_SAVREP  
+  - the results are put there too, and labelled with the  
+       second line of the REPROCESSING.FLG file  
+  GLO_ONE_CLUST.FLG  
+  - if this file exists, all GLONASS stations are processed  
+       together in one cluster (the other clusters are  
+       analyzed in the GPS-only mode).
 - Author: R. Dach
 - Created: 13-May-2009
+- Changes: 09-Oct-2012/ss: Switch from IGS08 to IGb08  
+  19-Jul-2013/rd,hb: V_OBSSEL added  
+  01-Nov-2013/rd,eo: SAT_1452 -&gt; SAT_NONE for V_SATINF  
+  06-Jun-2014 SS: Use of middle day (if available)?  
+  18-Sep-2014 LP: Change V_GNSS  
+  06-Jul-2015 SS: Save .BIA results (CBS, CBF, TP_)  
+  03-Aug-2015 SS: RCLKGNSS activated as operational CLKRAPID  
+  16-Sep-2015 SS: Execute INIT_HOI/INIT_VMF after each RCLKWAIT  
+  20-Oct-2015 LP: Take extra manual SATMRK from CLKRAPID  
+  31-May-2016 SS/AV: Updated due to OSB implementation  
+  13-Sep-2016 SS: Create CBR bias results  
+  15-Sep-2016 SS: Added RAP_BIA for clock/iono bias combination  
+  21-Sep-2016 AV: V_PSDINF introduced  
+  28-Sep-2016 SS: Added second call of RAP_BIA  
+  10-Oct-2016 RD/AV: Remove Section with compatible attitude modelling  
+  30-Jan-2017 RD: Switch from IGB08 to IGS14  
+  04-Mar-2017 AV: FILEST amd SATMON added  
+  04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced  
+  30-May-2018 SS: Added V_IAR  
+  04-Jun-2018 SS: Added INIT_IAR and DO_PPPAR  
+  21-Jun-2018 SS: Added ZERO_AR verification sequence  
+  22-Jun-2018 SS: Simplified params $tmpnnn to $nnn  
+  05-Jul-2018 SS: Moved INIT_IAR step  
+  09-Jul-2018 SS: Changed DO_PPPAR PARAM4 from 1 to 0  
+  10-Jul-2018 SS: Changed DO_PPPAR PARAM4 from 0 to 1  
+                  (temporary $mscrc/IAR.FLG with 0)  
+  16-Jan-2019 SS: Added WAIT  
+  21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD  
+  14-Nov-2019 AV: Add V_SAVDSK  
+  03-Feb-2020 RD: Switch from FES2004 to FES2014b  
+  18-May-2020 SS: Switched to IGb14  
+  02-Oct-2020 SS: Added CCRNXC verification step (SAT_CHK)  
+  21-Oct-2020 AV: Add V_ARMODE  
+  24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna  
+  02-Dec-2020 AV: Run CDDIS-HTTPS on local (IGSR_FTP)  
+  07-Dec-2020 RD: Add PCF variable V_TRPMOD  
+  18-Mar-2021 AV: Replace IGSR_FTP with IGSR_DIS  
+  30-Jun-2021 SS: Added extra SATMRK to cope with new G11  
+  11-Jul-2021 LP: Switch TRPMOD GMF-&gt;GPT3  
+  02-Sep-2021 RD: Transform into the new PCF format  
+  02-Sep-2021 RD/ST: Reorder BPE server variables for reporting  
+  27-Sep-2021 RD/AV: V_SP3INT added (sampling in STDPRE)  
+  28-Sep-2021 RD: Switch V_SP3INT from 900 to 300 (for Galileo)  
+  28-Nov-2021 LP: Remove V_MACMOD  
+  28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.  
+  29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF, BOXWING  
+  27-Oct-2022 SS: Introduced V_PCC4MWGF  
+  03-Nov-2022 AV: Add RINEX3 clock  
+  28-Nov-2022 AV: Switch from IGb14 to IGS20  
+                  Change IGSR_DIS to IGSR_DI2  
+  06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC  
+  20-Mar-2023 ST: Put CPU=LOCAL for CODSPPAP, CODSPPCP, FILESTAP,  
+                  GLOESTAP, MAUPRPAP, MRKOBSAP, RNXSMTAP, TIMESTAP.  
+                  Put parallel jobs with CPU=SHORT to CPU=QUICK.  
+  08-May-2023 LP: Add V_GRAVMOD; replace EGM2008_SMALL -&gt; COSTG_FSM_2212  
+  20-Sep-2023 SS: Updated V_GRAVMOD to COSTG_FSM_2303  
+  11-Dec-2023 RD: Add script DELALL to clean old files from the campaign  
+  09-Jan-2024 LP: Updated V_GRAVMOD to COSTG_FSM_2309  
+  03-Sep-2024 LP: Updated V_GRAVMOD to COSTG_FSM_2312  
+  25-Sep-2024 RD: Add OBSXTR for edit and ambres  
+  22-Oct-2024 MK: Updated V_GRAVMOD to COSTG_FSM_2406  
+  02-Feb-2025 EB: Change from IGS20 to IGB20  
+  28-Aug-2025 ML/CK: Updated V_GRAVMOD to COSTG_FSM_2412  
+  28-Aug-2025 SS: PID 191 should also wait for PID 152 (CBF)  
+  19-Sep-2025 EB: Updated V_GRAVMOD to COSTG_FSM_2503  
+  26-Nov-2025 SS: Added V_DOI  
+  12-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20  
+  17-Jan-2026 SS: Added BPE_INI with PARAM1=-nopcv  
+  28-Jan-2026 SS: Added V_INI=Y  
+  23-Feb-2026 EB: Updated V_GRAVMOD to COSTG_FSM_2509  
+  19-May-2026 RD: Update V_DOIs  
+  06-Jul-2026 SS: Updated V_GRAVMOD to COSTG_FSM_2603  
+  25-Aug-2026 RD: Correct syntax for CARDS (&quot;/&quot;-&gt;&quot; &quot; between elements)
 - Source file: RCLKGNSS.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -2068,9 +2351,27 @@ _... 8 more variables omitted in this summary._
 
 ### SLRPRED.PCF
 
-Compute predictions for GPS/GLONASS for ILRS (CPF)
-
+- Description: Compute predictions for GPS/GLONASS for ILRS (CPF)
 - Author: C. Urschl
+- Changes: 10-Jun-2009 DT: BPE_CLN added  
+  03-Jan-2011 DT: V_RERUN added  
+  10-May-2011 DT: I05 -&gt; I08  
+  31-May-2011 DT: Add CPF_AFTP  
+  01-Mar-2012 DT: Add NEXTJOB if no orbit available  
+  18-Jul-2013 CB: added files to clean up to script CPF_DEL  
+  27-Oct-2017 UM: Change the sat-info file  
+  22-Aug-2019 RD: Add V_MEANPL, V_SUBMOD, V_NUTMOD  
+  03-Feb-2020 UM: V_VCPF added to define version of CPF files  
+  24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna  
+  03-Dec-2020 RD: Switch special CPU off again: SEDNA-&gt;LOCAL  
+  16-Sep-2021 ST/UM: Transform into the new PCF format  
+  Reorder BPE server variables for reporting  
+  28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.  
+  24-Feb-2026 RD: Rearrange PIDs  
+  24-Feb-2026 RD: Add SP3CPF with hardwired SVN G082  
+  25-Mar-2026 RD: Deactivate the special G20 prediction  
+  28-Oct-2026 SS: Removed CAMPAGIN=SLRPRED  
+  29-Oct-2026 SS: Changed V_SUBMOD from IERS2020XY to DESAI2016
 - Source file: SLRPRED.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -2112,10 +2413,19 @@ Variables:
 
 ### SUPERBPE.PCF
 
-This is a skeleton for the SUPERBPE. The SUPERBPE runs a
-
+- Description: This is a skeleton for the SUPERBPE. The SUPERBPE runs a  
+  process control file (PCF) for several sessions in parallel  
+  (PID 101 and 102). The scripts to start the corresponding  
+  BPE-servers are SBPEAP resp. SBPE_P.  
+  The advantage to use a SUPERBPE in contrast to the &#x27;Simple  
+  parallel multi session run&#x27; is that you can add other scripts  
+  before (e.g., PID 001) and/or after (e.g., PID 999) the  
+  parallel processing part.
 - Author: R. Dach
 - Created: 17-Oct-2003
+- Changes: 23-Feb-2004: Prepared for release V5.0  
+  09-Sep-2021 ST/LP: Transform into the new PCF format  
+  09-Sep-2021 ST/LP: Reorder BPE server variables for reporting
 - Source file: SUPERBPE.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -2145,21 +2455,50 @@ Variables:
 - Source file: .gmtdefaults4 (download from the HTML manual)
 ### ADDNEQ2
 
-- Purpose: Combine NQ0-files Programs:  ADDNEQ2, GPSXTR
+- Name: ADDNEQ2
+- Purpose: Combine NQ0-files  
+    
+  Programs:  ADDNEQ2, GPSXTR
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `ADDNEQ2`, `GPSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RAPIONO.PCF, RCLKGNSS.PCF
 - INP files: `ADDNEQ2.INP`, `GPSXTR.INP`
 - Source file: ADDNEQ2 (download from the HTML manual)
 ### ADDNEQ2L
 
-- Purpose: Compare bernese neqs of last 90 days Programs:  ADDNEQ2
+- Name: ADDNEQ2L
+- Purpose: Compare bernese neqs of last 90 days  
+    
+  Programs:  ADDNEQ2
+- Author: E. Brockmann
+- Created: 19-Aug-2025
+- Changes: 19-Aug-2025 EB: Started
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ADDNEQ2.INP`
 - Source file: ADDNEQ2L (download from the HTML manual)
 ### ADDNEQ2M
 
-- Purpose: Combine NQ0 files to generate a n-day solution Programs:  ADDNEQ2, GPSXTR
+- Name: ADDNEQ2M
+- Purpose: Combine NQ0 files to generate a n-day solution  
+    
+  Programs:  ADDNEQ2, GPSXTR
+- Parameters: PARAM1 - Solution variable name  
+  PARAM2 - Third character of solution name (optionally)  
+  PARAM3 - Minus day for TRP FLG check (optionally)  
+  PARAM4 - Plus  day for TRP FLG check (optionally)  
+  PARAM5 - Extra day to be saved (e.g. -1 for rapid analysis)  
+  PARAM6 - Plus  day for day range to be saved (default: PARAM5)  
+    
+  Remark  :  ELE file of current (+0) day saved automatically
+- Author: M. Meindl, S. Schaer
+- Created: 30-Jul-2003
+- Changes: 31-Dec-2014/ss: Derived from ADDNEQ2N (for middle day)  
+  07-Dec-2020 RD: transition from VMF-&gt;GMF for IGSRAPID on 20-341  
+  07-Jul-2021 LP: transition from GMF-&gt;GPT3 for IGSRAPID on 21-192
 - Bernese programs: `ADDNEQ2`, `GPSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ADDNEQ2.INP`, `GPSXTR.INP`, `ADDNEQ2.INP`, `GPSXTR.INP`
@@ -2170,7 +2509,28 @@ Variables:
 - Source file: ADDNEQ2M (download from the HTML manual)
 ### ADDNEQ2N
 
-- Purpose: Combine NQ0 files to generate a n-day solution Programs:  ADDNEQ2, GPSXTR
+- Name: ADDNEQ2N
+- Purpose: Combine NQ0 files to generate a n-day solution  
+    
+  Programs:  ADDNEQ2, GPSXTR
+- Parameters: PARAM1 - Solution variable name  
+  PARAM2 - Third character of solution name (optionally)  
+  PARAM3 - Minus day for TRP FLG check (optionally)  
+  PARAM4 - Plus  day for TRP FLG check (optionally)  
+  PARAM5 - Extra day to be saved (e.g. -1 for rapid analysis)  
+  PARAM6 - Plus  day for day range to be saved (default: PARAM5)  
+    
+  Remark  :  ELE file of current (+0) day saved automatically
+- Author: M. Meindl, S. Schaer
+- Created: 30-Jul-2003
+- Changes: 07-Oct-2010/ss: Adapted for final processing  
+  07-Oct-2010/ss: Consider TRP FLG files of three days  
+  03-Oct-2012/ss: Several generalizations  
+  04-Oct-2012/ss: Further developed and activated for FIN/RAP/ULT  
+  28-Jul-2016 av: Add IGSULTRA pcf name  
+  17-Sep-2019 av: Use regex for IGSULTRA  
+  07-Dec-2020 RD: transition from VMF-&gt;GMF for IGSRAPID on 20-341  
+  07-Jul-2021 LP: transition from GMF-&gt;GPT3 for IGSRAPID on 21-192
 - Bernese programs: `ADDNEQ2`, `GPSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ADDNEQ2.INP`, `GPSXTR.INP`, `ADDNEQ2.INP`, `GPSXTR.INP`
@@ -2182,7 +2542,23 @@ Variables:
 - Source file: ADDNEQ2N (download from the HTML manual)
 ### ADDNEQ2T
 
-- Purpose: Combine NQ0 files to generate a n-day solution Programs:  ADDNEQ2, GPSXTR
+- Name: ADDNEQ2T
+- Purpose: Combine NQ0 files to generate a n-day solution  
+    
+  Programs:  ADDNEQ2, GPSXTR
+- Parameters: PARAM1 - Solution variable name  
+  PARAM2 - Third character of solution name (optionally)  
+  PARAM3 - Minus day for TRP FLG check  
+  PARAM4 - Plus  day for TRP FLG check
+- Author: M. Meindl, S. Schaer
+- Created: 30-Jul-2003
+- Changes: 07-Oct-2010/ss: Adapted for final processing  
+  07-Oct-2010/ss: Consider TRP FLG files of three days  
+  03-Oct-2012/ss: Several generalizations  
+  04-Oct-2012/ss: Further developed and activated for FIN/RAP/ULT  
+  26-Mar-2020/ss: Set TRP_EXST/GRD_EXST to 0 if necessary  
+  07-Dec-2020 RD: transition from VMF-&gt;GMF for IGSRAPID on 20-341  
+  07-Jul-2021 LP: transition from GMF-&gt;GPT3 for IGSRAPID on 21-192
 - Bernese programs: `ADDNEQ2`, `GPSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ADDNEQ2.INP`, `GPSXTR.INP`, `ADDNEQ2.INP`, `GPSXTR.INP`
@@ -2193,7 +2569,22 @@ Variables:
 - Source file: ADDNEQ2T (download from the HTML manual)
 ### ADDNEQ2U
 
-- Purpose: Combine NQ0 files to generate a n-day solution (ultra-mode) Programs:  ADDNEQ2, GPSXTR
+- Name: ADDNEQ2U
+- Purpose: Combine NQ0 files to generate a n-day solution (ultra-mode)  
+    
+  Programs:  ADDNEQ2, GPSXTR
+- Parameters: PARAM1 - Solution variable name  
+  PARAM2 - Third character of solution name (optionally)  
+  PARAM3 - Minus day for TRP FLG check  
+  PARAM4 - Plus  day for TRP FLG check
+- Author: S. Lutz
+- Created: 11-Sep-2013
+- Changes: 12-Sep-2013 SL: Use &amp;gtUltVrs  
+  30-Jun-2015 SS: Activated leapsec_erp.com  
+  10-Jul-2015 SS: Deactivated leapsec_erp.com  
+  15-Nov-2016 SS: Acticated again leapsec_erp.com (for 2017-01-01)  
+  07-Dec-2020 RD: transition from VMF-&gt;GMF for IGSRAPID on 20-341  
+  07-Jul-2021 LP: transition from GMF-&gt;GPT3 for IGSRAPID on 21-192
 - Bernese programs: `ADDNEQ2`, `GPSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ADDNEQ2.INP`, `GPSXTR.INP`, `ADDNEQ2.INP`, `GPSXTR.INP`
@@ -2204,7 +2595,19 @@ Variables:
 - Source file: ADDNEQ2U (download from the HTML manual)
 ### AMBVER_P
 
+- Name: AMBVER_P
 - Purpose: Perform ambiguity verification
+- Parameters: PARAM1 - 4-character baseline name
+- Author: S. Schaer
+- Created: 20-Sep-2010
+- Changes: 22-Sep-2010/ss: Adapted from EPNFINAL to IGSFINAL/IGSRAPID  
+  24-Sep-2010/ss: Error prevention in case of $rms==0.0000  
+  01-Mar-2011/ss: Maximum ratio form 1.5 to 1.7  
+  07-May-2012/ss: Send message just in case of very serious problem  
+  30-Sep-2014 lp: New GNSS selection using setGNSS, remove $v_gnssar  
+  11-Nov-2019 av: Use sub to extract RMS  
+  12-Nov-2020 av: Thread baselines with &lt;10 GLO ambiguities as bad RMS  
+  08-Aug-2023 eb: re-init ambiguities in case of big rms
 - Bernese programs: `GPSEST`, `SATMRK`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`, `SATMRK.INP`
@@ -2218,7 +2621,14 @@ Variables:
 - Source file: AMBVER_P (download from the HTML manual)
 ### AMBVERAP
 
-- Purpose: Prepare parallel ambiguity verification process for a set of baselines selected by BASLST
+- Name: AMBVERAP
+- Purpose: Prepare parallel ambiguity verification process for a set of  
+  baselines selected by BASLST
+- Author: S. Schaer
+- Created: 20-Sep-2010
+- Changes: 21-Sep-2010/ss: Remove VER PRC file  
+  22-Sep-2010/ss: Adapted from EPNFINAL to IGSFINAL/IGSRAPID  
+  24-Sep-2010/ss: Added ULTRA mode
 - Bernese programs: `BASLST`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `BASLST.INP`
@@ -2230,7 +2640,13 @@ Variables:
 - Source file: AMBVERAP (download from the HTML manual)
 ### AMBXTR
 
-- Purpose: Generate summary of the paralel ambiguity fixing Programs:  GPSXTR
+- Name: AMBXTR
+- Purpose: Generate summary of the paralel ambiguity fixing  
+    
+  Programs:  GPSXTR
+- Author: M. Meindl
+- Created: 27-Jan-2005
+- Changes: 02-Oct-2017 SS: Added NLR summary
 - Bernese programs: `GPSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSXTR.INP`, `GPSXTR.INP`
@@ -2240,7 +2656,15 @@ Variables:
 - Source file: AMBXTR (download from the HTML manual)
 ### ARC_CHK
 
+- Name: ARC_CHK
 - Purpose: Programs:
+- Author: M. Meindl
+- Created: 21-Aug-2003
+- Last modified: 29-Mar-2005
+- Changes: 10-Feb-2005 mm: Remove old date variables  
+  29-Mar-2005 ss: Bugfix: $dddd replaced by $yyyy  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX  
+  18-Mar-2022 RD/AV: add strict
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y`, `$Y+0`, `EXT_SATCRUX`, `PTH_SATCRUX`
@@ -2248,7 +2672,20 @@ Variables:
 ### ARCFIT_P
 
 - Package: `RCFIT_P`
-- Purpose: Parallel orbgen with different arc lengths Programs:  ORBGEN (DEFXTR, STDPRE)
+- Name: ARCFIT_P
+- Purpose: Parallel orbgen with different arc lengths  
+    
+  Programs:  ORBGEN (DEFXTR, STDPRE)
+- Author: M. Meindl
+- Created: 31-Jul-2003
+- Last modified: 30-Mar-2006
+- Changes: 29-Aug-2003 mm/ss: Special ORBGEN implemented  
+  01-Sep-2003 mm: Some new (1.5, 2.5, 3.5) solutions  
+  08-Sep-2003 mm/ss: Completely revised  
+  10-Feb-2005 mm : Old date variables removed  
+  30-Mar-2006 mm : setPlusMinus replaced by setMinusPlus  
+  03-SEP-2019 DS: call updMacMod to update BOXWING.MAC with ECOM  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX
 - Bernese programs: `ORBGEN`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`, `STDPRE.INP`
@@ -2257,14 +2694,26 @@ Variables:
 - Source file: ARCFIT_P (download from the HTML manual)
 ### ARCFITAP
 
+- Name: ARCFITAP
 - Purpose: Programs:  Prepare parallel ORBGEN runs for 1 to $V_ARCFIT days
+- Author: M. Meindl
+- Created: 31-Jul-2003
+- Changes: 01-Sep-2003 mm: Some new solutions (1.5, 2.5, 3.5)  
+  08-Sep-2003 ss: 3.5 solution removed  
+  26-Jan-2005 mm: new initPar call (w/o tmpFil)  
+  09-Dec-2023 SS: Handle constellation change (switch between R25 and R26)  
+  24-Jan-2025 SS: Handle constellation change (from R26 to R06)
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$JD+0`, `DIR_OUT`, `DIR_PRE`
 - Source file: ARCFITAP (download from the HTML manual)
 ### ATL_REF
 
+- Name: ATL_REF
 - Purpose: Execute GRDS1S2 and update created file in REF if indicated
+- Author: S. Schaer
+- Created: 22-Feb-2012
+- Changes: __-___-____/__:
 - Bernese programs: `GRDS1S2`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GRDS1S2.INP`
@@ -2274,7 +2723,13 @@ Variables:
 - Source file: ATL_REF (download from the HTML manual)
 ### ATTXTR
 
-- Purpose: Report the attitude in ORBEX format Programs:  ATTXTR
+- Name: ATTXTR
+- Purpose: Report the attitude in ORBEX format  
+    
+  Programs:  ATTXTR
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 24-Nov-2022 SS: Retrieved second midnight epoch
 - Bernese programs: `ATTXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ATTXTR.INP`, `ATTXTR.INP`
@@ -2283,7 +2738,19 @@ Variables:
 - Source file: ATTXTR (download from the HTML manual)
 ### ATX2EPN
 
+- Name: ATX2EPN
 - Purpose: Update PCV_COD.E08 using ATX2PCV
+- Author: A. Gaede
+- Created: 06-Aug-2007
+- Changes: 06-Aug-2007/ag: A2P_EPN derived from PCV_EPN  
+  09-Oct-2012/ss: Use STAINF variable  
+  15-Oct-2014/ss: Revised  
+  18-Nov-2014/ss: Consider V_PCVE (no longer EPNC.ATX)  
+  30-Jan-2017/av: Optional pcve selection (param1)  
+  02-Feb-2017/av/rd: Optional pcv selection (param2), setUserVar  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_PHASECC  
+  04-Apr-2022 AV: Corrected PCV file name
+- Notes: External packages
 - Bernese programs: `ATX2PCV`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `$PGMNAM.INP`, `ATX2PCV.INP`
@@ -2294,7 +2761,20 @@ Variables:
 - Source file: ATX2EPN (download from the HTML manual)
 ### ATX2IGS
 
+- Name: ATX2IGS
 - Purpose: Update PCV_COD.I08 using ATX2PCV
+- Author: A. Gaede
+- Created: 20-Jul-2007
+- Changes: 14-Feb-2008 RD: Extend the script for different PCV models  
+  09-Oct-2012/ss: Use STAINF variable  
+  01-Nov-2012/lp: Update BSWUSER52, too  
+  07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER  
+  15-Oct-2014/ss: Revised  
+  13-Jan-2017/av: Optional pcv selection (param1)  
+  16-Jan-2017/av: Activated gen2bswuser.com also for param1  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_PHASECC  
+  29-Mar-2022 AV: GEN path splitted to MODEL/CONFIG  
+  27-Sep-2022 AV: Add gen2bswuser54
 - Bernese programs: `ATX2PCV`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ATX2PCV.INP`, `ATX2PCV.INP`
@@ -2305,7 +2785,17 @@ Variables:
 - Source file: ATX2IGS (download from the HTML manual)
 ### BPE_BYE
 
+- Name: BPE_BYE
 - Purpose: Create BPE-specific BYE file for extra process watcher
+- Parameters: PARAM1 - number of hours between BPE runs (default: 24)  
+  PARAM2 - keyword for alerting (default: BPE)  
+  PARAM3 - SES, DOW, EOW to flag session, day of week, or end of  
+           week (default: blank)
+- Author: S. Schaer
+- Created: 04-Apr-2005
+- Changes: 07-Apr-2005/ss: Consider PARAM3  
+  22-Jul-2008 PS/RD: prepare for reprocesing  
+  17-Jan-2022 RD/AV: Relocate $X/MSC-&gt;$MSC (${C}/AIUB/MSC)
 - Used in PCFs: DCBIONO.PCF, DEBUG_SS.PCF, IGSRAPID.PCF, IGSULTRA.PCF, PLOTS_RAPID.PCF, RAPIONO.PCF, RCLKGNSS.PCF, SLRPRED.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
@@ -2313,7 +2803,11 @@ Variables:
 - Source file: BPE_BYE (download from the HTML manual)
 ### BPE_CLN
 
+- Name: BPE_CLN
 - Purpose: Clean BPE subdirectory
+- Author: S. Schaer
+- Created: 16-Feb-2004
+- Changes: 08-Jul-2005/ss: m90 variables added
 - Used in PCFs: DCBIONO.PCF, PLOTS_RAPID.PCF, PPPAR.PCF, PPPAR1.PCF, SLRPRED.PCF
 - Read keys:
   - Other keys: `$S-(15)`, `$S-(90)`, `$YSS-(15)`, `$YSS-(90)`, `DIR_BPELOG`, `DIR_BPEPRT`, `EXT_BPELOG`, `EXT_BPEPRT`, `TASKID`
@@ -2321,14 +2815,27 @@ Variables:
 - Source file: BPE_CLN (download from the HTML manual)
 ### CCRNXC
 
-- Purpose: Concatinate and combine clock RINEX files Programs:  CCRNXC
+- Name: CCRNXC
+- Purpose: Concatinate and combine clock RINEX files  
+    
+  Programs:  CCRNXC
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `CCRNXC`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CCRNXC.INP`
 - Source file: CCRNXC (download from the HTML manual)
 ### CCRNXO_P
 
-- Purpose: Parallel CCRNXO Programs:  CCRNXO
+- Name: CCRNXO_P
+- Purpose: Parallel CCRNXO  
+    
+  Programs:  CCRNXO
+- Author: A. Villiger
+- Created: 16-Apr-2018
+- Changes: 13-Aug-2021 RD: Use individual SYSOUT names instead of the generic one
 - Bernese programs: `CCRNXO`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `CCRNXO.INP`, `CCRNXO.INP`
@@ -2340,7 +2847,20 @@ Variables:
 - Source file: CCRNXO_P (download from the HTML manual)
 ### CCRNXOAP
 
-- Purpose: Prepare merging of hourly files Programs:
+- Name: CCRNXOAP
+- Purpose: Prepare merging of hourly files  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 26-Jan-2006 mm: New initPar call (w/o tmpFil)  
+  10-Feb-2005 mm: Old date variables removed  
+  11-Mar-2014 av: Use glob instead of ls  
+  19-Mar-2015 av: Remove rinex.com on ORX (done in IGSR_COP)  
+  16-Apr-2018 av: Change for CCRNXO (RINEX2 and RINEX3 support)  
+  06-Jun-2018 av: Fixed RINEX3 search statement  
+  13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area  
+  06-Jan-2023 SS: Correct RINEX data not only in ULTRA mode
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - PARAM parameters: `PARAM2`
@@ -2350,7 +2870,14 @@ Variables:
 ### CLK_PRED
 
 - Package: `CCRNXC`
-- Purpose: Clock extrapolation Programs:  CCRNXC
+- Name: CCRNXC
+- Purpose: Clock extrapolation  
+    
+  Programs:  CCRNXC
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 26-May-2009
+- Changes: 26-May-2009 rd: Introduce reprocessing mode
 - Bernese programs: `CCRNXC`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CCRNXC.INP`
@@ -2360,7 +2887,17 @@ Variables:
 ### CLKESTCB
 
 - Package: `CLKEST`
-- Purpose: CLKEST for High-rate clocks, RAPID and FINAL Programs:  CLKEST PARAMx:    PARAM1..PARAM3 names of .CLB files to be processed (e.g., "GL$S+001" or even "$YD+0???") Authors:   H. Bock
+- Name: CLKEST
+- Purpose: CLKEST for High-rate clocks, RAPID and FINAL  
+    
+  Programs:  CLKEST  
+    
+  PARAMx:    PARAM1..PARAM3 names of .CLB files to be processed  
+        (e.g., &quot;GL$S+001&quot; or even &quot;$YD+0???&quot;)
+- Author: H. Bock
+- Created: 07-July-2003
+- Changes: 10-Feb-2005 mm: $s replaced by $bpe  
+  07-Jun-2016 RD: Add version with compatible attitude modelling
 - Bernese programs: `CLKEST`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CLKEST.INP`, `MENU_PGM.INP`, `CLKEST.INP`
@@ -2370,7 +2907,16 @@ Variables:
 - Source file: CLKESTCB (download from the HTML manual)
 ### CLKP_CHK
 
-- Purpose: Checks the existence of the clock prediction TPPyyddd for day -2 Programs: PARAMx:
+- Name: CLKP_CHK
+- Purpose: Checks the existence of the clock prediction TPPyyddd for day -2  
+    
+  Programs:  
+    
+  PARAMx:
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_U`
@@ -2379,7 +2925,12 @@ Variables:
 - Source file: CLKP_CHK (download from the HTML manual)
 ### CLN_ION
 
+- Name: CLN_ION
 - Purpose: Clean up all files from cluster ionosphere analysis.
+- Parameters: PARAM1 - output file identifier (default: GIM)
+- Author: S. Schaer
+- Created: 21-Oct-2014
+- Changes: 22-Apr-2016 SS: Added extra ADDNEQ2 run in GIMCLU
 - Used in PCFs: RAPIONO.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -2389,14 +2940,29 @@ Variables:
 - Source file: CLN_ION (download from the HTML manual)
 ### CODCHK
 
-- Purpose: check code observations using a polynomial screening Programs:  CODCHK
+- Name: CODCHK
+- Purpose: check code observations using a polynomial screening  
+    
+  Programs:  CODCHK
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `CODCHK`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `CODCHK.INP`
 - Source file: CODCHK (download from the HTML manual)
 ### CODSPP_P
 
-- Purpose: Parallel CODSPP run Programs:  CODSPP
+- Name: CODSPP_P
+- Purpose: Parallel CODSPP run  
+    
+  Programs:  CODSPP
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 17-Feb-2004/ss: Reduce ITRMAX in ULTRA mode  
+  19-May-2009 rd: Session dependent parallelization filenames  
+  21-May-2019 SS: Print warnings to RNX.ERR
 - Bernese programs: `CODSPP`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `CODSPP.INP`, `CODSPP.INP`
@@ -2408,7 +2974,16 @@ Variables:
 - Source file: CODSPP_P (download from the HTML manual)
 ### CODSPPAP
 
-- Purpose: Prepare parallel CODSPP run Programs:
+- Name: CODSPPAP
+- Purpose: Prepare parallel CODSPP run  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 26-Jan-2005 mm: new initPar call (w/o tmpFil)  
+  09-Feb-2005 mm: Old date variables removed  
+  19-May-2009 rd: Session dependent parallelization filenames
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
@@ -2419,7 +2994,16 @@ Variables:
 - Source file: CODSPPAP (download from the HTML manual)
 ### CODSPPCP
 
-- Purpose: Prepare parallel CODSPP run using MKCLUS to select a subset of stations to be used for CODSPP Programs:  MKCLUS
+- Name: CODSPPCP
+- Purpose: Prepare parallel CODSPP run using MKCLUS to select a subset of  
+  stations to be used for CODSPP  
+    
+  Programs:  MKCLUS
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 19-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames  
+  07-Jun-2016 RD: Add version with compatible attitude modelling
 - Bernese programs: `MKCLUS`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `MKCLUS.INP`, `MKCLUS.INP`
@@ -2432,7 +3016,17 @@ Variables:
 - Source file: CODSPPCP (download from the HTML manual)
 ### CODXTR
 
-- Purpose: Execute CODXTR; delete, if wished, rejected binary observation files Programs:
+- Name: CODXTR
+- Purpose: Execute CODXTR; delete, if wished, rejected binary observation  
+  files  
+    
+  Programs:
+- Author: H. Bock
+- Created: 06-Dec-2007
+- Last modified: 26-May-2009
+- Changes: 26-May-2009 rd: CODXTR: YY_DDD -&gt; YY_SSSS  
+  23-Apr-2020 ST: Stop copy of $A_$YSS+0 to $A0$YSS+0.  
+  28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
 - Bernese programs: `CODXTR`, `SATMRK`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `CODXTR.INP`, `CODXTR.INP`, `SATMRK.INP`
@@ -2446,7 +3040,59 @@ Variables:
 - Source file: CODXTR (download from the HTML manual)
 ### COMB_BIA
 
-- Purpose: Perform monthly and accumulated bias combination runs using ADDNEQ2. Programs:  ADDNEQ2
+- Name: COMB_BIA
+- Purpose: Perform monthly and accumulated bias combination runs using  
+  ADDNEQ2.  
+    
+  Programs:  ADDNEQ2
+- Parameters: PARAM1 - solution identifier  
+    
+  Remarks :
+- Author: S. Schaer
+- Created: 15-Sep-2016
+- Changes: 28-Sep-2016 ss: Adjust end times for 30-day solution (and 1605)  
+  29-Sep-2016 ss: Update CODE OSB files  
+  29-Sep-2016 ss: Verify solutions and check completeness of NEQs  
+  30-Sep-2016 ss: Activated update of (ADDNEQ2-based) CODE.OSB  
+  30-Sep-2016 ss: More detailed error messages  
+  30-Sep-2016 ss: More detailed title lines  
+  12-Oct-2016 ss: Send message in case of monthly solution update  
+  13-Oct-2016 ss: Use @badSet in case of errors with monthly NEQs  
+  17-Oct-2016 ss: Provide additional _STA last and rest solutions  
+  21-Oct-2016 ss: Prepare case with bad FIN daily NEQs (16289)  
+  28-Oct-2016 ss: Make use of OSBVAL option for LAST product  
+  16-Nov-2016 ss: Distribute CODE BIA files  
+  23-Nov-2016 ss: Changed $dirDis and bia2bia.com with -sat  
+  24-Jan-2017 ss: Replaced %y: by %Y:  
+  09-Jun-2017 ss: Consider REPRO_ION NQ0 results  
+  14-Jun-2017 ss: Create extra satellite information file  
+  29-Jun-2017 ss: Post CODE.BIA to ftp.aiub.unibe.ch/CODE  
+  21-Jul-2017 ss: Added list of problematic daily solutions  
+  25-Jul-2017 ss: Consider calibrated stations using STA_BIA.FIX  
+  23-Aug-2017 ss: Corrected time window extension  
+  06-Nov-2017 ss: Set $mjdL using $yyddd  
+  06-Nov-2017 ss: Check on NaN entries  
+  11-Apr-2018 ss: Make use of filter_code_bia.com; produce _Y2017  
+  03-Oct-2018 ss: Update CODE.BIA and CODE_2017_CONT.BIA  
+  13-Sep-2019 ss: Check $HOST and skip procedure if indicated  
+  26-Sep-2019 ss: Considered GRE RCLK daily NQ0 as of wk 2072  
+  06-Jan-2020 av: Remove bad solution 19365  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_PHASECC  
+  30-Jul-2020 ST: Add use igs_device.  
+  24-Dec-2020 AV: Solution 20343 skipped (causes huge RMS)  
+  08-Mar-2021 SS: Solution 21062 temporarily skipped (due to TIXI)  
+  12-May-2021 AV: Change REPRO_ION path (using PATH_SAV)  
+  20-May-2021 SS: Changed unused EXE_G95 paths  
+  29-Mar-2022 AV: Modified genreal file name and locations  
+  10-Jun-2022 SS: Commented exclusions for A1?22150 and A1?22153  
+  02-Dec-2022 SS: Unconsidered GRE RAP daily NQ0 as of wk 2238  
+  03-Dec-2022 SS: GRE RAP still used if GRE FIN not yet available  
+  13-Dec-2023 SS: Create SAT_BIA_I20.SAT based on SATELLIT_I20.SAT  
+  13-Dec-2023 SS: Undone (based on updated SATELLIT_I14.SAT)  
+  21-Feb-2024 SS: Making SAT_BIA_I20.SAT consistent to I14-based time series  
+  07-Mar-2024 SS: Modified SAT_BIA_I20.SAT due to R25/R26 reassignment  
+  14-Jun-2024 SS: Create test solution (G:C1C/C2W) using V_OBSSEL_C1C  
+  09-Feb-2026 RD: Modified SAT_BIA_I20.SAT (interval correction for R21)
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `ADDNEQ2.INP`, `MENU_PGM.INP`, `ADDNEQ2.INP`
@@ -2459,7 +3105,58 @@ Variables:
 ### COMB_BIA_07022026_CK
 
 - Package: `COMB_BIA`
-- Purpose: Perform monthly and accumulated bias combination runs using ADDNEQ2. Programs:  ADDNEQ2
+- Name: COMB_BIA
+- Purpose: Perform monthly and accumulated bias combination runs using  
+  ADDNEQ2.  
+    
+  Programs:  ADDNEQ2
+- Parameters: PARAM1 - solution identifier  
+    
+  Remarks :
+- Author: S. Schaer
+- Created: 15-Sep-2016
+- Changes: 28-Sep-2016 ss: Adjust end times for 30-day solution (and 1605)  
+  29-Sep-2016 ss: Update CODE OSB files  
+  29-Sep-2016 ss: Verify solutions and check completeness of NEQs  
+  30-Sep-2016 ss: Activated update of (ADDNEQ2-based) CODE.OSB  
+  30-Sep-2016 ss: More detailed error messages  
+  30-Sep-2016 ss: More detailed title lines  
+  12-Oct-2016 ss: Send message in case of monthly solution update  
+  13-Oct-2016 ss: Use @badSet in case of errors with monthly NEQs  
+  17-Oct-2016 ss: Provide additional _STA last and rest solutions  
+  21-Oct-2016 ss: Prepare case with bad FIN daily NEQs (16289)  
+  28-Oct-2016 ss: Make use of OSBVAL option for LAST product  
+  16-Nov-2016 ss: Distribute CODE BIA files  
+  23-Nov-2016 ss: Changed $dirDis and bia2bia.com with -sat  
+  24-Jan-2017 ss: Replaced %y: by %Y:  
+  09-Jun-2017 ss: Consider REPRO_ION NQ0 results  
+  14-Jun-2017 ss: Create extra satellite information file  
+  29-Jun-2017 ss: Post CODE.BIA to ftp.aiub.unibe.ch/CODE  
+  21-Jul-2017 ss: Added list of problematic daily solutions  
+  25-Jul-2017 ss: Consider calibrated stations using STA_BIA.FIX  
+  23-Aug-2017 ss: Corrected time window extension  
+  06-Nov-2017 ss: Set $mjdL using $yyddd  
+  06-Nov-2017 ss: Check on NaN entries  
+  11-Apr-2018 ss: Make use of filter_code_bia.com; produce _Y2017  
+  03-Oct-2018 ss: Update CODE.BIA and CODE_2017_CONT.BIA  
+  13-Sep-2019 ss: Check $HOST and skip procedure if indicated  
+  26-Sep-2019 ss: Considered GRE RCLK daily NQ0 as of wk 2072  
+  06-Jan-2020 av: Remove bad solution 19365  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_PHASECC  
+  30-Jul-2020 ST: Add use igs_device.  
+  24-Dec-2020 AV: Solution 20343 skipped (causes huge RMS)  
+  08-Mar-2021 SS: Solution 21062 temporarily skipped (due to TIXI)  
+  12-May-2021 AV: Change REPRO_ION path (using PATH_SAV)  
+  20-May-2021 SS: Changed unused EXE_G95 paths  
+  29-Mar-2022 AV: Modified genreal file name and locations  
+  10-Jun-2022 SS: Commented exclusions for A1?22150 and A1?22153  
+  02-Dec-2022 SS: Unconsidered GRE RAP daily NQ0 as of wk 2238  
+  03-Dec-2022 SS: GRE RAP still used if GRE FIN not yet available  
+  13-Dec-2023 SS: Create SAT_BIA_I20.SAT based on SATELLIT_I20.SAT  
+  13-Dec-2023 SS: Undone (based on updated SATELLIT_I14.SAT)  
+  21-Feb-2024 SS: Making SAT_BIA_I20.SAT consistent to I14-based time series  
+  07-Mar-2024 SS: Modified SAT_BIA_I20.SAT due to R25/R26 reassignment  
+  14-Jun-2024 SS: Create test solution (G:C1C/C2W) using V_OBSSEL_C1C
 - Bernese programs: `ADDNEQ2`
 - INP files: `ADDNEQ2.INP`, `MENU_PGM.INP`, `ADDNEQ2.INP`
 - Read keys:
@@ -2470,7 +3167,35 @@ Variables:
 - Source file: COMB_BIA_07022026_CK (download from the HTML manual)
 ### COMB_DCB
 
+- Name: COMB_DCB
 - Purpose: Compute 30-day sliding (or monthly) DCB combination
+- Parameters: PARAM1 - DCB solution identifier  
+  PARAM2 - Optional minus parameter
+- Author: S. Schaer
+- Created: 23-Dec-2011
+- Changes: 05-Jan-2012/ss: Copy particular DCB results  
+  05-Jan-2012/ss: Set appropriate title using @id  
+  06-Jan-2012/ss: Save DCB results  
+  11-Jan-2012/ss: Consider MONTHLY.FLG  
+  13-Jan-2012/ss: Use dcb_jumps.com  
+  10-Feb-2012/ss: Save .F file  
+  27-Aug-2012/ss: Consider V_SAV, V_DIS  
+  03-Sep-2012/ss: Some generalizations  
+  04-Sep-2012/ss: Update .DCB/.F files  
+  06-Sep-2012/ss: Consider $id[4]  
+  06-Sep-2012/ss: Recompute monthly combination if necessary  
+  07-Sep-2012/ss: Stop when copy/copyaftp failed  
+  07-Sep-2012/ss: Save and update last day&#x27;s TGD information  
+  02-Nov-2012/lp: Start supporting BSWUSER52  
+  05-Nov-2014/ss: Included Z1N  
+  01-Jun-2016/ss: Added $id[7] to control receiver DCB estimation  
+  08-Jun-2016/ss: Added DCB solution types A10, A11, A12, Z31, Z32  
+  14-Jun-2016/ss: Removed BSWUSER50  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  29-Aug-2018 AV: Temporary use g95  
+  20-May-2021 SS: Changed unused EXE_G95 paths  
+  01-Feb-2022 SS: Prepared for consideration of new D1?yyssss.DCB  
+  15-Jul-2026 SS: Discontinued distribution of .F files
 - Bernese programs: `DCBEST`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `DCBEST.INP`, `MENU_PGM.INP`, `DCBEST.INP`
@@ -2482,7 +3207,15 @@ Variables:
 - Source file: COMB_DCB (download from the HTML manual)
 ### COMPAR2
 
-- Purpose: Compare bernese coordinate files of last 7 days Programs:  COMPAR2
+- Name: COMPAR2
+- Purpose: Compare bernese coordinate files of last 7 days  
+    
+  Programs:  COMPAR2
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Last modified: 30-Mar-2006
+- Changes: 30-Mar-2006 mm: setPlusMinus replaced by setMinusPlus  
+  15-Jun-2020 av: Skip if 3-day solution is skipped
 - Bernese programs: `COMPAR2`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `COMPAR2.INP`
@@ -2491,7 +3224,16 @@ Variables:
 - Source file: COMPAR2 (download from the HTML manual)
 ### COMPARL
 
-- Purpose: Compare bernese coordinate files of last 48 days Programs:  COMPAR2
+- Name: COMPARL
+- Purpose: Compare bernese coordinate files of last 48 days  
+    
+  Programs:  COMPAR2
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Last modified: 30-Mar-2006
+- Changes: 30-Mar-2006 mm: setPlusMinus replaced by setMinusPlus  
+  15-Jun-2020 av: Skip if 3-day solution is skipped  
+  08-Aug-2023 EB: Add 2-month COMPAR (to weekly)
 - Bernese programs: `COMPAR2`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `COMPAR2.INP`
@@ -2500,14 +3242,23 @@ Variables:
 - Source file: COMPARL (download from the HTML manual)
 ### COOVEL
 
+- Name: COOVEL
 - Purpose: Programs:  COOVEL
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `COOVEL`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `COOVEL.INP`
 - Source file: COOVEL (download from the HTML manual)
 ### CPF_AFTP
 
-- Purpose: Copy actual CPF to anonymous FTP, delete CPFs Authors:   D. Thaller
+- Name: CPF_AFTP
+- Purpose: Copy actual CPF to anonymous FTP, delete CPFs
+- Author: D. Thaller
+- Created: 31-May-2011
+- Changes: 18-Jul-2013 CB: print statements added, loop over m3 to m7 for del
 - Used in PCFs: SLRPRED.PCF
 - Read keys:
   - V_ variables: `V_VCPF`
@@ -2516,7 +3267,12 @@ Variables:
 - Source file: CPF_AFTP (download from the HTML manual)
 ### CPF_DEL
 
-- Purpose: Delete old files concerning SLRPRED.PCF Authors:   C. Urschl
+- Name: CPF_DEL
+- Purpose: Delete old files concerning SLRPRED.PCF
+- Author: C. Urschl
+- Created: 12-Dec-2003
+- Changes: 18-Jul-2013 CB: added files to delete; cpf deletion is obsolete  
+                  due to CPF_AFTP script
 - Used in PCFs: SLRPRED.PCF
 - Read keys:
   - Other keys: `$S-(10)`, `$S-(30)`, `$Y-(30)`, `$YD-(30)`
@@ -2524,7 +3280,21 @@ Variables:
 - Source file: CPF_DEL (download from the HTML manual)
 ### CRD_CHK
 
-- Purpose: Check all station coordinate corrections/improvements in order to remove the corresponding station in case of significant deviations or to initiate a BPE stop. Programs:  HELMR1 Remark  :
+- Name: CRD_CHK
+- Purpose: Check all station coordinate corrections/improvements in order  
+  to remove the corresponding station in case of significant  
+  deviations or to initiate a BPE stop.  
+    
+  Programs:  HELMR1  
+    
+  Remark  :
+- Parameters: PARAM2 - goto PID to continue processing  
+           (after removing faulty station)
+- Author: S. Schaer
+- Created: 13-Sep-2023
+- Changes: 14-Sep-2023 SS: Extract and report detected position deviations  
+  19-Sep-2023 SS: Report detected anomalies in separate LST file  
+  17-Oct-2023 SS: Save disputed CRD file in TMP subdirectory
 - Bernese programs: `HELMR1`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `HELMR1.INP`, `MENU_EXT.INP`, `HELMR1.INP`
@@ -2536,7 +3306,13 @@ Variables:
 - Source file: CRD_CHK (download from the HTML manual)
 ### CRD_REF
 
+- Name: CRD_REF
 - Purpose: Create sorted CRD and VEL master file
+- Author: S. Schaer
+- Created: 20-Apr-2005
+- Changes: 26-Apr-2005/ss: Update master files in case of differences  
+  13-May-2005/ss: Update files in current STA directory, too  
+  03-Aug-2007/ss: Return if update not allowed
 - Bernese programs: `CRDMERGE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `CRDMERGE.INP`, `CRDMERGE.INP`
@@ -2546,14 +3322,30 @@ Variables:
 - Source file: CRD_REF (download from the HTML manual)
 ### CRDMERGE
 
-- Purpose: Merge coordinate files Programs:  CRDMERGE
+- Name: CRDMERGE
+- Purpose: Merge coordinate files  
+    
+  Programs:  CRDMERGE
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `CRDMERGE`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CRDMERGE.INP`
 - Source file: CRDMERGE (download from the HTML manual)
 ### CRTEXT
 
-- Purpose: Create extrapolated (EXT) PRE info (for orbit initialization) Programs:  CCPREORB, ORBGEN, STDPRE
+- Name: CRTEXT
+- Purpose: Create extrapolated (EXT) PRE info (for orbit initialization)  
+    
+  Programs:  CCPREORB, ORBGEN, STDPRE
+- Author: S. Schaer
+- Created: 21-Dec-2004
+- Changes: 09-Feb-2005 mm: Old date variables removed  
+  27-Apr-2012 ss: Manage problem with GPS constellation change  
+  03-Dec-2013 SL: Use new ULTRA product (U$T)  
+  26-Feb-2014 SS: Execute extra CCPREORB run
 - Bernese programs: `CCPREORB`, `ORBGEN`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `$PGMNAM.INP`, `CCPREORB.INP`, `ORBGEN.INP`, `STDPRE.INP`
@@ -2563,7 +3355,15 @@ Variables:
 - Source file: CRTEXT (download from the HTML manual)
 ### CRTM00
 
+- Name: CRTM00
 - Purpose: Create rapid orbit submission.
+- Author: S. Schaer
+- Created: 28-Jun-2004
+- Changes: 10-Aug-2005 RD: No broadcast switch if CLKRAPID.PCF  
+  29-Nov-2007 RD: replace aiub_savedisk by $ENV{S}  
+  04-Dec-2013 SL: Use getKey for $preInp  
+  06-Jun-2014 SS: Renamed from CRTRAP2 to CRTM00;  
+                  (M)ID replaced by (M)00
 - Bernese programs: `PREWEI`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `PREWEI.INP`
@@ -2572,7 +3372,13 @@ Variables:
 - Source file: CRTM00 (download from the HTML manual)
 ### CRTPRE
 
-- Purpose: Create PRE file Programs:  STDPRE, PREWEI
+- Name: CRTPRE
+- Purpose: Create PRE file  
+    
+  Programs:  STDPRE, PREWEI
+- Author: S. Schaer
+- Created: 28-Jun-2004
+- Changes: 03-Dec-2013 SL: New ULTRA products (U$T)
 - Bernese programs: `PREWEI`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `PREWEI.INP`, `STDPRE.INP`
@@ -2581,7 +3387,24 @@ Variables:
 - Source file: CRTPRE (download from the HTML manual)
 ### CRTRAP
 
+- Name: CRTRAP
 - Purpose: Create rapid orbit submission.
+- Author: S. Schaer
+- Created: 28-Jun-2004
+- Changes: 10-Aug-2005 RD: No broadcast switch if CLKRAPID.PCF  
+  06-Nov-2006 SS/AG: Set CLKINFO in case of broadcast info  
+  06-Jun-2014 SS: Considered MIDyyddd.FLG  
+  16-Jun-2014 SS: Bugfix concerning PREWEI with AMyyddd.PRE  
+  03-Aug-2015 SS: Activated RCLKGNSS  
+  07-Jun-2016 RD/AV: Add compability for version 5.2  
+  27-Jun-2016 AV: Wait for other CRTRAP to finish (2xEOF problem)  
+                  Add PRE checker (check for 1 EOF in PRE file)  
+  10-Oct-2016 RD/AV: Remove version with compatible attitude modelling  
+  24-Oct-2019 SS: Automatically adjusted EPH title line (TITLE3)  
+  14-Nov-2019 AV: Skip if V_SAVDSK  
+  22-Apr-2020 ST: Change &#x27;RB_&#x27; to &#x27;$A_&#x27;  
+  24-Nov-2025 SS: Specify TITPRE using replaceSelLst to force SP3d  
+  27-Nov-2025 SS: Add the DOI comment line to force SP3d
 - Bernese programs: `PREWEI`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `PREWEI.INP`, `STDPRE.INP`, `PREWEI.INP`, `STDPRE.INP`
@@ -2594,7 +3417,20 @@ Variables:
 ### CRTRAP3
 
 - Package: `CRTRAP`
-- Purpose: Create rapid orbit submission Programs:  STDPRE, PREWEI
+- Name: CRTRAP
+- Purpose: Create rapid orbit submission  
+    
+  Programs:  STDPRE, PREWEI
+- Author: S. Schaer
+- Created: 28-Jun-2004
+- Changes: 10-Aug-2005 RD: No broadcast switch if CLKRAPID.PCF  
+  06-Nov-2006 SS/AG: Set CLKINFO in case of broadcast info  
+  06-Jun-2014 SS: Considered MIDyyddd.FLG  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  22-Apr-2020 ST: Change &#x27;RB_&#x27; to &#x27;$A_&#x27;  
+  04-Apr-2023 RD: Compress-&gt;gzip  
+  24-Nov-2025 SS: Specify TITPRE using replaceSelLst to force SP3d  
+  27-Nov-2025 SS: Add the DOI comment line to force SP3d
 - Bernese programs: `PREWEI`, `STDPRE`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `STDPRE.INP`, `PREWEI.INP`, `STDPRE.INP`
@@ -2608,7 +3444,19 @@ Variables:
 ### CRTULT
 
 - Package: `CRTULT_U`
-- Purpose: Create ultra orbit submissions Programs:  STDPRE, PREWEI, POLXTR
+- Name: CRTULT_U
+- Purpose: Create ultra orbit submissions  
+    
+  Programs:  STDPRE, PREWEI, POLXTR
+- Author: M. Meindl, S. Schaer
+- Created: 28-Jun-2004
+- Changes: 12-Sep-2013 SL: Use &amp;gtUltVrs, skip for old ULTRAs  
+  24-Oct-2013 SL: POLXTR added  
+  24-Oct-2019 SS: Automatically adjusted $titLin  
+  09-Mar-2020 AV/ST: Changed option SATCLK of STDPRE  
+                  from $P to $A.  
+  24-Nov-2025 SS: Specify TITPRE using replaceSelLst to force SP3d  
+  27-Nov-2025 SS: Add the DOI comment line to force SP3d
 - Bernese programs: `POLXTR`, `PREWEI`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `$PGMNAM.INP`, `POLXTR.INP`, `PREWEI.INP`, `STDPRE.INP`
@@ -2619,7 +3467,19 @@ Variables:
 - Source file: CRTULT (download from the HTML manual)
 ### DCB_AUX
 
+- Name: DCB_AUX
 - Purpose: Perform auxiliary tasks concerning DCBIONO
+- Author: S. Schaer
+- Created: 30-Aug-2012
+- Changes: 10-Sep-2012/ss: Added receiver_checker.com  
+  10-Sep-2012/ss: Appended P2C2_RINEX.DCB  
+  11-Sep-2012/ss: Undone P2C2 extension and added CODE_FULL.DCB  
+  02-Nov-2012/lp: Start supporting BSWUSER52  
+  08-Sep-2016/ss: Removed BSWUSER50 stuff  
+  30-Sep-2016/ss: Deactivated update of (DCBEST-based) CODE.OSB  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_OBSSEL  
+  15-Jul-2026 SS: Removed/deactivated bcwg stuff
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`, `V_UPD`
@@ -2628,7 +3488,18 @@ Variables:
 - Source file: DCB_AUX (download from the HTML manual)
 ### DEFCLU
 
-- Purpose: Define "V_DEFCLU" clusters Programs:
+- Name: DEFCLU
+- Purpose: Define &quot;V_DEFCLU&quot; clusters  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Last modified: 09-Feb-2005
+- Changes: 05-Sep-2003/ss: Reduce cluster size in ULTRA mode  
+  08-Sep-2003/mm: Use number of clusters instead of  
+                  number of baselines  
+  26-Jan-2005/mm: new initPar call (w/o tmpFil)  
+  09-Feb-2005 mm: Old date variables removed
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$YD+0`, `DIR_CLB`
@@ -2637,7 +3508,15 @@ Variables:
 - Source file: DEFCLU (download from the HTML manual)
 ### DEFSTD
 
-- Purpose: Generate standard orbit with orbgen (from tabular or precise orbits) Programs:  ORBGEN, DEFXTR
+- Name: DEFSTD
+- Purpose: Generate standard orbit with orbgen  
+  (from tabular or precise orbits)  
+    
+  Programs:  ORBGEN, DEFXTR
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Changes: 09-Feb-2005 mm: Old date variables removed  
+  10-Mar-2021 ss: Handle R23 orbit anomaly (210690)
 - Bernese programs: `DEFXTR`, `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `DEFXTR.INP`, `DEFXTR.INP`, `ORBGEN.INP`
@@ -2646,7 +3525,14 @@ Variables:
 - Source file: DEFSTD (download from the HTML manual)
 ### DIST_BIA
 
+- Name: DIST_BIA
 - Purpose: Distribute bias information
+- Author: S. Schaer
+- Created: 03-Oct-2018
+- Changes: 03-Oct-2018/ss: Derived from DIST_ION  
+  01-Oct-2019/ss: Do no longer consider CODE_2017_CONT.BIA  
+  03-Oct-2019/ss: Create/distribute/upload CODE_MONTHLY.BIA  
+  03-Mar-2022/ss: Create CODE_MONTHLY.OSB
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`
@@ -2656,7 +3542,26 @@ Variables:
 - Source file: DIST_BIA (download from the HTML manual)
 ### DIST_ION
 
+- Name: DIST_ION
 - Purpose: Distribute predicted ionosphere information
+- Author: S. Schaer
+- Created: 28-Aug-2012
+- Changes: 10-Sep-2012/ss: Consider 5-day predicted information  
+  10-Sep-2012/ss: Upload predicted IONEX  
+  12-Sep-2012/ss: Save and distribute predicted CGIM RINEX results  
+  01-Dec-2016 SS: Upload to cddis https  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  03-Nov-2022 AV: Submit to CODE_TEST (new maing scheme)  
+  08-Nov-2022 SS: Corrected typo (CODETEST)  
+  28-Nov-2022 AV: Change upload from CODE_TEST to CODE  
+  10-Jan-2023 SS: Renamed ION.??? to GIM.???;  
+                  renamed COD0OPSRAP to COD0OPSPRD  
+  11-Jan-2023 SS: Renamed 01D_01H_GIM.RNX to 01D_01D_GIM.RNX;  
+                  revised in terms of 4-digit year and check_dir  
+  08-Jul-2026 SS: Saved Z15 INX (after bug fixing)  
+  15-Jul-2026 SS: Used latest long filename convention (COD0OPDPnD)  
+  19-Oct-2026 SS: Removed short filename stuff
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_G`, `V_SAV`
@@ -2666,7 +3571,11 @@ Variables:
 - Source file: DIST_ION (download from the HTML manual)
 ### DNI_AUX
 
+- Name: DNI_AUX
 - Purpose: Perform auxiliary tasks concerning DCBIONO
+- Author: S. Schaer
+- Created: 30-Aug-2012
+- Changes: __-___-____/__:
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`, `V_UPD`
@@ -2674,7 +3583,13 @@ Variables:
 - Source file: DNI_AUX (download from the HTML manual)
 ### DNI_COP
 
+- Name: DNI_COP
 - Purpose: Copy reference files for DCBIONO BPE process
+- Author: S. Schaer
+- Created: 21-Dec-2011
+- Changes: 22-Dec-2011/ss: Use $camp_pth$campaign  
+  28-Feb-2012/hb: Correct typo  
+  29-Mar-2022 AV: Use copySkl
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_CRDINF`, `V_PSDINF`
@@ -2683,13 +3598,46 @@ Variables:
 - Source file: DNI_COP (download from the HTML manual)
 ### DNI_EXE
 
+- Name: DNI_EXE
 - Purpose: Copy EXE files from project environment to $XG
+- Author: S. Schaer
+- Created: 21-Dec-2011
+- Changes: 24-Feb-2012/ss: Changed path statement
 - Used in PCFs: DCBIONO.PCF
 - File patterns: `$ENV{HOME}/DCBIONO/EXE_G95/*`
 - Source file: DNI_EXE (download from the HTML manual)
 ### DO_PPPAR
 
-- Purpose: Start PPPAR BPE for session $YSS+0 PCF Variables:
+- Name: DO_PPPAR
+- Purpose: Start PPPAR BPE for session $YSS+0  
+    
+  PCF Variables:
+- Parameters: PARAM2 - goto PID in case of repetition of clock computation  
+  PARAM4 - maximum number of repetitions (default: 0)  
+    
+  Remarks :  $maxRep=0: CLK(0), AR(0), CLK(1)  
+  $maxRep=1: CLK(0), AR(0), CLK(1), AR(1), CLK(2)  
+  $maxRep=2: CLK(0), AR(0), CLK(1), AR(1), CLK(2), AR(2), CLK(3)  
+  Note:      ^amb-float...  ^ambiguity-fixed... (if index&gt;0)
+- Author: S. Schaer
+- Created: 14-May-2018
+- Changes: 15-May-2018/ss: Launch ppppar_pcs.com according to crontab  
+  22-May-2018/ss: Repeat GNSS clock computation if desired  
+  23-May-2018/ss: Added V_IAR  
+  04-Jun-2018/ss: Start PPPAR BPE using CAMPAIGN variable  
+  05-Jun-2018/ss: Considered IAR.FLG and EXIT.FLG  
+  05-Jun-2018/ss: Defined V_SAMPLE for PPPAR BPE  
+  08-Jun-2018/ss: Defined V_MINEL; prepared for MCLKGNSS  
+  18-Jun-2018/ss: Prevent start of PPPAR BPE if necessary  
+  10-Jul-2018/ss: Added FCLK_REP campaign  
+  23-Apr-2020/av: Modified pppar_pcs.com script  
+  27-Dec-2020/lp: Set CPU to LOCAL on antlia machine  
+  29-Mar-2022/av: Check if PPPAR finished successful  
+  03-Nov-2022/ss: Considered V_PCC4MWGF  
+  17-May-2024/ss: Print options to LOG  
+  27-Nov-2025 SS: Introduced V_DOI  
+  10-Feb-2026 AA: Added V_OBSSEL  
+  06-Jul-2026 SS: Added V_PCVINF
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_ARMODE`, `V_CPUFIL`, `V_DOI`, `V_IAR`, `V_OBSSEL`, `V_PCC4MWGF`, `V_PCV`, `V_PCVINF`, `V_SATINF`
@@ -2699,7 +3647,12 @@ Variables:
 - Source file: DO_PPPAR (download from the HTML manual)
 ### DSB_CHK
 
-- Purpose: Check whether list of DSB observation types unchanged and release SMS in case of any change.
+- Name: DSB_CHK
+- Purpose: Check whether list of DSB observation types unchanged and  
+  release SMS in case of any change.
+- Author: S. Schaer
+- Created: 28-Jun-2023
+- Changes: __-___-____/__:
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`, `V_UPD`
@@ -2707,12 +3660,27 @@ Variables:
 - Source file: DSB_CHK (download from the HTML manual)
 ### DUMMY
 
-- Purpose: Do nothing Programs:
+- Name: DUMMY
+- Purpose: Do nothing  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Used in PCFs: DCBIONO.PCF, IGSRAPID.PCF, IGSULTRA.PCF, PLOTS_RAPID.PCF, PPPAR.PCF, PPPAR1.PCF, RAPIONO.PCF, RCLKGNSS.PCF, SUPERBPE.PCF
 - Source file: DUMMY (download from the HTML manual)
 ### EDTXTR
 
-- Purpose: GENERATE SUMMARY OF THE PARALEL CODSPP RUNS Programs:
+- Name: EDTXTR
+- Purpose: GENERATE SUMMARY OF THE PARALEL CODSPP RUNS  
+    
+  Programs:
+- Author: H. Bock
+- Created: 06-Dec-2007
+- Last modified: 19-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames  
+  26-May-2009/rd: RESRMS: YY_DDD -&gt; YY_SSSS
 - Bernese programs: `GPSXTR`, `RESRMS`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSXTR.INP`, `GPSXTR.INP`, `RESRMS.INP`
@@ -2727,7 +3695,29 @@ Variables:
 - Source file: Entries (download from the HTML manual)
 ### EUR_STA
 
-- Purpose: Download euref.snx and convert it into EUREF.STA and EUREF_RED.STA Programs:
+- Name: EUR_STA
+- Purpose: Download euref.snx and convert it into EUREF.STA and EUREF_RED.STA  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 21-Mar-2006
+- Changes: 04-Jul-2006/ss: Changed STA filenames  
+  18-Jul-2006/ss: Continue in case of ftp connection problem  
+  25-Jul-2007/ss: Improved error handling  
+  02-Aug-2007/mm: V_DIS activated  
+  15-Nov-2010 SL: program STA2STA added for V50  
+  01-Nov-2012/lp: Update BSWUSER52, too  
+  07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER  
+  26-Aug-2015 ss: Check created .STA files for completeness  
+  28-Aug-2015 ss: Send SMS if indicated (in RAP mode only)  
+  25-Sep-2015 ss: Added &quot;OK=/OK_FULL=&quot;;  
+                  excluded: carg, dlf1, knja  
+  09-Mar-2016 ss: Excluded kosg  
+  13-Apr-2016 av/as: Exclude kos1, irbe  
+  14-Apr-2016 as: Removed exlussion of kos1 and irbe  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  20-Dec-2021 RD: Detect automatically for the last station  
+  14-Jun-2022 RD: Correct inconsistency for THU3
 - Bernese programs: `SNX2STA`, `STA2STA`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SNX2STA.INP`, `STA2STA.INP`, `SNX2STA.INP`, `STA2STA.INP`
@@ -2737,7 +3727,25 @@ Variables:
 - Source file: EUR_STA (download from the HTML manual)
 ### FILEST_P
 
-- Purpose: Station-wise zero-difference data screening: 1. GPSEST to create a residual files 2. RESRMS to screen residual files 3. RESCHK To detect bad stations 4. SATMRK to mark outliers
+- Name: FILEST_P
+- Purpose: Station-wise zero-difference data screening:  
+    
+  1. GPSEST to create a residual files  
+  2. RESRMS to screen residual files  
+  3. RESCHK To detect bad stations  
+  4. SATMRK to mark outliers
+- Parameters: PARAM1 - temporary file for parallel processing  
+  PARAM2..PARAM5 - CODE PHASE BOTH  
+           to select the observation files type for screening
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Changes: 05-Mar-2017 AV: Check if ION file is available  
+  18-Sep-2017 AV: Switch GMF/VMF for PPPFINAL  
+  15-May-2018 SS: Switch for PPPAR  
+  04-Jun-2018 SS: Merged script version (for fin and rap)  
+  20-Jan-2018 AV: Switch for RCLKGNSS  
+  07-Dec-2020 RD: Add PCF variable V_TRPMOD  
+  05-Jul-2021 LP: More generalized setting of TROPO keys
 - Bernese programs: `GPSEST`
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF, RCLKGNSS.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -2749,7 +3757,17 @@ Variables:
 - Source file: FILEST_P (download from the HTML manual)
 ### FILESTAP
 
-- Purpose: Station-wise zero-difference data screening Programs:
+- Name: FILESTAP
+- Purpose: Station-wise zero-difference data screening  
+    
+  Programs:
+- Parameters: PARAM1 - temporary file for parallel processing  
+  PARAM2..PARAM5 - CODE PHASE BOTH  
+           to select the observation files type for screening
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Last modified: 31-Jan-2005
+- Changes: 31-Jan-2005 mm: New initPar call (w/o tmpFil)
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -2759,7 +3777,39 @@ Variables:
 - Source file: FILESTAP (download from the HTML manual)
 ### FIX_CHK
 
-- Purpose: Execute HELMR1 Remark  :  This script permits automatic verification of a given set of fiducial stations. In case of discrepancies, a modified FIX file can be output by HELMR1 and thus used to directly repeat the last ADDNEQ2 run, finally considering a reduced set of fiducial stations accepted for consistent datum definition.
+- Name: FIX_CHK
+- Purpose: Execute HELMR1  
+    
+  Remark  :  This script permits automatic verification of a given set of  
+  fiducial stations. In case of discrepancies, a modified FIX  
+  file can be output by HELMR1 and thus used to directly repeat  
+  the last ADDNEQ2 run, finally considering a reduced set of  
+  fiducial stations accepted for consistent datum definition.
+- Parameters: PARAM2 - goto PID for new datum definition (optionally)  
+  PARAM3 - STOP option for CRD (cross-)checking (optionally)
+- Author: M. Meindl, S. Schaer
+- Created: 19-Oct-2003
+- Changes: 07-Feb-2006/ss: Check whether PARAM2 defined  
+  02-Sep-2010/ss/mm: Deactivated outlier rejection for second  
+                  HELMR1 run  
+  26-Sep-2012/ss: Further developed  
+  27-Sep-2012/ss: STOP option implemented (activated with PARAM3)  
+  28-Sep-2012/ss: Print LST filename in case of a stop  
+  17-Apr-2013/hb: Exception for doy 13102 F1-F1C added  
+  18-Apr-2013/cb: Exception for doy 13103 F3-F3C added  
+  29-May-2013/cb: Exceptions for doy 13144 F3S and 13145 F1S added  
+  30-May-2013/cb: Exceptions for doy 13146 F1S and 13145 F3S added  
+  31-May-2013/cb: Exceptions for doy 13147 F1S and 13146 F3S added  
+  01-Jun-2013/cb: Exceptions for doy 13148 F1S and 13147 F3S added  
+  02-Jun-2013/cb: Exceptions for doy 13149 F1S and 13148 F3S added  
+  03-Jun-2013/hb: Exceptions for doy 13150 F1S and 13149 F3S added  
+  03-Jun-2013/ss: Most recent exceptions removed  
+  04-Jun-2014/ss: Considered ULTyyddd.FLG  
+  10-Sep-2014/ss: Increased tolerances in case of RAP  
+  16-Dec-2014/ss/av: Updated for new HELMR1 (with ADDSTA/MAXREJ)  
+  16-SEP-2015/rd: Relax HELMR1 check if singular elements are detected  
+  19-Sep-2019/av: Use regex for IGSRAPID and IGSULTRA check  
+  23-Feb-2024 SS: Corrective action automatically done if indicated
 - Bernese programs: `HELMR1`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `HELMR1.INP`, `MENU_EXT.INP`, `HELMR1.INP`
@@ -2770,7 +3820,19 @@ Variables:
 - Source file: FIX_CHK (download from the HTML manual)
 ### FRQ_LST
 
-- Purpose: Create FRQ.LST and notify potential GLONASS frequency channel search anomalies
+- Name: FRQ_LST
+- Purpose: Create FRQ.LST and notify potential GLONASS frequency channel  
+  search anomalies
+- Author: S. Schaer
+- Created: 04-Mar-2013
+- Changes: 05-Mar-2013/ss: Shortened $lin  
+  07-Mar-2013/ss: Collected RINEX reading errors  
+  08-Mar-2013/ss: Send alarm in case of RINEX reading errors  
+  12-Jun-2014/ss: Create FRQ.DAT for gnuplot  
+  16-Jun-2014/da: Plot content of FRQ.DAT  
+  28-May-2020/av: Change key for RINEX errors from STA to SYS  
+  12-Dec-2023/ss: Send again alarm in case of any FRQ anomalies  
+  15-Dec-2023/ss: Set $ddd
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`, `V_UPD`
@@ -2779,7 +3841,13 @@ Variables:
 - Source file: FRQ_LST (download from the HTML manual)
 ### FTP_CLN
 
-- Purpose: Clean $PATH_AFTP/CODE/ directory (if necessary) Programs:
+- Name: FTP_CLN
+- Purpose: Clean $PATH_AFTP/CODE/ directory (if necessary)  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 12-May-2026
+- Changes: __-___-____ __:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_DEL`
@@ -2788,7 +3856,20 @@ Variables:
 - Source file: FTP_CLN (download from the HTML manual)
 ### GET_NANU
 
-- Purpose: Download NANU files and create extra SAT CRX file Programs:
+- Name: GET_NANU
+- Purpose: Download NANU files and create extra SAT CRX file  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 23-Sep-2003
+- Changes: 09-Feb-2005 mm: Old date variables removed  
+  11-Nov-2019 av: Skip if v_savdsk == Y  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX  
+  25-Aug-2020 SS: Use PTH_SATCRUX and set $dirSatcrx  
+                  (SAT_2020.CRX for external users not updated  
+                  due to this bug!)  
+  04-Nov-2021 SS: Considered NO_GET_NANU.FLG  
+  18-Mar-2022 RD/AV: add strict; filter maneuver from GPSNANU.CRX
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_SAVDSK`
@@ -2797,11 +3878,50 @@ Variables:
 - Source file: GET_NANU (download from the HTML manual)
 ### GIM_CHK
 
+- Changes: 28-Jul-2003/rd: Adapt to the new BPE (remove _NEW)  
+    
+  SHELL VARIABLES:
+- Notes: YEAR    :  Year of the session to be processed (2 digit)  
+  SESSION :  Session number (4 characters)  
+  CAMPAIGN:  Campaign name  
+  CAMP_PTH:  Campaign path  
+  CAMP_DRV:  Drive letter for campain (i.e. P)  
+  OPT_DIR :  Directory for panels  
+  PID     :  Process identification number (3 digits)  
+  SUB_PID :  Subprocess id (3 digits)  
+  PRT_FILE:  Protocol file name including path  
+  SCRIPT  :  Name of script  
+  TASKID  :  Task id of script, usually 00  
+  PRIORITY:  Priority of the script  
+  CPU     :  CPU the script is running on  
+  DAYYEAR :  Julian day of the year  
+  DAY     :  Day of the Month  
+  MONTH   :  Month, 1=JAN, 12=DEC  
+  GPSWEEK :  GPS week  
+  DAYWEEK :  Day of the week, 0=SUN, 6=SAT  
+  V_X     :  X Variable in DAT151__.PAN  
+  V_O     :  O Variable in DAT151__.PAN  
+  V_Z     :  Z Variable in DAT151__.PAN  
+  V_PLUS  :  Plus variable in DAT151__.PAN  
+  V_MINUS :  Minus variable in DAT151__.PAN  
+  V_x     :  User variable  
+  PARAMx  :  Script specific parameter, x is 1 thru 9  
+  U       :  Directory path to U:  
+    
+  use the new menu system
 - Used in PCFs: RAPIONO.PCF
 - Source file: GIM_CHK (download from the HTML manual)
 ### GIMCLU_P
 
+- Name: GIMCLU_P
 - Purpose: Execute GPSEST (parallel mode)
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: S. Schaer
+- Created: 22-Mar-2004
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  17-Oct-2014 SS: Updated for ionosphere analysis  
+  22-Apr-2016 SS: Perform extra ADDNEQ2 run  
+  16-Jan-2025 SS: Considered year with fractional part
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: RAPIONO.PCF
 - INP files: `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -2812,7 +3932,16 @@ Variables:
 - Source file: GIMCLU_P (download from the HTML manual)
 ### GIMCLUAP
 
+- Name: GIMCLUAP
 - Purpose: Prepare parallel GPSEST run
+- Parameters: PARAM2 - output file identifier (default: GIM)  
+  PARAM3 - empty: stop if no CZH files are found
+- Author: S. Schaer
+- Created: 22-Mar-2004
+- Changes: 31-Jan-2005 mm: New initPar call (w/o tmpFil)  
+  11-Aug-2011 RD: Updated for version 5.2  
+  17-Oct-2014 SS: Updated for ionosphere analysis  
+  22-Apr-2016 SS: Delete extra NEQ files
 - Used in PCFs: RAPIONO.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -2822,6 +3951,41 @@ Variables:
 - Source file: GIMCLUAP (download from the HTML manual)
 ### GIMEDT_P
 
+- Changes: 22-aug-2001 rd: GPSEST uses the new menu  
+  08-0ct-2001 mm: SERVOBS replaced by SATMRK (new menu)  
+  08-Sep-2005/ss: Make use of geomagnetic_pole.com  
+    
+  GIMEDT_P
+- Notes: PARALLEL RUN FOR RESIDUAL SCREENING  
+  Shell Variables: (set when running the header file)  
+  YEAR    :  Year of the session to be processed (2 digit)  
+  SESSION :  Session number (4 characters)  
+  CAMPAIGN:  Campaign name  
+  CAMP_PTH:  Campaign path  
+  CAMP_DRV:  Drive letter for campain (i.e. P)  
+  OPT_DIR :  Directory for panels  
+  PID     :  Process identification number (3 digits)  
+  SUB_PID :  Subprocess id (3 digits)  
+  PRT_FILE:  Protocol file name including path  
+  SCRIPT  :  Name of script  
+  TASKID  :  Task id of script, usually 00  
+  PRIORITY:  Priority of the script  
+  CPU     :  CPU the script is running on  
+  DAYYEAR :  Julian day of the year  
+  DAY     :  Day of the Month  
+  MONTH   :  Month, 1=JAN, 12=DEC  
+  GPSWEEK :  GPS week  
+  DAYWEEK :  Day of the week, 0=SUN, 6=SAT  
+  V_X     :  X Variable in DAT151__.PAN  
+  V_O     :  O Variable in DAT151__.PAN  
+  V_Z     :  Z Variable in DAT151__.PAN  
+  V_PLUS  :  Plus variable in DAT151__.PAN  
+  V_MINUS :  Minus variable in DAT151__.PAN  
+  V_x     :  User variable  
+  PARAMx  :  Script specific parameter, x is 1 thru 9  
+  U       :  Directory path to U:  
+    
+  Use the new menu
 - Used in PCFs: RAPIONO.PCF
 - Source file: GIMEDT_P (download from the HTML manual)
 ### GIMEDTAP
@@ -2830,7 +3994,20 @@ Variables:
 - Source file: GIMEDTAP (download from the HTML manual)
 ### GIR_DIS
 
-- Purpose: Distribute rapid GIM results Authors:    S. Schaer
+- Name: GIR_DIS
+- Purpose: Distribute rapid GIM results
+- Author: S. Schaer
+- Created: 22-Oct-2014
+- Changes: 22-Oct-2014 SS: Created based on GIR_FTP  
+  19-May-2016 SS: Updated due to OSB implementation  
+  26-May-2016 SS: Renamed DCB file (from RZ_ to RZS)  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  03-Nov-2022 AV: Copy long filname to CODE_TEST  
+  09-Nov-2022 AV: Correct long ionosphere name  
+  28-Nov-2022 AV: Change upload from CODE_TEST to CODE  
+  10-Jan-2023 SS: Renamed ION.??? to GIM.???;  
+                  unlinked COD?OPSPRD files
 - Used in PCFs: RAPIONO.PCF
 - Read keys:
   - V_ variables: `V_I`, `V_U`, `V_Z`
@@ -2840,7 +4017,23 @@ Variables:
 - Source file: GIR_DIS (download from the HTML manual)
 ### GIR_FTP
 
-- Purpose: Upload rapid GIM IONEX data to CDDIS Authors:    S. Schaer
+- Name: GIR_FTP
+- Purpose: Upload rapid GIM IONEX data to CDDIS
+- Author: S. Schaer
+- Created: 09-Sep-2004  
+  Last mod.:  05-Jan-2011
+- Changes: 07-Dec-2004/ss: Changed from &quot;/upload/rapid&quot; to &quot;/products/igr&quot;  
+  15-Dec-2004/ss: Use newFTP  
+  03-Aug-2007/mm: V_DIS activated  
+  29-nov-2007/rd: Resolve hardwired paths  
+  24-jun-2010/lo: Change of cddis to cddisin  
+  05-Jan-2011 SL: check ~l_code/MSC/NO_DIS.FLG file  
+  22-Oct-2014 SS: Check whether ULTRA  
+  01-Dec-2016 SS: Upload to cddis https  
+  20-Dec-2016 RD: Add &quot;use strict&quot;  
+  14-Feb-2017 SS: Upload also m1 and m2 IONEX to cddis  
+  12-Sep-2018 AV: Remove r_ from cddis upload (cddis request)  
+  16-Nov-2023 SS: Changed to long filename convention
 - Used in PCFs: RAPIONO.PCF
 - Read keys:
   - V_ variables: `V_I`, `V_Z`
@@ -2848,7 +4041,16 @@ Variables:
 - Source file: GIR_FTP (download from the HTML manual)
 ### GIR_SAV
 
-- Purpose: Save rapid GIM results Authors:    S. Schaer
+- Name: GIR_SAV
+- Purpose: Save rapid GIM results
+- Author: S. Schaer
+- Created: 23-Oct-2014
+- Changes: 23-Oct-2014 SS: Created based on GIR_DIS  
+  19-May-2016 SS/AV: Updated due to OSB implementation  
+  25-May-2016 SS: Save RZS, RZR bias NEQs and more bias results  
+  31-May-2016 SS/AV: Save RZG NEQ (non-GLONASS bias results)  
+  13-Sep-2016 SS: Save RZR NEQ (and RZG bias results)  
+  08-Mar-2022 AV: Save disk: yearly subdirectory
 - Used in PCFs: RAPIONO.PCF
 - Read keys:
   - V_ variables: `V_I`, `V_U`, `V_Z`
@@ -2857,7 +4059,11 @@ Variables:
 - Source file: GIR_SAV (download from the HTML manual)
 ### GIR_UPD
 
-- Purpose: Update rapid GIM ION and INX files Authors:    S. Schaer
+- Name: GIR_UPD
+- Purpose: Update rapid GIM ION and INX files
+- Author: S. Schaer
+- Created: 24-May-2016
+- Changes: 25-May-2016 ss: Renamed OSB  results (from RZ_ to RZS)
 - Used in PCFs: RAPIONO.PCF
 - Read keys:
   - V_ variables: `V_I`, `V_U`, `V_Z`
@@ -2865,7 +4071,15 @@ Variables:
 - Source file: GIR_UPD (download from the HTML manual)
 ### GIRXTR
 
-- Purpose: Generate RAPIONO processing summary file Programs:  GPSXTR
+- Name: GIRXTR
+- Purpose: Generate RAPIONO processing summary file  
+    
+  Programs:  GPSXTR
+- Author: S. Schaer
+- Created: 17-Sep-2015
+- Changes: 19-May-2016/ss/av: Generalized and adapted for OSB implementation  
+  25-May-2016/ss: Changed RZB, RZF; added RZE, RZR  
+  31-May-2016 SS: Added RZG
 - Bernese programs: `GPSXTR`
 - Used in PCFs: RAPIONO.PCF
 - INP files: `GPSXTR.INP`, `GPSXTR.INP`
@@ -2876,7 +4090,16 @@ Variables:
 - Source file: GIRXTR (download from the HTML manual)
 ### GLOEST_P
 
-- Purpose: Parallel run of GPSEST using code and phase data Programs:  GPSEST
+- Name: GLOEST_P
+- Purpose: Parallel run of GPSEST using code and phase data  
+    
+  Programs:  GPSEST
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 04-Mar-2010/ss: Deactivate HOI setup if indicated  
+  03-Oct-2014 lp: New GNSS selection using setGNSS  
+  23-May-2018 ss: Enabled ZERO_AR if IARyyssss.FLG  
+  07-Jun-2018 ss: Checked V_IAR
 - Bernese programs: `GPSEST`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -2887,7 +4110,16 @@ Variables:
 - Source file: GLOEST_P (download from the HTML manual)
 ### GLOESTAP
 
-- Purpose: Prepare parallel GPSEST run using MKCLUS for clustering Programs:  MKCLUS
+- Name: GLOESTAP
+- Purpose: Prepare parallel GPSEST run using MKCLUS for clustering  
+    
+  Programs:  MKCLUS
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames  
+  26-May-2009 rd: RESCHK: YY_DDD -&gt; YY_SSSS  
+  03-Oct-2014 lp: New GNSS selection using setGNSS  
+  07-Jun-2016 RD: Add version with compatible attitude modelling
 - Bernese programs: `MKCLUS`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `MKCLUS.INP`, `MKCLUS.INP`
@@ -2900,7 +4132,19 @@ Variables:
 - Source file: GLOESTAP (download from the HTML manual)
 ### GNSAMB_P
 
+- Name: GNSAMB_P
 - Purpose: Execute GPSEST for WL/NL ambiguity resolution
+- Parameters: PARAM1 - 4-character baseline name
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 25-Apr-2007/ss: Derived from GPSQIF_P  
+  30-Sep-2014 lp: New GNSS selection using setGNSS, remove $v_gnss  
+  15-Jun-2017/ss: WL/NL AR extended to GECJ (for test purposes)  
+  12-Sep-2019 av: Activate Galileo &amp; use V_GNSSAR  
+  13-Jan-2021 ss: Harmonized GNSAMB_P among IGSRAPID and MGEXORB  
+  13-Jan-2021 ss: Implemented GNSS-specific code data screening  
+  28-Apr-2021 lp: Correct a variable name in die statement ($ogsFil -&gt; $obsFil)  
+  05-Jan-2023 rd: Skip files when more than 60% of the obser. are indicated as bad in OBX_EDT
 - Bernese programs: `GPSEST`, `RESRMS`, `SATMRK`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`, `RESRMS.INP`, `SATMRK.INP`
@@ -2912,7 +4156,12 @@ Variables:
 - Source file: GNSAMB_P (download from the HTML manual)
 ### GNSAMBAP
 
-- Purpose: Prepare parallel WL/NL ambiguity resolution process for a set of baselines selected by BASLST
+- Name: GNSAMBAP
+- Purpose: Prepare parallel WL/NL ambiguity resolution process for a set of  
+  baselines selected by BASLST
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 25-Apr-2007/ss: Derived from GPSQIFAP
 - Bernese programs: `BASLST`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `BASLST.INP`
@@ -2924,7 +4173,14 @@ Variables:
 - Source file: GNSAMBAP (download from the HTML manual)
 ### GNSQIF_P
 
+- Name: GNSQIF_P
 - Purpose: Execute GPSEST for QIF ambiguity resolution
+- Parameters: PARAM1 - 4-character baseline name
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 26-Feb-2007/eb: new keyword V_GNSSAR for GNSS Amb. fixing  
+  28-Feb-2011/ss: Simplification  
+  30-Sep-2014 lp: New GNSS selection using setGNSS
 - Bernese programs: `GPSEST`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSEST.INP`
@@ -2935,7 +4191,14 @@ Variables:
 - Source file: GNSQIF_P (download from the HTML manual)
 ### GNSQIFAP
 
-- Purpose: Prepare parallel QIF ambiguity resolution process for a set of baselines selected by BASLST
+- Name: GNSQIFAP
+- Purpose: Prepare parallel QIF ambiguity resolution process for a set of  
+  baselines selected by BASLST
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 30-Mar-2005/ss: Consider V_BL_QIF variable if defined  
+  03-Mar-2006/ss: New initPar call (w/o tmpFil)  
+  09-Nov-2009/SL: removal of specific baselines added
 - Bernese programs: `BASLST`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `BASLST.INP`
@@ -2948,12 +4211,23 @@ Variables:
 ### GOTO
 
 - Package: `GPSEST`
+- Name: GOTO
 - Purpose: Jump to specified PID
+- Parameters: PARAM2...PARAMn - PID where to go when the script will be  
+                    restarted (n)th time
+- Author: R. Dach
+- Created: 22-Sep-2003
 - Used in PCFs: RCLKGNSS.PCF
 - Source file: GOTO (download from the HTML manual)
 ### GOTO_REP
 
-- Purpose: Execute a GOTO statement with the target depending from flag files goto PARAM2: in case of reprocessing goto PARAM3: no flag file goto PARAM4: if all GLONASS data are processed in one cluster
+- Name: GOTO_REP
+- Purpose: Execute a GOTO statement with the target depending from flag files  
+    goto PARAM2: in case of reprocessing  
+    goto PARAM3: no flag file  
+    goto PARAM4: if all GLONASS data are processed in one cluster
+- Author: R. Dach
+- Created: 22-Jul-2008
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`
@@ -2961,14 +4235,36 @@ Variables:
 - Source file: GOTO_REP (download from the HTML manual)
 ### GOTOTEST
 
-- Purpose: Go to specific PID (PARAM2 or PARAM3) Programs:
+- Name: GOTOTEST
+- Purpose: Go to specific PID (PARAM2 or PARAM3)  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 19-Feb-2026
+- Changes: __-___-____ __:
 - Used in PCFs: DEBUG_SS.PCF
 - Read keys:
   - V_ variables: `V_GOTO`
 - Source file: GOTOTEST (download from the HTML manual)
 ### GPSCLU_P
 
-- Purpose: Parallel run for parameter estimation and NEQ-file generation (cluster _00 will be run with baselinewise correlations) Programs:  GPSEST
+- Name: GPSCLU_P
+- Purpose: Parallel run for parameter estimation and NEQ-file generation  
+  (cluster _00 will be run with baselinewise correlations)  
+    
+  Programs:  GPSEST
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 27-Apr-2005/ss: Do not set up stochastic pulses for non-U24 runs  
+  25-Feb-2010/ss: Activate HOI setup if indicated  
+  08-Oct-2010/ss: GMF/VMF troposphere model switch  
+  10-Sep-2013 SL: Do not transform ERPs to 24h for ULTRAs  
+  05-Jun-2014 SS: SANTOFF switch  
+  03-Sep-2015 lp: Downweight satellites (setSATWEIGHT)  
+  18-Sep-2019 av: Support V_GTRA  
+  07-Dec-2020 RD: Add PCF variable V_TRPMOD  
+  05-Jul-2021 LP: More generalized setting of TROPO keys  
+  27-Nov-2022 AV: Add ANTAZI variable
 - Bernese programs: `GPSEST`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSEST.INP`, `MENU_PGM.INP`, `GPSEST.INP`
@@ -2979,7 +4275,15 @@ Variables:
 - Source file: GPSCLU_P (download from the HTML manual)
 ### GPSCLUAP
 
-- Purpose: Prepare parallel GPSEST run (cluster solution) Programs:
+- Name: GPSCLUAP
+- Purpose: Prepare parallel GPSEST run (cluster solution)  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 10-Feb-2005
+- Changes: 26-Jan-2006 mm: New initPar call (w/o tmpFil)  
+  10-Feb-2005 mm: Old date variables removed
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `DIR_CLB`, `DIR_NEQ`, `DIR_OUT`
@@ -2987,7 +4291,17 @@ Variables:
 - Source file: GPSCLUAP (download from the HTML manual)
 ### GPSEDT_P
 
-- Purpose: Parallel run for residual screening: 1. GPSEST to create F(irst) residual files 2. RESRMS to screen residual files 3. SATMRK to mark outliers 4. GPSEST to create L(ast) residual files (for RESCHK)
+- Name: GPSEDT_P
+- Purpose: Parallel run for residual screening:  
+  1. GPSEST to create F(irst) residual files  
+  2. RESRMS to screen residual files  
+  3. SATMRK to mark outliers  
+  4. GPSEST to create L(ast) residual files (for RESCHK)
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 10-Feb-2005 mm:  
+  19-May-2009 rd: Session dependent parallelization filenames
 - Bernese programs: `GPSEST`, `RESRMS`, `SATMRK`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSEST.INP`, `SATMRK.INP`, `GPSEST.INP`, `RESRMS.INP`, `SATMRK.INP`
@@ -2999,7 +4313,16 @@ Variables:
 - Source file: GPSEDT_P (download from the HTML manual)
 ### GPSEDTAP
 
-- Purpose: Prepare parallel GPSEST run with residual screening Programs:
+- Name: GPSEDTAP
+- Purpose: Prepare parallel GPSEST run with residual screening  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 26-Jan-2005 mm: New initPar call (w/o tmpFil)  
+  10-Feb-2005 mm: Old date variables removed  
+  19-May-2009 rd: Session dependent parallelization filenames
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
@@ -3008,7 +4331,14 @@ Variables:
 - Source file: GPSEDTAP (download from the HTML manual)
 ### GPSEST_P
 
-- Purpose: Parallel run for parameter estimation and NEQ-file generation Programs:  GPSEST
+- Name: GPSEST_P
+- Purpose: Parallel run for parameter estimation and NEQ-file generation  
+    
+  Programs:  GPSEST
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 10-Feb-2005
+- Changes: 10-Feb-2005 mm: Old date variables removed
 - Bernese programs: `GPSEST`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -3020,7 +4350,16 @@ Variables:
 - Source file: GPSEST_P (download from the HTML manual)
 ### GPSESTAP
 
-- Purpose: Prepare parallel GPSEST run Programs:
+- Name: GPSESTAP
+- Purpose: Prepare parallel GPSEST run  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 26-Jan-2005 mm: New initPar call (w/o tmpFil)  
+  10-Feb-2005 mm: Old date variables removed  
+  19-May-2009 rd: Session dependent parallelization filenames
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
@@ -3030,7 +4369,14 @@ Variables:
 - Source file: GPSESTAP (download from the HTML manual)
 ### GPSXTR
 
-- Purpose: Generate summary of the paralel GPSEST runs Programs:  GPSXTR
+- Name: GPSXTR
+- Purpose: Generate summary of the paralel GPSEST runs  
+    
+  Programs:  GPSXTR
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Last modified: 10-Feb-2005
+- Changes: 10-Feb-2005 mm: Old date variables removed
 - Bernese programs: `GPSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `GPSXTR.INP`
@@ -3040,7 +4386,18 @@ Variables:
 - Source file: GPSXTR (download from the HTML manual)
 ### HCCRNXCB
 
-- Purpose: Merge Clock RINEX files, Programs:  CCRNXC Authors:   H. Bock
+- Name: CCRNXC
+- Purpose: Merge Clock RINEX files,  
+    
+  Programs:  CCRNXC
+- Author: H. Bock
+- Created: 30-Jun-2003  
+  Last mod.: 10-Feb-2005
+- Changes: 16-Mar-2004 HB: Replace V_W by V_Q  
+                 (Integration of high-rate clocks in CLKRAPID.PCF)  
+  10-Feb-2005 MM: $s replaced by $bpe  
+  07-Jun-2016 RD: Add version with compatible attitude modelling  
+  16-Sep-2019 AV: PCFFIL check: test for RCLKGNSS*
 - Bernese programs: `CCRNXC`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CCRNXC.INP`, `CCRNXC.INP`
@@ -3049,7 +4406,17 @@ Variables:
 - Source file: HCCRNXCB (download from the HTML manual)
 ### HIRAPRE
 
-- Purpose: CREATE EXTRA HIGH-RATE PRE FILE FOR REAL-TIME APPLICATION (IP) Programs:  STDPRE
+- Name: HIRAPRE
+- Purpose: CREATE EXTRA HIGH-RATE PRE FILE FOR REAL-TIME APPLICATION (IP)  
+    
+  Programs:  STDPRE
+- Author: H. Bock
+- Created: 07-Dec-2007
+- Changes: 07-May-2008/ss: Do not copy old info to COD_IP.EPH  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  04-Apr-2023 RD: Compress-&gt;gzip  
+  24-Nov-2025 SS: Specify TITPRE using replaceSelLst to force SP3d  
+  27-Nov-2025 SS: Add the DOI comment line to force SP3d
 - Bernese programs: `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `$PGMNAM.INP`, `STDPRE.INP`
@@ -3062,14 +4429,38 @@ Variables:
 - Source file: HIRAPRE (download from the HTML manual)
 ### HRX_FTP
 
-- Purpose: Start get_nrtdata.com for list of data centers Programs:  -
+- Name: HRX_FTP
+- Purpose: Start get_nrtdata.com for list of data centers  
+    
+  Programs:  -
+- Author: S. Schaer
+- Created: 29-Dec-2003
+- Changes: 27-Apr-2004/ss: Make use of ultra.com  
+  05-Jan-2005/ss: Renamed ultra.com  
+  31-May-2012 RD: No datapool statistics  
+  29-Jan-2014 SL: Download only the last hour  
+  15-Dec-2014 AV: Change download script, fast option  
+  17-Mar-2015 AV: add -min option to get_obsdata.com  
+  15-Jun-2020 AV: Skip if not in campaign IGSRAPID
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `CAMPAIGN`
 - Source file: HRX_FTP (download from the HTML manual)
 ### IAR_COP
 
+- Name: IAR_COP
 - Purpose: Copy files for PPPAR.PCF
+- Author: S. Schaer
+- Created: 30-May-2018
+- Changes: 31-May-2018 SS: Save CLK files from each repetition/iteration  
+  08-Jun-2018 SS: Prepared for MCLKGNSS  
+  10-Jul-2018 SS: Added FCLK_REP campaign  
+  07-Aug-2018 SS: Redefined V_HOIINF and V_VMFINF if indicated  
+  22-Aug-2018 SS: Copied BIA file  
+  22-Aug-2019 SS: Save initial CLK file for MCLKGNSS campaign  
+  23-Aug-2019 SS: Save initial CLK file for FCLKGNSS campaign  
+  27-Feb-2020 AV: Use mode instead of campaign  
+  29-Mar-2022 AV: Use copySkl
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_C`, `V_HOIINF`, `V_MODE`, `V_VMFINF`
@@ -3078,7 +4469,13 @@ Variables:
 - Source file: IAR_COP (download from the HTML manual)
 ### IAR_DEL
 
+- Name: IAR_DEL
 - Purpose: Delete files for PPPAR.PCF
+- Author: S. Schaer
+- Created: 30-May-2018
+- Changes: 04-Jun-2018 SS: Replaced $S10 to $S+0  
+  22-Aug-2018 SS: Deleted BIA files  
+  23-Apr-2020 AV: Use V_MODE to identify special deletions
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_C`, `V_DEL`, `V_MODE`
@@ -3087,7 +4484,31 @@ Variables:
 - Source file: IAR_DEL (download from the HTML manual)
 ### IAR_PRC
 
-- Purpose: Generate summary of ZERO_AR ambiguity fixing Programs:  GPSXTR, CRDMERGE, HELMR1
+- Name: IAR_PRC
+- Purpose: Generate summary of ZERO_AR ambiguity fixing  
+    
+  Programs:  GPSXTR, CRDMERGE, HELMR1
+- Author: S. Schaer
+- Created: 25-Sep-2017
+- Changes: 26-Sep-2017 SS: Added CRDMERGE runs  
+  26-Sep-2017 SS: Added HELMR1 run to verify FIX CRD results  
+  29-Sep-2017 SS: Added GPSXTR/EXTAMB run for #AR_NLR counting mode  
+  05-Oct-2017 SS: Added WLB/WLI/NLB/NLI PHABIA output files  
+  02-Nov-2017 SS: Create IZDyyddd.tar.gz file containing OUT files  
+  15-May-2018 SS: Save compressed IAR FPZ file  
+  16-May-2018 SS: Consider CAMPAIGN  
+  17-May-2018 SS: Check BADyyssss.FIX  
+  22-May-2018 SS: Renamed IARyyssss.SUM to IARyyssss.PRC  
+  23-May-2018 SS: Create IAR FLG file here (not in DO_PPPAR);  
+                  extend IARyysss.PRC in case of additional runs  
+  06-Jun-2018 SS: Considered REPROCESSING.FLG;  
+                  moved extra file saving to IAR_SAV  
+  27-Jun-2018 SS: Save NLB/NLI OUT of iteration 0  
+  27-Jun-2018 SS: Simplified CRDMERGE sequence  
+  27-Jun-2018 SS: Checked PHABIA RMS for WLB and NLB (N0B)  
+  28-Jun-2018 SS: Corrected problem concerning IAR FPZ file  
+  23-Aug-2018 SS: Create IAR BIA file (using iar2bia.com)  
+  27-Nov-2025 SS: Introduced V_DOI
 - Bernese programs: `CRDMERGE`, `GPSXTR`, `HELMR1`
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF
 - INP files: `CRDMERGE.INP`, `GPSXTR.INP`, `CRDMERGE.INP`, `GPSXTR.INP`, `HELMR1.INP`
@@ -3099,7 +4520,24 @@ Variables:
 - Source file: IAR_PRC (download from the HTML manual)
 ### IAR_SAV
 
+- Name: IAR_SAV
 - Purpose: Save result files for PPPAR.PCF
+- Author: S. Schaer
+- Created: 23-May-2018
+- Changes: 06-Jun-2018 SS: Considered REPROCESSING.FLG;  
+                  saved IAR FPZ file; added extra file saving  
+  08-Jun-2018 SS: Prepared for MCLKGNSS  
+  10-Jul-2018 SS/AV: Prepared for FCLK_REP  
+  23-Aug-2018 SS: Saved IAR BIA file  
+  23-Aug-2019 SS: Corrected SAVMGEX  
+  09-Jan-2020 SS: Create polished IAR BIA and OSB files  
+  21-Oct-2020 AV: Use mode instead of campaig  
+                  Suppoer V_REPRO (alternative savedisk)  
+  02-Feb-2022 SS: Replaced substitute_dcb.com by polish_iar_osb.com  
+  24-May-2022 SS: IAR BIA/OSB files changed from V00 to V01  
+  20-Aug-2022 AV: Change save location for I20 test period  
+  22-Nov-2022 SS: Considered V_PCC4MWGF (for polish_iar_bia.com)  
+  30-Nov-2022 SS: Executed polish_iar_*.com with -gz if indicated
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF
 - Read keys:
   - V_ variables: `V_MODE`, `V_PCC4MWGF`, `V_REPRO`, `V_SAV`
@@ -3108,7 +4546,21 @@ Variables:
 - Source file: IAR_SAV (download from the HTML manual)
 ### IAR_VER
 
-- Purpose: Add ZERO_AR verification summary to IARyyssss.PRC Programs:  GPSXTR
+- Name: IAR_VER
+- Purpose: Add ZERO_AR verification summary to IARyyssss.PRC  
+    
+  Programs:  GPSXTR
+- Author: S. Schaer
+- Created: 21-Jun-2018
+- Changes: 21-Jun-2018 SS: Derived from IAR_PRC  
+  22-Jun-2018 SS: Saved IARyyssss.PRC  
+  26-Jun-2018 SS: Created IARyyssss_OUT.tar.gz (for FCLKGNSS)  
+  27-Jun-2018 SS: Checked PHABIA RMS for NLI  
+  10-Jul-2018 SS/AV: Considered V_REPRO  
+  21-Aug-2018 SS: Saved IARyyssss.CRD  
+  23-Aug-2019 SS: Corrected SAVMGEX  
+  19-Mar-2020 LP: Changed message type BPE=&gt;BIA  
+  20-Jul-2020 ST: Add use igs_device.
 - Bernese programs: `CRDMERGE`, `GPSXTR`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `GPSXTR.INP`, `CRDMERGE.INP`, `GPSXTR.INP`
@@ -3121,7 +4573,14 @@ Variables:
 ### IFBNEQ
 
 - Package: `ADDNEQ2`
-- Purpose: Combine NQ0-files Programs:  ADDNEQ2, GPSXTR, SATMRK
+- Name: ADDNEQ2
+- Purpose: Combine NQ0-files  
+    
+  Programs:  ADDNEQ2, GPSXTR, SATMRK
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 18-May-2016 av/ss: Changed IFB to OSB search string  
+  15-Jul-2016 av: Collect gpsxtr runs in one summary file
 - Bernese programs: `ADDNEQ2`, `GPSXTR`, `SATMRK`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `SATMRK.INP`, `ADDNEQ2.INP`, `GPSXTR.INP`, `SATMRK.INP`
@@ -3134,7 +4593,34 @@ Variables:
 - Source file: IFBNEQ (download from the HTML manual)
 ### IGS_STA
 
-- Purpose: Download igs.snx and convert it into IGS.STA and IGS_RED.STA Programs:
+- Name: IGS_STA
+- Purpose: Download igs.snx and convert it into IGS.STA and IGS_RED.STA  
+    
+  Programs:
+- Author: S.Schaer
+- Created: __-___-____  
+  Last mod.: 01-Dec-2010
+- Changes: 04-Jul-2006/ss: Changed STA filenames  
+  18-Jul-2006/ss: Continue in case of ftp connection problem  
+  18-Oct-2006/ss: Download proposed.igs.snx  
+  25-Jul-2007/ss: Improved error handling  
+  02-Aug-2007/mm: V_DIS activated  
+  26-May-2008/rd: remove &quot;proposed_igs.snx&quot;  
+  15-Nov-2010 SL: program STA2STA added for V50  
+  01-Dec-2010 SL: copyaftp of IGS_FULL reactivated  
+  01-Nov-2012/lp: Update BSWUSER52, too  
+  07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER  
+  28-Jul-2015 ss: Remove dlft from IGS.SNX file (causing problems)  
+  11-Aug-2015 av: Switch from igscb to igs ftp server  
+  26-Aug-2015 ss: Check created .STA files for completeness  
+  28-Aug-2015 ss: Send SMS if indicated (in RAP mode only)  
+  25-Sep-2015 ss: Added &quot;OK=/OK_FULL=&quot;  
+  01-Oct-2015 ss: Changed DLFT problem (DLFT now missing in .STA)  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  15-Jan-2020 AV: Convert CODE.STA to CODE_V52.STA  
+  14-Sep-2020 AV: Change station used to check STA file (ZWE2-&gt;ZIMM)  
+  19-Dec-2020 RD: IGSCB has closed FTP (now its HTTPS)  
+  20-Dec-2021 RD: Detect automatically for the last station
 - Bernese programs: `SNX2STA`, `STA2STA`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SNX2STA.INP`, `STA2STA.INP`, `SNX2STA.INP`, `STA2STA.INP`
@@ -3146,7 +4632,25 @@ Variables:
 - Source file: IGS_STA (download from the HTML manual)
 ### IGSR_CHK
 
-- Purpose: Check GPSEDT summary for bad satellites resp. maneuvers and restart the IGS(ULTRA)RAPID
+- Name: IGSR_CHK
+- Purpose: Check GPSEDT summary for bad satellites resp. maneuvers  
+  and restart the IGS(ULTRA)RAPID
+- Author: S. Schaer / rewritten to perl by L. Prange
+- Created: 2000/ rewritten to perl 18-Feb-2022
+- Changes: 18-Sep-2000 SS: Change extension of RESRMS file from DDD to YY_DDD  
+  18-Sep-2000 SS: Change extension of ASPLIT file from DDD to YY_DDD  
+  18-Sep-2000 SS: Change extension of CODXTR file from DDD to YY_DDD  
+  15-Aug-2001 RD: Seperate directories for all data types  
+  11-Jan-2002 MM: Increased MAXRUN to 4  
+  16-Aug-2002 SS: Prevent IGSRAPID RESCHK looping  
+  28-Jul-2003 RD: Adapt to the new BPE (remove _NEW, use STARTCOUNT)  
+  31-Jul-2003 SS: Use MANSAT instead of MAXDEL  
+  31-Oct-2003 SS: crx_alarm.com implemented  
+  15-Jan-2004 SS: Prevent exclusion of satellites in ULTRA mode  
+  27-May-2004 SS: Update APR PRE file (if STOP.FLG exists)  
+  20-Feb-2008 RD: Delete file containing the bad stations  
+  26-May-2009 RD: CODXTR/ASPLIT/RESCHK/RESRMS: YY_DDD -&gt; YY_SSSS  
+  18-Feb-2022 LP: Rewrite from BDS to perl
 - Bernese programs: `RESCHK`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `RESCHK.INP`
@@ -3160,7 +4664,23 @@ Variables:
 - Source file: IGSR_CHK (download from the HTML manual)
 ### IGSR_COP
 
-- Purpose: Copy required files for IGSRPAID Based on BSD script IGSR_COP
+- Name: IGSR_COP
+- Purpose: Copy required files for IGSRPAID  
+  Based on BSD script IGSR_COP
+- Author: A. Villiger
+- Created: 22-Apr-2020
+- Changes: 08-Jun-2020 ST: Exclude CCJ2 DoY 160, RINEX header is corrupt.  
+  15-Jun-2020 AV: Copy predicted orit if not availalbe in campaign  
+  13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area  
+  16-Aug-2021 AV: Remove BSW-named RINEX files before copy new data  
+  13-Dec-2021 AV: RINEX deletions made in CODE_STA.DEL  
+  31-Jan-2022 RD: Extent the deletion of existing RINEX files  
+  02-Feb-2022 LP: Extended emergency file list (and added print)  
+  09-Feb-2022 ST: Change emergency deletions of ANKR into comments  
+                  since CODE_STA.DEL seems to work now.  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  29-Mar-2022 AV: Use copySkl  
+  11-Jan-2024 SS: Remove RXGRssss.SMC
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_CRDINF`, `V_E`, `V_O`, `V_PSDINF`, `V_SAVDSK`
@@ -3171,7 +4691,45 @@ Variables:
 - Source file: IGSR_COP (download from the HTML manual)
 ### IGSR_DEL
 
+- Name: IGSR_DEL
 - Purpose: Deletion script for IGSRAPID process.
+- Author: S. Lutz
+- Created: 20-Nov-2013
+- Changes: 29-Aug-2001/ss: Remove files related to RS solution  
+  10-Oct-2001/ss: Remove GCC file  
+  29-Jul-2002/ss: Clean up RAP SAV subdirectories  
+  02-Oct-2002/mm: Remove flags from BPE directory  
+  06-Jan-2003/hu: Pole files in ORB instead of X/GEN  
+  09-Jan-2003/ss: Pole files in ORB savedisk subdirectories  
+  03-Feb-2003/ss: Remove merged CODE PRE files  
+  13-Aug-2003/ss: Remove remaining ERP/IEP files  
+  27-Aug-2003/ss: Remove ULT CLRX files  
+  02-Aug-2007/mm: V_DEL activated  
+  26-May-2009/rd: Extractions: YY_DDD -&gt; YY_SSSS  
+  30-Jul-2010/ss: Remove second REPOSITIONING2.FLG file  
+  01-Oct-2010/ss: Remove further REPOSITIONING FLG files  
+  08-Oct-2010/ss: Remove VMF GRD and TRP FLG files  
+  22-Feb-2011/ss: Remove old GPSWM360 CMP/LST/SUM/OUT files  
+  20-Nov-2013 SL: BDS to Perl  
+  10-Jun-2014 SS: Remove BIA results  
+  23-Oct-2014 SS: Remove ???yyddd_.OUT, RZ?yyddd.NQ0  
+  25-Mar-2015 AS: MPRXTR-satellite statistics added  
+  18-May-2016 SS: Remove OSB and EST files  
+  02-May-2018 SS: Remove REF VEL files  
+  31-Aug-2019 RD: Add OBSXTR program  
+  11-Sep-2019 LP: Remove newRB?*STD/RPR/TAB/ERP files  
+  15-Jun-2020 AV: Jump to nextjob if 3-day solution is skipped  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  07-Apr-2022 ST: Remove DIR_BRD, EXT_BRD, DIR_ONQ, EXT_ONQ, DIR_TAB and EXT_TAB.  
+  10-May-2022 AV: Remove new RINEX file names (-8days)  
+  11-Jul-2022 SS: Removed SKIP3D stuff  
+  24-Nov-2022 SS: Deleted OBX files  
+  20-Mar-2023 RD/PS: Remove output files from GNSAMB_P (RESRMS+SATMRK)  
+  25-Apr-2023 EB: Remove Compar PLT files  
+  08-Aug-2023 EB: CRD files keep 90 instead 15 days  
+  24-Jun-2024 ML: Added delete of output (.OUT) for IGSRAPID PID 622 (STDPRE/PREWEI)  
+  27-Sep-2024 RD: remove with 720 instead of 360 days delay on SAVEDISK/RAP
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_DEL`, `V_E`, `V_H`, `V_I`, `V_K`, `V_O`, `V_S`, `V_U`, `V_X`, `V_Z`
@@ -3183,7 +4741,85 @@ Variables:
 ### IGSR_DI2
 
 - Package: `IGSR_DIS`
-- Purpose: Submit results of rapid/ultra solution Redesign of IGSR_FTP Authors:    A. Villiger
+- Name: IGSR_DIS
+- Purpose: Submit results of rapid/ultra solution  
+  Redesign of IGSR_FTP
+- Author: A. Villiger
+- Created: 18-Mar-2021
+- Changes: 07-May-2008/ss: Submission order changed, BKG added  
+  15-May-2008/ss: Bugfix wrt COU.ERP update  
+  05-Jun-2008/lo: Stop submission Tropo NRT to GFZ from 05.06.2008  
+  27-Auhg-2008/rd,ss: Stop supporting BSWUSER/BSWUSER42  
+  06-Oct-2008 SL: appFile added (to $ftpFil)  
+  17-Nov-2009 mm: Submissions to GFZ stopped  
+  24-Jun-2010 lo: change from cddis to cddisin  
+  05-Jan-2011 SL: check ~l_code/MSC/NO_DIS.FLG file  
+  14-Aug-2012 DT: Add ROB for ftp submission (only Ultras)  
+  24-Sep-2012/ss: Change model identifiers for COU.ERP  
+  01-Nov-2012 lp: Copy files also to BSWUSER52; Consider BSW version in GEN+REF files  
+  07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER  
+  14-Jan-2013 lp: Wait a while before dying  
+  12-Nov-2013 SL: Submit new solutions (US)  
+  15-Nov-2013 SL: Save new ULTRA results (U$T or US?)  
+  13-Jan-2014 SL: U$T${wwwwd}.${extErp} -&gt; ULT... for ORBMRG  
+  06-Jun-2014 SS: Considered MIDyyddd.FLG  
+  12-Jun-2014 SS: Create _M files on ftp; consider MIDyyddd.TRO  
+  15-Oct-2014 SS: Removed V_SATINF, V_PCVINF, V_PCV  
+  03-Aug-2015 SS: Activated RCLKGNSS as operational CLKRAPID  
+  05-Aug-2015 SS: Post _M files in addition to CODE/yyyy_M  
+  06-Aug-2015 SS: Save _M files (.PRE/.IEP) in $S/RCLKGNSS/ORB/  
+  07-Aug-2015 SS: Save _M files using TP_yyddd naming  
+  26-Aug-2015 SS: Post extra _U (.EPH/.ERP) files to aftp  
+  27-Aug-2015 SS: Remove extra _U files in case of RAP mode  
+  16-Sep-2015 RD/SS: Corrected submission of .CLK_M  
+  07-Jun-2016 AV: Prepare for compability solution for V5.2  
+  29-Aug-2016 AV: Prepare for http cddis upload  
+  30-Aug-2016 AV: Deactivated http upload to cddis  
+  12-Sep-2016 SS: Changed $S/RCLKGNSS/ORB to $S/RCLKGNSS/yyyy/ORB  
+  02-Nov-2016 AV: Change to long filename for cddis http upload  
+  14-Nov-2016 AV: CDDIS http upload activated  
+  10-Feb-2017 RD: Stop posting to BSWUSER50  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  09-Aug-2019 AV: Convert ERP for BSWUSER 52  
+  14-Non-2019 AV: Skip if V_SAVDSK  
+  09-Jan-2020 SS: Prepared posting of IAR BIA and OSB files  
+  26-Mar-2020 SS: Make available:  
+                    CODE/COD_TRO.SNX_R.Z  
+                    CODE/CODwwwwd_TRO.SNX_R.Z  
+                    CODE/IERS/yyyy/CODwwwwd_TRO.SNX_R.Z  
+  10-Mar-2021 AV: Change BKG from ftp to sftp (use IGS directory)  
+  19-Mar-2021 AV: Rename cddis_upload to disCDDIS  
+  20-Mar-2021 AV: Continue if IERS fails  
+  13-Jan-2022 AV: Clear intermediate BKG log file &quot;${log}2&quot;  
+  01-Mar-2022 SS: Post BIA file if already made available  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  20-Apr-2022 SS: Post hidden BIA file (for _M as well as _R)  
+  24-May-2022 SS: IAR BIA/OSB files changed from V00 to V01  
+  01-Jun-2022 SS: Added check_dir concerning CODE/IERS/yyyy  
+  07-Jul-2022 AV: Change BKG host  
+  27-Sep-2022 AV: Add gen2bswuser54.com  
+  17-Oct-2022 AV: long filenames for IGS20 products  
+  24-Oct-2022 AV: Chenge COD0IGSULT to COD0OPSULT  
+  30-Nov-2022 SS: Renamed BIA.BIA to OSB.BIA; gunzipped .gz files  
+  21-Dec-2022 SS: IAR BIA files no longer hidden;  
+                  posted middle-day IAR BIA files;  
+                  upload IAR BIA files (to IGS and CDDIS)  
+  11-Jan-2023 SS: Renamed 01D_01D_TRO.SNX to 01D_02H_TRO.SNX  
+  12-Jan-2023 SS: Introduced COD0OPSPRD  
+  18-Jan-2023 SS: Distributed COD0OPSRAP ATT.OBX (not yet uploaded)  
+  14-Mar-2023 RD: Adjust ultra submissions (on spare)  
+  01-May-2023 EB: FTP log file ROB+IERS reduced  
+  03-May-2023 EB: IERS upload stopped (they take it from CDDIS)  
+  25-Jul-2023 EB: Upload BKG+ROB using gzip if requested by extension  
+  20-Oct-2023 EB: Short protocol copy to www  
+  23-Oct-2023 EB: PATH_WWW taken with backslash at end  
+  15-Nov-2023 SS: Uploaded COD0OPSRAP ATT.OBX  
+  08-Dec-2023 EB: Sat statistics added  
+  17-Feb-2026 SS: Execute $AUTO/pcv2week.com -auto -w  
+  05-Mar-2026 EB: printing of pcv2week corrected  
+  01-Jul-2026 SS: Uploaded COD0OPSULT.* using $short_u and $name_u  
+  01-Oct-2026 CK/EB: ROB disabled (ftp planned to be disconinued Oct. 26)  
+  21-Oct-2026 SS: Created COD0OPSPRD_21D.ERP
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_CRDINF`, `V_DIS`, `V_SAV`, `V_SAVDSK`
@@ -3193,7 +4829,73 @@ Variables:
 - Source file: IGSR_DI2 (download from the HTML manual)
 ### IGSR_DIS
 
-- Purpose: Submit results of rapid/ultra solution Redesign of IGSR_FTP Authors:    A. Villiger
+- Name: IGSR_DIS
+- Purpose: Submit results of rapid/ultra solution  
+  Redesign of IGSR_FTP
+- Author: A. Villiger
+- Created: 18-Mar-2021
+- Changes: 07-May-2008/ss: Submission order changed, BKG added  
+  15-May-2008/ss: Bugfix wrt COU.ERP update  
+  05-Jun-2008/lo: Stop submission Tropo NRT to GFZ from 05.06.2008  
+  27-Aug-2008/rd,ss: Stop supporting BSWUSER/BSWUSER42  
+  06-Oct-2008 SL: appFile added (to $ftpFil)  
+  17-Nov-2009 mm: Submissions to GFZ stopped  
+  24-Jun-2010 lo: change from cddis to cddisin  
+  05-Jan-2011 SL: check ~l_code/MSC/NO_DIS.FLG file  
+  14-Aug-2012 DT: Add ROB for ftp submission (only Ultras)  
+  24-Sep-2012/ss: Change model identifiers for COU.ERP  
+  01-Nov-2012 lp: Copy files also to BSWUSER52; Consider BSW version in GEN+REF files  
+  07-Nov-2012 lp: Use script gen2bswuser.com to update BSWUSER  
+  14-Jan-2013 lp: Wait a while before dying  
+  12-Nov-2013 SL: Submit new solutions (US)  
+  15-Nov-2013 SL: Save new ULTRA results (U$T or US?)  
+  13-Jan-2014 SL: U$T${wwwwd}.${extErp} -&gt; ULT... for ORBMRG  
+  06-Jun-2014 SS: Considered MIDyyddd.FLG  
+  12-Jun-2014 SS: Create _M files on ftp; consider MIDyyddd.TRO  
+  15-Oct-2014 SS: Removed V_SATINF, V_PCVINF, V_PCV  
+  03-Aug-2015 SS: Activated RCLKGNSS as operational CLKRAPID  
+  05-Aug-2015 SS: Post _M files in addition to CODE/yyyy_M  
+  06-Aug-2015 SS: Save _M files (.PRE/.IEP) in $S/RCLKGNSS/ORB/  
+  07-Aug-2015 SS: Save _M files using TP_yyddd naming  
+  26-Aug-2015 SS: Post extra _U (.EPH/.ERP) files to aftp  
+  27-Aug-2015 SS: Remove extra _U files in case of RAP mode  
+  16-Sep-2015 RD/SS: Corrected submission of .CLK_M  
+  07-Jun-2016 AV: Prepare for compability solution for V5.2  
+  29-Aug-2016 AV: Prepare for http cddis upload  
+  30-Aug-2016 AV: Deactivated http upload to cddis  
+  12-Sep-2016 SS: Changed $S/RCLKGNSS/ORB to $S/RCLKGNSS/yyyy/ORB  
+  02-Nov-2016 AV: Change to long filename for cddis http upload  
+  14-Nov-2016 AV: CDDIS http upload activated  
+  10-Feb-2017 RD: Stop posting to BSWUSER50  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  09-Aug-2019 AV: Convert ERP for BSWUSER 52  
+  14-Non-2019 AV: Skip if V_SAVDSK  
+  09-Jan-2020 SS: Prepared posting of IAR BIA and OSB files  
+  26-Mar-2020 SS: Make available:  
+                    CODE/COD_TRO.SNX_R.Z  
+                    CODE/CODwwwwd_TRO.SNX_R.Z  
+                    CODE/IERS/yyyy/CODwwwwd_TRO.SNX_R.Z  
+  10-Mar-2021 AV: Change BKG from ftp to sftp (use IGS directory)  
+  19-Mar-2021 AV: Rename cddis_upload to disCDDIS  
+  20-Mar-2021 AV: Continue if IERS fails  
+  13-Jan-2022 AV: Clear intermediate BKG log file &quot;${log}2&quot;  
+  01-Mar-2022 SS: Post BIA file if already made available  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  20-Apr-2022 SS: Post hidden BIA file (for _M as well as _R)  
+  24-May-2022 SS: IAR BIA/OSB files changed from V00 to V01  
+  01-Jun-2022 SS: Added check_dir concerning CODE/IERS/yyyy  
+  07-Jul-2022 AV: Change BKG host  
+  27-Sep-2022 AV: Add gen2bswuser54.com  
+  01-Dec-2022 SS: Used gzipped IAR BIA files  
+  21-Dec-2022 SS: IAR BIA files no longer hidden;  
+                  posted middle-day IAR BIA files  
+  01-May-2023 EB: FTP log file ROB+IERS reduced  
+  03-May-2023 EB: IERS upload stopped (they take it from CDDIS)  
+  27-Oct-2023 EB: Short protocol and copy to www  
+  08-Dec-2023 EB: Sat statistics added  
+  04-Apr-2025 EB: protocol call -q modified  
+  17-Apr-2025 EB: typ_rap call different for rapid and ultra  
+  01-Oct-2026 CK/EB: ROB disabled (ftp planned to be disconinued Oct. 26)
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`, `V_SAVDSK`
@@ -3203,7 +4905,18 @@ Variables:
 - Source file: IGSR_DIS (download from the HTML manual)
 ### IGSR_EUM
 
-- Purpose: Copy GEN files for EUMETSAT to SFTP server, remove LEOs from sat. info. file Programs:
+- Name: IGSR_EUM
+- Purpose: Copy GEN files for EUMETSAT to SFTP server, remove LEOs from  
+  sat. info. file  
+    
+  Programs:
+- Author: D. Arnold
+- Created: 02-Dec-2021
+- Changes: 20-Jan-2022 DA: Copy I14.ATX from AFTP  
+  29-Mar-2022 AV: GEN path splitted to MODEL/CONFIG  
+  17-Oct-2022 DA: Updated pw  
+  09-Nov-2022 DA: Use Net::SFTP instead of lftp  
+  04-Jan-2023 DA: Use newFTP instead of Net::SFTP
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Source file: IGSR_EUM (download from the HTML manual)
 ### IGSR_EXT
@@ -3212,14 +4925,34 @@ Variables:
 - Source file: IGSR_EXT (download from the HTML manual)
 ### IGSR_INI
 
-- Purpose: Perform extra initialization procedures Programs:
+- Name: IGSR_INI
+- Purpose: Perform extra initialization procedures  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 03-Oct-2014
+- Changes: 02-Sep-2015 SS: Call repositioning.com w/o -auto
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$YD+0`
 - Source file: IGSR_INI (download from the HTML manual)
 ### IGSR_LPT
 
-- Purpose: Post COD.EPH_U to AFTP for swisstopo (LPT) Programs:
+- Name: IGSR_LPT
+- Purpose: Post COD.EPH_U to AFTP for swisstopo (LPT)  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 07-Mar-2007
+- Changes: 08-Mar-2007/ss: Week-specific subdirectories  
+  02-Aug-2007/mm: V_DIS activated  
+  16-Nov-2013 SL: New ULTRA files  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  03-Feb-2023 SS: SAT_yyyy.CRX updated each time  
+  06-Jul-2026 SS: GEN replaced by CONFIG  
+  06-Jul-2026 SS: Introduced $oosFlg=&quot;_out_of_service&quot;  
+  07-Jul-2026 SS: Used IGSULTRA.CRX; added CODE*.OSB files  
+  13-Jul-2026 SS: Paused SAT_yyyy.CRX
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$W+0`, `$W+1`, `$W-8`, `$WD+0`, `$WD+1`, `$WD-8`, `$Y+0`, `$Y+1`, `$YD+0`, `DIR_OUT`, `DIR_PRE`, `EXT_PRE`, `EXT_SATCRUX`, `PTH_SATCRUX`
@@ -3227,7 +4960,15 @@ Variables:
 - Source file: IGSR_LPT (download from the HTML manual)
 ### IGSR_MID
 
-- Purpose: Save PRE/ERP of middle day Programs:
+- Name: IGSR_MID
+- Purpose: Save PRE/ERP of middle day  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 04-Jun-2014
+- Changes: 04-Jun-2014/ss: Created based on ORB_CHK4  
+  06-Jun-2014/ss: Save also STD and ELE  
+  06-Jun-2014/ss: Check consistency concerning MIDyyddd.FLG
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_I`, `V_Z`
@@ -3238,14 +4979,50 @@ Variables:
 - Source file: IGSR_MID (download from the HTML manual)
 ### IGSR_PLT
 
+- Name: IGSR_PLT
 - Purpose: PLOT IGSRAPID PRC FILES FOR WWW
+- Author: A. Villiger
+- Created: 17-Aug-2016
+- Changes: 17-Jan-2025: always run (no longer called from IGSRAPID)
 - Used in PCFs: PLOTS_RAPID.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`
 - Source file: IGSR_PLT (download from the HTML manual)
 ### IGSR_PRC
 
-- Purpose: MAKE A "PROTOCOL" OF THE RAPID SOLUTION
+- Name: IGSR_PRC
+- Purpose: MAKE A &quot;PROTOCOL&quot; OF THE RAPID SOLUTION
+- Author: S. Lutz
+- Created: 04-Dec-2013
+- Changes: 18-Sep-2000/SS: Change extension of ASPLIT file from DDD to YY_DDD  
+  18-Sep-2000/SS: Change extension of ORBCHK1/2 file from DDD to YY_DDD  
+  18-Sep-2000/SS: Change extension of MPRXTR file from DDD to YY_DDD  
+  18-Sep-2000/SS: Change extension of CODXTR file from DDD to YY_DDD  
+  29-Aug-2001/SS: Consider &quot;reduced&quot; RS solution  
+  28-Nov-2001/MM: Warning in case of missing files  
+  06-Jan-2003/HU: Pole files in ORB instead of X/GEN  
+  20-May-2003/SS: Consider RMGwwwwd.LST file  
+  20-Jan-2005/RD: Add SATGRA-repositioning summary  
+  29-Jul-2005/SS: Consider IGSULTRA.LOG file  
+  26-May-2009/rd: Extractions: YY_DDD -&gt; YY_SSSS  
+  04-Dec-2013 SL: BDS to Perl  
+  17-Mar-2014 SL: Show message w.r.t. satellite exclusions  
+  25-Mar-2015 AS: MPRXTR-satellite statistics added  
+  20-Nov-2016 AV: Skip LIMXTR if SKIP_QIF.FLG active  
+  19-Apr-2018 AV: Add RINEX statistics for IGSRAPID  
+  23-Apr-2018 AV: Add RINEX statistics for IGSULTRA  
+  31-Aug-2019 RD: Add OBSXTR program  
+  11-Nov-2019 AV: User V_RELAX for appFile (annoying for reprocessing ...)  
+  15-Jun-2020 AV: Skip 3-day solutions if indicated (V_SKIP3D)  
+  04-Dec-2020 AV: Add OBSXTR (satellite statistic)  
+  02-Sep-2021 RD/ST: Add printing of BPE server variables  
+  07-Apr-2022 ST: Remove DIR_BRD, EXT_BRD, DIR_TAB and EXT_TAB.  
+  08-Aug-2023 EB: Daily repeatability plots and outlier suggestions  
+  02-Oct-2023 EB: No outlier if extrapolated (ultra too weak)  
+  26-Oct-2023 EB: Copy repeatability files to www  
+  19-Aug-2025 EB: monthly RQ repeatability plots from ADDNEQ added  
+  17-Dec-2025 EB: crd_rep.pl reports to log  
+  19-Aug-2026 EB: start update plots for 3months process comparisons
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_E`, `V_H`, `V_I`, `V_K`, `V_O`, `V_RELAX`, `V_SKIP3D`, `V_X`, `V_Z`
@@ -3254,7 +5031,23 @@ Variables:
 - Source file: IGSR_PRC (download from the HTML manual)
 ### IGSR_SA2
 
+- Name: IGSR_SA2
 - Purpose: Save results produced by IGSRAPID.PCF
+- Author: M. Meindl
+- Created: 05-Dec-2007
+- Changes: 07-May-2008/ss: Do not copy old info to COD.EPH and COD.ERP_U  
+  15-Nov-2013 SL: Save new ULTRA results (U$T or US?)  
+  06-Jun-2014 SS: Considered MIDyyddd.FLG  
+  26-Aug-2015 SS: Added quality check concerning GLONASS clocks  
+  07-Jun-2016 AV: Add compability solution for version 5.2  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  14-Non-2019 AV: Skip if V_SAVDSK  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  02-Nov-2022 AV: Save long filname to aftp (CODE_TEST) COD0OPSULT.EPH  
+  28-Nov-2022 AV: Change upload from CODE_TEST to CODE  
+  08-Jul-2026 SS: Saved $S/RAP/COD0OPSULT.*  
+  15-Oct-2026 SS: Do no longer save $S/RAP/COD.*
+- Notes: Local packages
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`, `V_SAVDSK`
@@ -3266,7 +5059,49 @@ Variables:
 - Source file: IGSR_SA2 (download from the HTML manual)
 ### IGSR_SAV
 
+- Name: IGSR_SAV
 - Purpose: Save results produced by IGSRAPID.PCF
+- Author: M. Meindl
+- Created: 05-Dec-2007
+- Changes: 27-Aug-2008/rd,ss: Stop supporting BSWUSER/BSWUSER42  
+  26-May-2009/rd: RESRMS/RNXERR: YY_DDD -&gt; YY_SSSS  
+  08-Oct-2010/ss: Save VMF GRD file  
+  24-Feb-2011/ss: Save VER/V3D/V3M LST/LIS files  
+  04-Jun-2014/ss: Major revision (full sets of RQ/RA/RM products)  
+  04-Jun-2014/ss: Gzipped NQ0 files  
+  07-Jan-2015/av: orxDp path changed  
+  21-Nov-2015/rd: Stop saving AFIT (process deactivated since Jan 15)  
+  05-Jul-2016/rd: introduce &quot;use strict&quot;  
+  22-Sep-2016/av/rd: Use REF$YYDDD.CRD instead of IGSRAPID.CRD  
+  07-Feb-2018 SS: Use V_UPD (not V_DIS) for WWW updates  
+  15-Feb-2019 RD: Sort the RINEX messages (use of get_warn.pl)  
+  31-Aug-2019 RD: Add OBSXTR program  
+  18-Nov-2019 AV: Adapt CODE-Nav file path on savedisk  
+  05-Mar-2020 av/st: Save RINEX3 CODE-Nav  
+  26-Mar-2020 SS: Save RATyyddd.SNX (VLBI_TROPO)  
+  06-Apr-2020 ST: Save BRD and $A files: PRE, OSB, CLK  
+                  (all derived from broadcast)  
+  07-Apr-2020 AV: Change DCB to OSB  
+  22-Apr-2020 ST: Remove duplicated save of OSB file.  
+                  Unify &#x27;BRD&#x27; and &#x27;${v_a}_&#x27;.  
+  15-Jun-2020 AV: Skip 3-day products if indicated (V_SKIP3D)  
+  18-Jun-2020 AV: Fix PATH_WWW path  
+  30-Sep-2021 RD: Ignore merged RINEX2-nav files  
+  28-Feb-2022 SS: Save additional files for IERS experiment  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  09-Jun-2022 SS: Saving for IERS experiment in RAP mode only  
+  23-Jun-2022 ST: Save RINEX2 GPS CODE-Nav again.  
+                  Save the additional broadcast precise file  
+                  which also contains the unregistered satellites.  
+  24-Nov-2022 SS: Saved OBX file  
+  20-Oct-2023 EB: Short protocol generation  
+  04-Dec-2023 EB: Adopt PATH_WWW for protocol+short protocol  
+  08-Dec-2023 EB: RINEX summary for code web added  
+  08-Dec-2023 EB: SAT summary for code web added  
+  27-Feb-2024 EB: save RP3 predictions  
+  04-Apr-2025 EB: protocol call -q modified  
+  17-Apr-2025 EB: typ_rap call different for rpaid and ultra  
+  29-Jan-2026 SS: Backup $CONFIG/SAT_yyyy.CRX (to _ssss)
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_DIS`, `V_H`, `V_I`, `V_K`, `V_O`, `V_SAV`, `V_SKIP3D`, `V_UPD`, `V_X`, `V_Z`
@@ -3276,7 +5111,17 @@ Variables:
 - Source file: IGSR_SAV (download from the HTML manual)
 ### INIT_FIX
 
+- Name: INIT_FIX
 - Purpose: Create a priori FIX file
+- Parameters: PARAM1 - Optional solution identifier  
+  PARAM2 - Optional solution identifier (of reference solution)  
+  PARAM3 - Optional filename extension (default: _ALL)  
+  PARAM4 - WEEK option for file naming
+- Author: S. Schaer
+- Created: 26-Sep-2012
+- Changes: 26-Sep-2012/ss: Consider optional PARAM1  
+  27-Sep-2012/ss: Consider optional PARAM2 and PARAM3  
+  02-Oct-2012/ss: WEEK option for file naming
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_CRDINF`
@@ -3285,7 +5130,26 @@ Variables:
 - Source file: INIT_FIX (download from the HTML manual)
 ### INIT_HOI
 
-- Purpose: Initialization concerning HOI setup Programs:
+- Name: INIT_HOI
+- Purpose: Initialization concerning HOI setup  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 17-Jan-2012
+- Changes: 26-Feb-2010 ss: Generalization  
+  01-Mar-2010 ss: CLKRAPID case added  
+  07-Oct-2010 ss/rd: Allow a certain delay for start of iono BPE  
+  17-Jan-2012 lp/sl: Look for RA...ION file in ${PATH_RAP}${CAMP_RAP}  
+                     instead of ${PATH_SAV}${CAMP_SAVRAP};  
+                     wait for ..999..PRT file of RAPIONO  
+  04-Aug-2015 ss: CLKRAPID replaced by RCLKGNSS  
+  05-Jun-2018 ss: REPROCESSING.FLG considered  
+  07-Aug-2018 ss: Extended @ionLst for RCLKGNSS  
+  11-Jun-2019 ss: Do not accept any null model  
+  16-Sep-2019 av: Use regex for PCFFIL check (IGSRAPID and RCLKGNSS)  
+  21-Apr-2020 ST: Add &#x27;use igs_device;&#x27;  
+  25-Jun-2020 AV: Look for RA..ION in savedisk  (IGSRAPID)  
+  08-Mar-2022 AV: Save disk: yearly subdirectory
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_HOI`, `V_SAVDSK`
@@ -3294,7 +5158,15 @@ Variables:
 - Source file: INIT_HOI (download from the HTML manual)
 ### INIT_IAR
 
-- Purpose: Perform initialization for PPPAR BPE (doing ZERO_AR) Programs:  SATMRK
+- Name: INIT_IAR
+- Purpose: Perform initialization for PPPAR BPE (doing ZERO_AR)  
+    
+  Programs:  SATMRK
+- Author: S. Schaer
+- Created: 28-May-2018
+- Changes: 30-May-2018 SS: Added V_IAR; removal of IAR OSB  
+  08-Aug-2018 SS: Prepared for consideration of ambiguity integers  
+  10-Aug-2018 SS: Combined (and saved) IAR OSB if IAR_DONE.FLG
 - Bernese programs: `SATMRK`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `SATMRK.INP`
@@ -3305,7 +5177,21 @@ Variables:
 - Source file: INIT_IAR (download from the HTML manual)
 ### INIT_VMF
 
-- Purpose: Initialization concerning VMF setup Programs:
+- Name: INIT_VMF
+- Purpose: Initialization concerning VMF setup  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 07-Oct-2010
+- Changes: 08-Oct-2010/ss: msg2key statement added  
+  08-Oct-2010/ss: Consider ULT FLG file  
+  15-Oct-2010/ss: Take over VMF information if indicated  
+  18-Oct-2010/ss: Do not execute get_vmf.com in ULT mode  
+  25-Jul-2013/ss: Suppress warning messages in ULT mode  
+  04-Aug-2015/ss: CLKRAPID raplaced by RCLKGNSS  
+  07-Dec-2020 RD: Add PCF variable V_TRPMOD  
+  09-Jul-2021 LP: More generalized handling of TROPO model  
+  12-Aug-2021 LP: If used by RCLKGNSS: copy VMF*.GRD from orbit campaign
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_TRPMOD`
@@ -3314,7 +5200,11 @@ Variables:
 - Source file: INIT_VMF (download from the HTML manual)
 ### ION_AUX
 
+- Name: ION_AUX
 - Purpose: Perform auxiliary tasks concerning DCBIONO
+- Author: S. Schaer
+- Created: 30-Aug-2012
+- Changes: 10-Sep-2012/ss: Upload predicted IONEX
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`, `V_UPD`
@@ -3322,7 +5212,14 @@ Variables:
 - Source file: ION_AUX (download from the HTML manual)
 ### ION_LST
 
+- Name: ION_LST
 - Purpose: Create LIS/SEL file of complete ION file time series
+- Parameters: PARAM1 - Optional minus parameter
+- Author: S. Schaer
+- Created: 21-Dec-2011
+- Changes: 22-Dec-2011/ss: Stop if no ION file found  
+  23-Dec-2011/ss: Make use of setMinusPlus  
+  08-Mar-2022 AV: Save disk: yearly subdirectory
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_B`
@@ -3331,7 +5228,18 @@ Variables:
 - Source file: ION_LST (download from the HTML manual)
 ### ION_LSTR
 
-- Purpose: Create LIS/SEL file of complete ION file time series (for REPRO_ION series)
+- Name: ION_LSTR
+- Purpose: Create LIS/SEL file of complete ION file time series  
+  (for REPRO_ION series)
+- Parameters: PARAM1 - Optional minus parameter
+- Author: S. Schaer
+- Created: 21-Dec-2011
+- Changes: 22-Dec-2011/ss: Stop if no ION file found  
+  23-Dec-2011/ss: Make use of setMinusPlus  
+  22-Jun-2017/ss: Derived from ION_LST  
+  25-Jul-2017/ss: Change $mjd_first if indicated (for antlia)  
+  20-May-2021 SS: Removed extra entries for REPRO_ION Z3/Z1 ION  
+  08-Mar-2022 AV: Save disk: yearly subdirectory
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_B`
@@ -3340,7 +5248,15 @@ Variables:
 - Source file: ION_LSTR (download from the HTML manual)
 ### JUMP_BIA
 
-- Purpose: Delete specific monthly bias NEWs in case if added bias jump events.
+- Name: JUMP_BIA
+- Purpose: Delete specific monthly bias NEWs in case if added bias jump  
+  events.
+- Parameters: PARAM1 - Optional minus parameter
+- Author: S. Schaer
+- Created: 29-Jun-2017
+- Changes: 19-Jul-2017 SS: Skip &#x27; 01 00 00 00 &#x27; entries  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX  
+  07-Apr-2022 ST/SS: Corrected misspelled PTH_SATRUX
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_B`, `V_BIACRX`
@@ -3351,11 +5267,63 @@ Variables:
 - Source file: JUMP_BIA (download from the HTML manual)
 ### LIMEST
 
+- Changes: 22-Aug-2001 rd: GPSEST runs new menu  
+  19-Sep-2002 ss: Use predicted ionosphere information, if available  
+  06-Jan-2003 hu: Pole files in ORB instead of X/GEN  
+  23-Jul-2003 ss: Consider SKIP_QIF.FLG  
+  08-Sep-2005/ss: Make use of geomagnetic_pole.com  
+  26-May-2009 rd: LIMXTR: YY_DDD -&gt; YY_SSSS  
+  23-Oct-2014 SS: Changed path for Z11 and Z12 ION files  
+    
+  LIMEST
+- Notes: ESTIMATE LOCAL IONOSPHERE MAP (using V_K pole file)  
+  SHELL VARIABLES:  
+  YEAR    :  Year of the session to be processed (2 digit)  
+  SESSION :  Session number (4 characters)  
+  CAMPAIGN:  Campaign name  
+  CAMP_PTH:  Campaign path  
+  CAMP_DRV:  Drive letter for campain (i.e. P)  
+  OPT_DIR :  Directory for panels  
+  PID     :  Process identification number (3 digits)  
+  SUB_PID :  Subprocess id (3 digits)  
+  PRT_FILE:  Protocol file name including path  
+  SCRIPT  :  Name of script  
+  TASKID  :  Task id of script, usually 00  
+  PRIORITY:  Priority of the script  
+  CPU     :  CPU the script is running on  
+  DAYYEAR :  Julian day of the year  
+  DAY     :  Day of the Month  
+  MONTH   :  Month, 1=JAN, 12=DEC  
+  GPSWEEK :  GPS week  
+  DAYWEEK :  Day of the week, 0=SUN, 6=SAT  
+  V_X     :  X Variable in DAT151__.PAN  
+  V_O     :  O Variable in DAT151__.PAN  
+  V_Z     :  Z Variable in DAT151__.PAN  
+  V_PLUS  :  Plus variable in DAT151__.PAN  
+  V_MINUS :  Minus variable in DAT151__.PAN  
+  V_x     :  User variable  
+  PARAMx  :  Script specific parameter, x is 1 thru 9  
+  U       :  Directory path to U:  
+    
+  Use the new menu
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Source file: LIMEST (download from the HTML manual)
 ### LSC_CHK
 
-- Purpose: Linearity of satellite clocks (LSC) for CLKEST clock alignment: Check satellite clock characteristics and decide whether poorly behaving satellite shall be excluded from a priori information. Programs:
+- Name: LSC_CHK
+- Purpose: Linearity of satellite clocks (LSC) for CLKEST clock alignment:  
+  Check satellite clock characteristics and decide whether poorly  
+  behaving satellite shall be excluded from a priori information.  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 02-Oct-2020
+- Changes: 06-Oct-2020 ss: Considerably refined  
+  07-Oct-2020 ss: Create GNSS statistics  
+  07-Oct-2020 ss: Update MSC/LSC_CHK.LST  
+  08-Sep-2021 ss: Check number of conspicuous satellites  
+  22-Feb-2022 ss: Force panic mode if necessary  
+  22-Feb-2024 ss: Dealing with format overflow concerning $sig
 - Bernese programs: `CCRNXC`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CCRNXC.INP`
@@ -3367,7 +5335,17 @@ Variables:
 - Source file: LSC_CHK (download from the HTML manual)
 ### LSC_INI
 
-- Purpose: Linearity of satellite clocks (LSC) for CLKEST clock alignment: Remove satellites included in MSC/LSC_INI.LST from BRD CLK file. Programs:
+- Name: LSC_INI
+- Purpose: Linearity of satellite clocks (LSC) for CLKEST clock alignment:  
+  Remove satellites included in MSC/LSC_INI.LST from BRD CLK file.  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 06-Oct-2020
+- Changes: 06-Oct-2020 ss: Considered optional validity periods (MJD1-MJD2)  
+  06-Oct-2020 ss: Considered OUT/LSCyyssss.LST (if existing)  
+  04-Mar-2021 av: Create LSC_INI.FLG if not existing  
+  07-Sep-2021 ss: Corrected $mjd (using $JD+0)
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_A`
@@ -3375,7 +5353,14 @@ Variables:
 - Source file: LSC_INI (download from the HTML manual)
 ### MAKE_BIM
 
+- Name: MAKE_BIM
 - Purpose: Make broadcast ionosphere model information
+- Parameters: PARAM1 - Optional minus parameter
+- Author: S. Schaer
+- Created: 11-Sep-2012
+- Changes: 18-Sep-2012/ss: Set title  
+  01-Dec-2016 SS: Upload to cddis https  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp
 - Bernese programs: `BIMINX`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `BIMINX.INP`, `MENU_EXT.INP`, `BIMINX.INP`
@@ -3387,7 +5372,20 @@ Variables:
 - Source file: MAKE_BIM (download from the HTML manual)
 ### MAKE_CKM
 
+- Name: MAKE_CKM
 - Purpose: Make CODE Klobuchar-style model information
+- Parameters: PARAM1 - Optional minus parameter  
+  PARAM2 - Optional reference solution identifier
+- Author: S. Schaer
+- Created: 11-Sep-2012
+- Changes: 12-Sep-2012/ss: Save and distribute CGIM RINEX results  
+  12-Sep-2012/ss: Consider also latest rapid IONEX information  
+  18-Sep-2012/ss: Some refinements and preparation of LAST.yyN  
+  18-Sep-2012/ss: Set title  
+  26-Oct-2015/ss: Increased default for $param1 from -10 to -32  
+  01-Dec-2016 SS: Upload to cddis https  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  11-Jan-2023 SS: Support long filenames (GIM.RNX)
 - Bernese programs: `BIMINX`, `INXFIT`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `BIMINX.INP`, `INXFIT.INP`, `MENU_EXT.INP`, `BIMINX.INP`, `INXFIT.INP`
@@ -3400,7 +5398,19 @@ Variables:
 - Source file: MAKE_CKM (download from the HTML manual)
 ### MAKE_UIF
 
+- Name: MAKE_UIF
 - Purpose: Make ultra-rapid ionosphere file (UIF)
+- Author: S. Schaer
+- Created: 24-Aug-2012
+- Changes: 27-Aug-2012/ss: Use copyaftp  
+  07-Sep-2012/ss: Stop when copy/copyaftp failed  
+  22-Oct-2014/ss: Additional checks added  
+  06-Nov-2014/ss: Increased time resolution from 2 to 1 hour  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  22-Nov-2022 AV: Add COD0OPSULT.ION_U  
+  28-Nov-2022 AV: Change upload from CODE_TEST to CODE  
+  01-Feb-2024 SS: Executed if date not before yesterday
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_E`, `V_F`, `V_SAV`
@@ -3409,7 +5419,21 @@ Variables:
 ### MAKERCKM
 
 - Package: `MAKE_CKM`
+- Name: MAKE_CKM
 - Purpose: Make CODE Klobuchar-style model information
+- Parameters: PARAM1 - Optional minus parameter  
+  PARAM2 - Optional reference solution identifier
+- Author: S. Schaer
+- Created: 11-Sep-2012
+- Changes: 12-Sep-2012/ss: Save and distribute CGIM RINEX results  
+  12-Sep-2012/ss: Consider also latest rapid IONEX information  
+  18-Sep-2012/ss: Some refinements and preparation of LAST.yyN  
+  18-Sep-2012/ss: Set title  
+  26-Oct-2015/ss: Increased default for $param1 from -10 to -32  
+  01-Dec-2016 SS: Upload to cddis https  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  11-Jan-2023 SS: Support long filenames (GIM.RNX)
 - Bernese programs: `BIMINX`, `INXFIT`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `BIMINX.INP`, `INXFIT.INP`, `MENU_EXT.INP`, `BIMINX.INP`, `INXFIT.INP`
@@ -3422,7 +5446,15 @@ Variables:
 - Source file: MAKERCKM (download from the HTML manual)
 ### MAUPRP_P
 
-- Purpose: Parallel run for automatic cleaning of double difference phase observations Programs:  MAUPRP
+- Name: MAUPRP_P
+- Purpose: Parallel run for automatic cleaning of double difference  
+  phase observations  
+    
+  Programs:  MAUPRP
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames
 - Bernese programs: `MAUPRP`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `MAUPRP.INP`, `MAUPRP.INP`
@@ -3434,7 +5466,16 @@ Variables:
 - Source file: MAUPRP_P (download from the HTML manual)
 ### MAUPRPAP
 
-- Purpose: Prepare parallel MAUPRP run Programs:
+- Name: MAUPRPAP
+- Purpose: Prepare parallel MAUPRP run  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 26-Jan-2006 mm: New initPar call (w/o tmpFil)  
+  10-Feb-2005 mm: Old date variables removed  
+  19-May-2009 rd: Session dependent parallelization filenames
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
@@ -3444,7 +5485,15 @@ Variables:
 - Source file: MAUPRPAP (download from the HTML manual)
 ### MEANTEC
 
+- Name: MEANTEC
 - Purpose: Execute IONANA for creation of MEANTEC files
+- Author: S. Schaer
+- Created: 22-Dec-2011
+- Changes: 10-Jul-2014 SS: Create meantec.jpg and post it (for Gerhard)  
+  23-Mar-2015 SS: Post MEANTEC.SUM (for Gerhard)  
+  02-Feb-2023 RD: MEANTEC plots based on python  
+  16-Jan-2024 ST: Check $HOST and skip procedure if indicated.  
+  15-May-2024 EB: make plot available via www
 - Bernese programs: `IONANA`, `plotMeantec`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `plotMeantec.INP`, `IONANA.INP`, `plotMeantec.INP`
@@ -3454,7 +5503,14 @@ Variables:
 - Source file: MEANTEC (download from the HTML manual)
 ### MEANTECR
 
+- Name: MEANTECR
 - Purpose: Execute IONANA for creation of MEANTEC files (for REPRO_ION)
+- Author: S. Schaer
+- Created: 22-Dec-2011
+- Changes: 10-Jul-2014 SS: Create meantec.jpg and post it (for Gerhard)  
+  23-Mar-2015 SS: Post MEANTEC.SUM (for Gerhard)  
+  22-Jun-2017 SS: Derived from MEANTEC  
+  02-Feb-2023 RD: MEANTEC plots based on python
 - Bernese programs: `IONANA`, `plotMeantec`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `plotMeantec.INP`, `IONANA.INP`, `plotMeantec.INP`
@@ -3464,7 +5520,52 @@ Variables:
 - Source file: MEANTECR (download from the HTML manual)
 ### MGEX_BIA
 
-- Purpose: Perform monthly and accumulated bias combination runs using ADDNEQ2. Programs:  ADDNEQ2
+- Name: MGEX_BIA
+- Purpose: Perform monthly and accumulated bias combination runs using  
+  ADDNEQ2.  
+    
+  Programs:  ADDNEQ2
+- Parameters: PARAM1 - solution identifier  
+    
+  Remarks :
+- Author: S. Schaer
+- Created: 15-Sep-2016
+- Changes: 28-Sep-2016 ss: Adjust end times for 30-day solution (and 1605)  
+  29-Sep-2016 ss: Update CODE OSB files  
+  29-Sep-2016 ss: Verify solutions and check completeness of NEQs  
+  30-Sep-2016 ss: Activated update of (ADDNEQ2-based) CODE.OSB  
+  30-Sep-2016 ss: More detailed error messages  
+  30-Sep-2016 ss: More detailed title lines  
+  12-Oct-2016 ss: Send message in case of monthly solution update  
+  13-Oct-2016 ss: Use @badSet in case of errors with monthly NEQs  
+  17-Oct-2016 ss: Provide additional _STA last and rest solutions  
+  21-Oct-2016 ss: Prepare case with bad FIN daily NEQs (16289)  
+  28-Oct-2016 ss: Make use of OSBVAL option for LAST product  
+  16-Nov-2016 ss: Distribute CODE BIA files  
+  23-Nov-2016 ss: Changed $dirDis and bia2bia.com with -sat  
+  24-Jan-2017 ss: Replaced %y: by %Y:  
+  09-Jun-2017 ss: Consider REPRO_ION NQ0 results  
+  14-Jun-2017 ss: Create extra satellite information file  
+  29-Jun-2017 ss: Post CODE.BIA to ftp.aiub.unibe.ch/CODE  
+  21-Jul-2017 ss: Added list of problematic daily solutions  
+  25-Jul-2017 ss: Consider calibrated stations using STA_BIA.FIX  
+  23-Aug-2017 ss: Corrected time window extension  
+  06-Nov-2017 ss: Set $mjdL using $yyddd  
+  06-Nov-2017 ss: Check on NaN entries  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  11-Apr-2018 ss: Make use of filter_code_bia.com  
+  01-Sep-2018 av: uncompress not working (changed to gzip -d -f)  
+  13-Sep-2019 SS: Check $HOST and skip procedure if indicated  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATELL  
+  30-Jul-2020 ST: Add use igs_device.  
+  07-Apr-2021 SS: Tolerance temporarily increased for CBG results  
+                  now including BeiDou-3 (as of wk 2148)  
+  20-May-2021 SS: Changed unused EXE_G95 paths  
+  30-Mar-2022 AV: Modified SAT-CRX location  
+                  MOdified SINEX input files  
+  21-Feb-2024 SS: Making SAT_BIA_I20.SAT consistent to I14-based time series  
+  17-Apr-2026 ss: Used temporary ADDNEQ2 version after bugfixing  
+  22-Apr-2026 ss: Used regular ADDNEQ2 version (with bugfix)
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `ADDNEQ2.INP`, `MENU_PGM.INP`, `ADDNEQ2.INP`
@@ -3476,7 +5577,13 @@ Variables:
 - Source file: MGEX_BIA (download from the HTML manual)
 ### MKCLUS
 
-- Purpose: Run MKCLUS Programs:  MKCLUS Authors:   R. Dach
+- Name: MKCLUS
+- Purpose: Run MKCLUS  
+    
+  Programs:  MKCLUS
+- Author: R. Dach
+- Created: 03-July-2009
+- Changes: 07-Jun-2016 RD: Add version with compatible attitude modelling
 - Bernese programs: `MKCLUS`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `MKCLUS.INP`, `MKCLUS.INP`
@@ -3487,7 +5594,15 @@ Variables:
 - Source file: MKCLUS (download from the HTML manual)
 ### MOD_EST
 
+- Name: MOD_EST
 - Purpose: Modify .EST file for ADDNEQ2 run.
+- Parameters: PARAM1 - .EST file identifier  
+  PARAM2 - grep string to be modified (e.g. OSB)  
+  PARAM3 - Second grep string (optional)  
+  PARAM4 - Third  grep string (optional)
+- Author: S. Schaer
+- Created: 19-May-2016
+- Changes: 01-Sep-2021 RD: &#x27;#&#x27; is not allowed in a PCF (commenting)
 - Used in PCFs: RAPIONO.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
@@ -3495,7 +5610,19 @@ Variables:
 - Source file: MOD_EST (download from the HTML manual)
 ### MPRXTR
 
-- Purpose: GENERATE SUMMARY OF THE PARALEL MAUPRP RUNS IN CASE OF BAD FILES DELETE ZERO AND SINGLE FILES AND UPDATE TABLES Programs:
+- Name: MPRXTR
+- Purpose: GENERATE SUMMARY OF THE PARALEL MAUPRP RUNS  
+  IN CASE OF BAD FILES DELETE ZERO AND SINGLE FILES  
+  AND UPDATE TABLES  
+    
+  Programs:
+- Author: H. Bock
+- Created: 06-Dec-2007
+- Last modified: 26-May-2009
+- Changes: 26-May-2009 rd: MPRXTR: YY_DDD -&gt; YY_SSSS  
+  15-Sep-2017 rd: remove also CZ[HO] files  
+  22-Apr-2020 av: Add goto message  
+  06-Nov-2025 EB: delete also code single-diff files
 - Bernese programs: `MPRXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `MENU_EXT.INP`, `MPRXTR.INP`
@@ -3508,7 +5635,16 @@ Variables:
 - Source file: MPRXTR (download from the HTML manual)
 ### MRG_ION
 
-- Purpose: Create master ION file based on a set of cluster ION files. Programs:
+- Name: MRG_ION
+- Purpose: Create master ION file based on a set of cluster ION files.  
+    
+  Programs:
+- Parameters: PARAM1 - GIM (1-day) solution identifier  
+    
+  Remark  :
+- Author: S. Schaer
+- Created: 21-Oct-2014
+- Changes: 22-Oct-2014 SS: Set $out
 - Used in PCFs: RAPIONO.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
@@ -3516,7 +5652,14 @@ Variables:
 - Source file: MRG_ION (download from the HTML manual)
 ### MRKOBS_P
 
-- Purpose: Mark observations corresponding to an edit file Programs:  SATMRK
+- Name: MRKOBS_P
+- Purpose: Mark observations corresponding to an edit file  
+    
+  Programs:  SATMRK
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `SATMRK`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `SATMRK.INP`, `SATMRK.INP`
@@ -3527,7 +5670,14 @@ Variables:
 - Source file: MRKOBS_P (download from the HTML manual)
 ### MRKOBSAP
 
-- Purpose: Prepare parallel SATMRK runs Programs:
+- Name: MRKOBSAP
+- Purpose: Prepare parallel SATMRK runs  
+    
+  Programs:
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 19-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
@@ -3537,7 +5687,14 @@ Variables:
 - Source file: MRKOBSAP (download from the HTML manual)
 ### NAV2CLK
 
+- Name: NAV2CLK
 - Purpose: Execute NAV2CLK
+- Author: A. Villiger, P. Stebler
+- Created: 05-Mar-2020
+- Changes: 05-Mar-2020 AV/ST: Forked from RXN2PRE.  
+  11-Mar-2020 AV/ST: Bugfix: use gpsutil  
+  23-Apr-2020 ST: Stop copy of $A_$YSS+0 to $A0$YSS+0.  
+  08-Mar-2022 AV: Save disk: yearly subdirectory
 - Bernese programs: `RXN2PRE`, `SATCLK2`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `RXN2PRE.INP`, `SATCLK2.INP`
@@ -3550,7 +5707,12 @@ Variables:
 - Source file: NAV2CLK (download from the HTML manual)
 ### NAVDEL
 
-- Purpose: Remove the source navigation RINEX files which were used for the merges Programs:
+- Name: NAVDEL
+- Purpose: Remove the source navigation RINEX files which were used for the merges  
+    
+  Programs:
+- Author: P. Stebler
+- Created: 23-Jun-2022
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y`, `$Y+0`, `DIR_ORX`, `DIR_RNX`
@@ -3559,7 +5721,29 @@ Variables:
 - Source file: NAVDEL (download from the HTML manual)
 ### NAVMRG2
 
-- Purpose: Merge hourly rinex observation and navigation files Programs:  CCRNXN
+- Name: NAVMRG2
+- Purpose: Merge hourly rinex observation and navigation files  
+    
+  Programs:  CCRNXN
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Changes: 10-Feb-2005 mm: Old date variables removed  
+  06-Oct-2015 av: Merge hourly &amp; daily files  
+                  Use ORX path  
+  07-Oct-2015 av: bugfix in file counting  
+  27-Sep-2018 st: Use CCRNXN instead of CCRINEXN  
+  26-Oct-2018 st: Handle mix of short and long RINEX file names  
+  26-Oct-2018 st: Simplify process (hoping CCRNXN and the  
+                  corresponding file handling is fast enough to  
+                  process the whole day for each ULTRA)  
+  28-Feb-2019 av: Save RNX3 navigation file to datapool  
+  11-Jul-2019 st: Rename CODE00CHE to CODE00MRG.  
+                  Substitute DIR_OXN, DIR_RXN, dir_oxn, dir_rxn  
+                  by DIR_ORX, DIR_RNX, dir_orx, dir_rnx.  
+  05-Mar-2020 av/st: Moved saving of merged CODE00MRG... file  
+                  to IGSR_NAV.  
+  13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area  
+  23-Jun-2022 ST: Outsourced the source file removal to NAVDEL
 - Bernese programs: `CCRNXN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `CCRNXN.INP`, `CCRNXN.INP`
@@ -3569,14 +5753,23 @@ Variables:
 - Source file: NAVMRG2 (download from the HTML manual)
 ### NUVELO
 
+- Name: NUVELO
 - Purpose: Execute NUVELO
+- Author: S. Schaer
+- Created: 24-Feb-2025
 - Bernese programs: `NUVELO`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `NUVELO.INP`
 - Source file: NUVELO (download from the HTML manual)
 ### NUVELO_L
 
-- Purpose: Find best fitting tectonic plate for all sites (on the basis of the $(CRDINF).VEL master file).
+- Name: NUVELO_L
+- Purpose: Find best fitting tectonic plate for all sites (on the basis of  
+  the $(CRDINF).VEL master file).
+- Author: S. Schaer
+- Created: 11-Mar-2025
+- Changes: 11-Mar-2025 SS: Added list of exceptions (AMU?)  
+  12-Mar-2025 SS: Some refinements
 - Bernese programs: `NUVELO`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `NUVELO.INP`, `NUVELO.INP`
@@ -3586,7 +5779,16 @@ Variables:
 - Source file: NUVELO_L (download from the HTML manual)
 ### OBS2SAT
 
-- Purpose: Create SAT_yyyyssss.LST on the basis of OBS_yyyyssss.LST and release SMS in case of GNSS (GRECJS) constellation change.
+- Name: OBS2SAT
+- Purpose: Create SAT_yyyyssss.LST on the basis of OBS_yyyyssss.LST and  
+  release SMS in case of GNSS (GRECJS) constellation change.
+- Author: S. Schaer
+- Created: 27-Jun-2023
+- Changes: 28-Jun-2023/ss: Prepared @skpSat  
+  07-Dec-2023/ss: Decreased $min from 10000 to 9000 (for E14)  
+  02-May-2024/ss: Considered creation time of previous SAT.LST file  
+  08-May-2024/ss: Considered creation time of previous OBS.LST file  
+  17-Apr-2026/ss: Switched to L1/L5 for BeiDou-3 and QZSS and SBAS
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`, `V_UPD`
@@ -3595,7 +5797,17 @@ Variables:
 - Source file: OBS2SAT (download from the HTML manual)
 ### OBS_SAV
 
-- Purpose: Save the observation file into an archive Programs:
+- Name: OBS_SAV
+- Purpose: Save the observation file into an archive  
+    
+  Programs:
+- Author: R. Dach
+- Created: 06-Dec-2007
+- Changes: 22-Jul-2008 PS/RD: prepare for reprocesing  
+  25-Nov-2008 SL: $rnxTar = &quot;&quot;  
+  05-Jun-2018 SS: Replaced &quot;GPS&quot; by &quot;G&quot;  
+  06-Jun-2018 SS: Prepared for REPRO_IAR  
+  30-Jul-2020 ST: Add use igs_device.
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_GNSS`, `V_SAV`
@@ -3603,28 +5815,52 @@ Variables:
 - Source file: OBS_SAV (download from the HTML manual)
 ### OBSFMT
 
+- Name: OBSFMT
 - Purpose: Execute OBSFMT
+- Author: S. Schaer
+- Created: 05-Oct-2017
 - Bernese programs: `OBSFMT`
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF
 - INP files: `OBSFMT.INP`
 - Source file: OBSFMT (download from the HTML manual)
 ### OBSXTR
 
+- Name: OBSXTR
 - Purpose: Programs:  OBSXTR
+- Author: R. Dach
+- Created: 31-Aug-2019
+- Changes: __-___-____ __:
 - Bernese programs: `OBSXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `OBSXTR.INP`
 - Source file: OBSXTR (download from the HTML manual)
 ### ORB_5D_C
 
+- Name: ORB_5D_C
 - Purpose: Get 5-day orbit predictions and ERPs
+- Parameters: PARAM1 - NEXTJOB  
+  PARAM2 - Jump forward to PID xxx if orbit not available
+- Author: C. Urschl
+- Created: 10-Nov-2005  
+  Last mod.: 01-Mar-2012
+- Changes: 17-Dec-2007 rd: adapt for use at ubelix  
+  01-Mar-2012 DT: Check whether Orbit available, jump forward if not  
+  18-Jul-2013 CB: print statements added  
+  26-Sep-2019 RD: No e-mail in case of a NO_DIS.FLG  
+  19-Oct-2026 UM: Adapt orbit and ERP file names
 - Used in PCFs: SLRPRED.PCF
 - Read keys:
   - Other keys: `$WD+0`, `$YYYD-1`, `CAMPAIGN`, `CAMP_PTH`
 - Source file: ORB_5D_C (download from the HTML manual)
 ### ORB_CHK0
 
-- Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN) 2-DAY OVERLAP WITH ARC-SPLITTING CHECK
+- Name: ORB_CHK0
+- Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN)  
+  2-DAY OVERLAP WITH ARC-SPLITTING CHECK
+- Author: S.Schaer
+- Created: 01-Nov-2012
+- Changes: 17-Nov-2015 SS: Considered V_UPD  
+  15-Jun-2020 AV: Skip if 3-day solution is skipped
 - Bernese programs: `DEFXTR`, `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `DEFXTR.INP`, `ORBGEN.INP`, `DEFXTR.INP`, `ORBGEN.INP`
@@ -3637,7 +5873,14 @@ Variables:
 - Source file: ORB_CHK0 (download from the HTML manual)
 ### ORB_CHK1
 
+- Name: ORB_CHK1
 - Purpose: CHECK 2-DAY ORBIT OVERLAP FOR ARC SPLITTING
+- Author: H.Bock
+- Created: 05-Dec-2007
+- Changes: 26-May-2009 rd: ASPLIT/ORBCHK1: YY_DDD -&gt; YY_SSSS  
+  13-Sep-2011 SL: do not append blank line to ASPLIT.SUM  
+  17-Nov-2015 SS: Considered V_UPD  
+  28-Sep-2021 RD: Remove depreciated program PRETAB
 - Bernese programs: `DEFXTR`, `ORBGEN`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `DEFXTR.INP`, `ORBGEN.INP`, `DEFXTR.INP`, `ORBGEN.INP`, `STDPRE.INP`
@@ -3649,7 +5892,14 @@ Variables:
 - Source file: ORB_CHK1 (download from the HTML manual)
 ### ORB_CHK2
 
-- Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN) 2-DAY OVERLAP WITH ARC-SPLITTING CHECK
+- Name: ORB_CHK2
+- Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN)  
+  2-DAY OVERLAP WITH ARC-SPLITTING CHECK
+- Author: H.Bock
+- Created: 05-Dec-2007
+- Changes: 26-May-2009 rd: ASPLIT/ORBCHK2: YY_DDD -&gt; YY_SSSS  
+  13-Sep-2011 SL: do not append blank line to ASPLIT.SUM  
+  17-Nov-2015 SS: Considered V_UPD
 - Bernese programs: `DEFXTR`, `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `DEFXTR.INP`, `ORBGEN.INP`, `DEFXTR.INP`, `ORBGEN.INP`
@@ -3662,7 +5912,15 @@ Variables:
 - Source file: ORB_CHK2 (download from the HTML manual)
 ### ORB_CHK3
 
-- Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN) DAY BOUNDARY OVERLAP        (STDELE) Programs:  STDPRE
+- Name: ORB_CHK3
+- Purpose: 7- AND 2-DAY ORBIT OVERLAPS (ORBGEN)  
+  DAY BOUNDARY OVERLAP        (STDELE)  
+    
+  Programs:  STDPRE
+- Author: H. Bock
+- Created: 05-Dec-2007
+- Changes: 26-May-2009 rd: ASPLIT: YY_DDD -&gt; YY_SSSS  
+  17-Nov-2015 SS: Considered V_UPD
 - Bernese programs: `DEFXTR`, `ORBGEN`, `STDELE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `DEFXTR.INP`, `ORBGEN.INP`, `DEFXTR.INP`, `ORBGEN.INP`, `STDELE.INP`
@@ -3675,7 +5933,15 @@ Variables:
 - Source file: ORB_CHK3 (download from the HTML manual)
 ### ORB_CHK4
 
-- Purpose: ORBIT QUALITY CHECK CONCERNING MIDDLE-DAY SOLUTION Programs:
+- Name: ORB_CHK4
+- Purpose: ORBIT QUALITY CHECK CONCERNING MIDDLE-DAY SOLUTION  
+    
+  Programs:
+- Author: H. Bock
+- Created: 05-Dec-2007
+- Changes: 01-Nov-2012/ss: ASPLIT procedure concerning RM solution  
+                  (according to IGSFINAL)  
+  17-Nov-2015 SS: Considered V_UPD
 - Bernese programs: `DEFXTR`, `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `DEFXTR.INP`, `ORBGEN.INP`, `DEFXTR.INP`, `ORBGEN.INP`
@@ -3688,7 +5954,15 @@ Variables:
 - Source file: ORB_CHK4 (download from the HTML manual)
 ### ORB_V3D
 
-- Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:
+- Name: ORB_V3D
+- Purpose: ORBIT QUALITY CHECKS:  
+  3-DAY ORBIT OVERLAPS (ORBGEN)  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 22-Feb-2011
+- Changes: 23-Feb-2011/ss: Execute orb_ver.com  
+  24-Feb-2011/ss: Make use of new options concerning orb_ver.com
 - Bernese programs: `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3697,7 +5971,15 @@ Variables:
 - Source file: ORB_V3D (download from the HTML manual)
 ### ORB_V3M
 
-- Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:
+- Name: ORB_V3M
+- Purpose: ORBIT QUALITY CHECKS:  
+  3-DAY ORBIT OVERLAPS (ORBGEN)  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 22-Feb-2011
+- Changes: 23-Feb-2011/ss: Execute orb_ver.com  
+  24-Feb-2011/ss: Make use of new options concerning orb_ver.com
 - Bernese programs: `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3707,7 +5989,17 @@ Variables:
 - Source file: ORB_V3M (download from the HTML manual)
 ### ORB_VER
 
-- Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:
+- Name: ORB_VER
+- Purpose: ORBIT QUALITY CHECKS:  
+  3-DAY ORBIT OVERLAPS (ORBGEN)  
+    
+  Programs:
+- Author: H. Bock
+- Created: 05-Dec-2007
+- Changes: 22-Feb-2011/ss: Execute orb_ver.com  
+  24-Feb-2011/ss: Make use of new options concerning orb_ver.com  
+  24-JUL-2019 DS: call updMacMod to update BOXWING.MAC with $param2  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_PLATDEF
 - Bernese programs: `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3717,7 +6009,30 @@ Variables:
 - Source file: ORB_VER (download from the HTML manual)
 ### ORBDIF
 
-- Purpose: Execute ORBGEN and STDDIF for determination of time and velocity change of satellite repositionings. Programs:  ORBGEN, STDDIF
+- Name: ORBDIF
+- Purpose: Execute ORBGEN and STDDIF for determination of time and velocity  
+  change of satellite repositionings.  
+    
+  Programs:  ORBGEN, STDDIF
+- Author: S. Schaer
+- Created: 15-Dec-2003
+- Changes: 29-Dec-2003/ss: Perform second STDDIF run for 2-day interval  
+  06-Jan-2004/ss: Perform STDDIF run wrt &quot;+50&quot; satellites  
+  13-Jan-2004/ss: Consider REPOSITIONING.FLG  
+  19-Jan-2004/ss: Remove REPOSITIONING.FLG in RAPID mode  
+  30-Jul-2004/ss: Create automatically RAP APR PRE file for GPS  
+                  repositionings  
+  09-Dec-2004/ss: Handle case with two repositionings  
+  10-Feb-2005/mm: Old date variables removed  
+  24-Oct-2006/ss: Changed call of merge_pre.com  
+  30-Jul-2008/ss: ORBDIF.FLG no longer considered  
+  20-Jun-2023/ss: merge_pre.com reactivated in -auto mode  
+  21-Jun-2023/ss: ORBDIF0/ORBDIF synchronized with each other  
+  03-Jul-2023/ss: Introduced $iniflg  
+  07-Jul-2023/ss: Try merge_pre.com not only for m1 day but also  
+                  for current day  
+  13-Jul-2023/ss: No attempt for current day if REPOSITIONING.FLG  
+  12-Jan-2024/ss: Do not release an SMS message if unnecessary
 - Bernese programs: `ORBGEN`, `STDDIF`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `STDDIF.INP`, `ORBGEN.INP`, `STDDIF.INP`, `STDPRE.INP`
@@ -3728,7 +6043,30 @@ Variables:
 ### ORBDIF0
 
 - Package: `ORBDIF`
-- Purpose: Execute ORBGEN and STDDIF for determination of time and velocity change of satellite repositionings. Programs:  ORBGEN, STDDIF
+- Name: ORBDIF
+- Purpose: Execute ORBGEN and STDDIF for determination of time and velocity  
+  change of satellite repositionings.  
+    
+  Programs:  ORBGEN, STDDIF
+- Author: S. Schaer
+- Created: 15-Dec-2003
+- Changes: 29-Dec-2003/ss: Perform second STDDIF run for 2-day interval  
+  06-Jan-2004/ss: Perform STDDIF run wrt &quot;+50&quot; satellites  
+  13-Jan-2004/ss: Consider REPOSITIONING.FLG  
+  19-Jan-2004/ss: Remove REPOSITIONING.FLG in RAPID mode  
+  30-Jul-2004/ss: Create automatically RAP APR PRE file for GPS  
+                  repositionings  
+  09-Dec-2004/ss: Handle case with two repositionings  
+  10-Feb-2005/mm: Old date variables removed  
+  24-Oct-2006/ss: Changed call of merge_pre.com  
+  30-Jul-2008/ss: ORBDIF.FLG no longer considered  
+  20-Jun-2023/ss: merge_pre.com reactivated in -auto mode  
+  21-Jun-2023/ss: ORBDIF0/ORBDIF synchronized with each other  
+  03-Jul-2023/ss: Introduced $iniflg  
+  07-Jul-2023/ss: Try merge_pre.com not only for m1 day but also  
+                  for current day  
+  13-Jul-2023/ss: No attempt for current day if REPOSITIONING.FLG  
+  12-Jan-2024/ss: Do not release an SMS message if unnecessary
 - Bernese programs: `ORBGEN`, `STDDIF`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `STDDIF.INP`, `ORBGEN.INP`, `STDDIF.INP`, `STDPRE.INP`
@@ -3738,7 +6076,13 @@ Variables:
 - Source file: ORBDIF0 (download from the HTML manual)
 ### ORBFIT
 
-- Purpose: Verify whether PRE orbit positions can be fitted adequately. Programs:  ORBGEN, DEFXTR
+- Name: ORBFIT
+- Purpose: Verify whether PRE orbit positions can be fitted adequately.  
+    
+  Programs:  ORBGEN, DEFXTR
+- Author: S. Schaer
+- Created: 06-Nov-2019
+- Changes: 06-Nov-2019 SS: Added $ultFil and $tolRms
 - Bernese programs: `DEFXTR`, `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `DEFXTR.INP`, `ORBGEN.INP`, `DEFXTR.INP`, `ORBGEN.INP`
@@ -3748,7 +6092,31 @@ Variables:
 - Source file: ORBFIT (download from the HTML manual)
 ### ORBMRG
 
-- Purpose: PERFORM CCPREORB RUN TO MERGE 1-DAY PREDICTED ORBITS WITH BROADCAST ORBITS Programs:
+- Name: ORBMRG
+- Purpose: PERFORM CCPREORB RUN TO MERGE 1-DAY PREDICTED ORBITS  
+  WITH BROADCAST ORBITS  
+    
+  Programs:
+- Author: H. Bock
+- Created: 06-Dec-2007
+- Changes: 30-Jul-2010 ss: Consideration of second REPOSITIONING2.FLG file  
+  01-Oct-2010 ss: Consideration of further REPOSITIONING FLG files  
+  24-Feb-2013 ss: Considered endless orbit predictions  
+  29-Oct-2015 eo: die if orbPredicted not available  
+  10-Sep-2019 lp: Use V_NEWNAV to switch between old and new BRD-orbits  
+  05-Mar-2020 av/st: Disable merge of GLONASS broadcasts  
+                  (switched RB_ ($A) from GPS to multi GNSS)  
+  06-Mar-2020 av/st: Changed forgotten newRB to BRD  
+  22-Apr-2020 ST: Change from &#x27;BRD&#x27; to &#x27;${v_a}_&#x27;.  
+                  This results in equal code for both variants  
+                  (Y/N) of V_NEWNAV.  
+                  Therefore remove V_NEWNAV and corresponding IF.  
+  23-Apr-2020 ST: Stop copy of $A_$YD+0 to $A0$YD+0.  
+                  No special treatment for GLONASS broadcasts.  
+                  Don&#x27;t copy CODE$S+0 to $A_$YD+0.  
+  24-Aug-2024 RD: Swap priority: use EXT before BRD  
+                  (BRD may not be correct after maneuuvers)  
+  30-Oct-2025 SS: Replaced &#x27;S22&#x27; by &#x27;G00&#x27;
 - Bernese programs: `CCPREORB`, `ORBCMP`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `CCPREORB.INP`, `ORBCMP.INP`
@@ -3760,14 +6128,33 @@ Variables:
 - Source file: ORBMRG (download from the HTML manual)
 ### ORX_FTP
 
-- Purpose: Execute get_obsdata.com in RAPID mode Programs:  -
+- Name: ORX_FTP
+- Purpose: Execute get_obsdata.com in RAPID mode  
+    
+  Programs:  -
+- Author: S. Schaer
+- Created: 07-Dec-2004
+- Changes: 31-May-2012 RD: No datapool statistics  
+  11-Dec-2014 AV: Change get_obsdata.com parameters, fast option  
+  17-Mar-2015 AV: Add -min option to get_obsdata.com  
+  15-Jun-2020 AV: Skip if not in campaign IGSRAPID
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y+0`, `CAMPAIGN`
 - Source file: ORX_FTP (download from the HTML manual)
 ### PCV_VER
 
-- Purpose: Verify whether SATELLIT.I08 and I08.ATX posted to BSWUSER52/GEN are consistent with each other.
+- Name: PCV_VER
+- Purpose: Verify whether SATELLIT.I08 and I08.ATX posted to BSWUSER52/GEN  
+  are consistent with each other.
+- Author: S. Schaer
+- Created: 15-Oct-2014
+- Changes: 13-Jan-2017 AV: Add optional PCV version from param1  
+  05-Dec-2017 AV: Use ATX2PCV from BERN52  
+  23-Mar-2020 MK: Add STA2STA.pl to convert STA v1.02 to v1.01  
+  21-Apr-2020 ST: Add &#x27;use igs_device;&#x27;  
+  29-Mar-2022 AV: Adjusted naming schemes  
+  24-Apr-2024 SS: Considered BSWUSER54 file pair
 - Bernese programs: `ATX2PCV`, `STA2STA`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ATX2PCV.INP`, `MENU_PGM.INP`, `ATX2PCV.INP`, `STA2STA.INP`
@@ -3778,14 +6165,34 @@ Variables:
 - Source file: PCV_VER (download from the HTML manual)
 ### PHA_ONLY
 
+- Name: PHA_ONLY
 - Purpose: Copy phase-only RINEX observation files to SMT files
+- Author: S. Schaer
+- Created: 29-Apr-2004
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$S+0`, `DIR_OUT`, `DIR_RXO`, `DIR_SMT`, `EXT_RXO`, `EXT_SMT`
 - Source file: PHA_ONLY (download from the HTML manual)
 ### PHABIA
 
+- Name: PHABIA
 - Purpose: Execute PHABIA
+- Author: S. Schaer
+- Created: 26-Jul-2017
+- Changes: 19-Sep-2017 AV: Modified OSB generation(replace L.X)  
+  22-May-2018 SS: Translation of PARAMs  
+  20-Jun-2018 SS: Added ECJ  
+  24-Sep-2018 SS: Corrected WL_/WLB OSB in case of WLB  
+  26-Sep-2023 SS: Added E:L5I  
+  28-Sep-2023 SS: Commented E:L5I  
+  30-Apr-2024 SS: Considered C:L6X  
+  02-May-2024 SS: Inserted comprehensive list of GNSS observables  
+  03-May-2024 SS: Added G:L1L, G:L1X, R:L3Q, R:L3X  
+  11-Mar-2026 SS: Reviewed OBS table: +R:L4X, +R:L6X  
+                                      +E:L6B, -E:L8I  
+                                      -C:L5D  
+                                      +J:L1E, -J:L1Z, +J:L5P  
+                                      +S:L1C, +S_L5I
 - Bernese programs: `PHABIA`
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF, RCLKGNSS.PCF
 - INP files: `MENU_PGM.INP`, `PHABIA.INP`
@@ -3795,7 +6202,26 @@ Variables:
 - Source file: PHABIA (download from the HTML manual)
 ### PHACMB
 
+- Name: PHACMB
 - Purpose: Execute PHACMB
+- Author: S. Schaer
+- Created: 26-Jul-2017
+- Changes: 19-Sep-2017 AV: Modified OSB generation(replace L.X)  
+  26-Sep-2017 SS: Corrections concerning $iz_file and $izdfile  
+  22-May-2018 SS: Translation of PARAMs  
+  05-Jun-2018 SS: Created PHA OSB file  
+  20-Jun-2018 SS: Added ECJ  
+  19-Sep-2018 SS: Considered NO_NLB.FLG  
+  26-Sep-2023 SS: Added E:L5I  
+  28-Sep-2023 SS: Commented E:L5I  
+  30-Apr-2024 SS: Considered C:L6X  
+  02-May-2024 SS: Inserted comprehensive list of GNSS observables  
+  03-May-2024 SS: Added G:L1L, G:L1X, R:L3Q, R:L3X  
+  11-Mar-2026 SS: Reviewed OBS table: +R:L4X, +R:L6X  
+                                      +E:L6B, -E:L8I  
+                                      -C:L5D  
+                                      +J:L1E, -J:L1Z, +J:L5P  
+                                      +S:L1C, +S_L5I
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
@@ -3804,14 +6230,27 @@ Variables:
 - Source file: PHACMB (download from the HTML manual)
 ### PLOT_BIA
 
-- Purpose: Generate plots for realigned daily bias results. results.
+- Name: PLOT_BIA
+- Purpose: Generate plots for realigned daily bias results.  
+  results.
+- Author: S. Schaer
+- Created: 17-Aug-2017
+- Changes: 18-Sep-2017 AV: Add plot_align.com for A1R and A1G  
+  13-Sep-2019 SS: Check $HOST and skip procedure if indicated  
+  20-May-2021 SS: Changed path
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - Other keys: `$WD+0`, `$Y+0`, `$YD+0`
 - Source file: PLOT_BIA (download from the HTML manual)
 ### plot_copy
 
-- Purpose: Copy files for plotting to  campaign $P/PLOTS/ Programs:  plot_copy
+- Name: plot_copy
+- Purpose: Copy files for plotting to  campaign $P/PLOTS/  
+    
+  Programs:  plot_copy
+- Author: R. Dach
+- Created: 23-Jan-2024
+- Changes: __-___-____ __:
 - Used in PCFs: PLOTS_RAPID.PCF
 - Read keys:
   - V_ variables: `V_AMBXTR`, `V_AMBXTRDAYS`, `V_CCRNXC`, `V_CCRNXCDAYS`, `V_DATE`, `V_GPSXTR`, `V_GPSXTRDAYS`, `V_HELMR1`, `V_HELMR1DAYS`, `V_MAPCRD`, `V_MAPHLM`, `V_NUMDAYS`, `V_OBSXTR`, `V_OBSXTRDAYS`, `V_SATCONST`, `V_SATNUM`, `V_SATNUMDAYS`, `V_STANUM`, `V_STANUMDAYS`, `V_STDELE`
@@ -3823,14 +6262,23 @@ Variables:
 - Source file: plot_copy (download from the HTML manual)
 ### POLUPD
 
+- Name: POLUPD
 - Purpose: Execute POLUPD
+- Author: M. Meindl
+- Created: 20-Oct-2003
 - Bernese programs: `POLUPD`
 - Used in PCFs: SLRPRED.PCF
 - INP files: `POLUPD.INP`
 - Source file: POLUPD (download from the HTML manual)
 ### POLXTR_M
 
-- Purpose: Create offical code rapid ERP file (for middle day) Programs:  POLXTR
+- Name: POLXTR_M
+- Purpose: Create offical code rapid ERP file (for middle day)  
+    
+  Programs:  POLXTR
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 06-Jun-2012 ss: Derived from POLXTR_R
 - Bernese programs: `POLXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `POLXTR.INP`
@@ -3839,7 +6287,13 @@ Variables:
 - Source file: POLXTR_M (download from the HTML manual)
 ### POLXTR_R
 
-- Purpose: Create offical code rapid ERP file Programs:  POLXTR
+- Name: POLXTR_R
+- Purpose: Create offical code rapid ERP file  
+    
+  Programs:  POLXTR
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 10-Feb-2005 mm: Old date variables removed
 - Bernese programs: `POLXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `POLXTR.INP`
@@ -3849,7 +6303,12 @@ Variables:
 ### POLXTR_U
 
 - Package: `POLXTR_T`
+- Name: POLXTR_T
 - Purpose: Execute POLXTR with one input file.
+- Author: S. Lutz
+- Created: 09-Aug-2013
+- Changes: 29-Oct-2013 SL: Use getKey for input/output file names  
+  07-Aug-2019 AV: Adapted header numbers (9--&gt;11 in pol)
 - Bernese programs: `POLINT`, `POLXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `POLINT.INP`, `POLXTR.INP`
@@ -3859,7 +6318,15 @@ Variables:
 - Source file: POLXTR_U (download from the HTML manual)
 ### PRED_ION
 
+- Name: PRED_ION
 - Purpose: Execute IONANA and IONINX
+- Parameters: PARAM1 - Optional minus parameter
+- Author: S. Schaer
+- Created: 22-Dec-2011
+- Changes: 23-Dec-2011/ss: Make use of setMinusPlus  
+  16-Apr-2012/ss: Add INXFIT-BIMINX sequence  
+  17-Apr-2012/ss: Set RINEX nav file extenstion  
+  18-Sep-2012/ss: Handle turn of the year
 - Bernese programs: `BIMINX`, `INXFIT`, `IONANA`, `IONINX`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `MENU_EXT.INP`, `BIMINX.INP`, `INXFIT.INP`, `IONANA.INP`, `IONINX.INP`
@@ -3869,7 +6336,19 @@ Variables:
 - Source file: PRED_ION (download from the HTML manual)
 ### PREDNEW
 
-- Purpose: Generate orbit prediction (using middle days if possible) Programs:  POLXTR, ORBGEN, DEFXTR
+- Name: PREDNEW
+- Purpose: Generate orbit prediction (using middle days if possible)  
+    
+  Programs:  POLXTR, ORBGEN, DEFXTR
+- Author: R. Dach
+- Created: 03-Aug-2003
+- Changes: 06-Jan-2003 hu: Pole files in ORB instead of X/GEN  
+  16-Jan-2003 ss: Do no longer delete ERP files  
+  19-Jul-2006 ss: Perform 15-day ERP prediction  
+  20-Jul-2006 ss: Compute 15-day orbit prediction in rapid mode  
+  20-Nov-2006 rd: Convert to perl  
+  31-Jul-2008 ss: Do no longer consider TURBO.FLG  
+  11-Jul-2013 SL: Use general ERP file (copies) for ORBGEN
 - Bernese programs: `DEFXTR`, `ORBGEN`, `POLXTR`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `DEFXTR.INP`, `ORBGEN.INP`, `DEFXTR.INP`, `ORBGEN.INP`, `POLXTR.INP`
@@ -3882,7 +6361,18 @@ Variables:
 - Source file: PREDNEW (download from the HTML manual)
 ### RAP_BIA
 
-- Purpose: Perform clock-iono bias combination runs using ADDNEQ2 Programs:  ADDNEQ2 Remarks :  This script must be executed in RCLKGNSS process/campaign.
+- Name: RAP_BIA
+- Purpose: Perform clock-iono bias combination runs using ADDNEQ2  
+    
+  Programs:  ADDNEQ2  
+    
+  Remarks :  This script must be executed in RCLKGNSS process/campaign.
+- Author: S. Schaer
+- Created: 14-Sep-2016
+- Changes: 15-Sep-2016 SS: Save results  
+  07-Feb-2018 SS: Use V_SAV (not V_DIS) for copyaftp  
+  30-Jul-2019 SS: Changed key from NEW to BPE  
+  30-Jul-2020 ST: Add use igs_device.
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -3893,7 +6383,28 @@ Variables:
 - Source file: RAP_BIA (download from the HTML manual)
 ### RCLK1DEL
 
-- Purpose: Clean up the campaign (delete all files with a delay of 5 sessions)
+- Name: RCLK1DEL
+- Purpose: Clean up the campaign  
+  (delete all files with a delay of 5 sessions)
+- Parameters: PARAM1 = &quot;TODAY&quot; - delete all files for the current session  
+         = &quot;-n&quot; or &quot;-(nn)&quot; - used to redefine the number of  
+                     sessions for deletion delay
+- Author: R. Dach
+- Created: 23-Jun-2009
+- Changes: 25-Mar-2015 AS: MPRXTR-satellite statistics added  
+  07-Jul-2015 SS: Remove .BIA files  
+  05-Aug-2015 SS: Renamed processing summary file  
+  18-May-2016 SS: Remove .OSB files  
+  07-Jun-2016 RD: Add version with compatible attitude modelling  
+  15-Jul-2016 AV: Add ifb outlier detection files  
+  10-Oct-2016 RD: Remove version with compatible attitude modelling  
+  22-Apr-2020 ST: There should be no more $A0 to delete  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX  
+  01-Sep-2020 AV: Add CLKyyddd.SUM  
+  13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area  
+  07-Apr-2022 ST: Remove DIR_BRD and EXT_BRD.  
+  03-Nov-2022 AV: Del RINEX3 clock file $Q_yyyyssss.CLK  
+  25-Sep-2024 RD: Delete OBSXTR files
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_C`, `V_DEL`, `V_E`, `V_H`, `V_I`, `V_K`, `V_O`, `V_Q`, `V_U`, `V_W`
@@ -3918,7 +6429,24 @@ Variables:
 ### RCLK1PRC
 
 - Package: `RCLK_PRC`
+- Name: RCLK_PRC
 - Purpose: Create CLKRAPID BPE processing summary file
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 25-Mar-2015 AS: MPRXTR-satellite statistics added  
+  05-Aug-2015 SS: Renamed processing summary file  
+  19-May-2016 AV: Modified bias summaries  
+  31-May-2016 SS/AV: Added CBG solution  
+  07-Jun-2016 RD: Add version with compatible attitude modelling  
+  10-Oct-2016 RD: Remove version with compatible attitude modelling  
+  15-Feb-2019 RD: Sort the RINEX messages (use of get_warn.pl)  
+  03-Sep-2020 AV: Add rclk_chk.com (send msg2key)  
+  07-Oct-2020 AV: Do not use &quot;\%&quot; in sprintf statement  
+  02-Sep-2021 RD/ST: Add printing of BPE server variables  
+  23-Oct-2023 EB: Short protocol generation and copy long/short to www  
+  25-Sep-2024 RD: Include OBSXTR files into the PRC file  
+  04-Apr-2025 EB: protocol call -q modified  
+  12-May-2025 EB: short protocol generation after rclk_chk
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_B`, `V_C`, `V_E`, `V_H`, `V_I`, `V_K`, `V_Q`, `V_U`
@@ -3929,7 +6457,24 @@ Variables:
 - Source file: RCLK1PRC (download from the HTML manual)
 ### RCLK1SAV
 
-- Purpose: Copy result files into the archive Programs:
+- Name: RCLK1SAV
+- Purpose: Copy result files into the archive  
+    
+  Programs:
+- Author: R. Dach
+- Created: 23-Jun-2009
+- Changes: 30-Sep-2014 LP: $v_gnss removed  
+  06-Jul-2015 SS: Save .BIA results  
+  05-Aug-2015 SS: RAP_newClk replaced by RCLKGNSS  
+  05-Aug-2015 SS: Renamed processing summary file  
+  07-Aug-2015 SS: Save .CRD/.TRP/.STD/.ERP  
+  12-Aug-2015 SS: Use $CAMP_SAVRAPCLK/$yyyy/  
+  19-May-2016 AV/SS: Adapt to new OSB implementation  
+  31-May-2016 SS/AV: Save CBG NEQ (non-GLONASS bias results)  
+  07-Jun-2016 RD: Add version with compatible attitude modelling  
+  13-Sep-2016 SS: Save CBR NEQ  
+  10-Oct-2016 RD: Remove version with compatible attitude modelling  
+  03-Nov-2022 AV: Add RINEX3 clock file $Q_yyyyssss.CLK
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_C`, `V_K`, `V_O`, `V_Q`, `V_SAV`, `V_U`
@@ -3939,7 +6484,15 @@ Variables:
 - Source file: RCLK1SAV (download from the HTML manual)
 ### RCLK_CHK
 
-- Purpose: Checks residuals from rapid clock estimation for bad stations Programs:  RESCHK
+- Name: RCLK_CHK
+- Purpose: Checks residuals from rapid clock estimation for bad stations  
+    
+  Programs:  RESCHK
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 21-Jul-2010
+- Changes: 26-May-2009 rd: RESCHK: YY_DDD -&gt; YY_SSSS  
+  21-Jul-2010 rd: run a RESRMS without residual screening first
 - Bernese programs: `RESCHK`, `RESRMS`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `RESCHK.INP`, `RESRMS.INP`, `RESCHK.INP`, `RESRMS.INP`
@@ -3950,7 +6503,36 @@ Variables:
 - Source file: RCLK_CHK (download from the HTML manual)
 ### RCLK_COP
 
+- Name: RCLK_COP
 - Purpose: Copy required files for CLKRAPID.PCF
+- Author: R. Dach
+- Created: 13-May-2009
+- Changes: 26-May-2009 rd: Introduce reprocessing mode  
+  31-May-2012 RD: No datapool statistics  
+  02-Sep-2012 SL: Get CRX2RNX from $PATH  
+  09-Oct-2012 SS: Get STAINF variable  
+  30-Sep-2014 LP: Change GPS=&gt;G for $gnss  
+  17-Mar-2015 AV: Add -min option to get_obsdata.com  
+  07-Apr-2016 AV: Remove LPGS until further notice  
+  13-Apr-2016 AS: Removed exlcusion of LPGS station  
+  22-Apr-2016 AV: Remove LPGS until further notice  
+  18-May-2016 SS/AV: Create APRyyssss.OSB  
+  15-Jul-2016 AV: Delete IFB summary file  
+  21-Sep-2016 AV: Use V_PSDINF in copyRef statement  
+  05-Jun-2018 SS: Use A1R_yymm.OSB in REPRO mode  
+  15-Jun-2018 SS: Remove UNTR until further notice  
+  27-Jun-2018 SS: Remove GLSV until further notice  
+  16-Sep-2019 AV: Replace put_data.com with put_igsdata.com  
+                  Use RINEX3 data  
+  07-Jun-2020 ST: Remove CEDU1580.20O  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX, PTH_OBSSEL  
+  21-Oct-2020 AV: Remove MDO12940.20O  
+  05-Nov-2020 AV: Copy CODE.OSB to REF$YSS+01.OSB without GLONASS  
+                  satellite OSBs  
+  13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area  
+  29-Mar-2022 AV: Use copySkl  
+  24-Aug-2023 SS: Excluded G28 for MJD=60179;  
+                  re-used _CLKyyssss.CRX, if available
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_C`, `V_CRDINF`, `V_GNSS`, `V_PSDINF`, `V_STAINF`
@@ -3963,7 +6545,40 @@ Variables:
 - Source file: RCLK_COP (download from the HTML manual)
 ### RCLKWAIT
 
-- Purpose: Coordinates the IGSRAPID and the corresponding clock job Programs:
+- Name: RCLKWAIT
+- Purpose: Coordinates the IGSRAPID and the corresponding clock job  
+    
+  Programs:
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Changes: 04-Sep-2002 RD: Use RSC coord instead of RA_  
+  06-Jan-2003 HU: Pole files in ORB instead of X/GEN  
+  28-Jul-2003 ss: Change from old to new BPE  
+  13-Nov-2004 ss: Consider RAM1 STD/ERP info if available  
+  11-Jan-2005 rd: Switch to perl  
+  30-Jun-2005 ss: Use RA (minimum-constraint) instead of RS CRD  
+  09-Aug-2005 rd: RA_WAIT= RAP-PID 600 (old: RAP-PRC)  
+  26-May-2009 rd: Introduce reprocessing mode  
+  15-Oct-2010/ss: Take over VMF information from IGSRAPID campaign  
+  19-Oct-2012/ss: Consider $byeFil  
+  15-Jan-2014 SL: Wait for PID 586 instead of 600 (RA_ORBIT)  
+  06-Jun-2014 SS: Initiate use of middle day (V_MID)  
+  11-Jun-2014 SS: Handle special case with RF_ORBIT  
+  12-Jun-2014 SS: Save MIDyyddd.TRP/TRO  
+  08-Aug-2014 RD/SS: Adjusted concerning RM_ORBIT  
+  03-Aug-2015 SS: Activated RCLKGNSS  
+  03-Aug-2017 AV: Optional time condition  
+  05-Jun-2018 SS: Replaced &quot;GPS&quot; by &quot;G&quot;  
+  06-Jun-2018 SS: Considered RM_yyddd in REPRO mode  
+  16-Sep-2019 AV: Use regex for PCFFIL check (RCLKGNSS)  
+  05-Mar-2020 ST: Moved broadcast clock generation in case of  
+                  reprocessing or save disk flag to NAV2CLK.  
+  22-Apr-2020 ST: Change &#x27;RB_&#x27; to &#x27;${v_a}_&#x27;  
+  23-Apr-2020 ST: Stop copy of $A_$YSS+0 to $A0$YSS+0.  
+  15-May-2020 LP: Determine TRP-file header size with &amp;getTropHeadInf  
+  05-Jul-2021 LP: Fixed typos in VMF-related substr  
+  08-Mar-2022 AV: Save disk: yearly subdirectory  
+  07-Oct-2022 RD: Correct condition to use RF-products
 - Bernese programs: `CRDMERGE`, `ORBGEN`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `CRDMERGE.INP`, `ORBGEN.INP`
@@ -3977,7 +6592,15 @@ Variables:
 - Source file: RCLKWAIT (download from the HTML manual)
 ### RCVTST
 
-- Purpose: Create receiver performance statistics wrt code measurement quality Programs:  RCVTST
+- Name: RCVTST
+- Purpose: Create receiver performance statistics wrt code measurement  
+  quality  
+    
+  Programs:  RCVTST
+- Author: M. Meindl
+- Created: 01-Feb-2006
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `RCVTST`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `RCVTST.INP`, `RCVTST.INP`
@@ -3987,7 +6610,20 @@ Variables:
 - Source file: RCVTST (download from the HTML manual)
 ### REALIG_P
 
+- Name: REALIG_P
 - Purpose: Execute ADDNEQ2
+- Parameters: PARAM1 - year for parallel processing
+- Author: S. Schaer
+- Created: 15-Jun-2017
+- Changes: 16-Jun-2017/ss: Save realigbed results on savedisk  
+  25-Jul-2017/ss: Save _FULL results  
+  27-Jul-2017/ss: Added _SIG and _DEL test solutions  
+  24-Nov-2015/av: Skip 12183,15182,17279 (vTPv negativ)  
+  16-Dec-2019/ss: Considered RCLKGNSS GRE results (wk 2072)  
+  30-Jul-2020 ST: Add use igs_device.  
+  02-Dec-2022/ss: FCLKGNSS GRE results available (wk 2238);  
+                  RCLKGNSS GRE results no longer considered  
+  29-Jan-2024 SS: Set IGNORE_ERR=solcheck if necessary
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -3998,14 +6634,31 @@ Variables:
 - Source file: REALIG_P (download from the HTML manual)
 ### REALIGAP
 
-- Purpose: Prepare parallel ADDNEQ2 runs for realignment of daily bias results.
+- Name: REALIGAP
+- Purpose: Prepare parallel ADDNEQ2 runs for realignment of daily bias  
+  results.
+- Author: S. Schaer
+- Created: 15-Jun-2017
+- Changes: 19-Jul-2017 SS: Execute weekly (if DOW=2)  
+  13-Sep-2019 SS: Check $HOST and skip procedure if indicated
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - Other keys: `$WD+0`, `$Y+0`, `$YD+0`
 - Source file: REALIGAP (download from the HTML manual)
 ### REALIX_P
 
+- Name: REALIX_P
 - Purpose: Execute ADDNEQ2
+- Parameters: PARAM1 - year for parallel processing
+- Author: S. Schaer
+- Created: 15-Jun-2017
+- Changes: 16-Jun-2017/ss: Save realigbed results on savedisk  
+  25-Jul-2017/ss: Save _FULL results  
+  24-Nov-2015/av: Skip 12183,15182,17279 (vTPv negativ)  
+  07-Sep-2018/av: Change uncompress with gzip -d -f  
+  20-Jul-2020 ST: Add use igs_device.  
+  29-Jan-2024 SS: Set IGNORE_ERR=solcheck if necessary  
+  22-May-2026 SS: Skip 23364/23365 (vTPv negative)
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -4016,7 +6669,14 @@ Variables:
 - Source file: REALIX_P (download from the HTML manual)
 ### REPC_DEL
 
+- Name: REPC_DEL
 - Purpose: Delete all files from the current session for clock reprocessing
+- Author: R. Dach
+- Created: 23-Jun-2009
+- Changes: 05-Aug-2015 SS: Renamed processing summary file  
+  22-Apr-2020 ST: There should be no more $A0 to delete  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX  
+  07-Apr-2022 ST: Remove DIR_BRD and EXT_BRD.
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_C`, `V_DEL`, `V_E`, `V_H`, `V_I`, `V_K`, `V_O`, `V_OO`, `V_Q`, `V_QQ`, `V_U`, `V_UU`, `V_W`
@@ -4026,7 +6686,14 @@ Variables:
 - Source file: REPC_DEL (download from the HTML manual)
 ### REPC_SAV
 
-- Purpose: Copy result files into the archive (from clock reprocessing) Programs:
+- Name: REPC_SAV
+- Purpose: Copy result files into the archive (from clock reprocessing)  
+    
+  Programs:
+- Author: R. Dach
+- Created: 23-Jun-2009
+- Changes: 30-Sep-2014 LP: Change GPS=&gt;G for $v_gnss  
+  06-Jun-2018 SS: Prepared for REPRO_IAR
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_C`, `V_GNSS`, `V_Q`, `V_QQ`, `V_SAV`, `V_U`, `V_UU`
@@ -4037,14 +6704,48 @@ Variables:
 - Source file: Repository (download from the HTML manual)
 ### RESRMS
 
+- Name: RESRMS
 - Purpose: Programs:  RESRMS
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `RESRMS`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `RESRMS.INP`
 - Source file: RESRMS (download from the HTML manual)
 ### RNX2DSB
 
+- Name: RNX2DCB
 - Purpose: Generate intra-frequency GNSS OSB results using RNX2OSB
+- Parameters: PARAM1 - Optional minus parameter
+- Author: S. Schaer
+- Created: 04-Nov-2021
+- Changes: 04-Nov-2021 SS: Developed starting from RNX2DCB  
+  28-Jan-2022 SS: Used in operational mode (for DCBREPRO)  
+  31-Jan-2022 SS: Saved gzipped D1?yyssss.NQ0.gz  
+  02-Mar-2022 SS: Some essential updates  
+  28-Mar-2022 SS: New kind of problem for PENC, HERT  
+  07-Apr-2022 SS: Considered black list for test purposes  
+  08-Apr-2022 SS: Ignored suspicious CHOF RXO data (20220550)  
+  11-Jul-2022 SS: Used considerably updated RNX2OSB executable  
+  12-Jul-2022 SS: Switched IGN_SOLY_TYPS (for QZSS)  
+  12-Jul-2022 SS: Reported satellites with missing SVN  
+  11-May-2023 SS: Major update of RNX2OSB;  
+                  changed end time from &#x27;23 59 30&#x27; to &#x27;24 00 00&#x27;;  
+                  re-activated SVN checking (see RM_UNDEF_SATS)  
+  26-May-2023 SS: Checked availability of DSB results (for  
+                  covered GRJ and non-covered ECS systems);  
+                  monitored OBS in DSB results (using D1?.OBS)  
+  30-May-2023 SS: $numObs supplied in messages  
+  21-Jun-2023 SS: Improved filtering for OBS.LST file generation  
+  01-May-2024 SS/ST: Tested/activated revised version of RNX2OSB  
+  02-May-2024 SS: Suppressed notification in reprocessing mode  
+  19-Feb-2026 SS: Now expecting DSB results for C:C2I/C2X (D1C260190.OSB)  
+  08-Jun-2026 SS: No SYOG-based DSB results for C:C2I/C2X (D1C261550.OSB)  
+  10-Jun-2026 SS: SYOG again available  
+  17-Jun-2026 SS: Strange failure due to missing D1C261670.OSB  
+                  (due to TLSE C:C7I/C7D data issue)
 - Bernese programs: `RNX2OSB`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `MENU_PGM.INP`, `RNX2OSB.INP`, `RNX2OSB.INP`
@@ -4057,7 +6758,17 @@ Variables:
 - Source file: RNX2DSB (download from the HTML manual)
 ### RNX2FRQ
 
-- Purpose: Perform GLONASS frequency channel search using RNXSMT for data verification purposes
+- Name: RNX2FRQ
+- Purpose: Perform GLONASS frequency channel search using RNXSMT for data  
+  verification purposes
+- Parameters: PARAM1 - Optional minus parameter
+- Author: S. Schaer
+- Created: 27-Jan-2022
+- Changes: 27-Jan-2022 SS: Derived from RNX2DCB script  
+  31-Jan-2022 SS: Some refinements  
+  12-Jul-2022 SS: Correctly deleted SMT files  
+  13-May-2025 SS: SATCRUX changed from SAT_$Y+0 to SAT_0000  
+                  (in order to consider all GLONASS data)
 - Bernese programs: `RNXSMT`
 - Used in PCFs: DCBIONO.PCF
 - INP files: `MENU_EXT.INP`, `MENU_PGM.INP`, `RNXSMT.INP`, `RNXSMT.INP`
@@ -4069,7 +6780,14 @@ Variables:
 - Source file: RNX2FRQ (download from the HTML manual)
 ### RNXGRA
 
-- Purpose: Create a "pseudo" graphic of rinex observations Programs:  RNXGRA
+- Name: RNXGRA
+- Purpose: Create a &quot;pseudo&quot; graphic of rinex observations  
+    
+  Programs:  RNXGRA
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 05-Jan-2020 RD: Display is adjusted to V_GNSS  
+  01-Jun-2021 ST: Temporary ignore V_GNSS
 - Bernese programs: `RNXGRA`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `RNXGRA.INP`
@@ -4078,7 +6796,18 @@ Variables:
 - Source file: RNXGRA (download from the HTML manual)
 ### RNXSMT_P
 
-- Purpose: Parallel RNXSMT run Programs:  RNXSMT
+- Name: RNXSMT_P
+- Purpose: Parallel RNXSMT run  
+    
+  Programs:  RNXSMT
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 26-May-2009
+- Changes: 10-Feb-2005 mm: Old date variables removed  
+  19-May-2009 rd: Session dependent parallelization filenames  
+  26-May-2009 rd: RNXERR: YY_DDD -&gt; YY_SSSS  
+  10-Dec-2020/st: RNXSMT: RNXFIL -&gt; RNXFIL_SHORT  
+  13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area
 - Bernese programs: `RNXSMT`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `RNXSMT.INP`, `RNXSMT.INP`
@@ -4090,7 +6819,17 @@ Variables:
 - Source file: RNXSMT_P (download from the HTML manual)
 ### RNXSMTAP
 
-- Purpose: Prepare parallel RNXSMT run Programs:
+- Name: RNXSMTAP
+- Purpose: Prepare parallel RNXSMT run  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 26-Jan-2006 mm: New initPar call (w/o tmpFil)  
+  10-Feb-2005 mm: Old date variables removed  
+  19-May-2009 rd: Session dependent parallelization filenames  
+  13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
@@ -4102,14 +6841,24 @@ Variables:
 - Source file: Root (download from the HTML manual)
 ### RXN2PRE
 
+- Name: RXN2PRE
 - Purpose: Execute RXN2PRE
+- Author: P. Stebler
+- Created: 30-Oct-2018
+- Changes: 15-Dec-2018 Continued
 - Bernese programs: `RXN2PRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `RXN2PRE.INP`
 - Source file: RXN2PRE (download from the HTML manual)
 ### RXO_DEL
 
-- Purpose: Delete ?????????_yyyyssss.RXO files (from current session and, if requested, back to PARAM1)
+- Name: RXO_DEL
+- Purpose: Delete ?????????_yyyyssss.RXO files (from current session and,  
+  if requested, back to PARAM1)
+- Parameters: PARAM1 - Optional minus parameter
+- Author: S. Schaer
+- Created: 27-Jan-2022
+- Changes: __-___-____ __:
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DEL`
@@ -4120,7 +6869,17 @@ Variables:
 - Source file: RXO_DEL (download from the HTML manual)
 ### RXOBV3_P
 
-- Purpose: Parallel RXOBV3 run Programs:  RXOBV3
+- Name: RXOBV3_P
+- Purpose: Parallel RXOBV3 run  
+    
+  Programs:  RXOBV3
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 10-Feb-2005 mm: Old date variables removed  
+  19-May-2009 rd: Session dependent parallelization filenames  
+  26-May-2009 rd: RNXERR: YY_DDD -&gt; YY_SSSS  
+  30-Sep-2014 lp: New GNSS selection using setGNSS  
+  10-Dec-2020 st: RXOBV3: RXOFILE -&gt; RXOFILE_SHORT
 - Bernese programs: `RXOBV3`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, RCLKGNSS.PCF
 - INP files: `RXOBV3.INP`, `RXOBV3.INP`
@@ -4132,7 +6891,15 @@ Variables:
 - Source file: RXOBV3_P (download from the HTML manual)
 ### RXOBV3GP
 
-- Purpose: A priori script to prepare parallel running of RXOBV3 (use RNXGRA to find a list of the best stations) Programs:  RNXGRA
+- Name: RXOBV3GP
+- Purpose: A priori script to prepare parallel running of RXOBV3  
+  (use RNXGRA to find a list of the best stations)  
+    
+  Programs:  RNXGRA
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 19-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames
 - Bernese programs: `RNXGRA`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `RNXGRA.INP`
@@ -4145,7 +6912,17 @@ Variables:
 - Source file: RXOBV3GP (download from the HTML manual)
 ### RXOBVSAP
 
-- Purpose: Prepare parallel RXOBV3 run (for SMT files) Programs:
+- Name: RXOBVSAP
+- Purpose: Prepare parallel RXOBV3 run (for SMT files)  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 26-Jan-2005 mm: New initPar call (w/o tmpFil)  
+  10-Feb-2005 mm: Old date variables removed  
+  19-May-2009 rd: Session dependent parallelization filenames  
+  13-Aug-2021 RD: Start using BSW-style filenameing in the campaign area
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
@@ -4155,7 +6932,33 @@ Variables:
 - Source file: RXOBVSAP (download from the HTML manual)
 ### SAT_INI
 
-- Purpose: Compute a priori orbits on the basis of DD code observations Programs:  ORBGEN, GPSEST, STDPRE, STDDIF
+- Name: SAT_INI
+- Purpose: Compute a priori orbits on the basis of DD code observations  
+    
+  Programs:  ORBGEN, GPSEST, STDPRE, STDDIF
+- Author: S. Schaer
+- Created: 05-Dec-2003
+- Changes: 07-Jan-2004/ss: STDDIF added  
+  08-Jan-2004/ss: SAT_INI.CRX used  
+  15-Jan-2004/ss: sat_ini.com added  
+  19-Jan-2004/ss: SAT CRX file automatically updated  
+  29-Jun-2004/ss: Do not execute get_nanu.com in case of new PRNs  
+  30-Jun-2004/ss: Refinements concerning handling of new PRNs  
+  10-Feb-2005/mm: Old date variables removed  
+  21-Feb-2006/ss: Exit loop when EXIT.FLG found  
+  19-Oct-2006/ss: Support different POD modi  
+  24-Oct-2006/ss: Additional STDDIF run  
+  27-Dec-2006/ss: Bugfix wrt GLONASS POD  
+  11-Apr-2007/ss: Remove SAT_INI.PRE if older than 1 day  
+  21-Aug-2007/ss: Create PM STD file if not yet available  
+  08-Aug-2008/ss: Select POD mode automatically  
+  24-Feb-2012/ss: Changed path statement  
+  23-Oct-2014/lp: Replace SATSYS by USE_... and setGNSS  
+  27-Jun-2016/ss: Updated for OSB implementation  
+  14-Nov-2019/lp: Generalize for systems GRESCJ  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX  
+  11-Jan-2024 SS: move replaced by copy (and unlink);  
+                  _TMP replaced by _$$
 - Bernese programs: `ADDNEQ2`, `GPSEST`, `ORBGEN`, `RESRMS`, `SNGDIF`, `STDDIF`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `GPSEST.INP`, `MENU_PGM.INP`, `ORBGEN.INP`, `STDDIF.INP`, `STDPRE.INP`, `ADDNEQ2.INP`, `GPSEST.INP`, `ORBGEN.INP`, `RESRMS.INP`, `SNGDIF.INP`, `STDDIF.INP`, `STDPRE.INP`
@@ -4165,21 +6968,35 @@ Variables:
 - Source file: SAT_INI (download from the HTML manual)
 ### SATCLK2
 
+- Name: SATCLK2
 - Purpose: Execute SATCLK2
+- Author: P. Stebler
+- Created: 15-Jul-2019
 - Bernese programs: `SATCLK2`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SATCLK2.INP`
 - Source file: SATCLK2 (download from the HTML manual)
 ### SATGRA
 
-- Purpose: A run f the program SATGRA Programs:  SATGRA
+- Name: SATGRA
+- Purpose: A run f the program SATGRA  
+    
+  Programs:  SATGRA
+- Author: R. Dach
+- Created: 20-Jan-2005
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `SATGRA`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SATGRA.INP`
 - Source file: SATGRA (download from the HTML manual)
 ### SATMON_P
 
+- Name: SATMON_P
 - Purpose: Execute SATMARK
+- Parameters: PARAM1 - processing station
+- Author: A. Villiger
+- Created: 25-Jul-2016
 - Bernese programs: `SATMRK`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `SATMRK.INP`
@@ -4190,7 +7007,20 @@ Variables:
 - Source file: SATMON_P (download from the HTML manual)
 ### SATMONAP
 
-- Purpose: Extract satellite clock estimates (as seen by each station) and eliminate observations using satmark Programs:
+- Name: SATMONAP
+- Purpose: Extract satellite clock estimates (as seen by each station)  
+  and eliminate observations using satmark  
+    
+  Programs:
+- Author: A. Villiger
+- Created: 19-Jul-2016
+- Changes: 25-Jul-2016 AV: Parallelization  
+  16-Aug-2016 AV: Remove empty files  
+  29-Aug-2016 AV: Remove epochs with one observation  
+  13-Oct-2016 AV: Skip if obs file not available  
+  03-Nov-2016 LP: Some bugfixes and slight adaptations to MGEX (e.g., fix in @satSys)  
+  07-Nov-2016 LP: Flexible selection of sampling rate  
+  27-Jan-2021 RD: Four digit year in EDT file
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - V_ variables: `V_SAMPL`
@@ -4203,14 +7033,25 @@ Variables:
 - Source file: SATMONAP (download from the HTML manual)
 ### SATMRK
 
+- Name: SATMRK
 - Purpose: Execute SATMRK
+- Author: S. Schaer
+- Created: 20-Sep-2017
 - Bernese programs: `SATMRK`
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF, RCLKGNSS.PCF
 - INP files: `SATMRK.INP`
 - Source file: SATMRK (download from the HTML manual)
 ### SATUNMRK
 
-- Purpose: Execute SATMRK to unmark observation data for a particular satellite.
+- Name: SATUNMRK
+- Purpose: Execute SATMRK to unmark observation data for a particular  
+  satellite.
+- Author: S. Schaer
+- Created: 01-Jul-2021
+- Notes: Changed :  02-Jul-2021 ss: Considered CODXTR.yy_ssss  
+                             (to make manual interaction unnecessary)  
+             05-Jul-2021 ss: Generalized for MCLKGNSS  
+             21-Feb-2022 ss: Commented msg2key
 - Bernese programs: `SATMRK`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `SATMRK.INP`
@@ -4219,7 +7060,22 @@ Variables:
 - Source file: SATUNMRK (download from the HTML manual)
 ### SATWEEK
 
-- Purpose: Execute SATWEEK and check maneuver entries of current GPS week in SAT.CRX file. Programs:  SATWEEK Remark  :
+- Name: SATWEEK
+- Purpose: Execute SATWEEK and check maneuver entries of current GPS week  
+  in SAT.CRX file.  
+    
+  Programs:  SATWEEK  
+    
+  Remark  :
+- Parameters: PARAM1 - Tolerance in sec for #MANEUVER checking (optional)  
+  PARAM2 - LST/CRX: MANEUVER.LST (optional)
+- Author: S. Schaer
+- Created: 17-Jan-2024
+- Changes: 18-Jan-2024 SS: Generate MANEUVER.LST (and MANEUVER.CRX)  
+  22-Jan-2024 SS: Improved generation of MANEUVER.CRX  
+  26-Jan-2024 SS: Verification only up to the current day  
+  17-Apr-2024 SS: Do not advise specific time deviations (e.g. R07)  
+  04-Aug-2025 EB: message string shortend to fit to MSG2KEY_yyyy.TXT
 - Bernese programs: `SATWEEK`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `MENU_EXT.INP`, `SATWEEK.INP`, `SATWEEK.INP`
@@ -4231,7 +7087,13 @@ Variables:
 - Source file: SATWEEK (download from the HTML manual)
 ### SBPE_P
 
+- Name: SBPE_P
 - Purpose: Starts a server for a parallel running BPE (SUPERBPE)
+- Author: R. Dach
+- Created: 27-May-2003
+- Changes: 16-Mar-2004 RD: Error handling if BPE-server failed  
+  21-Jun-2019 AV: Set SUPERBPE to 0  
+  24-Sep-2020 RD/ST: Add key lines &#x27;# Calls ... using input file: ...&#x27;
 - Used in PCFs: SUPERBPE.PCF
 - Read keys:
   - V_ variables: `V_SUBDIR`
@@ -4239,27 +7101,58 @@ Variables:
 - Source file: SBPE_P (download from the HTML manual)
 ### SBPEAP
 
+- Name: SBPEAP
 - Purpose: Prepares a parallel running BPE (SUPERBPE)
+- Author: R. Dach
+- Created: 27-May-2003
 - Used in PCFs: SUPERBPE.PCF
 - Source file: SBPEAP (download from the HTML manual)
 ### SKIP_AR
 
-- Purpose: Skip QIF AR (LIMEST, GPSQIFAP, GPSQIF_P) if max. baseline length (V_BL_QIF) is 0 or if SKIP_AR flag exists Programs:
+- Name: SKIP_AR
+- Purpose: Skip QIF AR (LIMEST, GPSQIFAP, GPSQIF_P) if max. baseline length  
+  (V_BL_QIF) is 0 or if SKIP_AR flag exists  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Source file: SKIP_AR (download from the HTML manual)
 ### SKIP_JOB
 
-- Purpose: Skip jobs if "SKIP_JOB.FLG" exists (used for script: skip_jobs.com) Programs:
+- Name: SKIP_JOB
+- Purpose: Skip jobs if &quot;SKIP_JOB.FLG&quot; exists  
+  (used for script: skip_jobs.com)  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Source file: SKIP_JOB (download from the HTML manual)
 ### SKIP_SOL
 
-- Purpose: Skip 3-day solution if indicated Programs:
+- Name: SKIP_SOL
+- Purpose: Skip 3-day solution if indicated  
+    
+  Programs:
+- Author: A. Villiger
+- Created: 15-Jul-2020
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Source file: SKIP_SOL (download from the HTML manual)
 ### SKIP_WL
 
-- Purpose: Skip WL AR if indicated Programs:  SATMRK
+- Name: SKIP_WL
+- Purpose: Skip WL AR if indicated  
+    
+  Programs:  SATMRK
+- Parameters: PARAM2 - goto PID to continue with NL AR
+- Author: S. Schaer
+- Created: 22-May-2018
+- Changes: __-___-____ __:
 - Bernese programs: `SATMRK`
 - Used in PCFs: PPPAR.PCF, PPPAR1.PCF
 - INP files: `SATMRK.INP`
@@ -4268,14 +7161,84 @@ Variables:
 - Source file: SKIP_WL (download from the HTML manual)
 ### SLEEP
 
+- Name: SLEEP
 - Purpose: Wait n sec
+- Parameters: PARAM1 - Optional waiting time (default: 60 sec)
+- Author: S. Schaer
+- Created: 08-May-2008
 - Used in PCFs: DEBUG_SS.PCF, IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
 - Source file: SLEEP (download from the HTML manual)
 ### SLR_MAIL
 
-- Purpose: Send CPF via email: protocol file, warning message, error message Authors:   C. Urschl
+- Name: SLR_MAIL
+- Purpose: Send CPF via email: protocol file, warning message,  
+  error message
+- Author: C. Urschl
+- Created: 06-Aug-2007
+- Changes: 06-Aug-2007/mm: V_DIS activated  
+  18-May-2008 DT: Send file with collected warnings (V_WARN)  
+  27-May-2008 DT: Add GLONASS109 (R11; 2007-065C), remove GLONASS95  
+  02-Apr-2008 DT: Add Glonass-115 (R08), remove Glonass-99 (R24)  
+  09-Jun-2009 DT: Remove gps35 (G05)  
+  17-Feb-2010 DT: Add gps35 (now as G25)  
+  07-Apr-2010 DT: Remove gps35;  
+                  Replace glonass-109 (R11) with glonass-120 (R23)  
+  03-Sep-2010 DT: Add glonass-118 (R05), glonass-102 (R11), glonass-110 (R18)  
+  14-Sep-2010 DT: Add new address for CPF exploder  
+  06-Oct-2010 HB: Correct address for CPF exploder  
+  04-May-2011 DT: Add glonass-125 (R04); first GLONASS-K  
+  10-May-2011 DT: Add all GLONASS:  
+                  first part of list -&gt; send to CDDIS  
+                  second part -&gt; only renaming for Zimmerwald  
+  16-Aug-2011 AJ: ftp mode temporarily changed to passive  
+  17-Oct-2011 DT: R03 = glonass-125 (formerly R04),  
+                  R14 = glonass-101 (formerly R03)  
+                  glonass-108 not active anymore (R14)  
+  21-Oct-2011 DT: R04 = glonass-126 (new launch)  
+  05-Dec-2011 DT: R03 = glonass-128 (new launch)  
+  19-Dec-2011 DT: R07 = glonass-129 (new launch)  
+  22-Dec-2011 DT: R17 = glonass-130 (new launch)  
+  08-Mar-2012 DT: glonass-130 replaces glonass-120 in ILRS tracking  
+  24-Sep-2012 DT: R08=glonass-115 (official ILRS) replaced by  
+                  glonass-127  
+  23-Oct-2012 DT: R08=glonass-127 replaced by glonass-95;  
+                  use R07=glonass-129 for official ILRS tracking instead  
+  11-Jan-2013 CB; R08=glonass95 replaced by glonass125  
+  14-May-2013 CB: removed GPS35  
+  18-Jul-2013 CB: init of err1 and err2  
+  18-Nov-2013 CB: R08=glonass127 (instead of glonass125),  
+                  R02=glonass131 (instead of glonass114),  
+                  send all cpf files to dgfi  
+  19-Mar-2014 KS: different naming of satellite files  
+  20-Aug-2014 KS: GLONASS133 added  
+  28-Sep-2015 AM: gps36 added  
+  09-Mar-2016 AM: glonass135 (2016-008A) added  
+  27-Jun-2016 AM: glonass136 (2016-032A) added  
+  03-Mar-2017 AM: stop sending mail with CPF (cpfpred@dgfi.badw.de unknown)  
+  25-Jul-2017 AM: stop uploading CPF files to ftp  
+  12-Jul-2019 RD: Extensive checking for the complentess and correctness  
+  24-Sep-2019 RD: Disable e-mail to Andrea Maier  
+  10-Oct-2019 UM: add Galileo satellites to list (E201 -&gt; galileo201, ...)  
+                  write warning, if Galileo CPF-files remain  
+  30-Dec-2019 UM: glonass141 (2019_088A) added  
+  31-Jan-2020 UM: CPF v2 naming convention  
+  20-Nov-2020 UM: glonass142 (2020-018A) added  
+  12-Jul-2021 UM: glonass143 (2020-075A) added  
+  14-Apr-2023 UM: glonass144 (2022-161A) added  
+                  glonass145 (2022-130A) added  
+                  galileo223 (2021-116A) added  
+                  galileo224 (2021-116B) added  
+  31-May-2024 UM: glonass147 (2023-114A) added  
+  14-Apr-2025 UM: R02 changed from glonass 102 (2006-062A) to glonass 131 (2013-019A)  
+   21-Oct-2025 CK: Changed glonass120 to glonass105  
+  22-Apr-2026 RD: Remove the long lists of satellites;  
+                  replace them by scripting the rules of creating filenames  
+  22-Apr-2026 RD: Check also the SIC number in the second line  
+    
+  REMARK:    Inform Zimmerwald people if any change in GLONASS numbering  
+  is done!
 - Used in PCFs: SLRPRED.PCF
 - Read keys:
   - V_ variables: `V_VCPF`
@@ -4284,7 +7247,27 @@ Variables:
 - Source file: SLR_MAIL (download from the HTML manual)
 ### SMA_CHK
 
-- Purpose: Check semi-major axis correction and RMS values for all involved satellites (PRNs) and release SMS message in case of anomalies. Programs: Remark  :
+- Name: SMA_CHK
+- Purpose: Check semi-major axis correction and RMS values for all  
+  involved satellites (PRNs) and release SMS message in case of  
+  anomalies.  
+    
+  Programs:  
+    
+  Remark  :
+- Parameters: PARAM1 - solution identifier  
+  PARAM2 - SMT (optional check concerning SMT results)  
+  PARAM3 - not yet used
+- Author: S. Schaer
+- Created: 11-Jan-2024
+- Changes: 12-Jan-2024 SS: Added check concerning SMT results  
+  12-Jan-2024 SS: Added update of SAT CRX (due to SMT anomaly)  
+  16-Jan-2024 SS: Prepared for IGSFIN1D  
+  22-Jan-2024 SS: Increased $tolSmt (to 25%)  
+  16-Apr-2024 SS: Modified @prnLst to accommodate maneuvers  
+  22-Oct-2024 SS: Trigger some actions only for the past 32 days  
+  08-Aug-2025 SS: Skipped poorly observed PRNs for SMA checking  
+  18-Oct-2025 SS: Added R28 to @prnLstSkp
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
@@ -4293,7 +7276,14 @@ Variables:
 - Source file: SMA_CHK (download from the HTML manual)
 ### SNGDIF
 
-- Purpose: Create baselines Programs:  SNGDIF
+- Name: SNGDIF
+- Purpose: Create baselines  
+    
+  Programs:  SNGDIF
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 10-Feb-2005
+- Changes: 10-Feb-2005 mm: Old date variables removed
 - Bernese programs: `SNGDIF`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SNGDIF.INP`
@@ -4303,7 +7293,14 @@ Variables:
 - Source file: SNGDIF (download from the HTML manual)
 ### SNGDIFA
 
-- Purpose: Create baselines Programs:  SNGDIF
+- Name: SNGDIFA
+- Purpose: Create baselines  
+    
+  Programs:  SNGDIF
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 10-Feb-2005
+- Changes: 10-Feb-2005 mm: Old date variables removed
 - Bernese programs: `SNGDIF`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SNGDIF.INP`, `SNGDIF.INP`
@@ -4313,7 +7310,14 @@ Variables:
 - Source file: SNGDIFA (download from the HTML manual)
 ### SNGDIFC
 
-- Purpose: Create baselines from code observations  (no delete/clean-up) Programs:  SNGDIF
+- Name: SNGDIFC
+- Purpose: Create baselines from code observations  (no delete/clean-up)  
+    
+  Programs:  SNGDIF
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 05-Dec-2003
+- Changes: 05-Dec-2003 ss/mm: Save CS? files for SATINI process
 - Bernese programs: `SNGDIF`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `SNGDIF.INP`
@@ -4323,7 +7327,38 @@ Variables:
 - Source file: SNGDIFC (download from the HTML manual)
 ### SNX_LOOP
 
-- Purpose: Import exported SNX file and verify re-computed CRD results Programs:  SNX2NQ0, ADDNEQ2, HELMR1
+- Name: SNX_LOOP
+- Purpose: Import exported SNX file and verify re-computed CRD results  
+    
+  Programs:  SNX2NQ0, ADDNEQ2, HELMR1
+- Parameters: PARAM1 - Solution variable name  
+  PARAM2 - Third character of solution name (optionally)  
+  PARAM3 - WEEK option for file naming  
+    
+  Remark  :
+- Author: S. Schaer
+- Created: 24-Oct-2012
+- Changes: 24-Oct-2012/ss: WEEK option for file naming  
+  29-May-2013/cb: Exceptions for doy 13144 and 13145 added  
+  30-May-2013/cb: Exceptions for doy 13146 and 17417 (F7D) added  
+  31-May-2013/cb: Exception for doy 13147  
+  01-Jun-2013/cb: Exception for doy 13148  
+  03-Jun-2013/ss: Most recent exceptions removed  
+  04-Jun-2014/ss: Considered ULTyyddd.FLG  
+  10-Sep-2014/ss: Increased tolerances also in case of RAP  
+  16-Dec-2014/ss/av: Updated for new HELMR1 (with ADDSTA/MAXREJ)  
+  09-Jan-2015 eo: workaround, to be removed once AV fixes HELMR1  
+  02-Feb-2015 av: workaroung removed, HELMR1 problem solved  
+  11-Mar-2015 av: Exception for doy 15070  
+  16-SEP-2015 rd: Relax HELMR1 check if singular elements are detected  
+  28-Jul-2016 av: Add IGSULTRA pcf name  
+  16-Sep-2019 av: Use regex for PCFFIL check (IGSRAPID)  
+  19-Sep-2019 av: Use regex for PCFFIL check (IGSULTRA)  
+  18-May-2020 ss: Handled IGb14  
+  03-Feb-2025 eb/ml: Handled IGb20  
+  03-Aug-2025 eb: limit extension 25224, AIUB retreat ;-)  
+  24-Oct-2025 EB: Handle IGc20  
+  29-Oct-2026 ML: Exception for doy 26301
 - Bernese programs: `ADDNEQ2`, `HELMR1`, `SNX2NQ0`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ADDNEQ2.INP`, `HELMR1.INP`, `MENU_EXT.INP`, `SNX2NQ0.INP`, `ADDNEQ2.INP`, `HELMR1.INP`, `SNX2NQ0.INP`
@@ -4336,7 +7371,14 @@ Variables:
 ### SOSUPDAT
 
 - Package: `SOSMERGE`
-- Purpose: Downweight stations with a bad receiver clock Programs:
+- Name: SOSMERGE
+- Purpose: Downweight stations with a bad receiver clock  
+    
+  Programs:
+- Author: R. Dach
+- Created: 30-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `RESRMS`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `RESRMS.INP`
@@ -4346,7 +7388,13 @@ Variables:
 - Source file: SOSUPDAT (download from the HTML manual)
 ### SP3CPF
 
+- Name: SP3CPF
 - Purpose: Execute SP3CPF
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Last modified: 18-May-2008
+- Changes: 18-May-2008 DT: Use file V_WARN for collecting warnings  
+  03-Feb-2020 UM: Use V_VCPF to set version of CPF files
 - Bernese programs: `SP3CPF`
 - Used in PCFs: SLRPRED.PCF
 - INP files: `SP3CPF.INP`
@@ -4355,7 +7403,17 @@ Variables:
 - Source file: SP3CPF (download from the HTML manual)
 ### STA2STA
 
+- Name: STA2STA
 - Purpose: Create extra STA file for SINEX generation
+- Parameters: PARAM1 - Name of extra STA file (and keyword)  
+  PARAM2 - Negative keyword (optional)
+- Author: S. Schaer
+- Created: 30-Nov-2004
+- Changes: 03-Mar-2005/ss: Adapted for LPT analysis  
+  01-May-2006/ss: Consider negative keyword if indicated  
+  22-May-2006/di/eb: Take STA-file from campaign STA directory  
+  24-Jul-2008/rd/ps: check if up-to-date file already available  
+  09-Oct-2012/ss: Use STAINF variable
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_STAINF`
@@ -4364,7 +7422,11 @@ Variables:
 - Source file: STA2STA (download from the HTML manual)
 ### STAMERGE
 
+- Name: STAMERGE
 - Purpose: Execute STAMERGE
+- Author: S. Schaer
+- Created: 05-Sep-2023
+- Changes: 06-Sep-2023 SS: Write no azimuth value if zero
 - Bernese programs: `STAMERGE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `MENU_PGM.INP`, `STAMERGE.INP`
@@ -4373,14 +7435,28 @@ Variables:
 - Source file: STAMERGE (download from the HTML manual)
 ### STDPRE
 
-- Purpose: Convert standard orbit to precise orbit file format Programs:  STDPRE
+- Name: STDPRE
+- Purpose: Convert standard orbit to precise orbit file format  
+    
+  Programs:  STDPRE
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: __-___-____ __:
 - Bernese programs: `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `STDPRE.INP`
 - Source file: STDPRE (download from the HTML manual)
 ### STDPRE_R
 
-- Purpose: Generate PRE-files for all days of the n-day solution (currently only for +0 and -2 useable) Programs:  STDPRE
+- Name: STDPRE_R
+- Purpose: Generate PRE-files for all days of the n-day solution  
+  (currently only for +0 and -2 useable)  
+    
+  Programs:  STDPRE
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 10-Feb-2005 mm: Old date variables removed  
+  24-Nov-2022 SS: Supplied second midnight epoch
 - Bernese programs: `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `STDPRE.INP`, `STDPRE.INP`
@@ -4389,14 +7465,44 @@ Variables:
 - Source file: STDPRE_R (download from the HTML manual)
 ### STOP_ULT
 
-- Purpose: Check whether ULTyyddd.ULT is justified Programs:
+- Name: STOP_ULT
+- Purpose: Check whether ULTyyddd.ULT is justified  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 03-Jul-2019
+- Changes: __-___-____ __:
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$Y+0`, `$YD+0`, `$YD-1`, `$YD-2`, `DIR_OUT`, `PCFFIL`
 - Source file: STOP_ULT (download from the HTML manual)
 ### SYS_CHK
 
-- Purpose: Perform various relevant checks concerning: - $PAN/AIUB_CMP.INP (counter) - ANTEX model (number) - gravitational model (validity) Programs:
+- Name: SYS_CHK
+- Purpose: Perform various relevant checks concerning:  
+  - $PAN/AIUB_CMP.INP (counter)  
+  - ANTEX model (number)  
+  - gravitational model (validity)  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 07-Sep-2023
+- Changes: 19-Sep-2023 SS: Checking established concerning three subjects  
+  22-Sep-2023 SS: Point explicitly to $AUTO/check_antex.com  
+  02-Sep-2024 SS: Check whether a newer GRV file is available  
+  17-Oct-2024 SS: Considered day of week (dow)  
+  03-Feb-2025 EB: ATX IGS20 allowed for RAPID with IG?20 coordinates  
+  26-Feb-2025 SS: Send certain SMS less often  
+  26-May-2025 EB: Do not remind for intentionally not updated ATX  
+                  status week 2353, ignore updates 2354, 2356, 2360, 2361  
+  26-Sep-2025 SS: Check whether MIDyydddm1.FLG file is available  
+  24-Oct-2025 EB: System check IGc20 and ATX file change prepared  
+  16-Dec-2025 SS: Ignore IGS20_2353 code for $REF/$(PCV).ATX  
+  06-Jan-2026 SS: Ignore &#x27;ANTENNA MODEL:&#x27; for $CONFIG/ANT_COD_$(PCV).PCV  
+  29-Jan-2026 SS: Ignore igs20_2405.atx file  
+  09-Feb-2026 SS: Do no longer ignore igs20_2405.atx (because now in accordance with igs20.atx)  
+  12-May-2026 SS: Report G33-G39 data availability  
+  28-May-2026 SS: Check whether SAT_yyyy.CRX for the new year is available
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_CMPINF`, `V_CRDINF`, `V_GRAVMOD`, `V_PCV`, `V_PCVINF`
@@ -4406,7 +7512,13 @@ Variables:
 ### TIMEST_A
 
 - Package: `TIMEST_P`
-- Purpose: Parallel run of GPSEST using code and phase data and estimating osb via addneq iteration Programs:  GPSEST
+- Name: TIMEST_A
+- Purpose: Parallel run of GPSEST using code and phase data  
+  and estimating osb via addneq iteration  
+    
+  Programs:  GPSEST
+- Author: A. Villiger
+- Created: 24-Apr-2016
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -4418,7 +7530,14 @@ Variables:
 ### TIMEST_C
 
 - Package: `TIMEST_P`
-- Purpose: Parallel run of GPSEST using code and phase data Programs:  GPSEST
+- Name: TIMEST_P
+- Purpose: Parallel run of GPSEST using code and phase data  
+    
+  Programs:  GPSEST
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 04-Mar-2010
+- Changes: 04-Mar-2010/ss: Deactivate HOI setup if indicated
 - Bernese programs: `GPSEST`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -4428,7 +7547,13 @@ Variables:
 - Source file: TIMEST_C (download from the HTML manual)
 ### TIMEST_P
 
-- Purpose: Parallel run of GPSEST using code and phase data Programs:  GPSEST
+- Name: TIMEST_P
+- Purpose: Parallel run of GPSEST using code and phase data  
+    
+  Programs:  GPSEST
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 04-Mar-2010/ss: Deactivate HOI setup if indicated
 - Bernese programs: `GPSEST`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -4438,7 +7563,15 @@ Variables:
 - Source file: TIMEST_P (download from the HTML manual)
 ### TIMESTAP
 
-- Purpose: Prepare parallel GPSEST run using MKCLUS for clustering Programs:  MKCLUS
+- Name: TIMESTAP
+- Purpose: Prepare parallel GPSEST run using MKCLUS for clustering  
+    
+  Programs:  MKCLUS
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 26-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames  
+  26-May-2009 rd: RESCHK: YY_DDD -&gt; YY_SSSS
 - Bernese programs: `MKCLUS`
 - Used in PCFs: RCLKGNSS.PCF
 - INP files: `MKCLUS.INP`, `MKCLUS.INP`
@@ -4450,21 +7583,50 @@ Variables:
 - Source file: TIMESTAP (download from the HTML manual)
 ### TROTRO
 
-- Purpose: Remove non-IGS stations from code tro sinex file Programs:  TROTRO
+- Name: TROTRO
+- Purpose: Remove non-IGS stations from code tro sinex file  
+    
+  Programs:  TROTRO
+- Author: R. Dach
+- Created: 06-Dec-2007
+- Changes: __-___-____ __:
 - Bernese programs: `TROTRO`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `TROTRO.INP`
 - Source file: TROTRO (download from the HTML manual)
 ### TRPL2C
 
-- Purpose: Convert new (linear) into old (constant) TRP file Programs:  TRPL2C
+- Name: TRPL2C
+- Purpose: Convert new (linear) into old (constant) TRP file  
+    
+  Programs:  TRPL2C
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `TRPL2C`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `TRPL2C.INP`
 - Source file: TRPL2C (download from the HTML manual)
 ### TRPMERGE
 
-- Purpose: Merges TRP files Programs: PARAMx:    PARAM1: filename of the merged TRP file PARAM2: filename of the "master" TRP file where to start from (may be empty) PARAM3: filename(s) of the TRP file(s) to be merged in (e.g., "TP_$YD+0" or even "????$S+0"; wildcards only for PARAM3)
+- Name: TRPMERGE
+- Purpose: Merges TRP files  
+    
+  Programs:  
+    
+  PARAMx:    PARAM1: filename of the merged TRP file  
+  PARAM2: filename of the &quot;master&quot; TRP file where to start from  
+          (may be empty)  
+  PARAM3: filename(s) of the TRP file(s) to be merged in  
+  (e.g., &quot;TP_$YD+0&quot; or even &quot;????$S+0&quot;; wildcards only for PARAM3)
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 23-Jun-2009 rd: Extension for session instead of day  
+  07-Jun-2016 RD: Add version with compatible attitude modelling  
+  07-Jun-2016 AV: Handle V_XX variables in param  
+  15-May-2020 LP: Allow for individual header size determined by &amp;getTropHeadInf  
+  18-Jan-2022 AV: modify location of filmerge.pl
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`
@@ -4475,7 +7637,21 @@ Variables:
 - Source file: TRPMERGE (download from the HTML manual)
 ### U30_FTP
 
-- Purpose: Create and submit next ULTRA_06 submission Authors:    M. Meindl, S. Schaer
+- Name: U30_FTP
+- Purpose: Create and submit next ULTRA_06 submission
+- Author: M. Meindl, S. Schaer
+- Created: 03-Jun-2004
+- Changes: 07-Dec-2004/ss: Changed from &quot;/upload/ultra&quot; to &quot;/products/igu&quot;  
+  16-Dec-2004/ss: Make use of &quot;qput&quot;  
+  02-Aug-2007/mm: V_DIS activated  
+  17-Nov-2009/mm: Submissions to GFZ stopped  
+  24-jun-2010/lo: Change cddis to cddisin  
+  05-Jan-2011 SL: check ~l_code/MSC/NO_DIS.FLG file  
+  14-Feb-2011 RD: submit to CDDIS and BKG (in parallel loops)  
+  12-Nov-2013 SL: Submit new solutions (US)  
+  01-Dec-2016 SS: Upload to cddis https  
+  10-Mar-2021 AV: Change BKG from ftp to sftp (use IGS directory)  
+  07-Jul-2022 AV: Change BKG host
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - V_ variables: `V_I`, `V_O`
@@ -4483,7 +7659,34 @@ Variables:
 - Source file: U30_FTP (download from the HTML manual)
 ### UBLOX
 
-- Purpose: - Extracts the 15-day-prediction for ublox, - Performs a validation - Generates a protocol - Submits the data IP restriction on ublox-side (open for sedna antlia2) U-Blox contact (in case of problems): svc-team-support-list@u-blox.com Programs:   STDPRE, PREWEI, ORBCMP Authors:    R. Dach
+- Name: UBLOX
+- Purpose: - Extracts the 15-day-prediction for ublox,  
+  - Performs a validation  
+  - Generates a protocol  
+  - Submits the data  
+    
+  IP restriction on ublox-side (open for sedna antlia2)  
+  U-Blox contact (in case of problems):  
+  svc-team-support-list@u-blox.com  
+    
+  Programs:   STDPRE, PREWEI, ORBCMP
+- Author: R. Dach
+- Created: 06-Sep-2006
+- Changes: 14-Dec-2006 rd: No duplicate suibmissions anymore  
+  02-Aug-2007/mm: V_DIS/V_SAV activated  
+  27-Mar-2008/mm: ftp-&gt;size replaced by ftp-&gt;cput  
+  05-Jan-2011 SL: check ~l_code/MSC/NO_DIS.FLG file  
+  14-Jan-2011 SL: use passive ftp for ftp.u-blox.com by default  
+  14-Mar-2015 AV: add addtional sftp server: legdata-a1.services.u-blox.com  
+                                             legdata-a2.services.u-blox.com  
+  24-May-2016 SS: Deactivated ftp to old server  
+  27-May-2016 AV: Activated ftp to old server  
+  05-Sep-2016 AV: Deactivated ftp to old server  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_SATCRUX  
+  19-Jan-2022 RD: Move location of the BYE-BPE files  
+  07-Jul-2022 AV: Save files even if submit failed  
+  09-Jan-2023 DA: Deactivated legdata-a2.services.u-blox.com  
+  10-Jan-2023 DA: &amp;sftp2ublox: Circumvent file size check
 - Bernese programs: `ORBCMP`, `PREWEI`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBCMP.INP`, `PREWEI.INP`, `STDPRE.INP`, `ORBCMP.INP`, `PREWEI.INP`, `STDPRE.INP`
@@ -4495,7 +7698,50 @@ Variables:
 - Source file: UBLOX (download from the HTML manual)
 ### ULT_CHK
 
-- Purpose: Compare ultra-rapid precise orbit solution files with respect to most recent update(s) for acceptance control Instructions: How to react in an emergency case? 1. Find the cause of the problem why ULT_ERR.FLG was finally set. Some suggestions and ideas: a. grep posteriori $outf/RA_yy???.OUT (for long-arc issue) b. grep posteriori $outf/RQ_yy???.OUT (for AR issue) c. grep posteriori $outf/RH_yy???.OUT d. grep posteriori $outf/RG_yy???.OUT e. grep posteriori $outf/RF_yy???.OUT f. Study an affected ADDNEQ2 output in detail (especially in terms of maximum parameter improvement/correction). g. Alternatively, the cause could be a recently activated software or model change. 2. Fix the identified cause. 3. a. For unlocking, remove ULT_ERR.FLG by executing manually: mv $mscr/ULT_ERR.FLG $mscr/ULT_ERR.FLG_yyyyddmm b. Add a command line below (in this script) to temporarily increase $tol (in order to prevent another emergency stop). 4. Restart the IGSULTRA/IGSRAPID BPE (or repeat the affected processing steps). 5. Carefully check the latest analysis solutions. See also: $outr/ULT_CHK.LST Programs:  ORBCMP
+- Name: ULT_CHK
+- Purpose: Compare ultra-rapid precise orbit solution files with respect to  
+  most recent update(s) for acceptance control  
+    
+  Instructions: How to react in an emergency case?  
+  1. Find the cause of the problem why ULT_ERR.FLG was finally set.  
+     Some suggestions and ideas:  
+     a. grep posteriori $outf/RA_yy???.OUT (for long-arc issue)  
+     b. grep posteriori $outf/RQ_yy???.OUT (for AR issue)  
+     c. grep posteriori $outf/RH_yy???.OUT  
+     d. grep posteriori $outf/RG_yy???.OUT  
+     e. grep posteriori $outf/RF_yy???.OUT  
+     f. Study an affected ADDNEQ2 output in detail (especially  
+        in terms of maximum parameter improvement/correction).  
+     g. Alternatively, the cause could be a recently activated  
+        software or model change.  
+  2. Fix the identified cause.  
+  3. a. For unlocking, remove ULT_ERR.FLG by executing manually:  
+           mv $mscr/ULT_ERR.FLG $mscr/ULT_ERR.FLG_yyyyddmm  
+     b. Add a command line below (in this script) to temporarily  
+        increase $tol (in order to prevent another emergency stop).  
+  4. Restart the IGSULTRA/IGSRAPID BPE (or repeat the affected  
+     processing steps).  
+  5. Carefully check the latest analysis solutions. See also:  
+        $outr/ULT_CHK.LST  
+    
+  Programs:  ORBCMP
+- Author: S. Schaer
+- Created: 14-Apr-2021
+- Changes: 15-Apr-2021 SS: die instead of warn  
+  16-Apr-2021 SS: Shifted forward echo command lines;  
+                  considered ULT_CHK.FLG and STARTCOUNT;  
+                  provided extra output  
+  27-Apr-2021 SS: Excluded Galileo until further notice  
+  29-Apr-2021 SS: Simplified (using loop)  
+  20-May-2021 SS: Introduced emergency braking mechanism  
+                  (ULT_ERR.FLG must be deleted manually)  
+  20-May-2021 SS: Prepared IQR extraction  
+  20-Jul-2021 SS: Considered #SUM information (with IQR);  
+                  some extra checks for GPS, GLO, GAL  
+  21-Jul-2021 SS: Checked IQR with and w/o Helmert parameters  
+  20-May-2022 SS: Do no longer use $iqr_0 for checking  
+  07-Sep-2023 SS: Unlocking after PENC accident (session 232490)  
+  07-Sep-2023 SS: Instruction paragraph for unlocking drafted
 - Bernese programs: `ORBCMP`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBCMP.INP`, `ORBCMP.INP`
@@ -4504,7 +7750,13 @@ Variables:
 - Source file: ULT_CHK (download from the HTML manual)
 ### ULTIONO
 
-- Purpose: CREATE EXTRA ULT OSB FILE TO GET LIST OF GPS/GLONASS STATIONS USED Programs:
+- Name: ULTIONO
+- Purpose: CREATE EXTRA ULT OSB FILE TO GET LIST OF GPS/GLONASS STATIONS USED  
+    
+  Programs:
+- Author: H. Bock
+- Created: 06-Dec-2007
+- Changes: 18-May-2016 SS: Added ADDNEQ2; changed from DCB to OSB
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ADDNEQ2.INP`, `GPSEST.INP`
@@ -4515,7 +7767,13 @@ Variables:
 - Source file: ULTIONO (download from the HTML manual)
 ### ULTPRE
 
-- Purpose: CREATE EXTRA ULTRA RAPID PRE FILE FOR PREDICTION PURPOSES Programs:
+- Name: ULTPRE
+- Purpose: CREATE EXTRA ULTRA RAPID PRE FILE FOR PREDICTION PURPOSES  
+    
+  Programs:
+- Author: H. Bock
+- Created: 06-Dec-2007
+- Changes: __-___-____ __:
 - Bernese programs: `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `STDPRE.INP`, `STDPRE.INP`
@@ -4527,14 +7785,30 @@ Variables:
 - Source file: ULTPRE (download from the HTML manual)
 ### ULTWEI
 
-- Purpose: Execute ultra_prewei.com for generation of ultra-rapid orbit accuracy codes Programs:  -
+- Name: ULTWEI
+- Purpose: Execute ultra_prewei.com for generation of ultra-rapid orbit  
+  accuracy codes  
+    
+  Programs:  -
+- Author: S. Schaer
+- Created: 12-Jan-2004
+- Last modified: 31-Oct-2006
+- Changes: 10-Feb-2005/mm: Old date variables removed  
+  31-Oct-2006/ss: Check whether ULT LST file created
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$+0`, `$YD+0`
 - Source file: ULTWEI (download from the HTML manual)
 ### UPDSTD_2
 
-- Purpose: Update standard orbits and find repositioning time Programs:  ORBGEN, STDDIF
+- Name: UPDSTD_2
+- Purpose: Update standard orbits and find repositioning time  
+    
+  Programs:  ORBGEN, STDDIF
+- Author: S. Schaer
+- Created: 20-Jan-2004
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `ORBGEN`, `STDDIF`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBGEN.INP`, `STDDIF.INP`
@@ -4543,7 +7817,16 @@ Variables:
 - Source file: UPDSTD_2 (download from the HTML manual)
 ### UPDSTD_R
 
-- Purpose: Generate STD-files for all days of the n-day solution (currently only useable for +0 and -2) Programs:  ORBGEN
+- Name: UPDSTD_R
+- Purpose: Generate STD-files for all days of the n-day solution  
+  (currently only useable for +0 and -2)  
+    
+  Programs:  ORBGEN
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 10-Feb-2005 mm: Old date variables removed  
+  17-Nov-2005 ss: Use different ORBGEN program versions  
+  18-Dec-2006 ss: Use different sat info files
 - Bernese programs: `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -4552,7 +7835,12 @@ Variables:
 - Source file: UPDSTD_R (download from the HTML manual)
 ### UPDSTD_T
 
+- Name: UPDSTD_T
 - Purpose: Generate standard orbit from ele-file.
+- Author: S. Lutz
+- Created: 16-Oct-2013
+- Changes: 24-JUL-2019 DS: call updMacMod to update BOXWING.MAC with $param1  
+  14-Jul-2020 RD/PF: change $X/GEN -&gt; PTH_PLATDEF
 - Bernese programs: `ORBGEN`, `STDDIF`, `STDPRE`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `ORBGEN.INP`, `STDDIF.INP`, `STDPRE.INP`
@@ -4562,7 +7850,15 @@ Variables:
 - Source file: UPDSTD_T (download from the HTML manual)
 ### UPDSTD_U
 
-- Purpose: Generate standard orbit from ele-file using ORBGEN (update standard orbit) Programs:  ORBGEN
+- Name: UPDSTD_U
+- Purpose: Generate standard orbit from ele-file using ORBGEN  
+  (update standard orbit)  
+    
+  Programs:  ORBGEN
+- Author: S. Lutz
+- Created: 11-Sep-2013
+- Changes: 12-Sep-2013 SL: Use &amp;gtUltVrs  
+  30-Oct-2013 SL: Set ARCINT
 - Bernese programs: `ORBGEN`
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - INP files: `$PGMNAM.INP`, `ORBGEN.INP`
@@ -4572,7 +7868,11 @@ Variables:
 - Source file: UPDSTD_U (download from the HTML manual)
 ### VERI_BIA
 
+- Name: VERI_BIA
 - Purpose: Verificate CODE.OSB (and CODE.BIA) used at CODE
+- Author: S. Schaer
+- Created: 28-Jan-2021
+- Changes: 28-Jan-2021 SS: Added CODE_30D.OSB
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - V_ variables: `V_DIS`, `V_SAV`
@@ -4580,14 +7880,25 @@ Variables:
 - Source file: VERI_BIA (download from the HTML manual)
 ### VERI_ERP
 
-- Purpose: Verification of RAPyyddd.ERP (i.e. RAP_yyyy.ERP) Programs:
+- Name: VERI_ERP
+- Purpose: Verification of RAPyyddd.ERP (i.e. RAP_yyyy.ERP)  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 10-Mar-2015
+- Changes: 08-Aug-2019 AV: Adapted time sring for ERP V1.00
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - Other keys: `$YD+0`, `DIR_ERP`, `DIR_OUT`, `EXT_ERP`, `PCFFIL`, `TASKID`
 - Source file: VERI_ERP (download from the HTML manual)
 ### WAIT
 
+- Name: WAIT
 - Purpose: Wait if WAIT.FLG found
+- Parameters: PARAM1 - Optional waiting time (default: 60 sec)
+- Author: S. Schaer
+- Created: 09-Nov-2006
+- Changes: 05-Aug-2009 DT/RD: Add WAIT_${pid}.FLG
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF, PPPAR.PCF, PPPAR1.PCF, RCLKGNSS.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
@@ -4596,7 +7907,12 @@ Variables:
 ### WAIT_BIA
 
 - Package: `WAIT_ION`
+- Name: WAIT_BIA
 - Purpose: Wait for rapid BIA file (from RCLKGNSS RAP_BIA process)
+- Parameters: PARAM1 - Optional waiting time (default: 60 sec)
+- Author: S. Schaer
+- Created: 01-Oct-2019
+- Changes: 01-Oct-2019/ss: Derived from WAIT_ION
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
@@ -4604,7 +7920,15 @@ Variables:
 - Source file: WAIT_BIA (download from the HTML manual)
 ### WAIT_BPE
 
-- Purpose: Waits until a BPE script (see PID IN PARAM1) of the previous day has been finished Programs:
+- Name: WAIT_BPE
+- Purpose: Waits until a BPE script (see PID IN PARAM1) of the previous day  
+  has been finished  
+    
+  Programs:
+- Author: R. Dach
+- Created: 06-Feb-2006
+- Last modified: 22-Jul-2008
+- Changes: 22-Jul-2008 PS/RD: prepare for reprocesing
 - Used in PCFs: RCLKGNSS.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
@@ -4612,7 +7936,14 @@ Variables:
 - Source file: WAIT_BPE (download from the HTML manual)
 ### WAIT_ION
 
+- Name: WAIT_ION
 - Purpose: Wait for rapid ION file
+- Parameters: PARAM1 - Optional waiting time (default: 60 sec)
+- Author: S. Schaer
+- Created: 22-Dec-2011
+- Changes: 22-Dec-2011/ss: Abort waiting loop if indicated  
+  01-Oct-2019/ss: Corrected typo  
+  08-Mar-2022 AV: Save disk: yearly subdirectory
 - Used in PCFs: DCBIONO.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
@@ -4620,7 +7951,19 @@ Variables:
 - Source file: WAIT_ION (download from the HTML manual)
 ### WAIT_JOB
 
+- Name: WAIT_JOB
 - Purpose: Wait for particular file (indicating particular job completion)
+- Parameters: PARAM1 - Optional minus/plus parameter (default: -1)  
+  PARAM2 - Optional task ID              (default: value of TASKID)  
+  PARAM3 - Optional PID number           (default: 999)  
+  PARAM4 - Optional waiting file         (default: blank)  
+           (default directory: $camp_pth$campaign/MSC/)  
+  PARAM5 - Optional maximum waiting time (default: 86400 sec)  
+  PARAM6 - Optional waiting time         (default: 60 sec)  
+  PARAM7 - Optional minimum age of file  (default: 30 sec)
+- Author: S. Schaer
+- Created: 26-Sep-2012
+- Changes: 26-Sep-2012/ss: Check existence of last file if indicated
 - Used in PCFs: IGSRAPID.PCF, IGSULTRA.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`, `PARAM7`

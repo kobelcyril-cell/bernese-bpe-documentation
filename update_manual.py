@@ -56,6 +56,7 @@ def load_manual_config() -> Dict[str, object]:
         "default_comment_title": "Additional note",
         "handbook_full_top_levels": [],
         "handbook_group_descriptions": {},
+        "handbook_order": {},
     }
     if not CONFIG_FILE.exists():
         return defaults
@@ -111,7 +112,23 @@ PCF_PARAM_RE = re.compile(r"^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$")
 PCF_VAR_RE = re.compile(r"^\s*(V_[A-Z0-9_]+)\s*=\s*(.*?)(?:;\s*(.*))?$")
 
 PACKAGE_RE = re.compile(r"^\s*package\s+([A-Za-z0-9_]+)\s*;\s*$")
-PURPOSE_RE = re.compile(r"^\s*#\s*Purpose\s*:\s*(.*)\s*$", re.IGNORECASE)
+SOURCE_HEADER_LABELS = {
+    "name": "Name",
+    "purpose": "Purpose",
+    "description": "Description",
+    "param": "Parameters",
+    "params": "Parameters",
+    "parameter": "Parameters",
+    "parameters": "Parameters",
+    "author": "Author",
+    "authors": "Author",
+    "created": "Created",
+    "last modified": "Last modified",
+    "change": "Changes",
+    "changes": "Changes",
+    "comment": "Comments",
+    "comments": "Comments",
+}
 RUN_PGMS_RE = re.compile(
     r"\$bpe->RUN_PGMS\(\s*(?:\$PGMNAM|\"([A-Za-z0-9_]+)\"|'([A-Za-z0-9_]+)')\s*\)"
 )
@@ -169,10 +186,7 @@ class PCFDocument:
     source_label: str = ""
     identical_sources: List[str] = field(default_factory=list)
     description: str = ""
-    comments: List[str] = field(default_factory=list)
-    author: str = ""
-    created: str = ""
-    changes: str = ""
+    header: Dict[str, str] = field(default_factory=dict)
     entries: List[PCFEntry] = field(default_factory=list)
     variables: List[Dict[str, str]] = field(default_factory=list)
 
@@ -185,6 +199,7 @@ class ScriptDocument:
     identical_sources: List[str] = field(default_factory=list)
     package: str = ""
     purpose: str = ""
+    header: Dict[str, str] = field(default_factory=dict)
     programs: List[str] = field(default_factory=list)
     inp_paths: List[str] = field(default_factory=list)
     inp_keys: List[str] = field(default_factory=list)
@@ -230,6 +245,7 @@ class HandbookDocument:
     title: str
     category: str
     excerpt: List[str] = field(default_factory=list)
+    has_title_heading: bool = False
 
 
 @dataclass
@@ -577,54 +593,67 @@ def parse_pcf_params(raw: str) -> Dict[str, str]:
     return params
 
 
-def scan_pcf(path: Path, source_label: str = "") -> PCFDocument:
-    lines = [clean_line(line) for line in read_text(path).splitlines()]
-    doc = PCFDocument(path=path, name=path.name, source_label=source_label)
-
-    header_mode = True
-    in_entries = False
-    in_vars = False
-
-    pending_comment_lines: List[str] = []
-    purpose_lines: List[str] = []
-    in_purpose = False
-    current_phase = ""
+def parse_source_header(lines: List[str]) -> Dict[str, str]:
+    fields: Dict[str, List[str]] = defaultdict(list)
+    current = ""
+    continuation_indent = 0
     for line in lines:
         stripped = line.strip()
-        if header_mode:
-            purpose_match = PURPOSE_RE.match(stripped)
-            if purpose_match:
-                purpose_lines = [purpose_match.group(1).strip()]
-                in_purpose = True
-            elif in_purpose and stripped.startswith("#"):
-                purpose_line = stripped.lstrip("#").strip()
-                if purpose_line.startswith("Author:"):
-                    doc.author = purpose_line.split(":", 1)[1].strip()
-                    in_purpose = False
-                elif purpose_line.startswith("Created:"):
-                    doc.created = purpose_line.split(":", 1)[1].strip()
-                    in_purpose = False
-                elif purpose_line.startswith("Changes:"):
-                    in_purpose = False
-                elif not purpose_line or set(purpose_line) <= {"-"}:
-                    in_purpose = False
-                else:
-                    purpose_lines.append(purpose_line)
-            elif stripped.startswith("# Description:"):
-                doc.description = stripped.split(":", 1)[1].strip()
-            elif stripped.startswith("# Comments"):
-                pass
-            elif stripped.startswith("# Author") and ":" in stripped:
-                doc.author = stripped.split(":", 1)[1].strip()
-            elif stripped.startswith("# Created") and ":" in stripped:
-                doc.created = stripped.split(":", 1)[1].strip()
-            elif stripped.startswith("# Changes"):
-                pass
-            elif PCF_HEADER_RE.match(stripped):
-                header_mode = False
-                in_entries = True
+        if not stripped.startswith("#"):
+            if stripped and fields:
+                break
             continue
 
+        comment = stripped[1:].expandtabs()
+        text = comment.strip()
+        if re.fullmatch(r"[=*_~-]{3,}", text):
+            current = ""
+            continue
+
+        label, colon, value = comment.partition(":")
+        field_name = SOURCE_HEADER_LABELS.get(" ".join(label.lower().split())) if colon else None
+        if field_name:
+            current = field_name
+            continuation_indent = len(label) + 1 + len(value) - len(value.lstrip())
+            if current == "Created":
+                date_parts = re.split(r"\s+Last\s+modified\s*:\s*", value, maxsplit=1, flags=re.IGNORECASE)
+                if len(date_parts) == 2:
+                    value, modified = date_parts
+                    fields[current].append(value.strip())
+                    fields["Last modified"].append(modified.strip())
+                    continue
+            fields[current].append(value.strip())
+        elif current:
+            leading_space = len(comment) - len(comment.lstrip())
+            fields[current].append(comment[min(continuation_indent, leading_space):].rstrip())
+            if not text and current in {"Name", "Author", "Created", "Last modified"}:
+                current = ""
+        elif text and fields:
+            current = "Notes"
+            continuation_indent = len(comment) - len(comment.lstrip())
+            fields[current].append(text)
+
+    header = {}
+    for name, parts in fields.items():
+        value = "\n".join(parts).strip()
+        if value:
+            header[name] = value
+    return header
+
+
+def scan_pcf(path: Path, source_label: str = "") -> PCFDocument:
+    lines = read_text(path).splitlines()
+    table_start = next((i for i, line in enumerate(lines) if PCF_HEADER_RE.fullmatch(line)), len(lines))
+    doc = PCFDocument(path=path, name=path.name, source_label=source_label)
+    doc.header = parse_source_header(lines[:table_start])
+    description = doc.header.get("Description") or doc.header.get("Purpose", "")
+    doc.description = " ".join(description.split())
+
+    in_entries = True
+    in_vars = False
+    current_phase = ""
+    for line in lines[table_start + 1:]:
+        stripped = line.strip()
         if stripped.startswith("VARIABLE"):
             in_entries = False
             in_vars = True
@@ -668,14 +697,6 @@ def scan_pcf(path: Path, source_label: str = "") -> PCFDocument:
                         "description": (match.group(3) or "").strip(),
                     }
                 )
-            else:
-                pending_comment_lines.append(stripped)
-
-    if pending_comment_lines and not doc.changes:
-        doc.changes = " ".join(pending_comment_lines).strip()
-    if purpose_lines and not doc.description:
-        doc.description = " ".join(purpose_lines)
-
     return doc
 
 
@@ -849,30 +870,13 @@ def scan_script(path: Path, source_label: str = "") -> ScriptDocument:
     lines = text.splitlines()
     doc = ScriptDocument(path=path, name=path.name, source_label=source_label)
 
-    purpose_lines: List[str] = []
-    in_purpose = False
     for line in lines:
-        package_match = PACKAGE_RE.match(line)
-        if package_match and not doc.package:
-            doc.package = package_match.group(1)
-        purpose_match = PURPOSE_RE.match(line)
-        if purpose_match and not purpose_lines:
-            purpose_lines.append(purpose_match.group(1).strip())
-            in_purpose = True
-        elif in_purpose:
-            stripped = line.strip()
-            if not stripped.startswith("#"):
-                in_purpose = False
-                continue
-            continuation = stripped.lstrip("#").strip()
-            if not continuation:
-                continue
-            if re.match(r"^(Name|PARAMs?|Author|Created|Changes)\s*:", continuation, re.IGNORECASE):
-                in_purpose = False
-            else:
-                purpose_lines.append(continuation)
-
-    doc.purpose = " ".join(part for part in purpose_lines if part).strip()
+        package = PACKAGE_RE.match(line)
+        if package:
+            doc.package = package.group(1)
+            break
+    doc.header = parse_source_header(lines)
+    doc.purpose = " ".join(doc.header.get("Purpose", "").split())
 
     programs: List[str] = []
     for match in SET_PGM_RE.finditer(text):
@@ -1132,12 +1136,29 @@ def group_file_registry_by_directory(
 def group_handbook_by_category(
     handbook_docs: List[HandbookDocument],
 ) -> Dict[str, List[HandbookDocument]]:
+    configured_order = MANUAL_CONFIG.get("handbook_order")
+    orders = {
+        source: {
+            path.replace("\\", "/").casefold(): position
+            for position, path in enumerate(paths)
+            if isinstance(path, str)
+        }
+        for source, paths in configured_order.items()
+        if isinstance(paths, list)
+    } if isinstance(configured_order, dict) else {}
+
+    def position(doc: HandbookDocument) -> float:
+        if not orders or HANDBOOKS_DIR not in doc.path.parents:
+            return float("inf")
+        source, *entry = doc.path.relative_to(HANDBOOKS_DIR).parts
+        return orders.get(source, {}).get("/".join(entry).casefold(), float("inf"))
+
     grouped: Dict[str, List[HandbookDocument]] = defaultdict(list)
     for doc in handbook_docs:
         grouped[doc.category].append(doc)
-    for group_key in grouped:
-        grouped[group_key].sort(key=lambda doc: doc.title.lower())
-    return dict(sorted(grouped.items(), key=lambda item: item[0].lower()))
+    for docs in grouped.values():
+        docs.sort(key=lambda doc: (position(doc), doc.title.casefold(), doc.path.as_posix()))
+    return dict(sorted(grouped.items(), key=lambda item: (position(item[1][0]), item[0].casefold())))
 
 
 def summarize_script_flow(doc: ScriptDocument) -> str:
@@ -1287,23 +1308,20 @@ WIKILINK_RE = re.compile(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]")
 
 
 def scan_handbook_doc(path: Path, root: Path) -> HandbookDocument:
+    first_line = next((line.strip() for line in read_text(path).splitlines() if line.strip()), "")
+    has_title_heading = first_line.startswith("# ") and bool(first_line[2:].strip())
     return HandbookDocument(
         path=path,
         name=path.name,
-        title=path.stem,
+        title=clean_markdown_line(first_line[2:]) if has_title_heading else path.stem,
         category=handbook_category(path.relative_to(root)),
         excerpt=excerpt_markdown(path),
+        has_title_heading=has_title_heading,
     )
 
 
 def gather_handbook_sections(root: Path) -> Dict[str, List[HandbookDocument]]:
-    grouped: Dict[str, List[HandbookDocument]] = defaultdict(list)
-    for path in gather_handbook_files(root):
-        doc = scan_handbook_doc(path, root)
-        grouped[doc.category].append(doc)
-    for category in grouped:
-        grouped[category].sort(key=lambda doc: doc.title.lower())
-    return dict(sorted(grouped.items(), key=lambda item: item[0].lower()))
+    return group_handbook_by_category([scan_handbook_doc(path, root) for path in gather_handbook_files(root)])
 
 
 def render_simple_markdown_body(
@@ -1393,6 +1411,14 @@ def group_inp_by_directory(inp_docs: List[INPDocument]) -> Dict[str, List[INPDoc
             rel_parent = doc.path.parent.as_posix()
         grouped[rel_parent].append(doc)
     return dict(sorted(grouped.items(), key=lambda item: item[0].lower()))
+
+
+def source_header_markdown(header: Dict[str, str]) -> List[str]:
+    continuation = "  \n  "
+    return [
+        f"- {name}: {continuation.join(esc(value).splitlines())}"
+        for name, value in header.items()
+    ]
 
 
 def manual_markdown(
@@ -1495,17 +1521,7 @@ def manual_markdown(
     for doc in pcf_docs:
         out.append(f"### {doc.name}")
         out.append("")
-        if doc.description:
-            out.append(f"{doc.description}")
-            out.append("")
-        if doc.author:
-            out.append(f"- Author: {doc.author}")
-        if doc.created:
-            out.append(f"- Created: {doc.created}")
-        if doc.comments:
-            out.append(f"- Comments: {'; '.join(doc.comments)}")
-        if doc.changes:
-            out.append(f"- Changes: {doc.changes}")
+        out.extend(source_header_markdown(doc.header))
         out.append(f"- Source file: {doc.path.name} (download from the HTML manual)")
         out.append("")
         out.append("Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`")
@@ -1556,8 +1572,7 @@ def manual_markdown(
         out.append("")
         if doc.package and doc.package != doc.name:
             out.append(f"- Package: `{doc.package}`")
-        if doc.purpose:
-            out.append(f"- Purpose: {doc.purpose}")
+        out.extend(source_header_markdown(doc.header))
         if doc.programs:
             out.append(f"- Bernese programs: {', '.join(f'`{p}`' for p in doc.programs)}")
         if refs.get(normalize_script_ref(doc.name)):
@@ -1640,6 +1655,13 @@ def manual_markdown(
     return "\n".join(out)
 
 
+def source_header_html(header: Dict[str, str]) -> str:
+    if not header:
+        return ""
+    rows = "".join(f"<dt>{esc(name)}</dt><dd>{esc(value)}</dd>" for name, value in header.items())
+    return f"<section class='source-header'><h4>Source header</h4><dl>{rows}</dl></section>"
+
+
 def card_html(
     doc_type: str,
     title: str,
@@ -1720,6 +1742,7 @@ def manual_html(
     script_index: ScriptIndex,
     file_registry: Dict[str, Dict[str, List[str]]],
     page_kind: str = "index",
+    gpsuser_overview_href: str = OVERVIEW_PAGE_FILE,
 ) -> str:
     inp_groups = group_inp_by_directory(inp_docs)
     file_groups = group_file_registry_by_directory(file_registry)
@@ -1756,7 +1779,7 @@ def manual_html(
         "history": HISTORY_PAGE_FILE,
         "stories": STORY_PAGE_FILE,
     }.get(page_kind, MANUAL_INDEX_FILE)
-    show_toolbar = page_kind != "index"
+    is_handbook = page_kind == "handbook"
 
     pcf_cards = {doc.name: anchor_id("pcf", doc.name) for doc in pcf_docs}
     script_cards = {doc.name: anchor_id("script", doc.name) for doc in script_docs}
@@ -1777,6 +1800,7 @@ def manual_html(
         rel_path = "/".join(doc.path.relative_to(HANDBOOKS_DIR).parts[1:])
         for candidate in {
             doc.name,
+            doc.title,
             doc.path.stem,
             doc.path.stem.replace("_", " "),
             doc.path.stem.replace("-", " "),
@@ -1916,8 +1940,6 @@ def manual_html(
         out: List[str] = []
         for doc in pcf_docs:
             summary = []
-            if doc.author:
-                summary.append(f"Author: {doc.author}")
             if doc.source_label:
                 summary.append(f"Source: {doc.source_label}")
             if doc.identical_sources:
@@ -1957,11 +1979,12 @@ def manual_html(
                         f"<div class='wait-row'><span class='wait-pid'>PID {esc(entry.pid)}</span><span>{esc(entry.script)}</span><span class='wait-arrow'>←</span><span class='chip-list'>{wait_for_html}</span></div>"
                     )
             body_parts = [
+                source_header_html(doc.header),
+                "<h4>Process Table</h4>",
                 table_html(["PID", "Script", "Resolved", "OPT_DIR", "INP files", "Parameters"], rows),
             ]
             if wait_rows:
                 body_parts.append("<h4>WAIT dependencies</h4><div class='wait-map'>" + "".join(wait_rows) + "</div>")
-            body_parts.insert(0, "<h4>Process Table</h4>")
             if doc.variables:
                 var_rows = []
                 for var in doc.variables:
@@ -1970,7 +1993,7 @@ def manual_html(
                     var_rows.append(["...", f"{len(doc.variables) - 20} more", ""])
                 body_parts.append("<h4>Variables</h4>" + table_html(["Name", "Default", "Description"], var_rows))
             body_parts.append(manual_comment_html("pcf", doc.name))
-            out.append(card_html("pcf", doc.name, summary, doc.path, "".join(body_parts), doc.description, pcf_cards[doc.name], collapsible=True, action_href=page_href(STORY_PAGE_FILE, anchor_id("story", doc.name)), action_label="Explain this process"))
+            out.append(card_html("pcf", doc.name, summary, doc.path, "".join(body_parts), card_id=pcf_cards[doc.name], collapsible=True, action_href=page_href(STORY_PAGE_FILE, anchor_id("story", doc.name)), action_label="Explain this process"))
         return out
 
     def script_cards_html() -> List[str]:
@@ -1983,8 +2006,6 @@ def manual_html(
                 summary.append(f"Identical 1:1 copy in: {', '.join(doc.identical_sources)}")
             if doc.package:
                 summary.append(f"Package: {doc.package}")
-            if doc.purpose:
-                summary.append(f"Purpose: {doc.purpose}")
             if doc.programs:
                 summary.append(f"Programs: {', '.join(doc.programs)}")
             if doc.inp_paths:
@@ -1997,7 +2018,7 @@ def manual_html(
                 summary.append(f"Deletes: {len(doc.file_deletes)}")
             if refs.get(normalize_script_ref(doc.name)):
                 summary.append(f"Used in PCFs: {len(set(refs[normalize_script_ref(doc.name)]))}")
-            body_parts: List[str] = []
+            body_parts = [source_header_html(doc.header)]
             if doc.programs:
                 body_parts.append(table_html(["Bernese programs"], [[esc(prog)] for prog in doc.programs]))
             if doc.inp_paths:
@@ -2200,42 +2221,41 @@ def manual_html(
         return out
 
     def handbook_cards_html() -> List[str]:
-        out: List[str] = []
+        if not handbook_groups:
+            return ["<p class='handbook-empty'>This GPSUSER has no handbook entries yet.</p>"]
+
         toc = []
+        chapters = []
         for category, docs in handbook_groups.items():
-            toc.append(
-                f"<a class='chip chip-link' href='#{esc(anchor_id('handbook-section', category))}'>{esc(handbook_group_label(category))} ({len(docs)})</a>"
-            )
-        out.append(f"<div class='handbook-toc'>{''.join(toc)}</div>")
-        for idx, (category, docs) in enumerate(handbook_groups.items()):
-            default_open = ""
-            section_id = anchor_id("handbook-section", category)
-            section_desc = HANDBOOK_GROUP_DESCRIPTIONS.get(category, "")
+            section_id = esc(anchor_id("handbook-section", category))
+            label = esc(handbook_group_label(category))
+            description = HANDBOOK_GROUP_DESCRIPTIONS.get(category, "")
             doc_links = "".join(
-                f"<li><a class='ref-link' href='#{esc(handbook_cards[rel_key(doc.path)])}'>{esc(doc.title)}</a></li>"
+                f"<li><a href='#{esc(handbook_cards[rel_key(doc.path)])}'>{esc(doc.title)}</a></li>"
                 for doc in docs
             )
-            doc_cards = []
+            toc.append(f"<li><a href='#{section_id}'>{label}</a><ul>{doc_links}</ul></li>")
+            entries = []
             for doc in docs:
-                full_text = render_simple_markdown_body(doc.path, resolve_handbook_target)
-                body_parts = [
-                    f"<details class='handbook-text'><summary>Show full text</summary>{full_text}</details>",
-                    manual_comment_html("handbook", handbook_comment_target(doc.path), resolve_handbook_target),
-                ]
-                doc_cards.append(
-                    card_html(
-                        "handbook",
-                        doc.title,
-                        [],
-                        None,
-                        "".join(body_parts),
-                        card_id=handbook_cards[rel_key(doc.path)],
-                    )
+                entry_id = esc(handbook_cards[rel_key(doc.path)])
+                full_text = render_simple_markdown_body(
+                    doc.path, resolve_handbook_target, skip_first_heading=doc.has_title_heading,
                 )
-            out.append(
-                f"<details class='handbook-group' id='{esc(section_id)}' data-default-open='0'{default_open}><summary><span>{esc(handbook_group_label(category))}</span><span class='handbook-count'>{len(docs)} page(s)</span><span class='handbook-note'>{esc(section_desc)}</span></summary><div class='handbook-group-body'><ul class='handbook-doclist'>{doc_links}</ul>{''.join(doc_cards)}</div></details>"
+                comments = manual_comment_html("handbook", handbook_comment_target(doc.path), resolve_handbook_target)
+                entries.append(
+                    f"<article class='handbook-entry' data-kind='handbook' id='{entry_id}'>"
+                    f"<h3>{esc(doc.title)}</h3><div class='handbook-text'>{full_text}{comments}</div></article>"
+                )
+            introduction = f"<p class='handbook-note'>{esc(description)}</p>" if description else ""
+            chapters.append(
+                f"<section class='handbook-group' id='{section_id}'><h2>{label}</h2>"
+                f"{introduction}{''.join(entries)}</section>"
             )
-        return out
+        return [
+            f"<div class='handbook-layout'><nav class='handbook-toc' aria-label='Handbook contents'>"
+            f"<p>Contents</p><ul>{''.join(toc)}</ul></nav>"
+            f"<div class='handbook-chapters'>{''.join(chapters)}</div></div>"
+        ]
 
     def history_cards_html() -> List[str]:
         out: List[str] = []
@@ -2315,12 +2335,20 @@ def manual_html(
         ("Handbook", HANDBOOK_PAGE_FILE, "handbook"),
         ("History", HISTORY_PAGE_FILE, "history"),
     ]
-    nav_html = "<nav class='nav'>" + "".join(
+    nav_html = "<nav class='nav' aria-label='Manual navigation'>" + "".join(
         f"<a class='{'active' if page_kind == key else ''}' href='{esc(href)}'>{esc(label)}</a>" for label, href, key in nav_items
     ) + "</nav>"
 
     toolbar_html = ""
-    if show_toolbar:
+    if is_handbook and handbook_groups:
+        toolbar_html = """
+    <div class="handbook-search" role="search">
+      <label for="q">Search the handbook</label>
+      <input id="q" type="search">
+      <p id="handbook-no-results" class="hidden" role="status">No handbook entries match your search.</p>
+    </div>
+    """
+    elif page_kind not in {"index", "handbook"}:
         toolbar_html = """
     <div class="toolbar">
       <input id="q" type="search" placeholder="Search by file, script, program, OPT_DIR, key, or text">
@@ -2353,19 +2381,11 @@ def manual_html(
     </div>
     """
 
-    page_sections = ""
     if page_kind == "index":
-        page_sections = index_intro + summary_blocks
+        body_html = index_intro + summary_blocks
+    elif is_handbook:
+        body_html = f"<main class='handbook-reading'>{cards_html}</main>"
     else:
-        page_sections = f"""
-    <h2>{esc(current_title)}</h2>
-    <div id="cards" class="section">
-      {cards_html}
-    </div>
-    """
-
-    body_html = page_sections
-    if page_kind != "index":
         body_html = f"""
     <h2>{esc(current_title)}</h2>
     <div id="cards" class="section">
@@ -2402,10 +2422,12 @@ def manual_html(
     .wrap {{ max-width: 1400px; margin: 0 auto; padding: 28px 24px 48px; }}
     .hero {{ background: linear-gradient(135deg, #10223d 0%, #1f5fbf 100%); color: #fff; border-radius: 20px; padding: 24px 28px; box-shadow: var(--shadow); margin-bottom: 20px; }}
     .hero h1 {{ margin: 0 0 8px; font-size: 34px; }}
-    .hero p {{ margin: 6px 0; color: rgba(255,255,255,0.88); line-height: 1.5; }}
+    .hero p {{ margin: 6px 0; color: rgba(255,255,255,0.88); line-height: 1.5; overflow-wrap: anywhere; }}
     .nav {{ display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }}
     .nav a {{ color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.28); padding: 8px 12px; border-radius: 999px; }}
     .nav a.active {{ background: #fff; color: #10223d; }}
+    .gpsuser-overview {{ display: inline-block; margin-bottom: 14px; padding: 7px 12px; border: 1px solid currentColor; border-radius: 8px; color: inherit; font-size: 14px; font-weight: 700; text-decoration: none; }}
+    .gpsuser-overview:hover {{ text-decoration: underline; }}
     .stats {{ display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; margin: 14px 0 18px; }}
     .stat, .card {{ background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }}
     .stat {{ padding: 10px 11px; }}
@@ -2437,20 +2459,34 @@ def manual_html(
     .ref-link:hover, .source-link:hover {{ text-decoration: underline; }}
     .summary {{ color: var(--muted); line-height: 1.55; margin: 12px 0 14px 18px; }}
     .summary li {{ margin: 2px 0; }}
-    .handbook-toc {{ display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }}
-    .handbook-group {{ background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); margin-bottom: 14px; overflow: hidden; }}
-    .handbook-group summary {{ list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 6px; grid-template-columns: 1fr auto; align-items: center; background: linear-gradient(180deg, #fbfdff 0%, #f4f8fd 100%); }}
-    .handbook-group summary::-webkit-details-marker {{ display: none; }}
-    .handbook-group summary span {{ min-width: 0; }}
-    .handbook-count {{ color: var(--accent); font-weight: 700; }}
-    .handbook-note {{ grid-column: 1 / -1; color: var(--muted); font-size: 13px; line-height: 1.45; }}
-    .handbook-group-body {{ padding: 14px 14px 4px; }}
-    .handbook-doclist {{ margin: 0 0 12px 18px; color: var(--muted); }}
-    .handbook-doclist li {{ margin: 5px 0; line-height: 1.4; }}
-    .handbook-source {{ color: var(--muted); font-size: 12px; }}
-    .handbook-text {{ margin-top: 8px; }}
-    .handbook-text > summary {{ cursor: pointer; color: var(--accent); font-weight: 700; margin-bottom: 8px; }}
-    .handbook-text > summary::-webkit-details-marker {{ display: none; }}
+    .handbook-page {{ background: #f1eee5; color: #272e26; --accent: #2c604d; }}
+    .handbook-page .wrap {{ max-width: 1200px; }}
+    .handbook-page .hero {{ background: #263c32; box-shadow: none; }}
+    .handbook-page .hero h1, .handbook-reading h2, .handbook-reading h3 {{ font-family: Georgia, 'Times New Roman', serif; }}
+    .handbook-search {{ display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 24px 0 16px; }}
+    .handbook-search label {{ font-weight: 600; }}
+    .handbook-search input {{ flex: 1 1 12rem; max-width: 24rem; border: 1px solid #a8ada0; border-radius: 6px; background: #fffdf7; color: inherit; font: inherit; padding: 8px 10px; }}
+    .handbook-search p {{ flex-basis: 100%; margin: 4px 0; }}
+    .handbook-layout {{ display: grid; grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr); align-items: start; gap: clamp(1.25rem, 4vw, 3.5rem); }}
+    .handbook-toc {{ position: sticky; top: 20px; max-height: calc(100vh - 40px); overflow: auto; padding: 12px 16px 16px 2px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }}
+    .handbook-toc p {{ margin: 0 0 10px; font-weight: 700; }}
+    .handbook-toc ul {{ list-style: none; margin: 0; padding: 0; }}
+    .handbook-toc ul ul {{ border-left: 1px solid #c7cabd; margin: 5px 0 14px; padding-left: 12px; }}
+    .handbook-toc li {{ margin: 5px 0; }}
+    .handbook-toc a {{ color: var(--accent); text-underline-offset: 3px; }}
+    .handbook-toc > ul > li > a {{ font-weight: 700; }}
+    .handbook-chapters {{ padding: clamp(1rem, 4vw, 3.5rem); background: #fffdf7; border: 1px solid #d8d3c5; border-radius: 8px; overflow-wrap: anywhere; }}
+    .handbook-group + .handbook-group {{ margin-top: 2.75rem; padding-top: 2rem; border-top: 1px solid #ccc7b7; }}
+    .handbook-group h2 {{ margin: 0 0 .5em; color: #263c32; font-size: clamp(1.65rem, 3vw, 2.4rem); }}
+    .handbook-note {{ margin: 0 0 1.25rem; color: #525c52; line-height: 1.6; }}
+    .handbook-entry {{ margin-top: 1.75rem; }}
+    .handbook-entry h3 {{ margin: 0 0 .5em; font-size: 1.45rem; }}
+    .handbook-text {{ max-width: 70ch; font: 1.1rem/1.7 Georgia, 'Times New Roman', serif; }}
+    .handbook-text h4 {{ margin: 1.25em 0 .4em; font-size: 1.1em; }}
+    .handbook-text p {{ margin: 0 0 .8em; }}
+    .handbook-text .summary {{ color: inherit; }}
+    .handbook-reading [id], .card[id] {{ scroll-margin-top: 16px; }}
+    .toolbar ~ * .card[id] {{ scroll-margin-top: 96px; }}
     .pcf-details > summary {{ list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; font-size: 18px; font-weight: 700; color: #10223d; }}
     .pcf-details > summary::-webkit-details-marker {{ display: none; }}
     .pcf-details > summary::before {{ content: '▸'; color: var(--accent); font-size: 20px; transition: transform .15s ease; }}
@@ -2459,6 +2495,10 @@ def manual_html(
     .pcf-toggle-hint {{ color: var(--muted); font-size: 12px; font-weight: 600; }}
     .script-detail-section {{ margin: 16px 0; padding: 14px 16px 4px; border: 1px solid var(--border); border-radius: 12px; background: #fbfdff; }}
     .script-detail-section h4 {{ margin: 0 0 10px; color: #173b68; }}
+    .source-header {{ margin: 16px 0; padding: 12px 16px; border: 1px solid var(--border); border-radius: 12px; background: #f7faff; }}
+    .source-header dl {{ display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: 6px 16px; margin: 0; font-size: 14px; line-height: 1.5; }}
+    .source-header dt {{ font-weight: 700; }}
+    .source-header dd {{ margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }}
     .wait-map {{ display: grid; gap: 6px; margin: 0 0 16px; padding: 12px; background: #f7faff; border: 1px solid var(--border); border-radius: 12px; }}
     .wait-row {{ display: grid; grid-template-columns: 52px minmax(130px, 1fr) 26px minmax(160px, 2fr); gap: 8px; align-items: center; font-size: 13px; }}
     .wait-pid {{ color: var(--muted); font-variant-numeric: tabular-nums; }}
@@ -2495,19 +2535,22 @@ def manual_html(
     .history-footer a {{ color: var(--accent); text-decoration: none; }}
     .history-footer a:hover {{ text-decoration: underline; }}
     @media (max-width: 1100px) {{ .overview-grid {{ grid-template-columns: repeat(2, 1fr); }} }}
-    @media (max-width: 900px) {{ .toolbar {{ grid-template-columns: 1fr; }} .card-head {{ flex-direction: column; align-items: flex-start; }} }}
+    @media (max-width: 900px) {{ .toolbar {{ grid-template-columns: 1fr; position: static; }} .toolbar ~ * .card[id] {{ scroll-margin-top: 16px; }} .card-head {{ flex-direction: column; align-items: flex-start; }} }}
+    @media (max-width: 680px) {{ .handbook-layout {{ grid-template-columns: 1fr; }} .handbook-toc {{ position: static; max-height: none; }} }}
     @media (max-width: 560px) {{ .overview-grid {{ grid-template-columns: 1fr; }} }}
+    @media (max-width: 560px) {{ .source-header dl {{ grid-template-columns: 1fr; }} .source-header dd:not(:last-child) {{ margin-bottom: 6px; }} }}
   </style>
 </head>
-<body>
+<body{' class="handbook-page"' if is_handbook else ''}>
   <div class="wrap">
     <div class="hero">
+      <a class="gpsuser-overview" href="{esc(gpsuser_overview_href)}">← All GPSUSERs</a>
       <h1>{esc(current_title)}</h1>
       <p>Generated from: {esc(ACTIVE_SOURCE_LABEL)}</p>
       <p>Updated: {esc(generated_at)}</p>
       {nav_html}
     </div>
-    {stats_html}
+    {'' if is_handbook else stats_html}
     {toolbar_html}
     {body_html}
     <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
@@ -2517,29 +2560,27 @@ def manual_html(
     const q = document.getElementById('q');
     const kind = document.getElementById('kind');
     const sort = document.getElementById('sort');
-    const cards = Array.from(document.querySelectorAll('.card'));
+    const cards = Array.from(document.querySelectorAll('[data-kind]'));
     const handbookGroups = Array.from(document.querySelectorAll('.handbook-group'));
+    const handbookNoResults = document.getElementById('handbook-no-results');
     function normalize(s) {{ return (s || '').toLowerCase(); }}
     function refresh() {{
-      if (!q || !kind || !sort) return;
-      const query = normalize(q.value);
-      const filterKind = kind.value;
+      const query = normalize(q.value.trim());
+      const filterKind = kind?.value || 'all';
       const byKind = {{ pcf: 0, story: 1, script: 2, file: 3, inp: 4, handbook: 5, history: 6 }};
       cards.forEach(card => {{
         const cardKind = card.dataset.kind;
-        const text = normalize(card.innerText);
+        const text = normalize(card.textContent);
         const okKind = filterKind === 'all' || filterKind === cardKind;
         const okQuery = !query || text.includes(query);
         card.classList.toggle('hidden', !(okKind && okQuery));
       }});
-      if (handbookGroups.length) {{
-        handbookGroups.forEach(group => {{
-          const visibleCards = Array.from(group.querySelectorAll('.card')).some(card => !card.classList.contains('hidden'));
-          const defaultOpen = group.dataset.defaultOpen === '1';
-          group.open = query || filterKind !== 'all' ? visibleCards : defaultOpen;
-        }});
-      }}
+      handbookGroups.forEach(group => {{
+        group.classList.toggle('hidden', !group.querySelector('.handbook-entry:not(.hidden)'));
+      }});
       const visible = cards.filter(card => !card.classList.contains('hidden'));
+      handbookNoResults?.classList.toggle('hidden', visible.length !== 0);
+      if (!sort) return;
       visible.sort((a, b) => {{
         if (sort.value === 'kind') {{
             const titleA = a.querySelector('h3')?.innerText || a.querySelector('.pcf-toggle-title')?.innerText || '';
@@ -2553,6 +2594,7 @@ def manual_html(
       visible.forEach(card => card.parentElement.appendChild(card));
     }}
     function focusTargetFromHash() {{
+      if (!window.location.hash) return;
       let id;
       try {{
         id = decodeURIComponent(window.location.hash.slice(1));
@@ -2561,14 +2603,15 @@ def manual_html(
       }}
       const target = document.getElementById(id);
       if (!target) return;
+      if (target.closest('.handbook-reading') && q?.value) {{
+        q.value = '';
+        refresh();
+      }}
       for (let node = target; node; node = node.parentElement) {{
-        if (node.classList?.contains('card')) node.classList.remove('hidden');
+        node.classList.remove('hidden');
         if (node instanceof HTMLDetailsElement) node.open = true;
       }}
-      if (target.classList.contains('card')) {{
-        target.querySelector(':scope > details')?.setAttribute('open', '');
-        target.querySelector('.handbook-text')?.setAttribute('open', '');
-      }}
+      target.closest('.card')?.querySelector(':scope > details')?.setAttribute('open', '');
       target.scrollIntoView({{ block: 'start' }});
     }}
 
@@ -2624,13 +2667,11 @@ def manual_html(
         focusTargetFromHash();
       }}
     }});
-    if (q && kind && sort) {{
-      q.addEventListener('input', refresh);
-      kind.addEventListener('change', refresh);
-      sort.addEventListener('change', refresh);
-    }}
+    q?.addEventListener('input', refresh);
+    kind?.addEventListener('change', refresh);
+    sort?.addEventListener('change', refresh);
     window.addEventListener('hashchange', focusTargetFromHash);
-    window.addEventListener('load', focusTargetFromHash);
+    focusTargetFromHash();
   </script>
 </body>
 </html>
@@ -2967,6 +3008,7 @@ def build_single_source_branch(source: Path, output_dir: Path) -> int:
         str(source),
         "--output-dir",
         str(output_dir),
+        "--gpsuser-branch",
         "--no-prompts",
     ]
     child_env = os.environ.copy()
@@ -3019,6 +3061,7 @@ def write_multi_source_index(
     output_dir: Path,
     sources: List[Path],
     clear_root: bool = True,
+    gpsuser_overview_href: str = "",
 ) -> None:
     if clear_root:
         clear_multi_source_root(output_dir)
@@ -3059,6 +3102,10 @@ def write_multi_source_index(
             "<p>Add a GPSUSER source with <code>update_manual.py</code> to build the first manual branch.</p></div>"
         )
         source_intro = "No GPSUSER source is configured yet."
+    overview_link = (
+        f"<a class='overview-back' href='{esc(gpsuser_overview_href)}'>← All GPSUSERs</a>"
+        if gpsuser_overview_href else ""
+    )
     html_text = f"""<!doctype html>
 <html lang='en'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
 <title>Bernese BPE Documentation</title>
@@ -3068,12 +3115,14 @@ def write_multi_source_index(
 main{{max-width:1120px;margin:0 auto;padding:clamp(24px,6vw,72px) 22px 64px}}
 .hero{{position:relative;overflow:hidden;padding:clamp(30px,6vw,66px);border-radius:30px;background:linear-gradient(120deg,var(--blue-dark),#2196a6);color:white;box-shadow:0 24px 60px rgba(16,66,92,.22)}}
 .hero:after{{content:'';position:absolute;width:330px;height:330px;right:-110px;top:-150px;border:1px solid rgba(255,255,255,.24);border-radius:50%;box-shadow:0 0 0 34px rgba(255,255,255,.06),0 0 0 68px rgba(255,255,255,.04)}}
+.overview-back{{display:inline-block;position:relative;z-index:1;margin-bottom:16px;padding:7px 12px;border:1px solid currentColor;border-radius:8px;color:white;font-weight:700;text-decoration:none}}.overview-back:hover{{text-decoration:underline}}
 .eyebrow{{margin:0 0 16px;text-transform:uppercase;letter-spacing:.16em;font-size:12px;font-weight:700;opacity:.75}}h1{{max-width:720px;margin:0;font:700 clamp(34px,6vw,68px)/.98 Georgia,serif;letter-spacing:-.04em}}.hero p{{max-width:620px;margin:22px 0 0;font-size:17px;line-height:1.6;color:rgba(255,255,255,.84)}}
 .section-head{{display:flex;justify-content:space-between;gap:18px;align-items:end;margin:48px 0 18px}}.section-head h2{{margin:0;font:700 28px Georgia,serif}}.section-head p{{margin:0;color:var(--muted)}}
 .source-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:16px}}.source-card{{display:grid;grid-template-columns:48px 1fr;gap:18px;padding:24px;border:1px solid var(--line);border-radius:20px;background:rgba(255,255,255,.86);box-shadow:0 10px 24px rgba(35,59,77,.06);transition:transform .2s ease,box-shadow .2s ease}}.source-card:hover{{transform:translateY(-3px);box-shadow:0 16px 32px rgba(35,59,77,.12)}}.source-number{{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:#e1f1f3;color:var(--blue-dark);font-weight:800}}.source-card h2{{margin:0 0 8px;font-size:20px}}.source-path{{margin:0 0 20px;color:var(--muted);font-size:13px;line-height:1.45;overflow-wrap:anywhere}}.source-link{{color:var(--blue);font-weight:800;text-decoration:none}}.source-link:hover{{text-decoration:underline}}.empty-state{{padding:42px 26px;text-align:center;border:1px dashed #b9c9d8;border-radius:20px;background:rgba(255,255,255,.62)}}.empty-icon{{margin:0 auto 16px;display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:#e1f1f3;color:var(--blue-dark);font-size:28px}}.empty-state h2{{margin:0 0 8px;font:700 25px Georgia,serif}}.empty-state p{{margin:0;color:var(--muted)}}.details{{margin-top:34px;padding:24px;border-radius:20px;background:var(--cream);border:1px solid #eadfca}}.details h2{{margin:0 0 12px;font:700 22px Georgia,serif}}.muted{{color:var(--muted)}}.comparison-list{{display:grid;gap:8px}}.comparison-list div{{display:flex;flex-wrap:wrap;gap:10px;padding:10px 0;border-bottom:1px solid #eee2ca}}.comparison-list span{{color:var(--muted)}}code{{padding:3px 6px;border-radius:6px;background:#edf2f7;font-size:.9em}}
-@media (max-width:600px){{.section-head{{display:block}}.section-head p{{margin-top:8px}}.hero{{border-radius:22px}}}}
+.source-card > div:last-child{{min-width:0;overflow-wrap:anywhere}}
+@media (max-width:600px){{.section-head{{display:block}}.section-head p{{margin-top:8px}}.hero{{border-radius:22px}}.source-grid{{grid-template-columns:1fr}}}}
 </style></head><body><main>
-<section class='hero'><p class='eyebrow'>Bernese GNSS Software</p><h1>BPE Documentation Hub</h1><p>Choose a GPSUSER documentation branch below. Each branch is built independently.</p></section>
+<section class='hero'>{overview_link}<p class='eyebrow'>Bernese GNSS Software</p><h1>BPE Documentation Hub</h1><p>Choose a GPSUSER documentation branch below. Each branch is built independently.</p></section>
 <section class='section-head'><div><h2>Available GPSUSER branches</h2><p>{source_intro}</p></div></section>
 <section class='source-grid'>{source_content}</section>
 <section class='details'><h2>Source comparison</h2>{comparison}</section>
@@ -3094,8 +3143,10 @@ def write_multi_source_overview(output_dir: Path, sources: List[Path]) -> None:
     )
 
 
-def write_single_source_overview(output_dir: Path, sources: List[Path]) -> None:
-    write_multi_source_index(output_dir, sources, clear_root=False)
+def write_single_source_overview(
+    output_dir: Path, sources: List[Path], gpsuser_overview_href: str = "",
+) -> None:
+    write_multi_source_index(output_dir, sources, clear_root=False, gpsuser_overview_href=gpsuser_overview_href)
 
 
 def choose_comment_target(
@@ -3299,6 +3350,7 @@ def main() -> int:
         type=Path,
         help="Update this configured GPSUSER and refresh the common overview",
     )
+    parser.add_argument("--gpsuser-branch", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument(
         "--add-comment",
         action="store_true",
@@ -3524,6 +3576,7 @@ def main() -> int:
                 str(source),
                 "--output-dir",
                 str(source_output / source_slug(source)),
+                "--gpsuser-branch",
                 "--no-prompts",
             ]
             result = subprocess.run(command, check=False, env=child_env)
@@ -3551,24 +3604,29 @@ def main() -> int:
     history_records = load_handbook_history(sources[0])
     script_index = build_script_index(script_docs)
     generated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    gpsuser_overview_href = f"../../{OVERVIEW_PAGE_FILE}" if args.gpsuser_branch else OVERVIEW_PAGE_FILE
 
     md = manual_markdown(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry)
-    pages = {
-        MANUAL_INDEX_FILE: manual_html(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry, "index"),
-        PCF_PAGE_FILE: manual_html(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry, "pcf"),
-        SCRIPT_PAGE_FILE: manual_html(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry, "scripts"),
-        FILE_PAGE_FILE: manual_html(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry, "files"),
-        STORY_PAGE_FILE: manual_html(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry, "stories"),
-        INP_PAGE_FILE: manual_html(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry, "inp"),
-        HANDBOOK_PAGE_FILE: manual_html(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry, "handbook"),
-        HISTORY_PAGE_FILE: manual_html(generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records, refs, script_index, file_registry, "history"),
+    page_kinds = {
+        MANUAL_INDEX_FILE: "index",
+        PCF_PAGE_FILE: "pcf",
+        SCRIPT_PAGE_FILE: "scripts",
+        FILE_PAGE_FILE: "files",
+        STORY_PAGE_FILE: "stories",
+        INP_PAGE_FILE: "inp",
+        HANDBOOK_PAGE_FILE: "handbook",
+        HISTORY_PAGE_FILE: "history",
     }
 
     md_path = output_dir / "bernese_bpe_manual.md"
     index_path = output_dir / "bernese_bpe_index.json"
 
     write_text(md_path, md)
-    for filename, html_text in pages.items():
+    for filename, page_kind in page_kinds.items():
+        html_text = manual_html(
+            generated_at, pcf_docs, script_docs, inp_docs, handbook_docs, history_records,
+            refs, script_index, file_registry, page_kind, gpsuser_overview_href=gpsuser_overview_href,
+        )
         write_text(output_dir / filename, html_text)
 
     index = {
@@ -3586,12 +3644,12 @@ def main() -> int:
         "handbook_count": len(handbook_docs),
     }
     write_text(index_path, json.dumps(index, indent=2))
-    write_single_source_overview(output_dir, sources)
+    write_single_source_overview(output_dir, sources, gpsuser_overview_href if args.gpsuser_branch else "")
     finish_protected_downloads(output_dir)
     remove_legacy_downloads(output_dir)
 
     print(f"Wrote {md_path}")
-    for filename in pages:
+    for filename in page_kinds:
         print(f"Wrote {output_dir / filename}")
     print(f"Wrote {index_path}")
     print(f"Wrote GPSUSER overview: {output_dir / OVERVIEW_PAGE_FILE}")

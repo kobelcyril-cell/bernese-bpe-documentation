@@ -20,10 +20,12 @@
     .wrap { max-width: 1400px; margin: 0 auto; padding: 28px 24px 48px; }
     .hero { background: linear-gradient(135deg, #10223d 0%, #1f5fbf 100%); color: #fff; border-radius: 20px; padding: 24px 28px; box-shadow: var(--shadow); margin-bottom: 20px; }
     .hero h1 { margin: 0 0 8px; font-size: 34px; }
-    .hero p { margin: 6px 0; color: rgba(255,255,255,0.88); line-height: 1.5; }
+    .hero p { margin: 6px 0; color: rgba(255,255,255,0.88); line-height: 1.5; overflow-wrap: anywhere; }
     .nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
     .nav a { color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.28); padding: 8px 12px; border-radius: 999px; }
     .nav a.active { background: #fff; color: #10223d; }
+    .gpsuser-overview { display: inline-block; margin-bottom: 14px; padding: 7px 12px; border: 1px solid currentColor; border-radius: 8px; color: inherit; font-size: 14px; font-weight: 700; text-decoration: none; }
+    .gpsuser-overview:hover { text-decoration: underline; }
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; margin: 14px 0 18px; }
     .stat, .card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }
     .stat { padding: 10px 11px; }
@@ -55,20 +57,34 @@
     .ref-link:hover, .source-link:hover { text-decoration: underline; }
     .summary { color: var(--muted); line-height: 1.55; margin: 12px 0 14px 18px; }
     .summary li { margin: 2px 0; }
-    .handbook-toc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-    .handbook-group { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); margin-bottom: 14px; overflow: hidden; }
-    .handbook-group summary { list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 6px; grid-template-columns: 1fr auto; align-items: center; background: linear-gradient(180deg, #fbfdff 0%, #f4f8fd 100%); }
-    .handbook-group summary::-webkit-details-marker { display: none; }
-    .handbook-group summary span { min-width: 0; }
-    .handbook-count { color: var(--accent); font-weight: 700; }
-    .handbook-note { grid-column: 1 / -1; color: var(--muted); font-size: 13px; line-height: 1.45; }
-    .handbook-group-body { padding: 14px 14px 4px; }
-    .handbook-doclist { margin: 0 0 12px 18px; color: var(--muted); }
-    .handbook-doclist li { margin: 5px 0; line-height: 1.4; }
-    .handbook-source { color: var(--muted); font-size: 12px; }
-    .handbook-text { margin-top: 8px; }
-    .handbook-text > summary { cursor: pointer; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
-    .handbook-text > summary::-webkit-details-marker { display: none; }
+    .handbook-page { background: #f1eee5; color: #272e26; --accent: #2c604d; }
+    .handbook-page .wrap { max-width: 1200px; }
+    .handbook-page .hero { background: #263c32; box-shadow: none; }
+    .handbook-page .hero h1, .handbook-reading h2, .handbook-reading h3 { font-family: Georgia, 'Times New Roman', serif; }
+    .handbook-search { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 24px 0 16px; }
+    .handbook-search label { font-weight: 600; }
+    .handbook-search input { flex: 1 1 12rem; max-width: 24rem; border: 1px solid #a8ada0; border-radius: 6px; background: #fffdf7; color: inherit; font: inherit; padding: 8px 10px; }
+    .handbook-search p { flex-basis: 100%; margin: 4px 0; }
+    .handbook-layout { display: grid; grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr); align-items: start; gap: clamp(1.25rem, 4vw, 3.5rem); }
+    .handbook-toc { position: sticky; top: 20px; max-height: calc(100vh - 40px); overflow: auto; padding: 12px 16px 16px 2px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+    .handbook-toc p { margin: 0 0 10px; font-weight: 700; }
+    .handbook-toc ul { list-style: none; margin: 0; padding: 0; }
+    .handbook-toc ul ul { border-left: 1px solid #c7cabd; margin: 5px 0 14px; padding-left: 12px; }
+    .handbook-toc li { margin: 5px 0; }
+    .handbook-toc a { color: var(--accent); text-underline-offset: 3px; }
+    .handbook-toc > ul > li > a { font-weight: 700; }
+    .handbook-chapters { padding: clamp(1rem, 4vw, 3.5rem); background: #fffdf7; border: 1px solid #d8d3c5; border-radius: 8px; overflow-wrap: anywhere; }
+    .handbook-group + .handbook-group { margin-top: 2.75rem; padding-top: 2rem; border-top: 1px solid #ccc7b7; }
+    .handbook-group h2 { margin: 0 0 .5em; color: #263c32; font-size: clamp(1.65rem, 3vw, 2.4rem); }
+    .handbook-note { margin: 0 0 1.25rem; color: #525c52; line-height: 1.6; }
+    .handbook-entry { margin-top: 1.75rem; }
+    .handbook-entry h3 { margin: 0 0 .5em; font-size: 1.45rem; }
+    .handbook-text { max-width: 70ch; font: 1.1rem/1.7 Georgia, 'Times New Roman', serif; }
+    .handbook-text h4 { margin: 1.25em 0 .4em; font-size: 1.1em; }
+    .handbook-text p { margin: 0 0 .8em; }
+    .handbook-text .summary { color: inherit; }
+    .handbook-reading [id], .card[id] { scroll-margin-top: 16px; }
+    .toolbar ~ * .card[id] { scroll-margin-top: 96px; }
     .pcf-details > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; font-size: 18px; font-weight: 700; color: #10223d; }
     .pcf-details > summary::-webkit-details-marker { display: none; }
     .pcf-details > summary::before { content: '▸'; color: var(--accent); font-size: 20px; transition: transform .15s ease; }
@@ -77,6 +93,10 @@
     .pcf-toggle-hint { color: var(--muted); font-size: 12px; font-weight: 600; }
     .script-detail-section { margin: 16px 0; padding: 14px 16px 4px; border: 1px solid var(--border); border-radius: 12px; background: #fbfdff; }
     .script-detail-section h4 { margin: 0 0 10px; color: #173b68; }
+    .source-header { margin: 16px 0; padding: 12px 16px; border: 1px solid var(--border); border-radius: 12px; background: #f7faff; }
+    .source-header dl { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: 6px 16px; margin: 0; font-size: 14px; line-height: 1.5; }
+    .source-header dt { font-weight: 700; }
+    .source-header dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
     .wait-map { display: grid; gap: 6px; margin: 0 0 16px; padding: 12px; background: #f7faff; border: 1px solid var(--border); border-radius: 12px; }
     .wait-row { display: grid; grid-template-columns: 52px minmax(130px, 1fr) 26px minmax(160px, 2fr); gap: 8px; align-items: center; font-size: 13px; }
     .wait-pid { color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -113,17 +133,20 @@
     .history-footer a { color: var(--accent); text-decoration: none; }
     .history-footer a:hover { text-decoration: underline; }
     @media (max-width: 1100px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 900px) { .toolbar { grid-template-columns: 1fr; } .card-head { flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 900px) { .toolbar { grid-template-columns: 1fr; position: static; } .toolbar ~ * .card[id] { scroll-margin-top: 16px; } .card-head { flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 680px) { .handbook-layout { grid-template-columns: 1fr; } .handbook-toc { position: static; max-height: none; } }
     @media (max-width: 560px) { .overview-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .source-header dl { grid-template-columns: 1fr; } .source-header dd:not(:last-child) { margin-bottom: 6px; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
+      <a class="gpsuser-overview" href="../../index.html">← All GPSUSERs</a>
       <h1>PCF Overview</h1>
       <p>Generated from: /storage/homefs/l_code_rap/GPSUSER</p>
-      <p>Updated: 2026-11-26 08:55:06</p>
-      <nav class='nav'><a class='' href='bernese_bpe_manual.html'>Overview</a><a class='active' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
+      <p>Updated: 2026-11-26 09:52:45</p>
+      <nav class='nav' aria-label='Manual navigation'><a class='' href='bernese_bpe_manual.html'>Overview</a><a class='active' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
     </div>
     
     <div class="stats">
@@ -135,7 +158,7 @@
       <div class="stat"><div class="label">OPT DIRS</div><div class="value">165</div></div>
       <div class="stat"><div class="label">INP fields</div><div class="value">311951</div></div>
       <div class="stat"><div class="label">Handbook pages</div><div class="value">0</div></div>
-      <div class="stat"><div class="label">History entries</div><div class="value">83</div></div>
+      <div class="stat"><div class="label">History entries</div><div class="value">91</div></div>
     </div>
     
     
@@ -164,10 +187,83 @@
     <article class="card" data-kind="pcf" id="pcf-dcbiono-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">DCBIONO.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-dcbiono-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/5edbb934d13440328d2983587860dec8b945d24d69f61737dc6cd56e11deb2be.enc" data-download-name="DCBIONO.PCF">DCBIONO.PCF</a></summary>
-          <p class='lead'>- Perform daily P1-C1 and P2-C2 DCB estimation</p>
-          <ul class="summary"><li>Author: S. Schaer</li><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 57</li><li>Variables: 45</li></ul>
-          <div class='body'><h4>Process Table</h4>
+          <summary><span class="pcf-toggle-title">DCBIONO.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-dcbiono-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/546a20f56183ed2faa0cd5c052c723694d062d79c6fee8cae376761b05177a10.enc" data-download-name="DCBIONO.PCF">DCBIONO.PCF</a></summary>
+          
+          <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 57</li><li>Variables: 45</li></ul>
+          <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>- Perform daily P1-C1 and P2-C2 DCB estimation
+- Compute monthly DCB combinations for all regularly
+generated DCB products
+- Perform 1-day and 2-day ionosphere prediction
+- Create mean TEC plots
+- Create various ionosphere map plots
+- Generate CKMG IONEX product
+- Generate GPSG IONEX product
+
+DCBIONO BPE processing summary file name: DNIyyssss.PRC</dd><dt>Author</dt><dd>S. Schaer</dd><dt>Created</dt><dd>21-Dec-2011</dd><dt>Changes</dt><dd>22-Dec-2011/ss: PRED_ION implemented
+04-Jan-2012/ss: DUMMY jobs added
+06-Jan-2012/ss: Reordered DCB jobs
+24-Aug-2012/ss: MAKE_UIF implemented
+28-Aug-2012/ss: DIST_ION implemented
+30-Aug-2012/ss: DNI_AUX implemented
+09-Oct-2012/ss: Switch from IGS08 to IGb08
+27-Nov-2012/ss: DNI_EXE skipped
+04-Mar-2013/ss: FRQ_LST implemented
+19-Jul-2013/rd,hb: V_OBSSEL added
+01-Nov-2013/rd,eo: SAT_1452 -&gt; SAT_NONE for V_SATINF
+18-Jul-2014/lp: CPU of MEANTEC changed to LONG
+05-Nov-2014/ss: Changed from Z3N to Z1N
+02-Jul-2015/lp: CPU of RNX2DCB changed to LONG
+24-Aug-2016/ss: COMB_OSB added
+15-Sep-2016/ss: COMB_BIA added
+30-Jan-2017 RD: V_PSDINF introduced
+30-Jan-2017 RD: Switch from IGB08 to IGS14
+03-May-2017 SS: V_BIACRX used for COMB_BIA
+15-Jun-2017 SS: REALIG sequence added
+16-Jun-2017 SS: MGEX_BIA added
+22-Jun-2017 SS: ION_LSTR and MEANTEC2 added (for REPRO_ION)
+29-Jun-2017 SS: JUMP_BIA added
+17-Aug-2017 SS: PLOT_BIA added
+04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced
+07-Feb-2018 SS: Start of MGEX_BIA after completion of BPE_BYE
+03-Oct-2018 SS: DIST_BIA added
+09-Oct-2018 SS: COMB_DCB running on LOCAL (to get DCB.Z)
+03-Jul-2019 SS: MAKERCKM added (for reprocessed results)
+21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD
+26-Sep-2019 SS: Modified COMB_BIA for inclusion of GRE rapid
+                results as of wk 2072
+01-Oct-2019 SS: WAIT_BIA added
+03-Feb-2020 RD: Switch from FES2004 to FES2014b
+18-May-2020 SS: Switched to IGb14
+24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna
+02-Dec-2020 AV: Run CDDIS-HTTPS on local (DIST_ION, MAKE_CKM,
+                MAKERCKM, MAKE_BIM)
+28-Jan-2021 SS: VERI_BIA added
+11-Apr-2021 ST: Switched CPU of PID 802 from LONG to EVER
+09-Sep-2021 ST/LP: Transform into the new PCF format
+09-Sep-2021 ST/LP: Reorder BPE server variables for reporting
+04-Nov-2021 SS: Added RNX2BIA
+28-Nov-2021 LP: Remove V_MACMOD
+27-Jan-2022 SS: Introduced RNX2DSB, RNX2FRQ, RXO_DEL, and
+                V_H = D1_
+31-Jan-2022 SS: Prepared for transition to new D1_yyssss.OSB
+                (relying on D11yyssss.DCB and D12yyssss.DCB)
+17-Mar-2022 SS: Removed RNX2DCB processes
+28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF
+30-Mar-2022 SS: Changed SATCRX, SYSCRX
+27-Oct-2022 SS: Introduced V_PCC4MWGF
+06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+16-Jun-2023 RD: REALIIG_P and REALIX_P run on LONG (old LOCAL)
+27-Jun-2023 SS: Implemented OBS2SAT
+28-Jun-2023 SS: Implemented DSB_CHK
+02-Jul-2023 RD: REALIIG_P and REALIX_P run on EVER (old LONG)
+14-Jun-2024 SS: Added V_OBSSEL_C1C
+02-Feb-2025 EB: Change from IGS20 to IGB20
+26-Nov-2025 SS: Added V_DOI
+12-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20
+28-Jan-2026 SS: Added BPE_INI with V_INI=Y (PARAM1=-nopcv)
+19-May-2026 RD: Update V_DOIs
+21-May-2026 SS: Reactivated REALIGAP and start PLOT_BIA earlier</dd></dl></section><h4>Process Table</h4>
     <table class="table">
       <thead><tr><th>PID</th><th>Script</th><th>Resolved</th><th>OPT_DIR</th><th>INP files</th><th>Parameters</th></tr></thead>
       <tbody>
@@ -190,7 +286,7 @@
     <article class="card" data-kind="pcf" id="pcf-debug-ss-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">DEBUG_SS.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-debug-ss-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/62251e2002c9ea3a768efbc93a189882aea3e2b5ea174dc1b3844d16284d25c2.enc" data-download-name="DEBUG_SS.PCF">DEBUG_SS.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">DEBUG_SS.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-debug-ss-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/896f923f9f8e9e987e5b8228a3c5f2d6b242e00d36173dd0b6ea69c06264ad3a.enc" data-download-name="DEBUG_SS.PCF">DEBUG_SS.PCF</a></summary>
           
           <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 6</li><li>Variables: 1</li></ul>
           <div class='body'><h4>Process Table</h4>
@@ -216,7 +312,7 @@
     <article class="card" data-kind="pcf" id="pcf-igsrapid-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">IGSRAPID.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-igsrapid-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/14fcc6386f1d23cdbafbf1fd136f4a1ce5f117f4e769ca0525b1d4825446a044.enc" data-download-name="IGSRAPID.PCF">IGSRAPID.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">IGSRAPID.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-igsrapid-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/3b21dd307954ce1d46c8e844597f8150c97425174bb50840e7cf998af2e9a90c.enc" data-download-name="IGSRAPID.PCF">IGSRAPID.PCF</a></summary>
           
           <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 215</li><li>Variables: 65</li></ul>
           <div class='body'><h4>Process Table</h4>
@@ -242,7 +338,7 @@
     <article class="card" data-kind="pcf" id="pcf-igsultra-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">IGSULTRA.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-igsultra-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/14fcc6386f1d23cdbafbf1fd136f4a1ce5f117f4e769ca0525b1d4825446a044.enc" data-download-name="IGSULTRA.PCF">IGSULTRA.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">IGSULTRA.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-igsultra-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/3b21dd307954ce1d46c8e844597f8150c97425174bb50840e7cf998af2e9a90c.enc" data-download-name="IGSULTRA.PCF">IGSULTRA.PCF</a></summary>
           
           <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 215</li><li>Variables: 65</li></ul>
           <div class='body'><h4>Process Table</h4>
@@ -268,10 +364,13 @@
     <article class="card" data-kind="pcf" id="pcf-plots-rapid-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">PLOTS_RAPID.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-plots-rapid-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/6da00c563219146148c21e8633a8f3bd552d05a64a56f062295e9adec076016d.enc" data-download-name="PLOTS_RAPID.PCF">PLOTS_RAPID.PCF</a></summary>
-          <p class='lead'>Generate a series of plots based on RAPID products using the</p>
-          <ul class="summary"><li>Author: R. Dach</li><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 57</li><li>Variables: 27</li></ul>
-          <div class='body'><h4>Process Table</h4>
+          <summary><span class="pcf-toggle-title">PLOTS_RAPID.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-plots-rapid-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/682ae27a61674b04dedc77419ada0f4ff4dbd4981aae352e6627332240f6f274.enc" data-download-name="PLOTS_RAPID.PCF">PLOTS_RAPID.PCF</a></summary>
+          
+          <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 57</li><li>Variables: 27</li></ul>
+          <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Generate a series of plots based on RAPID products using the
+pyPLT-tools
+
+The results are located as eps and png in $P/PLOTS/FIG</dd><dt>Author</dt><dd>R. Dach</dd><dt>Created</dt><dd>23-Jan-2024</dd><dt>Changes</dt><dd>17-Jan-2025 EB: historical GMT rapid plots added</dd></dl></section><h4>Process Table</h4>
     <table class="table">
       <thead><tr><th>PID</th><th>Script</th><th>Resolved</th><th>OPT_DIR</th><th>INP files</th><th>Parameters</th></tr></thead>
       <tbody>
@@ -294,10 +393,47 @@
     <article class="card" data-kind="pcf" id="pcf-pppar-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">PPPAR.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-pppar-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/63dfa1b458c3e2188dbb811430367cbfc5d2e89d6781ecb22bb5f6a601077f15.enc" data-download-name="PPPAR.PCF">PPPAR.PCF</a></summary>
-          <p class='lead'>Determination of undifferenced widelane (WL) and narrowlane (NL) phase biases and resolution of undifferenced WL and NL phase ambiguities: - determination of WL phase biases - resolution of WL phase biases - determination of NL phase biases (using WL integers) - resolution of NL phase biases (using WL integers) - verification of ambiguity-fixed PPP solution - generation of a common WL/NL-combined bias file (containing a consistent set of code and phase biases)</p>
-          <ul class="summary"><li>Author: S. Schaer</li><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 25</li><li>Variables: 43</li></ul>
-          <div class='body'><h4>Process Table</h4>
+          <summary><span class="pcf-toggle-title">PPPAR.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-pppar-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/492817ec0f12a97ecab796dd9bc41249858a4b695dbf44d3faa156761526f861.enc" data-download-name="PPPAR.PCF">PPPAR.PCF</a></summary>
+          
+          <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 25</li><li>Variables: 43</li></ul>
+          <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Purpose</dt><dd>Determination of undifferenced widelane (WL) and narrowlane
+(NL) phase biases and resolution of undifferenced WL and NL
+phase ambiguities:
+- determination of WL phase biases
+- resolution of WL phase biases
+- determination of NL phase biases (using WL integers)
+- resolution of NL phase biases (using WL integers)
+- verification of ambiguity-fixed PPP solution
+- generation of a common WL/NL-combined bias file
+(containing a consistent set of code and phase biases)
+
+PPPAR BPE processing summary file name: IARyyssss.PRC
+
+Remark:</dd><dt>Author</dt><dd>S. Schaer</dd><dt>Created</dt><dd>14-May-2018</dd><dt>Changes</dt><dd>15-May-2018/ss: Changed IZD to IAR
+22-May-2018/ss: Added SKIP_WL
+30-May-2018/ss: Redefined V_A, V_B, V_C
+05-Jun-2018/ss: Used V_SAMPLE for NL AR (and verification)
+08-Jun-2018/ss: Used V_MINEL
+04-Jul-2018/ss: Added WAIT (for manual interaction)
+07-Aug-2018/ss: Added V_HOIINF and V_VMFINF
+22-Aug-2018/ss: Added V_BIAINF
+21-Aug-2019 RD: Add V_BLQINF, V_ATLINF, V_MEANPL, V_SUBMOD, V_NUTMOD
+03-Feb-2020 RD: Switch from FES2004 to FES2014b
+21-Oct-2020 AV: Add V_REPRO for alternative savedisk
+22-Oct-2020 AV: V_MODE: Processing scheme identifier
+07-Dec-2020 RD: Add PCF variable V_TRPMOD
+11-Jul-2021 LP: Switch TRPMOD GMF-&gt;GPT3
+16-Sep-2021 ST: Transform into the new PCF format
+                Reorder BPE server variables for reporting
+28-Nov-2021 LP: Remove V_MACMOD
+28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF, BOXWING
+03-Nov-2022 SS: Introduced V_PCC4MWGF
+06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+09-Dec-2022 LP: Switch to IGS20; add V_STAINF
+20-Mar-2023 ST: Put parallel jobs with CPU=SHORT to CPU=FOX.
+27-Nov-2025 SS: Introduced V_DOI
+25-Aug-2026 RD: Correct syntax for CARDS (&quot;/&quot;-&gt;&quot; &quot; between elements)</dd></dl></section><h4>Process Table</h4>
     <table class="table">
       <thead><tr><th>PID</th><th>Script</th><th>Resolved</th><th>OPT_DIR</th><th>INP files</th><th>Parameters</th></tr></thead>
       <tbody>
@@ -320,10 +456,45 @@
     <article class="card" data-kind="pcf" id="pcf-pppar1-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">PPPAR1.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-pppar1-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/3867483b5696bdfdc14a60b7f630ba4a54bf68a9915e00b5aa575de236270f44.enc" data-download-name="PPPAR1.PCF">PPPAR1.PCF</a></summary>
-          <p class='lead'>Determination of undifferenced widelane (WL) and narrowlane (NL) phase biases and resolution of undifferenced WL and NL phase ambiguities: - determination of WL phase biases - resolution of WL phase biases - determination of NL phase biases (using WL integers) - resolution of NL phase biases (using WL integers) - verification of ambiguity-fixed PPP solution - generation of a common WL/NL-combined bias file (containing a consistent set of code and phase biases)</p>
-          <ul class="summary"><li>Author: S. Schaer</li><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 25</li><li>Variables: 46</li></ul>
-          <div class='body'><h4>Process Table</h4>
+          <summary><span class="pcf-toggle-title">PPPAR1.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-pppar1-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/fb440468d756e8a62cc4bc55b1ac3e1e0a66d5a48b6aa6780326684255f5aebf.enc" data-download-name="PPPAR1.PCF">PPPAR1.PCF</a></summary>
+          
+          <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 25</li><li>Variables: 46</li></ul>
+          <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Purpose</dt><dd>Determination of undifferenced widelane (WL) and narrowlane
+(NL) phase biases and resolution of undifferenced WL and NL
+phase ambiguities:
+- determination of WL phase biases
+- resolution of WL phase biases
+- determination of NL phase biases (using WL integers)
+- resolution of NL phase biases (using WL integers)
+- verification of ambiguity-fixed PPP solution
+- generation of a common WL/NL-combined bias file
+(containing a consistent set of code and phase biases)
+
+PPPAR BPE processing summary file name: IAR_yyyyssss.PRC
+
+Remark:</dd><dt>Author</dt><dd>S. Schaer</dd><dt>Created</dt><dd>14-May-2018</dd><dt>Changes</dt><dd>15-May-2018/ss: Changed IZD to IAR
+22-May-2018/ss: Added SKIP_WL
+30-May-2018/ss: Redefined V_A, V_B, V_C
+05-Jun-2018/ss: Used V_SAMPLE for NL AR (and verification)
+08-Jun-2018/ss: Used V_MINEL
+04-Jul-2018/ss: Added WAIT (for manual interaction)
+07-Aug-2018/ss: Added V_HOIINF and V_VMFINF
+22-Aug-2018/ss: Added V_BIAINF
+21-Aug-2019 RD: Add V_BLQINF, V_ATLINF, V_MEANPL, V_SUBMOD, V_NUTMOD
+07-Feb-2020 RD: Switch from FES2004 to FES2014b
+07-Feb-2020 RD: V_MACMOD: Compatibility -&gt; Macromodel
+21-Oct-2020 AV: Add V_REPRO for alternative savedisk
+22-Oct-2020 AV: V_MODE: Processing scheme identifier
+05-Jul-2021 LP: Add V_TRPMOD
+16-Sep-2021 ST: Transform into the new PCF format
+Reorder BPE server variables for reporting
+28-Nov-2021 LP: Remove option V_MACMOD
+28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+29-Mar-2022 AV: Modified variables
+03-Nov-2022 SS: Introduced V_PCC4MWGF
+06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+08-Dec-2022 LP: Switch to IGS20; add V_STAINF
+28-Mar-2023 RD/EB: Put parallel jobs with CPU=SHORT to CPU=QUICK/FOX</dd></dl></section><h4>Process Table</h4>
     <table class="table">
       <thead><tr><th>PID</th><th>Script</th><th>Resolved</th><th>OPT_DIR</th><th>INP files</th><th>Parameters</th></tr></thead>
       <tbody>
@@ -346,10 +517,51 @@
     <article class="card" data-kind="pcf" id="pcf-rapiono-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">RAPIONO.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-rapiono-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/86e5f7ed02cbc8d2c36dbb359bac8fd330ea9399ba5fc27d26b03c89912292e1.enc" data-download-name="RAPIONO.PCF">RAPIONO.PCF</a></summary>
+          <summary><span class="pcf-toggle-title">RAPIONO.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-rapiono-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/63d81c4737f008ab68d1ab5aa9027d75576950d8fa097d45b049b51245298301.enc" data-download-name="RAPIONO.PCF">RAPIONO.PCF</a></summary>
           
           <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 27</li><li>Variables: 43</li></ul>
-          <div class='body'><h4>Process Table</h4>
+          <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Created</dt><dd>22-Apr-2002/SS</dd><dt>Notes</dt><dd>03-Feb-2003/SS: Rapid ionosphere estimation outsourced
+31-Aug-2004/RD: Adapt to the new CPU file
+09-Sep-2004/SS: Upload IONEX results to CDDIS (GIR_FTP)
+04-Apr-2005/SS: BPE_BYE as last process added
+03-Aug-2007/MM: V_UPD, V_SAV, V_DEL, V_DIS introduced
+19-May-2009/RD: V_NCLU introduced
+18-Apr-2011/SS: Switch from IGS05 to IGS08
+09-Oct-2012/ss: Switch from IGS08 to IGb08
+19-Jul-2013/rd,hb: V_OBSSEL added
+01-Nov-2013/rd,eo: SAT_1452 -&gt; SAT_NONE for V_SATINF
+10-Jun-2014/ss: Introduced V_SNXINF
+16-Oct-2014/ss: Rewritten IONMRG (derived from IONMRG.BDS)
+22-Oct-2014/ss: Redesigned using GIMCLU, MRG_ION, CLN_ION, etc.
+17-Sep-2015/ss: Added GIRXTR
+22-Apr-2016/ss: Added ADDNEQ2 NEQ reduction step in GIMCLU
+18-May-2016/ss: Modifications due to OSB parameterization
+24-May-2016/ss: Added GIR_UPD
+25-May-2016/ss: Added additional bias solutions (ADDNEQ2)
+21-Sep-2016/av: V_PSDINF introduced
+30-Jan-2017 RD: Switch from IGB08 to IGS14
+04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced
+21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD
+23-Sep-2019 SS: Enabled GRE in GPSEST of GIMEDT_P and GIMCLU_P
+03-Feb-2020 RD: Switch from FES2004 to FES2014b
+18-May-2020 SS: Switched to IGb14
+24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna
+02-Dec-2020 AV: Run CDDIS-HTTPS on local (GIR_FTP)
+09-Sep-2021 ST/LP: Transform into the new PCF format
+09-Sep-2021 ST/LP: Reorder BPE server variables for reporting
+28-Nov-2021 LP: Remove V_MACMOD
+28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF, BOXWING
+26-Oct-2022 SS: Introduced V_PCC4MWGF
+02-Nov-2022 SS: Redefined V_GNSS from GR to GRE
+06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+20-Mar-2023 ST: Put CPU=LOCAL for GIMEDTAP.
+                Put CPU=QUICK for GIMEDT_P.
+02-Feb-2025 EB: Change from IGS20 to IGB20
+26-Nov-2025 SS: Added V_DOI
+12-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20
+28-Jan-2026 SS: Added BPE_INI with V_INI=Y (PARAM1=-nopcv)
+19-May-2026 RD: Update V_DOIs</dd></dl></section><h4>Process Table</h4>
     <table class="table">
       <thead><tr><th>PID</th><th>Script</th><th>Resolved</th><th>OPT_DIR</th><th>INP files</th><th>Parameters</th></tr></thead>
       <tbody>
@@ -372,10 +584,102 @@
     <article class="card" data-kind="pcf" id="pcf-rclkgnss-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">RCLKGNSS.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-rclkgnss-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/f6d012a81676a92572f8efdabc95269ce2c47fb1b6339ede314f9c746c5f67fc.enc" data-download-name="RCLKGNSS.PCF">RCLKGNSS.PCF</a></summary>
-          <p class='lead'>- Computes the receiver and satellite clock corrections</p>
-          <ul class="summary"><li>Author: R. Dach</li><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 124</li><li>Variables: 48</li></ul>
-          <div class='body'><h4>Process Table</h4>
+          <summary><span class="pcf-toggle-title">RCLKGNSS.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-rclkgnss-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/8d9a439bab9192a3758af944faad200d480bcd3cf81b302ab00d5b5438655119.enc" data-download-name="RCLKGNSS.PCF">RCLKGNSS.PCF</a></summary>
+          
+          <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 124</li><li>Variables: 48</li></ul>
+          <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>- Computes the receiver and satellite clock corrections
+  based on the observation data from a global GNSS network.
+- The orbits, ERPs, and (as far as available) station
+  coordinates are taken from the IGSRAPID campaign.
+- The results are provided in clock RINEX format.
+  In addition, the SP3 file in the IGSRAPID campaign is
+  completed by the satellite clock corrections.
+
+RCLKGNSS BPE processing summary file name: CLKyyssss.PRC</dd><dt>Comments</dt><dd>- BPEs may run in parallel for several sessions
+  (WAIT_BPE makes sure that the BPEs keep the order of
+  the sessions where it is necessary)
+
+Flag files :  REPROCESSING.FLG
+- runs a single day independent from all other days
+- the input data are taken from $CAMP_SAVREP
+- the results are put there too, and labelled with the
+     second line of the REPROCESSING.FLG file
+GLO_ONE_CLUST.FLG
+- if this file exists, all GLONASS stations are processed
+     together in one cluster (the other clusters are
+     analyzed in the GPS-only mode).</dd><dt>Author</dt><dd>R. Dach</dd><dt>Created</dt><dd>13-May-2009</dd><dt>Changes</dt><dd>09-Oct-2012/ss: Switch from IGS08 to IGb08
+19-Jul-2013/rd,hb: V_OBSSEL added
+01-Nov-2013/rd,eo: SAT_1452 -&gt; SAT_NONE for V_SATINF
+06-Jun-2014 SS: Use of middle day (if available)?
+18-Sep-2014 LP: Change V_GNSS
+06-Jul-2015 SS: Save .BIA results (CBS, CBF, TP_)
+03-Aug-2015 SS: RCLKGNSS activated as operational CLKRAPID
+16-Sep-2015 SS: Execute INIT_HOI/INIT_VMF after each RCLKWAIT
+20-Oct-2015 LP: Take extra manual SATMRK from CLKRAPID
+31-May-2016 SS/AV: Updated due to OSB implementation
+13-Sep-2016 SS: Create CBR bias results
+15-Sep-2016 SS: Added RAP_BIA for clock/iono bias combination
+21-Sep-2016 AV: V_PSDINF introduced
+28-Sep-2016 SS: Added second call of RAP_BIA
+10-Oct-2016 RD/AV: Remove Section with compatible attitude modelling
+30-Jan-2017 RD: Switch from IGB08 to IGS14
+04-Mar-2017 AV: FILEST amd SATMON added
+04-Dec-2017 AV: V_MACMOD and V_BOXWNG introduced
+30-May-2018 SS: Added V_IAR
+04-Jun-2018 SS: Added INIT_IAR and DO_PPPAR
+21-Jun-2018 SS: Added ZERO_AR verification sequence
+22-Jun-2018 SS: Simplified params $tmpnnn to $nnn
+05-Jul-2018 SS: Moved INIT_IAR step
+09-Jul-2018 SS: Changed DO_PPPAR PARAM4 from 1 to 0
+10-Jul-2018 SS: Changed DO_PPPAR PARAM4 from 0 to 1
+                (temporary $mscrc/IAR.FLG with 0)
+16-Jan-2019 SS: Added WAIT
+21-Aug-2019 RD: Add V_BLQINF, V_SUBMOD, V_NUTMOD
+14-Nov-2019 AV: Add V_SAVDSK
+03-Feb-2020 RD: Switch from FES2004 to FES2014b
+18-May-2020 SS: Switched to IGb14
+02-Oct-2020 SS: Added CCRNXC verification step (SAT_CHK)
+21-Oct-2020 AV: Add V_ARMODE
+24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna
+02-Dec-2020 AV: Run CDDIS-HTTPS on local (IGSR_FTP)
+07-Dec-2020 RD: Add PCF variable V_TRPMOD
+18-Mar-2021 AV: Replace IGSR_FTP with IGSR_DIS
+30-Jun-2021 SS: Added extra SATMRK to cope with new G11
+11-Jul-2021 LP: Switch TRPMOD GMF-&gt;GPT3
+02-Sep-2021 RD: Transform into the new PCF format
+02-Sep-2021 RD/ST: Reorder BPE server variables for reporting
+27-Sep-2021 RD/AV: V_SP3INT added (sampling in STDPRE)
+28-Sep-2021 RD: Switch V_SP3INT from 900 to 300 (for Galileo)
+28-Nov-2021 LP: Remove V_MACMOD
+28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+29-Mar-2022 AV: Modfied OBSSEL, SATINF, PCVINF, BIAINF, BOXWING
+27-Oct-2022 SS: Introduced V_PCC4MWGF
+03-Nov-2022 AV: Add RINEX3 clock
+28-Nov-2022 AV: Switch from IGb14 to IGS20
+                Change IGSR_DIS to IGSR_DI2
+06-Dec-2022 LP: Switch from BOXWING.MAC to BOXWING_I20.MAC
+20-Mar-2023 ST: Put CPU=LOCAL for CODSPPAP, CODSPPCP, FILESTAP,
+                GLOESTAP, MAUPRPAP, MRKOBSAP, RNXSMTAP, TIMESTAP.
+                Put parallel jobs with CPU=SHORT to CPU=QUICK.
+08-May-2023 LP: Add V_GRAVMOD; replace EGM2008_SMALL -&gt; COSTG_FSM_2212
+20-Sep-2023 SS: Updated V_GRAVMOD to COSTG_FSM_2303
+11-Dec-2023 RD: Add script DELALL to clean old files from the campaign
+09-Jan-2024 LP: Updated V_GRAVMOD to COSTG_FSM_2309
+03-Sep-2024 LP: Updated V_GRAVMOD to COSTG_FSM_2312
+25-Sep-2024 RD: Add OBSXTR for edit and ambres
+22-Oct-2024 MK: Updated V_GRAVMOD to COSTG_FSM_2406
+02-Feb-2025 EB: Change from IGS20 to IGB20
+28-Aug-2025 ML/CK: Updated V_GRAVMOD to COSTG_FSM_2412
+28-Aug-2025 SS: PID 191 should also wait for PID 152 (CBF)
+19-Sep-2025 EB: Updated V_GRAVMOD to COSTG_FSM_2503
+26-Nov-2025 SS: Added V_DOI
+12-Jan-2026 EB/SS: Changed from IGB20 to IGC20 and from I20_2388 to I20_2401=I20
+17-Jan-2026 SS: Added BPE_INI with PARAM1=-nopcv
+28-Jan-2026 SS: Added V_INI=Y
+23-Feb-2026 EB: Updated V_GRAVMOD to COSTG_FSM_2509
+19-May-2026 RD: Update V_DOIs
+06-Jul-2026 SS: Updated V_GRAVMOD to COSTG_FSM_2603
+25-Aug-2026 RD: Correct syntax for CARDS (&quot;/&quot;-&gt;&quot; &quot; between elements)</dd></dl></section><h4>Process Table</h4>
     <table class="table">
       <thead><tr><th>PID</th><th>Script</th><th>Resolved</th><th>OPT_DIR</th><th>INP files</th><th>Parameters</th></tr></thead>
       <tbody>
@@ -398,10 +702,28 @@
     <article class="card" data-kind="pcf" id="pcf-slrpred-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">SLRPRED.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-slrpred-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/fcdc4c8ac2a1fad30013e7bfe78bcbf48c6d2b79e56e2668fc4677a14532d3b3.enc" data-download-name="SLRPRED.PCF">SLRPRED.PCF</a></summary>
-          <p class='lead'>Compute predictions for GPS/GLONASS for ILRS (CPF)</p>
-          <ul class="summary"><li>Author: C. Urschl</li><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 8</li><li>Variables: 17</li></ul>
-          <div class='body'><h4>Process Table</h4>
+          <summary><span class="pcf-toggle-title">SLRPRED.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-slrpred-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/79f1b878265d5b281634934af506bc7d623f185b03a9d48401c665ca692755af.enc" data-download-name="SLRPRED.PCF">SLRPRED.PCF</a></summary>
+          
+          <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 8</li><li>Variables: 17</li></ul>
+          <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>Compute predictions for GPS/GLONASS for ILRS (CPF)</dd><dt>Author</dt><dd>C. Urschl</dd><dt>Changes</dt><dd>10-Jun-2009 DT: BPE_CLN added
+03-Jan-2011 DT: V_RERUN added
+10-May-2011 DT: I05 -&gt; I08
+31-May-2011 DT: Add CPF_AFTP
+01-Mar-2012 DT: Add NEXTJOB if no orbit available
+18-Jul-2013 CB: added files to clean up to script CPF_DEL
+27-Oct-2017 UM: Change the sat-info file
+22-Aug-2019 RD: Add V_MEANPL, V_SUBMOD, V_NUTMOD
+03-Feb-2020 UM: V_VCPF added to define version of CPF files
+24-Nov-2020 RD: Run CDDIS-HTTPS submission on sedna
+03-Dec-2020 RD: Switch special CPU off again: SEDNA-&gt;LOCAL
+16-Sep-2021 ST/UM: Transform into the new PCF format
+Reorder BPE server variables for reporting
+28-Mar-2022 ST: Rename V_CAMP to V_REQ_CAMP.
+24-Feb-2026 RD: Rearrange PIDs
+24-Feb-2026 RD: Add SP3CPF with hardwired SVN G082
+25-Mar-2026 RD: Deactivate the special G20 prediction
+28-Oct-2026 SS: Removed CAMPAGIN=SLRPRED
+29-Oct-2026 SS: Changed V_SUBMOD from IERS2020XY to DESAI2016</dd></dl></section><h4>Process Table</h4>
     <table class="table">
       <thead><tr><th>PID</th><th>Script</th><th>Resolved</th><th>OPT_DIR</th><th>INP files</th><th>Parameters</th></tr></thead>
       <tbody>
@@ -424,10 +746,19 @@
     <article class="card" data-kind="pcf" id="pcf-superbpe-pcf">
       
         <details class="pcf-details">
-          <summary><span class="pcf-toggle-title">SUPERBPE.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-superbpe-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/f09ad63ccb77b923bb268a80d666dab97abf681e911228a25f25f3ec9dc08e0a.enc" data-download-name="SUPERBPE.PCF">SUPERBPE.PCF</a></summary>
-          <p class='lead'>This is a skeleton for the SUPERBPE. The SUPERBPE runs a</p>
-          <ul class="summary"><li>Author: R. Dach</li><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 4</li><li>Variables: 1</li></ul>
-          <div class='body'><h4>Process Table</h4>
+          <summary><span class="pcf-toggle-title">SUPERBPE.PCF</span><a class='source-link' href='bernese_bpe_stories.html#story-superbpe-pcf'>Explain this process</a><span class="pcf-toggle-hint">Show details</span><a class="source-link" href="downloads/6d2167f84abe41a1e529d9cf2d056a121af5d26c096c0b2d10885a94764e8326.enc" data-download-name="SUPERBPE.PCF">SUPERBPE.PCF</a></summary>
+          
+          <ul class="summary"><li>Source: l_code_rap/GPSUSER</li><li>PCF rows: 4</li><li>Variables: 1</li></ul>
+          <div class='body'><section class='source-header'><h4>Source header</h4><dl><dt>Description</dt><dd>This is a skeleton for the SUPERBPE. The SUPERBPE runs a
+process control file (PCF) for several sessions in parallel
+(PID 101 and 102). The scripts to start the corresponding
+BPE-servers are SBPEAP resp. SBPE_P.
+The advantage to use a SUPERBPE in contrast to the &#x27;Simple
+parallel multi session run&#x27; is that you can add other scripts
+before (e.g., PID 001) and/or after (e.g., PID 999) the
+parallel processing part.</dd><dt>Author</dt><dd>R. Dach</dd><dt>Created</dt><dd>17-Oct-2003</dd><dt>Changes</dt><dd>23-Feb-2004: Prepared for release V5.0
+09-Sep-2021 ST/LP: Transform into the new PCF format
+09-Sep-2021 ST/LP: Reorder BPE server variables for reporting</dd></dl></section><h4>Process Table</h4>
     <table class="table">
       <thead><tr><th>PID</th><th>Script</th><th>Resolved</th><th>OPT_DIR</th><th>INP files</th><th>Parameters</th></tr></thead>
       <tbody>
@@ -449,35 +780,33 @@
     </div>
     
     <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
-    <div class="history-footer">Last change: 2026-11-26T08:52:36+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
+    <div class="history-footer">Last change: 2026-11-26T09:50:21+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
   </div>
   <script>
     const q = document.getElementById('q');
     const kind = document.getElementById('kind');
     const sort = document.getElementById('sort');
-    const cards = Array.from(document.querySelectorAll('.card'));
+    const cards = Array.from(document.querySelectorAll('[data-kind]'));
     const handbookGroups = Array.from(document.querySelectorAll('.handbook-group'));
+    const handbookNoResults = document.getElementById('handbook-no-results');
     function normalize(s) { return (s || '').toLowerCase(); }
     function refresh() {
-      if (!q || !kind || !sort) return;
-      const query = normalize(q.value);
-      const filterKind = kind.value;
+      const query = normalize(q.value.trim());
+      const filterKind = kind?.value || 'all';
       const byKind = { pcf: 0, story: 1, script: 2, file: 3, inp: 4, handbook: 5, history: 6 };
       cards.forEach(card => {
         const cardKind = card.dataset.kind;
-        const text = normalize(card.innerText);
+        const text = normalize(card.textContent);
         const okKind = filterKind === 'all' || filterKind === cardKind;
         const okQuery = !query || text.includes(query);
         card.classList.toggle('hidden', !(okKind && okQuery));
       });
-      if (handbookGroups.length) {
-        handbookGroups.forEach(group => {
-          const visibleCards = Array.from(group.querySelectorAll('.card')).some(card => !card.classList.contains('hidden'));
-          const defaultOpen = group.dataset.defaultOpen === '1';
-          group.open = query || filterKind !== 'all' ? visibleCards : defaultOpen;
-        });
-      }
+      handbookGroups.forEach(group => {
+        group.classList.toggle('hidden', !group.querySelector('.handbook-entry:not(.hidden)'));
+      });
       const visible = cards.filter(card => !card.classList.contains('hidden'));
+      handbookNoResults?.classList.toggle('hidden', visible.length !== 0);
+      if (!sort) return;
       visible.sort((a, b) => {
         if (sort.value === 'kind') {
             const titleA = a.querySelector('h3')?.innerText || a.querySelector('.pcf-toggle-title')?.innerText || '';
@@ -491,6 +820,7 @@
       visible.forEach(card => card.parentElement.appendChild(card));
     }
     function focusTargetFromHash() {
+      if (!window.location.hash) return;
       let id;
       try {
         id = decodeURIComponent(window.location.hash.slice(1));
@@ -499,14 +829,15 @@
       }
       const target = document.getElementById(id);
       if (!target) return;
+      if (target.closest('.handbook-reading') && q?.value) {
+        q.value = '';
+        refresh();
+      }
       for (let node = target; node; node = node.parentElement) {
-        if (node.classList?.contains('card')) node.classList.remove('hidden');
+        node.classList.remove('hidden');
         if (node instanceof HTMLDetailsElement) node.open = true;
       }
-      if (target.classList.contains('card')) {
-        target.querySelector(':scope > details')?.setAttribute('open', '');
-        target.querySelector('.handbook-text')?.setAttribute('open', '');
-      }
+      target.closest('.card')?.querySelector(':scope > details')?.setAttribute('open', '');
       target.scrollIntoView({ block: 'start' });
     }
 
@@ -562,13 +893,11 @@
         focusTargetFromHash();
       }
     });
-    if (q && kind && sort) {
-      q.addEventListener('input', refresh);
-      kind.addEventListener('change', refresh);
-      sort.addEventListener('change', refresh);
-    }
+    q?.addEventListener('input', refresh);
+    kind?.addEventListener('change', refresh);
+    sort?.addEventListener('change', refresh);
     window.addEventListener('hashchange', focusTargetFromHash);
-    window.addEventListener('load', focusTargetFromHash);
+    focusTargetFromHash();
   </script>
 </body>
 </html>

@@ -20,10 +20,12 @@
     .wrap { max-width: 1400px; margin: 0 auto; padding: 28px 24px 48px; }
     .hero { background: linear-gradient(135deg, #10223d 0%, #1f5fbf 100%); color: #fff; border-radius: 20px; padding: 24px 28px; box-shadow: var(--shadow); margin-bottom: 20px; }
     .hero h1 { margin: 0 0 8px; font-size: 34px; }
-    .hero p { margin: 6px 0; color: rgba(255,255,255,0.88); line-height: 1.5; }
+    .hero p { margin: 6px 0; color: rgba(255,255,255,0.88); line-height: 1.5; overflow-wrap: anywhere; }
     .nav { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 16px; }
     .nav a { color: #fff; text-decoration: none; border: 1px solid rgba(255,255,255,0.28); padding: 8px 12px; border-radius: 999px; }
     .nav a.active { background: #fff; color: #10223d; }
+    .gpsuser-overview { display: inline-block; margin-bottom: 14px; padding: 7px 12px; border: 1px solid currentColor; border-radius: 8px; color: inherit; font-size: 14px; font-weight: 700; text-decoration: none; }
+    .gpsuser-overview:hover { text-decoration: underline; }
     .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(118px, 1fr)); gap: 8px; margin: 14px 0 18px; }
     .stat, .card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); }
     .stat { padding: 10px 11px; }
@@ -55,20 +57,34 @@
     .ref-link:hover, .source-link:hover { text-decoration: underline; }
     .summary { color: var(--muted); line-height: 1.55; margin: 12px 0 14px 18px; }
     .summary li { margin: 2px 0; }
-    .handbook-toc { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
-    .handbook-group { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; box-shadow: var(--shadow); margin-bottom: 14px; overflow: hidden; }
-    .handbook-group summary { list-style: none; cursor: pointer; padding: 14px 16px; display: grid; gap: 6px; grid-template-columns: 1fr auto; align-items: center; background: linear-gradient(180deg, #fbfdff 0%, #f4f8fd 100%); }
-    .handbook-group summary::-webkit-details-marker { display: none; }
-    .handbook-group summary span { min-width: 0; }
-    .handbook-count { color: var(--accent); font-weight: 700; }
-    .handbook-note { grid-column: 1 / -1; color: var(--muted); font-size: 13px; line-height: 1.45; }
-    .handbook-group-body { padding: 14px 14px 4px; }
-    .handbook-doclist { margin: 0 0 12px 18px; color: var(--muted); }
-    .handbook-doclist li { margin: 5px 0; line-height: 1.4; }
-    .handbook-source { color: var(--muted); font-size: 12px; }
-    .handbook-text { margin-top: 8px; }
-    .handbook-text > summary { cursor: pointer; color: var(--accent); font-weight: 700; margin-bottom: 8px; }
-    .handbook-text > summary::-webkit-details-marker { display: none; }
+    .handbook-page { background: #f1eee5; color: #272e26; --accent: #2c604d; }
+    .handbook-page .wrap { max-width: 1200px; }
+    .handbook-page .hero { background: #263c32; box-shadow: none; }
+    .handbook-page .hero h1, .handbook-reading h2, .handbook-reading h3 { font-family: Georgia, 'Times New Roman', serif; }
+    .handbook-search { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; margin: 24px 0 16px; }
+    .handbook-search label { font-weight: 600; }
+    .handbook-search input { flex: 1 1 12rem; max-width: 24rem; border: 1px solid #a8ada0; border-radius: 6px; background: #fffdf7; color: inherit; font: inherit; padding: 8px 10px; }
+    .handbook-search p { flex-basis: 100%; margin: 4px 0; }
+    .handbook-layout { display: grid; grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr); align-items: start; gap: clamp(1.25rem, 4vw, 3.5rem); }
+    .handbook-toc { position: sticky; top: 20px; max-height: calc(100vh - 40px); overflow: auto; padding: 12px 16px 16px 2px; font-size: 14px; line-height: 1.5; overflow-wrap: anywhere; }
+    .handbook-toc p { margin: 0 0 10px; font-weight: 700; }
+    .handbook-toc ul { list-style: none; margin: 0; padding: 0; }
+    .handbook-toc ul ul { border-left: 1px solid #c7cabd; margin: 5px 0 14px; padding-left: 12px; }
+    .handbook-toc li { margin: 5px 0; }
+    .handbook-toc a { color: var(--accent); text-underline-offset: 3px; }
+    .handbook-toc > ul > li > a { font-weight: 700; }
+    .handbook-chapters { padding: clamp(1rem, 4vw, 3.5rem); background: #fffdf7; border: 1px solid #d8d3c5; border-radius: 8px; overflow-wrap: anywhere; }
+    .handbook-group + .handbook-group { margin-top: 2.75rem; padding-top: 2rem; border-top: 1px solid #ccc7b7; }
+    .handbook-group h2 { margin: 0 0 .5em; color: #263c32; font-size: clamp(1.65rem, 3vw, 2.4rem); }
+    .handbook-note { margin: 0 0 1.25rem; color: #525c52; line-height: 1.6; }
+    .handbook-entry { margin-top: 1.75rem; }
+    .handbook-entry h3 { margin: 0 0 .5em; font-size: 1.45rem; }
+    .handbook-text { max-width: 70ch; font: 1.1rem/1.7 Georgia, 'Times New Roman', serif; }
+    .handbook-text h4 { margin: 1.25em 0 .4em; font-size: 1.1em; }
+    .handbook-text p { margin: 0 0 .8em; }
+    .handbook-text .summary { color: inherit; }
+    .handbook-reading [id], .card[id] { scroll-margin-top: 16px; }
+    .toolbar ~ * .card[id] { scroll-margin-top: 96px; }
     .pcf-details > summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 12px; align-items: center; font-size: 18px; font-weight: 700; color: #10223d; }
     .pcf-details > summary::-webkit-details-marker { display: none; }
     .pcf-details > summary::before { content: '▸'; color: var(--accent); font-size: 20px; transition: transform .15s ease; }
@@ -77,6 +93,10 @@
     .pcf-toggle-hint { color: var(--muted); font-size: 12px; font-weight: 600; }
     .script-detail-section { margin: 16px 0; padding: 14px 16px 4px; border: 1px solid var(--border); border-radius: 12px; background: #fbfdff; }
     .script-detail-section h4 { margin: 0 0 10px; color: #173b68; }
+    .source-header { margin: 16px 0; padding: 12px 16px; border: 1px solid var(--border); border-radius: 12px; background: #f7faff; }
+    .source-header dl { display: grid; grid-template-columns: minmax(6rem, max-content) minmax(0, 1fr); gap: 6px 16px; margin: 0; font-size: 14px; line-height: 1.5; }
+    .source-header dt { font-weight: 700; }
+    .source-header dd { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
     .wait-map { display: grid; gap: 6px; margin: 0 0 16px; padding: 12px; background: #f7faff; border: 1px solid var(--border); border-radius: 12px; }
     .wait-row { display: grid; grid-template-columns: 52px minmax(130px, 1fr) 26px minmax(160px, 2fr); gap: 8px; align-items: center; font-size: 13px; }
     .wait-pid { color: var(--muted); font-variant-numeric: tabular-nums; }
@@ -113,17 +133,20 @@
     .history-footer a { color: var(--accent); text-decoration: none; }
     .history-footer a:hover { text-decoration: underline; }
     @media (max-width: 1100px) { .overview-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 900px) { .toolbar { grid-template-columns: 1fr; } .card-head { flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 900px) { .toolbar { grid-template-columns: 1fr; position: static; } .toolbar ~ * .card[id] { scroll-margin-top: 16px; } .card-head { flex-direction: column; align-items: flex-start; } }
+    @media (max-width: 680px) { .handbook-layout { grid-template-columns: 1fr; } .handbook-toc { position: static; max-height: none; } }
     @media (max-width: 560px) { .overview-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 560px) { .source-header dl { grid-template-columns: 1fr; } .source-header dd:not(:last-child) { margin-bottom: 6px; } }
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
+      <a class="gpsuser-overview" href="../../index.html">← All GPSUSERs</a>
       <h1>File Overview</h1>
       <p>Generated from: /storage/homefs/l_code_fin/GPSUSER</p>
-      <p>Updated: 2026-11-26 09:00:32</p>
-      <nav class='nav'><a class='' href='bernese_bpe_manual.html'>Overview</a><a class='' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
+      <p>Updated: 2026-11-26 09:58:58</p>
+      <nav class='nav' aria-label='Manual navigation'><a class='' href='bernese_bpe_manual.html'>Overview</a><a class='' href='bernese_bpe_pcf.html'>PCF</a><a class='' href='bernese_bpe_stories.html'>Process Explanations</a><a class='' href='bernese_bpe_scripts.html'>Scripts</a><a class='' href='bernese_bpe_inp.html'>INP</a><a class='' href='bernese_bpe_handbook.html'>Handbook</a><a class='' href='bernese_bpe_history.html'>History</a></nav>
     </div>
     
     <div class="stats">
@@ -135,7 +158,7 @@
       <div class="stat"><div class="label">OPT DIRS</div><div class="value">244</div></div>
       <div class="stat"><div class="label">INP fields</div><div class="value">517303</div></div>
       <div class="stat"><div class="label">Handbook pages</div><div class="value">0</div></div>
-      <div class="stat"><div class="label">History entries</div><div class="value">84</div></div>
+      <div class="stat"><div class="label">History entries</div><div class="value">92</div></div>
     </div>
     
     
@@ -40146,35 +40169,33 @@
     </div>
     
     <div class="footer">To update this manual, run <code>update_manual.py</code>. Created by C.K.</div>
-    <div class="history-footer">Last change: 2026-11-26T08:56:36+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
+    <div class="history-footer">Last change: 2026-11-26T09:53:45+01:00 by Cyril Kobel (Built) - <a href="bernese_bpe_history.html">full change history</a></div>
   </div>
   <script>
     const q = document.getElementById('q');
     const kind = document.getElementById('kind');
     const sort = document.getElementById('sort');
-    const cards = Array.from(document.querySelectorAll('.card'));
+    const cards = Array.from(document.querySelectorAll('[data-kind]'));
     const handbookGroups = Array.from(document.querySelectorAll('.handbook-group'));
+    const handbookNoResults = document.getElementById('handbook-no-results');
     function normalize(s) { return (s || '').toLowerCase(); }
     function refresh() {
-      if (!q || !kind || !sort) return;
-      const query = normalize(q.value);
-      const filterKind = kind.value;
+      const query = normalize(q.value.trim());
+      const filterKind = kind?.value || 'all';
       const byKind = { pcf: 0, story: 1, script: 2, file: 3, inp: 4, handbook: 5, history: 6 };
       cards.forEach(card => {
         const cardKind = card.dataset.kind;
-        const text = normalize(card.innerText);
+        const text = normalize(card.textContent);
         const okKind = filterKind === 'all' || filterKind === cardKind;
         const okQuery = !query || text.includes(query);
         card.classList.toggle('hidden', !(okKind && okQuery));
       });
-      if (handbookGroups.length) {
-        handbookGroups.forEach(group => {
-          const visibleCards = Array.from(group.querySelectorAll('.card')).some(card => !card.classList.contains('hidden'));
-          const defaultOpen = group.dataset.defaultOpen === '1';
-          group.open = query || filterKind !== 'all' ? visibleCards : defaultOpen;
-        });
-      }
+      handbookGroups.forEach(group => {
+        group.classList.toggle('hidden', !group.querySelector('.handbook-entry:not(.hidden)'));
+      });
       const visible = cards.filter(card => !card.classList.contains('hidden'));
+      handbookNoResults?.classList.toggle('hidden', visible.length !== 0);
+      if (!sort) return;
       visible.sort((a, b) => {
         if (sort.value === 'kind') {
             const titleA = a.querySelector('h3')?.innerText || a.querySelector('.pcf-toggle-title')?.innerText || '';
@@ -40188,6 +40209,7 @@
       visible.forEach(card => card.parentElement.appendChild(card));
     }
     function focusTargetFromHash() {
+      if (!window.location.hash) return;
       let id;
       try {
         id = decodeURIComponent(window.location.hash.slice(1));
@@ -40196,14 +40218,15 @@
       }
       const target = document.getElementById(id);
       if (!target) return;
+      if (target.closest('.handbook-reading') && q?.value) {
+        q.value = '';
+        refresh();
+      }
       for (let node = target; node; node = node.parentElement) {
-        if (node.classList?.contains('card')) node.classList.remove('hidden');
+        node.classList.remove('hidden');
         if (node instanceof HTMLDetailsElement) node.open = true;
       }
-      if (target.classList.contains('card')) {
-        target.querySelector(':scope > details')?.setAttribute('open', '');
-        target.querySelector('.handbook-text')?.setAttribute('open', '');
-      }
+      target.closest('.card')?.querySelector(':scope > details')?.setAttribute('open', '');
       target.scrollIntoView({ block: 'start' });
     }
 
@@ -40259,13 +40282,11 @@
         focusTargetFromHash();
       }
     });
-    if (q && kind && sort) {
-      q.addEventListener('input', refresh);
-      kind.addEventListener('change', refresh);
-      sort.addEventListener('change', refresh);
-    }
+    q?.addEventListener('input', refresh);
+    kind?.addEventListener('change', refresh);
+    sort?.addEventListener('change', refresh);
     window.addEventListener('hashchange', focusTargetFromHash);
-    window.addEventListener('load', focusTargetFromHash);
+    focusTargetFromHash();
   </script>
 </body>
 </html>

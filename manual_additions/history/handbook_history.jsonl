@@ -86,3 +86,11 @@
 {"timestamp": "2026-11-26T08:44:59+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
 {"timestamp": "2026-11-26T08:52:36+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
 {"timestamp": "2026-11-26T08:56:36+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-11-26T09:34:13+01:00", "user": "Cyril Kobel", "action": "menu_action", "target": "a", "summary": "Selected option a: Only rebuild the manual", "path": ""}
+{"timestamp": "2026-11-26T09:34:14+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 3 source(s)", "path": ""}
+{"timestamp": "2026-11-26T09:34:14+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-11-26T09:42:57+01:00", "user": "Cyril Kobel", "action": "menu_action", "target": "a", "summary": "Selected option a: Only rebuild the manual", "path": ""}
+{"timestamp": "2026-11-26T09:43:01+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 3 source(s)", "path": ""}
+{"timestamp": "2026-11-26T09:43:01+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-11-26T09:50:21+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}
+{"timestamp": "2026-11-26T09:53:45+01:00", "user": "Cyril Kobel", "action": "built", "target": "manual", "summary": "Generated manual from 1 source(s)", "path": ""}

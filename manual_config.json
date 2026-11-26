@@ -5,5 +5,12 @@
   "source_list_file": "manual_sources.txt",
   "default_comment_title": "Additional note",
   "handbook_full_top_levels": [],
-  "handbook_group_descriptions": {}
+  "handbook_group_descriptions": {},
+  "handbook_order": {
+    "ck18y530-gpsuser": [
+      "Start/Initial Set-up.md",
+      "Start/Quick start.md",
+      "Start/Zero-difference GNSS processing.md"
+    ]
+  }
 }

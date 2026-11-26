@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-11-26 08:49:49
+Generated: 2026-11-26 09:47:49
 
 ## Overview
 
@@ -10,11 +10,11 @@ This manual is generated from one or more configured source directories containi
 
 - PCF files: 24
 - PCF process rows: 576
-- Script files: 333
+- Script files: 345
 - Bernese program references: 199
-- Script file reads: 226
-- Script file writes: 156
-- Script file deletes: 118
+- Script file reads: 295
+- Script file writes: 182
+- Script file deletes: 120
 - File references: 648
 - INP files: 898
 - INP directories: 99
@@ -32,17 +32,25 @@ This manual is generated from one or more configured source directories containi
 
 The following notes belong to this GPSUSER.
 
+- Start: 3 page(s)
 - Operation: 14 page(s)
 - Perl Controller: 15 page(s)
 - Python Controller: 1 page(s)
 - Python Utilities: 9 page(s)
-- Start: 3 page(s)
 - System Overview: 1 page(s)
 
 ## Change History
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
+- 2026-11-26T09:43:01+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T09:43:01+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T09:42:57+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-11-26T09:34:14+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T09:34:14+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T09:34:13+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
+- 2026-11-26T08:56:36+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T08:52:36+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T08:44:59+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T08:44:58+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
 - 2026-11-26T08:44:58+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
@@ -55,14 +63,6 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 - 2026-11-26T07:13:38+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T07:11:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
 - 2026-11-26T07:11:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:11:26+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-11-26T07:11:12+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
-- 2026-11-26T07:11:12+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:11:10+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
-- 2026-11-26T07:10:31+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:08:18+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:06:50+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
-- 2026-11-26T07:06:50+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 
 ## Quick Cross-Reference
 
@@ -649,8 +649,7 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 
 ### CMPSOL.PCF
 
-Compare solution to routine products
-
+- Purpose: Compare solution to routine products
 - Source file: CMPSOL.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -704,8 +703,14 @@ Variables:
 
 ### FZDMGNSS_ORIG_EC.PCF
 
-Final-like (1-day arcs) GNSS solution in
-
+- Description: Final-like (1-day arcs) GNSS solution in  
+  Zero-Difference-Mode (ZDM)
+- Comments: PCF mainly based on legacy clock processing PCFs  
+  (e.g., FCLKGNSS)  
+    
+  Variables  :  
+    
+  Flags (MSC):
 - Author: E. Calero
 - Created: 20-Apr-2021
 - Source file: FZDMGNSS_ORIG_EC.PCF (download from the HTML manual)
@@ -900,10 +905,15 @@ Variables:
 
 ### LEOPOD.PCF
 
-PRECISE ORBIT DETERMINATION FOR LOW EARTH ORBITER - reduced-dynamic and kinematic orbits
-
+- Purpose: PRECISE ORBIT DETERMINATION FOR LOW EARTH ORBITER  
+  - reduced-dynamic and kinematic orbits
+- Notes: A description of the BPE, the use of the BPE server variables, input and  
+  output files as well as the important points to be checked in the processing  
+  summary are provided in  
+  ${U}/PCF/LEOPOD.README    (UNIX/Linux)  
+  %U%\PCF\LEOPOD.README    (Windows)
 - Author: Heike Bock
-- Created: 09-Feb-2012                  Last modified:
+- Created: 09-Feb-2012
 - Source file: LEOPOD.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -1039,8 +1049,10 @@ Variables:
 
 ### ZDGNSS_3D.PCF
 
-Final (3-day arcs) ZD GNSS solution
-
+- Description: Final (3-day arcs) ZD GNSS solution
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 26-May-2026
 - Source file: ZDGNSS_3D.PCF (download from the HTML manual)
@@ -1104,8 +1116,10 @@ Variables:
 
 ### ZDGNSS_3D_FINAL.PCF
 
-Final (3-day arcs) ZD GNSS solution
-
+- Description: Final (3-day arcs) ZD GNSS solution
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 26-May-2026
 - Source file: ZDGNSS_3D_FINAL.PCF (download from the HTML manual)
@@ -1169,8 +1183,10 @@ Variables:
 
 ### ZDGNSS_AR.PCF
 
-AR for ZD-processing
-
+- Description: AR for ZD-processing
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 31-Mar-2026
 - Source file: ZDGNSS_AR.PCF (download from the HTML manual)
@@ -1239,8 +1255,12 @@ Variables:
 
 ### ZDGNSS_CLKDEN.PCF
 
-Clock densification for zero-difference solution
-
+- Description: Clock densification for zero-difference solution
+- Comments: PCF mainly based on legacy FCLKGNSS  
+    
+  Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 06-Jul-2026
 - Source file: ZDGNSS_CLKDEN.PCF (download from the HTML manual)
@@ -1295,8 +1315,12 @@ Variables:
 
 ### ZDGNSS_CLKDEN_FINAL.PCF
 
-Clock densification for zero-difference solution
-
+- Description: Clock densification for zero-difference solution
+- Comments: PCF mainly based on legacy FCLKGNSS  
+    
+  Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 06-Jul-2026
 - Source file: ZDGNSS_CLKDEN_FINAL.PCF (download from the HTML manual)
@@ -1351,8 +1375,7 @@ Variables:
 
 ### ZDGNSS_CMPSOL.PCF
 
-Compare solutions
-
+- Purpose: Compare solutions
 - Source file: ZDGNSS_CMPSOL.PCF (download from the HTML manual)
 
 Resolution chain: `PID -> Script -> Bernese program -> OPT_DIR -> INP`
@@ -1398,8 +1421,10 @@ Variables:
 
 ### ZDGNSS_CODESCREENING.PCF
 
-Screening of code observations
-
+- Description: Screening of code observations
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 31-Mar-2026
 - Source file: ZDGNSS_CODESCREENING.PCF (download from the HTML manual)
@@ -1476,8 +1501,10 @@ Variables:
 
 ### ZDGNSS_FINISH.PCF
 
-Create final products and summaries of ZD processing
-
+- Description: Create final products and summaries of ZD processing
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 31-Mar-2026
 - Source file: ZDGNSS_FINISH.PCF (download from the HTML manual)
@@ -1537,8 +1564,10 @@ Variables:
 
 ### ZDGNSS_FINISH_FINAL.PCF
 
-Create final products and summaries of ZD processing
-
+- Description: Create final products and summaries of ZD processing
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 31-Mar-2026
 - Source file: ZDGNSS_FINISH_FINAL.PCF (download from the HTML manual)
@@ -1653,8 +1682,10 @@ Variables:
 
 ### ZDGNSS_PHASESCREENING.PCF
 
-Screening of phase observations
-
+- Description: Screening of phase observations
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 31-Mar-2026
 - Source file: ZDGNSS_PHASESCREENING.PCF (download from the HTML manual)
@@ -1731,8 +1762,7 @@ Variables:
 
 ### ZDGNSS_PPP.PCF
 
- PRECISE POINT POSITIONING (PPP)
-
+- Purpose: PRECISE POINT POSITIONING (PPP)
 - Author: C. Kobel
 - Created: 12-Nov-2026
 - Source file: ZDGNSS_PPP.PCF (download from the HTML manual)
@@ -1821,8 +1851,13 @@ Variables:
 
 ### ZDGNSS_PREPARATION.PCF
 
-Perform inital step for ZD-processing
-
+- Description: Perform inital step for ZD-processing
+- Comments: Copy observation, necessary files, a priori information  
+  Create initial orbit, prepare observation files  
+    
+  Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 30-Mar-2026
 - Source file: ZDGNSS_PREPARATION.PCF (download from the HTML manual)
@@ -1896,8 +1931,10 @@ Variables:
 
 ### ZDGNSS_PREPROCESSING.PCF
 
-Preprocessing of ZD
-
+- Description: Preprocessing of ZD
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 31-Mar-2026
 - Source file: ZDGNSS_PREPROCESSING.PCF (download from the HTML manual)
@@ -1953,8 +1990,10 @@ Variables:
 
 ### ZDGNSS_SOL_FA.PCF
 
-Compute ZD-solution
-
+- Description: Compute ZD-solution
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 18-Jun-2026
 - Source file: ZDGNSS_SOL_FA.PCF (download from the HTML manual)
@@ -2038,8 +2077,10 @@ Variables:
 
 ### ZDGNSS_SOL_FINAL.PCF
 
-Compute ZD-solution
-
+- Description: Compute ZD-solution
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 18-Jun-2026
 - Source file: ZDGNSS_SOL_FINAL.PCF (download from the HTML manual)
@@ -2123,8 +2164,10 @@ Variables:
 
 ### ZDGNSS_SOL_IA.PCF
 
-Compute ZD-solution
-
+- Description: Compute ZD-solution
+- Comments: Variables  :  
+    
+  Flags (MSC):
 - Author: C. Kobel
 - Created: 18-Jun-2026
 - Source file: ZDGNSS_SOL_IA.PCF (download from the HTML manual)
@@ -2280,8 +2323,12 @@ Variables:
 
 ### ZDMCLKDEN.PCF
 
-Clock densification for zero-difference solution
-
+- Description: Clock densification for zero-difference solution
+- Comments: PCF mainly based on legacy FCLKGNSS  
+    
+  Variables  :  
+    
+  Flags (MSC):
 - Author: E. Calero
 - Created: 02-Jun-2022
 - Source file: ZDMCLKDEN.PCF (download from the HTML manual)
@@ -2332,8 +2379,14 @@ Variables:
 
 ### ZDMFIN3D.PCF
 
-Final-like (3-day arcs) GNSS solution in
-
+- Description: Final-like (3-day arcs) GNSS solution in  
+  Zero-Difference-Mode (ZDM)
+- Comments: PCF mainly based on legacy long-arc processing PCFs  
+  (e.g., IGSFIN3D)  
+    
+  Variables  :  
+    
+  Flags (MSC):
 - Author: E. Calero
 - Created: 10-May-2021
 - Source file: ZDMFIN3D.PCF (download from the HTML manual)
@@ -2381,16 +2434,42 @@ Variables:
 
 ## Script Catalog
 
+### #ZD_COPY_FIL_3D#
+
+- Package: `COPY_FIL_3D`
+- Name: COPY_FIL_3D
+- Purpose: Copy files from hard-coded directory
+- Author: C. Kobel
+- Created: 10-May-2021
+- Changes: 26-May-2026 CK: Revised and formatted
+- Read keys:
+  - V_ variables: `V_APR`, `V_APRORB`, `V_CRDINF`, `V_PSDINF`
+  - Other keys: `$YD+0`, `$YD+1`, `$YD-1`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`
+- File reads: `$ENV{REF}/REFCLK.FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR??$YSS+0???.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR99$YSS-1.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR99$YSS+1.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS+0.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS-1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS+1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+0.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS-1.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+1.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+0.EXT_RPR`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS-1.EXT_RPR` and 3 more
+- File writes: `DIR_FIXREFCLK.EXT_FIX`, `DIR_NEQ`, `DIR_ERP`, `DIR_STD`, `DIR_RPR`, `DIR_CLK`, `DIR_FIX`
+- Source file: #ZD_COPY_FIL_3D# (download from the HTML manual)
 ### ADDNEQ2
 
-- Purpose: Combine NQ0-files Programs:  ADDNEQ2, GPSXTR
+- Name: ADDNEQ2
+- Purpose: Combine NQ0-files  
+    
+  Programs:  ADDNEQ2, GPSXTR
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `ADDNEQ2`, `GPSXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `GPSXTR.INP`
 - Source file: ADDNEQ2 (download from the HTML manual)
 ### ADDNEQ2C
 
-- Purpose: Execute ADDNEQ2 according to the input argument and create datum file
+- Name: ADDNEQ2C
+- Purpose: Execute ADDNEQ2 according to the input argument and create datum  
+  file
+- Parameters: PARAM1: Value of user variable $(SOL)
+- Author: E. Calero
+- Created: 25-Feb-2020
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`
@@ -2401,14 +2480,25 @@ Variables:
 ### ADDNEQOR
 
 - Package: `ADDNEQ2`
-- Purpose: Combine NQ0-files Programs:  ADDNEQ2, GPSXTR
+- Name: ADDNEQ2
+- Purpose: Combine NQ0-files  
+    
+  Programs:  ADDNEQ2, GPSXTR
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`
 - Source file: ADDNEQOR (download from the HTML manual)
 ### ADDNEQZD
 
+- Name: ADDNEQZD
 - Purpose: Execute ADDNEQ2 according to the input argument
+- Parameters: PARAM1: Value of user variable $(SOL)
+- Author: E. Calero
+- Created: 25-Feb-2020
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`
@@ -2419,7 +2509,11 @@ Variables:
 ### ADDNEQZM
 
 - Package: `ADDNEQZD`
+- Name: ADDNEQZD
 - Purpose: Execute ADDNEQ2 according to the input argument
+- Parameters: PARAM1: Value of user variable $(SOL)
+- Author: E. Calero
+- Created: 25-Feb-2020
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`
@@ -2428,7 +2522,9 @@ Variables:
 - Source file: ADDNEQZM (download from the HTML manual)
 ### AMB_EXTRACT
 
-- Purpose: Extract useful summary entries ("Tot:") from IARyyssss.PRC and write formatted table lines to PROCESSING_yyddd. ============================================================================
+- Name: AMB_EXTRACT
+- Purpose: Extract useful summary entries (&quot;Tot:&quot;) from IARyyssss.PRC  
+  and write formatted table lines to PROCESSING_yyddd.
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_Z`
@@ -2438,7 +2534,11 @@ Variables:
 - Source file: AMB_EXTRACT (download from the HTML manual)
 ### AMBINI
 
-- Purpose: Execute SATMRK ti initialize already resolved ambiguities (if V_AMBINI = 'Y')
+- Name: AMBINI
+- Purpose: Execute SATMRK ti initialize already resolved ambiguities  
+  (if V_AMBINI = &#x27;Y&#x27;)
+- Author: D. Arnold
+- Created: 20-Mar-2019
 - Bernese programs: `SATMRK`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `SATMRK.INP`
@@ -2447,7 +2547,14 @@ Variables:
 - Source file: AMBINI (download from the HTML manual)
 ### APPOSB
 
-- Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB file V_OSB. Does nothing if V_ESTOSB is empty or NO.
+- Name: APPOSB
+- Purpose: Appends estimated OSB values from file V_ESTOSB to input OSB  
+  file V_OSB. Does nothing if V_ESTOSB is empty or NO.
+- Author: D. Arnold
+- Created: 07-Apr-2022
+- Changes: 15-Sep-2026 CK: Treat V_ESTOSB=NO like an empty value  
+  31-Jan-2023 DA: Appended yyssss to OSB names  
+  18-Jan-2024 DA: Removed yyssss from OSB names
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_ESTOSB`, `V_OSB`
@@ -2455,14 +2562,25 @@ Variables:
 - Source file: APPOSB (download from the HTML manual)
 ### ATTXTR
 
-- Purpose: Excecute ATTXTR Programs:  ATTXTR
+- Name: ATTXTR
+- Purpose: Excecute ATTXTR  
+    
+  Programs:  ATTXTR
+- Author: C. Kobel
+- Created: 24-Nov-2025
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `ATTXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ATTXTR.INP`
 - Source file: ATTXTR (download from the HTML manual)
 ### BPE_CLN
 
+- Name: BPE_CLN
 - Purpose: Clean BPE subdirectory
+- Author: S. Schaer
+- Created: 16-Feb-2004
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - Other keys: `$S-(30)`, `$YSS-(30)`, `DIR_BPELOG`, `DIR_BPEPRT`, `EXT_BPELOG`, `EXT_BPEPRT`, `TASKID`
@@ -2470,14 +2588,29 @@ Variables:
 - Source file: BPE_CLN (download from the HTML manual)
 ### CCRNXC
 
-- Purpose: Concatinate and combine clock RINEX files Programs:  CCRNXC
+- Name: CCRNXC
+- Purpose: Concatinate and combine clock RINEX files  
+    
+  Programs:  CCRNXC
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `CCRNXC`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMCLKDEN.PCF
 - INP files: `CCRNXC.INP`
 - Source file: CCRNXC (download from the HTML manual)
 ### CCRNXCZD
 
-- Purpose: Concatinate and combine clock RINEX files according to the input arguments Programs:  CCRNXC
+- Name: CCRNXCZD
+- Purpose: Concatinate and combine clock RINEX files according to the  
+  input arguments  
+    
+  Programs:  CCRNXC
+- Author: E. Calero
+- Created: 25-Feb-2020
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `CCRNXC`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMFIN3D.PCF
 - INP files: `CCRNXC.INP`
@@ -2486,7 +2619,13 @@ Variables:
 - Source file: CCRNXCZD (download from the HTML manual)
 ### CHECK_AR_SAT
 
-- Purpose: Check whether Ambiugity resolution failed for a satellite, deleting corresponding OUT-files and execute SATMRK. Can be tried in DRY-mode
+- Name: CHECK_AR_SAT
+- Purpose: Check whether Ambiugity resolution failed for a satellite,  
+  deleting corresponding OUT-files and execute SATMRK.  
+  Can be tried in DRY-mode
+- Parameters: DIR_OUT, PARAM2
+- Author: C. Kobel
+- Created: 13-Feb-2026
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `SATMRK.INP`, `SATMRK.INP`
@@ -2500,7 +2639,18 @@ Variables:
 - Source file: CHECK_AR_SAT (download from the HTML manual)
 ### CHECK_GRD_FILES
 
-- Purpose: Check GRD files for existence and NaN values Checks: NTAL_$YD+0.GRD NTOL_$YD+0.GRD HYDL_$YD+0.GRD If a file is missing or contains "nan", a corresponding "no_*" file is created in MSC_yyddd.
+- Name: CHECK_GRD_FILES
+- Purpose: Check GRD files for existence and NaN values  
+    
+  Checks:  
+   NTAL_$YD+0.GRD  
+   NTOL_$YD+0.GRD  
+   HYDL_$YD+0.GRD  
+    
+  If a file is missing or contains &quot;nan&quot;, a  
+  corresponding &quot;no_*&quot; file is created in MSC_yyddd.
+- Author: C. Kobel
+- Created: 18-Aug-2026
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - Other keys: `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`
@@ -2510,7 +2660,14 @@ Variables:
 - Source file: CHECK_GRD_FILES (download from the HTML manual)
 ### CHECK_OBSENTRIES
 
-- Purpose: Prüft, ob zu allen Beobachtungsdateien im RAW-Verzeichnis (Muster: ????$ssss.$yyO) ein Eintrag im Stations-File existiert. Fehlt ein Eintrag, wird eine Meldung ins NUM_OBSFIL-Log geschrieben und die Datei gelöscht.
+- Name: CHECK_OBSENTRIES
+- Purpose: Prüft, ob zu allen Beobachtungsdateien im RAW-Verzeichnis  
+  (Muster: ????$ssss.$yyO) ein Eintrag im Stations-File existiert.  
+  Fehlt ein Eintrag, wird eine Meldung ins NUM_OBSFIL-Log geschrieben  
+  und die Datei gelöscht.
+- Parameters: V_CRDINF, EXT_CRD
+- Author: C. Kobel
+- Created: 06-Nov-2025
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_CRDINF`
@@ -2521,7 +2678,10 @@ Variables:
 - Source file: CHECK_OBSENTRIES (download from the HTML manual)
 ### CHECK_SAT_CLOCKS
 
+- Name: CHECK_SAT_CLOCKS
 - Purpose: Uses python-script to check completeness of satclk
+- Author: C. Kobel
+- Created: 16-Feb-2026
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_Z`
@@ -2529,7 +2689,15 @@ Variables:
 - Source file: CHECK_SAT_CLOCKS (download from the HTML manual)
 ### CHECK_SAT_GAPS
 
-- Purpose: Prüft im SMC-File (PHASE OBSERVATIONS), ob Satelliten Datenlücken aufweisen. Als Datenlücke gilt jedes Zeichen im Zeitstrahl, das nicht '*' ist. Für jeden Satelliten mit Datenlücke wird ein Eintrag ins Processing-Log geschrieben.
+- Name: CHECK_SAT_GAPS
+- Purpose: Prüft im SMC-File (PHASE OBSERVATIONS), ob Satelliten  
+  Datenlücken aufweisen. Als Datenlücke gilt jedes Zeichen  
+  im Zeitstrahl, das nicht &#x27;*&#x27; ist.  
+  Für jeden Satelliten mit Datenlücke wird ein Eintrag  
+  ins Processing-Log geschrieben.
+- Parameters: DIR_OUT
+- Author: C. Kobel
+- Created: 03-Feb-2026
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `SATMRK.INP`, `SATMRK.INP`
@@ -2540,7 +2708,14 @@ Variables:
 - Source file: CHECK_SAT_GAPS (download from the HTML manual)
 ### CHECK_SAT_RMS
 
-- Purpose: Prüft im ORBGEN_APR-File die RMS (M) jedes Satelliten. Wenn RMS > 5.0 m oder RMS ungültig (Sternchen / kaputte Zahl), wird SATMRK ausgeführt. Jeder betroffene Satellit wird ins Processing-Log geschrieben.
+- Name: CHECK_SAT_RMS
+- Purpose: Prüft im ORBGEN_APR-File die RMS (M) jedes Satelliten.  
+  Wenn RMS &gt; 5.0 m oder RMS ungültig (Sternchen / kaputte Zahl),  
+  wird SATMRK ausgeführt.  
+  Jeder betroffene Satellit wird ins Processing-Log geschrieben.
+- Parameters: DIR_OUT
+- Author: C. Kobel
+- Created: 05-Mar-2026
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `SATMRK.INP`, `SATMRK.INP`
@@ -2551,7 +2726,11 @@ Variables:
 - Source file: CHECK_SAT_RMS (download from the HTML manual)
 ### CHECK_VAPL_ENTRIES
 
-- Purpose: Checks OBS files (????$ssss.*) against station entries in STA/VAPL.ATL. If a station is missing in VAPL.ATL, all corresponding OBS files are removed.
+- Name: CHECK_VAPL_ENTRIES
+- Purpose: Checks OBS files (????$ssss.*) against station entries  
+  in STA/VAPL.ATL. If a station is missing in VAPL.ATL,  
+  all corresponding OBS files are removed.
+- Author: C. Kobel
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `DIR_OUT`
@@ -2561,7 +2740,11 @@ Variables:
 - Source file: CHECK_VAPL_ENTRIES (download from the HTML manual)
 ### CLEAN_FILES
 
+- Name: CLEAN_FILES
 - Purpose: Delete specific files, only if V_CLEAN=Y.
+- Parameters: CLEAN
+- Author: C. Kobel
+- Created: 30-Oct-2025
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_C`, `V_CLEAN`, `V_E`, `V_H`, `V_I`, `V_K`, `V_L`, `V_U`, `V_W`, `V_Z`
@@ -2571,7 +2754,28 @@ Variables:
 - Source file: CLEAN_FILES (download from the HTML manual)
 ### CLEANUP
 
-- Purpose: Clean up campaign of LEOPOD processing: - Append first 100 lines of GNSS PRE file and clock RINEX file, as well as ERP file to PRC file - Delete GNSS clock RINEX file - Delete LEO RINEX file and smoothed LEO RINEX file - Delete LEO attitude file - Delete OUT/$A$YSS+0.CLK (CODSPP of PID 110) - Delete OUT/M$A?$YSS+0.RES (MAUPRP of PID 140) - Delete OUT/$A$YSS+0.RES (GPSEST of PID 150) - Compress OUT/KN$F$YSS+0.COV (GPSEST of PID 600) - Compress OUT/KN$F$YSS+0.CLK (GPSEST of PID 600) The Bernese clock file and the GNSS orbit and ERP files are not deleted since they might still be used if several LEOs are processed in parallel.
+- Name: CLEANUP
+- Purpose: Clean up campaign of LEOPOD processing:  
+  - Append first 100 lines of GNSS PRE file and clock RINEX file,  
+    as well as ERP file to PRC file  
+  - Delete GNSS clock RINEX file  
+  - Delete LEO RINEX file and smoothed LEO RINEX file  
+  - Delete LEO attitude file  
+  - Delete OUT/$A$YSS+0.CLK (CODSPP of PID 110)  
+  - Delete OUT/M$A?$YSS+0.RES (MAUPRP of PID 140)  
+  - Delete OUT/$A$YSS+0.RES (GPSEST of PID 150)  
+  - Compress OUT/KN$F$YSS+0.COV (GPSEST of PID 600)  
+  - Compress OUT/KN$F$YSS+0.CLK (GPSEST of PID 600)  
+    
+  The Bernese clock file and the GNSS orbit and ERP files are not  
+  deleted since they might still be used if several LEOs are  
+  processed in parallel.
+- Author: D. Arnold
+- Created: 20-Dec-2016
+- Changes: 11-Dec-2017 DA: Delete also SMT file  
+  13-Apr-2022 DA: Removed DIR_TAB and EXT_TAB  
+  15-Nov-2024 DA: Check if PRC avail., use V_ATT, del. BSW clk. file  
+  18-Nov-2024 DA: Do not del. BSW clk. file (parallel POD)
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_ATT`, `V_B`, `V_CLEAN`, `V_CLK`, `V_DEL`, `V_F`, `V_LEO`
@@ -2583,7 +2787,13 @@ Variables:
 ### CLKEST
 
 - Package: `HCLKEST`
-- Purpose: CLKEST for High-rate clocks, RAPID and FINAL Programs:  HCLKEST Authors:   H. Bock
+- Name: HCLKEST
+- Purpose: CLKEST for High-rate clocks, RAPID and FINAL  
+    
+  Programs:  HCLKEST
+- Author: H. Bock
+- Created: 07-July-2003
+- Changes: 08-Feb-2005 mm: $s replaced by $bpe
 - Bernese programs: `CLKEST`
 - Used in PCFs: ZDMCLKDEN.PCF
 - INP files: `CLKEST.INP`, `CLKEST.INP`, `CLKEST.INP`
@@ -2593,7 +2803,12 @@ Variables:
 ### CLKESTCB
 
 - Package: `CLKEST`
-- Purpose: CLKEST Authors:   H. Bock
+- Name: CLKEST
+- Purpose: CLKEST
+- Author: H. Bock
+- Created: 07-July-2003
+- Changes: 10-Feb-2005 mm: $s replaced by $bpe  
+  26-May-2026 CK: Revised and formatted
 - Bernese programs: `CLKEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `CLKEST.INP`, `CLKEST.INP`
@@ -2603,7 +2818,11 @@ Variables:
 - Source file: CLKESTCB (download from the HTML manual)
 ### CMP_CLKDIFF
 
+- Name: CMP_CLKDIFF
 - Purpose: Compare two CLK files and write difference statistics (incl. STD).
+- Parameters: FILE_CLK1, FILE_CLK2, FILE_OUT
+- Author: C. Kobel
+- Created: 17-Oct-2025
 - Used in PCFs: CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_CLK`, `V_SOL`
@@ -2611,7 +2830,10 @@ Variables:
 - Source file: CMP_CLKDIFF (download from the HTML manual)
 ### CMP_COP
 
+- Name: CMP_COP
 - Purpose: Copy files required by CMPSOL.PCF
+- Author: C. Kobel
+- Created: 17-Oct-2025
 - Used in PCFs: CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_SOL`
@@ -2619,7 +2841,11 @@ Variables:
 - Source file: CMP_COP (download from the HTML manual)
 ### CMP_ERPDIFF
 
+- Name: CMP_ERPDIFF
 - Purpose: Compare two ERP files and write difference statistics.
+- Parameters: FILE_ERP1, FILE_ERP2, FILE_OUT
+- Author: C. Kobel
+- Created: 17-Oct-2025
 - Used in PCFs: CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_ERP`, `V_SOL`
@@ -2629,7 +2855,10 @@ Variables:
 - Source file: CMP_ERPDIFF (download from the HTML manual)
 ### CMP_LAPACK
 
+- Name: CMP_LAPACK
 - Purpose: Compare solution computed using LAPACK
+- Author: C. Kobel
+- Created: 15-Dec-2025
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_L`, `V_Z`
@@ -2637,7 +2866,10 @@ Variables:
 - Source file: CMP_LAPACK (download from the HTML manual)
 ### CMP_SUM
 
+- Name: CMP_SUM
 - Purpose: Make summary of comparison
+- Author: C. Kobel
+- Created: 17-Oct-2025
 - Used in PCFs: CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_CLK`, `V_CRD`, `V_ERP`, `V_PRE`, `V_SOL`, `V_STD`
@@ -2645,7 +2877,12 @@ Variables:
 - Source file: CMP_SUM (download from the HTML manual)
 ### CODSPP
 
+- Name: CODSPP
 - Purpose: Execute CODSPP
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  15-Oct-2013 SS: Stop if no CZH files found
 - Bernese programs: `CODSPP`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `CODSPP.INP`
@@ -2655,7 +2892,12 @@ Variables:
 - Source file: CODSPP (download from the HTML manual)
 ### CODSPP_P
 
+- Name: CODSPP_P
 - Purpose: Execute CODSPP (parallel mode)
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `CODSPP`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `CODSPP.INP`, `CODSPP.INP`
@@ -2665,7 +2907,14 @@ Variables:
 - Source file: CODSPP_P (download from the HTML manual)
 ### CODSPPAP
 
+- Name: CODSPPAP
 - Purpose: Prepare parallel CODSPP run
+- Parameters: PARAM2 - output file identifier (default: SPP)  
+  PARAM3 - empty: stop if no CZH files are found
+- Author: M. Meindl
+- Created: 30-Oct-2003
+- Changes: 31-Jan-2005 MM: New initPar call (w/o tmpFil)  
+  11-Aug-2011 RD: Updated for version 5.2
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -2675,7 +2924,12 @@ Variables:
 - Source file: CODSPPAP (download from the HTML manual)
 ### CODSPPS
 
-- Purpose: Call CODSPP for LEO POD Programs:  CODSPP Authors:   D. Arnold
+- Name: CODSPP
+- Purpose: Call CODSPP for LEO POD  
+    
+  Programs:  CODSPP
+- Author: D. Arnold
+- Created: 29-Aug-2016
 - Bernese programs: `CODSPP`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `CODSPP.INP`, `CODSPP.INP`
@@ -2685,7 +2939,20 @@ Variables:
 - Source file: CODSPPS (download from the HTML manual)
 ### CODXTR
 
-- Purpose: Execute CODXTR Remark  :  reject binary observation files if the correspsonding option in CODXTR is enabled
+- Name: CODXTR
+- Purpose: Execute CODXTR  
+    
+  Remark  :  reject binary observation files  
+  if the correspsonding option in CODXTR is enabled
+- Parameters: Note - these are optional parameters:  
+  PARAM1: NEXTJOB to check whether the last observation file  
+          has been deleted  
+  PARAM2: PID of the protocol script of the BPE
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  14-Jun-2013 RD: Call for &quot;deleteFiles&quot; corrected  
+  20-Dec-2013 RD/SS: Improve deletion features
 - Bernese programs: `CODXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `CODXTR.INP`
@@ -2696,7 +2963,12 @@ Variables:
 - Source file: CODXTR (download from the HTML manual)
 ### COMPAR2
 
-- Purpose: COMPAR2 Programs:  COMPAR2 Authors:   C. Kobel
+- Name: COMPAR2
+- Purpose: COMPAR2  
+    
+  Programs:  COMPAR2
+- Author: C. Kobel
+- Created: 17-Oct-2025
 - Bernese programs: `COMPAR2`
 - Used in PCFs: CMPSOL.PCF
 - INP files: `COMPAR2.INP`, `COMPAR2.INP`
@@ -2706,7 +2978,11 @@ Variables:
 - Source file: COMPAR2 (download from the HTML manual)
 ### COMPAR2_VS
 
+- Name: COMPAR2_VS
 - Purpose: Execute COMPAR2 w/ input from -7,...,0 days
+- Author: C. Kobel
+- Created: 16-Mar-2026
+- Changes: C.Kobel: Compare to CODE routine product
 - Bernese programs: `COMPAR2`
 - Used in PCFs: VALIDATE_SOLUTION.PCF
 - INP files: `COMPAR2.INP`, `COMPAR2.INP`
@@ -2716,7 +2992,12 @@ Variables:
 - Source file: COMPAR2_VS (download from the HTML manual)
 ### COMPAR2_ZD
 
-- Purpose: COMPAR2 Programs:  COMPAR2 Authors:   C. Kobel
+- Name: COMPAR2_ZD
+- Purpose: COMPAR2  
+    
+  Programs:  COMPAR2
+- Author: C. Kobel
+- Created: 15-Dec-2025
 - Bernese programs: `COMPAR2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `COMPAR2.INP`, `COMPAR2.INP`
@@ -2726,7 +3007,10 @@ Variables:
 - Source file: COMPAR2_ZD (download from the HTML manual)
 ### CONCATOUT_VS
 
+- Name: CONCATOUT_VS
 - Purpose: Concatenate VALIDATE_SOLUTION.PCF output files
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Used in PCFs: VALIDATE_SOLUTION.PCF
 - Read keys:
   - V_ variables: `V_CRD`, `V_OUT`, `V_STD`
@@ -2737,7 +3021,12 @@ Variables:
 - Source file: CONCATOUT_VS (download from the HTML manual)
 ### COOVEL
 
+- Name: COOVEL
 - Purpose: Programs:  COOVEL
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `COOVEL`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMFIN3D.PCF
 - INP files: `COOVEL.INP`
@@ -2745,7 +3034,10 @@ Variables:
 ### COPY_APR_AR_new
 
 - Package: `COPY_APR_AR`
+- Name: COPY_APR_AR
 - Purpose: Copy a priori Orbits (PRE/STD/RPR)
+- Author: C. Kobel
+- Created: 17-Jun-2026
 - Used in PCFs: ZDGNSS_AR.PCF
 - Read keys:
   - V_ variables: `V_APR`
@@ -2756,7 +3048,10 @@ Variables:
 - Source file: COPY_APR_AR_new (download from the HTML manual)
 ### COPYSOL_VS
 
+- Name: COPYSOL_VS
 - Purpose: Copy solution files from V_SOLDIR
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Used in PCFs: VALIDATE_SOLUTION.PCF
 - Read keys:
   - V_ variables: `V_CRD`, `V_PRE`, `V_REFCRD`, `V_SATCRX`, `V_SOLDIR`, `V_STD`
@@ -2764,7 +3059,12 @@ Variables:
 - Source file: COPYSOL_VS (download from the HTML manual)
 ### DEL_CLKD
 
+- Name: DEL_CLKD
 - Purpose: Delete ZD-related result files, only if V_DEL=Y.
+- Parameters: DEL
+- Author: C. Kobel
+- Created: 06-Jan-2026  
+  Updated :
 - Used in PCFs: ZDMCLKDEN.PCF
 - Read keys:
   - V_ variables: `V_DEL`, `V_K`, `V_Q`
@@ -2774,7 +3074,12 @@ Variables:
 - Source file: DEL_CLKD (download from the HTML manual)
 ### DEL_CMP
 
+- Name: DEL_CMP
 - Purpose: Delete CMP- and related result files, only if V_DEL=Y.
+- Parameters: DEL
+- Author: C. Kobel
+- Created: 08-Dec-2025  
+  Updated :
 - Used in PCFs: CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_DEL`
@@ -2784,7 +3089,10 @@ Variables:
 - Source file: DEL_CMP (download from the HTML manual)
 ### DEL_LOBS
 
+- Name: DEL_LOBS
 - Purpose: Delete observation files listed in CODXTR output
+- Author: C. Kobel
+- Created: 28-Oct-2025
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
@@ -2794,7 +3102,12 @@ Variables:
 - Source file: DEL_LOBS (download from the HTML manual)
 ### DEL_ZD3D
 
+- Name: DEL_ZD3D
 - Purpose: Delete ZD-related result files, only if V_DEL=Y.
+- Parameters: DEL
+- Author: C. Kobel
+- Created: 08-Dec-2025  
+  Updated :
 - Used in PCFs: ZDMFIN3D.PCF
 - Read keys:
   - V_ variables: `V_DEL`, `V_K`, `V_T`, `V_Z`
@@ -2804,12 +3117,34 @@ Variables:
 - Source file: DEL_ZD3D (download from the HTML manual)
 ### DUMMY
 
-- Purpose: A BPE script to do nothing Can e used to indicate the end of a section in the BPE or even as the final script of a BPE
+- Name: DUMMY
+- Purpose: A BPE script to do nothing  
+  Can e used to indicate the end of a section in the BPE or  
+  even as the final script of a BPE
+- Author: R. Dach
+- Created: 01-Aug-2020
 - Used in PCFs: LEOPOD.PCF
 - Source file: DUMMY (download from the HTML manual)
 ### FILEST_P
 
-- Purpose: Station-wise zero-difference data screening: 1. GPSEST to create a residual files 2. RESRMS to screen residual files 3. RESCHK To detect bad stations 4. SATMRK to mark outliers
+- Name: FILEST_P
+- Purpose: Station-wise zero-difference data screening:  
+    
+  1. GPSEST to create a residual files  
+  2. RESRMS to screen residual files  
+  3. RESCHK To detect bad stations  
+  4. SATMRK to mark outliers
+- Parameters: PARAM1 - temporary file for parallel processing  
+  PARAM2..PARAM5 - CODE PHASE BOTH  
+           to select the observation files type for screening
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Changes: 05-Mar-2017 AV: Check if ION file is available  
+  18-Sep-2017 AV: Switch GMF/VMF for PPPFINAL  
+  15-May-2018 SS: Switch for PPPAR  
+  04-Jun-2018 SS: Merged script version (for fin and rap)  
+  20-Jan-2018 AV: Switch for RCLKGNSS  
+  07-Dec-2020 RD: Add PCF variable V_TRPMOD
 - Bernese programs: `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMCLKDEN.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -2822,7 +3157,17 @@ Variables:
 - Source file: FILEST_P (download from the HTML manual)
 ### FILESTAP
 
-- Purpose: Station-wise zero-difference data screening Programs:
+- Name: FILESTAP
+- Purpose: Station-wise zero-difference data screening  
+    
+  Programs:
+- Parameters: PARAM1 - temporary file for parallel processing  
+  PARAM2..PARAM5 - CODE PHASE BOTH  
+           to select the observation files type for screening
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Last modified: 31-Jan-2005
+- Changes: 31-Jan-2005 mm: New initPar call (w/o tmpFil)
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMCLKDEN.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -2832,7 +3177,38 @@ Variables:
 - Source file: FILESTAP (download from the HTML manual)
 ### FIX_CHK
 
-- Purpose: Execute HELMR1 Remark  :  This script permits automatic verification of a given set of fiducial stations. In case of discrepancies, a modified FIX file can be output by HELMR1 and thus used to directly repeat the last ADDNEQ2 run, finally considering a reduced set of fiducial stations accepted for consistent datum definition.
+- Name: FIX_CHK
+- Purpose: Execute HELMR1  
+    
+  Remark  :  This script permits automatic verification of a given set of  
+  fiducial stations. In case of discrepancies, a modified FIX  
+  file can be output by HELMR1 and thus used to directly repeat  
+  the last ADDNEQ2 run, finally considering a reduced set of  
+  fiducial stations accepted for consistent datum definition.
+- Parameters: PARAM2 - goto PID for new datum definition (optionally)  
+  PARAM3 - STOP option for CRD (cross-)checking (optionally)
+- Author: M. Meindl, S. Schaer
+- Created: 19-Oct-2003
+- Changes: 07-Feb-2006/ss: Check whether PARAM2 defined  
+  02-Sep-2010/ss/mm: Deactivated outlier rejection for second  
+                  HELMR1 run  
+  26-Sep-2012/ss: Further developed  
+  27-Sep-2012/ss: STOP option implemented (activated with PARAM3)  
+  28-Sep-2012/ss: Print LST filename in case of a stop  
+  17-Apr-2013/hb: Exception for doy 13102 F1-F1C added  
+  18-Apr-2013/cb: Exception for doy 13103 F3-F3C added  
+  29-May-2013/cb: Exceptions for doy 13144 F3S and 13145 F1S added  
+  30-May-2013/cb: Exceptions for doy 13146 F1S and 13145 F3S added  
+  31-May-2013/cb: Exceptions for doy 13147 F1S and 13146 F3S added  
+  01-Jun-2013/cb: Exceptions for doy 13148 F1S and 13147 F3S added  
+  02-Jun-2013/cb: Exceptions for doy 13149 F1S and 13148 F3S added  
+  03-Jun-2013/hb: Exceptions for doy 13150 F1S and 13149 F3S added  
+  03-Jun-2013/ss: Most recent exceptions removed  
+  04-Jun-2014/ss: Considered ULTyyddd.FLG  
+  10-Sep-2014/ss: Increased tolerances in case of RAP  
+  16-Dec-2014/ss/av: Updated for new HELMR1 (with ADDSTA/MAXREJ)  
+  16-SEP-2015/rd: Relax HELMR1 check if singular elements are detected  
+  18-May-2021/ec: Adapt script to FZDMGNSS (add $sol variable)
 - Bernese programs: `HELMR1`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `HELMR1.INP`, `MENU_EXT.INP`, `HELMR1.INP`
@@ -2844,7 +3220,15 @@ Variables:
 ### FZDM_CH1
 
 - Package: `RCLK_CHK`
-- Purpose: Checks residuals from rapid clock estimation for bad stations Programs:  RESCHK
+- Name: RCLK_CHK
+- Purpose: Checks residuals from rapid clock estimation for bad stations  
+    
+  Programs:  RESCHK
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 21-Jul-2010
+- Changes: 26-May-2009 rd: RESCHK: YY_DDD -&gt; YY_SSSS  
+  21-Jul-2010 rd: run a RESRMS without residual screening first
 - Bernese programs: `RESCHK`, `RESRMS`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RESCHK.INP`, `RESRMS.INP`, `RESCHK.INP`, `RESRMS.INP`
@@ -2856,7 +3240,13 @@ Variables:
 ### FZDM_CH2
 
 - Package: `FZDM_CHK`
-- Purpose: Checks residuals from final clock estimation for bad stations (based on FCLK_CHK) Programs:  RESRMS, RESCHK
+- Name: FZDM_CHK
+- Purpose: Checks residuals from final clock estimation for bad stations  
+  (based on FCLK_CHK)  
+    
+  Programs:  RESRMS, RESCHK
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Bernese programs: `RESCHK`, `RESRMS`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RESCHK.INP`, `RESRMS.INP`, `RESCHK.INP`, `RESRMS.INP`
@@ -2869,7 +3259,10 @@ Variables:
 - Source file: FZDM_CH2 (download from the HTML manual)
 ### FZDM_COP
 
+- Name: FZDM_COP
 - Purpose: Copy files requiered by FZDMGNSS.PCF
+- Author: E. Calero
+- Created: 20-Apr-2021
 - Bernese programs: `POLUPD`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `POLUPD.INP`
@@ -2881,7 +3274,12 @@ Variables:
 - Source file: FZDM_COP (download from the HTML manual)
 ### FZDM_RNX
 
+- Name: FZDM_RNX
 - Purpose: Copy observation files for FZDMGNSS.PCF
+- Author: E. Calero
+- Created: 20-Apr-2021
+- Changes: C. Kobel: 14-Jan-2026: Use put_igsdata.com directly  
+   C. Kobel: 14-Jan-2026: Change data to be copied: defined by V_MODE
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_MODE`
@@ -2891,7 +3289,9 @@ Variables:
 - Source file: FZDM_RNX (download from the HTML manual)
 ### FZDM_UPD
 
+- Name: FZDM_UPD
 - Purpose: Update files after first FA run of FZDMGNSS.PCF
+- Author: E. Calero
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_K`
@@ -2901,7 +3301,14 @@ Variables:
 - Source file: FZDM_UPD (download from the HTML manual)
 ### GPSEST
 
+- Name: GPSEST
 - Purpose: Execute GPSEST
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  12-Aug-2014 DA: Check V_OFFS  
+  09-Feb-2022 DA: Added V_IGNERR  
+  02-Apr-2024 DA: Introduced V_POBS and V_COBS
 - Bernese programs: `GPSEST`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -2912,7 +3319,13 @@ Variables:
 - Source file: GPSEST (download from the HTML manual)
 ### GPSESTA
 
-- Purpose: Execute GPSEST, switch on NL AR if V_AR = 'Y'
+- Name: GPSESTA
+- Purpose: Execute GPSEST, switch on NL AR if V_AR = &#x27;Y&#x27;
+- Author: D. Arnold
+- Created: 19-Mar-2019
+- Changes: 17-Jun-2019 DA: Introduce V_INL1L2  
+  09-Feb-2022 DA: Added V_IGNERR  
+  01-Apr-2024 DA: Introduced V_POBS
 - Bernese programs: `GPSEST`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -2923,7 +3336,13 @@ Variables:
 - Source file: GPSESTA (download from the HTML manual)
 ### GPSESTA2
 
-- Purpose: Execute GPSEST, introoducing L1 and L2 integers depending on V_AR and V_INL1L2.
+- Name: GPSESTA2
+- Purpose: Execute GPSEST, introoducing L1 and L2 integers depending on  
+  V_AR and V_INL1L2.
+- Author: D. Arnold
+- Created: 01-Sep-2020
+- Changes: 09-Feb-2022 DA: Added V_IGNERR  
+  01-Apr-2024 DA: Introduced V_POBS
 - Bernese programs: `GPSEST`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -2934,7 +3353,12 @@ Variables:
 - Source file: GPSESTA2 (download from the HTML manual)
 ### GPSESTRB
 
-- Purpose: Execute GPSEST, estimate receiver code biases if V_ESTOSB contains an output-file prefix (neither empty nor NO).
+- Name: GPSESTRB
+- Purpose: Execute GPSEST, estimate receiver code biases if V_ESTOSB contains  
+  an output-file prefix (neither empty nor NO).
+- Author: D. Arnold
+- Created: 07-Apr-2022
+- Changes: 15-Sep-2026 CK: Treat V_ESTOSB=NO like an empty value
 - Bernese programs: `GPSEST`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -2944,14 +3368,20 @@ Variables:
 - Source file: GPSESTRB (download from the HTML manual)
 ### GPSXTR
 
+- Name: GPSXTR
 - Purpose: Execute GPSXTR
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `GPSXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `GPSXTR.INP`
 - Source file: GPSXTR (download from the HTML manual)
 ### GPSXTR_EXTRACT
 
-- Purpose: Extract Rms, #fil, #obs, #par from LARGEXTRyyssss.SUM Write them to PROCESSING_yyddd in table format. ============================================================================
+- Name: GPSXTR_EXTRACT
+- Purpose: Extract Rms, #fil, #obs, #par from LARGEXTRyyssss.SUM  
+  Write them to PROCESSING_yyddd in table format.
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_L`, `V_Z`
@@ -2962,14 +3392,23 @@ Variables:
 ### GPSXTRL
 
 - Package: `GPSXTR`
+- Name: GPSXTR
 - Purpose: Execute GPSXTR
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `GPSXTR`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `GPSXTR.INP`
 - Source file: GPSXTRL (download from the HTML manual)
 ### HELMR1
 
-- Purpose: HELMR1 Programs:  HELMR1 Authors:   C. Kobel
+- Name: HELMR1
+- Purpose: HELMR1  
+    
+  Programs:  HELMR1
+- Author: C. Kobel
+- Created: 10-Nov-2025
 - Bernese programs: `HELMR1`
 - Used in PCFs: CMPSOL.PCF
 - INP files: `HELMR1.INP`, `HELMR1.INP`
@@ -2979,7 +3418,12 @@ Variables:
 - Source file: HELMR1 (download from the HTML manual)
 ### HELMR1_VS
 
-- Purpose: HELMR1 Programs:  HELMR1 Authors:   C. Kobel
+- Name: HELMR1_VS
+- Purpose: HELMR1  
+    
+  Programs:  HELMR1
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Bernese programs: `HELMR1`
 - Used in PCFs: VALIDATE_SOLUTION.PCF
 - INP files: `HELMR1.INP`
@@ -2989,7 +3433,12 @@ Variables:
 - Source file: HELMR1_VS (download from the HTML manual)
 ### IAR_STA
 
-- Purpose: Generate statistics of AR based on IAR_PRC script Programs:  GPSXTR
+- Name: IAR_STA
+- Purpose: Generate statistics of AR based on IAR_PRC script  
+    
+  Programs:  GPSXTR
+- Author: E. Calero
+- Created: 02-Dec-2021
 - Bernese programs: `GPSXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `GPSXTR.INP`, `GPSXTR.INP`
@@ -2999,7 +3448,17 @@ Variables:
 - Source file: IAR_STA (download from the HTML manual)
 ### INIT_BRD
 
-- Purpose: Initialization broadcast PRE and CLK files Programs:
+- Name: INIT_BRD
+- Purpose: Initialization broadcast PRE and CLK files  
+    
+  Programs:
+- Author: A. Villiger / P. Stebler
+- Created: 06-Apr-2020
+- Changes: 08-Apr-2020 AV/ST: Copied from l_code_fin to l_code_mgex.  
+                  Change from V_O to V_A for $brd.  
+                  Append underscore if V_? variable has only length 2.  
+  22-Apr-2020 ST: Change &#x27;RB_&#x27; to &#x27;BRD_&#x27;.  
+                  No more underscore heuristics.
 - Bernese programs: `RXN2PRE`, `SATCLK2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RXN2PRE.INP`, `SATCLK2.INP`
@@ -3011,7 +3470,8 @@ Variables:
 - Source file: INIT_BRD (download from the HTML manual)
 ### INIT_HOI
 
-- Purpose: Copy best ionosphere product for HOI correction ============================================================================
+- Name: INIT_HOI
+- Purpose: Copy best ionosphere product for HOI correction
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMCLKDEN.PCF
 - Read keys:
   - V_ variables: `V_USEHOI`
@@ -3019,7 +3479,17 @@ Variables:
 - Source file: INIT_HOI (download from the HTML manual)
 ### INIT_VMF
 
-- Purpose: Initialization concerning VMF setup Programs:
+- Name: INIT_VMF
+- Purpose: Initialization concerning VMF setup  
+    
+  Programs:
+- Author: S. Schaer
+- Created: 07-Oct-2010
+- Changes: 08-Oct-2010/ss: msg2key statement added  
+  08-Oct-2010/ss: Consider ULT FLG file  
+  15-Oct-2010/ss: Take over VMF information if indicated  
+  18-Oct-2010/ss: Do not execute get_vmf.com in ULT mode  
+  16-Feb-2011 mf: Do not get latest VMF grid files in repro mode
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMCLKDEN.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y+0`, `$YD+0`, `CAMPAIGN`, `CAMP_PTH`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`, `PCFFIL`, `TASKID`
@@ -3027,7 +3497,13 @@ Variables:
 - Source file: INIT_VMF (download from the HTML manual)
 ### ITEPHASE
 
-- Purpose: Progressively modifies the residuals threshold for phase & code observations screening Programs:
+- Name: ITEPHASE
+- Purpose: Progressively modifies the residuals threshold for phase &amp; code  
+  observations screening  
+    
+  Programs:
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_H`
@@ -3038,7 +3514,14 @@ Variables:
 - Source file: ITEPHASE (download from the HTML manual)
 ### ITEPRECL
 
-- Purpose: This script manages the iterative process in charge of the pre-elimination of the clocks Programs:
+- Name: ITEPRECL
+- Purpose: This script manages the iterative process in charge of the  
+  pre-elimination of the clocks  
+    
+  Programs:
+- Author: E. Calero
+- Created: 25-Apr-2021
+- Changes: 31-Oct-2025: CK: Use day-specific MSC directory
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - PARAM parameters: `PARAM3`
@@ -3048,7 +3531,12 @@ Variables:
 - Source file: ITEPRECL (download from the HTML manual)
 ### ITER_AR
 
-- Purpose: Iterations for AR Programs:
+- Name: ITER_AR
+- Purpose: Iterations for AR  
+    
+  Programs:
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_NITEAR`
@@ -3057,7 +3545,12 @@ Variables:
 - Source file: ITER_AR (download from the HTML manual)
 ### JUMP_CP1
 
-- Purpose: Conduct logical flow through the PCF: screen or not observations Programs:
+- Name: JUMP_CP1
+- Purpose: Conduct logical flow through the PCF: screen or not observations  
+    
+  Programs:
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_REPINI`
@@ -3066,7 +3559,12 @@ Variables:
 - Source file: JUMP_CP1 (download from the HTML manual)
 ### JUMP_CP2
 
-- Purpose: Conduct logical flow through the PCF: screen or not observations Programs:
+- Name: JUMP_CP2
+- Purpose: Conduct logical flow through the PCF: screen or not observations  
+    
+  Programs:
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_REPINI`
@@ -3080,14 +3578,22 @@ Variables:
 - Source file: JumpLogger.pm (download from the HTML manual)
 ### KINPRE
 
+- Name: KINPRE
 - Purpose: Execute KINPRE
+- Author: H. Bock
+- Created: 28-May-2004
+- Changes: 25-Jul-2013 SS: Updated to common layout
 - Bernese programs: `KINPRE`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `KINPRE.INP`
 - Source file: KINPRE (download from the HTML manual)
 ### LEO_CHECK
 
-- Purpose: Check LEOPOD quality indicators before the LEO NEQ processing, remove failed LEOs from the daily LFILE and write a daily report.
+- Name: LEO_CHECK
+- Purpose: Check LEOPOD quality indicators before the LEO NEQ processing,  
+  remove failed LEOs from the daily LFILE and write a daily report.
+- Author: C. Kobel
+- Created: 16-Sep-2026
 - Used in PCFs: ZDGNSS_LEONEQ.PCF
 - Read keys:
   - V_ variables: `V_LFILE`, `V_MAXS`, `V_MAX_ALL`, `V_MAX_R`, `V_MAX_S`, `V_MAX_W`
@@ -3095,7 +3601,11 @@ Variables:
 - Source file: LEO_CHECK (download from the HTML manual)
 ### LEO_COP
 
+- Name: LEO_COP
 - Purpose: Copy files for LEOPOD2.PCF / LEOPODR.PCF
+- Author: D. Arnold
+- Created: 03-Jan-2023
+- Changes: 18-Jan-2024 DA: Change of V_OSB format (contains now full name)
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_ATLINF`, `V_B`, `V_BLQINF`, `V_CLK`, `V_CLKDIR`, `V_CRDINF`, `V_ORBDIR`, `V_OSB`, `V_REFDIR`, `V_STAINF`
@@ -3104,7 +3614,22 @@ Variables:
 - Source file: LEO_COP (download from the HTML manual)
 ### LEO_DEL
 
-- Purpose: Clean up campaign of LEOPOD processing, default for -5 days
+- Name: LEO_DEL
+- Purpose: Clean up campaign of LEOPOD processing,  
+  default for -5 days
+- Parameters: PARAM1: may specify the delay in sessions to delete the files  
+          generated by the LEOPOD BPE  
+          Examples:  
+          &quot;-5&quot;   : delete with five sessions  
+          &quot;-(24)&quot;: delete with 24 sessions delay  
+                   (note that the value from PARAM1 is used to  
+                   extent the BPE time variables in a getKeys-call  
+                   below)  
+          &quot;TODAY&quot;: delete the files of the current session
+- Author: H. Bock
+- Created: 19-Mar-2012
+- Changes: 06-Jun-2016 DA: Delete LEO-specific RNX ERR file  
+  13-Apr-2022 DA: Removed DIR_TAB and EXT_TAB
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_B`, `V_DEL`, `V_F`, `V_LEO`
@@ -3124,7 +3649,11 @@ Variables:
 - Source file: LEO_DEL (download from the HTML manual)
 ### LEO_NEQ_CHECK
 
-- Purpose: Check the daily NEQ output for every selected LEO and write a date-specific report into the MSC directory.
+- Name: LEO_NEQ_CHECK
+- Purpose: Check the daily NEQ output for every selected LEO and write a  
+  date-specific report into the MSC directory.
+- Author: C. Kobel
+- Created: 16-Sep-2026
 - Used in PCFs: ZDGNSS_LEONEQ.PCF
 - Read keys:
   - V_ variables: `V_LFILE`
@@ -3132,7 +3661,10 @@ Variables:
 - Source file: LEO_NEQ_CHECK (download from the HTML manual)
 ### LEO_NEQ_E
 
+- Name: LEO_NEQ_E
 - Purpose: Execute GPSEST for one LEO.
+- Author: C. Kobel
+- Created: 10-Sep-2026
 - Bernese programs: `GPSEST`
 - Used in PCFs: ZDGNSS_LEONEQ.PCF
 - INP files: `GPSEST.INP`
@@ -3142,7 +3674,11 @@ Variables:
 - Source file: LEO_NEQ_E (download from the HTML manual)
 ### LEO_NEQ_P
 
+- Name: LEO_NEQ_P
 - Purpose: Prepare one parallel GPSEST job per selected LEO.
+- Author: C. Kobel
+- Created: 10-Sep-2026
+- Changes: 16-Sep-2026  Read the filtered LFILE copy with the YYSSSS suffix.
 - Used in PCFs: ZDGNSS_LEONEQ.PCF
 - Read keys:
   - V_ variables: `V_LFILE`
@@ -3150,7 +3686,12 @@ Variables:
 - Source file: LEO_NEQ_P (download from the HTML manual)
 ### LEO_RNX
 
+- Name: LEO_RNX
 - Purpose: Copy the observation files for LEOPOD.PCF
+- Author: H. Bock
+- Created: 05-Mar-2012
+- Changes: 09-Oct-2014 DA: Consider V_RNXDIR  
+  06-Jul-2019 DA: Consider V_ATT
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_ATLINF`, `V_ATT`, `V_ATTDIR`, `V_B`, `V_BLQINF`, `V_CLK`, `V_CRDINF`, `V_DEL`, `V_F`, `V_LEO`, `V_LEODIR`, `V_MINEL`, `V_OFFS`, `V_PCV`, `V_PCVINF`, `V_REFDIR`, `V_RESULT`, `V_RNX3`, `V_RNXDIR`
@@ -3158,7 +3699,11 @@ Variables:
 - Source file: LEO_RNX (download from the HTML manual)
 ### LEO_SAV
 
+- Name: LEO_SAV
 - Purpose: Store LEOPOD BPE processing result files in the archive
+- Author: H. Bock
+- Created: 16-Mar-2012
+- Changes: 28-Nov-2019 DA: Commented out setvar (stopps BPE server)
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_F`, `V_LEO`, `V_RESULT`, `V_SAV`
@@ -3166,7 +3711,12 @@ Variables:
 - Source file: LEO_SAV (download from the HTML manual)
 ### LEO_SELECT
 
-- Purpose: Check the LEO configuration, copy it for the current YYSSSS and retain only included LEOs for which a PRE orbit file exists.
+- Name: LEO_SELECT
+- Purpose: Check the LEO configuration, copy it for the current YYSSSS and  
+  retain only included LEOs for which a PRE orbit file exists.
+- Author: C. Kobel
+- Created: 10-Sep-2026
+- Changes: 16-Sep-2026  Copy and filter the LFILE using the available PRE orbit files.
 - Used in PCFs: ZDGNSS_LEONEQ.PCF
 - Read keys:
   - V_ variables: `V_LFILDIR`, `V_LFILE`
@@ -3175,14 +3725,26 @@ Variables:
 ### LEO_SELECT~
 
 - Package: `LEO_SELECT`
-- Purpose: Check the LEO configuration, copy it for the current YYSSSS and retain only included LEOs for which a PRE orbit file exists.
+- Name: LEO_SELECT
+- Purpose: Check the LEO configuration, copy it for the current YYSSSS and  
+  retain only included LEOs for which a PRE orbit file exists.
+- Author: C. Kobel
+- Created: 10-Sep-2026
+- Changes: 16-Sep-2026  Copy and filter the LFILE using the available PRE orbit files.
 - Read keys:
   - V_ variables: `V_LFILDIR`, `V_LFILE`
   - Other keys: `$YSS+0`, `DIR_ORB`, `DIR_OUT`, `EXT_PRE`
 - Source file: LEO_SELECT~ (download from the HTML manual)
 ### LEO_SUM
 
+- Name: LEO_SUM
 - Purpose: Create LEOPOD BPE processing summary file
+- Author: H. Bock
+- Created: 22-Feb-2012
+- Changes: 23-Dec-2014 DA: Separate clock ID  
+  06-Jun-2016 DA: LEO-specific temp. SUM and RNX ERR file  
+  07-Dec-2019 DA: Adapted to new GPSEST output format (1.1)  
+  07-Jul-2023 DA: Corrected extraction of kin. POD metrics
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_ATLINF`, `V_ATTDIR`, `V_B`, `V_BLQINF`, `V_CLK`, `V_CRDINF`, `V_F`, `V_LEO`, `V_LEODIR`, `V_MINEL`, `V_OBSSEL`, `V_PCV`, `V_PCVINF`, `V_REFDIR`, `V_REFINF`, `V_RESULT`, `V_RNXDIR`, `V_SATCRX`, `V_SATINF`
@@ -3192,7 +3754,10 @@ Variables:
 - Source file: LEO_SUM (download from the HTML manual)
 ### LEOATT
 
+- Name: LEOATT
 - Purpose: Execute LEOATT
+- Author: D. Arnold
+- Created: 27-May-2021
 - Bernese programs: `LEOATT`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `LEOATT.INP`
@@ -3202,7 +3767,10 @@ Variables:
 - Source file: LEOATT (download from the HTML manual)
 ### LEOITER
 
+- Name: LEOITER
 - Purpose: Iterate the red.-dyn. POD if V_ITRD is set.
+- Author: D. Arnold
+- Created: 14-Jun-2016
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_A`, `V_F`, `V_ITRD`
@@ -3213,7 +3781,11 @@ Variables:
 - Source file: LEOITER (download from the HTML manual)
 ### MANMRK
 
+- Name: MANMRK
 - Purpose: Mark observations for satellites with manoeuvres
+- Author: E. Calero
+- Created: 02-Jul-2021
+- Changes: C. Kobel: Also exclude satellites with (-)-sign
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `SATMRK.INP`, `SATMRK.INP`
@@ -3225,7 +3797,15 @@ Variables:
 - Source file: MANMRK (download from the HTML manual)
 ### MAUPRP_P
 
-- Purpose: Execute MAUPRP (parallel mode) Remark  :  This script may be used to process zero or single difference observation files (both input fields are filled in).
+- Name: MAUPRP_P
+- Purpose: Execute MAUPRP (parallel mode)  
+    
+  Remark  :  This script may be used to process zero or single difference  
+  observation files (both input fields are filled in).
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `MAUPRP`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `MAUPRP.INP`, `MAUPRP.INP`
@@ -3235,7 +3815,16 @@ Variables:
 - Source file: MAUPRP_P (download from the HTML manual)
 ### MAUPRPAP
 
-- Purpose: Prepare parallel MAUPRP run Remark  :  This script may be used to process zero or signel difference observation files (the switch is taken from the input file).
+- Name: MAUPRPAP
+- Purpose: Prepare parallel MAUPRP run  
+    
+  Remark  :  This script may be used to process zero or signel difference  
+  observation files (the switch is taken from the input file).
+- Parameters: PARAM2 - output file identifier (default: MPR)  
+  PARAM3 - empty: stop if no PZH/PSH files are found
+- Author: M. Meindl, S. Schaer
+- Created: 30-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -3245,7 +3834,13 @@ Variables:
 - Source file: MAUPRPAP (download from the HTML manual)
 ### MKCLUS
 
-- Purpose: Run MKCLUS Programs:  MKCLUS Authors:   R. Dach
+- Name: MKCLUS
+- Purpose: Run MKCLUS  
+    
+  Programs:  MKCLUS
+- Author: R. Dach
+- Created: 03-July-2009
+- Changes: 07-Jun-2016 RD: Add version with compatible attitude modelling
 - Bernese programs: `MKCLUS`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `MKCLUS.INP`, `MKCLUS.INP`
@@ -3256,7 +3851,16 @@ Variables:
 - Source file: MKCLUS (download from the HTML manual)
 ### MPGPUP
 
+- Name: MPGPUP
 - Purpose: Loop with MAUPRP,GPSEST and ORBGEN for LEO screening
+- Author: H. Bock
+- Created: 02-Feb-2012
+- Changes: 04-Jul-2016 DA: Use V_NSCR  
+  23-Sep-2016 DA: Write out residuals in MAUPRP and GPSEST  
+  06-Sep-2018 DA: Set max. pot. deg. via V_POTDEG  
+  09-Feb-2022 DA: Added V_IGNERR  
+  17-Jan-2023 DA: Corrected setting of max. pot. deg.  
+  24-Jun-2024 DA: Allow for multiple obs. files
 - Bernese programs: `GPSEST`, `GPSXTR`, `MAUPRP`, `ORBGEN`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `GPSEST.INP`, `GPSXTR.INP`, `MAUPRP.INP`, `ORBGEN.INP`, `GPSEST.INP`, `GPSXTR.INP`, `MAUPRP.INP`, `ORBGEN.INP`
@@ -3267,7 +3871,20 @@ Variables:
 - Source file: MPGPUP (download from the HTML manual)
 ### MPRXTR
 
-- Purpose: Execute MPRXTR Remark  :  reject binary observation files if the correspsonding option in MPRXTR is enabled
+- Name: MPRXTR
+- Purpose: Execute MPRXTR  
+    
+  Remark  :  reject binary observation files  
+  if the correspsonding option in MPRXTR is enabled
+- Parameters: PARAM1: NEXTJOB to check whether the last observation file  
+          has been deleted  
+  PARAM2: PID of the SNGDIF script of the BPE  
+  PARAM3: PID of the protocol script of the BPE
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  14-Jun-2013 RD: Call for &quot;deleteFiles&quot; corrected  
+  20-Dec-2013 RD/SS: Improve deletion features
 - Bernese programs: `MPRXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `MPRXTR.INP`
@@ -3278,7 +3895,16 @@ Variables:
 - Source file: MPRXTR (download from the HTML manual)
 ### MRKOB__P
 
-- Purpose: Mark observations corresponding to an edit file Programs:  SATMRK
+- Name: MRKOB__P
+- Purpose: Mark observations corresponding to an edit file  
+    
+  Programs:  SATMRK
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: __-___-____
+- Changes: 26-Jan-2021 ec: Modify package name to avoid conflict with a  
+                  script with same name but different content in  
+                  final campaign
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `SATMRK.INP`, `SATMRK.INP`
@@ -3289,7 +3915,17 @@ Variables:
 - Source file: MRKOB__P (download from the HTML manual)
 ### MRKOB_AP
 
-- Purpose: Prepare parallel SATMRK runs Programs:
+- Name: MRKOB_AP
+- Purpose: Prepare parallel SATMRK runs  
+    
+  Programs:
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 19-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames  
+  26-Jan-2021 ec: Modify package name to avoid conflict with a  
+                  script with same name but different content in  
+                  final campaign
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_NCLU`
@@ -3299,7 +3935,14 @@ Variables:
 - Source file: MRKOB_AP (download from the HTML manual)
 ### MRKOBS_P
 
-- Purpose: Mark observations corresponding to an edit file Programs:  SATMRK
+- Name: MRKOBS_P
+- Purpose: Mark observations corresponding to an edit file  
+    
+  Programs:  SATMRK
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `SATMRK.INP`, `SATMRK.INP`, `SATMRK.INP`
@@ -3309,7 +3952,17 @@ Variables:
 - Source file: MRKOBS_P (download from the HTML manual)
 ### MRKOBSAP
 
-- Purpose: Prepare parallel MRKOBS run Programs:
+- Name: MRKOBSAP
+- Purpose: Prepare parallel MRKOBS run  
+    
+  Programs:
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 23-Jul-2008
+- Changes: 26-Jan-2006 mm: New initPar call (w/o tmpFil)  
+  10-Feb-2005 mm: Old date variables removed  
+  10-Jul-2008 rd: temp files contain session  
+  23-Jul-2008 rd: prepare for reprocessing
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`, `PARAM5`, `PARAM6`
@@ -3318,7 +3971,12 @@ Variables:
 - Source file: MRKOBSAP (download from the HTML manual)
 ### NUM_OBSFIL
 
-- Purpose: Count observation files in RAW directory. Write the count to output file and add a warning if below default.
+- Name: NUM_OBSFIL
+- Purpose: Count observation files in RAW directory.  
+  Write the count to output file and add a warning if below default.
+- Parameters: optional: V_MINCOUNT
+- Author: C. Kobel
+- Created: 18-Oct-2025
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_MINCOUNT`
@@ -3327,7 +3985,12 @@ Variables:
 - Source file: NUM_OBSFIL (download from the HTML manual)
 ### OBS_REN
 
-- Purpose: Rename zero difference Bernese observation files from $(LEO)ssss.??? to $(LEO)ssss_$(F).???. Only if V_OBSREN is set to 'Y'.
+- Name: OBS_REN
+- Purpose: Rename zero difference Bernese observation files from  
+  $(LEO)ssss.??? to $(LEO)ssss_$(F).???.  
+  Only if V_OBSREN is set to &#x27;Y&#x27;.
+- Author: D. Arnold
+- Created: 09-May-2018
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_F`, `V_LEO`, `V_OBSREN`
@@ -3335,14 +3998,19 @@ Variables:
 - Source file: OBS_REN (download from the HTML manual)
 ### OBSXTR
 
+- Name: OBSXTR
 - Purpose: Execute OBSXTR
+- Author: E. Calero
+- Created: 12-Jul-2021
 - Bernese programs: `OBSXTR`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `OBSXTR.INP`
 - Source file: OBSXTR (download from the HTML manual)
 ### OBSXTR_EXTRACT
 
-- Purpose: Extract "files do contain" statistics from OBSXTRF1I.OUT. Write them to PROCESSING_yyddd in table format. ============================================================================
+- Name: OBSXTR_EXTRACT
+- Purpose: Extract &quot;files do contain&quot; statistics from OBSXTRF1I.OUT.  
+  Write them to PROCESSING_yyddd in table format.
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_Z`
@@ -3352,7 +4020,18 @@ Variables:
 - Source file: OBSXTR_EXTRACT (download from the HTML manual)
 ### ORB_VER
 
-- Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:  ORBGEN
+- Name: ORB_VER
+- Purpose: ORBIT QUALITY CHECKS:  
+  3-DAY ORBIT OVERLAPS (ORBGEN)  
+    
+  Programs:  ORBGEN
+- Author: S. Schaer
+- Created: 22-Feb-2011
+- Changes: 22-Feb-2011/ss: Execute orb_ver.com  
+  24-Feb-2011/ss: Make use of new options concerning orb_ver.com  
+  25-Sep-2012/ss: Extract LST file identifier  
+  27-Feb-2013/ss: Use special SAT info file  
+  12-Dec-2023/da: Introduced day-specific satellite exclusion
 - Bernese programs: `ORBGEN`
 - Used in PCFs: CMPSOL.PCF, VALIDATE_SOLUTION.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3361,7 +4040,12 @@ Variables:
 - Source file: ORB_VER (download from the HTML manual)
 ### ORBAPF
 
+- Name: ORBAPF
 - Purpose: Execute ORBGEN with a special ERP file
+- Author: H. Bock
+- Created: 02-Feb-2012
+- Changes: 04-Sep-2018 DA: Set max. pot. deg. via V_POTDEG  
+  17-Jan-2023 DA: Corrected setting of max. pot. deg.
 - Bernese programs: `ORBGEN`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3372,7 +4056,14 @@ Variables:
 - Source file: ORBAPF (download from the HTML manual)
 ### ORBAPR
 
-- Purpose: Execute ORBGEN with a special ERP file Generate first a priori orbit for LEO from code-derived kinematic positions
+- Name: ORBAPR
+- Purpose: Execute ORBGEN with a special ERP file  
+  Generate first a priori orbit for LEO from code-derived kinematic  
+  positions
+- Author: H. Bock
+- Created: 31-Jan-2012
+- Changes: 04-Sep-2018 DA: Set max. pot. deg. via V_POTDEG  
+  17-Jan-2023 DA: Corrected setting of max. pot. deg.
 - Bernese programs: `ORBGEN`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3383,7 +4074,12 @@ Variables:
 - Source file: ORBAPR (download from the HTML manual)
 ### ORBAPRS
 
-- Purpose: Execute ORBGEN with short arcs (only if V_SPEC = 'Y')
+- Name: ORBAPRS
+- Purpose: Execute ORBGEN with short arcs (only if V_SPEC = &#x27;Y&#x27;)
+- Author: D. Arnold
+- Created: 13-Aug-2014
+- Changes: 04-Sep-2018 DA: Set max. pot. deg. via V_POTDEG  
+  17-Jan-2023 DA: Corrected setting of max. pot. deg.
 - Bernese programs: `ORBGEN`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3394,14 +4090,21 @@ Variables:
 - Source file: ORBAPRS (download from the HTML manual)
 ### ORBCMP
 
+- Name: ORBCMP
 - Purpose: Execute ORBCMP
+- Author: R. Dach
+- Created: 11-Aug-2011
 - Bernese programs: `ORBCMP`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `ORBCMP.INP`
 - Source file: ORBCMP (download from the HTML manual)
 ### ORBCMPL
 
+- Name: ORBCMPL
 - Purpose: Execute ORBCMP for ORBCMP.PCF
+- Author: D. Arnold
+- Created: 03-Sep-2014
+- Changes: C.Kobel: Compare to CODE routine product
 - Bernese programs: `ORBCMP`
 - Used in PCFs: CMPSOL.PCF
 - INP files: `ORBCMP.INP`, `ORBCMP.INP`
@@ -3411,7 +4114,10 @@ Variables:
 - Source file: ORBCMPL (download from the HTML manual)
 ### ORBGEN
 
+- Name: ORBGEN
 - Purpose: Execute ORBGEN
+- Author: E. Calero
+- Created: 20-Apr-2021
 - Bernese programs: `ORBGEN`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMFIN3D.PCF
 - INP files: `ORBGEN.INP`
@@ -3419,7 +4125,13 @@ Variables:
 ### ORBGENL
 
 - Package: `ORBGEN`
+- Name: ORBGEN
 - Purpose: Execute ORBGEN
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  04-Sep-2018 DA: Set max. pot. deg. via V_POTDEG  
+  17-Jan-2023 DA: Corrected setting of max. pot. deg.
 - Bernese programs: `ORBGEN`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3428,7 +4140,10 @@ Variables:
 - Source file: ORBGENL (download from the HTML manual)
 ### ORBGENZD
 
+- Name: ORBGENZD
 - Purpose: Execute ORBGEN according to the input argument
+- Author: E. Calero
+- Created: 20-Feb-2020
 - Bernese programs: `ORBGEN`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ORBGEN.INP`
@@ -3437,7 +4152,11 @@ Variables:
 - Source file: ORBGENZD (download from the HTML manual)
 ### ORBGENZD_FIN
 
+- Name: ORBGENZD_FIN
 - Purpose: Execute ORBGEN according to the input argument
+- Author: E. Calero
+- Created: 20-Feb-2020
+- Changes: C. Kobel: 12-Dec-2025: Added LARGE solution
 - Bernese programs: `ORBGEN`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -3447,7 +4166,12 @@ Variables:
 - Source file: ORBGENZD_FIN (download from the HTML manual)
 ### OSBMERGE
 
-- Purpose: Merge OSB-files Programs:
+- Name: OSBMERGE
+- Purpose: Merge OSB-files  
+    
+  Programs:
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_C`
@@ -3458,7 +4182,15 @@ Variables:
 - Source file: OSBMERGE (download from the HTML manual)
 ### PHABIA
 
+- Name: PHABIA
 - Purpose: Execute PHABIA
+- Author: S. Schaer
+- Created: 26-Jul-2017
+- Changes: 19-Sep-2017 AV: Modified OSB generation(replace L.X)  
+  22-May-2018 SS: Translation of PARAMs  
+  20-Jun-2018 SS: Added ECJ  
+  24-Sep-2018 SS: Corrected WL_/WLB OSB in case of WLB  
+  23-Apr-2021 EC: Introduce changes to be consistent with FZDMGNSS
 - Bernese programs: `PHABIA`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `MENU_PGM.INP`, `PHABIA.INP`
@@ -3469,7 +4201,16 @@ Variables:
 - Source file: PHABIA (download from the HTML manual)
 ### PHACMB
 
+- Name: PHACMB
 - Purpose: Execute PHACMB
+- Author: S. Schaer
+- Created: 26-Jul-2017
+- Changes: 19-Sep-2017 AV: Modified OSB generation(replace L.X)  
+  26-Sep-2017 SS: Corrections concerning $iz_file and $izdfile  
+  22-May-2018 SS: Translation of PARAMs  
+  05-Jun-2018 SS: Created PHA OSB file  
+  20-Jun-2018 SS: Added ECJ  
+  19-Sep-2018 SS: Considered NO_NLB.FLG
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
@@ -3506,14 +4247,25 @@ Variables:
 - Source file: plotORBVER~ (download from the HTML manual)
 ### POLUPD
 
-- Purpose: Execute POLUPD Programs:  POLUPD
+- Name: POLUPD
+- Purpose: Execute POLUPD  
+    
+  Programs:  POLUPD
+- Author: E. Calero
+- Created: 11-May-2021
+- Changes: __-___-____ __:
 - Bernese programs: `POLUPD`
 - Used in PCFs: ZDMFIN3D.PCF
 - INP files: `POLUPD.INP`
 - Source file: POLUPD (download from the HTML manual)
 ### PRECLK
 
-- Purpose: Pre-eliminate last set of clocks Programs:  ADDNEQ2
+- Name: PRECLK
+- Purpose: Pre-eliminate last set of clocks  
+    
+  Programs:  ADDNEQ2
+- Author: E. Calero
+- Created: 25-Apr-2021
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -3523,7 +4275,14 @@ Variables:
 - Source file: PRECLK (download from the HTML manual)
 ### PRECLK_P
 
-- Purpose: Parallel run of ADDNEQ2 using code and phase data to pre-eliminate clocks Programs:  GPSEST
+- Name: PRECLK_P
+- Purpose: Parallel run of ADDNEQ2 using code and phase data to  
+  pre-eliminate clocks  
+    
+  Programs:  GPSEST
+- Author: E. Calero
+- Created: 25-Apr-2021
+- Changes: 31-Oct-2025: CK: Use day-specific MSC directory
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -3533,7 +4292,13 @@ Variables:
 - Source file: PRECLK_P (download from the HTML manual)
 ### PRECLKAP
 
-- Purpose: Prepare parallel ADDNEQ2 run using time intervals Programs:
+- Name: PRECLKAP
+- Purpose: Prepare parallel ADDNEQ2 run using time intervals  
+    
+  Programs:
+- Author: E. Calero
+- Created: 25-Apr-2021
+- Changes: 31-Oct-2025: CK: Use day-specific MSC directory
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
@@ -3541,7 +4306,13 @@ Variables:
 - Source file: PRECLKAP (download from the HTML manual)
 ### REP_COP
 
+- Name: REP_COP
 - Purpose: Copy files requiered by FZDMGNSS.PCF from ZDM repro folder
+- Parameters: PARAM1 - A priori (FA) solution  
+  PARAM2 - Final (IA) 1-day-arc solution  
+  PARAM3 - Weights for code observations
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Bernese programs: `COOVEL`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `COOVEL.INP`
@@ -3553,21 +4324,39 @@ Variables:
 - Source file: REP_COP (download from the HTML manual)
 ### RESRMS
 
+- Name: RESRMS
 - Purpose: Execute RESRMS
+- Author: H. Bock
+- Created: 27-Feb-2012
 - Bernese programs: `RESRMS`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RESRMS.INP`
 - Source file: RESRMS (download from the HTML manual)
 ### RESRMSL
 
-- Purpose: check the residuals for outliers and remove them Programs:  RESRMS
+- Name: RESRMS
+- Purpose: check the residuals for outliers and remove them  
+    
+  Programs:  RESRMS
+- Author: R. Dach
+- Created: 12-Dec-2007
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `RESRMS`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `RESRMS.INP`
 - Source file: RESRMSL (download from the HTML manual)
 ### RESRMSZD
 
-- Purpose: check the residuals for outliers and remove them according to the dictate of the flag Programs:  RESRMS
+- Name: RESRMSZD
+- Purpose: check the residuals for outliers and remove them according to  
+  the dictate of the flag  
+    
+  Programs:  RESRMS
+- Author: E. Calero
+- Created: xx-xxx-20xx
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `RESRMS`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RESRMS.INP`, `RESRMS.INP`
@@ -3589,14 +4378,23 @@ Variables:
 - Source file: RetryHelper.pm (download from the HTML manual)
 ### RNXCLK
 
+- Name: RNXCLK
 - Purpose: Execute RNXCLK
+- Author: R. Dach
+- Created: 11-Aug-2011
 - Bernese programs: `RNXCLK`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `RNXCLK.INP`
 - Source file: RNXCLK (download from the HTML manual)
 ### RNXSMT_P
 
+- Name: RNXSMT_P
 - Purpose: Execute RNXSMT (parallel mode)
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  10-May-2022 LP: Include GPS in any case
 - Bernese programs: `RNXSMT`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RNXSMT.INP`, `RNXSMT.INP`
@@ -3607,7 +4405,14 @@ Variables:
 - Source file: RNXSMT_P (download from the HTML manual)
 ### RNXSMTAP
 
+- Name: RNXSMTAP
 - Purpose: Prepare parallel RNXSMT run
+- Parameters: PARAM2 - output file identifier (default: SMT)  
+  PARAM3 - empty: stop if no RINEX files are found
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Changes: 31-Jan-2005 MM: New initPar call (w/o tmpFil)  
+  11-Aug-2011 RD: Updated for version 5.2
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -3619,7 +4424,10 @@ Variables:
 ### RNXSMTL
 
 - Package: `RNXSMT`
+- Name: RNXSMTS
 - Purpose: Execute RNXSMT
+- Author: H. Bock
+- Created: 24-Apr-2014
 - Bernese programs: `RNXSMT`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `RNXSMT.INP`
@@ -3630,7 +4438,14 @@ Variables:
 - Source file: RNXSMTL (download from the HTML manual)
 ### RXOBV3_P
 
-- Purpose: Execute RXOBV3 (parallel mode) Remark  :  Consider range of sessions for hourly processing
+- Name: RXOBV3_P
+- Purpose: Execute RXOBV3 (parallel mode)  
+    
+  Remark  :  Consider range of sessions for hourly processing
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: R. Dach
+- Created: 01-Aug-2020
+- Changes: 10-May-2022 LP: Include GPS in any case
 - Bernese programs: `RXOBV3`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RXOBV3.INP`, `RXOBV3.INP`
@@ -3641,7 +4456,15 @@ Variables:
 - Source file: RXOBV3_P (download from the HTML manual)
 ### RXOBV3GP
 
-- Purpose: A priori script to prepare parallel running of RXOBV3 (use RNXGRA to find a list of the best stations) Programs:  RNXGRA
+- Name: RXOBV3GP
+- Purpose: A priori script to prepare parallel running of RXOBV3  
+  (use RNXGRA to find a list of the best stations)  
+    
+  Programs:  RNXGRA
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 19-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames
 - Bernese programs: `RNXGRA`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RNXGRA.INP`
@@ -3655,7 +4478,12 @@ Variables:
 ### RXOBV3L
 
 - Package: `RXOBV3`
+- Name: RXOBV3
 - Purpose: Execute RXOBV3
+- Author: S. Schaer
+- Created: 17-Mar-2004
+- Changes: 06-Jun-2016 DA: LEO-specific RNX ERR file  
+  24-Jun-2024 DA: Foresee multiple RINEX files
 - Bernese programs: `RXOBV3`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `RXOBV3.INP`, `RXOBV3.INP`
@@ -3667,7 +4495,11 @@ Variables:
 - Source file: RXOBV3L (download from the HTML manual)
 ### SATMON_P
 
+- Name: SATMON_P
 - Purpose: Execute SATMARK
+- Parameters: PARAM1 - processing station
+- Author: A. Villiger
+- Created: 25-Jul-2016
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `SATMRK.INP`
@@ -3678,7 +4510,20 @@ Variables:
 - Source file: SATMON_P (download from the HTML manual)
 ### SATMONAP
 
-- Purpose: Extract satellite clock estimates (as seen by each station) and eliminate observations using satmark Programs:
+- Name: SATMONAP
+- Purpose: Extract satellite clock estimates (as seen by each station)  
+  and eliminate observations using satmark  
+    
+  Programs:
+- Author: A. Villiger
+- Created: 19-Jul-2016
+- Changes: 25-Jul-2016 AV: Parallelization  
+  16-Aug-2016 AV: Remove empty files  
+  29-Aug-2016 AV: Remove epochs with one observation  
+  13-Oct-2016 AV: Skip if obs file not available  
+  03-Nov-2016 LP: Some bugfixes and slight adaptations to MGEX (e.g., fix in @satSys)  
+  07-Nov-2016 LP: Flexible selection of sampling rate  
+  27-Jan-2021 RD: Four digit year in EDT file
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_SAMPL`
@@ -3691,14 +4536,22 @@ Variables:
 - Source file: SATMONAP (download from the HTML manual)
 ### SATMRK
 
+- Name: SATMRK
 - Purpose: Execute SATMRK
+- Author: S. Schaer
+- Created: 20-Sep-2017
 - Bernese programs: `SATMRK`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, LEOPOD.PCF
 - INP files: `SATMRK.INP`
 - Source file: SATMRK (download from the HTML manual)
 ### SAVECLKDE
 
+- Name: SAVECLKDE
 - Purpose: Save results from clock densification
+- Parameters: PARAM1 - Troposphere solution  
+  PARAM2 - High rate solution
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: ZDMCLKDEN.PCF
 - Read keys:
   - Other keys: `$(SAVE)`, `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `DIR_TRP`, `EXT_CLK`, `EXT_ERP`, `EXT_FIX`
@@ -3707,7 +4560,13 @@ Variables:
 - Source file: SAVECLKDE (download from the HTML manual)
 ### SAVERES
 
+- Name: SAVERES
 - Purpose: Save results
+- Parameters: PARAM1 - A priori (FA) solution  
+  PARAM2 - Final (IA) 1-day-arc solution  
+  PARAM3 - Weights for code observations
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - Other keys: `$(SAVE)`, `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OBX`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `DIR_TRP`, `EXT_CLK`
@@ -3718,7 +4577,13 @@ Variables:
 ### SAVERES3D
 
 - Package: `SAVERES`
+- Name: SAVERES
 - Purpose: Save results
+- Parameters: PARAM1 - A priori (FA) solution  
+  PARAM2 - Final (IA) 1-day-arc solution  
+  PARAM3 - Weights for code observations
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: ZDMFIN3D.PCF
 - Read keys:
   - Other keys: `$(SAVE)`, `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`
@@ -3727,7 +4592,12 @@ Variables:
 - Source file: SAVERES3D (download from the HTML manual)
 ### SKIP_WL
 
-- Purpose: Skip WL ambiguity fixing part unless V_AR = 'Y' or if V_INL1L2 = 'Y'.
+- Name: SKIP_WL
+- Purpose: Skip WL ambiguity fixing part unless V_AR = &#x27;Y&#x27; or if  
+  V_INL1L2 = &#x27;Y&#x27;.
+- Author: D. Arnold
+- Created: 19-Mar-2019
+- Changes: 17-Jun-2019 DA: Introduce V_INL1L2
 - Used in PCFs: LEOPOD.PCF
 - Read keys:
   - V_ variables: `V_AR`, `V_INL1L2`
@@ -3735,7 +4605,12 @@ Variables:
 - Source file: SKIP_WL (download from the HTML manual)
 ### SOLCLK_P
 
-- Purpose: Parallel run of ADDNEQ2 to solve for the individual NEQs Programs:  ADDNEQ2
+- Name: SOLCLK_P
+- Purpose: Parallel run of ADDNEQ2 to solve for the individual NEQs  
+    
+  Programs:  ADDNEQ2
+- Author: E. Calero
+- Created: 25-Apr-2021
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -3745,7 +4620,12 @@ Variables:
 - Source file: SOLCLK_P (download from the HTML manual)
 ### SOLCLKAP
 
-- Purpose: Prepare parallel ADDNEQ2 run using reduced NEQs Programs:
+- Name: SOLCLKAP
+- Purpose: Prepare parallel ADDNEQ2 run using reduced NEQs  
+    
+  Programs:
+- Author: E. Calero
+- Created: 25-Apr-2021
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
@@ -3753,7 +4633,12 @@ Variables:
 - Source file: SOLCLKAP (download from the HTML manual)
 ### SOLLON_P
 
-- Purpose: Stack and solve 3-day NEQs to generate long-arc solution Programs:  ADDNEQ2
+- Name: SOLLON_P
+- Purpose: Stack and solve 3-day NEQs to generate long-arc solution  
+    
+  Programs:  ADDNEQ2
+- Author: E. Calero
+- Created: 12-May-2021
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDMFIN3D.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -3763,7 +4648,12 @@ Variables:
 - Source file: SOLLON_P (download from the HTML manual)
 ### SOLLONAP
 
-- Purpose: Prepare parallel ADDNEQ2 run using reduced NEQs Programs:
+- Name: SOLLONAP
+- Purpose: Prepare parallel ADDNEQ2 run using reduced NEQs  
+    
+  Programs:
+- Author: E. Calero
+- Created: 12-May-2021
 - Used in PCFs: ZDMFIN3D.PCF
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
@@ -3772,7 +4662,14 @@ Variables:
 ### SOSUPDAT
 
 - Package: `SOSMERGE`
-- Purpose: Downweight stations with a bad receiver clock Programs:
+- Name: SOSMERGE
+- Purpose: Downweight stations with a bad receiver clock  
+    
+  Programs:
+- Author: R. Dach
+- Created: 30-Jul-2003
+- Last modified: __-___-____
+- Changes: __-___-____ __:
 - Bernese programs: `RESRMS`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `RESRMS.INP`
@@ -3800,14 +4697,22 @@ Variables:
 - Source file: STATUS (download from the HTML manual)
 ### STDDIF
 
-- Purpose: STDDIF Programs:  STDDIF Authors:   U. Meyer
+- Name: STDDIF
+- Purpose: STDDIF  
+    
+  Programs:  STDDIF
+- Author: U. Meyer
+- Created: 07-May-2013
 - Bernese programs: `STDDIF`
 - Used in PCFs: CMPSOL.PCF, FZDMGNSS_ORIG_EC.PCF
 - INP files: `STDDIF.INP`
 - Source file: STDDIF (download from the HTML manual)
 ### STDELE_VS
 
+- Name: STDELE_VS
 - Purpose: Execute STDELE
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Bernese programs: `STDELE`
 - Used in PCFs: VALIDATE_SOLUTION.PCF
 - INP files: `STDELE.INP`, `STDELE.INP`
@@ -3817,7 +4722,10 @@ Variables:
 - Source file: STDELE_VS (download from the HTML manual)
 ### STDELEL
 
+- Name: STDELEL
 - Purpose: Compute Orbit misclosures for CMP_SOL.PCF
+- Author: C. Kobel
+- Created: 25-Nov-2025
 - Bernese programs: `STDELE`
 - Used in PCFs: CMPSOL.PCF
 - INP files: `STDELE.INP`, `STDELE.INP`
@@ -3828,7 +4736,13 @@ Variables:
 ### STDPRE
 
 - Package: `DTDPRE`
-- Purpose: convert standard orbit to precise orbit file format Programs:  STDPRE
+- Name: STDPRE
+- Purpose: convert standard orbit to precise orbit file format  
+    
+  Programs:  STDPRE
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 08-May-2019 AV: Use v_gnss if available
 - Bernese programs: `STDPRE`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF, ZDMFIN3D.PCF
 - INP files: `STDPRE.INP`
@@ -3838,14 +4752,22 @@ Variables:
 ### STDPREL
 
 - Package: `STDPRE`
+- Name: STDPRE
 - Purpose: Execute STDPRE
+- Author: H. Bock
+- Created: 28-May-2004
+- Changes: 25-Jul-2013 SS: Updated to common layout
 - Bernese programs: `STDPRE`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `STDPRE.INP`
 - Source file: STDPREL (download from the HTML manual)
 ### STDPREL2
 
-- Purpose: Execute STDPRE, set start of time window to first epoch in kinematic orbit
+- Name: STDPRE2
+- Purpose: Execute STDPRE, set start of time window to first epoch in  
+  kinematic orbit
+- Author: D. Arnold
+- Created: 05-Jun-2019
 - Bernese programs: `STDPRE`
 - Used in PCFs: LEOPOD.PCF
 - INP files: `STDPRE.INP`, `STDPRE.INP`
@@ -3855,7 +4777,12 @@ Variables:
 - Source file: STDPREL2 (download from the HTML manual)
 ### TIMCLK
 
-- Purpose: Parallel run of GPSEST to generate code-only clocks Programs:  GPSEST
+- Name: TIMCLK
+- Purpose: Parallel run of GPSEST to generate code-only clocks  
+    
+  Programs:  GPSEST
+- Author: E. Calero
+- Created: xx-???-20??
 - Bernese programs: `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -3867,7 +4794,13 @@ Variables:
 ### TIMEST_A
 
 - Package: `TIMEST_P`
-- Purpose: Parallel run of GPSEST using code and phase data and estimating osb via addneq iteration Programs:  GPSEST
+- Name: TIMEST_A
+- Purpose: Parallel run of GPSEST using code and phase data  
+  and estimating osb via addneq iteration  
+    
+  Programs:  GPSEST
+- Author: A. Villiger
+- Created: 24-Apr-2016
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -3878,7 +4811,13 @@ Variables:
 - Source file: TIMEST_A (download from the HTML manual)
 ### TIMEST_B
 
-- Purpose: Parallel run of GPSEST using code and phase data and generation of NEQ with different OSBs Programs:  GPSEST, ADDNEQ2
+- Name: TIMEST_B
+- Purpose: Parallel run of GPSEST using code and phase data  
+  and generation of NEQ with different OSBs  
+    
+  Programs:  GPSEST, ADDNEQ2
+- Author: E. Calero
+- Created: xx-???-20??
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -3890,7 +4829,14 @@ Variables:
 ### TIMEST_C
 
 - Package: `TIMEST_P`
-- Purpose: Parallel run of GPSEST using code and phase data Programs:  GPSEST
+- Name: TIMEST_P
+- Purpose: Parallel run of GPSEST using code and phase data  
+    
+  Programs:  GPSEST
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Last modified: 04-Mar-2010
+- Changes: 04-Mar-2010/ss: Deactivate HOI setup if indicated
 - Bernese programs: `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -3901,7 +4847,13 @@ Variables:
 - Source file: TIMEST_C (download from the HTML manual)
 ### TIMEST_O
 
-- Purpose: Parallel run of GPSEST using code and estimating orbit and ERP in subsequent ADDNEQ Programs:  GPSEST
+- Name: TIMEST_O
+- Purpose: Parallel run of GPSEST using code  
+  and estimating orbit and ERP in subsequent ADDNEQ  
+    
+  Programs:  GPSEST
+- Author: E. Calero
+- Created: ??-???-20??
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -3912,7 +4864,17 @@ Variables:
 - Source file: TIMEST_O (download from the HTML manual)
 ### TIMEST_P
 
-- Purpose: Execute GPSEST for zero-difference files (parallel mode) Remark  :  The use of code or phase data is taken from variable V_OBSTYP. (default code+phase if V_OBSTYP is not defined) According to the value of V_FIXCRD and V_FIXTRP an external solution may be introduced (options are adjusted properly)
+- Name: TIMEST_P
+- Purpose: Execute GPSEST for zero-difference files (parallel mode)  
+    
+  Remark  :  The use of code or phase data is taken from variable V_OBSTYP.  
+  (default code+phase if V_OBSTYP is not defined)  
+    
+  According to the value of V_FIXCRD and V_FIXTRP an external  
+  solution may be introduced (options are adjusted properly)
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: R. Dach
+- Created: 11-Aug-2011
 - Bernese programs: `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -3923,7 +4885,16 @@ Variables:
 - Source file: TIMEST_P (download from the HTML manual)
 ### TIMESTAP
 
-- Purpose: Prepare parallel GPSEST run for zero-difference files Remark  :  The use of code or phase data is taken from variable V_OBSTYP. (default phase-only if V_OBSTYP is not defined)
+- Name: TIMESTAP
+- Purpose: Prepare parallel GPSEST run for zero-difference files  
+    
+  Remark  :  The use of code or phase data is taken from variable V_OBSTYP.  
+  (default phase-only if V_OBSTYP is not defined)
+- Parameters: PARAM2 - output file identifier (default: EST)  
+  PARAM3 - empty: stop if no CZH/PZH/CSH/PSH files are found
+- Author: R. Dach
+- Created: 11-Aug-2011
+- Changes: 22-May-2022 AV: Change SLA to TRS
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_OBSTYP`
@@ -3933,7 +4904,12 @@ Variables:
 - Source file: TIMESTAP (download from the HTML manual)
 ### TIMNEQ
 
-- Purpose: Parallel run of ADDNEQ to solve for the GLONASS OSB Programs:  ADDNEQ2
+- Name: TIMNEQ
+- Purpose: Parallel run of ADDNEQ to solve for the GLONASS OSB  
+    
+  Programs:  ADDNEQ2
+- Author: E. Calero
+- Created: xx-???-20??
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -3944,7 +4920,12 @@ Variables:
 - Source file: TIMNEQ (download from the HTML manual)
 ### TIMNEQAP
 
-- Purpose: Prepare parallel ADDNEQ2 Programs:  MKCLUS
+- Name: TIMNEQAP
+- Purpose: Prepare parallel ADDNEQ2  
+    
+  Programs:  MKCLUS
+- Author: E. Calero
+- Created: xx-xxx-20xx
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`
@@ -3954,7 +4935,13 @@ Variables:
 ### TIMORB_P
 
 - Package: `TIMEST_P`
-- Purpose: Parallel run of GPSEST using code and phase data Programs:  GPSEST
+- Name: TIMEST_P
+- Purpose: Parallel run of GPSEST using code and phase data  
+    
+  Programs:  GPSEST
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: __-___-____/__:
 - Bernese programs: `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -3965,7 +4952,12 @@ Variables:
 - Source file: TIMORB_P (download from the HTML manual)
 ### TIMORBAP
 
-- Purpose: Prepare parallel GPSEST run using MKCLUS for clustering Programs:  MKCLUS
+- Name: TIMESTAP
+- Purpose: Prepare parallel GPSEST run using MKCLUS for clustering  
+    
+  Programs:  MKCLUS
+- Author: E. Calero
+- Created: 09-Nov-2020
 - Bernese programs: `MKCLUS`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `MKCLUS.INP`, `MKCLUS.INP`
@@ -3978,7 +4970,14 @@ Variables:
 ### TIMZDM_P
 
 - Package: `TIMCLK_P`
-- Purpose: Parallel run of GPSEST using code and phase data $(SOL)_ : Deleted OSB parameters $(SOL)B : OSB parameters kept Programs:  GPSEST and ADDNEQ2
+- Name: TIMCLK_P
+- Purpose: Parallel run of GPSEST using code and phase data  
+  $(SOL)_ : Deleted OSB parameters  
+  $(SOL)B : OSB parameters kept  
+    
+  Programs:  GPSEST and ADDNEQ2
+- Author: E. Calero
+- Created: 21-Feb-2020
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - INP files: `ADDNEQ2.INP`, `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -3990,7 +4989,12 @@ Variables:
 ### TIMZDMAP
 
 - Package: `TIMCLKAP`
-- Purpose: Prepare parallel GPSEST and ADDNEQ2 Programs:
+- Name: TIMCLKAP
+- Purpose: Prepare parallel GPSEST and ADDNEQ2  
+    
+  Programs:
+- Author: E. Calero
+- Created: 21-Feb-2020
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - PARAM parameters: `PARAM2`, `PARAM3`, `PARAM4`
@@ -3999,7 +5003,12 @@ Variables:
 - Source file: TIMZDMAP (download from the HTML manual)
 ### TRPMERZD
 
-- Purpose: Merge TRP-files Programs:
+- Name: TRPMERZD
+- Purpose: Merge TRP-files  
+    
+  Programs:
+- Author: E. Calero
+- Created: 02-Jun-2022
 - Used in PCFs: ZDMCLKDEN.PCF
 - Read keys:
   - V_ variables: `V_K`
@@ -4011,7 +5020,12 @@ Variables:
 - Source file: TRPMERZD (download from the HTML manual)
 ### WAIT
 
+- Name: WAIT
 - Purpose: Wait if WAIT.FLG found
+- Parameters: PARAM1 - Optional waiting time (default: 60 sec)
+- Author: S. Schaer
+- Created: 09-Nov-2006
+- Changes: 05-Aug-2009 DT/RD: Add WAIT_${pid}.FLG
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
@@ -4019,14 +5033,22 @@ Variables:
 - Source file: WAIT (download from the HTML manual)
 ### WAIT_ZD
 
+- Name: WAIT_ZD
 - Purpose: Simple waiting script (fixed 60 seconds)
+- Parameters: PARAM1 - Optional waiting time (default: 60 sec)
+- Author: C. Kobel
+- Created: 31-Oct-2025
 - Used in PCFs: FZDMGNSS_ORIG_EC.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
 - Source file: WAIT_ZD (download from the HTML manual)
 ### ZD3D_COP
 
+- Name: ZD3D_COP
 - Purpose: Copy files reqiured by CLKDEN
+- Author: E. Calero
+- Created: 10-May-2021
+- Changes: 15-Jun-2026: CK: Reformatted
 - Used in PCFs: ZDMFIN3D.PCF
 - Read keys:
   - V_ variables: `V_CRDINF`, `V_PSDINF`
@@ -4036,7 +5058,11 @@ Variables:
 - Source file: ZD3D_COP (download from the HTML manual)
 ### ZD_ADD_LEO
 
-- Purpose: Copy LEO NEQs into the campaign and record the included LEOs in the session's MSC directory.
+- Name: ZD_ADD_LEO
+- Purpose: Copy LEO NEQs into the campaign and record the included LEOs  
+  in the session&#x27;s MSC directory.
+- Author: C. Kobel
+- Created: 10-Sep-2026
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - V_ variables: `V_DIRLEO`, `V_FIN`, `V_ILEO`
@@ -4046,7 +5072,10 @@ Variables:
 ### ZD_ADDNEQ2
 
 - Package: `ADDNEQ2`
+- Name: ADDNEQ2
 - Purpose: Run ADDNEQ2
+- Author: M. Meindl
+- Created: 30-Jul-2003
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ADDNEQ2.INP`
@@ -4054,7 +5083,10 @@ Variables:
 ### ZD_ADDNEQ2_CLK_E
 
 - Package: `ADDNEQ2_CLK_E`
+- Name: ADDNEQ2_CLK_E
 - Purpose: Parallel run of ADDNEQ2
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -4066,7 +5098,10 @@ Variables:
 ### ZD_ADDNEQ2_CLK_P
 
 - Package: `ADDNEQ2_CLK_P`
+- Name: ADDNEQ2_CLK_P
 - Purpose: Prepare parallel ADDNEQ2 run
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - V_ variables: `V_FIN`, `V_OLAP`
@@ -4077,7 +5112,10 @@ Variables:
 ### ZD_ADDNEQ2_DATFIL
 
 - Package: `ADDNEQ2_DATFIL`
+- Name: ADDNEQ2_DATFIL
 - Purpose: Run ADDNEQ2 and create datum file if not existing
+- Author: C. Kobel
+- Created: 26-Jun-2026
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -4088,7 +5126,10 @@ Variables:
 ### ZD_ADDNEQ2_DELNEQ
 
 - Package: `ADDNEQ2_DELNEQ`
+- Name: ADDNEQ2_DELNEQ
 - Purpose: Run ADDNEQ2 and remove station-wise NEQs
+- Author: C. Kobel
+- Created: 26-Jun-2026
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ADDNEQ2.INP`
@@ -4100,7 +5141,10 @@ Variables:
 ### ZD_ADDNEQ2_E
 
 - Package: `ADDNEQ2_E`
+- Name: ADDNEQ2_E
 - Purpose: Execute parallel ADDNEQ2
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -4112,7 +5156,10 @@ Variables:
 ### ZD_ADDNEQ2_LA_E
 
 - Package: `ADDNEQ2_LA_E`
+- Name: ADDNEQ2_LA_E
 - Purpose: Stack and solve 3-day NEQs to generate long-arc solution
+- Author: C. Kobel
+- Created: 22-Oct-2026
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -4124,7 +5171,10 @@ Variables:
 ### ZD_ADDNEQ2_LA_P
 
 - Package: `ADDNEQ2_LA_P`
+- Name: ADDNEQ2_LA_P
 - Purpose: Prepare parallel ADDNEQ2
+- Author: C. Kobel
+- Created: 22-Oct-2026
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF
 - Read keys:
   - V_ variables: `V_APR`
@@ -4134,7 +5184,10 @@ Variables:
 ### ZD_ADDNEQ2_P
 
 - Package: `ADDNEQ2_P`
+- Name: ADDNEQ2_P
 - Purpose: Initialize parallel execution of ADDNEQ2
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - Read keys:
   - Other keys: `$$bpe{PARAM2}`, `$S+0`, `DIR_NEQ`, `EXT_NEQ`
@@ -4143,7 +5196,11 @@ Variables:
 ### ZD_AMB_EXTRACT
 
 - Package: `AMB_EXTRACT`
+- Name: AMB_EXTRACT
 - Purpose: Extract ambiguity resolution summary entries
+- Author: C. Kobel
+- Created: 24-Nov-2025
+- Changes: 30-Apr-2026 CK: Reformatted, improved parsing logic
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - Read keys:
   - V_ variables: `V_FIN`
@@ -4154,7 +5211,11 @@ Variables:
 ### ZD_AMB_EXTRACT_25112026
 
 - Package: `AMB_EXTRACT`
+- Name: AMB_EXTRACT
 - Purpose: Extract ambiguity resolution summary entries
+- Author: C. Kobel
+- Created: 24-Nov-2025
+- Changes: 30-Apr-2026 CK: Reformatted, improved parsing logic
 - Read keys:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File reads: `${dirOut}/IAR$YSS+0.PRC`
@@ -4163,7 +5224,11 @@ Variables:
 ### ZD_AMB_EXTRACT~
 
 - Package: `AMB_EXTRACT`
+- Name: AMB_EXTRACT
 - Purpose: Extract ambiguity resolution summary entries
+- Author: C. Kobel
+- Created: 24-Nov-2025
+- Changes: 30-Apr-2026 CK: Reformatted, improved parsing logic
 - Read keys:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
 - File reads: `${dirOut}/IAR$YSS+0.PRC`
@@ -4172,7 +5237,11 @@ Variables:
 ### ZD_ATTXTR
 
 - Package: `ATTXTR`
+- Name: ATTXTR
 - Purpose: Run ATTXTR
+- Author: C. Kobel
+- Created: 24-Nov-2025
+- Changes: 30-Apr-2026 CK: Revised
 - Bernese programs: `ATTXTR`
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - INP files: `ATTXTR.INP`
@@ -4180,7 +5249,11 @@ Variables:
 ### ZD_CCRNXC
 
 - Package: `CCRNXC`
+- Name: CCRNXC
 - Purpose: Concatenate and combine clock RINEX files.
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 15-Jun-2026: ck: Revised
 - Bernese programs: `CCRNXC`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_CLKDEN.PCF, ZDGNSS_CLKDEN_FINAL.PCF, ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PPP.PCF, ZDGNSS_PREPROCESSING.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `CCRNXC.INP`
@@ -4190,7 +5263,28 @@ Variables:
 ### ZD_CHECK_AR_SAT
 
 - Package: `CHECK_AR_SAT`
-- Purpose: Check whether ambiguity resolution failed for a satellite or whether degraded satellites require an AR exclusion in SATCRX.
+- Name: CHECK_AR_SAT
+- Purpose: Check whether ambiguity resolution failed for a  
+  satellite or whether degraded satellites require  
+  an AR exclusion in SATCRX.
+- Author: C. Kobel
+- Changes: 12-Aug-2026 CK: Check PHACOR_LOG for degraded  
+                  satellites with insufficient  
+                  observations  
+    
+  13-Aug-2026 CK: If multiple satellites are  
+                  DEGRADED, additionally select  
+                  the satellites with the largest  
+                  MEDIAN and MAX values  
+    
+  13-Aug-2026 CK: Archive PHACOR_LOG as ITERx  
+                  before processing AR exclusions  
+    
+  13-Aug-2026 CK: Maximum of 3 PHACOR iterations.  
+                  After ITER3, further required  
+                  exclusions result only in a  
+                  warning. No SATCRX entry and no jump  
+                  back are performed.
 - Used in PCFs: ZDGNSS_AR.PCF
 - Read keys:
   - V_ variables: `V_SATCRX`
@@ -4204,7 +5298,11 @@ Variables:
 ### ZD_CHECK_CAMP
 
 - Package: `CHECK_CAMP`
+- Name: CHECK_CAMP
 - Purpose: Check whether campaign is ready for processing
+- Author: C. Kobel
+- Created: 10-Aug-2026
+- Changes: Create subfolders if not present in campaign
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - Other keys: `DIR_BPEOUT`, `DIR_CZH`, `DIR_GRD`, `DIR_NEQ`, `DIR_ORB`, `DIR_ORX`, `DIR_OUT`, `DIR_RXO`, `DIR_STA`, `DIR_TRP`, `EXT_SES`, `PTH_SINEXIN`
@@ -4212,7 +5310,18 @@ Variables:
 ### ZD_CHECK_GRD_FILES
 
 - Package: `CHECK_GRD_FILES`
-- Purpose: Check GRD files for existence and NaN values Checks: NTAL_$YD+0.GRD NTOL_$YD+0.GRD HYDL_$YD+0.GRD If a file is missing or contains "nan", a corresponding "no_*" file is created in MSC_yyddd.
+- Name: CHECK_GRD_FILES
+- Purpose: Check GRD files for existence and NaN values  
+    
+  Checks:  
+   NTAL_$YD+0.GRD  
+   NTOL_$YD+0.GRD  
+   HYDL_$YD+0.GRD  
+    
+  If a file is missing or contains &quot;nan&quot;, a  
+  corresponding &quot;no_*&quot; file is created in MSC_yyddd.
+- Author: C. Kobel
+- Created: 18-Aug-2026
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - Other keys: `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`
@@ -4223,7 +5332,10 @@ Variables:
 ### ZD_CHECK_MAUPRP_DEL
 
 - Package: `CHECK_MAUPRP_DEL`
+- Name: CHECK_MAUPRP_DEL
 - Purpose: Checks the MAUPRP deletion file for excluded stations.
+- Author: C. Kobel
+- Created: 16-Oct-2026
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_OUT`
@@ -4232,7 +5344,11 @@ Variables:
 - Source file: ZD_CHECK_MAUPRP_DEL (download from the HTML manual)
 ### ZD_CHECK_MIN_STA
 
-- Purpose: Check the number of PZH files for the current day. Continue only if the count is larger than V_MINC.
+- Name: ZD_CHECK_MIN_STA
+- Purpose: Check the number of PZH files for the current day.  
+  Continue only if the count is larger than V_MINC.
+- Author: C. Kobel
+- Created: 06-Nov-2026
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PREPARATION.PCF, ZDGNSS_PREPROCESSING.PCF
 - Read keys:
   - V_ variables: `V_MINC`
@@ -4242,7 +5358,10 @@ Variables:
 ### ZD_CHECK_OBSENTRIES
 
 - Package: `CHECK_OBSENTRIES`
+- Name: CHECK_OBSENTRIES
 - Purpose: Check observation files against station entries
+- Author: C. Kobel
+- Created: 06-Nov-2025
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_CRDINF`
@@ -4254,7 +5373,11 @@ Variables:
 ### ZD_CHECK_SAT_CLOCKS
 
 - Package: `CHECK_SAT_CLOCKS`
+- Name: CHECK_SAT_CLOCKS
 - Purpose: Checks completeness of satellite clock products
+- Author: C. Kobel
+- Created: 16-Feb-2026
+- Changes: 30-Apr-2026 CK: Reformatted, improved path handling,
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - Read keys:
   - V_ variables: `V_FIN`
@@ -4263,7 +5386,10 @@ Variables:
 ### ZD_CHECK_SAT_GAPS
 
 - Package: `CHECK_SAT_GAPS`
+- Name: CHECK_SAT_GAPS
 - Purpose: Checks the SMC file (PHASE OBSERVATIONS) for satellite data gaps.
+- Author: C. Kobel
+- Created: 03-Feb-2026
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_SATCRX`
@@ -4274,7 +5400,11 @@ Variables:
 ### ZD_CHECK_SAT_RMS
 
 - Package: `CHECK_SAT_RMS`
+- Name: CHECK_SAT_RMS
 - Purpose: Checks the ORBGEN_APR file for the RMS (in meters) of each satellite.
+- Author: C. Kobel
+- Created: 05-Mar-2026
+- Changes: Added configurable soft and hard RMS limits.
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_APRRMS`, `V_SATCRX`
@@ -4285,7 +5415,10 @@ Variables:
 ### ZD_CHECK_VAPL_ENTRIES
 
 - Package: `CHECK_VAPL_ENTRIES`
+- Name: CHECK_VAPL_ENTRIES
 - Purpose: Check OBS files against VAPL station entries
+- Author: C. Kobel
+- Created: 06-Nov-2025
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `DIR_ATL`, `DIR_OUT`, `DIR_PZH`, `EXT_ATL`
@@ -4295,7 +5428,10 @@ Variables:
 - Source file: ZD_CHECK_VAPL_ENTRIES (download from the HTML manual)
 ### ZD_CHKPRC_AR
 
+- Name: ZD_CHKPRC_AR
 - Purpose: Run processing checks for AR
+- Author: C. Kobel
+- Created: 05-Oct-2026
 - Used in PCFs: ZDGNSS_AR.PCF
 - Read keys:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
@@ -4304,7 +5440,10 @@ Variables:
 - Source file: ZD_CHKPRC_AR (download from the HTML manual)
 ### ZD_CHKPRC_PS
 
+- Name: ZD_CHKPRC_PS
 - Purpose: Run observation quality checks
+- Author: C. Kobel
+- Created: 12-Oct-2026
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - Read keys:
   - Other keys: `$S+0`, `$YD+0`, `DIR_OUT`
@@ -4314,7 +5453,10 @@ Variables:
 - Source file: ZD_CHKPRC_PS (download from the HTML manual)
 ### ZD_CHKPRC_SOL
 
+- Name: ZD_CHKPRC_SOL
 - Purpose: Run solution processing checks
+- Author: C. Kobel
+- Created: 05-Oct-2026
 - Bernese programs: `HELMR1`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `HELMR1.INP`
@@ -4329,7 +5471,10 @@ Variables:
 ### ZD_CLKEST
 
 - Package: `CLKEST`
+- Name: CLKEST
 - Purpose: Run CLKEST
+- Created: 07-July-2003
+- Changes: 15-Jun-2026: ck: Revised and reformatted
 - Bernese programs: `CLKEST`
 - Used in PCFs: ZDGNSS_CLKDEN.PCF, ZDGNSS_CLKDEN_FINAL.PCF
 - INP files: `CLKEST.INP`
@@ -4337,7 +5482,10 @@ Variables:
 ### ZD_CLKEST_CLU
 
 - Package: `CLKEST_CLU`
+- Name: CLKEST_CLU
 - Purpose: Run CLKEST
+- Created: 07-July-2003
+- Changes: 26-May-2026 CK: Revised and formatted
 - Bernese programs: `CLKEST`
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - INP files: `CLKEST.INP`, `CLKEST.INP`
@@ -4348,7 +5496,10 @@ Variables:
 ### ZD_CMP_CLKDIFF
 
 - Package: `CMP_CLKDIFF`
+- Name: CMP_CLKDIFF
 - Purpose: Compare two CLK files and write difference statistics (incl. STD).
+- Author: C. Kobel
+- Created: 17-Oct-2025
 - Used in PCFs: ZDGNSS_CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_CLKSOL1`, `V_CLKSOL2`
@@ -4356,7 +5507,10 @@ Variables:
 - Source file: ZD_CMP_CLKDIFF (download from the HTML manual)
 ### ZD_CMP_COP
 
+- Name: ZD_CMP_COP
 - Purpose: Copy files required by ZDGNSS_CMPSOL.PCF
+- Author: C. Kobel
+- Created: 28-Oct-2026
 - Used in PCFs: ZDGNSS_CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_CLKSOL1`, `V_CLKSOL2`, `V_CRDINF`, `V_CRDSOL1`, `V_CRDSOL2`, `V_DIRSOL1`, `V_DIRSOL2`, `V_ERPSOL1`, `V_ERPSOL2`, `V_STDSOL1`, `V_STDSOL2`
@@ -4364,7 +5518,10 @@ Variables:
 - Source file: ZD_CMP_COP (download from the HTML manual)
 ### ZD_CMP_ERPDIFF
 
+- Name: ZD_CMP_ERPDIFF
 - Purpose: Compare two ERP files and write difference statistics.
+- Author: C. Kobel
+- Created: 28-Oct-2026
 - Used in PCFs: ZDGNSS_CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_ERPSOL1`, `V_ERPSOL2`
@@ -4375,7 +5532,11 @@ Variables:
 ### ZD_CMP_LAPACK
 
 - Package: `CMP_LAPACK`
+- Name: CMP_LAPACK
 - Purpose: Compare solutions computed using LAPACK-based processing.
+- Author: C. Kobel
+- Created: 15-Dec-2025
+- Changes: 30-Apr-2026 CK: Reformatted, improved readability,
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - Read keys:
   - V_ variables: `V_FIN`, `V_LARGE`
@@ -4384,7 +5545,10 @@ Variables:
 ### ZD_CMP_SUM
 
 - Package: `CMP_SUM`
+- Name: CMP_SUM
 - Purpose: Make summary of comparison
+- Author: C. Kobel
+- Created: 17-Oct-2025
 - Used in PCFs: ZDGNSS_CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_CLKSOL1`, `V_CLKSOL2`, `V_CRDINF`, `V_CRDSOL1`, `V_CRDSOL2`, `V_ERPSOL1`, `V_ERPSOL2`, `V_NAMESOL1`, `V_NAMESOL2`, `V_STDSOL1`, `V_STDSOL2`
@@ -4393,7 +5557,12 @@ Variables:
 ### ZD_CODSPP_E
 
 - Package: `CODSPP_E`
+- Name: CODSPP_E
 - Purpose: Executes CODSPP in parallel mode.
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 17-Feb-2004 ss: Reduce ITRMAX in ULTRA mode  
+  02-Jul-2026 ck: Cleaned up
 - Bernese programs: `CODSPP`
 - Used in PCFs: ZDGNSS_PPP.PCF, ZDGNSS_PREPROCESSING.PCF
 - INP files: `CODSPP.INP`
@@ -4407,7 +5576,12 @@ Variables:
 ### ZD_CODSPP_P
 
 - Package: `CODSPP_P`
+- Name: CODSPP_P
 - Purpose: Prepares a parallel CODSPP run.
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 26-Jan-2005 mm: New initPar call (without tmp file)  
+  02-Jul-2026 ck: Revised and cleaned up
 - Used in PCFs: ZDGNSS_PPP.PCF, ZDGNSS_PREPROCESSING.PCF
 - Read keys:
   - V_ variables: `V_NCLU`
@@ -4419,7 +5593,11 @@ Variables:
 ### ZD_CODXTR
 
 - Package: `CODXTR`
+- Name: CODXTR
 - Purpose: Executes CODXTR and optionally deletes rejected binary
+- Author: H. Bock
+- Created: 06-Dec-2007
+- Changes: 26-May-2009 rd: CODXTR: YY_DDD -&gt; YY_SSSS
 - Bernese programs: `CODXTR`, `SATMRK`
 - Used in PCFs: ZDGNSS_PREPROCESSING.PCF
 - INP files: `CODXTR.INP`, `CODXTR.INP`, `SATMRK.INP`
@@ -4433,7 +5611,20 @@ Variables:
 ### ZD_CODXTRP
 
 - Package: `CODXTR`
-- Purpose: Execute CODXTR Remark  :  reject binary observation files if the correspsonding option in CODXTR is enabled
+- Name: CODXTR
+- Purpose: Execute CODXTR  
+    
+  Remark  :  reject binary observation files  
+  if the correspsonding option in CODXTR is enabled
+- Parameters: Note - these are optional parameters:  
+  PARAM1: NEXTJOB to check whether the last observation file  
+          has been deleted  
+  PARAM2: PID of the protocol script of the BPE
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  14-Jun-2013 RD: Call for &quot;deleteFiles&quot; corrected  
+  20-Dec-2013 RD/SS: Improve deletion features
 - Bernese programs: `CODXTR`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `CODXTR.INP`
@@ -4445,7 +5636,10 @@ Variables:
 ### ZD_COMPAR2
 
 - Package: `COMPAR2`
-- Purpose: Run COMPAR2 Authors:   C. Kobel
+- Name: COMPAR2
+- Purpose: Run COMPAR2
+- Author: C. Kobel
+- Created: 17-Oct-2025
 - Bernese programs: `COMPAR2`
 - Used in PCFs: ZDGNSS_CMPSOL.PCF
 - INP files: `COMPAR2.INP`, `COMPAR2.INP`
@@ -4455,7 +5649,11 @@ Variables:
 ### ZD_COMPAR2_VS
 
 - Package: `COMPAR2_VS`
+- Name: COMPAR2_VS
 - Purpose: Execute COMPAR2 with input from days 0 through -6
+- Author: C. Kobel
+- Created: 16-Mar-2026
+- Changes: Use yyssss file names
 - Bernese programs: `COMPAR2`
 - Used in PCFs: ZDGNSS_VALSOL.PCF
 - INP files: `COMPAR2.INP`, `COMPAR2.INP`
@@ -4467,7 +5665,11 @@ Variables:
 ### ZD_COMPAR2_ZD
 
 - Package: `COMPAR2_ZD`
+- Name: COMPAR2_ZD
 - Purpose: Prepare and execute COMPAR2 for comparison of ZD solutions
+- Author: C. Kobel
+- Created: 15-Dec-2025
+- Changes: 30-Apr-2026 CK: Reformatted,
 - Bernese programs: `COMPAR2`
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - INP files: `COMPAR2.INP`
@@ -4480,7 +5682,10 @@ Variables:
 ### ZD_CONCATOUT_VS
 
 - Package: `CONCATOUT_VS`
+- Name: CONCATOUT_VS
 - Purpose: Concatenate validation output files
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Used in PCFs: ZDGNSS_VALSOL.PCF
 - Read keys:
   - V_ variables: `V_CRD`, `V_OUT`, `V_PRE`, `V_STD`
@@ -4489,7 +5694,10 @@ Variables:
 ### ZD_CONCATOUT_VS_25112026
 
 - Package: `CONCATOUT_VS`
+- Name: CONCATOUT_VS
 - Purpose: Concatenate validation output files
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Read keys:
   - V_ variables: `V_CRD`, `V_OUT`, `V_STD`
   - Other keys: `$YSS+0`, `DIR_OUT`
@@ -4497,7 +5705,11 @@ Variables:
 ### ZD_COOVEL
 
 - Package: `COOVEL`
+- Name: COOVEL
 - Purpose: Coordinate / velocity estimation (COOVEL)
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Changes: 26-May-2026 CK: Revised and formatted
 - Bernese programs: `COOVEL`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_PREPARATION.PCF
 - INP files: `COOVEL.INP`
@@ -4505,7 +5717,10 @@ Variables:
 ### ZD_COPY_APR_AR
 
 - Package: `COPY_APR_AR`
+- Name: COPY_APR_AR
 - Purpose: Copy a priori Orbits (PRE/STD/RPR)
+- Author: C. Kobel
+- Created: 17-Jun-2026
 - Used in PCFs: ZDGNSS_AR.PCF
 - Read keys:
   - V_ variables: `V_APR`
@@ -4517,7 +5732,10 @@ Variables:
 ### ZD_COPY_FIL_3D
 
 - Package: `COPY_FIL_3D`
+- Name: COPY_FIL_3D
 - Purpose: Copy files from hard-coded directory
+- Author: C. Kobel
+- Created: 26-May-2026
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF
 - Read keys:
   - V_ variables: `V_APR`, `V_APRORB`, `V_CRDINF`, `V_PSDINF`
@@ -4525,20 +5743,53 @@ Variables:
 - File reads: `$ENV{REF}/REFCLK.FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR??$YSS+0???.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR99$YSS-1.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR99$YSS+1.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS+0.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS-1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS+1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+0.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS-1.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+1.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+0.EXT_RPR`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS-1.EXT_RPR` and 3 more
 - File writes: `DIR_FIXREFCLK.EXT_FIX`, `DIR_NEQ`, `DIR_ERP`, `DIR_STD`, `DIR_RPR`, `DIR_CLK`, `DIR_FIX`
 - Source file: ZD_COPY_FIL_3D (download from the HTML manual)
+### ZD_COPY_FIL_3D~
+
+- Package: `COPY_FIL_3D`
+- Name: COPY_FIL_3D
+- Purpose: Copy files from hard-coded directory
+- Author: E. Calero
+- Created: 10-May-2021
+- Changes: 26-May-2026 CK: Revised and formatted
+- Read keys:
+  - V_ variables: `V_APR`, `V_APRORB`, `V_CRDINF`, `V_PSDINF`
+  - Other keys: `$YD+0`, `$YD+1`, `$YD-1`, `$YSS+0`, `$YSS+1`, `$YSS-1`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`
+- File reads: `$ENV{REF}/REFCLK.FIX`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR??$YSS+0???.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR99$YSS-1.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//SOL/V_APR99$YSS+1.EXT_NEQ`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS+0.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS-1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APR_$YSS+1.EXT_ERP`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+0.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS-1.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+1.EXT_STD`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS+0.EXT_RPR`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//ORB/V_APRORB_$YSS-1.EXT_RPR` and 3 more
+- File writes: `DIR_FIXREFCLK.EXT_FIX`, `DIR_NEQ`, `DIR_ERP`, `DIR_STD`, `DIR_RPR`, `DIR_CLK`, `DIR_FIX`
+- Source file: ZD_COPY_FIL_3D~ (download from the HTML manual)
 ### ZD_COPY_FIL_CLKD
 
 - Package: `COPY_FIL_CLKD`
+- Name: COPY_FIL_CLKD
 - Purpose: Copy Observation files from hard-coded directory
+- Author: C. Kobel
+- Created: 15-Jun-2026
 - Used in PCFs: ZDGNSS_CLKDEN.PCF, ZDGNSS_CLKDEN_FINAL.PCF
 - Read keys:
   - Other keys: `$YD+0`, `DIR_PZH`
 - File reads: `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//OBS//*`
 - File writes: `DIR_PZH`
 - Source file: ZD_COPY_FIL_CLKD (download from the HTML manual)
+### ZD_COPY_FIL_CLKD~
+
+- Package: `COPY_FIL_CLKD`
+- Name: COPY_FIL_CLKD
+- Purpose: Copy Observation files from hard-coded directory
+- Author: E. Calero
+- Created: 10-May-2021
+- Changes: 15-Jun-2026: ck: Reformatted
+- Read keys:
+  - Other keys: `$YD+0`, `DIR_PZH`
+- File reads: `$ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0//OBS//*`
+- File writes: `DIR_PZH`
+- Source file: ZD_COPY_FIL_CLKD~ (download from the HTML manual)
 ### ZD_COPY_OBS
 
 - Package: `COPY_OBS`
+- Name: COPY_OBS
 - Purpose: Copy observation files
+- Author: C. Kobel
+- Created: 20-Apr-2026
 - Used in PCFs: ZDGNSS_PPP.PCF, ZDGNSS_PREPARATION.PCF
 - Read keys:
   - Other keys: `$+0`, `$S+0`, `$Y`, `DIR_PZH`, `DIR_RXO`, `EXT_PZH`
@@ -4548,7 +5799,10 @@ Variables:
 ### ZD_COPY_PPP
 
 - Package: `COPY_PPP`
+- Name: COPY_PPP
 - Purpose: Copy required files for PPP.PCF
+- Author: C. Kobel
+- Created: 12-Nov-2026
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_ORB`
@@ -4557,7 +5811,11 @@ Variables:
 ### ZD_COPY_REF
 
 - Package: `COPY_REF`
+- Name: COPY_REF
 - Purpose: Copy required files for processing
+- Author: C. Kobel
+- Created: 20-Apr-2026
+- Changes: 10-Aug-2026 CK: Check whether source-files exist
 - Bernese programs: `POLUPD`
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - INP files: `POLUPD.INP`
@@ -4570,7 +5828,10 @@ Variables:
 ### ZD_COPYSOL_VS
 
 - Package: `COPYSOL_VS`
+- Name: COPYSOL_VS
 - Purpose: Copy solution files from V_SOLDIR
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Used in PCFs: ZDGNSS_VALSOL.PCF
 - Read keys:
   - V_ variables: `V_AMBOUT`, `V_CLKOUT`, `V_CRD`, `V_CRDINF`, `V_PRE`, `V_SATCRX`, `V_SOLDIR`, `V_STD`, `V_XTROUT`
@@ -4579,7 +5840,10 @@ Variables:
 ### ZD_COPYSOL_VS~
 
 - Package: `COPYSOL_VS`
+- Name: COPYSOL_VS
 - Purpose: Copy solution files from V_SOLDIR
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Read keys:
   - V_ variables: `V_AMBOUT`, `V_CLKOUT`, `V_CRD`, `V_CRDINF`, `V_PRE`, `V_SATCRX`, `V_SOLDIR`, `V_STD`, `V_XTROUT`
   - Other keys: `$Y+0`, `$YD+0`, `$YD-1`, `$YD-2`, `$YSS+0`, `$YSS-1`, `$YSS-2`, `DIR_CRD`, `DIR_CRX`, `DIR_ORB`, `DIR_OUT`, `EXT_CRD`, `EXT_CRX`, `EXT_ERP`, `EXT_OUT`, `EXT_PRE`, `EXT_PSD`, `EXT_STD`, `EXT_SUM`
@@ -4587,7 +5851,11 @@ Variables:
 ### ZD_CRDMERGE
 
 - Package: `CRDMERGE`
+- Name: CRDMERGE
 - Purpose: Execute CRDMERGE
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `CRDMERGE`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `CRDMERGE.INP`
@@ -4595,7 +5863,14 @@ Variables:
 ### ZD_CRDMRDAT
 
 - Package: `CRDMRDAT`
-- Purpose: Adjust the value in V_REFINF to a datum string known in the datum definition file and execute CRDMERGE using this datum identified as the "New local geodetic datum"
+- Name: CRDMRDAT
+- Purpose: Adjust the value in V_REFINF to a datum string known in the  
+  datum definition file and execute CRDMERGE using this datum  
+  identified as the &quot;New local geodetic datum&quot;
+- Author: R. Dach
+- Created: 11-Aug-2011
+- Changes: 22-Apr-2022 LP: Update paths and extensions  
+  21-Jun-2022 LP: Update description
 - Bernese programs: `CRDMERGE`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `CRDMERGE.INP`, `CRDMERGE.INP`
@@ -4606,7 +5881,10 @@ Variables:
 ### ZD_DEL_CDXT_OBS
 
 - Package: `DEL_CDXT_OBS`
+- Name: DEL_CDXT_OBS
 - Purpose: Deletes observation files listed in CODXTR output.
+- Author: C. Kobel
+- Created: 28-Oct-2025
 - Used in PCFs: ZDGNSS_PREPROCESSING.PCF
 - Read keys:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `DIR_OUT`
@@ -4617,7 +5895,12 @@ Variables:
 ### ZD_DEL_CMP
 
 - Package: `DEL_CMP`
+- Name: DEL_CMP
 - Purpose: Delete CMP- and related result files, only if V_DEL=Y.
+- Parameters: DEL
+- Author: C. Kobel
+- Created: 08-Dec-2025  
+  Updated :
 - Used in PCFs: ZDGNSS_CMPSOL.PCF
 - Read keys:
   - V_ variables: `V_DEL`
@@ -4628,7 +5911,10 @@ Variables:
 ### ZD_DEL_RES_1D
 
 - Package: `DEL_RES_1D`
+- Name: DEL_RES_1D
 - Purpose: Delete specific files, only if V_CLEAN=Y.
+- Author: C. Kobel
+- Created: 30-Oct-2025
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - Read keys:
   - V_ variables: `V_APR`, `V_APSP`, `V_BRD`, `V_CBIA`, `V_CLEAN`, `V_CLKA`, `V_CPSC`, `V_CSCR`, `V_CWGT`, `V_FIN`, `V_LARGE`
@@ -4639,7 +5925,10 @@ Variables:
 ### ZD_DEL_RES_3D
 
 - Package: `DEL_RES_3D`
+- Name: DEL_RES_3D
 - Purpose: Delete result files, only if V_DEL=Y.
+- Author: C. Kobel
+- Created: 08-Dec-2025
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF
 - Read keys:
   - V_ variables: `V_APR`, `V_DEL`, `V_FIN`, `V_ORBAPR`
@@ -4650,7 +5939,10 @@ Variables:
 ### ZD_DEL_RES_CLKD
 
 - Package: `DEL_RES_CLKD`
+- Name: DEL_RES_CLKD
 - Purpose: Delete result files, only if V_DEL=Y.
+- Author: C. Kobel
+- Created: 06-Jan-2026
 - Used in PCFs: ZDGNSS_CLKDEN.PCF, ZDGNSS_CLKDEN_FINAL.PCF
 - Read keys:
   - V_ variables: `V_DEL`, `V_FIN`, `V_FINCLK`
@@ -4661,7 +5953,23 @@ Variables:
 ### ZD_DEL_RES_PPP
 
 - Package: `DEL_RES_PPP`
-- Purpose: Clean up campaign of PPP processing, default for -5 sessions File patterns reduced to the supplied session 20263120 log.
+- Name: DEL_RES_PPP
+- Purpose: Clean up campaign of PPP processing,  
+  default for -5 sessions  
+  File patterns reduced to the supplied session 20263120 log.
+- Parameters: PARAM1: may specify the delay in sessions to delete the files  
+          generated by the PPP BPE  
+          Examples:  
+          &quot;-5&quot;   : delete with five sessions  
+          &quot;-(24)&quot;: delete with 24 sessions delay  
+                   (note that the value from PARAM1 is used to  
+                   extent the BPE time variables in a getKeys-call  
+                   below)  
+          &quot;TODAY&quot;: delete the files of the current session
+- Author: R. Dach
+- Created: 11-Aug-2011
+- Changes: 22-Apr-2022 LP: Remove outdated $dirTab, $extTab, &#x27;DIR_TAB&#x27;, &#x27;EXT_TAB&#x27;  
+  25-Apr-2022 LP: Add printing of basic settings
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_APR`, `V_DEL`, `V_FIN`, `V_PPP`
@@ -4683,7 +5991,11 @@ Variables:
 ### ZD_DEL_RXO
 
 - Package: `DEL_RXO`
-- Purpose: Delete RXO files when a matching PZH exists, or restore OBS files depending on PARAM1 (START/END)
+- Name: DEL_RXO
+- Purpose: Delete RXO files when a matching PZH exists, or restore OBS files  
+  depending on PARAM1 (START/END)
+- Author: C. Kobel
+- Created: 15-Jun-2026
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_AOBS`
@@ -4695,7 +6007,11 @@ Variables:
 - Source file: ZD_DEL_RXO (download from the HTML manual)
 ### ZD_FIND_OUTLIER_STA
 
-- Purpose: Run HELMR1, then screen local NEU residuals for outlier candidates using component medians/MAD.
+- Name: ZD_FIND_OUTLIER_STA
+- Purpose: Run HELMR1, then screen local NEU residuals for  
+  outlier candidates using component medians/MAD.
+- Author: C. Kobel
+- Created: 06-Nov-2026
 - Bernese programs: `HELMR1`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - INP files: `HELMR1.INP`
@@ -4709,7 +6025,10 @@ Variables:
 ### ZD_FIX_CHK
 
 - Package: `FIX_CHK`
+- Name: FIX_CHK
 - Purpose: Execute HELMR1 and perform datum definition if enabled by BPE-Variable
+- Author: M. Meindl, S. Schaer
+- Changes: 29-Apr-2026 CK: Revised and formatted
 - Bernese programs: `HELMR1`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `HELMR1.INP`, `MENU_EXT.INP`, `HELMR1.INP`
@@ -4722,7 +6041,10 @@ Variables:
 ### ZD_GEN_NEQ_E
 
 - Package: `GEN_NEQ_E`
+- Name: GEN_NEQ_E
 - Purpose: Parallel run of GPSEST subsequent ADDNEQ2
+- Author: C. Kobel
+- Created: 28-Apr-2026
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -4732,45 +6054,14 @@ Variables:
   - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPELOG`, `DIR_OUT`, `DIR_PZH`, `EXT_BPELOG`, `PID`, `TASKID`
 - File deletes: `$file) { prtMess(DIR_BPELOG, "GEN_NEQ_E PARAM1: WARNING: Cannot remove $file: $!"`
 - Source file: ZD_GEN_NEQ_E (download from the HTML manual)
-### ZD_GEN_NEQ_E_19112026
-
-- Package: `GEN_NEQ_E`
-- Purpose: Parallel run of GPSEST subsequent ADDNEQ2
-- Bernese programs: `ADDNEQ2`, `GPSEST`
-- INP files: `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
-- Read keys:
-  - V_ variables: `V_GNSS`, `V_IAR`, `V_PUL`, `V_TRPMOD`, `V_USEHOI`
-  - PARAM parameters: `PARAM1`
-  - Other keys: `$YD+0`, `DIR_OUT`
-- Source file: ZD_GEN_NEQ_E_19112026 (download from the HTML manual)
-### ZD_GEN_NEQ_E_new_19112026
-
-- Package: `GEN_NEQ_E`
-- Purpose: Parallel run of GPSEST subsequent ADDNEQ2
-- Bernese programs: `ADDNEQ2`, `GPSEST`
-- INP files: `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
-- Read keys:
-  - V_ variables: `V_GNSS`, `V_IAR`, `V_PUL`, `V_TRPMOD`, `V_USEHOI`
-  - PARAM parameters: `PARAM1`
-  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPELOG`, `DIR_OUT`, `DIR_PZH`, `EXT_BPELOG`, `PID`, `TASKID`
-- File deletes: `$file`
-- Source file: ZD_GEN_NEQ_E_new_19112026 (download from the HTML manual)
-### ZD_GEN_NEQ_E~
-
-- Package: `GEN_NEQ_E`
-- Purpose: Parallel run of GPSEST subsequent ADDNEQ2
-- Bernese programs: `ADDNEQ2`, `GPSEST`
-- INP files: `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
-- Read keys:
-  - V_ variables: `V_GNSS`, `V_IAR`, `V_PUL`, `V_TRPMOD`, `V_USEHOI`
-  - PARAM parameters: `PARAM1`
-  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPELOG`, `DIR_OUT`, `DIR_PZH`, `EXT_BPELOG`, `PID`, `TASKID`
-- File deletes: `$file`
-- Source file: ZD_GEN_NEQ_E~ (download from the HTML manual)
 ### ZD_GEN_NEQ_P
 
 - Package: `GEN_NEQ_P`
-- Purpose: Prepare parallel GPSEST and ADDNEQ2, remove old NEQs
+- Name: GEN_NEQ_P
+- Purpose: Prepare parallel GPSEST and ADDNEQ2,  
+  remove old NEQs
+- Author: C. Kobel
+- Created: 28-Apr-2026
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - V_ variables: `V_FIN`
@@ -4778,10 +6069,28 @@ Variables:
   - Other keys: `$S+0`, `DIR_CLK`, `DIR_NEQ`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `EXT_CLK`, `EXT_NEQ`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`
 - File patterns: `"DIR_NEQV_FIN?$S+0*.EXT_NEQ"`, `"DIR_OUTV_FIN?$S+0*.EXT_OUT"`, `"DIR_RESV_FIN?$S+0*.EXT_RES"`, `"DIR_CLKV_FIN?$S+0*.EXT_CLK"`, `DIR_NEQV_FIN?$S+0*.EXT_NEQ`, `DIR_OUTV_FIN?$S+0*.EXT_OUT`, `DIR_RESV_FIN?$S+0*.EXT_RES`, `DIR_CLKV_FIN?$S+0*.EXT_CLK`, `DIR_PZH????$S+0.EXT_PZH`
 - Source file: ZD_GEN_NEQ_P (download from the HTML manual)
+### ZD_GEN_NEQ_P~
+
+- Package: `GEN_NEQ_P`
+- Name: GEN_NEQ_P
+- Purpose: Prepare parallel GPSEST and ADDNEQ2,  
+  remove old NEQs
+- Author: E. Calero
+- Changes: 28-Apr-2026 CK: Revised and formatted
+- Read keys:
+  - V_ variables: `V_FIN`
+  - PARAM parameters: `PARAM3`, `PARAM4`
+  - Other keys: `$S+0`, `DIR_CLK`, `DIR_NEQ`, `DIR_OUT`, `DIR_PZH`, `DIR_RES`, `EXT_CLK`, `EXT_NEQ`, `EXT_OUT`, `EXT_PZH`, `EXT_RES`
+- File patterns: `"DIR_NEQV_FIN?$S+0*.EXT_NEQ"`, `"DIR_OUTV_FIN?$S+0*.EXT_OUT"`, `"DIR_RESV_FIN?$S+0*.EXT_RES"`, `"DIR_CLKV_FIN?$S+0*.EXT_CLK"`, `DIR_NEQV_FIN?$S+0*.EXT_NEQ`, `DIR_OUTV_FIN?$S+0*.EXT_OUT`, `DIR_RESV_FIN?$S+0*.EXT_RES`, `DIR_CLKV_FIN?$S+0*.EXT_CLK`, `DIR_PZH????$S+0.EXT_PZH`
+- Source file: ZD_GEN_NEQ_P~ (download from the HTML manual)
 ### ZD_GP_AD_GP_E
 
 - Package: `GP_AD_GP_E`
+- Name: GP_AD_GP_E
 - Purpose: Parallel run of GPSEST using code data
+- Author: A. Villiger
+- Created: 24-apr-2016
+- Changes: 23-Apr-2026 ck: Reformatted, clarified processing logic
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - INP files: `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -4793,7 +6102,10 @@ Variables:
 ### ZD_GPSEST_ADDNEQ2_E
 
 - Package: `GPSEST_ADDNEQ2_E`
+- Name: GPSEST_ADDNEQ2_E
 - Purpose: Execute parallel GPSEST and ADDNEQ2 processing
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - INP files: `ADDNEQ2.INP`, `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -4805,7 +6117,10 @@ Variables:
 ### ZD_GPSEST_ADDNEQ2_OSBR_E
 
 - Package: `GPSEST_ADDNEQ2_OSBR_E`
+- Name: GPSEST_ADDNEQ2_OSBR_E
 - Purpose: Execute parallel GPSEST and ADDNEQ2 processing
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `ADDNEQ2`, `GPSEST`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - INP files: `ADDNEQ2.INP`, `GPSEST.INP`, `ADDNEQ2.INP`, `GPSEST.INP`
@@ -4817,7 +6132,11 @@ Variables:
 ### ZD_GPSEST_DELOLD_P
 
 - Package: `GPSEST_DELOLD_P`
+- Name: GPSEST_DELOLD_P
 - Purpose: Prepare parallel GPSEST run using MKCLUS for clustering.
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames
 - Bernese programs: `MKCLUS`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PREPROCESSING.PCF
 - INP files: `MKCLUS.INP`, `MKCLUS.INP`
@@ -4830,7 +6149,11 @@ Variables:
 ### ZD_GPSEST_E
 
 - Package: `GPSEST_E`
+- Name: GPSEST_E
 - Purpose: Execute parallel GPSEST
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Changes: 15-Jun-2026: ck: Completely revised
 - Bernese programs: `GPSEST`
 - Used in PCFs: ZDGNSS_AR.PCF, ZDGNSS_CLKDEN.PCF, ZDGNSS_CLKDEN_FINAL.PCF, ZDGNSS_PREPROCESSING.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -4842,7 +6165,11 @@ Variables:
 ### ZD_GPSEST_P
 
 - Package: `GPSEST_P`
+- Name: GPSEST_P
 - Purpose: Station-wise zero-difference data screening
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Changes: 15-Jun-2026: ck: Reformatted
 - Used in PCFs: ZDGNSS_AR.PCF, ZDGNSS_CLKDEN.PCF, ZDGNSS_CLKDEN_FINAL.PCF, ZDGNSS_PREPROCESSING.PCF
 - Read keys:
   - Other keys: `$S+0`, `DIR_BPEPRT`, `DIR_CZH`, `DIR_PZH`, `EXT_CZH`, `EXT_PZH`
@@ -4851,7 +6178,10 @@ Variables:
 ### ZD_GPSESTC_E
 
 - Package: `GPSESTC_E`
+- Name: GPSESTC_E
 - Purpose: Execute parallel GPSEST
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `GPSEST`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -4864,7 +6194,11 @@ Variables:
 ### ZD_GPSESTCP_E
 
 - Package: `GPSESTCP_E`
+- Name: GPSESTCP_E
 - Purpose: Parallel run of GPSEST using code and phase data
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 27-Apr-2026 CK: Revised and formatted
 - Bernese programs: `GPSEST`
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -4876,7 +6210,11 @@ Variables:
 ### ZD_GPSESTW_E
 
 - Package: `GPSESTC_E`
-- Purpose: Execute parallel GPSEST, intentionally no GNSS selection
+- Name: GPSESTC_E
+- Purpose: Execute parallel GPSEST,  
+   intentionally no GNSS selection
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `GPSEST`
 - Used in PCFs: ZDGNSS_PREPROCESSING.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -4889,7 +6227,11 @@ Variables:
 ### ZD_GPSXTR
 
 - Package: `GPSXTR`
+- Name: GPSXTR
 - Purpose: Generate summary of the parallel GPSEST runs
+- Author: M. Meindl
+- Created: 03-Aug-2003
+- Changes: 10-Feb-2005 mm: Old date variables removed
 - Bernese programs: `GPSXTR`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `GPSXTR.INP`
@@ -4900,7 +6242,11 @@ Variables:
 ### ZD_GPSXTR_EXTRACT
 
 - Package: `GPSXTR_EXTRACT`
+- Name: GPSXTR_EXTRACT
 - Purpose: Extract RMS, number of files, observations, and parameters
+- Author: C. Kobel
+- Created: 12-Dec-2025
+- Changes: 30-Apr-2026 CK: Reformatted, improved readability,
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - Read keys:
   - V_ variables: `V_FIN`
@@ -4911,7 +6257,11 @@ Variables:
 ### ZD_GPSXTRP
 
 - Package: `GPSXTRP`
+- Name: GPSXTRP
 - Purpose: Execute GPSXTR
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `GPSXTR`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `GPSXTR.INP`
@@ -4919,7 +6269,10 @@ Variables:
 ### ZD_HELMR1
 
 - Package: `HELMR1`
-- Purpose: Run HELMR1 Authors:   C. Kobel
+- Name: HELMR1
+- Purpose: Run HELMR1
+- Author: C. Kobel
+- Created: 10-Nov-2025
 - Bernese programs: `HELMR1`
 - Used in PCFs: ZDGNSS_CMPSOL.PCF
 - INP files: `HELMR1.INP`, `HELMR1.INP`
@@ -4930,7 +6283,12 @@ Variables:
 ### ZD_HELMR1_VS
 
 - Package: `HELMR1_VS`
-- Purpose: HELMR1 Programs:  HELMR1 Authors:   C. Kobel
+- Name: HELMR1_VS
+- Purpose: HELMR1  
+    
+  Programs:  HELMR1
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Bernese programs: `HELMR1`
 - Used in PCFs: ZDGNSS_VALSOL.PCF
 - INP files: `HELMR1.INP`
@@ -4941,7 +6299,10 @@ Variables:
 ### ZD_IAR_STA
 
 - Package: `IAR_STA`
+- Name: IAR_STA
 - Purpose: Generate statistics of AR based on IAR_PRC script
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `GPSXTR`
 - Used in PCFs: ZDGNSS_AR.PCF
 - INP files: `GPSXTR.INP`, `GPSXTR.INP`
@@ -4949,10 +6310,29 @@ Variables:
   - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_BIA`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PZH`, `DIR_SUM`, `EXT_BIA`, `EXT_CRD`, `EXT_OSB`, `EXT_OUT`, `EXT_PZH`, `EXT_SUM`, `STARTCOUNT`
 - File deletes: `DIR_SUMIAR$YSS+0.PRC) if $iarRun==0`, `DIR_SUMFIX$YSS+0.EXT_SUM`
 - Source file: ZD_IAR_STA (download from the HTML manual)
+### ZD_IAR_STA~
+
+- Package: `IAR_STA`
+- Name: IAR_STA
+- Purpose: Generate statistics of AR based on IAR_PRC script
+- Author: E. Calero
+- Created: 02-Dec-2021
+- Changes: 02-Jul-2026 ck: Revised
+- Bernese programs: `GPSXTR`
+- INP files: `GPSXTR.INP`, `GPSXTR.INP`
+- Read keys:
+  - Other keys: `$S+0`, `$Y+0`, `$YD+0`, `$YSS+0`, `DIR_BIA`, `DIR_CRD`, `DIR_OSB`, `DIR_OUT`, `DIR_PZH`, `DIR_SUM`, `EXT_BIA`, `EXT_CRD`, `EXT_OSB`, `EXT_OUT`, `EXT_PZH`, `EXT_SUM`, `STARTCOUNT`
+- File deletes: `DIR_SUMIAR$YSS+0.PRC) if $iarRun==0`, `DIR_SUMFIX$YSS+0.EXT_SUM`
+- Source file: ZD_IAR_STA~ (download from the HTML manual)
 ### ZD_IARXTR
 
 - Package: `IARXTR`
+- Name: IARXTR
 - Purpose: Create comprehensive ambiguity resolution summary
+- Author: S. Schaer
+- Created: 30-Mar-2005
+- Changes: 28-Feb-2011 SS: Narrow-lane summary forced to GPS-only  
+  11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `OBSXTR`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `OBSXTR.INP`, `OBSXTR.INP`
@@ -4964,7 +6344,10 @@ Variables:
 ### ZD_INIT_BRD
 
 - Package: `INIT_BRD`
+- Name: INIT_BRD
 - Purpose: Initialize broadcast PRE and CLK files
+- Author: C. Kobel
+- Created: 21-Apr-2026
 - Bernese programs: `RXN2PRE`, `SATCLK2`
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - INP files: `RXN2PRE.INP`, `SATCLK2.INP`
@@ -4977,7 +6360,10 @@ Variables:
 ### ZD_INIT_HOI
 
 - Package: `INIT_HOI`
+- Name: INIT_HOI
 - Purpose: Initialize HOI ionosphere file
+- Author: C. Kobel
+- Created: 21-Apr-2026
 - Used in PCFs: ZDGNSS_LEONEQ.PCF, ZDGNSS_PPP.PCF, ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_USEHOI`
@@ -4986,7 +6372,10 @@ Variables:
 ### ZD_INIT_VMF
 
 - Package: `INIT_VMF`
+- Name: INIT_VMF
 - Purpose: Initialize VMF grid files
+- Author: C. Kobel
+- Created: 21-Apr-2026
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - Other keys: `$+0`, `$Y+0`, `$YD+0`, `DIR_GRD`, `DIR_OUT`, `EXT_GRD`
@@ -4995,7 +6384,10 @@ Variables:
 ### ZD_ITE_PHASE_THR
 
 - Package: `ITE_PHASE_THR`
-- Purpose: Progressively modifies the residuals threshold for phase & code
+- Name: ITE_PHASE_THR
+- Purpose: Progressively modifies the residuals threshold for phase &amp; code
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - Read keys:
   - V_ variables: `V_CPSC`
@@ -5007,7 +6399,11 @@ Variables:
 ### ZD_ITE_PRE_CLK
 
 - Package: `ITE_PRE_CLK`
-- Purpose: This script manages the iterative process in charge of the pre-elimination of the clocks
+- Name: ITE_PRE_CLK
+- Purpose: This script manages the iterative process in charge of the  
+  pre-elimination of the clocks
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - PARAM parameters: `PARAM3`
@@ -5017,7 +6413,11 @@ Variables:
 - Source file: ZD_ITE_PRE_CLK (download from the HTML manual)
 ### ZD_LAPACK
 
-- Purpose: Jump to PARAM2 if V_LAPA is NO and V_OLAP is NO, empty, or undefined
+- Name: ZD_LAPACK
+- Purpose: Jump to PARAM2 if V_LAPA is NO and V_OLAP  
+  is NO, empty, or undefined
+- Author: C. Kobel
+- Created: 18-Nov-2026
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - V_ variables: `V_LAPA`, `V_OLAP`
@@ -5025,7 +6425,12 @@ Variables:
 - Source file: ZD_LAPACK (download from the HTML manual)
 ### ZD_LEONEQ_COP
 
-- Purpose: Copy files for ZDGNSS_LEONEQ.PCF. Existing destination files are retained and are not copied again.
+- Name: ZD_LEONEQ_COP
+- Purpose: Copy files for ZDGNSS_LEONEQ.PCF. Existing destination files are  
+  retained and are not copied again.
+- Author: C. Kobel
+- Created: 15-Sep-2026
+- Changes: 15-Sep-2026 CK: Skip files which already exist at destination
 - Used in PCFs: ZDGNSS_LEONEQ.PCF
 - Read keys:
   - V_ variables: `V_B`, `V_CLK`, `V_CLKDIR`, `V_ORBDIR`, `V_OSB`
@@ -5035,7 +6440,11 @@ Variables:
 ### ZD_MANMRK
 
 - Package: `MANMRK`
-- Purpose: Marks observations for satellites affected by manoeuvres. Copies SAT-CRX into campaign first
+- Name: MANMRK
+- Purpose: Marks observations for satellites affected by manoeuvres.  
+  Copies SAT-CRX into campaign first
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `SATMRK`
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - INP files: `SATMRK.INP`, `SATMRK.INP`
@@ -5044,10 +6453,32 @@ Variables:
   - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `EXT_SATCRUX`, `PTH_SATCRUX`
 - File reads: `PTH_SATCRUXV_SATCRX.EXT_SATCRUX`
 - Source file: ZD_MANMRK (download from the HTML manual)
+### ZD_MANMRK~
+
+- Package: `MANMRK`
+- Name: MANMRK
+- Purpose: Marks observations for satellites affected by manoeuvres.  
+  Copies SAT-CRX into campaign first
+- Author: E. Calero
+- Created: 02-Jul-2021
+- Changes: C. Kobel: Also exclude satellites with (-)-sign
+- Bernese programs: `SATMRK`
+- INP files: `SATMRK.INP`, `SATMRK.INP`
+- Read keys:
+  - V_ variables: `V_SATCRX`
+  - Other keys: `$Y+0`, `$YD+0`, `$YMD_STR+0`, `EXT_SATCRUX`, `PTH_SATCRUX`
+- File reads: `PTH_SATCRUXV_SATCRX.EXT_SATCRUX`
+- Source file: ZD_MANMRK~ (download from the HTML manual)
 ### ZD_MAUPRP_E
 
 - Package: `MAUPRP_E`
+- Name: MAUPRP_E
 - Purpose: Parallel run of MAUPRP
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames  
+  02-Jul-2026 ck: Revised and cleaned up
 - Bernese programs: `MAUPRP`
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - INP files: `MAUPRP.INP`, `MAUPRP.INP`
@@ -5061,7 +6492,13 @@ Variables:
 ### ZD_MAUPRP_P
 
 - Package: `MAUPRP_P`
+- Name: MAUPRP_P
 - Purpose: Prepare parallel MAUPRP run
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 26-Jan-2006 mm: New initPar call (w/o tmpFil)  
+  02-Jul-2026 ck: Corrected handling of V_NCLU
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - Read keys:
   - V_ variables: `V_NCLU`
@@ -5071,7 +6508,15 @@ Variables:
 ### ZD_MAUPRP_P_PPP
 
 - Package: `MAUPRP_P`
-- Purpose: Execute MAUPRP (parallel mode) Remark  :  This script may be used to process zero or single difference observation files (both input fields are filled in).
+- Name: MAUPRP_P
+- Purpose: Execute MAUPRP (parallel mode)  
+    
+  Remark  :  This script may be used to process zero or single difference  
+  observation files (both input fields are filled in).
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `MAUPRP`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `MAUPRP.INP`, `MAUPRP.INP`
@@ -5082,7 +6527,16 @@ Variables:
 ### ZD_MAUPRPAP
 
 - Package: `MAUPRPAP`
-- Purpose: Prepare parallel MAUPRP run Remark  :  This script may be used to process zero or signel difference observation files (the switch is taken from the input file).
+- Name: MAUPRPAP
+- Purpose: Prepare parallel MAUPRP run  
+    
+  Remark  :  This script may be used to process zero or signel difference  
+  observation files (the switch is taken from the input file).
+- Parameters: PARAM2 - output file identifier (default: MPR)  
+  PARAM3 - empty: stop if no PZH/PSH files are found
+- Author: M. Meindl, S. Schaer
+- Created: 30-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -5093,7 +6547,10 @@ Variables:
 ### ZD_MERGECRDP
 
 - Package: `MERGECRDP`
+- Name: MERGECRDP
 - Purpose: Merge CRD files
+- Author: C. Kobel
+- Created: 09-Jul-2026
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_APRFP`, `V_FIN`
@@ -5104,14 +6561,20 @@ Variables:
 ### ZD_MKCLUS
 
 - Package: `MKCLUS`
+- Name: MKCLUS
 - Purpose: Run MKCLUS
+- Author: C. Kobel
+- Created: 22-Apr-2026
 - Bernese programs: `MKCLUS`
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PREPARATION.PCF
 - INP files: `MKCLUS.INP`
 - Source file: ZD_MKCLUS (download from the HTML manual)
 ### ZD_MOD_FIX
 
+- Name: ZD_MOD_FIX
 - Purpose: Make modifications to the reference FIX file
+- Author: C. Kobel
+- Created: 03-Nov-2026
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_CRDINF`
@@ -5120,7 +6583,10 @@ Variables:
 ### ZD_MOD_OSBFIL
 
 - Package: `MOD_OSBFIL`
+- Name: MOD_OSBFIL
 - Purpose: Extend validity period of OSB bias records
+- Author: C. Kobel
+- Created: 22-Jun-2026
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - Read keys:
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OSB`, `EXT_OSB`
@@ -5130,7 +6596,11 @@ Variables:
 ### ZD_MPR_XTR
 
 - Package: `MPR_XTR`
+- Name: MPR_XTR
 - Purpose: Generate summary of parallel MAUPRP runs.
+- Author: H. Bock
+- Created: 06-Dec-2007
+- Changes: 23-Jul-2008 rd: prepare for reprocessing
 - Bernese programs: `MPRXTR`
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - INP files: `MPRXTR.INP`, `MPRXTR.INP`
@@ -5144,7 +6614,20 @@ Variables:
 ### ZD_MPRXTR
 
 - Package: `MPRXTR`
-- Purpose: Execute MPRXTR Remark  :  reject binary observation files if the correspsonding option in MPRXTR is enabled
+- Name: MPRXTR
+- Purpose: Execute MPRXTR  
+    
+  Remark  :  reject binary observation files  
+  if the correspsonding option in MPRXTR is enabled
+- Parameters: PARAM1: NEXTJOB to check whether the last observation file  
+          has been deleted  
+  PARAM2: PID of the SNGDIF script of the BPE  
+  PARAM3: PID of the protocol script of the BPE
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  14-Jun-2013 RD: Call for &quot;deleteFiles&quot; corrected  
+  20-Dec-2013 RD/SS: Improve deletion features
 - Bernese programs: `MPRXTR`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `MPRXTR.INP`
@@ -5156,7 +6639,11 @@ Variables:
 ### ZD_MRKOB__E
 
 - Package: `MRKOB__E`
+- Name: MRKOB__E
 - Purpose: Apply observation editing instructions using SATMRK.
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 26-Jan-2021 ec: Renamed to avoid naming conflict
 - Bernese programs: `SATMRK`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF
 - INP files: `SATMRK.INP`
@@ -5168,7 +6655,11 @@ Variables:
 ### ZD_MRKOB__P
 
 - Package: `MRKOB__P`
+- Name: MRKOB__P
 - Purpose: Prepare and distribute parallel SATMRK processing runs.
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF
 - Read keys:
   - V_ variables: `V_NCLU`
@@ -5179,7 +6670,10 @@ Variables:
 ### ZD_NUM_OBSFIL
 
 - Package: `NUM_OBSFIL`
+- Name: NUM_OBSFIL
 - Purpose: Count observation files in RAW directory.
+- Author: C. Kobel
+- Created: 18-Oct-2025
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_MINC`
@@ -5189,7 +6683,10 @@ Variables:
 ### ZD_OBSXTR
 
 - Package: `OBSXTR`
+- Name: OBSXTR
 - Purpose: Execute OBSXTR
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `OBSXTR`
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - INP files: `OBSXTR.INP`
@@ -5199,7 +6696,11 @@ Variables:
 ### ZD_OBSXTR_EXTRACT
 
 - Package: `OBSXTR_EXTRACT`
+- Name: OBSXTR_EXTRACT
 - Purpose: Extract statistics from OBSXTR output file
+- Author: C. Kobel
+- Created: 24-Nov-2025
+- Changes: 30-Apr-2026 CK: Reformatted, standardized header,
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - Read keys:
   - V_ variables: `V_FIN`
@@ -5210,7 +6711,18 @@ Variables:
 ### ZD_ORB_VER
 
 - Package: `ORB_VER`
-- Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:  ORBGEN
+- Name: ORB_VER
+- Purpose: ORBIT QUALITY CHECKS:  
+  3-DAY ORBIT OVERLAPS (ORBGEN)  
+    
+  Programs:  ORBGEN
+- Author: S. Schaer
+- Created: 22-Feb-2011
+- Changes: 22-Feb-2011/ss: Execute orb_ver.com  
+  24-Feb-2011/ss: Make use of new options concerning orb_ver.com  
+  25-Sep-2012/ss: Extract LST file identifier  
+  12-Dec-2023/da: Introduced day-specific satellite exclusion  
+  09-Nov-2026/ck: YYDDD archive and order-independent summaries
 - Bernese programs: `ORBGEN`
 - Used in PCFs: ZDGNSS_VALSOL.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -5223,7 +6735,18 @@ Variables:
 ### ZD_ORB_VER_25112026
 
 - Package: `ORB_VER`
-- Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:  ORBGEN
+- Name: ORB_VER
+- Purpose: ORBIT QUALITY CHECKS:  
+  3-DAY ORBIT OVERLAPS (ORBGEN)  
+    
+  Programs:  ORBGEN
+- Author: S. Schaer
+- Created: 22-Feb-2011
+- Changes: 22-Feb-2011/ss: Execute orb_ver.com  
+  24-Feb-2011/ss: Make use of new options concerning orb_ver.com  
+  25-Sep-2012/ss: Extract LST file identifier  
+  12-Dec-2023/da: Introduced day-specific satellite exclusion  
+  09-Nov-2026/ck: YYDDD archive and order-independent summaries
 - Bernese programs: `ORBGEN`
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
 - Read keys:
@@ -5234,7 +6757,18 @@ Variables:
 ### ZD_ORB_VER~
 
 - Package: `ORB_VER`
-- Purpose: ORBIT QUALITY CHECKS: 3-DAY ORBIT OVERLAPS (ORBGEN) Programs:  ORBGEN
+- Name: ORB_VER
+- Purpose: ORBIT QUALITY CHECKS:  
+  3-DAY ORBIT OVERLAPS (ORBGEN)  
+    
+  Programs:  ORBGEN
+- Author: S. Schaer
+- Created: 22-Feb-2011
+- Changes: 22-Feb-2011/ss: Execute orb_ver.com  
+  24-Feb-2011/ss: Make use of new options concerning orb_ver.com  
+  25-Sep-2012/ss: Extract LST file identifier  
+  12-Dec-2023/da: Introduced day-specific satellite exclusion  
+  09-Nov-2026/ck: YYDDD archive and order-independent summaries
 - Bernese programs: `ORBGEN`
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
 - Read keys:
@@ -5246,7 +6780,11 @@ Variables:
 ### ZD_ORBGEN
 
 - Package: `ORBGEN`
+- Name: ORBGEN
 - Purpose: Run ORBGEN
+- Author: C. Kobel
+- Created: 21-Apr-2026
+- Changes: 26-May-2026 CK: Revised and formatted
 - Bernese programs: `ORBGEN`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_AR.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ORBGEN.INP`
@@ -5255,7 +6793,12 @@ Variables:
 - Source file: ZD_ORBGEN (download from the HTML manual)
 ### ZD_ORBGEN_APR
 
-- Purpose: Run ORBGEN, check for bad satellites, and add exclusions to the SATCRX file.
+- Name: ZD_ORBGEN_APR
+- Purpose: Run ORBGEN, check for bad satellites, and add exclusions  
+  to the SATCRX file.
+- Author: C. Kobel
+- Created: 21-Apr-2026
+- Changes: 26-May-2026 CK: Revised and formatted
 - Bernese programs: `ORBGEN`
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - INP files: `ORBGEN.INP`
@@ -5266,7 +6809,10 @@ Variables:
 ### ZD_ORBGENA
 
 - Package: `ORBGENA`
+- Name: ORBGENA
 - Purpose: Execute ORBGEN
+- Author: C. Kobel
+- Created: 27-Apr-2026
 - Bernese programs: `ORBGEN`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF
 - INP files: `ORBGEN.INP`
@@ -5274,10 +6820,27 @@ Variables:
   - V_ variables: `V_GNSS`
   - Other keys: `$$bpe{PARAM1}`
 - Source file: ZD_ORBGENA (download from the HTML manual)
+### ZD_ORBGENA~
+
+- Package: `ORBGENA`
+- Name: ORBGENA
+- Purpose: Execute ORBGEN
+- Author: E. Calero
+- Created: 20-Feb-2020
+- Changes: 27-Apr-2026 CK: Revised and formatted
+- Bernese programs: `ORBGEN`
+- INP files: `ORBGEN.INP`
+- Read keys:
+  - V_ variables: `V_GNSS`
+  - Other keys: `$$bpe{PARAM1}`
+- Source file: ZD_ORBGENA~ (download from the HTML manual)
 ### ZD_ORBGENF
 
 - Package: `ORBGENF`
+- Name: ORBGENF
 - Purpose: Execute ORBGEN according to the input argument
+- Author: C. Kobel
+- Created: 18-Nov-2026
 - Bernese programs: `ORBGEN`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ORBGEN.INP`, `ORBGEN.INP`
@@ -5288,7 +6851,10 @@ Variables:
 ### ZD_OSBMERGE
 
 - Package: `OSBMERGE`
+- Name: OSBMERGE
 - Purpose: Merge multiple OSB observation files into a single
+- Author: C. Kobel
+- Created: 23-Apr-2026
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF
 - Read keys:
   - V_ variables: `V_CBIA`
@@ -5297,10 +6863,28 @@ Variables:
 - File writes: `DIR_OSBV_CBIAS$YSS+0.EXT_OSB`
 - File patterns: `DIR_OSBV_CBIAS$YSS+0[0-9][0-9][0-9].EXT_OSB`
 - Source file: ZD_OSBMERGE (download from the HTML manual)
+### ZD_OSBMERGE~
+
+- Package: `OSBMERGE`
+- Name: OSBMERGE
+- Purpose: Merge multiple OSB observation files into a single
+- Author: E. Calero
+- Created: xx-xxx-20xx
+- Changes: 23-Apr-2026 ck: Reformatted and cleaned
+- Read keys:
+  - V_ variables: `V_CBIA`
+  - Other keys: `$YSS+0`, `DIR_OSB`, `EXT_OSB`
+- File reads: `$file`
+- File writes: `DIR_OSBV_CBIAS$YSS+0.EXT_OSB`
+- File patterns: `DIR_OSBV_CBIAS$YSS+0[0-9][0-9][0-9].EXT_OSB`
+- Source file: ZD_OSBMERGE~ (download from the HTML manual)
 ### ZD_PHABIA
 
 - Package: `PHABIA`
+- Name: PHABIA
 - Purpose: Execute PHABIA, Create a combined OSB file
+- Author: S. Schaer
+- Changes: 29-Apr-2026 CK: Revised and formatted
 - Bernese programs: `PHABIA`
 - Used in PCFs: ZDGNSS_AR.PCF
 - INP files: `PHABIA.INP`
@@ -5312,7 +6896,10 @@ Variables:
 ### ZD_PHACMB
 
 - Package: `PHACMB`
+- Name: PHACMB
 - Purpose: Execute PHACMB
+- Author: S. Schaer
+- Changes: 29-Apr-2026 CK: Revised and formatted
 - Used in PCFs: ZDGNSS_AR.PCF
 - Read keys:
   - V_ variables: `V_CBIA`
@@ -5323,7 +6910,10 @@ Variables:
 ### ZD_PHACMB_P
 
 - Package: `PHACMB_P`
+- Name: PHACMB_P
 - Purpose: Combine OSB file w/ station-specific OSBs
+- Author: C. Kobel
+- Created: 27-May-2026
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_APROSB`, `V_FIN`, `V_OSBFIL`
@@ -5335,7 +6925,10 @@ Variables:
 ### ZD_PHACOR
 
 - Package: `PHACOR`
+- Name: PHACOR
 - Purpose: Execute PHACOR
+- Author: C. Kobel
+- Created: 27-Aug-2026
 - Bernese programs: `PHACOR`
 - Used in PCFs: ZDGNSS_AR.PCF
 - INP files: `PHACOR.INP`, `PHACOR.INP`
@@ -5346,7 +6939,10 @@ Variables:
 ### ZD_PHACOR_POST
 
 - Package: `PHACOR_POST`
+- Name: PHACOR_POST
 - Purpose: Copy PHACOR-modified products and create the combined OSB file.
+- Author: C. Kobel
+- Created: 22-Oct-2026
 - Used in PCFs: ZDGNSS_AR.PCF
 - Read keys:
   - V_ variables: `V_APR`, `V_CBIA`
@@ -5355,7 +6951,10 @@ Variables:
 ### ZD_POLUPD
 
 - Package: `POLUPD`
+- Name: POLUPD
 - Purpose: Execute POLUPD, special treating for 3-day solution
+- Author: C. Kobel
+- Created: 26-May-2026
 - Bernese programs: `POLUPD`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF
 - INP files: `POLUPD.INP`
@@ -5363,10 +6962,28 @@ Variables:
   - V_ variables: `V_APR`, `V_SOLDAY`
   - Other keys: `$YSS+0`, `$YSS-1`, `$YSS-2`
 - Source file: ZD_POLUPD (download from the HTML manual)
+### ZD_POLUPD~
+
+- Package: `POLUPD`
+- Name: POLUPD
+- Purpose: Execute POLUPD, special treating for 3-day solution
+- Author: E. Calero
+- Created: 11-May-2021
+- Changes: 26-May-2026 CK: Revised and formatted
+- Bernese programs: `POLUPD`
+- INP files: `POLUPD.INP`
+- Read keys:
+  - V_ variables: `V_APR`, `V_SOLDAY`
+  - Other keys: `$YSS+0`, `$YSS-1`, `$YSS-2`
+- Source file: ZD_POLUPD~ (download from the HTML manual)
 ### ZD_PPP_IAR
 
 - Package: `PPP_IAR`
+- Name: PPP_IAR
 - Purpose: Initialize or skip ambiguitiy resolution step for PPP
+- Parameters: PARAM2 - goto PID if V_GNSS undefined
+- Author: R. Dach
+- Created: 11-Sep-2011
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_GNSSAR`, `V_OBSTYP`
@@ -5375,7 +6992,24 @@ Variables:
 ### ZD_PPP_RES_SUM
 
 - Package: `PPP_RES_SUM`
-- Purpose: Check zero- or double-difference data screening results and creates a summary on the residual screening: 1. RESRMS to create F(irst) residual screening summary 2. RESRMS to create L(ast) residual screening summary 3. RESCHK to create residual screening statistics Binary data files of misbehaving stations are subsequently removed if indicated After deleting stations the BPE processing is continued with SNGDIF in case of double-difference processing.
+- Name: PPP_RES_SUM
+- Purpose: Check zero- or double-difference data screening results and  
+  creates a summary on the residual screening:  
+    
+  1. RESRMS to create F(irst) residual screening summary  
+  2. RESRMS to create L(ast) residual screening summary  
+  3. RESCHK to create residual screening statistics  
+    
+  Binary data files of misbehaving stations are subsequently  
+  removed if indicated  
+    
+  After deleting stations the BPE processing is continued  
+  with SNGDIF in case of double-difference processing.
+- Parameters: PARAM1 - &quot;NEXTJOB&quot;-indicator (if necessary)  
+  PARAM2 - goto PID in case of misbehaving stations
+- Author: R. Dach
+- Created: 11-Aug-2011
+- Changes: 14-Jun-2013 RD: Call for &quot;deleteFiles&quot; corrected
 - Bernese programs: `RESCHK`, `RESRMS`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `RESCHK.INP`, `RESCHK.INP`, `RESRMS.INP`
@@ -5387,7 +7021,16 @@ Variables:
 ### ZD_PPP_SUM
 
 - Package: `PPP_SUM`
-- Purpose: Create PPP BPE processing summary file Reduced to the RNXSMT workflow in PPP_20263120.PRC. Original PART numbers are retained for reference.
+- Name: PPP_SUM
+- Purpose: Create PPP BPE processing summary file  
+  Reduced to the RNXSMT workflow in PPP_20263120.PRC.  
+  Original PART numbers are retained for reference.
+- Author: S. Schaer
+- Created: 07-Mar-2004
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  22-Mar-2022 LP: Updated for version 5.4 (KIN summary)  
+  10-May-2022 LP: Perform multiplier check only, when GPS is selected  
+  12-Nov-2026 CK: Reduced content
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_BLQINF`, `V_CRDINF`, `V_FIN`, `V_GNSS`, `V_GNSSAR`, `V_OBSTYP`, `V_PPP`
@@ -5398,7 +7041,14 @@ Variables:
 ### ZD_PPPEDT_P
 
 - Package: `PPPEDT_P`
-- Purpose: Precise-point-positioning (PPP) analysis (parallel mode): - Predefined screening levels are considered. - Generation of result and NEQ files for each station.
+- Name: PPPEDT_P
+- Purpose: Precise-point-positioning (PPP) analysis (parallel mode):  
+  - Predefined screening levels are considered.  
+  - Generation of result and NEQ files for each station.
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: M. Meindl, U. Hugentobler, S. Schaer
+- Created: 23-Jul-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2
 - Bernese programs: `ADDNEQ2`, `GPSEST`, `RESRMS`, `SATMRK`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `GPSEST.INP`, `RESRMS.INP`, `SATMRK.INP`, `ADDNEQ2.INP`, `GPSEST.INP`, `RESRMS.INP`, `SATMRK.INP`
@@ -5410,7 +7060,14 @@ Variables:
 ### ZD_PPPEDTAP
 
 - Package: `PPPEDTAP`
+- Name: PPPEDTAP
 - Purpose: Prepare parallel precise-point-positioning (PPP) analysis
+- Parameters: PARAM2 - output file identifier (default: V_C)  
+  PARAM3 - empty: stop if no PZH files are found
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Changes: 31-Jan-2005 MM: New initPar call (w/o tmpFil)  
+  11-Aug-2011 RD: Updated for version 5.2
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_PPP`
@@ -5421,7 +7078,14 @@ Variables:
 ### ZD_PPPIAR_P
 
 - Package: `PPPIAR_P`
+- Name: PPPIAR_P
 - Purpose: PPP WL/NL AR and verification
+- Author: S. Schaer
+- Created: 21-Jun-2018
+- Changes: 21-Jun-2018 SS: Derived from FILEST_P  
+  10-Aug-2018 SS: Changed observation data sampling for NL AR  
+  07-Dec-2020 RD: Add PCF variable V_TRPMOD  
+  12-Nov-2021 LP: Set USEAR_ using $satsysAR
 - Bernese programs: `GPSEST`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `GPSEST.INP`
@@ -5434,7 +7098,17 @@ Variables:
 ### ZD_PPPIARAP
 
 - Package: `PPPIARAP`
-- Purpose: Station-wise zero-difference ambiguity resolution Programs:
+- Name: PPPIARAP
+- Purpose: Station-wise zero-difference ambiguity resolution  
+    
+  Programs:
+- Parameters: PARAM1 - temporary file for parallel processing  
+  PARAM2..PARAM5 - CODE PHASE BOTH  
+           to select the observation files type for screening
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Last modified: 31-Jan-2005
+- Changes: 31-Jan-2005 mm: New initPar call (w/o tmpFil)
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_BPEPRT`, `DIR_PZH`, `EXT_PZH`
@@ -5443,7 +7117,17 @@ Variables:
 ### ZD_PPPIARAP~
 
 - Package: `PPPIARAP`
-- Purpose: Station-wise zero-difference ambiguity resolution Programs:
+- Name: PPPIARAP
+- Purpose: Station-wise zero-difference ambiguity resolution  
+    
+  Programs:
+- Parameters: PARAM1 - temporary file for parallel processing  
+  PARAM2..PARAM5 - CODE PHASE BOTH  
+           to select the observation files type for screening
+- Author: R. Dach
+- Created: 11-Jan-2005
+- Last modified: 31-Jan-2005
+- Changes: 31-Jan-2005 mm: New initPar call (w/o tmpFil)
 - Read keys:
   - Other keys: `$S+0`, `$YYYSS+0`, `DIR_BPEPRT`, `DIR_CZH`, `EXT_CZH`
 - File patterns: `DIR_CZH????$S+0.EXT_CZH`
@@ -5451,7 +7135,10 @@ Variables:
 ### ZD_PRE_ELIM_CLK
 
 - Package: `PRE_ELIM_CLK`
+- Name: PRE_ELIM_CLK
 - Purpose: Pre-eliminate last set of clocks
+- Author: C. Kobel
+- Created: 28-Apr-2026
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
@@ -5463,7 +7150,10 @@ Variables:
 ### ZD_PRE_ELIM_CLK_E
 
 - Package: `PRE_ELIM_CLK_E`
+- Name: PRE_ELIM_CLK_E
 - Purpose: Parallel run of ADDNEQ2
+- Author: C. Kobel
+- Created: 26-May-2026
 - Bernese programs: `ADDNEQ2`
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - INP files: `ADDNEQ2.INP`
@@ -5471,10 +7161,27 @@ Variables:
   - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
   - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
 - Source file: ZD_PRE_ELIM_CLK_E (download from the HTML manual)
+### ZD_PRE_ELIM_CLK_E~
+
+- Package: `PRE_ELIM_CLK_E`
+- Name: PRE_ELIM_CLK_E
+- Purpose: Parallel run of ADDNEQ2
+- Author: E. Calero
+- Created: 25-Apr-2021
+- Changes: 26-May-2026 CK: Revised and formatted
+- Bernese programs: `ADDNEQ2`
+- INP files: `ADDNEQ2.INP`
+- Read keys:
+  - PARAM parameters: `PARAM1`, `PARAM2`, `PARAM3`, `PARAM4`
+  - Other keys: `$YD+0`, `$YSS+0`, `DIR_OUT`, `SUB_PID`
+- Source file: ZD_PRE_ELIM_CLK_E~ (download from the HTML manual)
 ### ZD_PRE_ELIM_CLK_P
 
 - Package: `PRE_ELIM_CLK_P`
+- Name: PRE_ELIM_CLK_P
 - Purpose: Prepare parallel ADDNEQ2 run using time intervals
+- Author: C. Kobel
+- Created: 26-May-2026
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - V_ variables: `V_OLAP`
@@ -5483,10 +7190,42 @@ Variables:
 - File deletes: `DIR_OUT/../MSC/MSC_$YD+0/$name)`
 - File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM9}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM9}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM9}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
 - Source file: ZD_PRE_ELIM_CLK_P (download from the HTML manual)
+### ZD_PRE_ELIM_CLK_P~
+
+- Package: `PRE_ELIM_CLK_P`
+- Name: PRE_ELIM_CLK_P
+- Purpose: Prepare parallel ADDNEQ2 run using time intervals
+- Author: E. Calero
+- Created: 25-Apr-2021
+- Changes: 26-May-2026 CK: Revised and formatted
+- Read keys:
+  - V_ variables: `V_OLAP`
+  - PARAM parameters: `PARAM2`
+  - Other keys: `$$bpe{PARAM9}`, `$YD+0`, `$YSS+0`, `DIR_NEQ`, `DIR_OUT`, `EXT_NEQ`
+- File deletes: `DIR_OUT/../MSC/MSC_$YD+0/$name)`
+- File patterns: `"DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??"`, ` "DIR_NEQ$$bpe{PARAM9}${preIte}$YSS+0???.EXT_NEQ"`, `"DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV"`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINT_??`, `DIR_OUT/../MSC/MSC_$YD+0/TIMINTITE_??`, `DIR_NEQ$$bpe{PARAM9}${preIte}$YSS+0???.EXT_NEQ`, `DIR_NEQ$$bpe{PARAM9}${ite}$YSS+0???.EXT_NEQ`, `DIR_OUT/../MSC/MSC_$YD+0/???_??_??.COV`
+- Source file: ZD_PRE_ELIM_CLK_P~ (download from the HTML manual)
+### ZD_PRE_ELIM_CLK~
+
+- Package: `PRE_ELIM_CLK`
+- Name: PRE_ELIM_CLK
+- Purpose: Pre-eliminate last set of clocks
+- Author: E. Calero
+- Changes: 28-Apr-2026 CK: Revised and formatted
+- Bernese programs: `ADDNEQ2`
+- INP files: `ADDNEQ2.INP`, `ADDNEQ2.INP`
+- Read keys:
+  - V_ variables: `V_FIN`
+  - Other keys: `$YSS+0`, `DIR_NEQ`, `EXT_NEQ`
+- File patterns: `DIR_NEQV_FIN??$YSS+0???.EXT_NEQ`
+- Source file: ZD_PRE_ELIM_CLK~ (download from the HTML manual)
 ### ZD_RES_CHK
 
 - Package: `RES_CHK`
+- Name: RES_CHK
 - Purpose: Checks residuals of code or phase observations
+- Author: C. Kobel
+- Created: 29-Jun-2026
 - Bernese programs: `RESCHK`, `RESRMS`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PREPROCESSING.PCF
 - INP files: `RESCHK.INP`, `RESRMS.INP`, `RESCHK.INP`, `RESRMS.INP`
@@ -5501,7 +7240,10 @@ Variables:
 ### ZD_RESRMS
 
 - Package: `RESRMS`
+- Name: RESRMS
 - Purpose: Execute RESRMS
+- Author: H. Bock
+- Created: 27-Feb-2012
 - Bernese programs: `RESRMS`
 - Used in PCFs: ZDGNSS_CODESCREENING.PCF, ZDGNSS_PPP.PCF
 - INP files: `RESRMS.INP`
@@ -5509,7 +7251,10 @@ Variables:
 ### ZD_RESRMS_MAX
 
 - Package: `RESRMS_MAX`
+- Name: RESRMS_MAX
 - Purpose: Check residuals for outliers and remove them according to flags
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Bernese programs: `RESRMS`
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - INP files: `RESRMS.INP`, `RESRMS.INP`
@@ -5521,7 +7266,10 @@ Variables:
 ### ZD_RNXCLK
 
 - Package: `RNXCLK`
+- Name: RNXCLK
 - Purpose: Execute RNXCLK
+- Author: R. Dach
+- Created: 11-Aug-2011
 - Bernese programs: `RNXCLK`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `RNXCLK.INP`
@@ -5529,7 +7277,16 @@ Variables:
 ### ZD_RNXGRA
 
 - Package: `RNXGRA`
-- Purpose: Execute RNXGRA Remark  :  delete incomplete RINEX observation files if the correspsonding option in RNXGRA is enabled
+- Name: RNXGRA
+- Purpose: Execute RNXGRA  
+    
+  Remark  :  delete incomplete RINEX observation files  
+  if the correspsonding option in RNXGRA is enabled
+- Author: M. Meindl
+- Created: 20-Oct-2003
+- Changes: 11-Aug-2011 RD: Updated for version 5.2  
+  14-Jun-2013 RD: Call for &quot;deleteFiles&quot; corrected  
+  20-Dec-2013 RD/SS: Improve deletion features
 - Bernese programs: `RNXGRA`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `RNXGRA.INP`
@@ -5542,7 +7299,12 @@ Variables:
 ### ZD_RNXSMT_P
 
 - Package: `RNXSMT_P`
+- Name: RNXSMT_P
 - Purpose: Parallel RNXSMT run
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 10-Feb-2005 mm: Old date variables removed  
+  02-Jul-2026 ck: Revised and cleand up
 - Bernese programs: `RNXSMT`
 - Used in PCFs: ZDGNSS_PPP.PCF, ZDGNSS_PREPARATION.PCF
 - INP files: `RNXSMT.INP`, `RNXSMT.INP`
@@ -5555,7 +7317,12 @@ Variables:
 ### ZD_RNXSMTAP
 
 - Package: `RNXSMTAP`
+- Name: RNXSMTAP
 - Purpose: Prepare parallel RNXSMT run
+- Author: M. Meindl
+- Created: 23-Jul-2003
+- Last modified: 19-May-2009
+- Changes: 26-Jan-2006 mm: New initPar call (w/o tmpFil)
 - Used in PCFs: ZDGNSS_PPP.PCF, ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_NCLU`
@@ -5566,7 +7333,12 @@ Variables:
 ### ZD_RXOBV3_P
 
 - Package: `RXOBV3_P`
+- Name: RXOBV3_P
 - Purpose: Parallel RXOBV3 run
+- Author: M. Meindl
+- Created: 30-Jul-2003
+- Changes: 10-Feb-2005 mm: Old date variables removed  
+  02-Jul-2026 ck: Revised and cleaned up
 - Bernese programs: `RXOBV3`
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - INP files: `RXOBV3.INP`, `RXOBV3.INP`
@@ -5579,7 +7351,14 @@ Variables:
 ### ZD_RXOBV3_P_PPP
 
 - Package: `RXOBV3_P_PPP`
-- Purpose: Execute RXOBV3 (parallel mode) Remark  :  Consider range of sessions for hourly processing
+- Name: RXOBV3_P_PPP
+- Purpose: Execute RXOBV3 (parallel mode)  
+    
+  Remark  :  Consider range of sessions for hourly processing
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: R. Dach
+- Created: 01-Aug-2020
+- Changes: 10-May-2022 LP: Include GPS in any case
 - Bernese programs: `RXOBV3`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `RXOBV3.INP`, `RXOBV3.INP`
@@ -5591,7 +7370,19 @@ Variables:
 ### ZD_RXOBV3AP_PPP
 
 - Package: `RXOBV3AP_PPP`
-- Purpose: Prepare parallel RXOBV3 run Remark  :  - Whether original or smoothed RINEX files shall be imported is decided in the script by reading the input option - If the abbreviation file is updated (taken from the input options - keyword "ABBUPD" ne "ERROR") all
+- Name: RXOBV3AP_PPP
+- Purpose: Prepare parallel RXOBV3 run  
+    
+  Remark  :  - Whether original or smoothed RINEX files shall be imported  
+    is decided in the script by reading the input option  
+  - If the abbreviation file is updated (taken from the input  
+    options - keyword &quot;ABBUPD&quot; ne &quot;ERROR&quot;) all
+- Parameters: PARAM2 - output file identifier (default: OBS)  
+  PARAM3 - empty: stop if no RINEX files are found
+- Author: M. Meindl, S. Schaer
+- Created: 23-Jul-2003
+- Changes: 31-Jan-2005 MM: New initPar call (w/o tmpFil)  
+  11-Aug-2011 RD: Updated for version 5.2
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_CLU`
@@ -5602,7 +7393,11 @@ Variables:
 ### ZD_RXOBV3GP
 
 - Package: `RXOBV3GP`
+- Name: RXOBV3GP
 - Purpose: A priori script to prepare parallel running of RXOBV3
+- Author: R. Dach
+- Created: 17-Nov-2005
+- Changes: 19-May-2009 rd: Session dependent parallelization filenames
 - Bernese programs: `RNXGRA`
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - INP files: `RNXGRA.INP`
@@ -5615,7 +7410,10 @@ Variables:
 ### ZD_SATMON_P
 
 - Package: `SATMON_P`
+- Name: SATMON_P
 - Purpose: Execute SATMARK
+- Author: A. Villiger
+- Created: 25-Jul-2016
 - Bernese programs: `SATMRK`
 - Used in PCFs: ZDGNSS_PREPROCESSING.PCF
 - INP files: `SATMRK.INP`
@@ -5627,7 +7425,19 @@ Variables:
 ### ZD_SATMONAP
 
 - Package: `SATMONAP`
-- Purpose: Extract satellite clock estimates (as seen by each station) and eliminate observations using satmark
+- Name: SATMONAP
+- Purpose: Extract satellite clock estimates (as seen by each station)  
+  and eliminate observations using satmark
+- Author: A. Villiger
+- Created: 19-Jul-2016
+- Changes: 25-Jul-2016 AV: Parallelization  
+  16-Aug-2016 AV: Remove empty files  
+  29-Aug-2016 AV: Remove epochs with one observation  
+  13-Oct-2016 AV: Skip if obs file not available  
+  03-Nov-2016 LP: Some bugfixes and slight adaptations to MGEX (e.g., fix in @satSys)  
+  07-Nov-2016 LP: Flexible selection of sampling rate  
+  27-Jan-2021 RD: Four digit year in EDT file  
+  22-Apr-2026 ck: Revised
 - Used in PCFs: ZDGNSS_PREPROCESSING.PCF
 - Read keys:
   - V_ variables: `V_SAMPL`
@@ -5639,7 +7449,10 @@ Variables:
 ### ZD_SATMRK
 
 - Package: `SATMRK`
+- Name: SATMRK
 - Purpose: Execute SATMRK
+- Author: S. Schaer
+- Changes: 29-Apr-2026 CK: Revised and formatted
 - Bernese programs: `SATMRK`
 - Used in PCFs: ZDGNSS_AR.PCF
 - INP files: `SATMRK.INP`
@@ -5647,7 +7460,10 @@ Variables:
 ### ZD_SAVE_RES
 
 - Package: `SAVE_RES`
+- Name: SAVE_RES
 - Purpose: Archives and saves results
+- Author: C. Kobel
+- Created: 30-Apr-2026
 - Used in PCFs: ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - Read keys:
   - Other keys: `$(SAVE)`, `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OBX`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `DIR_TRP`, `EXT_CLK`
@@ -5658,7 +7474,10 @@ Variables:
 ### ZD_SAVE_RES_3D
 
 - Package: `SAVE_RES_3D`
+- Name: SAVE_RES_3D
 - Purpose: Save results to hard-coded directory
+- Author: C. Kobel
+- Created: 26-May-2026
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF
 - Read keys:
   - V_ variables: `V_FIN`, `V_SAVE`
@@ -5666,9 +7485,42 @@ Variables:
 - File reads: `DIR_CRDV_FIN_$YSS+0.EXT_CRD`, `DIR_PREV_FIN_$YSS+0.EXT_PRE`, `DIR_STDV_FIN_$YSS+0.EXT_STD`, `DIR_ERPV_FIN_$YSS+0.EXT_ERP`, `DIR_CLKV_FINS$YSS+0.EXT_CLK`, `DIR_RXCV_FINS$YSS+0.EXT_RXC`, `DIR_RXC/V_FIN_$YSS+0001.OUT`
 - File writes: `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//STA/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OUT/`
 - Source file: ZD_SAVE_RES_3D (download from the HTML manual)
+### ZD_SAVE_RES_3D~
+
+- Package: `SAVE_RES_3D`
+- Name: SAVE_RES_3D
+- Purpose: Save results to hard-coded directory
+- Author: E. Calero
+- Created: xx-xxx-20xx
+- Changes: 26-May-2026 CK: Revised and formatted
+- Read keys:
+  - V_ variables: `V_FIN`, `V_SAVE`
+  - Other keys: `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `EXT_CLK`, `EXT_CRD`, `EXT_ERP`, `EXT_FIX`
+- File reads: `DIR_CRDV_FIN_$YSS+0.EXT_CRD`, `DIR_PREV_FIN_$YSS+0.EXT_PRE`, `DIR_STDV_FIN_$YSS+0.EXT_STD`, `DIR_ERPV_FIN_$YSS+0.EXT_ERP`, `DIR_CLKV_FINS$YSS+0.EXT_CLK`, `DIR_RXCV_FINS$YSS+0.EXT_RXC`, `DIR_RXC/V_FIN_$YSS+0001.OUT`
+- File writes: `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//STA/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//ORB/`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0//OUT/`
+- Source file: ZD_SAVE_RES_3D~ (download from the HTML manual)
+### ZD_SAVE_RES~
+
+- Package: `SAVE_RES`
+- Name: SAVE_RES
+- Purpose: Archives and saves results
+- Author: E. Calero
+- Created: xx-xxx-20xx
+- Changes: 30-Apr-2026 CK: Reformatted, improved readability
+- Read keys:
+  - Other keys: `$(SAVE)`, `$S+0`, `$YD+0`, `$YSS+0`, `DIR_BPEOUT`, `DIR_CLK`, `DIR_CRD`, `DIR_ERP`, `DIR_FIX`, `DIR_NEQ`, `DIR_OBX`, `DIR_OSB`, `DIR_PRE`, `DIR_PZH`, `DIR_RPR`, `DIR_RXC`, `DIR_SOS`, `DIR_STD`, `DIR_TRP`, `EXT_CLK`
+- File reads: `DIR_ERP$(SAVE)_$YSS+0.EXT_ERP`, `DIR_SOS$(SAVE)_$YSS+0.${extPre}`, `DIR_RPR$(SAVE)_$YSS+0.EXT_RPR`, `DIR_FIX$(SAVE)_$YSS+0.EXT_OBX`, `DIR_NEQ$(SAVE)_$YSS+0.EXT_FIX`, `DIR_PRE$(SAVE)S$YSS+0.EXT_TRP`, `DIR_CLK$(SAVE)S$YSS+0.EXT_CLK`, `EXT_CRD$(SAVE)_$YSS+0.EXT_NEQ`, `EXT_STD$(SAVE)_$YSS+0.EXT_SOS`, `DIR_ERPDIR_STD_$YSS+0.EXT_ERP`, `DIR_RPRDIR_STD_$YSS+0.EXT_RPR`, `DIR_FIXDIR_STD_$YSS+0.EXT_OBX` and 15 more
+- File writes: `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/STA`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/ORB`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/OUT`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/ATM`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/SOL`, `$ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/OBS`
+- File patterns: `DIR_CLK/DIR_STD??$S+0001.OUT`, `DIR_CLK/$(SAVE)??$S+0001.OUT`
+- Source file: ZD_SAVE_RES~ (download from the HTML manual)
 ### ZD_SOLTYPE
 
-- Purpose: Depending on the solution type, either do nothing or copy the LAPACK solution files to the final solution id-names
+- Name: ZD_SOLTYPE
+- Purpose: Depending on the solution type, either do  
+   nothing or copy the LAPACK solution files  
+   to the final solution id-names
+- Author: C. Kobel
+- Created: 22-Oct-2026
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - V_ variables: `V_FIN`, `V_LARGE`, `V_OLAP`
@@ -5679,7 +7531,11 @@ Variables:
 ### ZD_SOS_UPDATE
 
 - Package: `SOS_UPDATE`
+- Name: SOS_UPDATE
 - Purpose: Update station observation sigma file
+- Author: R. Dach
+- Created: 30-Jul-2003
+- Changes: 27-Apr-2026 CK: Revised and formatted
 - Bernese programs: `RESRMS`
 - Used in PCFs: ZDGNSS_PHASESCREENING.PCF
 - INP files: `RESRMS.INP`
@@ -5690,7 +7546,17 @@ Variables:
 ### ZD_STATION_SELECTION
 
 - Package: `STATION_SELECTION`
+- Name: STATION_SELECTION
 - Purpose: Select GNSS stations and remove unused observations
+- Author: C. Kobel
+- Created: 21-Apr-2026
+- Changes: 04-Nov-2026: Added FIXED station selection mode  
+    
+  V_NSTA:  
+  ALL     - Keep all stations  
+  FINAL   - Select stations from IGSFINAL CRD  
+  FIXED   - Read stations from STA_yyddd.SEL  
+  Numeric - Select stations using MATLAB
 - Used in PCFs: ZDGNSS_PREPARATION.PCF
 - Read keys:
   - V_ variables: `V_NSTA`, `V_STAINF`
@@ -5702,7 +7568,10 @@ Variables:
 ### ZD_STATUS
 
 - Package: `STATUS`
+- Name: STATUS
 - Purpose: Create or wait for a status file
+- Author: C. Kobel
+- Created: 02-Jul-2026
 - Used in PCFs: CMPSOL.PCF, ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_AR.PCF, ZDGNSS_CLKDEN.PCF, ZDGNSS_CLKDEN_FINAL.PCF, ZDGNSS_CMPSOL.PCF, ZDGNSS_CODESCREENING.PCF, ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF, ZDGNSS_PHASESCREENING.PCF, ZDGNSS_PPP.PCF, ZDGNSS_PREPARATION.PCF, ZDGNSS_PREPROCESSING.PCF, ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - PARAM parameters: `PARAM2`
@@ -5712,7 +7581,11 @@ Variables:
 ### ZD_STDDIF
 
 - Package: `STDDIF`
+- Name: STDDIF
 - Purpose: Execute STDDIF
+- Author: U. Meyer
+- Created: 07-May-2013
+- Changes: 30-Apr-2026 CK: Revised
 - Bernese programs: `STDDIF`
 - Used in PCFs: ZDGNSS_CMPSOL.PCF, ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - INP files: `STDDIF.INP`
@@ -5720,7 +7593,10 @@ Variables:
 ### ZD_STDELE_VS
 
 - Package: `STDELE_VS`
+- Name: STDELE_VS
 - Purpose: Execute STDELE
+- Author: C. Kobel
+- Created: 16-Mar-2026
 - Bernese programs: `STDELE`
 - Used in PCFs: ZDGNSS_VALSOL.PCF
 - INP files: `STDELE.INP`, `STDELE.INP`
@@ -5732,7 +7608,11 @@ Variables:
 ### ZD_STDPRE
 
 - Package: `STDPRE`
+- Name: STDPRE
 - Purpose: Convert standard orbit to precise orbit file format
+- Author: M. Meindl
+- Changes: 28-Apr-2026 CK: Revised and formatted  
+   14-Aug-2026 CK: Activated retry
 - Bernese programs: `STDPRE`
 - Used in PCFs: ZDGNSS_3D.PCF, ZDGNSS_3D_FINAL.PCF, ZDGNSS_AR.PCF, ZDGNSS_FINISH.PCF, ZDGNSS_FINISH_FINAL.PCF
 - Read keys:
@@ -5741,7 +7621,17 @@ Variables:
 ### ZD_TIMEST_P
 
 - Package: `TIMEST_P`
-- Purpose: Execute GPSEST for zero-difference files (parallel mode) Remark  :  The use of code or phase data is taken from variable V_OBSTYP. (default code+phase if V_OBSTYP is not defined) According to the value of V_FIXCRD and V_FIXTRP an external solution may be introduced (options are adjusted properly)
+- Name: TIMEST_P
+- Purpose: Execute GPSEST for zero-difference files (parallel mode)  
+    
+  Remark  :  The use of code or phase data is taken from variable V_OBSTYP.  
+  (default code+phase if V_OBSTYP is not defined)  
+    
+  According to the value of V_FIXCRD and V_FIXTRP an external  
+  solution may be introduced (options are adjusted properly)
+- Parameters: PARAM1 - temporary file for parallel processing
+- Author: R. Dach
+- Created: 11-Aug-2011
 - Bernese programs: `GPSEST`
 - Used in PCFs: ZDGNSS_PPP.PCF
 - INP files: `GPSEST.INP`, `GPSEST.INP`
@@ -5753,7 +7643,16 @@ Variables:
 ### ZD_TIMESTAP
 
 - Package: `TIMESTAP`
-- Purpose: Prepare parallel GPSEST run for zero-difference files Remark  :  The use of code or phase data is taken from variable V_OBSTYP. (default phase-only if V_OBSTYP is not defined)
+- Name: TIMESTAP
+- Purpose: Prepare parallel GPSEST run for zero-difference files  
+    
+  Remark  :  The use of code or phase data is taken from variable V_OBSTYP.  
+  (default phase-only if V_OBSTYP is not defined)
+- Parameters: PARAM2 - output file identifier (default: EST)  
+  PARAM3 - empty: stop if no CZH/PZH/CSH/PSH files are found
+- Author: R. Dach
+- Created: 11-Aug-2011
+- Changes: 22-May-2022 AV: Change SLA to TRS
 - Used in PCFs: ZDGNSS_PPP.PCF
 - Read keys:
   - V_ variables: `V_CLU`, `V_OBSTYP`
@@ -5764,7 +7663,10 @@ Variables:
 ### ZD_TRPMERGE
 
 - Package: `TRPMERGE`
+- Name: TRPMERGE
 - Purpose: Merge TRP-files
+- Author: C. Kobel
+- Created: 15-Jun-2026
 - Used in PCFs: ZDGNSS_CLKDEN.PCF, ZDGNSS_CLKDEN_FINAL.PCF
 - Read keys:
   - V_ variables: `V_FIN`
@@ -5774,17 +7676,38 @@ Variables:
 - File deletes: `DIR_TRPV_FIN_$YSS+0.EXT_TRP_tmp`
 - File patterns: `DIR_TRP????$S+0_REC.EXT_TRP`
 - Source file: ZD_TRPMERGE (download from the HTML manual)
+### ZD_TRPMERGE~
+
+- Package: `TRPMERGE`
+- Name: TRPMERGE
+- Purpose: Merge TRP-files
+- Author: E. Calero
+- Created: 02-Jun-2022
+- Changes: 15-Jun-2026: ck: Revised
+- Read keys:
+  - V_ variables: `V_FIN`
+  - Other keys: `$S+0`, `$YSS+0`, `DIR_TRP`, `EXT_TRP`
+- File reads: `$trpFil`, `DIR_TRPV_FIN_$YSS+0.EXT_TRP`
+- File writes: `DIR_TRPV_FIN_$YSS+0.EXT_TRP_tmp`
+- File deletes: `DIR_TRPV_FIN_$YSS+0.EXT_TRP_tmp`
+- File patterns: `DIR_TRP????$S+0_REC.EXT_TRP`
+- Source file: ZD_TRPMERGE~ (download from the HTML manual)
 ### ZD_WAIT
 
 - Package: `WAIT`
+- Name: WAIT
 - Purpose: Simple waiting script (default: 60 seconds)
+- Author: C. Kobel
+- Changes: 28-Apr-2026 CK: Revised and formatted
 - Used in PCFs: ZDGNSS_SOL_FA.PCF, ZDGNSS_SOL_FINAL.PCF, ZDGNSS_SOL_IA.PCF
 - Read keys:
   - PARAM parameters: `PARAM1`
 - Source file: ZD_WAIT (download from the HTML manual)
 ### ZD_XTR_UPDATE_HEADER
 
-- Purpose: Replace the session identifier in the XTR summary header with the processing date (YYDDD). ====================================================================
+- Name: ZD_XTR_UPDATE_HEADER
+- Purpose: Replace the session identifier in the XTR summary header  
+  with the processing date (YYDDD).
 - Used in PCFs: ZDGNSS_VALSOL.PCF
 - Read keys:
   - V_ variables: `V_XTROUT`
@@ -5792,7 +7715,11 @@ Variables:
 - Source file: ZD_XTR_UPDATE_HEADER (download from the HTML manual)
 ### ZDDE_COP
 
+- Name: ZDDE_COP
 - Purpose: Copy files requiered by ZDMCLKDEN.PCF
+- Author: E. Calero
+- Created: 10-May-2021
+- Changes: 15-Jun-2026: ck: Reformatted
 - Used in PCFs: ZDMCLKDEN.PCF
 - Read keys:
   - Other keys: `$YD+0`, `DIR_PZH`
@@ -5806,8 +7733,8 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| ???_??_??.COV" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
-| TIMINTITE_??" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| ???_??_??.COV" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ |
+| TIMINTITE_??" | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ |
 
 ### "DIR_RXO/../*
 
@@ -5877,18 +7804,18 @@ Variables:
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
 | ATM | - | SAVERES | - | - |
-| ATM | - | ZD_SAVE_RES | - | - |
+| ATM | - | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - |
 | BPE | - | SAVERES | - | - |
 | OBS | - | SAVERES | - | - |
-| OBS | - | ZD_SAVE_RES | - | - |
-| ORB | - | SAVECLKDE, SAVERES, SAVERES3D, ZD_SAVE_RES_3D | - | - |
-| ORB | - | ZD_SAVE_RES | - | - |
-| OUT | - | SAVECLKDE, SAVERES, SAVERES3D, ZD_SAVE_RES_3D | - | - |
-| OUT | - | ZD_SAVE_RES | - | - |
+| OBS | - | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - |
+| ORB | - | SAVECLKDE, SAVERES, SAVERES3D, ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | - | - |
+| ORB | - | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - |
+| OUT | - | SAVECLKDE, SAVERES, SAVERES3D, ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | - | - |
+| OUT | - | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - |
 | SOL | - | SAVERES | - | - |
-| SOL | - | ZD_SAVE_RES | - | - |
-| STA | - | SAVECLKDE, SAVERES, SAVERES3D, ZD_SAVE_RES_3D | - | - |
-| STA | - | ZD_SAVE_RES | - | - |
+| SOL | - | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - |
+| STA | - | SAVECLKDE, SAVERES, SAVERES3D, ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | - | - |
+| STA | - | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - |
 
 ### $ENV{K}/CK_ZDGNSS_ARCHIVE/$YD+0/OBS
 
@@ -5923,22 +7850,22 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| * | ZD_COPY_FIL_CLKD, ZDDE_COP | - | - | - |
+| * | ZD_COPY_FIL_CLKD, ZD_COPY_FIL_CLKD~, ZDDE_COP | - | - | - |
 
 ### $ENV{K}/CK_ZDGNSS_ARCHIVE/tmp$YD+0/$YD+0/ORB
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_APR_$YSS+0.EXT_ERP | ZD_COPY_FIL_3D | - | - | - |
-| V_APR_$YSS+1.EXT_ERP | ZD_COPY_FIL_3D | - | - | - |
-| V_APR_$YSS-1.EXT_ERP | ZD_COPY_FIL_3D | - | - | - |
-| V_APRORB_$YSS+0.EXT_RPR | ZD_COPY_FIL_3D | - | - | - |
-| V_APRORB_$YSS+0.EXT_STD | ZD_COPY_FIL_3D | - | - | - |
-| V_APRORB_$YSS+1.EXT_RPR | ZD_COPY_FIL_3D | - | - | - |
-| V_APRORB_$YSS+1.EXT_STD | ZD_COPY_FIL_3D | - | - | - |
-| V_APRORB_$YSS-1.EXT_RPR | ZD_COPY_FIL_3D | - | - | - |
-| V_APRORB_$YSS-1.EXT_STD | ZD_COPY_FIL_3D | - | - | - |
-| V_APRS$YSS+0.EXT_CLK | ZD_COPY_FIL_3D | - | - | - |
+| V_APR_$YSS+0.EXT_ERP | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APR_$YSS+1.EXT_ERP | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APR_$YSS-1.EXT_ERP | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APRORB_$YSS+0.EXT_RPR | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APRORB_$YSS+0.EXT_STD | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APRORB_$YSS+1.EXT_RPR | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APRORB_$YSS+1.EXT_STD | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APRORB_$YSS-1.EXT_RPR | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APRORB_$YSS-1.EXT_STD | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APRS$YSS+0.EXT_CLK | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
 | V_CRDINF_$YSS+0.EXT_FIX | ZD3D_COP | - | - | - |
 | V_CRDINF_$YSS+1.EXT_FIX | ZD3D_COP | - | - | - |
 | V_CRDINF_$YSS-1.EXT_FIX | ZD3D_COP | - | - | - |
@@ -5954,9 +7881,9 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_APR99$YSS+1.EXT_NEQ | ZD_COPY_FIL_3D | - | - | - |
-| V_APR99$YSS-1.EXT_NEQ | ZD_COPY_FIL_3D | - | - | - |
-| V_APR??$YSS+0???.EXT_NEQ | ZD_COPY_FIL_3D | - | - | - |
+| V_APR99$YSS+1.EXT_NEQ | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APR99$YSS-1.EXT_NEQ | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
+| V_APR??$YSS+0???.EXT_NEQ | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
 | V_CRDINF99$YSS+1.EXT_OSB | ZD3D_COP | - | - | - |
 | V_CRDINF99$YSS-1.EXT_OSB | ZD3D_COP | - | - | - |
 | V_CRDINF??$YSS+0???.EXT_OSB | ZD3D_COP | - | - | - |
@@ -5965,7 +7892,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_APR_$YD+0.EXT_FIX | ZD_COPY_FIL_3D | - | - | - |
+| V_APR_$YD+0.EXT_FIX | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
 | V_CRDINF_$YD+0.EXT_SOS | ZD3D_COP | - | - | - |
 
 ### $ENV{PATH_DCB}$ENV{CAMP_DCB}/ORB
@@ -5992,7 +7919,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| REFCLK.FIX | FZDM_COP, REP_COP, ZD3D_COP, ZD_COPY_FIL_3D | - | - | - |
+| REFCLK.FIX | #ZD_COPY_FIL_3D#, FZDM_COP, REP_COP, ZD3D_COP, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - | - |
 
 ### $ENV{U}/WORK
 
@@ -6064,7 +7991,7 @@ Variables:
 | "DIR_CLKFIL$+0????.CLK" | - | - | - | SATMONAP, ZD_SATMONAP |
 | "DIR_CLKFIL$+0????.OUT" | - | - | - | ZD_SATMONAP |
 | "DIR_CLKV_B$YSS-5.EXT_CLK" | - | - | - | LEO_DEL |
-| "DIR_CLKV_FIN?$S+0*.EXT_CLK" | - | - | - | ZD_GEN_NEQ_P |
+| "DIR_CLKV_FIN?$S+0*.EXT_CLK" | - | - | - | ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~ |
 | "DIR_CZH????$S+0.EXT_CZH" | - | - | - | RXOBV3GP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP |
 | "DIR_CZHV_LEO$S-5.EXT_CZH" | - | - | - | LEO_DEL |
 | "DIR_CZHV_LEO$S-5.EXT_CZH_V_F" | - | - | - | LEO_DEL |
@@ -6088,8 +8015,8 @@ Variables:
 | "DIR_NEQ$$bpe{PARAM2}$S+0*.EXT_NEQ" | - | - | - | TIMORBAP, ZD_GPSEST_DELOLD_P |
 | "DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | PRECLKAP |
 | "DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ" | - | - | - | TIMZDMAP |
-| "DIR_NEQ$$bpe{PARAM9}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | ZD_PRE_ELIM_CLK_P |
-| "DIR_NEQV_FIN?$S+0*.EXT_NEQ" | - | - | - | ZD_GEN_NEQ_P |
+| "DIR_NEQ$$bpe{PARAM9}${preIte}$YSS+0???.EXT_NEQ" | - | - | - | ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ |
+| "DIR_NEQV_FIN?$S+0*.EXT_NEQ" | - | - | - | ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~ |
 | "DIR_NEQV_FIN_$S+0????.EXT_NEQ" | - | - | - | ZD_ADDNEQ2_DELNEQ |
 | "DIR_NEQV_FINA$S+0????.EXT_NEQ" | - | - | - | ZD_ADDNEQ2_DELNEQ |
 | "DIR_OUT$$bpe{PARAM2}$S+0*.EXT_OUT" | - | - | - | TIMORBAP, ZD_GPSEST_DELOLD_P |
@@ -6118,7 +8045,7 @@ Variables:
 | "DIR_OUTSMT$+0????.EXT_OUT" | - | - | - | ZD_RNXSMTAP |
 | "DIR_OUTSMT$S+0???.EXT_OUT" | - | - | - | ZD_RNXSMTAP |
 | "DIR_OUTTAB$YSS-5.EXT_OUT" | - | - | - | LEO_DEL |
-| "DIR_OUTV_FIN?$S+0*.EXT_OUT" | - | - | - | ZD_GEN_NEQ_P |
+| "DIR_OUTV_FIN?$S+0*.EXT_OUT" | - | - | - | ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~ |
 | "DIR_OUTV_LEOV_F$YSS-5.PRC" | - | - | - | LEO_DEL |
 | "DIR_PLTCPV_F$YSS-5.EXT_PLT" | - | - | - | LEO_DEL |
 | "DIR_PREKNV_F$YSS-5.EXT_PRE" | - | - | - | LEO_DEL |
@@ -6137,7 +8064,7 @@ Variables:
 | "DIR_RESKNV_F$YSS-5.EXT_RES" | - | - | - | LEO_DEL |
 | "DIR_RESRDV_F$YSS-5.EXT_RES" | - | - | - | LEO_DEL |
 | "DIR_RESV_A$YSS-5.EXT_RES" | - | - | - | LEO_DEL |
-| "DIR_RESV_FIN?$S+0*.EXT_RES" | - | - | - | ZD_GEN_NEQ_P |
+| "DIR_RESV_FIN?$S+0*.EXT_RES" | - | - | - | ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~ |
 | "DIR_RPRV_A*$YSS-5.EXT_RPR" | - | - | - | LEO_DEL |
 | "DIR_RXC$$bpe{PARAM2}$S+0*.EXT_RXC" | - | - | - | TIMORBAP, ZD_GPSEST_DELOLD_P |
 | "DIR_RXC${spp}$+0????.EXT_RXC" | - | - | - | ZD_CODSPP_P |
@@ -6160,14 +8087,14 @@ Variables:
 | $_ } close (DEL | - | - | MKCLUS | - |
 | $_)) } @delLst | - | - | - | BPE_CLN |
 | $_[0] | - | - | - | CLEANUP |
-| $auxfl[$#auxfl] | ZD_SAVE_RES | - | - | - |
+| $auxfl[$#auxfl] | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | $auxfl[@auxfl - 1] | SAVERES | - | - | - |
 | $czfile | - | - | ZD_MPR_XTR | - |
 | $daily{$days[0]} | ZD_ORB_VER, ZD_ORB_VER_25112026, ZD_ORB_VER~ | - | - | - |
 | $del | - | - | RXOBV3GP, ZD_RXOBV3GP | - |
 | $f | - | - | CHECK_AR_SAT, CLEANUP, ZD_CHECK_AR_SAT | - |
 | $fil | - | - | - | LEOITER |
-| $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_CHKPRC_PS, ZD_CMP_ERPDIFF, ZD_INIT_BRD, ZD_OSBMERGE, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_CMP, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD, ZD_GEN_NEQ_E_new_19112026, ZD_GEN_NEQ_E~ | - |
+| $file | CMP_ERPDIFF, CONCATOUT_VS, INIT_BRD, ZD_CHKPRC_PS, ZD_CMP_ERPDIFF, ZD_INIT_BRD, ZD_OSBMERGE, ZD_OSBMERGE~, ZD_PHACMB_P | - | DEL_CLKD, DEL_CMP, DEL_ZD3D, ZD_DEL_CMP, ZD_DEL_RES_3D, ZD_DEL_RES_CLKD | - |
 | $file) | - | - | ZD_ADD_LEO, ZD_DEL_RXO, ZD_FIND_OUTLIER_STA | - |
 | $file) if -e $file | - | - | ZD_CODSPP_E | - |
 | $file) { prtMess(DIR_BPELOG, "GEN_NEQ_E PARAM1: WARNING: Cannot remove $file: $!" | - | - | ZD_GEN_NEQ_E | - |
@@ -6188,7 +8115,7 @@ Variables:
 | $target | - | ZD_COPY_REF, ZD_ORB_VER, ZD_ORB_VER_25112026, ZD_ORB_VER~ | - | - |
 | $troFiles[0] | TRPMERZD | - | - | - |
 | $troOutFl | - | TRPMERZD | - | - |
-| $trpFil | TRPMERZD, ZD_TRPMERGE | - | - | - |
+| $trpFil | TRPMERZD, ZD_TRPMERGE, ZD_TRPMERGE~ | - | - | - |
 | $YSS+0 | ZD_COPY_REF | - | - | - |
 | ${file}.gz | INIT_BRD, ZD_INIT_BRD | - | - | - |
 | ${file}.Z | INIT_BRD, ZD_INIT_BRD | - | - | - |
@@ -6199,7 +8126,7 @@ Variables:
 | DIR_ATTV_LEO$YSS-5.EXT_ATT | - | - | - | LEO_DEL |
 | DIR_BPEOUTDIR_RXC99$YSS+0.${extNeq} | SAVERES | - | - | - |
 | DIR_BPEOUTDIR_RXC??$YSS+0???.${extNeq} | SAVERES | - | - | - |
-| DIR_BPEOUTDIR_RXC_$YSS+0.${extSos} | ZD_SAVE_RES | - | - | - |
+| DIR_BPEOUTDIR_RXC_$YSS+0.${extSos} | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_BPEPRTMPR$S+0???.BPE | - | - | - | ZD_MAUPRP_P |
 | DIR_BPEPRTMRK$S+0???.BPE | - | - | - | MRKOB_AP, ZD_MRKOB__P |
 | DIR_BPEPRTMRK$YSS+0???.BPE | - | - | - | MRKOBSAP |
@@ -6208,25 +8135,25 @@ Variables:
 | DIR_CLB$YD+0RNX.EXT_CLB | ZD_GPSEST_DELOLD_P | - | - | - |
 | DIR_CLB$YSS+0*.EXT_CLB | - | - | - | TIMORBAP |
 | DIR_CLB${clbnam}*.EXT_CLB | - | - | - | ZD_GPSEST_DELOLD_P |
-| DIR_CLK | - | ZD_COPY_FIL_3D | - | - |
+| DIR_CLK | - | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - |
 | DIR_CLK$$bpe{PARAM2}?$S+0*.EXT_CLK | - | - | - | TIMZDMAP |
 | DIR_CLK$(SAVE)_$YSS+0.EXT_CLK | SAVECLKDE, SAVERES3D | - | - | - |
-| DIR_CLK$(SAVE)S$YSS+0.EXT_CLK | ZD_SAVE_RES | - | - | - |
+| DIR_CLK$(SAVE)S$YSS+0.EXT_CLK | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_CLK_$YSS+0.EXT_CLK | FZDM_UPD | - | - | - |
 | DIR_CLKDIR_CRD_$YSS+0.EXT_CLK | - | FZDM_UPD | - | - |
-| DIR_CLKDIR_STDS$YSS+0.EXT_CLK | ZD_SAVE_RES | - | - | - |
+| DIR_CLKDIR_STDS$YSS+0.EXT_CLK | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_CLKFIL$+0????.CLK | - | - | - | SATMONAP, ZD_SATMONAP |
 | DIR_CLKFIL$+0????.OUT | - | - | - | ZD_SATMONAP |
 | DIR_CLKV_A_$YSS+0.EXT_CLK | - | FZDM_COP | - | - |
 | DIR_CLKV_A_$YSS+0.EXT_CLK.Z | - | FZDM_COP | - | - |
 | DIR_CLKV_B$YSS-5.EXT_CLK | - | - | - | LEO_DEL |
-| DIR_CLKV_FIN?$S+0*.EXT_CLK | - | - | - | ZD_GEN_NEQ_P |
+| DIR_CLKV_FIN?$S+0*.EXT_CLK | - | - | - | ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~ |
 | DIR_CLKV_FIN_$YSS+0.EXT_CLK | - | ZD_SOLTYPE | - | - |
-| DIR_CLKV_FINS$YSS+0.EXT_CLK | ZD_SAVE_RES_3D | - | - | - |
+| DIR_CLKV_FINS$YSS+0.EXT_CLK | ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | - | - | - |
 | DIR_CLKV_FINV_LARGE$YSS+0.EXT_CLK | ZD_SOLTYPE | - | - | - |
 | DIR_CLKV_PSDINF_$YSS+0.EXT_CLK | - | REP_COP | - | - |
 | DIR_CRD$(SAVE)S$YSS+0.EXT_CRD | SAVERES3D | - | - | - |
-| DIR_CRDV_FIN_$YSS+0.EXT_CRD | ZD_SAVE_RES_3D | ZD_SOLTYPE | - | - |
+| DIR_CRDV_FIN_$YSS+0.EXT_CRD | ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | ZD_SOLTYPE | - | - |
 | DIR_CRDV_FINV_LARGE$YSS+0.EXT_CRD | ZD_SOLTYPE | - | - | - |
 | DIR_CZH$sta$S+0.??? | - | - | SATMONAP | - |
 | DIR_CZH????$S+0.EXT_CZH | - | - | - | CODSPP, CODSPPAP, CODXTR, FILESTAP, MRKOB_AP, RXOBV3GP, TIMESTAP, ZD_CODSPP_P, ZD_CODXTRP, ZD_GPSEST_P, ZD_MRKOB__P, ZD_PPPIARAP~, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_TIMESTAP |
@@ -6248,8 +8175,8 @@ Variables:
 | DIR_ELEV_A*$YSS-5.EXT_ELE | - | - | - | LEO_DEL |
 | DIR_ELEV_FIN_$YSS+0.EXT_ELE | - | ZD_SOLTYPE | - | - |
 | DIR_ELEV_FINV_LARGE$YSS+0.EXT_ELE | ZD_SOLTYPE | - | - | - |
-| DIR_ERP | - | ZD3D_COP, ZD_COPY_FIL_3D | - | - |
-| DIR_ERP$(SAVE)_$YSS+0.EXT_ERP | ZD_SAVE_RES | - | - | - |
+| DIR_ERP | - | #ZD_COPY_FIL_3D#, ZD3D_COP, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - |
+| DIR_ERP$(SAVE)_$YSS+0.EXT_ERP | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_ERP$(SAVE)S$YSS+0.EXT_ERP | SAVERES3D | - | - | - |
 | DIR_ERP_$YSS+0.EXT_ERP | FZDM_UPD | - | - | - |
 | DIR_ERPAPR${yyssss}.EXT_ERP | ZD_COPY_REF | - | - | - |
@@ -6257,24 +8184,24 @@ Variables:
 | DIR_ERPDIR_CLKS$YSS+0.EXT_ERP | SAVERES | - | - | - |
 | DIR_ERPDIR_CRD_$YSS+0.EXT_ERP | - | FZDM_UPD | - | - |
 | DIR_ERPDIR_RXCS$YSS+0.EXT_ERP | SAVERES | - | - | - |
-| DIR_ERPDIR_STD_$YSS+0.EXT_ERP | ZD_SAVE_RES | - | - | - |
+| DIR_ERPDIR_STD_$YSS+0.EXT_ERP | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_ERPREF${yyssss}.EXT_ERP | - | ZD_COPY_REF | - | - |
 | DIR_ERPTMP_$YSS+0.EXT_ERP | - | FZDM_COP | - | - |
 | DIR_ERPV_A$YSS+0.DIR_ERP | - | - | ORBAPR, ORBAPRS | - |
 | DIR_ERPV_ACOP$YSS+0.DIR_ERP | - | - | ORBAPF | - |
 | DIR_ERPV_B$YSS-5.EXT_ERP | - | - | - | LEO_DEL |
-| DIR_ERPV_FIN_$YSS+0.EXT_ERP | ZD_SAVE_RES_3D | ZD_SOLTYPE | - | - |
+| DIR_ERPV_FIN_$YSS+0.EXT_ERP | ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | ZD_SOLTYPE | - | - |
 | DIR_ERPV_FINV_LARGE$YSS+0.EXT_ERP | ZD_SOLTYPE | - | - | - |
 | DIR_ERPV_PSDINF_$YSS+0.EXT_ERP | - | REP_COP | - | - |
-| DIR_FIX | - | REP_COP, ZD3D_COP, ZD_COPY_FIL_3D | - | - |
+| DIR_FIX | - | #ZD_COPY_FIL_3D#, REP_COP, ZD3D_COP, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - |
 | DIR_FIX$(SAVE)_$YSS+0.${extPre} | SAVERES3D | - | - | - |
-| DIR_FIX$(SAVE)_$YSS+0.EXT_OBX | SAVERES, ZD_SAVE_RES | - | - | - |
+| DIR_FIX$(SAVE)_$YSS+0.EXT_OBX | SAVERES, ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_FIXBAD$YD+0.EXT_FIX) if PARAM2 ne "" | - | - | FIX_CHK, ZD_FIX_CHK | - |
 | DIR_FIXBAD$YD+0.EXT_FIX) if PARAM3 ne "" | - | - | FIX_CHK | - |
 | DIR_FIXDIR_CLKS$YSS+0.EXT_OBX | SAVERES | - | - | - |
 | DIR_FIXDIR_RXCS$YSS+0.EXT_OBX | SAVERES | - | - | - |
-| DIR_FIXDIR_STD_$YSS+0.EXT_OBX | ZD_SAVE_RES | - | - | - |
-| DIR_FIXREFCLK.EXT_FIX | - | FZDM_COP, ZD_COPY_FIL_3D | - | - |
+| DIR_FIXDIR_STD_$YSS+0.EXT_OBX | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
+| DIR_FIXREFCLK.EXT_FIX | - | #ZD_COPY_FIL_3D#, FZDM_COP, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - |
 | DIR_GRD${file} | CHECK_GRD_FILES, ZD_CHECK_GRD_FILES | - | - | - |
 | DIR_GRDVMF$YD+0.EXT_GRD | - | - | INIT_VMF, ZD_INIT_VMF | - |
 | DIR_IEPV_B$W-57.EXT_IEP | - | - | - | LEO_DEL |
@@ -6283,7 +8210,7 @@ Variables:
 | DIR_LST????$+0"."[12345].EXT_LST | - | - | - | FILESTAP |
 | DIR_LSTO?V_A$YSS-5.EXT_LST | - | - | - | LEO_DEL |
 | DIR_LSTORB$YSS-5.EXT_LST | - | - | - | LEO_DEL |
-| DIR_NEQ | - | ZD3D_COP, ZD_COPY_FIL_3D | - | - |
+| DIR_NEQ | - | #ZD_COPY_FIL_3D#, ZD3D_COP, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - |
 | DIR_NEQ$$bpe{PARAM1}??$YSS+0???.EXT_NEQ | - | - | - | PRECLK |
 | DIR_NEQ$$bpe{PARAM1}_$S+0????.EXT_NEQ | - | - | - | ADDNEQZD |
 | DIR_NEQ$$bpe{PARAM1}A$S+0????.EXT_NEQ | - | - | - | ADDNEQZD |
@@ -6293,29 +8220,29 @@ Variables:
 | DIR_NEQ$$bpe{PARAM2}${preIte}$YSS+0???.EXT_NEQ | - | - | - | PRECLKAP |
 | DIR_NEQ$$bpe{PARAM2}?$S+0*.EXT_NEQ | - | - | - | TIMZDMAP |
 | DIR_NEQ$$bpe{PARAM2}??$YSS+0???.EXT_NEQ | - | - | - | SOLCLKAP, SOLLONAP |
-| DIR_NEQ$$bpe{PARAM9}${ite}$YSS+0???.EXT_NEQ | - | - | - | ZD_PRE_ELIM_CLK_P |
-| DIR_NEQ$$bpe{PARAM9}${preIte}$YSS+0???.EXT_NEQ | - | - | - | ZD_PRE_ELIM_CLK_P |
-| DIR_NEQ$(SAVE)_$YSS+0.EXT_FIX | ZD_SAVE_RES | - | - | - |
+| DIR_NEQ$$bpe{PARAM9}${ite}$YSS+0???.EXT_NEQ | - | - | - | ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ |
+| DIR_NEQ$$bpe{PARAM9}${preIte}$YSS+0???.EXT_NEQ | - | - | - | ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ |
+| DIR_NEQ$(SAVE)_$YSS+0.EXT_FIX | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_NEQDIR_CLK_$YSS+0.EXT_FIX | SAVERES | - | - | - |
 | DIR_NEQDIR_RXC_$YSS+0.EXT_FIX | SAVERES | - | - | - |
-| DIR_NEQDIR_STD_$YSS+0.EXT_FIX | ZD_SAVE_RES | - | - | - |
+| DIR_NEQDIR_STD_$YSS+0.EXT_FIX | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_NEQV_APR??$YSS+0???.EXT_NEQ | - | - | - | ZD_ADDNEQ2_LA_P |
 | DIR_NEQV_APR_$YSS+0.EXT_NEQ | - | - | - | ZD_ADDNEQ2_LA_P |
-| DIR_NEQV_FIN?$S+0*.EXT_NEQ | - | - | - | ZD_GEN_NEQ_P |
-| DIR_NEQV_FIN??$YSS+0???.EXT_NEQ | - | - | - | ZD_ADDNEQ2_CLK_P, ZD_PRE_ELIM_CLK |
+| DIR_NEQV_FIN?$S+0*.EXT_NEQ | - | - | - | ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~ |
+| DIR_NEQV_FIN??$YSS+0???.EXT_NEQ | - | - | - | ZD_ADDNEQ2_CLK_P, ZD_PRE_ELIM_CLK, ZD_PRE_ELIM_CLK~ |
 | DIR_NEQV_FIN_$S+0????.EXT_NEQ | - | - | - | ZD_ADDNEQ2_DELNEQ |
 | DIR_NEQV_FINA$S+0????.EXT_NEQ | - | - | - | ZD_ADDNEQ2_DELNEQ |
-| DIR_OBX????$S+0.??? | ZD_SAVE_RES | - | - | - |
+| DIR_OBX????$S+0.??? | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_OBXCBS$YSS+0.${extOsb} | SAVERES | - | - | - |
 | DIR_OBXIAR$YSS+0.${extOsb} | SAVERES | - | - | - |
 | DIR_OBXPHA$YSS+0.${extOsb} | SAVERES | - | - | - |
 | DIR_OSB | - | ZD3D_COP | - | - |
-| DIR_OSB$(SAVE)_$YD+0.EXT_OSB | ZD_SAVE_RES | - | - | - |
+| DIR_OSB$(SAVE)_$YD+0.EXT_OSB | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_OSBAPR$YSS+0.EXT_OSB | - | FZDM_COP | - | - |
 | DIR_OSBCODE.EXT_OSB | FZDM_COP | - | - | - |
 | DIR_OSBDIR_RXC_$YSS+0.${extPre} | SAVERES | - | - | - |
-| DIR_OSBV_CBIAS$YSS+0.EXT_OSB | - | ZD_OSBMERGE | - | - |
-| DIR_OSBV_CBIAS$YSS+0[0-9][0-9][0-9].EXT_OSB | - | - | - | ZD_OSBMERGE |
+| DIR_OSBV_CBIAS$YSS+0.EXT_OSB | - | ZD_OSBMERGE, ZD_OSBMERGE~ | - | - |
+| DIR_OSBV_CBIAS$YSS+0[0-9][0-9][0-9].EXT_OSB | - | - | - | ZD_OSBMERGE, ZD_OSBMERGE~ |
 | DIR_OSBV_CS$YSS+0.EXT_OSB | - | OSBMERGE | - | - |
 | DIR_OSBV_CS$YSS+0[0-9][0-9][0-9].EXT_OSB | - | - | - | OSBMERGE |
 | DIR_OSBV_FIN_$YSS+0.EXT_OSB | - | ZD_SOLTYPE | - | - |
@@ -6359,7 +8286,7 @@ Variables:
 | DIR_OUTTAB$YSS-5.EXT_OUT | - | - | - | LEO_DEL |
 | DIR_OUTTMP_$YYYSS+0.EXT_OUT | - | - | ZD_IARXTR | - |
 | DIR_OUTV_FIN$S+0001.EXT_OUT | - | ZD_SOLTYPE | - | - |
-| DIR_OUTV_FIN?$S+0*.EXT_OUT | - | - | - | ZD_GEN_NEQ_P |
+| DIR_OUTV_FIN?$S+0*.EXT_OUT | - | - | - | ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~ |
 | DIR_OUTV_FIN_$YSS+0.EXT_OUT | - | ZD_SOLTYPE | - | - |
 | DIR_OUTV_FIN_$YSS+0.EXT_RXC | - | ZD_SOLTYPE | - | - |
 | DIR_OUTV_FINV_LARGE$YSS+0.EXT_OUT | ZD_SOLTYPE | - | - | - |
@@ -6367,23 +8294,23 @@ Variables:
 | DIR_OUTV_LEOV_F$YSS-5.PRC | - | - | - | LEO_DEL |
 | DIR_PLTCPV_F$YSS-5.EXT_PLT | - | - | - | LEO_DEL |
 | DIR_PRE$(SAVE)_$YSS+0.EXT_TRP | SAVERES | - | - | - |
-| DIR_PRE$(SAVE)S$YSS+0.EXT_TRP | ZD_SAVE_RES | - | - | - |
+| DIR_PRE$(SAVE)S$YSS+0.EXT_TRP | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_PREDIR_CLK_$YSS+0.EXT_TRP | SAVERES | - | - | - |
 | DIR_PREDIR_RXC_$YSS+0.EXT_TRP | SAVERES | - | - | - |
-| DIR_PREDIR_STDS$YSS+0.EXT_TRP | ZD_SAVE_RES | - | - | - |
+| DIR_PREDIR_STDS$YSS+0.EXT_TRP | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_PREKNV_F$YSS-5.EXT_PRE | - | - | - | LEO_DEL |
 | DIR_PRERDV_F$YSS-5.EXT_PRE | - | - | - | LEO_DEL |
 | DIR_PREV_A*$YSS-5.EXT_PRE | - | - | - | LEO_DEL |
 | DIR_PREV_A_$YSS+0.EXT_PRE | - | FZDM_COP | - | - |
 | DIR_PREV_A_$YSS+0.EXT_PRE.Z | - | FZDM_COP | - | - |
 | DIR_PREV_B$YSS-5.EXT_PRE | - | - | - | LEO_DEL |
-| DIR_PREV_FIN_$YSS+0.EXT_PRE | ZD_SAVE_RES_3D | - | - | - |
+| DIR_PREV_FIN_$YSS+0.EXT_PRE | ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | - | - | - |
 | DIR_PSH????$S+0.EXT_PSH | - | - | - | MAUPRPAP, MPRXTR, ZD_MAUPRP_P, ZD_MAUPRPAP, ZD_MPR_XTR, ZD_MPRXTR |
 | DIR_PSH????$S+0.PZH | - | - | - | MRKOBSAP |
-| DIR_PZH | - | ZD_COPY_FIL_CLKD, ZDDE_COP | - | - |
-| DIR_PZH$(SAVE)99$YSS+0.EXT_PRE | ZD_SAVE_RES | - | - | - |
-| DIR_PZH$(SAVE)??$YSS+0???.EXT_PRE | ZD_SAVE_RES | - | - | - |
-| DIR_PZH????$S+0.EXT_PZH | - | - | - | FILESTAP, MAUPRPAP, MPRXTR, MRKOB_AP, RXOBV3GP, TIMESTAP, TIMZDMAP, ZD_GEN_NEQ_P, ZD_GPSEST_P, ZD_MAUPRP_P, ZD_MAUPRPAP, ZD_MPR_XTR, ZD_MPRXTR, ZD_MRKOB__P, ZD_PPPEDTAP, ZD_PPPIARAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_TIMESTAP |
+| DIR_PZH | - | ZD_COPY_FIL_CLKD, ZD_COPY_FIL_CLKD~, ZDDE_COP | - | - |
+| DIR_PZH$(SAVE)99$YSS+0.EXT_PRE | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
+| DIR_PZH$(SAVE)??$YSS+0???.EXT_PRE | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
+| DIR_PZH????$S+0.EXT_PZH | - | - | - | FILESTAP, MAUPRPAP, MPRXTR, MRKOB_AP, RXOBV3GP, TIMESTAP, TIMZDMAP, ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~, ZD_GPSEST_P, ZD_MAUPRP_P, ZD_MAUPRPAP, ZD_MPR_XTR, ZD_MPRXTR, ZD_MRKOB__P, ZD_PPPEDTAP, ZD_PPPIARAP, ZD_RXOBV3AP_PPP, ZD_RXOBV3GP, ZD_TIMESTAP |
 | DIR_PZHDIR_RXC_$YD+0.EXT_PRE | SAVERES | - | - | - |
 | DIR_PZHV_LEO$S-5.EXT_PZH | - | - | - | LEO_DEL |
 | DIR_PZHV_LEO$S-5.EXT_PZH_V_F | - | - | - | LEO_DEL |
@@ -6399,14 +8326,14 @@ Variables:
 | DIR_RESKNV_F$YSS-5.EXT_RES | - | - | - | LEO_DEL |
 | DIR_RESRDV_F$YSS-5.EXT_RES | - | - | - | LEO_DEL |
 | DIR_RESV_A$YSS-5.EXT_RES | - | - | - | LEO_DEL |
-| DIR_RESV_FIN?$S+0*.EXT_RES | - | - | - | ZD_GEN_NEQ_P |
-| DIR_RPR | - | ZD_COPY_FIL_3D | - | - |
-| DIR_RPR$(SAVE)_$YSS+0.EXT_RPR | SAVERES3D, ZD_SAVE_RES | - | - | - |
+| DIR_RESV_FIN?$S+0*.EXT_RES | - | - | - | ZD_GEN_NEQ_P, ZD_GEN_NEQ_P~ |
+| DIR_RPR | - | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - |
+| DIR_RPR$(SAVE)_$YSS+0.EXT_RPR | SAVERES3D, ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_RPR_$YSS+0.EXT_RPR | FZDM_UPD | - | - | - |
 | DIR_RPRDIR_CLK_$YSS+0.EXT_RPR | SAVERES | - | - | - |
 | DIR_RPRDIR_CRD_$YSS+0.EXT_RPR | - | FZDM_UPD | - | - |
 | DIR_RPRDIR_RXC_$YSS+0.EXT_RPR | SAVECLKDE, SAVERES | - | - | - |
-| DIR_RPRDIR_STD_$YSS+0.EXT_RPR | ZD_SAVE_RES | - | - | - |
+| DIR_RPRDIR_STD_$YSS+0.EXT_RPR | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_RPRFIN$YD+0.EXT_RPR | - | ZD3D_COP | - | - |
 | DIR_RPRS$YSS+0.EXT_RPR | FZDM_UPD | - | - | - |
 | DIR_RPRV_A*$YSS-5.EXT_RPR | - | - | - | LEO_DEL |
@@ -6419,7 +8346,7 @@ Variables:
 | DIR_RXCKNV_F$YSS-5.EXT_RXC | - | - | - | LEO_DEL |
 | DIR_RXCV_A$YSS-5.EXT_RXC | - | - | - | LEO_DEL |
 | DIR_RXCV_B$YSS-5.EXT_RXC | - | - | - | LEO_DEL |
-| DIR_RXCV_FINS$YSS+0.EXT_RXC | ZD_SAVE_RES_3D | - | - | - |
+| DIR_RXCV_FINS$YSS+0.EXT_RXC | ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | - | - | - |
 | DIR_RXCV_FINV_LARGE$YSS+0.EXT_RXC | ZD_SOLTYPE | - | - | - |
 | DIR_RXO* | - | - | - | ZD_RNXGRA |
 | DIR_RXO*$S+0.EXT_RXO | - | - | - | ZD_RNXGRA |
@@ -6431,7 +8358,7 @@ Variables:
 | DIR_SMT*$YYYSS+0.EXT_SMT | - | - | - | RNXSMTAP |
 | DIR_SMT????$S+0.EXT_SMT | - | - | - | ZD_RNXSMTAP |
 | DIR_SMTV_LEO$S+0.EXT_SMT | - | - | RNXSMTL | - |
-| DIR_SOS$(SAVE)_$YSS+0.${extPre} | ZD_SAVE_RES | - | - | - |
+| DIR_SOS$(SAVE)_$YSS+0.${extPre} | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_SOS$(SAVE)_$YSS+0.EXT_NEQ | SAVERES | - | - | - |
 | DIR_SOSDIR_CLK_$YSS+0.EXT_NEQ | SAVERES | - | - | - |
 | DIR_SOSDIR_RXC_$YSS+0.EXT_NEQ | SAVERES | - | - | - |
@@ -6439,7 +8366,7 @@ Variables:
 | DIR_SOSREFCLK.EXT_SOS | - | ZD3D_COP | - | - |
 | DIR_SOSV_PSDINF_$YSS+0.EXT_SOS | - | REP_COP | - | - |
 | DIR_STAV_SATCRX.EXT_CRX | MANMRK | MANMRK | - | - |
-| DIR_STD | - | ZD_COPY_FIL_3D | - | - |
+| DIR_STD | - | #ZD_COPY_FIL_3D#, ZD_COPY_FIL_3D, ZD_COPY_FIL_3D~ | - | - |
 | DIR_STD$(SAVE)_$YSS+0.EXT_STD | SAVERES3D | - | - | - |
 | DIR_STD_$YSS+0.EXT_STD | FZDM_UPD | - | - | - |
 | DIR_STDDIR_CRD_$YSS+0.EXT_STD | - | FZDM_UPD | - | - |
@@ -6452,7 +8379,7 @@ Variables:
 | DIR_STDV_APR_APR_$YSS+0.EXT_RPR | COPY_APR_AR_new, ZD_COPY_APR_AR | COPY_APR_AR_new, ZD_COPY_APR_AR | - | - |
 | DIR_STDV_APR_APR_$YSS+0.EXT_STD | COPY_APR_AR_new, ZD_COPY_APR_AR | COPY_APR_AR_new, ZD_COPY_APR_AR | - | - |
 | DIR_STDV_B$YSS-5.EXT_STD | - | - | - | LEO_DEL |
-| DIR_STDV_FIN_$YSS+0.EXT_STD | ZD_SAVE_RES_3D | ZD_SOLTYPE | - | - |
+| DIR_STDV_FIN_$YSS+0.EXT_STD | ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | ZD_SOLTYPE | - | - |
 | DIR_STDV_FINV_LARGE$YSS+0.EXT_STD | ZD_SOLTYPE | - | - | - |
 | DIR_SUM*V_A$YSS-5.EXT_SUM | - | - | - | LEO_DEL |
 | DIR_SUM*V_A?$YSS-5.EXT_SUM | - | - | - | LEO_DEL |
@@ -6462,26 +8389,26 @@ Variables:
 | DIR_SUMESTC$YSS+0.EXT_SUM | - | - | ZD_GPSXTR | - |
 | DIR_SUMESTW$YSS+0.EXT_SUM | - | - | ZD_GPSXTR | - |
 | DIR_SUMESTX$YSS+0.EXT_SUM | - | - | ZD_GPSXTR | - |
-| DIR_SUMFIX$YSS+0.EXT_SUM | - | - | IAR_STA, ZD_IAR_STA | - |
-| DIR_SUMIAR$YSS+0.PRC) if $iarRun==0 | - | - | IAR_STA, ZD_IAR_STA | - |
+| DIR_SUMFIX$YSS+0.EXT_SUM | - | - | IAR_STA, ZD_IAR_STA, ZD_IAR_STA~ | - |
+| DIR_SUMIAR$YSS+0.PRC) if $iarRun==0 | - | - | IAR_STA, ZD_IAR_STA, ZD_IAR_STA~ | - |
 | DIR_SUMRES_$YYYSS+0.EXT_SUM | - | - | ZD_PPP_RES_SUM | - |
 | DIR_SUMTMP_$YYYSS+0.EXT_SUM | - | - | ZD_IARXTR | - |
 | DIR_SUMTMP_$YYYSS+0.EXT_SUM } } | - | - | ZD_IARXTR | - |
 | DIR_SUMV_A[1-9]$YSS+0.EXT_SUM | - | - | - | LEO_SUM |
 | DIR_SUMWRN_$YYYSS+0_????.EXT_SUM | - | - | - | ZD_PPP_SUM |
-| DIR_TRP????$S+0_REC.EXT_TRP | - | - | - | TRPMERZD, ZD_TRPMERGE |
-| DIR_TRPCBS$YSS+0.${extOsb} | ZD_SAVE_RES | - | - | - |
+| DIR_TRP????$S+0_REC.EXT_TRP | - | - | - | TRPMERZD, ZD_TRPMERGE, ZD_TRPMERGE~ |
+| DIR_TRPCBS$YSS+0.${extOsb} | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | DIR_TRPDIR_CRD_$YSS+0.${extSos} | SAVERES | - | - | - |
-| DIR_TRPIAR$YSS+0.${extOsb} | ZD_SAVE_RES | - | - | - |
-| DIR_TRPPHA$YSS+0.${extOsb} | ZD_SAVE_RES | - | - | - |
-| DIR_TRPV_FIN_$YSS+0.EXT_TRP | ZD_TRPMERGE | - | - | - |
-| DIR_TRPV_FIN_$YSS+0.EXT_TRP_tmp | - | ZD_TRPMERGE | ZD_TRPMERGE | - |
+| DIR_TRPIAR$YSS+0.${extOsb} | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
+| DIR_TRPPHA$YSS+0.${extOsb} | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
+| DIR_TRPV_FIN_$YSS+0.EXT_TRP | ZD_TRPMERGE, ZD_TRPMERGE~ | - | - | - |
+| DIR_TRPV_FIN_$YSS+0.EXT_TRP_tmp | - | ZD_TRPMERGE, ZD_TRPMERGE~ | ZD_TRPMERGE, ZD_TRPMERGE~ | - |
 | DIR_TRPV_K_$YSS+0.EXT_TRP | TRPMERZD | - | - | - |
 | DIR_TRPV_K_$YSS+0.EXT_TRP_tmp | - | TRPMERZD | TRPMERZD | - |
 | EXT_CLBU$YSS+0??.DIR_OUT | - | - | - | MKCLUS |
 | EXT_CLBUDIR_CLB??.${extClb} | - | - | - | CLKESTCB, ZD_CLKEST_CLU |
 | EXT_CLKDIR_RXC_$YSS+0.EXT_OSB | SAVERES | - | - | - |
-| EXT_CRD$(SAVE)_$YSS+0.EXT_NEQ | ZD_SAVE_RES | - | - | - |
+| EXT_CRD$(SAVE)_$YSS+0.EXT_NEQ | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | EXT_CRD??$YSS+0_139_000.LOG | SAVERES | - | - | - |
 | EXT_CRD_$YSS+0.${extRpr} | FZDM_UPD | - | - | - |
 | EXT_CRDDIR_CRD_$YSS+0.${extRpr} | - | FZDM_UPD | - | - |
@@ -6491,13 +8418,13 @@ Variables:
 | EXT_RXC????$S+0.??? | SAVERES | - | - | - |
 | EXT_RXC_$YSS+0.${extErp} | FZDM_UPD | - | - | - |
 | EXT_RXCDIR_CRD_$YSS+0.${extErp} | - | FZDM_UPD | - | - |
-| EXT_STD$(SAVE)_$YSS+0.EXT_SOS | ZD_SAVE_RES | - | - | - |
+| EXT_STD$(SAVE)_$YSS+0.EXT_SOS | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 | EXT_STDDIR_RXC_$YSS+0.EXT_SOS | SAVERES | - | - | - |
 | EXT_STDDIR_STD.${extSkl} | - | REP_COP | - | - |
 | glob "DIR_OUT*.J_lk" | - | - | LEO_DEL | - |
 | if ("" ne "" | - | - | MKCLUS | - |
 | PARAM1 | ZD_GPSESTC_E, ZD_GPSESTW_E, ZD_MAUPRP_E | - | MRKOB__P, ZD_CODSPP_E, ZD_MAUPRP_E, ZD_MRKOB__E, ZD_RNXSMT_P, ZD_RXOBV3_P | - |
-| PTH_SATCRUXV_SATCRX.EXT_SATCRUX | ZD_MANMRK | - | - | - |
+| PTH_SATCRUXV_SATCRX.EXT_SATCRUX | ZD_MANMRK, ZD_MANMRK~ | - | - | - |
 | PTH_SINEXIN | - | REP_COP | - | - |
 | PTH_SINEXINV_BIAINF.EXT_SINEXIN | - | FZDM_COP | - | - |
 
@@ -6511,16 +8438,16 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| $(SAVE)??$S+0001.OUT | - | - | - | ZD_SAVE_RES |
-| DIR_STD??$S+0001.OUT | - | - | - | ZD_SAVE_RES |
-| IAR$YSS+0.PRC | ZD_SAVE_RES | - | - | - |
-| OBSXTR.SUM | ZD_SAVE_RES | - | - | - |
+| $(SAVE)??$S+0001.OUT | - | - | - | ZD_SAVE_RES, ZD_SAVE_RES~ |
+| DIR_STD??$S+0001.OUT | - | - | - | ZD_SAVE_RES, ZD_SAVE_RES~ |
+| IAR$YSS+0.PRC | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
+| OBSXTR.SUM | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 
 ### DIR_CLK/../MSC/MSC_$YD+0
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| PHACOR_LOG_$YD+0 | ZD_SAVE_RES | - | - | - |
+| PHACOR_LOG_$YD+0 | ZD_SAVE_RES, ZD_SAVE_RES~ | - | - | - |
 
 ### DIR_CRD
 
@@ -6713,12 +8640,12 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| $name) | - | - | ZD_PRE_ELIM_CLK_P | - |
-| ???_??_??.COV | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| $name) | - | - | ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ | - |
+| ???_??_??.COV | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ |
 | affected_satellite_AR | CHECK_AR_SAT | - | CHECK_AR_SAT | - |
 | PROCESSING_$YD+0 | - | AMB_EXTRACT, CHECK_AR_SAT, CHECK_OBSENTRIES, CHECK_SAT_GAPS, CHECK_SAT_RMS, DEL_LOBS, GPSXTR_EXTRACT, NUM_OBSFIL, OBSXTR_EXTRACT, ZD_CHECK_MAUPRP_DEL, ZD_DEL_CDXT_OBS, ZD_GPSXTR_EXTRACT, ZD_NUM_OBSFIL, ZD_OBSXTR_EXTRACT | - | - |
-| TIMINT_?? | - | - | - | ITEPRECL, PRECLKAP, ZD_ITE_PRE_CLK, ZD_PRE_ELIM_CLK_P |
-| TIMINTITE_?? | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P |
+| TIMINT_?? | - | - | - | ITEPRECL, PRECLKAP, ZD_ITE_PRE_CLK, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ |
+| TIMINTITE_?? | - | - | - | PRECLKAP, ZD_PRE_ELIM_CLK_P, ZD_PRE_ELIM_CLK_P~ |
 | TIMOVER | - | - | ITEPRECL, ZD_ITE_PRE_CLK | - |
 | VAPL_entries | - | CHECK_VAPL_ENTRIES | - | - |
 
@@ -6756,7 +8683,7 @@ Variables:
 
 | File | Reads | Writes | Deletes | Patterns |
 | --- | --- | --- | --- | --- |
-| V_FIN_$YSS+0001.OUT | ZD_SAVE_RES_3D | - | - | - |
+| V_FIN_$YSS+0001.OUT | ZD_SAVE_RES_3D, ZD_SAVE_RES_3D~ | - | - | - |
 
 ### DIR_RXO
 
