@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-26 14:56:08",
+  "generated_at": "2026-11-26 15:36:47",
   "pcf_files": [
     "CMPSOL.PCF",
     "FZDMGNSS_ORIG_EC.PCF",
@@ -1283,11 +1283,20 @@
     "Run your first session.md",
     "Software and setup.md",
     "Processing architecture.md",
+    "ZDGNSS PCF guide.md",
+    "ADDNEQ2 LAPACK.md",
+    "GPSEST clock grid.md",
+    "PHACOR CK.md",
+    "ZDGNSS run package.md",
     "Python run controller.md",
     "Perl wrappers and PCFs.md",
+    "LEO wrappers.md",
     "Toolbox and maintenance.md",
+    "Python utilities.md",
     "Monitoring and recovery.md",
-    "Quality checks and plots.md"
+    "Scheduled ZDGNSS runs.md",
+    "Quality checks and plots.md",
+    "Bernese BPE Documentation.md"
   ],
   "pcf_count": 24,
   "pcf_row_count": 576,
@@ -1295,5 +1304,5 @@
   "program_ref_count": 202,
   "inp_count": 898,
   "inp_field_count": 231619,
-  "handbook_count": 9
+  "handbook_count": 18
 }

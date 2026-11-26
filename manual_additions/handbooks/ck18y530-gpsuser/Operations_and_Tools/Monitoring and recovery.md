@@ -3,7 +3,22 @@
 ## Check a running BPE
 
 - **Monitor BPE (`monitor_bpe`).** Open the campaign monitor from the [[Operations_and_Tools/Toolbox and maintenance.md|toolbox]]. It works like `tkbpe` and can monitor different campaigns.
-- **error_watch.** Monitor `.RUN` files and send status messages via Telegram. Set up your own notifications using `error_watch_manual.txt` before starting `error_watch.sh`. The configuration also uses `IGNORE.LIST` and `WATCH.LIST`. Copying an existing installation with its notification settings can send alerts to the previous recipient.
+- **error_watch.** Use the monitor below for Telegram alerts from selected logs.
+
+## Send log alerts with error_watch
+
+`~/error_watch/error_watch.sh` scans the files listed in `WATCH.LIST` for `error` and messages of the form `Session <number>: finished`. It also sends a warning when a watched file is missing. Each matching alert can include the file and the matched log line.
+
+### Files and modes
+
+- `WATCH.LIST` takes one absolute log path per line, typically a campaign `.RUN` file. Blank lines and lines starting with `#` are skipped.
+- `IGNORE.LIST` takes `/absolute/path/to/log|substring`. The path must match the watched file, and the installed script compares the substring literally and case-sensitively. The scan for error and session patterns itself is case-insensitive.
+- `MODE=NEW` is the default. `error_watch.STATE` records reported path and line-number pairs to suppress repeated alerts for those lines. A replaced or rotated log can reuse line numbers, so account for the state file when troubleshooting missing alerts.
+- `MODE=A` reports matching lines on each scan and bypasses the recorded-line check.
+
+### Prepare a scheduled check
+
+Start from the directory containing `WATCH.LIST`, `IGNORE.LIST` and `error_watch.STATE`. The script resolves these names relative to its working directory, so set that directory explicitly if you schedule the check. Use `error_watch_manual.txt` for the Telegram setup and configure your own recipient before running it. Telegram receives matched log lines, so watch files whose contents are suitable for that notification channel.
 
 ## Record a BPE jump
 

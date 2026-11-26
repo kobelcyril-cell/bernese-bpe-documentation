@@ -1,6 +1,6 @@
 # Perl wrappers and PCFs
 
-Each wrapper launches the PCF listed below. Run the wrapper with `-h` for its available options. PCF names link to the generated PCF reference when that file is present in the selected GPSUSER.
+The wrappers in `~/perl/ZDGNSS` launch the PCFs listed below. Run a wrapper with `-h` for its available options. PCF names link to the generated PCF reference when that file is present in the selected GPSUSER. The interactive [[Controllers/ZDGNSS run package.md|run package]] bundles a set of stage wrappers in `pcs/`.
 
 ## Preparation and screening
 
@@ -24,6 +24,16 @@ Each wrapper launches the PCF listed below. Run the wrapper with `-h` for its av
 - `finish_final.pl` runs [[ZDGNSS_FINISH_FINAL.PCF]].
 - `3d_final.pl` runs [[ZDGNSS_3D_FINAL.PCF]].
 - `clkden.pl` runs [[ZDGNSS_CLKDEN.PCF]].
+- `clkden_final.pl` runs [[ZDGNSS_CLKDEN_FINAL.PCF]].
+
+The `ppp_manual.pl`, `ia_final_manual.pl`, `3d_final_manual.pl` and `clkden_manual.pl` variants select the same PCF as their corresponding wrapper. Check each wrapper's variables and defaults before treating the variants as interchangeable.
+
+## Comparison and validation
+
+- `cmpsol_code.pl` and `cmpsol_mgex.pl` are the CODE and MGEX comparison wrappers. Their help points to [[ZDGNSS_CMPSOL.PCF]].
+- `val_rapid_1d.pl` and `val_rapid_3d.pl` launch [[ZDGNSS_VALSOL.PCF]] with settings for the rapid one-day and three-day solutions.
+
+For the routine worker, scheduling and logs, see [[Operations_and_Tools/Scheduled ZDGNSS runs.md|Scheduled ZDGNSS runs]]. The spacecraft-specific launchers are documented separately in [[Controllers/LEO wrappers.md|LEO Perl wrappers]].
 
 ## Process a day relative to today
 

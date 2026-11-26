@@ -20,4 +20,4 @@ For local changes, copy the MATLAB helpers and update their paths in `ZD_CMP_LAP
 
 ### Project-specific Bernese programs
 
-This GPSUSER uses the project versions `PHACOR_CK`, `ADDNEQ2_LAPACK` and `GPSEST_CLOCK_GRID`.
+The project versions have their own entries for [[System_Overview/PHACOR CK.md|PHACOR phase correction]], [[System_Overview/ADDNEQ2 LAPACK.md|ADDNEQ2 with LAPACK]] and [[System_Overview/GPSEST clock grid.md|the GPSEST satellite-clock grid]]. Each entry identifies the project implementation, input settings or build paths relevant to inspection.

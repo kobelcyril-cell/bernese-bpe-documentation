@@ -12,11 +12,20 @@
       "Start/Run your first session.md",
       "Start/Software and setup.md",
       "System_Overview/Processing architecture.md",
+      "System_Overview/ZDGNSS PCF guide.md",
+      "System_Overview/ADDNEQ2 LAPACK.md",
+      "System_Overview/GPSEST clock grid.md",
+      "System_Overview/PHACOR CK.md",
+      "Controllers/ZDGNSS run package.md",
       "Controllers/Python run controller.md",
       "Controllers/Perl wrappers and PCFs.md",
+      "Controllers/LEO wrappers.md",
       "Operations_and_Tools/Toolbox and maintenance.md",
+      "Operations_and_Tools/Python utilities.md",
       "Operations_and_Tools/Monitoring and recovery.md",
-      "Operations_and_Tools/Quality checks and plots.md"
+      "Operations_and_Tools/Scheduled ZDGNSS runs.md",
+      "Operations_and_Tools/Quality checks and plots.md",
+      "Operations_and_Tools/Bernese BPE Documentation.md"
     ]
   }
 }

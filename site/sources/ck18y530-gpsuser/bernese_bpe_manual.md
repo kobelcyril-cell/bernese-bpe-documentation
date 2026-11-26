@@ -1,6 +1,6 @@
 # Bernese GNSS Software BPE Documentation
 
-Generated: 2026-11-26 14:56:08
+Generated: 2026-11-26 15:36:47
 
 ## Overview
 
@@ -33,14 +33,17 @@ This manual is generated from one or more configured source directories containi
 The following notes belong to this GPSUSER.
 
 - Start: 3 page(s)
-- System Overview: 1 page(s)
-- Controllers: 2 page(s)
-- Operations and Tools: 3 page(s)
+- System Overview: 5 page(s)
+- Controllers: 4 page(s)
+- Operations and Tools: 6 page(s)
 
 ## Change History
 
 The handbook history is stored in `manual_additions/history/handbook_history.jsonl` and records who changed which entry.
 
+- 2026-11-26T15:31:15+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
+- 2026-11-26T15:30:30+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
+- 2026-11-26T15:30:28+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
 - 2026-11-26T14:52:27+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
 - 2026-11-26T14:52:16+01:00 | Cyril Kobel | Menu action | b3 | Selected option b3: Update GPSUSER
 - 2026-11-26T14:52:16+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
@@ -58,9 +61,6 @@ The handbook history is stored in `manual_additions/history/handbook_history.jso
 - 2026-11-26T08:44:58+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
 - 2026-11-26T08:44:58+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
 - 2026-11-26T07:51:42+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:47:31+01:00 | Cyril Kobel | Built | manual | Generated manual from 1 source(s)
-- 2026-11-26T07:39:28+01:00 | Cyril Kobel | Menu action | a | Selected option a: Only rebuild the manual
-- 2026-11-26T07:39:28+01:00 | Cyril Kobel | Built | manual | Generated manual from 3 source(s)
 
 ## Quick Cross-Reference
 
